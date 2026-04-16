@@ -1,5 +1,5 @@
 {
-  "UA-URSIX-001001": {
+  "UW-6001": {
     "config": "Standard",
     "objectiveLens": "25mm f/1.2",
     "magnification": "1x",
@@ -19,7 +19,7 @@
     "qcResult": "PASS",
     "notes": "Standard configuration, no deviations."
   },
-  "UA-URSIX-001002": {
+  "UW-6002": {
     "config": "Standard",
     "objectiveLens": "25mm f/1.2",
     "magnification": "1x",
@@ -39,7 +39,7 @@
     "qcResult": "PASS",
     "notes": "Above-average tube SNR, hand-selected."
   },
-  "UA-URSIX-001045": {
+  "UW-6003": {
     "config": "Precision",
     "objectiveLens": "35mm f/1.1",
     "magnification": "1x (3x optional adapter)",
@@ -59,7 +59,7 @@
     "qcResult": "PASS",
     "notes": "Precision config with covert 940nm IR. FOM 2174 — premium grade tube."
   },
-  "UA-URSIX-001099": {
+  "UW-6004": {
     "config": "Operator",
     "objectiveLens": "35mm f/1.0",
     "magnification": "1x (3x optional adapter)",
@@ -79,7 +79,7 @@
     "qcResult": "PASS",
     "notes": "Top-bin tube, dual IR, IP68 rating. Operator package complete."
   },
-  "UA-URSIX-001150": {
+  "UW-6005": {
     "config": "Operator",
     "objectiveLens": "35mm f/1.0",
     "magnification": "1x (3x optional adapter)",
