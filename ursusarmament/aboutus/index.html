@@ -80,12 +80,14 @@
     display: grid;
     grid-template-columns: 1fr 400px;
     gap: 3rem;
-    align-items: center;
+    align-items: stretch; /* key change */
   }
 
   .split-images {
     display: flex;
     flex-direction: column;
+    justify-content: space-between; /* spreads images evenly */
+    height: 100%;
     gap: 12px;
   }
 
