@@ -299,31 +299,24 @@
   <div class="product-visual" style="flex-direction:column; justify-content:flex-start; padding:0; gap:0;">
     <div class="product-badge">GEN 3 PINNACLE</div>
 
-    <!-- MAIN IMAGE -->
-    <div id="main-img" style="width:100%; flex:1; display:flex; align-items:center; justify-content:center; background:var(--surface); min-height:0; position:relative; overflow:hidden;">
+    <div style="width:100%; flex:1; display:flex; align-items:center; justify-content:center; background:var(--surface); min-height:0; position:relative; overflow:hidden;">
       <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(200,146,42,0.015) 30px,rgba(200,146,42,0.015) 31px);pointer-events:none;"></div>
       <div style="position:absolute;font-family:'Bebas Neue',sans-serif;font-size:14rem;letter-spacing:-0.02em;color:rgba(255,255,255,0.025);user-select:none;pointer-events:none;">URSIX</div>
-      <div id="main-img-inner" style="z-index:1;display:flex;flex-direction:column;align-items:center;gap:1rem;">
-        <div style="width:56px;height:56px;border:1.5px solid rgba(200,146,42,0.35);display:flex;align-items:center;justify-content:center;">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c8701a" stroke-width="1.5" stroke-opacity="0.6"><rect x="3" y="3" width="18" height="18" rx="1"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-        </div>
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--accent);opacity:0.7;">Image Coming Soon</span>
-      </div>
+      <img id="ursix-main" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgODAwIDYwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9IiMxMTExMTAiLz48cmVjdCB4PSIxIiB5PSIxIiB3aWR0aD0iNzk4IiBoZWlnaHQ9IjU5OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzg3MDFhIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1vcGFjaXR5PSIwLjQiLz48bGluZSB4MT0iMCIgeTE9IjAiIHgyPSI4MDAiIHkyPSI2MDAiIHN0cm9rZT0iI2M4NzAxYSIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2Utb3BhY2l0eT0iMC4wOCIvPjxsaW5lIHgxPSI4MDAiIHkxPSIwIiB4Mj0iMCIgeTI9IjYwMCIgc3Ryb2tlPSIjYzg3MDFhIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1vcGFjaXR5PSIwLjA4Ii8+PHRleHQgeD0iNDAwIiB5PSIyNzUiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjgiIGZpbGw9IiNjODcwMWEiIGZpbGwtb3BhY2l0eT0iMC45IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iNiI+VVJTSVg8L3RleHQ+PHRleHQgeD0iNDAwIiB5PSIzMTgiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiNjODcwMWEiIGZpbGwtb3BhY2l0eT0iMC41NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgbGV0dGVyLXNwYWNpbmc9IjMiPkZST05UIFZJRVc8L3RleHQ+PHRleHQgeD0iNDAwIiB5PSIzNDgiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiNjODcwMWEiIGZpbGwtb3BhY2l0eT0iMC4yNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgbGV0dGVyLXNwYWNpbmc9IjIiPlBMQUNFSE9MREVSIDEgLyA0PC90ZXh0Pjwvc3ZnPg==" alt="URSIX" style="position:relative;z-index:1;width:90%;height:90%;object-fit:contain;"/>
     </div>
 
-    <!-- THUMBNAIL STRIP -->
     <div style="width:100%;background:var(--dark);border-top:1px solid var(--border);padding:1rem;display:flex;gap:0.75rem;justify-content:center;">
-      <div class="thumb active" onclick="setThumb(this, 0)" style="width:72px;height:72px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--surface);">
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-align:center;padding:4px;">Coming<br>Soon</span>
+      <div class="ursix-thumb active" onclick="ursixSwap(this)" data-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgODAwIDYwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9IiMxMTExMTAiLz48cmVjdCB4PSIxIiB5PSIxIiB3aWR0aD0iNzk4IiBoZWlnaHQ9IjU5OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzg3MDFhIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1vcGFjaXR5PSIwLjQiLz48bGluZSB4MT0iMCIgeTE9IjAiIHgyPSI4MDAiIHkyPSI2MDAiIHN0cm9rZT0iI2M4NzAxYSIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2Utb3BhY2l0eT0iMC4wOCIvPjxsaW5lIHgxPSI4MDAiIHkxPSIwIiB4Mj0iMCIgeTI9IjYwMCIgc3Ryb2tlPSIjYzg3MDFhIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1vcGFjaXR5PSIwLjA4Ii8+PHRleHQgeD0iNDAwIiB5PSIyNzUiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjgiIGZpbGw9IiNjODcwMWEiIGZpbGwtb3BhY2l0eT0iMC45IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iNiI+VVJTSVg8L3RleHQ+PHRleHQgeD0iNDAwIiB5PSIzMTgiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiNjODcwMWEiIGZpbGwtb3BhY2l0eT0iMC41NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgbGV0dGVyLXNwYWNpbmc9IjMiPkZST05UIFZJRVc8L3RleHQ+PHRleHQgeD0iNDAwIiB5PSIzNDgiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTEiIGZpbGw9IiNjODcwMWEiIGZpbGwtb3BhY2l0eT0iMC4yNSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgbGV0dGVyLXNwYWNpbmc9IjIiPlBMQUNFSE9MREVSIDEgLyA0PC90ZXh0Pjwvc3ZnPg==" style="width:80px;height:80px;cursor:pointer;opacity:1;border:2px solid #c8701a;box-sizing:border-box;flex-shrink:0;">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDgwIDgwIj48cmVjdCB3aWR0aD0iODAiIGhlaWdodD0iODAiIGZpbGw9IiMxMTExMTAiLz48bGluZSB4MT0iMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjgwIiBzdHJva2U9IiNjODcwMWEiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4xNSIvPjxsaW5lIHgxPSI4MCIgeTE9IjAiIHgyPSIwIiB5Mj0iODAiIHN0cm9rZT0iI2M4NzAxYSIgc3Ryb2tlLXdpZHRoPSIwLjUiIHN0cm9rZS1vcGFjaXR5PSIwLjE1Ii8+PHRleHQgeD0iNDAiIHk9IjI4IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjgiIGZpbGw9IiNjODcwMWEiIGZpbGwtb3BhY2l0eT0iMC44IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5VUlNJWDwvdGV4dD48dGV4dCB4PSI0MCIgeT0iNDQiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iNyIgZmlsbD0iI2M4NzAxYSIgZmlsbC1vcGFjaXR5PSIwLjUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkZST05UPC90ZXh0Pjx0ZXh0IHg9IjQwIiB5PSI2MCIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSI2IiBmaWxsPSIjYzg3MDFhIiBmaWxsLW9wYWNpdHk9IjAuMyIgdGV4dC1hbmNob3I9Im1pZGRsZSI+MS80PC90ZXh0Pjwvc3ZnPg==" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;"/>
       </div>
-      <div class="thumb" onclick="setThumb(this, 1)" style="width:72px;height:72px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--surface);">
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-align:center;padding:4px;">Coming<br>Soon.2</span>
+      <div class="ursix-thumb" onclick="ursixSwap(this)" data-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgODAwIDYwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9IiMxMTExMTAiLz48cmVjdCB4PSIxIiB5PSIxIiB3aWR0aD0iNzk4IiBoZWlnaHQ9IjU5OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzg3MDFhIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1vcGFjaXR5PSIwLjQiLz48bGluZSB4MT0iMCIgeTE9IjAiIHgyPSI4MDAiIHkyPSI2MDAiIHN0cm9rZT0iI2M4NzAxYSIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2Utb3BhY2l0eT0iMC4wOCIvPjxsaW5lIHgxPSI4MDAiIHkxPSIwIiB4Mj0iMCIgeTI9IjYwMCIgc3Ryb2tlPSIjYzg3MDFhIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1vcGFjaXR5PSIwLjA4Ii8+PHRleHQgeD0iNDAwIiB5PSIyNzUiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjgiIGZpbGw9IiNjODcwMWEiIGZpbGwtb3BhY2l0eT0iMC45IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iNiI+VVJTSVg8L3RleHQ+PHRleHQgeD0iNDAwIiB5PSIzMTgiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiNjODcwMWEiIGZpbGwtb3BhY2l0eT0iMC41NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgbGV0dGVyLXNwYWNpbmc9IjMiPlNJREUgVklFVzwvdGV4dD48dGV4dCB4PSI0MDAiIHk9IjM0OCIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iI2M4NzAxYSIgZmlsbC1vcGFjaXR5PSIwLjI1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iMiI+UExBQ0VIT0xERVIgMiAvIDQ8L3RleHQ+PC9zdmc+" style="width:80px;height:80px;cursor:pointer;opacity:0.6;border:1px solid #444;box-sizing:border-box;flex-shrink:0;">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDgwIDgwIj48cmVjdCB3aWR0aD0iODAiIGhlaWdodD0iODAiIGZpbGw9IiMxMTExMTAiLz48bGluZSB4MT0iMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjgwIiBzdHJva2U9IiNjODcwMWEiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4xNSIvPjxsaW5lIHgxPSI4MCIgeTE9IjAiIHgyPSIwIiB5Mj0iODAiIHN0cm9rZT0iI2M4NzAxYSIgc3Ryb2tlLXdpZHRoPSIwLjUiIHN0cm9rZS1vcGFjaXR5PSIwLjE1Ii8+PHRleHQgeD0iNDAiIHk9IjI4IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjgiIGZpbGw9IiNjODcwMWEiIGZpbGwtb3BhY2l0eT0iMC44IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5VUlNJWDwvdGV4dD48dGV4dCB4PSI0MCIgeT0iNDQiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iNyIgZmlsbD0iI2M4NzAxYSIgZmlsbC1vcGFjaXR5PSIwLjUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPlNJREU8L3RleHQ+PHRleHQgeD0iNDAiIHk9IjYwIiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjYiIGZpbGw9IiNjODcwMWEiIGZpbGwtb3BhY2l0eT0iMC4zIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj4yLzQ8L3RleHQ+PC9zdmc+" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;"/>
       </div>
-      <div class="thumb" onclick="setThumb(this, 2)" style="width:72px;height:72px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--surface);">
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-align:center;padding:4px;">Coming<br>Soon.3</span>
+      <div class="ursix-thumb" onclick="ursixSwap(this)" data-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgODAwIDYwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9IiMxMTExMTAiLz48cmVjdCB4PSIxIiB5PSIxIiB3aWR0aD0iNzk4IiBoZWlnaHQ9IjU5OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzg3MDFhIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1vcGFjaXR5PSIwLjQiLz48bGluZSB4MT0iMCIgeTE9IjAiIHgyPSI4MDAiIHkyPSI2MDAiIHN0cm9rZT0iI2M4NzAxYSIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2Utb3BhY2l0eT0iMC4wOCIvPjxsaW5lIHgxPSI4MDAiIHkxPSIwIiB4Mj0iMCIgeTI9IjYwMCIgc3Ryb2tlPSIjYzg3MDFhIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1vcGFjaXR5PSIwLjA4Ii8+PHRleHQgeD0iNDAwIiB5PSIyNzUiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjgiIGZpbGw9IiNjODcwMWEiIGZpbGwtb3BhY2l0eT0iMC45IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iNiI+VVJTSVg8L3RleHQ+PHRleHQgeD0iNDAwIiB5PSIzMTgiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiNjODcwMWEiIGZpbGwtb3BhY2l0eT0iMC41NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgbGV0dGVyLXNwYWNpbmc9IjMiPk1PVU5UIERFVEFJTDwvdGV4dD48dGV4dCB4PSI0MDAiIHk9IjM0OCIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iI2M4NzAxYSIgZmlsbC1vcGFjaXR5PSIwLjI1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iMiI+UExBQ0VIT0xERVIgMyAvIDQ8L3RleHQ+PC9zdmc+" style="width:80px;height:80px;cursor:pointer;opacity:0.6;border:1px solid #444;box-sizing:border-box;flex-shrink:0;">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDgwIDgwIj48cmVjdCB3aWR0aD0iODAiIGhlaWdodD0iODAiIGZpbGw9IiMxMTExMTAiLz48bGluZSB4MT0iMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjgwIiBzdHJva2U9IiNjODcwMWEiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4xNSIvPjxsaW5lIHgxPSI4MCIgeTE9IjAiIHgyPSIwIiB5Mj0iODAiIHN0cm9rZT0iI2M4NzAxYSIgc3Ryb2tlLXdpZHRoPSIwLjUiIHN0cm9rZS1vcGFjaXR5PSIwLjE1Ii8+PHRleHQgeD0iNDAiIHk9IjI4IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjgiIGZpbGw9IiNjODcwMWEiIGZpbGwtb3BhY2l0eT0iMC44IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5VUlNJWDwvdGV4dD48dGV4dCB4PSI0MCIgeT0iNDQiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iNyIgZmlsbD0iI2M4NzAxYSIgZmlsbC1vcGFjaXR5PSIwLjUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPk1PVU5UPC90ZXh0Pjx0ZXh0IHg9IjQwIiB5PSI2MCIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSI2IiBmaWxsPSIjYzg3MDFhIiBmaWxsLW9wYWNpdHk9IjAuMyIgdGV4dC1hbmNob3I9Im1pZGRsZSI+My80PC90ZXh0Pjwvc3ZnPg==" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;"/>
       </div>
-      <div class="thumb" onclick="setThumb(this, 3)" style="width:72px;height:72px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--surface);">
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.55rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);text-align:center;padding:4px;">Coming<br>Soon.4</span>
+      <div class="ursix-thumb" onclick="ursixSwap(this)" data-src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MDAiIGhlaWdodD0iNjAwIiB2aWV3Qm94PSIwIDAgODAwIDYwMCI+PHJlY3Qgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiIGZpbGw9IiMxMTExMTAiLz48cmVjdCB4PSIxIiB5PSIxIiB3aWR0aD0iNzk4IiBoZWlnaHQ9IjU5OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjYzg3MDFhIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1vcGFjaXR5PSIwLjQiLz48bGluZSB4MT0iMCIgeTE9IjAiIHgyPSI4MDAiIHkyPSI2MDAiIHN0cm9rZT0iI2M4NzAxYSIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2Utb3BhY2l0eT0iMC4wOCIvPjxsaW5lIHgxPSI4MDAiIHkxPSIwIiB4Mj0iMCIgeTI9IjYwMCIgc3Ryb2tlPSIjYzg3MDFhIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1vcGFjaXR5PSIwLjA4Ii8+PHRleHQgeD0iNDAwIiB5PSIyNzUiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjgiIGZpbGw9IiNjODcwMWEiIGZpbGwtb3BhY2l0eT0iMC45IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iNiI+VVJTSVg8L3RleHQ+PHRleHQgeD0iNDAwIiB5PSIzMTgiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMTQiIGZpbGw9IiNjODcwMWEiIGZpbGwtb3BhY2l0eT0iMC41NSIgdGV4dC1hbmNob3I9Im1pZGRsZSIgbGV0dGVyLXNwYWNpbmc9IjMiPkVZRVBJRUNFIERFVEFJTDwvdGV4dD48dGV4dCB4PSI0MDAiIHk9IjM0OCIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSIxMSIgZmlsbD0iI2M4NzAxYSIgZmlsbC1vcGFjaXR5PSIwLjI1IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBsZXR0ZXItc3BhY2luZz0iMiI+UExBQ0VIT0xERVIgNCAvIDQ8L3RleHQ+PC9zdmc+" style="width:80px;height:80px;cursor:pointer;opacity:0.6;border:1px solid #444;box-sizing:border-box;flex-shrink:0;">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI4MCIgaGVpZ2h0PSI4MCIgdmlld0JveD0iMCAwIDgwIDgwIj48cmVjdCB3aWR0aD0iODAiIGhlaWdodD0iODAiIGZpbGw9IiMxMTExMTAiLz48bGluZSB4MT0iMCIgeTE9IjAiIHgyPSI4MCIgeTI9IjgwIiBzdHJva2U9IiNjODcwMWEiIHN0cm9rZS13aWR0aD0iMC41IiBzdHJva2Utb3BhY2l0eT0iMC4xNSIvPjxsaW5lIHgxPSI4MCIgeTE9IjAiIHgyPSIwIiB5Mj0iODAiIHN0cm9rZT0iI2M4NzAxYSIgc3Ryb2tlLXdpZHRoPSIwLjUiIHN0cm9rZS1vcGFjaXR5PSIwLjE1Ii8+PHRleHQgeD0iNDAiIHk9IjI4IiBmb250LWZhbWlseT0ibW9ub3NwYWNlIiBmb250LXNpemU9IjgiIGZpbGw9IiNjODcwMWEiIGZpbGwtb3BhY2l0eT0iMC44IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIj5VUlNJWDwvdGV4dD48dGV4dCB4PSI0MCIgeT0iNDQiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iNyIgZmlsbD0iI2M4NzAxYSIgZmlsbC1vcGFjaXR5PSIwLjUiIHRleHQtYW5jaG9yPSJtaWRkbGUiPkVZRVBDPC90ZXh0Pjx0ZXh0IHg9IjQwIiB5PSI2MCIgZm9udC1mYW1pbHk9Im1vbm9zcGFjZSIgZm9udC1zaXplPSI2IiBmaWxsPSIjYzg3MDFhIiBmaWxsLW9wYWNpdHk9IjAuMyIgdGV4dC1hbmNob3I9Im1pZGRsZSI+NC80PC90ZXh0Pjwvc3ZnPg==" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;"/>
       </div>
     </div>
   </div>
@@ -652,31 +645,18 @@
   });
 </script>
 
-<style>
-  .thumb { transition: border 0.15s; border: 1px solid var(--border2); }
-  .thumb:hover { border: 1px solid rgba(200,146,42,0.5); }
-  .thumb.active { border: 2px solid var(--accent); }
-</style>
 <script>
-  var thumbImages = [null, null, null, null];
-  var mainPlaceholder = document.getElementById ? null : null;
-
-  function setThumb(el, idx) {
-    document.querySelectorAll('.thumb').forEach(function(t) { t.classList.remove('active'); });
+  function ursixSwap(el) {
+    document.querySelectorAll('.ursix-thumb').forEach(function(t) {
+      t.classList.remove('active');
+      t.style.border = '1px solid #444';
+      t.style.opacity = '0.6';
+    });
     el.classList.add('active');
-    var mainArea = document.getElementById('main-img-inner');
-    if (!mainArea) return;
-    if (thumbImages[idx]) {
-      mainArea.innerHTML = '<img src="' + thumbImages[idx] + '" alt="URSIX" style="width:100%;height:100%;object-fit:contain;"/>';
-    } else {
-      mainArea.innerHTML = mainArea.dataset.placeholder;
-    }
+    el.style.border = '2px solid #c8701a';
+    el.style.opacity = '1';
+    document.getElementById('ursix-main').src = el.getAttribute('data-src');
   }
-
-  window.addEventListener('DOMContentLoaded', function() {
-    var inner = document.getElementById('main-img-inner');
-    if (inner) inner.dataset.placeholder = inner.innerHTML;
-  });
 </script>
 </body>
 </html>
