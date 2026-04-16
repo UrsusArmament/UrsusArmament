@@ -91,9 +91,16 @@
 
   .split-images img {
     width: 100%;
-    height: auto;
+    height: 250px;
+    object-fit: cover;
     border: 1px solid var(--border);
     display: block;
+  }
+
+  @media (max-width: 800px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
 </head>
@@ -106,7 +113,6 @@
   </a>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="section-tag">Company</div>
   <h1>ABOUT<br><span style="color:var(--accent)">URSUS ARMAMENT</span></h1>
@@ -118,7 +124,6 @@
   </p>
 </section>
 
-<!-- MISSION -->
 <section>
   <div class="section-tag">Mission</div>
   <h2>Purpose Driven</h2>
@@ -139,55 +144,42 @@
     <h2>Built on Experience</h2>
     <p>
       Our products are developed and evaluated by veterans and active-duty personnel,
-      informed by practical experience rather than marketing trends. Select systems
-      and components have been fielded in operational environments, providing direct
-      feedback that shapes ongoing development.
-    </p>
-    <p>
-      Testing emphasizes durability, consistency, and performance under stress,
-      including environmental conditions representative of both extreme climates
-      and real-world use.
+      informed by practical experience rather than marketing trends.
     </p>
   </div>
 
   <div class="split-images">
-    <img src="/ursusarmament/images/IMG-4820.PNG" alt="Additional image">
-    <img src="/ursusarmament/images/IMG_6985.jpg" alt="Field testing and operational use">
+    <img src="/ursusarmament/images/IMG-4820.PNG">
+    <img src="/ursusarmament/images/IMG_6985.jpg">
   </div>
 </section>
 
-<!-- ALASKA -->
 <section class="split">
   <div>
     <div class="section-tag">Environment</div>
     <h2>Alaska Origins</h2>
     <p>
-      Founded in Alaska, Ursus Armament reflects the demands of harsh and unpredictable
-      environments. Equipment is designed with temperature extremes, exposure, and
-      sustained use in mind—conditions that quickly expose weaknesses in both materials
-      and design.
+      Founded in Alaska, Ursus Armament reflects the demands of harsh environments.
     </p>
   </div>
 
-  <img src="/ursusarmament/images/alaska.png" alt="Alaska environment and extreme conditions">
+  <div class="split-images">
+    <img src="/ursusarmament/images/alaska.png">
+  </div>
 </section>
 
-<!-- APPROACH -->
 <section class="split">
   <div>
     <div class="section-tag">Approach</div>
     <h2>No Excess</h2>
     <p>
-      We avoid unnecessary complexity and marketing-driven features. Every design decision
-      serves a purpose, prioritizing reliability, serviceability, and long-term performance.
-    </p>
-    <p>
-      Ursus Armament operates with a straightforward approach—focused on building dependable
-      equipment, maintaining fair practices, and delivering real value without compromise.
+      We avoid unnecessary complexity and marketing-driven features.
     </p>
   </div>
 
-  <img src="/ursusarmament/images/IMG_0252.JPG" alt="Equipment design and minimal approach">
+  <div class="split-images">
+    <img src="/ursusarmament/images/IMG_0252.JPG">
+  </div>
 </section>
 
 </body>
