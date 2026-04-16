@@ -75,6 +75,19 @@
     max-width: 700px;
     line-height: 1.8;
   }
+
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .split img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+  }
 </style>
 </head>
 
@@ -113,21 +126,24 @@
   </p>
 </section>
 
-<!-- EXPERIENCE -->
-<section>
-  <div class="section-tag">Foundation</div>
-  <h2>Built on Experience</h2>
-  <p>
-    Our products are developed and evaluated by veterans and active-duty personnel,
-    informed by practical experience rather than marketing trends. Select systems
-    and components have been fielded in operational environments, providing direct
-    feedback that shapes ongoing development.
-  </p>
-  <p>
-    Testing emphasizes durability, consistency, and performance under stress,
-    including environmental conditions representative of both extreme climates
-    and real-world use.
-  </p>
+<section class="split">
+  <div>
+    <div class="section-tag">Foundation</div>
+    <h2>Built on Experience</h2>
+    <p>
+      Our products are developed and evaluated by veterans and active-duty personnel,
+      informed by practical experience rather than marketing trends. Select systems
+      and components have been fielded in operational environments, providing direct
+      feedback that shapes ongoing development.
+    </p>
+    <p>
+      Testing emphasizes durability, consistency, and performance under stress,
+      including environmental conditions representative of both extreme climates
+      and real-world use.
+    </p>
+  </div>
+
+  <img src="/ursusarmament/images/experience.jpg" alt="Field testing and operational use">
 </section>
 
 <!-- ALASKA -->
