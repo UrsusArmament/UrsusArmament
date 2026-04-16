@@ -49,9 +49,27 @@
   section { padding: 6rem 3rem; }
 
   .hero {
+    display: grid;
+    grid-template-columns: 1fr 400px;
+    gap: 3rem;
+    align-items: center;
+
     padding-top: 10rem;
     padding-bottom: 6rem;
     background: linear-gradient(to bottom, rgba(10,10,8,0.4), var(--black));
+  }
+
+  .hero-right img {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    display: block;
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      grid-template-columns: 1fr;
+    }
   }
 
   .section-tag {
@@ -167,6 +185,7 @@
 
   <img src="/ursusarmament/images/alaska.png" alt="Alaska environment and extreme conditions">
 </section>
+
 <!-- APPROACH -->
 <section class="split">
   <div>
