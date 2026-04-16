@@ -1,0 +1,694 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>URSIX — Ursus Armament</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --surface2: #222220;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+    --accent2: #e8a830;
+    --green: #2a9c5c;
+    --red: #c0392b;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,8,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 3rem; border-bottom: 1px solid var(--border);
+  }
+  .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
+    letter-spacing: 0.12em; color: var(--text); text-decoration: none; line-height: 1;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-slogan {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem;
+    font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
+  }
+  .nav-ribbon {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3rem; height: 38px; background: var(--surface);
+  }
+  .nav-ribbon a {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem;
+    font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; padding: 0 1.6rem; height: 100%;
+    display: flex; align-items: center; border-right: 1px solid var(--border);
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
+  .nav-ribbon a:hover, .nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
+
+  .breadcrumb {
+    padding: 1rem 3rem; background: var(--dark); border-bottom: 1px solid var(--border);
+    margin-top: 86px; display: flex; align-items: center; gap: 0.5rem;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+  }
+  .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb span { color: var(--accent); }
+
+  /* HERO */
+  .product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; background: var(--dark); }
+  .product-visual {
+    position: relative; background: var(--surface); overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .product-visual::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 30px,
+      rgba(200,146,42,0.015) 30px, rgba(200,146,42,0.015) 31px);
+  }
+  .product-visual::after {
+    content: 'URSIX'; position: absolute;
+    font-family: 'Bebas Neue', sans-serif; font-size: 16rem;
+    letter-spacing: -0.02em; color: rgba(255,255,255,0.025);
+    user-select: none; pointer-events: none;
+  }
+  .product-img-wrapper { position: relative; z-index: 1; width: 75%; display: flex; align-items: center; justify-content: center; }
+  .product-badge {
+    position: absolute; top: 2rem; left: 2rem; background: var(--accent);
+    color: var(--black); font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; padding: 0.35rem 0.85rem; z-index: 2;
+  }
+  .product-info { padding: 4rem; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--border); }
+  .product-tag {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem;
+  }
+  .product-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+  .product-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 7vw, 6.5rem); line-height: 0.9; letter-spacing: 0.04em; margin-bottom: 0.5rem; color: var(--text); }
+  .product-subtitle { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 2rem; }
+  .product-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; max-width: 480px; }
+  .product-price-row { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .product-price { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: 0.04em; color: var(--text); }
+  .product-price-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .product-actions { display: flex; gap: 1rem; margin-bottom: 2rem; }
+  .btn-primary {
+    background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 0.9rem 2.5rem; border: none; cursor: pointer; text-decoration: none;
+    display: inline-block; transition: background 0.2s, transform 0.15s; flex: 1; text-align: center;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent; color: var(--text); font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 0.9rem 2rem; border: 1px solid var(--border2); cursor: pointer;
+    text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .product-trust { display: flex; gap: 2rem; }
+  .trust-item { display: flex; flex-direction: column; gap: 0.2rem; }
+  .trust-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .trust-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text); }
+
+  /* SHARED */
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5vw, 4.2rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 3.5rem; }
+
+  /* SPECS */
+  .specs-section { background: var(--black); padding: 6rem 3rem; }
+  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-bottom: 2px; }
+  .spec-item { background: var(--dark); padding: 1.75rem 2rem; display: flex; justify-content: space-between; align-items: baseline; transition: background 0.2s; }
+  .spec-item:hover { background: var(--surface); }
+  .spec-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .spec-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); }
+
+  /* SERIAL LOOKUP */
+  .serial-section { background: var(--dark); padding: 6rem 3rem; }
+  .serial-inner { max-width: 780px; }
+  .serial-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 560px; }
+  .serial-input-row { display: flex; margin-bottom: 2rem; }
+  .serial-input {
+    flex: 1; background: var(--surface); border: 1px solid var(--border2);
+    border-right: none; color: var(--text); font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    padding: 0.9rem 1.5rem; outline: none; transition: border-color 0.2s;
+  }
+  .serial-input::placeholder { color: var(--muted); font-weight: 400; letter-spacing: 0.08em; text-transform: none; }
+  .serial-input:focus { border-color: var(--accent); }
+  .serial-btn {
+    background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.88rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 0.9rem 2rem; border: none; cursor: pointer; transition: background 0.2s; white-space: nowrap;
+  }
+  .serial-btn:hover { background: var(--accent2); }
+
+  .serial-result { display: none; }
+  .serial-result.visible { display: block; }
+
+  .serial-error {
+    padding: 1.5rem 2rem; background: rgba(192,57,43,0.08);
+    border: 1px solid rgba(192,57,43,0.3); border-left: 3px solid var(--red);
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; letter-spacing: 0.08em; color: #e87060;
+  }
+
+  .serial-card { background: var(--surface); border: 1px solid var(--border2); border-top: 3px solid var(--accent); }
+  .serial-card-header {
+    padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--border); background: var(--surface2);
+  }
+  .serial-card-id { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.06em; color: var(--accent); }
+  .serial-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 1rem; }
+  .serial-badge.pass { background: rgba(42,156,92,0.15); color: #4cbc7e; border: 1px solid rgba(42,156,92,0.3); }
+  .serial-badge.fail { background: rgba(192,57,43,0.15); color: #e87060; border: 1px solid rgba(192,57,43,0.3); }
+  .serial-card-body { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin: 2px; }
+  .serial-field { background: var(--dark); padding: 1.25rem 1.75rem; display: flex; flex-direction: column; gap: 0.3rem; }
+  .serial-field-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .serial-field-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
+  .serial-field-value.highlight { color: var(--accent); }
+  .serial-card-notes { padding: 1.25rem 1.75rem; margin: 2px; margin-top: 0; background: var(--dark); border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.3rem; }
+  .serial-card-footer { padding: 1rem 2rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border-top: 1px solid var(--border); }
+
+  /* FEATURES */
+  .features-section { background: var(--black); padding: 6rem 3rem; }
+  .features-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .features-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+  .feature-item { background: var(--surface); padding: 2rem; position: relative; overflow: hidden; transition: background 0.2s; }
+  .feature-item:hover { background: var(--surface2); }
+  .feature-item::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
+  .feature-item:hover::before { opacity: 1; }
+  .feature-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(200,146,42,0.12); line-height: 1; position: absolute; top: 1rem; right: 1.5rem; }
+  .feature-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+  .feature-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+  .features-aside { position: sticky; top: 110px; }
+  .features-aside p { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+  .cert-row { display: flex; gap: 1.5px; background: var(--border); margin-top: 2rem; }
+  .cert-item { flex: 1; background: var(--surface); padding: 1.25rem; text-align: center; }
+  .cert-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.3rem; }
+  .cert-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; color: var(--accent); }
+
+  /* CONFIG */
+  .config-section { background: var(--dark); padding: 6rem 3rem; }
+  .config-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); margin-bottom: 4rem; }
+  .config-card { background: var(--dark); padding: 2.5rem 2rem; cursor: pointer; transition: background 0.2s; position: relative; border: 2px solid transparent; }
+  .config-card:hover { background: var(--surface); }
+  .config-card.selected { background: var(--surface); border-color: var(--accent); }
+  .config-card.selected::after { content: '✓'; position: absolute; top: 1rem; right: 1rem; width: 1.5rem; height: 1.5rem; background: var(--accent); color: var(--black); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
+  .config-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); margin-bottom: 0.5rem; }
+  .config-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
+  .config-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--accent); margin-top: 1rem; letter-spacing: 0.04em; }
+  .config-add-row { display: flex; align-items: center; justify-content: space-between; padding: 2rem; background: var(--surface); border: 1px solid var(--border2); }
+  .config-total { display: flex; flex-direction: column; gap: 0.2rem; }
+  .config-total-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .config-total-price { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: 0.04em; color: var(--text); }
+
+  .cta-banner { background: var(--accent); padding: 4rem 3rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+  .cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.06em; color: var(--black); line-height: 1; }
+  .cta-banner p { font-size: 1rem; color: rgba(10,10,8,0.65); margin-top: 0.5rem; }
+  .btn-dark { background: var(--black); color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: none; cursor: pointer; white-space: nowrap; text-decoration: none; display: inline-block; transition: background 0.2s; }
+  .btn-dark:hover { background: #1a1a17; }
+  footer { background: var(--dark); border-top: 1px solid var(--border); padding: 4rem 3rem 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
+  .footer-brand p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-top: 1rem; }
+  .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+  .footer-col a { font-size: 0.9rem; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
+  .footer-col a:hover { opacity: 1; color: var(--accent); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.12em; color: var(--text); opacity: 0.5; }
+  .footer-logo span { color: var(--accent); opacity: 1; }
+  .footer-legal { font-size: 0.78rem; color: var(--muted); opacity: 0.5; }
+
+  @media (max-width: 900px) {
+    .product-hero { grid-template-columns: 1fr; }
+    .product-visual { min-height: 50vw; }
+    .product-info { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--border); }
+    .specs-grid, .serial-card-body { grid-template-columns: 1fr; }
+    .features-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .features-aside { position: static; }
+    .config-options { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .cta-banner { flex-direction: column; text-align: center; }
+    .breadcrumb, .specs-section, .serial-section, .features-section, .config-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .nav-top, .nav-ribbon { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .serial-input-row { flex-direction: column; }
+    .serial-input { border-right: 1px solid var(--border2); border-bottom: none; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-top">
+    <div class="nav-brand">
+      <a href="/ursusarmament" class="nav-logo">URSUS <span>ARMAMENT</span></a>
+      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    </div>
+  </div>
+  <div class="nav-ribbon">
+    <a href="/ursusarmament#contact">Shop</a>
+    <a href="/ursusarmament/products" class="active">Products</a>
+    <a href="/ursusarmament#mission">Our Mission</a>
+    <a href="/ursusarmament#process">Learn</a>
+    <a href="/ursusarmament#support">Support</a>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="/ursusarmament">Home</a>
+  <span>›</span>
+  <a href="/ursusarmament/products">Products</a>
+  <span>›</span>
+  <span>URSIX</span>
+</div>
+
+<!-- PRODUCT HERO -->
+<section class="product-hero">
+  <div class="product-visual">
+    <div class="product-badge">GEN 3 PINNACLE</div>
+    <div class="product-img-wrapper">
+      <!--
+        Replace this SVG with your actual product photo:
+        <img src="ursix-product.png" alt="URSIX Night Vision Monocular" style="width:100%;">
+      -->
+      <svg viewBox="0 0 420 300" xmlns="http://www.w3.org/2000/svg" fill="none"
+           style="filter: drop-shadow(0 20px 60px rgba(200,146,42,0.25)); width:100%;">
+        <defs>
+          <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#2a2a26"/>
+            <stop offset="100%" style="stop-color:#111110"/>
+          </linearGradient>
+          <radialGradient id="lensGlow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" style="stop-color:#c8922a;stop-opacity:0.4"/>
+            <stop offset="55%" style="stop-color:#1a3a2a;stop-opacity:0.5"/>
+            <stop offset="100%" style="stop-color:#050f08;stop-opacity:1"/>
+          </radialGradient>
+        </defs>
+        <!-- Main body -->
+        <rect x="90" y="100" width="195" height="100" rx="10" fill="url(#bodyGrad)" stroke="#c8922a" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- Knurling -->
+        <rect x="125" y="108" width="3" height="84" rx="1.5" fill="#c8922a" fill-opacity="0.07"/>
+        <rect x="135" y="108" width="3" height="84" rx="1.5" fill="#c8922a" fill-opacity="0.07"/>
+        <rect x="145" y="108" width="3" height="84" rx="1.5" fill="#c8922a" fill-opacity="0.07"/>
+        <rect x="155" y="108" width="3" height="84" rx="1.5" fill="#c8922a" fill-opacity="0.07"/>
+        <rect x="165" y="108" width="3" height="84" rx="1.5" fill="#c8922a" fill-opacity="0.07"/>
+        <rect x="175" y="108" width="3" height="84" rx="1.5" fill="#c8922a" fill-opacity="0.07"/>
+        <rect x="185" y="108" width="3" height="84" rx="1.5" fill="#c8922a" fill-opacity="0.07"/>
+        <rect x="195" y="108" width="3" height="84" rx="1.5" fill="#c8922a" fill-opacity="0.07"/>
+        <rect x="205" y="108" width="3" height="84" rx="1.5" fill="#c8922a" fill-opacity="0.07"/>
+        <rect x="215" y="108" width="3" height="84" rx="1.5" fill="#c8922a" fill-opacity="0.07"/>
+        <rect x="225" y="108" width="3" height="84" rx="1.5" fill="#c8922a" fill-opacity="0.07"/>
+        <rect x="235" y="108" width="3" height="84" rx="1.5" fill="#c8922a" fill-opacity="0.07"/>
+        <rect x="245" y="108" width="3" height="84" rx="1.5" fill="#c8922a" fill-opacity="0.07"/>
+        <rect x="255" y="108" width="3" height="84" rx="1.5" fill="#c8922a" fill-opacity="0.07"/>
+        <!-- Objective lens housing -->
+        <circle cx="90" cy="150" r="42" fill="url(#bodyGrad)" stroke="#c8922a" stroke-width="1.5" stroke-opacity="0.5"/>
+        <circle cx="90" cy="150" r="34" fill="url(#lensGlow)"/>
+        <circle cx="90" cy="150" r="34" stroke="#c8922a" stroke-width="0.75" stroke-opacity="0.35" fill="none" stroke-dasharray="4 3"/>
+        <!-- Lens reflection -->
+        <ellipse cx="80" cy="141" rx="9" ry="5" fill="white" fill-opacity="0.06" transform="rotate(-25 80 141)"/>
+        <!-- Eyepiece housing -->
+        <rect x="283" y="118" width="55" height="64" rx="8" fill="url(#bodyGrad)" stroke="#c8922a" stroke-width="1" stroke-opacity="0.3"/>
+        <rect x="332" y="128" width="18" height="44" rx="4" fill="#0a0a08" stroke="#c8922a" stroke-width="1" stroke-opacity="0.25"/>
+        <rect x="348" y="132" width="16" height="36" rx="8" fill="#111110" stroke="#c8922a" stroke-width="0.75" stroke-opacity="0.2"/>
+        <!-- Top buttons -->
+        <rect x="108" y="94" width="22" height="10" rx="3" fill="#1a1a17" stroke="#c8922a" stroke-width="1" stroke-opacity="0.4"/>
+        <rect x="140" y="94" width="14" height="10" rx="3" fill="#c8922a" fill-opacity="0.75"/>
+        <rect x="164" y="94" width="14" height="10" rx="3" fill="#1a1a17" stroke="#c8922a" stroke-width="1" stroke-opacity="0.4"/>
+        <!-- IR illuminator pod -->
+        <circle cx="305" cy="94" r="13" fill="url(#bodyGrad)" stroke="#c8922a" stroke-width="1" stroke-opacity="0.4"/>
+        <circle cx="305" cy="94" r="8" fill="#120500"/>
+        <circle cx="305" cy="94" r="5" fill="#c8922a" fill-opacity="0.6"/>
+        <circle cx="303" cy="92" r="1.5" fill="white" fill-opacity="0.2"/>
+        <!-- Picatinny rail bottom -->
+        <rect x="118" y="200" width="150" height="12" rx="2" fill="#181816" stroke="#c8922a" stroke-width="0.75" stroke-opacity="0.3"/>
+        <rect x="126" y="204" width="14" height="4" rx="1" fill="#c8922a" fill-opacity="0.18"/>
+        <rect x="150" y="204" width="14" height="4" rx="1" fill="#c8922a" fill-opacity="0.18"/>
+        <rect x="174" y="204" width="14" height="4" rx="1" fill="#c8922a" fill-opacity="0.18"/>
+        <rect x="198" y="204" width="14" height="4" rx="1" fill="#c8922a" fill-opacity="0.18"/>
+        <rect x="222" y="204" width="14" height="4" rx="1" fill="#c8922a" fill-opacity="0.18"/>
+        <!-- Label -->
+        <text x="193" y="154" font-family="'Bebas Neue',sans-serif" font-size="12" fill="#c8922a" fill-opacity="0.35" text-anchor="middle" letter-spacing="4">URSIX</text>
+        <text x="193" y="168" font-family="'Barlow Condensed',sans-serif" font-size="6.5" fill="#c8922a" fill-opacity="0.22" text-anchor="middle" letter-spacing="2">GEN 3 PINNACLE</text>
+        <!-- Ground shadow -->
+        <ellipse cx="210" cy="258" rx="120" ry="12" fill="#c8922a" fill-opacity="0.1"/>
+      </svg>
+    </div>
+  </div>
+
+  <div class="product-info">
+    <div class="product-tag">Night Vision Monocular</div>
+    <h1 class="product-name">URSIX</h1>
+    <div class="product-subtitle">Gen 3 Pinnacle — Modular NV Platform</div>
+    <p class="product-desc">
+      The URSIX is Ursus Armament's flagship night vision monocular — built around a hand-selected, individually documented Gen 3 Pinnacle image intensifier tube. Ruggedized for all-weather operation, mountable in multiple configurations, and backed by a limited lifetime warranty on every unit we ship.
+    </p>
+    <div class="product-price-row">
+      <div class="product-price">$3,249</div>
+      <div class="product-price-label">Starting Price<br>Free Shipping</div>
+    </div>
+    <div class="product-actions">
+      <a href="#configure" class="btn-primary">Configure & Order</a>
+      <a href="#specs" class="btn-ghost">Full Specs</a>
+    </div>
+    <div class="product-trust">
+      <div class="trust-item"><span class="trust-label">Warranty</span><span class="trust-value">Limited Lifetime</span></div>
+      <div class="trust-item"><span class="trust-label">Ships In</span><span class="trust-value">3–5 Business Days</span></div>
+      <div class="trust-item"><span class="trust-label">Made In</span><span class="trust-value">USA 🇺🇸</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECS -->
+<section class="specs-section" id="specs">
+  <div class="section-tag">Technical Data</div>
+  <h2 class="section-title">SPECIFICATIONS</h2>
+  <div class="specs-grid">
+    <div class="spec-item"><span class="spec-name">Image Tube</span><span class="spec-value">Gen 3 Pinnacle (HPT/MPI Tested)</span></div>
+    <div class="spec-item"><span class="spec-name">Figure of Merit (FOM)</span><span class="spec-value">1800+ Standard / 2100+ Precision</span></div>
+    <div class="spec-item"><span class="spec-name">Objective Lens</span><span class="spec-value">25mm f/1.2 or 35mm f/1.0</span></div>
+    <div class="spec-item"><span class="spec-name">Magnification</span><span class="spec-value">1x (3x adapter available)</span></div>
+    <div class="spec-item"><span class="spec-name">Field of View</span><span class="spec-value">40° (25mm) / 30° (35mm)</span></div>
+    <div class="spec-item"><span class="spec-name">Resolution</span><span class="spec-value">64–76 lp/mm (tube-dependent)</span></div>
+    <div class="spec-item"><span class="spec-name">Signal-to-Noise Ratio</span><span class="spec-value">28.0–32.0 (tube-dependent)</span></div>
+    <div class="spec-item"><span class="spec-name">IR Illuminator</span><span class="spec-value">850nm / 940nm covert (config)</span></div>
+    <div class="spec-item"><span class="spec-name">Detection Range</span><span class="spec-value">300m (Standard) / 450m (Precision)</span></div>
+    <div class="spec-item"><span class="spec-name">Recognition Range</span><span class="spec-value">150m (Standard) / 220m (Precision)</span></div>
+    <div class="spec-item"><span class="spec-name">Battery</span><span class="spec-value">1x AA — 36–40 hrs runtime</span></div>
+    <div class="spec-item"><span class="spec-name">IP Rating</span><span class="spec-value">IP67 (Std/Precision) / IP68 (Operator)</span></div>
+    <div class="spec-item"><span class="spec-name">Weight</span><span class="spec-value">397g / 14.0 oz (without mount)</span></div>
+    <div class="spec-item"><span class="spec-name">Operating Temp</span><span class="spec-value">-40°F to +120°F</span></div>
+    <div class="spec-item"><span class="spec-name">Mount Interface</span><span class="spec-value">Wilcox L4 Compatible / Picatinny</span></div>
+    <div class="spec-item"><span class="spec-name">Country of Origin</span><span class="spec-value">United States of America</span></div>
+  </div>
+</section>
+
+<!-- SERIAL LOOKUP -->
+<section class="serial-section" id="serial">
+  <div class="serial-inner">
+    <div class="section-tag">Unit Verification</div>
+    <h2 class="section-title" style="margin-bottom: 1rem;">SERIAL NUMBER LOOKUP</h2>
+    <p class="serial-desc">
+      Every URSIX unit ships with a documented tube profile — SNR, resolution, FOM, QC technician, and proof date — recorded at time of manufacture. Enter your serial number below to retrieve the specifications for your specific unit.
+    </p>
+
+    <div class="serial-input-row">
+      <input
+        class="serial-input"
+        id="serialInput"
+        type="text"
+        placeholder="e.g. UA-URSIX-001045"
+        maxlength="20"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <button class="serial-btn" onclick="lookupSerial()">Look Up Unit</button>
+    </div>
+
+    <div class="serial-result" id="serialError">
+      <div class="serial-error" id="serialErrorMsg">
+        No unit found for that serial number. Double-check the format (UA-URSIX-XXXXXX) or contact support.
+      </div>
+    </div>
+
+    <div class="serial-result" id="serialSuccess">
+      <div class="serial-card">
+        <div class="serial-card-header">
+          <div class="serial-card-id" id="resultSerial">—</div>
+          <span class="serial-badge pass" id="resultQcBadge">QC PASS</span>
+        </div>
+        <div class="serial-card-body">
+          <div class="serial-field"><span class="serial-field-label">Configuration</span><span class="serial-field-value highlight" id="resultConfig">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">Tube Manufacturer</span><span class="serial-field-value" id="resultTubeMfr">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">Tube Serial</span><span class="serial-field-value" id="resultTubeSerial">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">Generation</span><span class="serial-field-value" id="resultGen">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">Figure of Merit (FOM)</span><span class="serial-field-value highlight" id="resultFom">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">Signal-to-Noise Ratio</span><span class="serial-field-value" id="resultSnr">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">Resolution</span><span class="serial-field-value" id="resultRes">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">Objective Lens</span><span class="serial-field-value" id="resultLens">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">IR Illuminator</span><span class="serial-field-value" id="resultIr">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">IP Rating</span><span class="serial-field-value" id="resultIp">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">Finish</span><span class="serial-field-value" id="resultFinish">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">Battery Life</span><span class="serial-field-value" id="resultBattery">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">Proof Date</span><span class="serial-field-value" id="resultDate">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">Batch ID</span><span class="serial-field-value" id="resultBatch">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">QC Technician</span><span class="serial-field-value" id="resultTech">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">QC Result</span><span class="serial-field-value" id="resultQc">—</span></div>
+        </div>
+        <div class="serial-card-notes">
+          <span class="serial-field-label">Manufacturing Notes</span>
+          <span class="serial-field-value" id="resultNotes" style="font-weight:400; color: var(--muted); font-size:0.88rem;">—</span>
+        </div>
+        <div class="serial-card-footer">
+          Data retrieved from serial-data.json &nbsp;·&nbsp; Ursus Armament LLC &nbsp;·&nbsp; All specifications recorded at time of manufacture
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="features-layout">
+    <div class="features-list">
+      <div class="feature-item">
+        <div class="feature-num">01</div>
+        <div class="feature-title">Hand-Selected Gen 3 Tubes</div>
+        <p class="feature-desc">Every URSIX tube is individually tested and documented. We publish SNR, resolution, and FOM for each unit — you know exactly what you're getting before it ships.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">02</div>
+        <div class="feature-title">Modular Objective System</div>
+        <p class="feature-desc">Tool-free objective swap between 25mm and 35mm lenses. Same housing, different mission profiles. No need to own multiple units.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">03</div>
+        <div class="feature-title">Dual IR Illuminator (Operator)</div>
+        <p class="feature-desc">Switchable 850nm overt and 940nm covert illuminators built in. No external IR laser required for close-quarters use.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">04</div>
+        <div class="feature-title">IP67 / IP68 Waterproofing</div>
+        <p class="feature-desc">Standard and Precision configs are rated IP67. The Operator config is rated IP68 — submersible to 1.5m for 30 minutes.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">05</div>
+        <div class="feature-title">Universal Mount Interface</div>
+        <p class="feature-desc">Ships with Wilcox L4-compatible shoe and Picatinny weapon mount adapter. Works with all major helmet mount systems out of the box.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">06</div>
+        <div class="feature-title">40-Hour Battery Life</div>
+        <p class="feature-desc">A single AA battery powers up to 40 hours of continuous operation. Runs on lithium AA in cold weather without performance loss.</p>
+      </div>
+    </div>
+    <div class="features-aside">
+      <div class="section-tag">Why URSIX</div>
+      <h2 class="section-title" style="margin-bottom: 1.5rem;">EVERY TUBE IS DOCUMENTED</h2>
+      <p>Most manufacturers ship night vision units with a tube that meets a minimum spec. We ship units with a tube whose exact SNR, resolution, and FOM are recorded at the time of manufacture — and retrievable by serial number for the life of the unit.</p>
+      <p>If your unit ever needs service, we pull that record. If you resell it, the new owner can verify exactly what they're buying. Full chain of custody, no guesswork.</p>
+      <p>That's the standard we hold ourselves to. Not because we have to — because our customers deserve it.</p>
+      <div class="cert-row">
+        <div class="cert-item"><span class="cert-label">Tube Grade</span><span class="cert-value">PINNACLE</span></div>
+        <div class="cert-item"><span class="cert-label">HPT / MPI</span><span class="cert-value">TESTED</span></div>
+        <div class="cert-item"><span class="cert-label">Min FOM</span><span class="cert-value">1800</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONFIGURE -->
+<section class="config-section" id="configure">
+  <div class="section-tag">Build Your URSIX</div>
+  <h2 class="section-title">SELECT CONFIGURATION</h2>
+  <div class="config-options">
+    <div class="config-card selected" onclick="selectConfig(this, 3249)">
+      <div class="config-name">Standard</div>
+      <p class="config-desc">25mm f/1.2 objective, 850nm IR, IP67, matte black anodize. FOM 1800+. Helmet and weapon mount included.</p>
+      <div class="config-price">$3,249</div>
+    </div>
+    <div class="config-card" onclick="selectConfig(this, 3799)">
+      <div class="config-name">Precision</div>
+      <p class="config-desc">35mm f/1.1 objective, covert 940nm IR, IP67, Cerakote FDE. FOM 2100+. Extended detection range.</p>
+      <div class="config-price">$3,799</div>
+    </div>
+    <div class="config-card" onclick="selectConfig(this, 4499)">
+      <div class="config-name">Operator</div>
+      <p class="config-desc">35mm f/1.0 objective, dual 850/940nm IR, IP68, top-bin tube. FOM 2400+. Zero compromises.</p>
+      <div class="config-price">$4,499</div>
+    </div>
+  </div>
+  <div class="config-add-row">
+    <div class="config-total">
+      <span class="config-total-label">Configuration Total</span>
+      <span class="config-total-price" id="totalPrice">$3,249</span>
+    </div>
+    <div style="display:flex; gap: 1rem; align-items: center;">
+      <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);">Free shipping · Lifetime warranty</span>
+      <a href="#" class="btn-primary" style="flex:none;">Add to Order</a>
+    </div>
+  </div>
+</section>
+
+<div class="cta-banner">
+  <div>
+    <h2>QUESTIONS ABOUT THE URSIX?</h2>
+    <p>Our product specialists are available Monday–Friday, 8AM–6PM MST.</p>
+  </div>
+  <a href="/ursusarmament#support" class="btn-dark">Contact Support</a>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">URSUS <span style="color: var(--accent);">ARMAMENT</span></div>
+      <p>Developing next-generation tactical gear for the American people. Manufactured, tested, and deployed with pride in the USA.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="/ursusarmament/products">R.O.T.S.</a></li>
+        <li><a href="/ursusarmament/products/ursix">URSIX</a></li>
+        <li><a href="/ursusarmament/products">View All</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Testing Standards</a></li>
+        <li><a href="#">Careers</a></li>
+        <li><a href="#">Press</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Warranty</a></li>
+        <li><a href="#">Shipping</a></li>
+        <li><a href="#">Returns</a></li>
+        <li><a href="#">Dealer Program</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-logo">URSUS <span>ARMAMENT</span></div>
+    <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
+  </div>
+</footer>
+
+<script>
+  // ── Serial lookup ─────────────────────────────────────────────────────────
+  async function lookupSerial() {
+    const raw   = document.getElementById('serialInput').value.trim().toUpperCase();
+    const errEl = document.getElementById('serialError');
+    const okEl  = document.getElementById('serialSuccess');
+
+    errEl.classList.remove('visible');
+    okEl.classList.remove('visible');
+
+    if (!raw) return;
+
+    let data;
+    try {
+      // serial-data.json must live in the same directory as this HTML file
+      const res = await fetch('./serial-data.json');
+      if (!res.ok) throw new Error('fetch failed');
+      data = await res.json();
+    } catch {
+      document.getElementById('serialErrorMsg').textContent =
+        'Could not load the serial database. Make sure serial-data.json is in the same folder as this page.';
+      errEl.classList.add('visible');
+      return;
+    }
+
+    const unit = data[raw];
+    if (!unit) {
+      document.getElementById('serialErrorMsg').textContent =
+        'No unit found for "' + raw + '". Double-check the format (UA-URSIX-XXXXXX) or contact support if you believe this is an error.';
+      errEl.classList.add('visible');
+      return;
+    }
+
+    const set = (id, val) => { document.getElementById(id).textContent = val ?? '—'; };
+
+    set('resultSerial',     raw);
+    set('resultConfig',     unit.config);
+    set('resultTubeMfr',    unit.tubeManufacturer);
+    set('resultTubeSerial', unit.tubeSerial);
+    set('resultGen',        unit.generation);
+    set('resultFom',        unit.fom   ? unit.fom   + ' FOM' : null);
+    set('resultSnr',        unit.snr   ? unit.snr   + ' dB'  : null);
+    set('resultRes',        unit.resolution);
+    set('resultLens',       unit.objectiveLens);
+    set('resultIr',         unit.irIlluminator);
+    set('resultIp',         unit.ipRating);
+    set('resultFinish',     unit.finish);
+    set('resultBattery',    unit.batteryLife);
+    set('resultDate',       unit.proofDate);
+    set('resultBatch',      unit.batchId);
+    set('resultTech',       unit.qcTech);
+    set('resultQc',         unit.qcResult);
+    set('resultNotes',      unit.notes || 'No notes recorded.');
+
+    const badge = document.getElementById('resultQcBadge');
+    badge.textContent = 'QC ' + (unit.qcResult ?? 'UNKNOWN');
+    badge.className   = 'serial-badge ' + (unit.qcResult === 'PASS' ? 'pass' : 'fail');
+
+    okEl.classList.add('visible');
+    okEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  document.getElementById('serialInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') lookupSerial();
+  });
+
+  // ── Config selector ───────────────────────────────────────────────────────
+  function selectConfig(card, price) {
+    document.querySelectorAll('.config-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    document.getElementById('totalPrice').textContent = '$' + price.toLocaleString();
+  }
+
+  // ── Smooth scroll ─────────────────────────────────────────────────────────
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>
