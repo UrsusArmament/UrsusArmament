@@ -27,27 +27,20 @@
   nav {
     padding: 1rem 3rem;
     border-bottom: 1px solid var(--border);
-    background: rgba(10,10,8,0.9);
   }
 
   .nav-logo {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Bebas Neue';
     letter-spacing: 0.12em;
     font-size: 1.5rem;
     text-decoration: none;
     color: var(--text);
   }
 
-  .nav-logo:hover {
-    color: var(--accent);
-  }
-
-  section { padding: 6rem 3rem; }
+  section { padding: 5rem 3rem; }
 
   .hero {
     padding-top: 10rem;
-    padding-bottom: 6rem;
-    background: linear-gradient(to bottom, rgba(10,10,8,0.4), var(--black));
   }
 
   .section-tag {
@@ -56,11 +49,12 @@
     color: var(--accent);
     text-transform: uppercase;
     font-size: 0.7rem;
+    margin-bottom: 0.5rem;
   }
 
   h1, h2 {
     font-family: 'Bebas Neue';
-    letter-spacing: 0.05em;
+    margin: 0 0 1rem 0;
   }
 
   h1 { font-size: clamp(3rem, 8vw, 6rem); }
@@ -68,13 +62,14 @@
 
   p {
     color: var(--muted);
-    max-width: 700px;
-    line-height: 1.8;
+    max-width: 600px;
+    line-height: 1.6;
+    margin: 0 0 1rem 0; /* tightened spacing */
   }
 
   .split {
     display: grid;
-    grid-template-columns: 1fr 400px;
+    grid-template-columns: 1fr 420px;
     gap: 3rem;
     align-items: start;
   }
@@ -82,8 +77,7 @@
   .split-images {
     display: flex;
     flex-direction: column;
-    gap: 24px; /* clean consistent spacing */
-    padding: 6px 0; /* subtle balance */
+    gap: 20px;
   }
 
   .split-images img {
@@ -109,47 +103,56 @@
   </a>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
   <div class="section-tag">Company</div>
   <h1>ABOUT<br><span style="color:var(--accent)">URSUS ARMAMENT</span></h1>
   <p>
     Ursus Armament is a veteran-owned and operated company focused on building
-    advanced equipment for real-world application. Founded in Alaska in 2025,
-    the company was developed with a clear objective: create dependable tools
-    that perform under pressure and in extreme environments.
+    advanced equipment for real-world application.
   </p>
 </section>
 
-<section>
-  <div class="section-tag">Mission</div>
-  <h2>Purpose Driven</h2>
-  <p>
-    Ursus Armament exists to design and produce equipment that supports individual
-    capability and preparedness. Our focus is on delivering reliable, high-performance
-    gear grounded in real-world use rather than theoretical conditions.
-  </p>
-  <p>
-    We build the equipment we would trust ourselves, with the goal of making that same
-    level of capability accessible to responsible citizens.
-  </p>
+<!-- MISSION -->
+<section class="split">
+  <div>
+    <div class="section-tag">Mission</div>
+    <h2>Purpose Driven</h2>
+    <p>
+      Ursus Armament exists to design and produce equipment that supports individual
+      capability and preparedness.
+    </p>
+    <p>
+      Our focus is on delivering reliable, high-performance gear grounded in real-world use.
+    </p>
+    <p>
+      We build the equipment we would trust ourselves, with the goal of making that same
+      level of capability accessible to responsible citizens.
+    </p>
+  </div>
+
+  <div class="split-images">
+    <img src="/ursusarmament/images/IMG-4820.PNG">
+  </div>
 </section>
 
+<!-- FOUNDATION -->
 <section class="split">
   <div>
     <div class="section-tag">Foundation</div>
     <h2>Built on Experience</h2>
     <p>
       Our products are developed and evaluated by veterans and active-duty personnel,
-      informed by practical experience rather than marketing trends.
+      informed by practical experience.
     </p>
   </div>
 
   <div class="split-images">
-    <img src="/ursusarmament/images/IMG-4820.PNG">
     <img src="/ursusarmament/images/IMG_6985.jpg">
   </div>
 </section>
 
+<!-- ALASKA -->
 <section class="split">
   <div>
     <div class="section-tag">Environment</div>
@@ -164,6 +167,7 @@
   </div>
 </section>
 
+<!-- APPROACH -->
 <section class="split">
   <div>
     <div class="section-tag">Approach</div>
