@@ -11,14 +11,10 @@
 <style>
   :root {
     --black: #0a0a08;
-    --dark: #111110;
-    --surface: #1a1a17;
-    --surface2: #222220;
     --border: rgba(255,255,255,0.08);
     --text: #e8e4d9;
     --muted: #8a8678;
     --accent: #c8922a;
-    --accent2: #e8a830;
   }
 
   body {
@@ -80,15 +76,14 @@
     display: grid;
     grid-template-columns: 1fr 400px;
     gap: 3rem;
-    align-items: stretch; /* key change */
+    align-items: start;
   }
 
   .split-images {
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* spreads images evenly */
-    height: 100%;
-    gap: 12px;
+    gap: 24px; /* clean consistent spacing */
+    padding: 6px 0; /* subtle balance */
   }
 
   .split-images img {
