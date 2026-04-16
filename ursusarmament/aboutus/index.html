@@ -49,27 +49,9 @@
   section { padding: 6rem 3rem; }
 
   .hero {
-    display: grid;
-    grid-template-columns: 1fr 400px;
-    gap: 3rem;
-    align-items: center;
-
     padding-top: 10rem;
     padding-bottom: 6rem;
     background: linear-gradient(to bottom, rgba(10,10,8,0.4), var(--black));
-  }
-
-  .hero-right img {
-    width: 100%;
-    height: auto;
-    border: 1px solid var(--border);
-    display: block;
-  }
-
-  @media (max-width: 768px) {
-    .hero {
-      grid-template-columns: 1fr;
-    }
   }
 
   .section-tag {
@@ -101,10 +83,17 @@
     align-items: center;
   }
 
-  .split img {
+  .split-images {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .split-images img {
     width: 100%;
     height: auto;
     border: 1px solid var(--border);
+    display: block;
   }
 </style>
 </head>
@@ -119,20 +108,14 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-left">
-    <div class="section-tag">Company</div>
-    <h1>ABOUT<br><span style="color:var(--accent)">URSUS ARMAMENT</span></h1>
-    <p>
-      Ursus Armament is a veteran-owned and operated company focused on building
-      advanced equipment for real-world application. Founded in Alaska in 2025,
-      the company was developed with a clear objective: create dependable tools
-      that perform under pressure and in extreme environments.
-    </p>
-  </div>
-
-  <div class="hero-right">
-    <img src="/ursusarmament/images/IMG-4820.PNG" alt="Ursus Armament">
-  </div>
+  <div class="section-tag">Company</div>
+  <h1>ABOUT<br><span style="color:var(--accent)">URSUS ARMAMENT</span></h1>
+  <p>
+    Ursus Armament is a veteran-owned and operated company focused on building
+    advanced equipment for real-world application. Founded in Alaska in 2025,
+    the company was developed with a clear objective: create dependable tools
+    that perform under pressure and in extreme environments.
+  </p>
 </section>
 
 <!-- MISSION -->
@@ -167,7 +150,10 @@
     </p>
   </div>
 
-  <img src="/ursusarmament/images/IMG_6985.jpg" alt="Field testing and operational use">
+  <div class="split-images">
+    <img src="/ursusarmament/images/IMG-4820.PNG" alt="Additional image">
+    <img src="/ursusarmament/images/IMG_6985.jpg" alt="Field testing and operational use">
+  </div>
 </section>
 
 <!-- ALASKA -->
