@@ -523,6 +523,144 @@
 </a>
 </div>
 
+<!-- REVIEWS -->
+<section class="reviews-section">
+  <div class="section-tag">Customer Feedback</div>
+  <h2 class="section-title">FIELD REVIEWS</h2>
+
+  <div class="reviews-container" id="reviewsContainer">
+    <div class="reviews-empty">Loading reviews...</div>
+  </div>
+</section>
+
+<style>
+.reviews-section {
+  background: var(--black);
+  padding: 6rem 3rem;
+}
+
+.reviews-container {
+  max-height: 400px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  background: var(--border);
+}
+
+.review-card {
+  background: var(--surface);
+  padding: 1.75rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  border-left: 3px solid transparent;
+  transition: background 0.2s, border-color 0.2s;
+}
+
+.review-card:hover {
+  background: var(--surface2);
+  border-color: var(--accent);
+}
+
+.review-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.review-name {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text);
+}
+
+.review-meta {
+  font-size: 0.75rem;
+  color: var(--muted);
+  letter-spacing: 0.12em;
+}
+
+.review-type {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.review-stars {
+  font-size: 0.85rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+
+.review-text {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.reviews-empty {
+  padding: 2rem;
+  text-align: center;
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.15em;
+  color: var(--muted);
+}
+</style>
+
+<script>
+async function loadURSIXReviews() {
+  const container = document.getElementById('reviewsContainer');
+
+  try {
+    const res = await fetch('./URSIX.reviews.json');
+
+    if (!res.ok) throw new Error('No file');
+
+    const data = await res.json();
+
+    if (!data || data.length === 0) {
+      container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
+      return;
+    }
+
+    container.innerHTML = '';
+
+    data.forEach(r => {
+      const stars = '★'.repeat(r.rating || 0) + '☆'.repeat(5 - (r.rating || 0));
+
+      const div = document.createElement('div');
+      div.className = 'review-card';
+
+      div.innerHTML = `
+        <div class="review-header">
+          <div class="review-name">${r.firstName || '—'} (${r.state || ''})</div>
+          <div class="review-stars">${stars}</div>
+        </div>
+
+        <div class="review-meta">${r.product || 'URSIX'}</div>
+        <div class="review-type">${r.feedbackType || ''}</div>
+
+        <div class="review-text">${r.reviewText || ''}</div>
+      `;
+
+      container.appendChild(div);
+    });
+
+  } catch (e) {
+    container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
+  }
+}
+
+loadURSIXReviews();
+</script>
+ 
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
