@@ -893,6 +893,20 @@ loadURSIXReviews();
             <option value="NEXIS">NEXIS</option>
           </select>
 
+          <input type="hidden" name="rating" id="ratingInput" value="0">
+
+<div style="display:flex; flex-direction:column; gap:0.5rem;">
+  <div style="color:var(--muted); font-size:0.9rem;">Rating</div>
+
+  <div id="starRating" style="display:flex; gap:0.4rem; font-size:1.8rem; cursor:pointer;">
+    <span data-value="1">☆</span>
+    <span data-value="2">☆</span>
+    <span data-value="3">☆</span>
+    <span data-value="4">☆</span>
+    <span data-value="5">☆</span>
+  </div>
+</div>
+         
           <input name="name" type="text" placeholder="Your Name" required
             style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);" />
 
@@ -982,6 +996,24 @@ function closeReviewModal() {
 
 document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("reviewForm");
+
+ const stars = document.querySelectorAll("#starRating span");
+  const ratingInput = document.getElementById("ratingInput");
+
+  stars.forEach(star => {
+    star.addEventListener("click", () => {
+      const value = parseInt(star.dataset.value);
+      ratingInput.value = value;
+      updateStars(value);
+    });
+  });
+
+  function updateStars(value) {
+    stars.forEach(star => {
+      const starValue = parseInt(star.dataset.value);
+      star.textContent = starValue <= value ? "★" : "☆";
+    });
+  }
 
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
