@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reviews | Ursus Armament</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --border: rgba(255,255,255,0.08);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+  }
+
+  body {
+    margin: 0;
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+  }
+
+  nav {
+    padding: 1rem 3rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,8,0.9);
+  }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.12em;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: var(--text);
+  }
+
+  .nav-logo:hover {
+    color: var(--accent);
+  }
+
+  section { padding: 6rem 3rem; }
+
+  .hero {
+    padding-top: 10rem;
+    padding-bottom: 6rem;
+    background: linear-gradient(to bottom, rgba(10,10,8,0.4), var(--black));
+  }
+
+  .section-tag {
+    font-family: 'Barlow Condensed';
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-size: 0.7rem;
+  }
+
+  h1, h2 {
+    font-family: 'Bebas Neue';
+    letter-spacing: 0.05em;
+  }
+
+  h1 { font-size: clamp(3rem, 8vw, 6rem); }
+  h2 { font-size: 2rem; }
+
+  p {
+    color: var(--muted);
+    max-width: 700px;
+    line-height: 1.8;
+  }
+
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .review-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+  }
+
+  .review-source {
+    font-family: 'Barlow Condensed';
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .review-text {
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .review-meta {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: rgba(232,228,217,0.5);
+  }
+
+  .empty {
+    margin-top: 2rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+</style>
+</head>
+
+<body>
+
+<nav>
+  <a href="/ursusarmament/" class="nav-logo">
+    URSUS <span style="color:var(--accent)">ARMAMENT</span>
+  </a>
+</nav>
+
+<section class="hero">
+  <div class="section-tag">Field Feedback</div>
+  <h1>USER<br><span style="color:var(--accent)">REVIEWS</span></h1>
+  <p>
+    Collected field feedback and user-submitted evaluations across Ursus systems and related platforms.
+  </p>
+
+  <div id="reviewsContainer" class="reviews-grid"></div>
+  <div id="emptyState" class="empty" style="display:none;">
+    Currently No Reviews
+  </div>
+</section>
+
+<script>
+const sources = [
+  "URSIX.reviewsjson",
+  "CALIDUS.reviews.json",
+  "ROTS.reviews.json",
+  "NEXIS.reviews.json"
+];
+
+async function loadJSON(file) {
+  try {
+    const res = await fetch(file, { cache: "no-store" });
+    if (!res.ok) return [];
+    return await res.json();
+  } catch (e) {
+    return [];
+  }
+}
+
+function normalize(data, sourceName) {
+  // expects array, but tolerates single object
+  if (!data) return [];
+  const arr = Array.isArray(data) ? data : [data];
+
+  return arr.map(item => ({
+    source: sourceName,
+    text: item.text || item.review || item.message || "No content",
+    date: item.date || "",
+    author: item.author || "Anonymous"
+  }));
+}
+
+async function initReviews() {
+  const container = document.getElementById("reviewsContainer");
+  const empty = document.getElementById("emptyState");
+
+  let allReviews = [];
+
+  const results = await Promise.all(
+    sources.map(s => loadJSON(s))
+  );
+
+  results.forEach((data, i) => {
+    const name = sources[i].split(".")[0];
+    allReviews = allReviews.concat(normalize(data, name));
+  });
+
+  if (allReviews.length === 0) {
+    empty.style.display = "block";
+    return;
+  }
+
+  allReviews.forEach(r => {
+    const card = document.createElement("div");
+    card.className = "review-card";
+
+    card.innerHTML = `
+      <div class="review-source">${r.source}</div>
+      <div class="review-text">${r.text}</div>
+      <div class="review-meta">${r.author}${r.date ? " • " + r.date : ""}</div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+initReviews();
+</script>
+
+</body>
+</html>
