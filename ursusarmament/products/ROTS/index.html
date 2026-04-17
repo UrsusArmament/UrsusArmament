@@ -1,20 +1,34 @@
-<!-- PRODUCT HERO -->
 <section class="product-hero">
-  <div class="product-visual">
-    <div class="product-badge" style="background:var(--red);color:#fff;">IN DEVELOPMENT</div>
-    <div class="product-img-wrapper">
-      <div style="position:absolute;font-family:'Bebas Neue';font-size:16rem;color:rgba(255,255,255,0.03);">R.O.T.S.</div>
-      <img id="rots-main" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCI+PHJlY3QgZmlsbD0iIzExMTExMCIgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiLz48dGV4dCB4PSI0MDAiIHk9IjMwMCIgZmlsbD0iI2M4OTIyYSIgZm9udC1zaXplPSIzMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Ui5PLlQuUy48L3RleHQ+PC9zdmc+" style="width:90%;">
+  <div class="product-visual" style="flex-direction:column; justify-content:flex-start; padding:0; gap:0;">
+    <div class="product-badge" style="background:var(--red);">IN DEVELOPMENT</div>
+
+    <div style="width:100%; flex:1; display:flex; align-items:center; justify-content:center; background:var(--surface); min-height:0; position:relative; overflow:hidden;">
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(200,146,42,0.015) 30px,rgba(200,146,42,0.015) 31px);pointer-events:none;"></div>
+      <div style="position:absolute;font-family:'Bebas Neue',sans-serif;font-size:14rem;letter-spacing:-0.02em;color:rgba(255,255,255,0.025);user-select:none;">R.O.T.S</div>
+
+      <img id="rots-main" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCI+PHJlY3QgZmlsbD0iIzExMTExMCIgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiLz48dGV4dCB4PSI0MDAiIHk9IjMwMCIgZmlsbD0iI2M4OTIyYSIgZm9udC1zaXplPSIzMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Ui5PLlQuUy48L3RleHQ+PC9zdmc+" style="position:relative;z-index:1;width:90%;height:90%;object-fit:contain;"/>
+    </div>
+
+    <!-- keep thumbnail strip EXACT even if placeholders -->
+    <div style="width:100%;background:var(--dark);border-top:1px solid var(--border);padding:1rem;display:flex;gap:0.75rem;justify-content:center;">
+      <div class="ursix-thumb active"><div style="width:80px;height:80px;background:var(--surface);border:2px solid var(--accent);"></div></div>
+      <div class="ursix-thumb"><div style="width:80px;height:80px;background:var(--surface);border:1px solid #444;"></div></div>
+      <div class="ursix-thumb"><div style="width:80px;height:80px;background:var(--surface);border:1px solid #444;"></div></div>
+      <div class="ursix-thumb"><div style="width:80px;height:80px;background:var(--surface);border:1px solid #444;"></div></div>
     </div>
   </div>
 
   <div class="product-info">
-    <div class="product-tag">Remote Defense Platform</div>
+    <div class="product-tag">Remote Turret System</div>
     <h1 class="product-name">R.O.T.S.</h1>
-    <div class="product-subtitle">Remotely Operated Turret System</div>
+    <div class="product-subtitle">Remotely Operated Tactical Platform</div>
 
     <p class="product-desc">
-      A modular remotely operated turret system designed for precision control, persistent configuration, and multi-role deployment. R.O.T.S. integrates LRF targeting, VIM visual systems, and TIM thermal capability into a unified platform.
+      The R.O.T.S. is a modular remotely operated turret system designed for precision control, sensor integration, and adaptable deployment. Built with integrated LRF, VIM, and TIM systems, R.O.T.S. delivers real-time targeting, environmental awareness, and operational flexibility.
+    </p>
+
+    <p class="product-desc">
+      Designed for multi-role capability, R.O.T.S. supports dual system mounting — allowing simultaneous use of lethal and non-lethal configurations. Persistent profile architecture enables fully customized system behavior across missions.
     </p>
 
     <div class="product-price-row">
@@ -23,134 +37,14 @@
     </div>
 
     <div class="product-actions">
-      <a href="#configure" class="btn-primary">Explore Configurations</a>
-      <a href="#specs" class="btn-ghost">System Specs</a>
+      <a href="#configure" class="btn-primary">Explore System</a>
+      <a href="#specs" class="btn-ghost">Full Specs</a>
     </div>
 
     <div class="product-trust">
-      <div class="trust-item"><span class="trust-label">Status</span><span class="trust-value">In Development</span></div>
-      <div class="trust-item"><span class="trust-label">Control</span><span class="trust-value">Remote</span></div>
+      <div class="trust-item"><span class="trust-label">Status</span><span class="trust-value">Development</span></div>
+      <div class="trust-item"><span class="trust-label">Control</span><span class="trust-value">Remote / Networked</span></div>
       <div class="trust-item"><span class="trust-label">Platform</span><span class="trust-value">Modular</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- SPECS -->
-<section class="specs-section" id="specs">
-  <div class="section-tag">Technical Data</div>
-  <h2 class="section-title">SYSTEM SPECIFICATIONS</h2>
-
-  <div class="specs-grid">
-    <div class="spec-item"><span class="spec-name">System Type</span><span class="spec-value">Remote Turret Platform</span></div>
-    <div class="spec-item"><span class="spec-name">Weapon Capacity</span><span class="spec-value">Dual System Mount</span></div>
-    <div class="spec-item"><span class="spec-name">Targeting</span><span class="spec-value">Integrated LRF</span></div>
-    <div class="spec-item"><span class="spec-name">Visual System</span><span class="spec-value">VIM Enabled</span></div>
-    <div class="spec-item"><span class="spec-name">Thermal System</span><span class="spec-value">TIM Equipped</span></div>
-    <div class="spec-item"><span class="spec-name">Profiles</span><span class="spec-value">Persistent / Custom</span></div>
-    <div class="spec-item"><span class="spec-name">Operation</span><span class="spec-value">Remote / Networked</span></div>
-    <div class="spec-item"><span class="spec-name">Deployment</span><span class="spec-value">Static / Mobile</span></div>
-    <div class="spec-item"><span class="spec-name">System Modes</span><span class="spec-value">Lethal / Non-Lethal</span></div>
-    <div class="spec-item"><span class="spec-name">Release</span><span class="spec-value">Pre-Production</span></div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section class="features-section">
-  <div class="features-layout">
-
-    <div class="features-list">
-      <div class="feature-item">
-        <div class="feature-num">01</div>
-        <div class="feature-title">Dual Weapon Integration</div>
-        <p class="feature-desc">Supports two independent systems simultaneously, allowing flexible mission configurations.</p>
-      </div>
-
-      <div class="feature-item">
-        <div class="feature-num">02</div>
-        <div class="feature-title">Sensor Fusion</div>
-        <p class="feature-desc">LRF, VIM, and TIM combine to provide full-spectrum situational awareness.</p>
-      </div>
-
-      <div class="feature-item">
-        <div class="feature-num">03</div>
-        <div class="feature-title">Persistent Profiles</div>
-        <p class="feature-desc">Save and deploy custom system behaviors instantly across sessions.</p>
-      </div>
-
-      <div class="feature-item">
-        <div class="feature-num">04</div>
-        <div class="feature-title">Remote Operation</div>
-        <p class="feature-desc">Operate the system securely from a distance with real-time feedback.</p>
-      </div>
-
-      <div class="feature-item">
-        <div class="feature-num">05</div>
-        <div class="feature-title">Adaptive Deployment</div>
-        <p class="feature-desc">Designed for integration across fixed positions and mobile platforms.</p>
-      </div>
-
-      <div class="feature-item">
-        <div class="feature-num">06</div>
-        <div class="feature-title">Multi-Role Capability</div>
-        <p class="feature-desc">Supports lethal and non-lethal configurations within a single system.</p>
-      </div>
-    </div>
-
-    <div class="features-aside">
-      <div class="section-tag">Why R.O.T.S.</div>
-      <h2 class="section-title">BUILT FOR CONTROL</h2>
-
-      <p>
-        R.O.T.S. is designed around persistent control and adaptability. Every configuration can be saved, deployed, and repeated with precision.
-      </p>
-
-      <p>
-        The system adapts to the operator — not the other way around — enabling rapid mission transitions without reconfiguration.
-      </p>
-
-      <div class="cert-row">
-        <div class="cert-item"><span class="cert-label">Sensors</span><span class="cert-value">LRF / VIM / TIM</span></div>
-        <div class="cert-item"><span class="cert-label">Mount</span><span class="cert-value">DUAL</span></div>
-        <div class="cert-item"><span class="cert-label">Profiles</span><span class="cert-value">PERSISTENT</span></div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- CONFIG (REUSED AS SYSTEM MODES) -->
-<section class="config-section" id="configure">
-  <div class="section-tag">System Configuration</div>
-  <h2 class="section-title">SELECT OPERATION MODE</h2>
-
-  <div class="config-options">
-    <div class="config-card selected" onclick="selectConfig(this, 0)">
-      <div class="config-name">Observation</div>
-      <p class="config-desc">Sensor-only mode utilizing VIM and TIM for surveillance and monitoring.</p>
-      <div class="config-price">MODE</div>
-    </div>
-
-    <div class="config-card" onclick="selectConfig(this, 0)">
-      <div class="config-name">Non-Lethal</div>
-      <p class="config-desc">Configured for deterrence and non-lethal engagement systems.</p>
-      <div class="config-price">MODE</div>
-    </div>
-
-    <div class="config-card" onclick="selectConfig(this, 0)">
-      <div class="config-name">Full System</div>
-      <p class="config-desc">Dual-system configuration with full operational capability.</p>
-      <div class="config-price">MODE</div>
-    </div>
-  </div>
-
-  <div class="config-add-row">
-    <div class="config-total">
-      <span class="config-total-label">System Status</span>
-      <span class="config-total-price">IN DEVELOPMENT</span>
-    </div>
-
-    <div>
-      <a href="/ursusarmament/contact" class="btn-primary">Request Access</a>
     </div>
   </div>
 </section>
