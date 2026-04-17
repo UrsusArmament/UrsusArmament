@@ -1,50 +1,702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R.O.T.S. — Ursus Armament</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --surface2: #222220;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+    --accent2: #e8a830;
+    --green: #2a9c5c;
+    --red: #c0392b;
+    --unavail: #5a5a5a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,8,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 3rem; border-bottom: 1px solid var(--border);
+  }
+  .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
+    letter-spacing: 0.12em; color: var(--text); text-decoration: none; line-height: 1;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-slogan {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem;
+    font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
+  }
+  .nav-ribbon {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3rem; height: 38px; background: var(--surface);
+  }
+  .nav-ribbon a {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem;
+    font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; padding: 0 1.6rem; height: 100%;
+    display: flex; align-items: center; border-right: 1px solid var(--border);
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
+  .nav-ribbon a:hover, .nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
+
+  .breadcrumb {
+    padding: 1rem 3rem; background: var(--dark); border-bottom: 1px solid var(--border);
+    margin-top: 86px; display: flex; align-items: center; gap: 0.5rem;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+  }
+  .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb span { color: var(--accent); }
+
+  /* UNAVAILABLE BANNER */
+  .unavail-banner {
+    background: rgba(10,10,8,0.97);
+    border-bottom: 1px solid rgba(200,146,42,0.3);
+    padding: 0.75rem 3rem;
+    display: flex; align-items: center; justify-content: center; gap: 1.2rem;
+    text-align: center;
+  }
+  .unavail-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent); opacity: 0.7;
+    animation: pulse 2s ease-in-out infinite;
+    flex-shrink: 0;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.25); }
+  }
+  .unavail-banner p {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem;
+    font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent);
+  }
+  .unavail-banner span {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem;
+    letter-spacing: 0.12em; color: var(--muted); font-weight: 400; text-transform: uppercase;
+  }
+
+  /* HERO */
+  .product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; background: var(--dark); }
+  .product-visual {
+    position: relative; background: var(--surface); overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .product-visual::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 30px,
+      rgba(200,146,42,0.015) 30px, rgba(200,146,42,0.015) 31px);
+  }
+  .product-visual::after {
+    content: 'R.O.T.S.'; position: absolute;
+    font-family: 'Bebas Neue', sans-serif; font-size: 10rem;
+    letter-spacing: 0.06em; color: rgba(255,255,255,0.025);
+    user-select: none; pointer-events: none; white-space: nowrap;
+  }
+  .product-badge {
+    position: absolute; top: 2rem; left: 2rem; background: var(--surface2);
+    color: var(--accent); font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em;
+    text-transform: uppercase; padding: 0.35rem 0.85rem; z-index: 2;
+    border: 1px solid rgba(200,146,42,0.35);
+  }
+  .product-visual-inner {
+    position: relative; z-index: 1; width: 80%; display: flex; align-items: center; justify-content: center;
+  }
+  .product-info { padding: 4rem; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--border); }
+  .product-tag {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem;
+  }
+  .product-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+  .product-name {
+    font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 6.5vw, 6rem);
+    line-height: 0.88; letter-spacing: 0.05em; margin-bottom: 0.5rem; color: var(--text);
+  }
+  .product-subtitle {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 2rem;
+  }
+  .product-desc {
+    font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8;
+    margin-bottom: 2rem; max-width: 480px;
+  }
+  .product-price-row {
+    display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2rem;
+    padding-bottom: 2rem; border-bottom: 1px solid var(--border);
+  }
+  .unavail-price-block {
+    display: flex; flex-direction: column; gap: 0.3rem;
+  }
+  .unavail-price-tag {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem;
+    letter-spacing: 0.08em; color: var(--muted);
+  }
+  .unavail-price-sub {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem;
+    font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
+    opacity: 0.6;
+  }
+  .unavail-pill {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(200,146,42,0.08); border: 1px solid rgba(200,146,42,0.25);
+    padding: 0.5rem 1rem;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem;
+    font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent);
+  }
+  .product-actions { display: flex; gap: 1rem; margin-bottom: 2rem; }
+  .btn-notify {
+    background: transparent; color: var(--accent); font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 0.9rem 2.5rem; border: 1px solid var(--accent); cursor: pointer;
+    text-decoration: none; display: inline-block; transition: background 0.2s, color 0.2s;
+    flex: 1; text-align: center;
+  }
+  .btn-notify:hover { background: rgba(200,146,42,0.1); }
+  .btn-ghost {
+    background: transparent; color: var(--text); font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 0.9rem 2rem; border: 1px solid var(--border2); cursor: pointer;
+    text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .product-trust { display: flex; gap: 2rem; }
+  .trust-item { display: flex; flex-direction: column; gap: 0.2rem; }
+  .trust-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .trust-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text); }
+  .trust-value.tbd { color: var(--muted); font-style: italic; }
+
+  /* SHARED */
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5vw, 4.2rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 3.5rem; }
+
+  /* SPECS */
+  .specs-section { background: var(--black); padding: 6rem 3rem; }
+  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-bottom: 2px; }
+  .spec-item { background: var(--dark); padding: 1.75rem 2rem; display: flex; justify-content: space-between; align-items: baseline; transition: background 0.2s; }
+  .spec-item:hover { background: var(--surface); }
+  .spec-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .spec-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); }
+  .spec-value.tbd { color: var(--muted); font-style: italic; font-size: 0.88rem; }
+  .spec-note {
+    margin-top: 2rem; padding: 1.25rem 1.75rem;
+    background: var(--dark); border: 1px solid var(--border);
+    border-left: 3px solid rgba(200,146,42,0.4);
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem;
+    letter-spacing: 0.08em; color: var(--muted); line-height: 1.6;
+  }
+
+  /* FEATURES */
+  .features-section { background: var(--black); padding: 6rem 3rem; }
+  .features-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .features-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+  .feature-item { background: var(--surface); padding: 2rem; position: relative; overflow: hidden; transition: background 0.2s; }
+  .feature-item:hover { background: var(--surface2); }
+  .feature-item::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
+  .feature-item:hover::before { opacity: 1; }
+  .feature-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(200,146,42,0.12); line-height: 1; position: absolute; top: 1rem; right: 1.5rem; }
+  .feature-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+  .feature-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+  .features-aside { position: sticky; top: 110px; }
+  .features-aside p { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+  .cert-row { display: flex; gap: 1.5px; background: var(--border); margin-top: 2rem; }
+  .cert-item { flex: 1; background: var(--surface); padding: 1.25rem; text-align: center; }
+  .cert-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.3rem; }
+  .cert-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; color: var(--accent); }
+
+  /* NOTIFY SECTION */
+  .notify-section { background: var(--dark); padding: 6rem 3rem; }
+  .notify-inner { max-width: 780px; }
+  .notify-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 560px; }
+  .notify-input-row { display: flex; margin-bottom: 1.5rem; }
+  .notify-input {
+    flex: 1; background: var(--surface); border: 1px solid var(--border2);
+    border-right: none; color: var(--text); font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem; font-weight: 400; padding: 0.9rem 1.5rem; outline: none;
+    transition: border-color 0.2s;
+  }
+  .notify-input::placeholder { color: var(--muted); }
+  .notify-input:focus { border-color: var(--accent); }
+  .notify-btn {
+    background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.88rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 0.9rem 2rem; border: none; cursor: pointer; transition: background 0.2s; white-space: nowrap;
+  }
+  .notify-btn:hover { background: var(--accent2); }
+  .notify-confirm { display: none; padding: 1.5rem 2rem; background: rgba(42,156,92,0.08); border: 1px solid rgba(42,156,92,0.3); border-left: 3px solid var(--green); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; letter-spacing: 0.08em; color: #4cbc7e; }
+  .notify-confirm.visible { display: block; }
+  .notify-caveat {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem;
+    letter-spacing: 0.12em; color: var(--muted); opacity: 0.6;
+    text-transform: uppercase; margin-top: 0.75rem;
+  }
+
+  /* STATUS TIMELINE */
+  .timeline { margin-top: 3rem; }
+  .timeline-title { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+  .timeline-steps { display: flex; gap: 2px; background: var(--border); }
+  .timeline-step { flex: 1; background: var(--dark); padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 0.4rem; position: relative; overflow: hidden; }
+  .timeline-step.done { background: var(--surface); }
+  .timeline-step.done::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--green); }
+  .timeline-step.current { background: var(--surface); }
+  .timeline-step.current::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); animation: shimmer 2s ease-in-out infinite; }
+  @keyframes shimmer { 0%,100%{opacity:0.5} 50%{opacity:1} }
+  .step-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .step-label.done { color: var(--green); }
+  .step-label.current { color: var(--accent); }
+  .step-label.pending { color: var(--muted); opacity: 0.5; }
+  .step-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); }
+  .step-name.pending { color: var(--muted); opacity: 0.5; }
+
+  .cta-banner { background: var(--surface); padding: 4rem 3rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.06em; color: var(--text); line-height: 1; }
+  .cta-banner p { font-size: 1rem; color: var(--muted); margin-top: 0.5rem; }
+  .btn-primary {
+    background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 0.9rem 2.5rem; border: none; cursor: pointer; white-space: nowrap;
+    text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+
+  footer { background: var(--dark); border-top: 1px solid var(--border); padding: 4rem 3rem 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
+  .footer-brand p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-top: 1rem; }
+  .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+  .footer-col a { font-size: 0.9rem; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
+  .footer-col a:hover { opacity: 1; color: var(--accent); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.12em; color: var(--text); opacity: 0.5; }
+  .footer-logo span { color: var(--accent); opacity: 1; }
+  .footer-legal { font-size: 0.78rem; color: var(--muted); opacity: 0.5; }
+
+  /* ROTS SVG PLACEHOLDER */
+  .rots-placeholder {
+    width: 85%; max-width: 560px; aspect-ratio: 4/3;
+    display: flex; align-items: center; justify-content: center;
+    position: relative; z-index: 1;
+  }
+
+  @media (max-width: 900px) {
+    .product-hero { grid-template-columns: 1fr; }
+    .product-visual { min-height: 50vw; }
+    .product-info { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--border); }
+    .specs-grid { grid-template-columns: 1fr; }
+    .features-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .features-aside { position: static; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .cta-banner { flex-direction: column; text-align: center; }
+    .breadcrumb, .specs-section, .notify-section, .features-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .nav-top, .nav-ribbon { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .notify-input-row { flex-direction: column; }
+    .notify-input { border-right: 1px solid var(--border2); border-bottom: none; }
+    .timeline-steps { flex-direction: column; }
+    .unavail-banner { padding: 0.75rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-top">
+    <div class="nav-brand">
+      <a href="/ursusarmament" class="nav-logo">URSUS <span>ARMAMENT</span></a>
+      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    </div>
+  </div>
+  <div class="nav-ribbon">
+    <a href="/ursusarmament/products" class="active">Products</a>
+    <a href="/ursusarmament#mission">Our Mission</a>
+    <a href="/ursusarmament#process">Learn</a>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="/ursusarmament">Home</a>
+  <span>›</span>
+  <a href="/ursusarmament/products">Products</a>
+  <span>›</span>
+  <span>R.O.T.S.</span>
+</div>
+
+<!-- UNAVAILABLE BANNER -->
+<div class="unavail-banner">
+  <div class="unavail-dot"></div>
+  <p>Currently Unavailable</p>
+  <span>&nbsp;·&nbsp; Notify me when available</span>
+</div>
+
+<!-- PRODUCT HERO -->
 <section class="product-hero">
   <div class="product-visual" style="flex-direction:column; justify-content:flex-start; padding:0; gap:0;">
-    <div class="product-badge" style="background:var(--red);">IN DEVELOPMENT</div>
+    <div class="product-badge">COMING SOON</div>
 
     <div style="width:100%; flex:1; display:flex; align-items:center; justify-content:center; background:var(--surface); min-height:0; position:relative; overflow:hidden;">
       <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(200,146,42,0.015) 30px,rgba(200,146,42,0.015) 31px);pointer-events:none;"></div>
-      <div style="position:absolute;font-family:'Bebas Neue',sans-serif;font-size:14rem;letter-spacing:-0.02em;color:rgba(255,255,255,0.025);user-select:none;">R.O.T.S</div>
+      <div style="position:absolute;font-family:'Bebas Neue',sans-serif;font-size:9rem;letter-spacing:0.04em;color:rgba(255,255,255,0.022);user-select:none;pointer-events:none;white-space:nowrap;">R.O.T.S.</div>
 
-      <img id="rots-main" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAwIiBoZWlnaHQ9IjYwMCI+PHJlY3QgZmlsbD0iIzExMTExMCIgd2lkdGg9IjgwMCIgaGVpZ2h0PSI2MDAiLz48dGV4dCB4PSI0MDAiIHk9IjMwMCIgZmlsbD0iI2M4OTIyYSIgZm9udC1zaXplPSIzMCIgdGV4dC1hbmNob3I9Im1pZGRsZSI+Ui5PLlQuUy48L3RleHQ+PC9zdmc+" style="position:relative;z-index:1;width:90%;height:90%;object-fit:contain;"/>
+      <!-- Schematic-style SVG placeholder -->
+      <svg class="rots-placeholder" viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg" style="position:relative;z-index:1;">
+        <!-- Outer border -->
+        <rect x="1" y="1" width="558" height="418" fill="none" stroke="#c8701a" stroke-width="1" stroke-opacity="0.3"/>
+        <!-- Corner marks -->
+        <line x1="1" y1="20" x2="1" y2="1" stroke="#c8701a" stroke-width="2" stroke-opacity="0.6"/>
+        <line x1="1" y1="1" x2="20" y2="1" stroke="#c8701a" stroke-width="2" stroke-opacity="0.6"/>
+        <line x1="558" y1="20" x2="558" y2="1" stroke="#c8701a" stroke-width="2" stroke-opacity="0.6"/>
+        <line x1="538" y1="1" x2="558" y2="1" stroke="#c8701a" stroke-width="2" stroke-opacity="0.6"/>
+        <line x1="1" y1="398" x2="1" y2="418" stroke="#c8701a" stroke-width="2" stroke-opacity="0.6"/>
+        <line x1="1" y1="418" x2="20" y2="418" stroke="#c8701a" stroke-width="2" stroke-opacity="0.6"/>
+        <line x1="558" y1="398" x2="558" y2="418" stroke="#c8701a" stroke-width="2" stroke-opacity="0.6"/>
+        <line x1="538" y1="418" x2="558" y2="418" stroke="#c8701a" stroke-width="2" stroke-opacity="0.6"/>
+
+        <!-- Turret base / pedestal -->
+        <rect x="200" y="300" width="160" height="28" fill="#1a1a17" stroke="#c8701a" stroke-width="1" stroke-opacity="0.5"/>
+        <rect x="220" y="328" width="120" height="14" fill="#111110" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35"/>
+        <rect x="240" y="342" width="80" height="40" fill="#111110" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35"/>
+        <!-- mounting plate -->
+        <rect x="215" y="375" width="130" height="8" fill="#1a1a17" stroke="#c8701a" stroke-width="1" stroke-opacity="0.4"/>
+
+        <!-- Turret body / traverse ring -->
+        <ellipse cx="280" cy="300" rx="90" ry="14" fill="#1a1a17" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
+        <rect x="190" y="240" width="180" height="62" rx="4" fill="#1a1a17" stroke="#c8701a" stroke-width="1.5" stroke-opacity="0.6"/>
+
+        <!-- Sensor cluster (LRF / VIM / TIM) -->
+        <rect x="196" y="245" width="40" height="30" rx="2" fill="#111110" stroke="#c8701a" stroke-width="1" stroke-opacity="0.5"/>
+        <circle cx="216" cy="260" r="10" fill="none" stroke="#c8701a" stroke-width="1" stroke-opacity="0.6"/>
+        <circle cx="216" cy="260" r="5" fill="none" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.4"/>
+        <!-- TIM lens -->
+        <rect x="240" y="248" width="30" height="24" rx="2" fill="#111110" stroke="#c8701a" stroke-width="1" stroke-opacity="0.4"/>
+        <circle cx="255" cy="260" r="8" fill="none" stroke="#c8701a" stroke-width="1" stroke-opacity="0.5"/>
+        <!-- LRF emitter -->
+        <rect x="275" y="252" width="14" height="16" rx="1" fill="#111110" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.4"/>
+        <line x1="282" y1="252" x2="282" y2="240" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3" stroke-dasharray="2,2"/>
+
+        <!-- Weapon rails — dual system -->
+        <!-- Rail 1 (top) -->
+        <rect x="360" y="248" width="110" height="18" fill="#111110" stroke="#c8701a" stroke-width="1.2" stroke-opacity="0.55"/>
+        <line x1="370" y1="252" x2="460" y2="252" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.25"/>
+        <line x1="370" y1="262" x2="460" y2="262" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.25"/>
+        <rect x="460" y="244" width="16" height="26" rx="1" fill="#111110" stroke="#c8701a" stroke-width="1" stroke-opacity="0.5"/>
+        <!-- Rail 2 (lower) -->
+        <rect x="360" y="272" width="90" height="14" fill="#111110" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
+        <rect x="445" y="268" width="14" height="22" rx="1" fill="#111110" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.4"/>
+
+        <!-- Weapon mount point connector -->
+        <rect x="356" y="244" width="8" height="42" fill="#1a1a17" stroke="#c8701a" stroke-width="1" stroke-opacity="0.4"/>
+
+        <!-- Mounting arm from body to weapons -->
+        <rect x="368" y="244" width="0" height="0"/>
+        <line x1="368" y1="257" x2="358" y2="257" stroke="#c8701a" stroke-width="1.5" stroke-opacity="0.5"/>
+        <line x1="368" y1="279" x2="358" y2="279" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35"/>
+
+        <!-- Non-lethal canister stub (left side) -->
+        <rect x="100" y="255" width="92" height="14" fill="#111110" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
+        <rect x="84" y="251" width="18" height="22" rx="2" fill="#111110" stroke="#c8701a" stroke-width="1" stroke-opacity="0.5"/>
+        <line x1="192" y1="262" x2="196" y2="262" stroke="#c8701a" stroke-width="1.5" stroke-opacity="0.5"/>
+
+        <!-- Crosshair reference lines -->
+        <line x1="280" y1="100" x2="280" y2="238" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.12" stroke-dasharray="4,4"/>
+        <line x1="60" y1="262" x2="192" y2="262" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.1" stroke-dasharray="3,4"/>
+        <line x1="368" y1="262" x2="490" y2="262" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.1" stroke-dasharray="3,4"/>
+
+        <!-- IR / comms dome -->
+        <ellipse cx="280" cy="240" rx="16" ry="7" fill="#111110" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
+        <ellipse cx="280" cy="238" rx="9" ry="4" fill="none" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/>
+
+        <!-- Annotation labels -->
+        <text x="216" y="236" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.5" text-anchor="middle" letter-spacing="1">VIM</text>
+        <text x="255" y="236" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.5" text-anchor="middle" letter-spacing="1">TIM</text>
+        <text x="282" y="236" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">LRF</text>
+        <text x="480" y="241" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.45" text-anchor="start">WPN 1</text>
+        <text x="464" y="290" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.4" text-anchor="start">WPN 2</text>
+        <text x="84" y="246" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.4" text-anchor="middle">NL</text>
+        <text x="280" y="228" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.4" text-anchor="middle">IR / RF</text>
+
+        <!-- Center label -->
+        <text x="280" y="155" font-family="monospace" font-size="22" fill="#c8701a" fill-opacity="0.85" text-anchor="middle" letter-spacing="4">R.O.T.S.</text>
+        <text x="280" y="178" font-family="monospace" font-size="10" fill="#c8701a" fill-opacity="0.45" text-anchor="middle" letter-spacing="2">PROFILE VIEW</text>
+        <text x="280" y="195" font-family="monospace" font-size="8" fill="#c8701a" fill-opacity="0.2" text-anchor="middle" letter-spacing="1">SCHEMATIC — PRE-PRODUCTION</text>
+
+        <!-- diagonal cross lines (faint) -->
+        <line x1="0" y1="0" x2="560" y2="420" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.04"/>
+        <line x1="560" y1="0" x2="0" y2="420" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.04"/>
+      </svg>
     </div>
 
-    <!-- keep thumbnail strip EXACT even if placeholders -->
-    <div style="width:100%;background:var(--dark);border-top:1px solid var(--border);padding:1rem;display:flex;gap:0.75rem;justify-content:center;">
-      <div class="ursix-thumb active"><div style="width:80px;height:80px;background:var(--surface);border:2px solid var(--accent);"></div></div>
-      <div class="ursix-thumb"><div style="width:80px;height:80px;background:var(--surface);border:1px solid #444;"></div></div>
-      <div class="ursix-thumb"><div style="width:80px;height:80px;background:var(--surface);border:1px solid #444;"></div></div>
-      <div class="ursix-thumb"><div style="width:80px;height:80px;background:var(--surface);border:1px solid #444;"></div></div>
+    <div style="width:100%;background:var(--dark);border-top:1px solid var(--border);padding:1rem 2rem;display:flex;align-items:center;gap:1rem;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);opacity:0.6;">
+        Pre-production schematic · Imagery subject to change · Final product may differ
+      </div>
     </div>
   </div>
 
   <div class="product-info">
-    <div class="product-tag">Remote Turret System</div>
+    <div class="product-tag">Remotely Operated Turret System</div>
     <h1 class="product-name">R.O.T.S.</h1>
-    <div class="product-subtitle">Remotely Operated Tactical Platform</div>
-
+    <div class="product-subtitle">Dual-Weapon · Autonomous Profiles · Stand-Alone / Networked</div>
     <p class="product-desc">
-      The R.O.T.S. is a modular remotely operated turret system designed for precision control, sensor integration, and adaptable deployment. Built with integrated LRF, VIM, and TIM systems, R.O.T.S. delivers real-time targeting, environmental awareness, and operational flexibility.
+      The R.O.T.S. is Ursus Armament's remotely operated turret platform — purpose-built for persistent area denial, force multiplication, and remote engagement. Equipped with laser rangefinder, visible and thermal imaging, and configurable weapon rails for both lethal and non-lethal payloads. Operable stand-alone or integrated into a networked command architecture.
     </p>
-
-    <p class="product-desc">
-      Designed for multi-role capability, R.O.T.S. supports dual system mounting — allowing simultaneous use of lethal and non-lethal configurations. Persistent profile architecture enables fully customized system behavior across missions.
-    </p>
-
     <div class="product-price-row">
-      <div class="product-price">—</div>
-      <div class="product-price-label">Pre-Release System<br>Request Access</div>
+      <div class="unavail-price-block">
+        <div class="unavail-price-tag">PRICE TBD</div>
+        <div class="unavail-price-sub">Not yet available for order</div>
+      </div>
+      <div class="unavail-pill">
+        <div class="unavail-dot" style="width:6px;height:6px;"></div>
+        Development
+      </div>
     </div>
-
     <div class="product-actions">
-      <a href="#configure" class="btn-primary">Explore System</a>
-      <a href="#specs" class="btn-ghost">Full Specs</a>
+      <a href="#notify" class="btn-notify">Notify Me at Launch</a>
+      <a href="#specs" class="btn-ghost">View Specs</a>
     </div>
-
     <div class="product-trust">
-      <div class="trust-item"><span class="trust-label">Status</span><span class="trust-value">Development</span></div>
-      <div class="trust-item"><span class="trust-label">Control</span><span class="trust-value">Remote / Networked</span></div>
-      <div class="trust-item"><span class="trust-label">Platform</span><span class="trust-value">Modular</span></div>
+      <div class="trust-item"><span class="trust-label">Availability</span><span class="trust-value tbd">TBD</span></div>
+      <div class="trust-item"><span class="trust-label">Lead Time</span><span class="trust-value tbd">TBD</span></div>
+      <div class="trust-item"><span class="trust-label">Made In</span><span class="trust-value">USA 🇺🇸</span></div>
     </div>
   </div>
 </section>
+
+<!-- SPECS -->
+<section class="specs-section" id="specs">
+  <div class="section-tag">Technical Data</div>
+  <h2 class="section-title">SPECIFICATIONS</h2>
+  <div class="specs-grid">
+    <div class="spec-item"><span class="spec-name">Imaging — Visible (VIM)</span><span class="spec-value">Multi-channel day/low-light camera, digital zoom</span></div>
+    <div class="spec-item"><span class="spec-name">Imaging — Thermal (TIM)</span><span class="spec-value">LWIR thermal core, multi-palette, fusion-ready</span></div>
+    <div class="spec-item"><span class="spec-name">Laser Rangefinder (LRF)</span><span class="spec-value">Integrated; range TBD pending integration finalization</span></div>
+    <div class="spec-item"><span class="spec-name">Weapon Rails</span><span class="spec-value">2 independent rails, configurable per deployment</span></div>
+    <div class="spec-item"><span class="spec-name">Lethal Payload Compatibility</span><span class="spec-value">Rail-compatible small arms &amp; crew-served platforms</span></div>
+    <div class="spec-item"><span class="spec-name">Non-Lethal Payload Compatibility</span><span class="spec-value">Deterrent munitions, directed energy, aerosol (config)</span></div>
+    <div class="spec-item"><span class="spec-name">Operation Modes</span><span class="spec-value">Manual Remote / Semi-Autonomous / Autonomous</span></div>
+    <div class="spec-item"><span class="spec-name">Connectivity</span><span class="spec-value">Stand-alone + networked (mesh/wired — TBD)</span></div>
+    <div class="spec-item"><span class="spec-name">Persistent Profiles</span><span class="spec-value">Custom engagement &amp; ROE profiles, non-volatile storage</span></div>
+    <div class="spec-item"><span class="spec-name">Traverse</span><span class="spec-value">360° continuous / elevation TBD</span></div>
+    <div class="spec-item"><span class="spec-name">Power</span><span class="spec-value">AC grid / DC battery / solar-assist (TBD)</span></div>
+    <div class="spec-item"><span class="spec-name">Environmental Rating</span><span class="spec-value">All-weather; IP rating TBD</span></div>
+    <div class="spec-item"><span class="spec-name">Mounting</span><span class="spec-value">Fixed pedestal, vehicle-mount, rapid-deploy tripod (TBD)</span></div>
+    <div class="spec-item"><span class="spec-name">Country of Origin</span><span class="spec-value">United States of America</span></div>
+  </div>
+  <div class="spec-note">
+    ⚠ &nbsp;Specifications are preliminary and subject to revision. Final performance figures will be published at product launch. All specs represent design targets, not guaranteed minimums.
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="features-layout">
+    <div class="features-list">
+      <div class="feature-item">
+        <div class="feature-num">01</div>
+        <div class="feature-title">Laser Rangefinder (LRF)</div>
+        <p class="feature-desc">Integrated LRF enables precise range-to-target data, feeding ballistic solutions and engagement parameters in real time — no external ranging device required.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">02</div>
+        <div class="feature-title">Visible &amp; Thermal Imaging (VIM / TIM)</div>
+        <p class="feature-desc">Dual-sensor architecture provides continuous situational awareness in daylight, low-light, and total darkness. VIM and TIM feeds can be monitored independently or fused for operator clarity.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">03</div>
+        <div class="feature-title">Dual Weapon Rail System</div>
+        <p class="feature-desc">Two independent rail mounts allow simultaneous configuration of lethal and non-lethal payloads. Switch engagement type without swapping hardware or repositioning the platform.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">04</div>
+        <div class="feature-title">Non-Lethal Capability</div>
+        <p class="feature-desc">Purpose-built compatibility with deterrent munitions, directed energy devices, and aerosol dispensers. Configurable escalation of force without requiring a second platform.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">05</div>
+        <div class="feature-title">Stand-Alone &amp; Networked Operation</div>
+        <p class="feature-desc">Deploy the R.O.T.S. as a fully self-contained unit or integrate it into a wider C2 network. Operates without external connectivity and reconnects automatically when available.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">06</div>
+        <div class="feature-title">Persistent Custom Profiles</div>
+        <p class="feature-desc">Define and store engagement rules, targeting parameters, ROE thresholds, and system behaviors as named profiles. Profiles survive power cycles and can be transferred across units in the same network.</p>
+      </div>
+    </div>
+    <div class="features-aside">
+      <div class="section-tag">Platform Philosophy</div>
+      <h2 class="section-title" style="margin-bottom: 1.5rem;">ONE PLATFORM. MULTIPLE MISSIONS.</h2>
+      <p>A turret system that forces you to choose between lethal and non-lethal is a system built for a single scenario. The R.O.T.S. was designed around the reality that situations escalate and de-escalate unpredictably.</p>
+      <p>Dual weapon rails mean you configure for the mission, not the other way around. Persistent profiles mean your rules of engagement travel with the hardware, not with the operator. Stand-alone capability means it holds ground even when your network doesn't.</p>
+      <p>The R.O.T.S. is not a product we rushed to market. When it ships, it will be ready.</p>
+      <div class="cert-row">
+        <div class="cert-item"><span class="cert-label">Weapon Rails</span><span class="cert-value">DUAL</span></div>
+        <div class="cert-item"><span class="cert-label">Imaging</span><span class="cert-value">VIM+TIM</span></div>
+        <div class="cert-item"><span class="cert-label">Ranging</span><span class="cert-value">LRF</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOTIFY -->
+<section class="notify-section" id="notify">
+  <div class="notify-inner">
+    <div class="section-tag">Availability Notification</div>
+    <h2 class="section-title" style="margin-bottom: 1rem;">GET NOTIFIED AT LAUNCH</h2>
+    <p class="notify-desc">
+      The R.O.T.S. is not yet available for order. Enter your email below and we will notify you the moment pricing and configurations are confirmed — before public announcement.
+    </p>
+
+    <div class="notify-input-row">
+      <input
+        class="notify-input"
+        id="notifyInput"
+        type="email"
+        placeholder="your@email.com"
+        autocomplete="email"
+        spellcheck="false"
+      />
+      <button class="notify-btn" onclick="submitNotify()">Notify Me</button>
+    </div>
+
+    <div class="notify-confirm" id="notifyConfirm">
+      You're on the list. We'll contact you when the R.O.T.S. is ready for order.
+    </div>
+    <p class="notify-caveat">No spam. No third-party sharing. Unsubscribe any time.</p>
+
+    <!-- Status Timeline -->
+    <div class="timeline">
+      <div class="timeline-title">Development Status</div>
+      <div class="timeline-steps">
+        <div class="timeline-step done">
+          <span class="step-label done">✓ Complete</span>
+          <span class="step-name">Concept &amp; Design</span>
+        </div>
+        <div class="timeline-step done">
+          <span class="step-label done">✓ Complete</span>
+          <span class="step-name">Prototype Build</span>
+        </div>
+        <div class="timeline-step current">
+          <span class="step-label current">▶ Active</span>
+          <span class="step-name">Field Testing</span>
+        </div>
+        <div class="timeline-step">
+          <span class="step-label pending">Pending</span>
+          <span class="step-name pending">Pre-Production</span>
+        </div>
+        <div class="timeline-step">
+          <span class="step-label pending">Pending</span>
+          <span class="step-name pending">Launch</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-banner">
+  <div>
+    <h2>QUESTIONS ABOUT THE R.O.T.S.?</h2>
+    <p>Our product specialists are available Monday–Friday, 8AM–6PM MST.</p>
+  </div>
+  <a href="https://ursusworks.com/ursusarmament/contact" target="_blank" rel="noopener noreferrer" class="btn-primary">
+    Contact Support
+  </a>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">URSUS <span style="color: var(--accent);">ARMAMENT</span></div>
+      <p>Developing next-generation tactical gear for the American people. Manufactured, tested, and deployed with pride in the USA.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="/ursusarmament/products/URSIX">URSIX</a></li>
+        <li><a href="/ursusarmament/products/CALIDUS">CALIDUS</a></li>
+        <li><a href="/ursusarmament/products">View All</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/ursusarmament/aboutus/">About Us</a></li>
+        <li><a href="/ursusarmament/testingstandards/">Testing Standards</a></li>
+        <li><a href="/ursusarmament/careers/">Careers</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="/ursusarmament/contact/">Contact</a></li>
+        <li><a href="/ursusarmament/warranty/">Warranty</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-logo">URSUS <span>ARMAMENT</span></div>
+    <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
+  </div>
+</footer>
+
+<script>
+  // Notify form
+  function submitNotify() {
+    const input = document.getElementById('notifyInput');
+    const val = input.value.trim();
+    if (!val || !val.includes('@')) { input.focus(); return; }
+    document.getElementById('notifyConfirm').classList.add('visible');
+    input.value = '';
+    input.disabled = true;
+    document.querySelector('.notify-btn').disabled = true;
+    document.querySelector('.notify-btn').style.opacity = '0.5';
+  }
+
+  document.getElementById('notifyInput').addEventListener('keydown', e => {
+    if (e.key === 'Enter') submitNotify();
+  });
+
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+</body>
+</html>
