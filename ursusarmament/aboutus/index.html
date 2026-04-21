@@ -143,8 +143,9 @@
     .nav-top { padding: 0.6rem 1.5rem; }
     .nav-ribbon { padding: 0 1rem; }
     .split { grid-template-columns: 1fr; }
+    .split-images { width: 100%; }
     section { padding: 4rem 1.5rem; }
-    footer { padding: 3rem 1.5rem 2rem; }
+    footer { padding: 3rem 1.5rem 2rem; overflow: hidden; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
   }
 
@@ -167,9 +168,12 @@
     padding: 4rem 3rem 2rem;
   }
 
-  .footer-grid {
+  footer .footer-grid {
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  }
+
+  .footer-grid {
     gap: 3rem;
     margin-bottom: 3rem;
     padding-bottom: 3rem;
