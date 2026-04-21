@@ -8,18 +8,17 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f0ede6;
-      --surface: #faf8f4;
-      --surface-live: #111110;
-      --border: rgba(0,0,0,0.08);
-      --border-live: #111110;
-      --border-dashed: rgba(0,0,0,0.18);
-      --text-primary: #1a1a18;
-      --text-secondary: #6b6a63;
-      --text-muted: #b0ae a5;
+      --bg: #2a2a27;
+      --surface: #323230;
+      --surface-live: #141412;
+      --border: rgba(255,255,255,0.07);
+      --border-live: rgba(255,255,255,0.55);
+      --border-dashed: rgba(255,255,255,0.13);
+      --text-primary: #dedad2;
+      --text-secondary: #7a7870;
+      --text-muted: #4a4a44;
       --text-live: #e8e4d9;
       --text-live-secondary: #8a8678;
-      --text-live-muted: #4a4a42;
       --accent: #c8922a;
       --radius: 14px;
     }
@@ -55,7 +54,7 @@
       height: 1.5px;
       background: var(--text-primary);
       margin: 0 auto;
-      opacity: 0.3;
+      opacity: 0.25;
     }
 
     header .tagline {
@@ -73,7 +72,6 @@
       max-width: 820px;
     }
 
-    /* LIVE card — dark */
     .card-live {
       display: block;
       text-decoration: none;
@@ -86,22 +84,19 @@
     }
 
     .card-live:hover {
-      background: #1e1e1b;
+      background: #1a1a17;
       transform: translateY(-3px);
-      box-shadow: 0 10px 36px rgba(0,0,0,0.22);
+      box-shadow: 0 10px 36px rgba(0,0,0,0.35);
     }
 
-    .card-live:active {
-      transform: translateY(0);
-    }
+    .card-live:active { transform: translateY(0); }
 
-    /* PLACEHOLDER card — light */
     .card-placeholder {
       background: var(--surface);
       border: 0.5px dashed var(--border-dashed);
       border-radius: var(--radius);
       padding: 2rem 1.5rem;
-      opacity: 0.55;
+      opacity: 0.5;
     }
 
     .icon-wrap {
@@ -130,10 +125,9 @@
       border: 0.5px dashed var(--border-dashed);
       border-radius: 8px;
       font-size: 20px;
-      color: var(--text-secondary);
+      color: var(--text-muted);
     }
 
-    /* Live card text */
     .card-live .card-title {
       font-size: 15px;
       font-weight: 600;
@@ -148,7 +142,6 @@
       line-height: 1.55;
     }
 
-    /* Placeholder card text */
     .card-placeholder .card-title {
       font-size: 15px;
       font-weight: 400;
@@ -160,10 +153,9 @@
       font-size: 13px;
       color: var(--text-secondary);
       line-height: 1.55;
-      opacity: 0.6;
+      opacity: 0.7;
     }
 
-    /* CTA row — live */
     .card-cta-row {
       margin-top: 1.75rem;
       display: flex;
@@ -199,14 +191,12 @@
       transform: translateX(2px);
     }
 
-    /* CTA placeholder */
     .card-cta-placeholder {
       margin-top: 1.75rem;
       font-size: 11px;
       letter-spacing: 0.10em;
-      color: var(--text-secondary);
+      color: var(--text-muted);
       text-transform: uppercase;
-      opacity: 0.5;
     }
 
     footer {
@@ -214,12 +204,11 @@
       margin-top: 3.5rem;
       font-size: 11px;
       letter-spacing: 0.10em;
-      color: var(--text-secondary);
+      color: var(--text-muted);
       text-transform: uppercase;
       display: flex;
       flex-direction: column;
       gap: 0.4rem;
-      opacity: 0.6;
     }
   </style>
 </head>
@@ -233,7 +222,6 @@
 
   <main class="grid">
 
-    <!-- Ursus Armament -->
     <a class="card-live" href="/ursusarmament">
       <div class="icon-wrap">
         <img src="UrsusArmamentLogo.jpg" alt="Ursus Armament logo" />
@@ -246,7 +234,6 @@
       </div>
     </a>
 
-    <!-- Placeholder 1 -->
     <div class="card-placeholder">
       <div class="icon-placeholder">+</div>
       <div class="card-title">Coming soon</div>
@@ -254,7 +241,6 @@
       <div class="card-cta-placeholder">— —</div>
     </div>
 
-    <!-- Placeholder 2 -->
     <div class="card-placeholder">
       <div class="icon-placeholder">+</div>
       <div class="card-title">Coming soon</div>
