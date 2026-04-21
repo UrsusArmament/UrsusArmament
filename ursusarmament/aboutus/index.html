@@ -4,38 +4,90 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>About | Ursus Armament</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
-
 <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root {
     --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
     --border: rgba(255,255,255,0.08);
     --text: #e8e4d9;
     --muted: #8a8678;
     --accent: #c8922a;
   }
 
+  html { scroll-behavior: smooth; }
+
   body {
-    margin: 0;
     background: var(--black);
     color: var(--text);
     font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
   }
 
   nav {
-    padding: 1rem 3rem;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,8,0.92);
+    backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
 
-  .nav-logo {
-    font-family: 'Bebas Neue';
-    letter-spacing: 0.12em;
-    font-size: 1.5rem;
-    text-decoration: none;
-    color: var(--text);
+  .nav-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 3rem;
+    border-bottom: 1px solid var(--border);
   }
+
+  .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-slogan {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .nav-ribbon {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3rem;
+    height: 38px;
+    background: var(--surface);
+  }
+
+  .nav-ribbon a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0 1.6rem;
+    height: 100%;
+    display: flex; align-items: center;
+    border-right: 1px solid var(--border);
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
+  .nav-ribbon a:hover { color: var(--accent); background: rgba(200,146,42,0.06); }
+  .nav-ribbon a.active { color: var(--accent); }
 
   section { padding: 5rem 3rem; }
 
@@ -44,7 +96,7 @@
   }
 
   .section-tag {
-    font-family: 'Barlow Condensed';
+    font-family: 'Barlow Condensed', sans-serif;
     letter-spacing: 0.3em;
     color: var(--accent);
     text-transform: uppercase;
@@ -53,7 +105,7 @@
   }
 
   h1, h2 {
-    font-family: 'Bebas Neue';
+    font-family: 'Bebas Neue', sans-serif;
     margin: 0 0 1rem 0;
   }
 
@@ -87,31 +139,13 @@
     border: 1px solid var(--border);
   }
 
-  @media (max-width: 800px) {
-    .split {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  .brand-line {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 1rem 3rem 0 3rem;
-    font-family: 'Barlow Condensed';
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-  }
-
-  .brand-name {
-    color: var(--text);
-    font-weight: 600;
-  }
-
-  .divider {
-    color: var(--text);
-    opacity: 0.5;
+  @media (max-width: 900px) {
+    .nav-top { padding: 0.6rem 1.5rem; }
+    .nav-ribbon { padding: 0 1rem; }
+    .split { grid-template-columns: 1fr; }
+    section { padding: 4rem 1.5rem; }
+    footer { padding: 3rem 1.5rem 2rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
   }
 
   .brand-signoff {
@@ -120,38 +154,104 @@
     justify-content: center;
     gap: 10px;
     padding: 4rem 3rem;
-    font-family: 'Barlow Condensed';
+    font-family: 'Barlow Condensed', sans-serif;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     font-size: 0.9rem;
   }
 
+  /* Footer */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    padding: 4rem 3rem 2rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .footer-brand p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-top: 1rem;
+  }
+
+  .footer-col h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+  }
+
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+  .footer-col a {
+    font-size: 0.9rem;
+    color: var(--text);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .footer-col a:hover { opacity: 1; color: var(--accent); }
+
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    opacity: 0.5;
+  }
+  .footer-logo span { color: var(--accent); opacity: 1; }
+
+  .footer-legal {
+    font-size: 0.78rem;
+    color: var(--muted);
+    opacity: 0.5;
+  }
 </style>
 </head>
-
 <body>
 
 <nav>
-  <a href="/ursusarmament/" class="nav-logo">
-    URSUS <span style="color:var(--accent)">ARMAMENT</span>
-  </a>
+  <div class="nav-top">
+    <div class="nav-brand">
+      <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
+      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    </div>
+  </div>
+  <div class="nav-ribbon">
+    <a href="/ursusarmament/products">Products</a>
+    <a href="/ursusarmament#mission">Our Mission</a>
+    <a href="/ursusarmament#process">Learn</a>
+  </div>
 </nav>
-
-
 
 <!-- HERO -->
 <section class="hero">
   <div class="section-tag">Company</div>
   <h1>ABOUT<br><span style="color:var(--accent)">URSUS ARMAMENT</span></h1>
   <p>
-    Ursus Armament is a veteran-owned and operated company that designs and manufactures 
-    advanced equipment for the tactical and defense space, including individual systems 
-    and team-oriented solutions such as night vision devices, thermal optics, and mesh 
+    Ursus Armament is a veteran-owned and operated company that designs and manufactures
+    advanced equipment for the tactical and defense space, including individual systems
+    and team-oriented solutions such as night vision devices, thermal optics, and mesh
     network communications.
   </p>
   <p>
-    Built for professional end users and prepared civilians, our products are developed 
-    with a focus on real-world application—where reliability, simplicity, and performance 
+    Built for professional end users and prepared civilians, our products are developed
+    with a focus on real-world application—where reliability, simplicity, and performance
     matter more than features on paper.
   </p>
 </section>
@@ -162,16 +262,15 @@
     <div class="section-tag">Mission</div>
     <h2>Purpose Driven</h2>
     <p>
-      Ursus Armament exists to design and produce equipment that supports individual capability 
-      and preparedness. Our focus is on delivering reliable, high-performance systems grounded 
+      Ursus Armament exists to design and produce equipment that supports individual capability
+      and preparedness. Our focus is on delivering reliable, high-performance systems grounded
       in real-world use rather than theoretical conditions.
     </p>
     <p>
-      We build the equipment we would trust ourselves, with the goal of making that same level 
+      We build the equipment we would trust ourselves, with the goal of making that same level
       of capability accessible without unnecessary complexity.
     </p>
   </div>
-
   <div class="split-images">
     <img src="/ursusarmament/images/IMG-4820.PNG">
   </div>
@@ -183,23 +282,22 @@
     <div class="section-tag">Foundation</div>
     <h2>Built on Experience</h2>
     <p>
-      Our products are developed and evaluated by veterans and active-duty personnel, informed by 
-      practical experience rather than marketing trends. Select systems and components have been fielded 
+      Our products are developed and evaluated by veterans and active-duty personnel, informed by
+      practical experience rather than marketing trends. Select systems and components have been fielded
       in operational and training environments, providing direct feedback that shapes ongoing development.
     </p>
     <p>
-      The company’s founder brings a background in software and systems engineering, with experience across 
-      distributed systems, wireless communications, and applied machine learning. This work is supported by 
-      a portfolio of 25 issued patents spanning advanced communications, networking, and intelligent systems, 
+      The company's founder brings a background in software and systems engineering, with experience across
+      distributed systems, wireless communications, and applied machine learning. This work is supported by
+      a portfolio of 25 issued patents spanning advanced communications, networking, and intelligent systems,
       informing a design approach centered on integration, efficiency, and reliability.
     </p>
     <p>
-      Products have been tested across a wide range of environments—from the heat and humidity of the 
-      southeastern United States to the extreme cold of Alaska—with select systems fielded in overseas 
+      Products have been tested across a wide range of environments—from the heat and humidity of the
+      southeastern United States to the extreme cold of Alaska—with select systems fielded in overseas
       operational contexts. Testing standards and methodologies are publicly available.
     </p>
   </div>
-
   <div class="split-images">
     <img src="/ursusarmament/images/IMG_6985.jpg">
   </div>
@@ -211,12 +309,11 @@
     <div class="section-tag">Environment</div>
     <h2>Alaska Origins</h2>
     <p>
-      Founded in Alaska, Ursus Armament reflects the demands of harsh and unpredictable environments. 
-      Equipment is designed with temperature extremes, exposure, and sustained use in mind—conditions 
+      Founded in Alaska, Ursus Armament reflects the demands of harsh and unpredictable environments.
+      Equipment is designed with temperature extremes, exposure, and sustained use in mind—conditions
       that quickly expose weaknesses in both materials and design.
     </p>
   </div>
-
   <div class="split-images">
     <img src="/ursusarmament/images/alaska.png">
   </div>
@@ -228,21 +325,20 @@
     <div class="section-tag">Approach</div>
     <h2>No Excess</h2>
     <p>
-      Systems are designed with modularity and interoperability at the forefront, allowing integration 
-      across platforms while maintaining standalone capability. Where possible, products are built to 
+      Systems are designed with modularity and interoperability at the forefront, allowing integration
+      across platforms while maintaining standalone capability. Where possible, products are built to
       be serviceable and repairable, reducing dependency and extending operational lifespan.
     </p>
     <p>
-      Components are sourced from vetted suppliers and subjected to strict quality control standards. 
-      Assembly is performed domestically, with partial domestic production and a clear objective of 
+      Components are sourced from vetted suppliers and subjected to strict quality control standards.
+      Assembly is performed domestically, with partial domestic production and a clear objective of
       moving toward fully domestic manufacturing over time.
     </p>
     <p>
-      We avoid unnecessary complexity and marketing-driven features. Every design decision serves a purpose, 
+      We avoid unnecessary complexity and marketing-driven features. Every design decision serves a purpose,
       prioritizing reliability, serviceability, and long-term performance.
     </p>
   </div>
-
   <div class="split-images">
     <img src="/ursusarmament/images/IMG_0252.JPG">
   </div>
@@ -254,7 +350,7 @@
     <div class="section-tag">Direction</div>
     <h2>Ongoing Development</h2>
     <p>
-      Development focuses on advancing integrated systems, communications, and sensor capabilities 
+      Development focuses on advancing integrated systems, communications, and sensor capabilities
       to meet evolving operational demands.
     </p>
   </div>
@@ -267,6 +363,43 @@
   <span style="color:var(--accent)">Built Here For All Of Us</span>
 </div>
 
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">URSUS <span style="color: var(--accent);">ARMAMENT</span></div>
+      <p>Developing next-generation tactical gear for the American people. Manufactured, tested, and deployed with pride in the USA.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="/ursusarmament/products/ROTS">R.O.T.S.</a></li>
+        <li><a href="/ursusarmament/products/URSIX">URSIX</a></li>
+        <li><a href="/ursusarmament/products">View All</a></li>
+        <li><a href="/ursusarmament/customerreviews">Customer Reviews</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/ursusarmament/aboutus/">About Us</a></li>
+        <li><a href="/ursusarmament/testingstandards/">Testing Standards</a></li>
+        <li><a href="/ursusarmament/careers/">Careers</a></li>
+        <li><a href="https://www.youtube.com/@UrsusWorks/" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="/ursusarmament/contact/">Contact</a></li>
+        <li><a href="/ursusarmament/warranty/">Warranty</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-logo">URSUS <span>ARMAMENT</span></div>
+    <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
+  </div>
+</footer>
+
 </body>
 </html>
-
