@@ -4,11 +4,11 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Reviews | Ursus Armament</title>
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
-
 <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root {
     --black: #0a0a08;
     --dark: #111110;
@@ -19,51 +19,74 @@
     --accent: #c8922a;
   }
 
-  .btn-dark {
-  background: var(--black);
-  color: var(--accent);
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  padding: 0.9rem 2.5rem;
-  border: none;
-  cursor: pointer;
-  white-space: nowrap;
-  text-decoration: none;
-  display: inline-block;
-  transition: background 0.2s;
-}
-
-.btn-dark:hover {
-  background: #1a1a17;
-}
+  html { scroll-behavior: smooth; }
 
   body {
-    margin: 0;
     background: var(--black);
     color: var(--text);
     font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
   }
 
   nav {
-    padding: 1rem 3rem;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,8,0.92);
+    backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
-    background: rgba(10,10,8,0.9);
   }
+
+  .nav-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
 
   .nav-logo {
     font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
     letter-spacing: 0.12em;
-    font-size: 1.5rem;
-    text-decoration: none;
     color: var(--text);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-slogan {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
   }
 
-  .nav-logo:hover {
-    color: var(--accent);
+  .nav-ribbon {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3rem;
+    height: 38px;
+    background: var(--surface);
   }
+
+  .nav-ribbon a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0 1.6rem;
+    height: 100%;
+    display: flex; align-items: center;
+    border-right: 1px solid var(--border);
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
+  .nav-ribbon a:hover { color: var(--accent); background: rgba(200,146,42,0.06); }
 
   section { padding: 6rem 3rem; }
 
@@ -74,7 +97,7 @@
   }
 
   .section-tag {
-    font-family: 'Barlow Condensed';
+    font-family: 'Barlow Condensed', sans-serif;
     letter-spacing: 0.3em;
     color: var(--accent);
     text-transform: uppercase;
@@ -82,7 +105,7 @@
   }
 
   h1, h2 {
-    font-family: 'Bebas Neue';
+    font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 0.05em;
   }
 
@@ -94,6 +117,24 @@
     max-width: 700px;
     line-height: 1.8;
   }
+
+  .btn-dark {
+    background: var(--black);
+    color: var(--accent);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.9rem 2.5rem;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+  }
+  .btn-dark:hover { background: #1a1a17; }
 
   .reviews-grid {
     display: grid;
@@ -109,17 +150,14 @@
   }
 
   .review-source {
-    font-family: 'Barlow Condensed';
+    font-family: 'Barlow Condensed', sans-serif;
     letter-spacing: 0.1em;
     color: var(--accent);
     font-size: 0.85rem;
     margin-bottom: 0.5rem;
   }
 
-  .review-text {
-    color: var(--muted);
-    line-height: 1.6;
-  }
+  .review-text { color: var(--muted); line-height: 1.6; }
 
   .review-meta {
     margin-top: 1rem;
@@ -132,128 +170,154 @@
     color: var(--muted);
     font-style: italic;
   }
+
+  /* Footer */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    padding: 4rem 3rem 2rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .footer-brand p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-top: 1rem;
+  }
+
+  .footer-col h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+  }
+
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+  .footer-col a {
+    font-size: 0.9rem;
+    color: var(--text);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .footer-col a:hover { opacity: 1; color: var(--accent); }
+
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    opacity: 0.5;
+  }
+  .footer-logo span { color: var(--accent); opacity: 1; }
+
+  .footer-legal {
+    font-size: 0.78rem;
+    color: var(--muted);
+    opacity: 0.5;
+  }
+
+  @media (max-width: 900px) {
+    .nav-top { padding: 0.6rem 1.5rem; }
+    .nav-ribbon { padding: 0 1rem; }
+    section { padding: 4rem 1.5rem; }
+    .hero { padding-top: 9rem; }
+    footer { padding: 3rem 1.5rem 2rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  }
 </style>
 </head>
-
 <body>
 
 <nav>
-  <a href="/ursusarmament/" class="nav-logo">
-    URSUS <span style="color:var(--accent)">ARMAMENT</span>
-  </a>
+  <div class="nav-top">
+    <div class="nav-brand">
+      <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
+      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    </div>
+  </div>
+  <div class="nav-ribbon">
+    <a href="/ursusarmament/products">Products</a>
+    <a href="/ursusarmament#mission">Our Mission</a>
+    <a href="/ursusarmament#process">Learn</a>
+  </div>
 </nav>
 
 <section class="hero">
   <div class="section-tag">Field Feedback</div>
   <h1>USER<br><span style="color:var(--accent)">REVIEWS</span></h1>
-  <p>
-    Collected field feedback and user-submitted evaluations across Ursus systems and related platforms.
-  </p>
+  <p>Collected field feedback and user-submitted evaluations across Ursus systems and related platforms.</p>
 
-  <div style="
-  display:flex;
-  justify-content:center;
-  padding: 3rem;
-  background: var(--dark);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-">
-  <button class="btn-dark" onclick="openReviewModal()">
-  Leave a Product Review
-</button>
-</div>
-  
-  <div id="reviewsContainer" class="reviews-grid"></div>
-  <div id="emptyState" class="empty" style="display:none;">
-    Currently No Reviews
+  <div style="display:flex; justify-content:center; padding: 3rem; background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <button class="btn-dark" onclick="openReviewModal()">Leave a Product Review</button>
   </div>
+
+  <div id="reviewsContainer" class="reviews-grid"></div>
+  <div id="emptyState" class="empty" style="display:none;">Currently No Reviews</div>
 </section>
 
-<script>
-const sources = [
-  "URSIX.reviewsjson",
-  "CALIDUS.reviews.json",
-  "ROTS.reviews.json",
-  "NEXIS.reviews.json"
-];
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">URSUS <span style="color: var(--accent);">ARMAMENT</span></div>
+      <p>Developing next-generation tactical gear for the American people. Manufactured, tested, and deployed with pride in the USA.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="/ursusarmament/products/ROTS">R.O.T.S.</a></li>
+        <li><a href="/ursusarmament/products/URSIX">URSIX</a></li>
+        <li><a href="/ursusarmament/products">View All</a></li>
+        <li><a href="/ursusarmament/customerreviews">Customer Reviews</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/ursusarmament/aboutus/">About Us</a></li>
+        <li><a href="/ursusarmament/testingstandards/">Testing Standards</a></li>
+        <li><a href="/ursusarmament/careers/">Careers</a></li>
+        <li><a href="https://www.youtube.com/@UrsusWorks/" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="/ursusarmament/contact/">Contact</a></li>
+        <li><a href="/ursusarmament/warranty/">Warranty</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-logo">URSUS <span>ARMAMENT</span></div>
+    <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
+  </div>
+</footer>
 
-async function loadJSON(file) {
-  try {
-    const res = await fetch(file, { cache: "no-store" });
-    if (!res.ok) return [];
-    return await res.json();
-  } catch (e) {
-    return [];
-  }
-}
-
-function normalize(data, sourceName) {
-  // expects array, but tolerates single object
-  if (!data) return [];
-  const arr = Array.isArray(data) ? data : [data];
-
-  return arr.map(item => ({
-    source: sourceName,
-    text: item.text || item.review || item.message || "No content",
-    date: item.date || "",
-    author: item.author || "Anonymous"
-  }));
-}
-
-async function initReviews() {
-  const container = document.getElementById("reviewsContainer");
-  const empty = document.getElementById("emptyState");
-
-  let allReviews = [];
-
-  const results = await Promise.all(
-    sources.map(s => loadJSON(s))
-  );
-
-  results.forEach((data, i) => {
-    const name = sources[i].split(".")[0];
-    allReviews = allReviews.concat(normalize(data, name));
-  });
-
-  if (allReviews.length === 0) {
-    empty.style.display = "block";
-    return;
-  }
-
-  allReviews.forEach(r => {
-    const card = document.createElement("div");
-    card.className = "review-card";
-
-    card.innerHTML = `
-      <div class="review-source">${r.source}</div>
-      <div class="review-text">${r.text}</div>
-      <div class="review-meta">${r.author}${r.date ? " • " + r.date : ""}</div>
-    `;
-
-    container.appendChild(card);
-  });
-}
-
-initReviews();
-</script>
-
+<!-- Review Modal -->
 <div id="reviewModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:99999; justify-content:center; align-items:center;">
-
   <div style="background: var(--dark); padding: 2rem; width: 90%; max-width: 600px; border: 1px solid var(--border); position: relative;">
-
-    <button onclick="closeReviewModal()" style="position:absolute; top:10px; right:15px; background:none; border:none; color:white; font-size:20px; cursor:pointer;">
-      ✕
-    </button>
-
+    <button onclick="closeReviewModal()" style="position:absolute; top:10px; right:15px; background:none; border:none; color:white; font-size:20px; cursor:pointer;">✕</button>
     <div id="reviewFormContainer">
-
-      <h2 style="font-family:'Bebas Neue'; letter-spacing:0.06em; margin-bottom:1rem;">
-        Leave a Review
-      </h2>
-
+      <h2 style="font-family:'Bebas Neue'; letter-spacing:0.06em; margin-bottom:1rem;">Leave a Review</h2>
       <form id="reviewForm">
         <div style="display:flex; flex-direction:column; gap:1rem;">
-
           <select name="product" required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);">
             <option value="">Select Product</option>
             <option value="URSIX">URSIX</option>
@@ -261,27 +325,20 @@ initReviews();
             <option value="CALIDUS">CALIDUS</option>
             <option value="NEXIS">NEXIS</option>
           </select>
-
           <input type="hidden" name="rating" id="ratingInput" value="0">
-
-<div style="display:flex; flex-direction:column; gap:0.5rem;">
-  <div style="color:var(--muted); font-size:0.9rem;">Rating</div>
-
-  <div id="starRating" style="display:flex; gap:0.4rem; font-size:1.8rem; cursor:pointer;">
-    <span data-value="1">☆</span>
-    <span data-value="2">☆</span>
-    <span data-value="3">☆</span>
-    <span data-value="4">☆</span>
-    <span data-value="5">☆</span>
-  </div>
-</div>
-          
-          <input name="name" type="text" placeholder="Your Name" required
-            style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);" />
-
+          <div style="display:flex; flex-direction:column; gap:0.5rem;">
+            <div style="color:var(--muted); font-size:0.9rem;">Rating</div>
+            <div id="starRating" style="display:flex; gap:0.4rem; font-size:1.8rem; cursor:pointer;">
+              <span data-value="1">☆</span>
+              <span data-value="2">☆</span>
+              <span data-value="3">☆</span>
+              <span data-value="4">☆</span>
+              <span data-value="5">☆</span>
+            </div>
+          </div>
+          <input name="name" type="text" placeholder="Your Name" required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);" />
           <select name="state" required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);">
             <option value="">Select State</option>
-
             <option value="AL">Alabama</option>
             <option value="AK">Alaska</option>
             <option value="AZ">Arizona</option>
@@ -333,29 +390,75 @@ initReviews();
             <option value="WI">Wisconsin</option>
             <option value="WY">Wyoming</option>
           </select>
-
-          <input name="email" type="email" placeholder="Email (optional)"
-            style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);" />
-
-          <textarea name="review" rows="5" placeholder="Your Review" required
-            style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);"></textarea>
-
+          <input name="email" type="email" placeholder="Email (optional)" style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);" />
+          <textarea name="review" rows="5" placeholder="Your Review" required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);"></textarea>
           <button type="submit" class="btn-dark">Submit Review</button>
-
         </div>
       </form>
-
     </div>
-
     <div id="reviewThankYou" style="display:none; text-align:center;">
       <h2 style="font-family:'Bebas Neue'; letter-spacing:0.06em;">Thank you!</h2>
       <p style="color:var(--muted);">Your review has been submitted successfully.</p>
     </div>
-
   </div>
 </div>
-  
+
 <script>
+const sources = [
+  "URSIX.reviewsjson",
+  "CALIDUS.reviews.json",
+  "ROTS.reviews.json",
+  "NEXIS.reviews.json"
+];
+
+async function loadJSON(file) {
+  try {
+    const res = await fetch(file, { cache: "no-store" });
+    if (!res.ok) return [];
+    return await res.json();
+  } catch (e) {
+    return [];
+  }
+}
+
+function normalize(data, sourceName) {
+  if (!data) return [];
+  const arr = Array.isArray(data) ? data : [data];
+  return arr.map(item => ({
+    source: sourceName,
+    text: item.text || item.review || item.message || "No content",
+    date: item.date || "",
+    author: item.author || "Anonymous"
+  }));
+}
+
+async function initReviews() {
+  const container = document.getElementById("reviewsContainer");
+  const empty = document.getElementById("emptyState");
+  let allReviews = [];
+  const results = await Promise.all(sources.map(s => loadJSON(s)));
+  results.forEach((data, i) => {
+    const name = sources[i].split(".")[0];
+    allReviews = allReviews.concat(normalize(data, name));
+  });
+  if (allReviews.length === 0) {
+    empty.style.display = "block";
+    return;
+  }
+  allReviews.forEach(r => {
+    const card = document.createElement("div");
+    card.className = "review-card";
+    card.innerHTML = `
+      <div class="review-source">${r.source}</div>
+      <div class="review-text">${r.text}</div>
+      <div class="review-meta">${r.author}${r.date ? " • " + r.date : ""}</div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+initReviews();
+
 function openReviewModal() {
   document.getElementById('reviewModal').style.display = 'flex';
 }
@@ -365,18 +468,15 @@ function closeReviewModal() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-
   const form = document.getElementById("reviewForm");
   if (!form) return;
 
-  // ⭐ STAR RATING (must be initialized immediately)
   const stars = document.querySelectorAll("#starRating span");
   const ratingInput = document.getElementById("ratingInput");
 
   function updateStars(value) {
     stars.forEach(star => {
-      const starValue = parseInt(star.dataset.value);
-      star.textContent = starValue <= value ? "★" : "☆";
+      star.textContent = parseInt(star.dataset.value) <= value ? "★" : "☆";
     });
   }
 
@@ -388,46 +488,32 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // ⭐ FORM SUBMIT
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
-
     const formData = new FormData(form);
-
     try {
       await fetch("https://formspree.io/f/xgorkkwv", {
         method: "POST",
         body: formData,
         headers: { "Accept": "application/json" }
       });
-
-      const modal = document.getElementById("reviewModal");
-      const thankYou = document.getElementById("reviewThankYou");
-
       form.style.display = "none";
-      if (thankYou) thankYou.style.display = "block";
-
+      document.getElementById("reviewThankYou").style.display = "block";
       setTimeout(() => {
-        if (modal) modal.style.display = "none";
-
+        document.getElementById('reviewModal').style.display = 'none';
         form.style.display = "block";
         form.reset();
-        if (thankYou) thankYou.style.display = "none";
-
-        // reset stars too
+        document.getElementById("reviewThankYou").style.display = "none";
         ratingInput.value = 0;
         updateStars(0);
-
       }, 2000);
-
     } catch (err) {
       console.error("Form submission failed:", err);
       alert("There was an issue submitting your review. Please try again.");
     }
   });
-
 });
 </script>
-  
+
 </body>
 </html>
