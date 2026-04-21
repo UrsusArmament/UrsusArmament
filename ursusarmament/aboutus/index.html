@@ -145,8 +145,8 @@
     .split { grid-template-columns: 1fr; }
     .split-images { width: 100%; }
     section { padding: 4rem 1.5rem; }
-    footer { padding: 3rem 1.5rem 2rem; overflow: hidden; }
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    footer { padding: 3rem 1.5rem 2rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 2rem; }
   }
 
   .brand-signoff {
@@ -171,6 +171,8 @@
   footer .footer-grid {
     display: grid;
     grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    width: 100%;
+    max-width: 100%;
   }
 
   .footer-grid {
