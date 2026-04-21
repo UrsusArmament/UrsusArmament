@@ -87,6 +87,12 @@
     border: 1px solid var(--border);
   }
 
+  @media (max-width: 800px) {
+    .split {
+      grid-template-columns: 1fr;
+    }
+  }
+
   .brand-line {
     display: flex;
     align-items: center;
@@ -114,13 +120,12 @@
     justify-content: center;
     gap: 10px;
     padding: 4rem 3rem;
+    font-family: 'Barlow Condensed';
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-size: 0.9rem;
   }
 
-  @media (max-width: 800px) {
-    .split {
-      grid-template-columns: 1fr;
-    }
-  }
 </style>
 </head>
 
@@ -170,6 +175,10 @@
       of capability accessible without unnecessary complexity.
     </p>
   </div>
+
+  <div class="split-images">
+    <img src="/ursusarmament/images/IMG-4820.PNG">
+  </div>
 </section>
 
 <!-- FOUNDATION -->
@@ -194,6 +203,10 @@
       operational contexts. Testing standards and methodologies are publicly available.
     </p>
   </div>
+
+  <div class="split-images">
+    <img src="/ursusarmament/images/IMG_6985.jpg">
+  </div>
 </section>
 
 <!-- ALASKA -->
@@ -206,6 +219,10 @@
       Equipment is designed with temperature extremes, exposure, and sustained use in mind—conditions 
       that quickly expose weaknesses in both materials and design.
     </p>
+  </div>
+
+  <div class="split-images">
+    <img src="/ursusarmament/images/alaska.png">
   </div>
 </section>
 
@@ -229,9 +246,13 @@
       prioritizing reliability, serviceability, and long-term performance.
     </p>
   </div>
+
+  <div class="split-images">
+    <img src="/ursusarmament/images/IMG_0252.JPG">
+  </div>
 </section>
 
-<!-- Direction -->
+<!-- DIRECTION -->
 <section class="split">
   <div>
     <div class="section-tag">Direction</div>
@@ -245,13 +266,9 @@
 
 <!-- SIGNOFF -->
 <div class="brand-signoff">
-  <span style="color:var(--text); font-family:'Barlow Condensed'; letter-spacing:0.2em; text-transform:uppercase; font-weight:600;">
-    Ursus Armament
-  </span>
+  <span style="color:var(--text)">Ursus Armament</span>
   <span style="color:var(--text); opacity:0.5;">-</span>
-  <span style="color:var(--accent); font-family:'Barlow Condensed'; letter-spacing:0.2em; text-transform:uppercase;">
-    Built Here For All Of Us
-  </span>
+  <span style="color:var(--accent)">Built Here For All Of Us</span>
 </div>
 
 </body>
