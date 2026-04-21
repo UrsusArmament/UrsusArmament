@@ -87,6 +87,35 @@
     border: 1px solid var(--border);
   }
 
+  .brand-line {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 1rem 3rem 0 3rem;
+    font-family: 'Barlow Condensed';
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+
+  .brand-name {
+    color: var(--text);
+    font-weight: 600;
+  }
+
+  .divider {
+    color: var(--text);
+    opacity: 0.5;
+  }
+
+  .brand-signoff {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 4rem 3rem;
+  }
+
   @media (max-width: 800px) {
     .split {
       grid-template-columns: 1fr;
@@ -103,15 +132,26 @@
   </a>
 </nav>
 
+<div class="brand-line">
+  <span class="brand-name">Ursus Armament</span>
+  <span class="divider">-</span>
+  <span class="section-tag">Built Here For All Of Us</span>
+</div>
+
 <!-- HERO -->
 <section class="hero">
   <div class="section-tag">Company</div>
   <h1>ABOUT<br><span style="color:var(--accent)">URSUS ARMAMENT</span></h1>
   <p>
-    Ursus Armament is a veteran-owned and operated company focused on building
-    advanced equipment for real-world application. Founded in Alaska in 2025,
-    the company was developed with a clear objective: create dependable tools
-    that perform under pressure and in extreme environments.
+    Ursus Armament is a veteran-owned and operated company that designs and manufactures 
+    advanced equipment for the tactical and defense space, including individual systems 
+    and team-oriented solutions such as night vision devices, thermal optics, and mesh 
+    network communications.
+  </p>
+  <p>
+    Built for professional end users and prepared civilians, our products are developed 
+    with a focus on real-world application—where reliability, simplicity, and performance 
+    matter more than features on paper.
   </p>
 </section>
 
@@ -121,18 +161,14 @@
     <div class="section-tag">Mission</div>
     <h2>Purpose Driven</h2>
     <p>
-      Ursus Armament exists to design and produce equipment that supports individual
-      capability and preparedness. Our focus is on delivering reliable, high-performance
-      gear grounded in real-world use rather than theoretical conditions.
+      Ursus Armament exists to design and produce equipment that supports individual capability 
+      and preparedness. Our focus is on delivering reliable, high-performance systems grounded 
+      in real-world use rather than theoretical conditions.
     </p>
     <p>
-      We build the equipment we would trust ourselves, with the goal of making that same
-      level of capability accessible to responsible citizens.
+      We build the equipment we would trust ourselves, with the goal of making that same level 
+      of capability accessible without unnecessary complexity.
     </p>
-  </div>
-
-  <div class="split-images">
-    <img src="/ursusarmament/images/IMG-4820.PNG">
   </div>
 </section>
 
@@ -142,24 +178,21 @@
     <div class="section-tag">Foundation</div>
     <h2>Built on Experience</h2>
     <p>
-      Our products are developed and evaluated by veterans and active-duty personnel, informed 
-      by practical experience rather than marketing trends. Select systems and components have 
-      been fielded in operational environments, providing direct feedback that shapes ongoing development.
+      Our products are developed and evaluated by veterans and active-duty personnel, informed by 
+      practical experience rather than marketing trends. Select systems and components have been fielded 
+      in operational and training environments, providing direct feedback that shapes ongoing development.
     </p>
     <p>
-      The company’s founder brings a background in software and systems engineering, with experience 
-      spanning distributed systems, wireless communications, and applied machine learning. This technical 
-      foundation is supported by a portfolio of 25 issued patents across networking, signal processing, and 
-      intelligent systems, informing a design approach that prioritizes function, efficiency, and integration.
+      The company’s founder brings a background in software and systems engineering, with experience across 
+      distributed systems, wireless communications, and applied machine learning. This work is supported by 
+      a portfolio of 25 issued patents spanning advanced communications, networking, and intelligent systems, 
+      informing a design approach centered on integration, efficiency, and reliability.
     </p>
     <p>
-      Testing emphasizes durability, consistency, and performance under stress, including environmental 
-      conditions representative of both extreme climates and real-world use.
+      Products have been tested across a wide range of environments—from the heat and humidity of the 
+      southeastern United States to the extreme cold of Alaska—with select systems fielded in overseas 
+      operational contexts. Testing standards and methodologies are publicly available.
     </p>
-  </div>
-
-  <div class="split-images">
-    <img src="/ursusarmament/images/IMG_6985.jpg">
   </div>
 </section>
 
@@ -169,15 +202,10 @@
     <div class="section-tag">Environment</div>
     <h2>Alaska Origins</h2>
     <p>
-      Founded in Alaska, Ursus Armament reflects the demands of harsh and unpredictable
-      environments. Equipment is designed with temperature extremes, exposure, and
-      sustained use in mind—conditions that quickly expose weaknesses in both materials
-      and design.
+      Founded in Alaska, Ursus Armament reflects the demands of harsh and unpredictable environments. 
+      Equipment is designed with temperature extremes, exposure, and sustained use in mind—conditions 
+      that quickly expose weaknesses in both materials and design.
     </p>
-  </div>
-
-  <div class="split-images">
-    <img src="/ursusarmament/images/alaska.png">
   </div>
 </section>
 
@@ -187,19 +215,44 @@
     <div class="section-tag">Approach</div>
     <h2>No Excess</h2>
     <p>
-      We avoid unnecessary complexity and marketing-driven features. Every design decision
-      serves a purpose, prioritizing reliability, serviceability, and long-term performance.
+      Systems are designed with modularity and interoperability at the forefront, allowing integration 
+      across platforms while maintaining standalone capability. Where possible, products are built to 
+      be serviceable and repairable, reducing dependency and extending operational lifespan.
     </p>
     <p>
-      Ursus Armament operates with a straightforward approach—focused on building dependable
-      equipment, maintaining fair practices, and delivering real value without compromise.
+      Components are sourced from vetted suppliers and subjected to strict quality control standards. 
+      Assembly is performed domestically, with partial domestic production and a clear objective of 
+      moving toward fully domestic manufacturing over time.
+    </p>
+    <p>
+      We avoid unnecessary complexity and marketing-driven features. Every design decision serves a purpose, 
+      prioritizing reliability, serviceability, and long-term performance.
     </p>
   </div>
+</section>
 
-  <div class="split-images">
-    <img src="/ursusarmament/images/IMG_0252.JPG">
+<!-- Direction -->
+<section class="split">
+  <div>
+    <div class="section-tag">Direction</div>
+    <h2>Ongoing Development</h2>
+    <p>
+      Development focuses on advancing integrated systems, communications, and sensor capabilities 
+      to meet evolving operational demands.
+    </p>
   </div>
 </section>
+
+<!-- SIGNOFF -->
+<div class="brand-signoff">
+  <span style="color:var(--text); font-family:'Barlow Condensed'; letter-spacing:0.2em; text-transform:uppercase; font-weight:600;">
+    Ursus Armament
+  </span>
+  <span style="color:var(--text); opacity:0.5;">-</span>
+  <span style="color:var(--accent); font-family:'Barlow Condensed'; letter-spacing:0.2em; text-transform:uppercase;">
+    Built Here For All Of Us
+  </span>
+</div>
 
 </body>
 </html>
