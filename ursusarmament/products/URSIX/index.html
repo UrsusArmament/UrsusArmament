@@ -786,7 +786,7 @@ loadURSIXReviews();
   set('resultPcLum',    unit.photocathodeLuminousSensitivity   ? unit.photocathodeLuminousSensitivity   + ' µA/lm' : null);
   set('resultPcFilter', unit.photocathodeSensitivityWithFilter ? unit.photocathodeSensitivityWithFilter + ' µA/lm' : null);
   set('resultPcRad',    unit.photocathodeRadiantSensitivity    ? unit.photocathodeRadiantSensitivity    + ' mA/W'  : null);
-  set('resultGain',     unit.luminousGain ? Number(unit.luminousGain).toLocaleString() + ' fL/fL' : null);
+  set('resultGain', unit.luminousGain ? Number(unit.luminousGain).toLocaleString() : null);
   set('resultBattery',  unit.batteryLife);
   set('resultIp',       unit.ipRating);
   set('resultFinish',   unit.finish);
