@@ -431,23 +431,23 @@
           <span class="serial-badge pass" id="resultQcBadge">QC PASS</span>
         </div>
         <div class="serial-card-body">
-          <div class="serial-field"><span class="serial-field-label">Configuration</span><span class="serial-field-value highlight" id="resultConfig">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Tube Manufacturer</span><span class="serial-field-value" id="resultTubeMfr">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Tube Serial</span><span class="serial-field-value" id="resultTubeSerial">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Generation</span><span class="serial-field-value" id="resultGen">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Figure of Merit (FOM)</span><span class="serial-field-value highlight" id="resultFom">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Signal-to-Noise Ratio</span><span class="serial-field-value" id="resultSnr">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Resolution</span><span class="serial-field-value" id="resultRes">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Objective Lens</span><span class="serial-field-value" id="resultLens">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">IR Illuminator</span><span class="serial-field-value" id="resultIr">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">IP Rating</span><span class="serial-field-value" id="resultIp">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Finish</span><span class="serial-field-value" id="resultFinish">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Battery Life</span><span class="serial-field-value" id="resultBattery">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Proof Date</span><span class="serial-field-value" id="resultDate">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Batch ID</span><span class="serial-field-value" id="resultBatch">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">QC Technician</span><span class="serial-field-value" id="resultTech">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">QC Result</span><span class="serial-field-value" id="resultQc">—</span></div>
-        </div>
+  <div class="serial-field"><span class="serial-field-label">Objective Lens</span><span class="serial-field-value" id="resultLens">—</span></div>
+  <div class="serial-field"><span class="serial-field-label">Generation</span><span class="serial-field-value" id="resultGen">—</span></div>
+  <div class="serial-field"><span class="serial-field-label">Phosphor</span><span class="serial-field-value highlight" id="resultPhosphor">—</span></div>
+  <div class="serial-field"><span class="serial-field-label">Figure of Merit (FOM)</span><span class="serial-field-value highlight" id="resultFom">—</span></div>
+  <div class="serial-field"><span class="serial-field-label">Signal-to-Noise Ratio</span><span class="serial-field-value" id="resultSnr">—</span></div>
+  <div class="serial-field"><span class="serial-field-label">Resolution</span><span class="serial-field-value" id="resultRes">—</span></div>
+  <div class="serial-field"><span class="serial-field-label">Photocathode Luminous Sensitivity</span><span class="serial-field-value" id="resultPcLum">—</span></div>
+  <div class="serial-field"><span class="serial-field-label">PC Sensitivity (w/ Filter)</span><span class="serial-field-value" id="resultPcFilter">—</span></div>
+  <div class="serial-field"><span class="serial-field-label">Photocathode Radiant Sensitivity</span><span class="serial-field-value" id="resultPcRad">—</span></div>
+  <div class="serial-field"><span class="serial-field-label">Luminous Gain</span><span class="serial-field-value" id="resultGain">—</span></div>
+  <div class="serial-field"><span class="serial-field-label">Battery Life</span><span class="serial-field-value" id="resultBattery">—</span></div>
+  <div class="serial-field"><span class="serial-field-label">IP Rating</span><span class="serial-field-value" id="resultIp">—</span></div>
+  <div class="serial-field"><span class="serial-field-label">Finish</span><span class="serial-field-value" id="resultFinish">—</span></div>
+  <div class="serial-field"><span class="serial-field-label">Proof Date</span><span class="serial-field-value" id="resultDate">—</span></div>
+  <div class="serial-field"><span class="serial-field-label">Batch ID</span><span class="serial-field-value" id="resultBatch">—</span></div>
+  <div class="serial-field"><span class="serial-field-label">QC Result</span><span class="serial-field-value" id="resultQc">—</span></div>
+</div>
         <div class="serial-card-notes">
           <span class="serial-field-label">Manufacturing Notes</span>
           <span class="serial-field-value" id="resultNotes" style="font-weight:400; color: var(--muted); font-size:0.88rem;">—</span>
@@ -745,65 +745,63 @@ loadURSIXReviews();
 <script>
   // ── Serial lookup ─────────────────────────────────────────────────────────
   async function lookupSerial() {
-    const raw   = document.getElementById('serialInput').value.trim().toUpperCase();
-    const errEl = document.getElementById('serialError');
-    const okEl  = document.getElementById('serialSuccess');
+  const raw   = document.getElementById('serialInput').value.trim().toUpperCase();
+  const errEl = document.getElementById('serialError');
+  const okEl  = document.getElementById('serialSuccess');
 
-    errEl.classList.remove('visible');
-    okEl.classList.remove('visible');
+  errEl.classList.remove('visible');
+  okEl.classList.remove('visible');
 
-    if (!raw) return;
+  if (!raw) return;
 
-    let data;
-    try {
-      // serial-data.json must live in the same directory as this HTML file
-      const res = await fetch('./serial-data.json');
-      if (!res.ok) throw new Error('fetch failed');
-      data = await res.json();
-    } catch {
-      document.getElementById('serialErrorMsg').textContent =
-        'Could not load the serial database. Make sure serial-data.json is in the same folder as this page.';
-      errEl.classList.add('visible');
-      return;
-    }
-
-    const unit = data[raw];
-    if (!unit) {
-      document.getElementById('serialErrorMsg').textContent =
-        'No unit found for "' + raw + '". Double-check the format (UA-URSIX-XXXXXX) or contact support if you believe this is an error.';
-      errEl.classList.add('visible');
-      return;
-    }
-
-    const set = (id, val) => { document.getElementById(id).textContent = val ?? '—'; };
-
-    set('resultSerial',     raw);
-    set('resultConfig',     unit.config);
-    set('resultTubeMfr',    unit.tubeManufacturer);
-    set('resultTubeSerial', unit.tubeSerial);
-    set('resultGen',        unit.generation);
-    set('resultFom',        unit.fom   ? unit.fom   + ' FOM' : null);
-    set('resultSnr',        unit.snr   ? unit.snr   + ' dB'  : null);
-    set('resultRes',        unit.resolution);
-    set('resultLens',       unit.objectiveLens);
-    set('resultIr',         unit.irIlluminator);
-    set('resultIp',         unit.ipRating);
-    set('resultFinish',     unit.finish);
-    set('resultBattery',    unit.batteryLife);
-    set('resultDate',       unit.proofDate);
-    set('resultBatch',      unit.batchId);
-    set('resultTech',       unit.qcTech);
-    set('resultQc',         unit.qcResult);
-    set('resultNotes',      unit.notes || 'No notes recorded.');
-
-    const badge = document.getElementById('resultQcBadge');
-    badge.textContent = 'QC ' + (unit.qcResult ?? 'UNKNOWN');
-    badge.className   = 'serial-badge ' + (unit.qcResult === 'PASS' ? 'pass' : 'fail');
-
-    okEl.classList.add('visible');
-    okEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  let data;
+  try {
+    const res = await fetch('./serial-data.json');
+    if (!res.ok) throw new Error('fetch failed');
+    data = await res.json();
+  } catch {
+    document.getElementById('serialErrorMsg').textContent =
+      'Could not load the serial database. Make sure serial-data.json is in the same folder as this page.';
+    errEl.classList.add('visible');
+    return;
   }
 
+  const unit = data[raw];
+  if (!unit) {
+    document.getElementById('serialErrorMsg').textContent =
+      'No unit found for "' + raw + '". Double-check the format (UW-XXXX) or contact support if you believe this is an error.';
+    errEl.classList.add('visible');
+    return;
+  }
+
+  const set = (id, val) => { document.getElementById(id).textContent = val ?? '—'; };
+
+  set('resultSerial',   raw);
+  set('resultLens',     unit.objectiveLens);
+  set('resultGen',      unit.generation);
+  set('resultPhosphor', unit.phosphor);
+  set('resultFom',      unit.fom   ? unit.fom   + ' FOM' : null);
+  set('resultSnr',      unit.snr   ? unit.snr   + ' dB'  : null);
+  set('resultRes',      unit.resolution);
+  set('resultPcLum',    unit.photocathodeLuminousSensitivity   ? unit.photocathodeLuminousSensitivity   + ' µA/lm' : null);
+  set('resultPcFilter', unit.photocathodeSensitivityWithFilter ? unit.photocathodeSensitivityWithFilter + ' µA/lm' : null);
+  set('resultPcRad',    unit.photocathodeRadiantSensitivity    ? unit.photocathodeRadiantSensitivity    + ' mA/W'  : null);
+  set('resultGain',     unit.luminousGain ? Number(unit.luminousGain).toLocaleString() + ' fL/fL' : null);
+  set('resultBattery',  unit.batteryLife);
+  set('resultIp',       unit.ipRating);
+  set('resultFinish',   unit.finish);
+  set('resultDate',     unit.proofDate);
+  set('resultBatch',    unit.batchId);
+  set('resultQc',       unit.qcResult);
+  set('resultNotes',    unit.notes || 'No notes recorded.');
+
+  const badge = document.getElementById('resultQcBadge');
+  badge.textContent = 'QC ' + (unit.qcResult ?? 'UNKNOWN');
+  badge.className   = 'serial-badge ' + (unit.qcResult === 'PASS' ? 'pass' : 'fail');
+
+  okEl.classList.add('visible');
+  okEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
   document.getElementById('serialInput').addEventListener('keydown', e => {
     if (e.key === 'Enter') lookupSerial();
   });
