@@ -296,6 +296,74 @@
     .serial-input-row { flex-direction: column; }
     .serial-input { border-right: 1px solid var(--border2); border-bottom: none; }
   }
+  /* AVAILABLE UNITS PANEL */
+  .units-panel {
+    overflow: hidden; max-height: 0;
+    transition: max-height 0.4s ease, opacity 0.3s ease;
+    opacity: 0; background: var(--black); border-top: 2px solid var(--accent);
+  }
+  .units-panel.open { max-height: 3000px; opacity: 1; }
+  .units-panel-inner { padding: 2rem 3rem 3rem; }
+  .units-panel-title {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.6rem;
+  }
+  .units-panel-title::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+  .units-no-stock {
+    padding: 1.5rem 2rem; background: rgba(200,146,42,0.06);
+    border: 1px solid rgba(200,146,42,0.25); border-left: 3px solid var(--accent);
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem;
+    letter-spacing: 0.06em; color: var(--muted); line-height: 1.7;
+  }
+  .units-no-stock strong { color: var(--accent); }
+  /* UNIT ROW LIST */
+  .unit-row { border-bottom: 1px solid var(--border); background: var(--dark); transition: background 0.2s; }
+  .unit-row:last-child { border-bottom: none; }
+  .unit-row-main {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 2rem; cursor: pointer; transition: background 0.2s;
+  }
+  .unit-row-main:hover { background: var(--surface); }
+  .unit-row-left { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
+  .unit-row-serial {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem;
+    letter-spacing: 0.06em; color: var(--accent); min-width: 90px;
+  }
+  .unit-row-tier {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase; padding: 0.25rem 0.7rem;
+    background: rgba(200,146,42,0.1); border: 1px solid rgba(200,146,42,0.25); color: var(--accent);
+  }
+  .unit-row-stats { display: flex; gap: 1.75rem; flex-wrap: wrap; }
+  .unit-row-stat {
+    display: flex; flex-direction: column; gap: 0.1rem;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.92rem;
+    font-weight: 600; letter-spacing: 0.06em; color: var(--text);
+  }
+  .unit-row-stat-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); display: block; }
+  .unit-row-right { display: flex; align-items: center; gap: 1.5rem; flex-shrink: 0; margin-left: 1rem; }
+  .unit-row-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.04em; color: var(--text); }
+  .unit-row-arrow { color: var(--muted); font-size: 0.75rem; transition: transform 0.25s ease; display: inline-block; }
+  .unit-expand {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.35s ease, opacity 0.25s ease;
+    opacity: 0; border-top: 1px solid transparent;
+  }
+  .unit-expand.open { max-height: 800px; opacity: 1; border-top: 1px solid var(--border); }
+  .unit-expand-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px; background: var(--border); margin: 2px 2px 0;
+  }
+  .unit-expand-field { background: var(--surface); padding: 1rem 1.5rem; display: flex; flex-direction: column; gap: 0.2rem; }
+  .unit-expand-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .unit-expand-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
+  .unit-expand-value.highlight { color: var(--accent); }
+  .unit-expand-notes {
+    background: var(--surface); margin: 2px; margin-top: 0;
+    padding: 1rem 1.5rem; display: flex; flex-direction: column; gap: 0.2rem;
+    border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--muted); line-height: 1.6;
+  }
 </style>
 </head>
 <body>
@@ -506,22 +574,22 @@
   <div class="section-tag">Choose Your URSIX</div>
   <h2 class="section-title">SELECT TIER</h2>
   <div class="config-options">
-    <div class="config-card selected" onclick="selectConfig(this, 2350)">
+    <div class="config-card selected" onclick="selectConfig(this, 2350, 'BASE')">
       <div class="config-name">BASE</div>
       <p class="config-desc">25mm f/1.2 objective, 850nm IR, IP67, matte black anodize. FOM 1400+.</p>
       <div class="config-price">~$2,350</div>
     </div>
-    <div class="config-card" onclick="selectConfig(this, 2700)">
+    <div class="config-card" onclick="selectConfig(this, 2700, 'PLUS')">
       <div class="config-name">PLUS</div>
       <p class="config-desc">25mm f/1.2 objective, 850nm IR, IP67, matte black anodize. FOM 1600+.</p>
       <div class="config-price">~$2,700</div>
     </div>
-    <div class="config-card" onclick="selectConfig(this, 3450)">
+    <div class="config-card" onclick="selectConfig(this, 3450, 'PRO')">
       <div class="config-name">PRO</div>
       <p class="config-desc">25mm f/1.2 objective, 850nm IR, IP67, matte black anodize. FOM 1800+.</p>
       <div class="config-price">~$3,450</div>
     </div>
-    <div class="config-card" onclick="selectConfig(this, 4100)">
+    <div class="config-card" onclick="selectConfig(this, 4100, 'ULTRA')">
       <div class="config-name">ULTRA</div>
       <p class="config-desc">35mm f/1.0 objective, dual 850/940nm IR, IP68, matte black anodize, top-bin tube. FOM 2100+. Zero compromises.</p>
       <div class="config-price">~$4,100</div>
@@ -534,11 +602,20 @@
     </div>
     <div style="display:flex; gap: 1rem; align-items: center;">
       <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);">Free shipping · Limited warranty</span>
-      <a href="#" class="btn-primary" style="flex:none;">Available Units</a>
+      <a href="#" class="btn-primary" style="flex:none;"
+         onclick="event.preventDefault(); toggleUnitsPanel(_currentTier);">Available Units</a>
     </div>
   </div>
-</section>
 
+  <!-- AVAILABLE UNITS PANEL -->
+  <div class="units-panel" id="unitsPanel">
+    <div class="units-panel-inner">
+      <div class="units-panel-title" id="unitsPanelTitle">Available Units — BASE Tier</div>
+      <div id="unitsPanelBody"></div>
+    </div>
+  </div>
+
+</section>
 <div class="cta-banner">
   <div>
     <h2>QUESTIONS ABOUT THE URSIX?</h2>
@@ -739,74 +816,171 @@ loadURSIXReviews();
 </footer>
 
 <script>
-  // ── Serial lookup ─────────────────────────────────────────────────────────
+  // ── Serial lookup ────────────────────────────────────────────────────────
   async function lookupSerial() {
-  const raw   = document.getElementById('serialInput').value.trim().toUpperCase();
-  const errEl = document.getElementById('serialError');
-  const okEl  = document.getElementById('serialSuccess');
-
-  errEl.classList.remove('visible');
-  okEl.classList.remove('visible');
-
-  if (!raw) return;
-
-  let data;
-  try {
-    const res = await fetch('./serial-data.json');
-    if (!res.ok) throw new Error('fetch failed');
-    data = await res.json();
-  } catch {
-    document.getElementById('serialErrorMsg').textContent =
-      'Could not load the serial database. Make sure serial-data.json is in the same folder as this page.';
-    errEl.classList.add('visible');
-    return;
+    const raw   = document.getElementById('serialInput').value.trim().toUpperCase();
+    const errEl = document.getElementById('serialError');
+    const okEl  = document.getElementById('serialSuccess');
+    errEl.classList.remove('visible');
+    okEl.classList.remove('visible');
+    if (!raw) return;
+    let data;
+    try {
+      const res = await fetch('./serial-data.json');
+      if (!res.ok) throw new Error('fetch failed');
+      data = await res.json();
+    } catch {
+      document.getElementById('serialErrorMsg').textContent =
+        'Could not load the serial database. Make sure serial-data.json is in the same folder as this page.';
+      errEl.classList.add('visible');
+      return;
+    }
+    const unit = data[raw];
+    if (!unit) {
+      document.getElementById('serialErrorMsg').textContent =
+        'No unit found for "' + raw + '". Double-check the format (UW-XXXX) or contact support if you believe this is an error.';
+      errEl.classList.add('visible');
+      return;
+    }
+    const set = (id, val) => { document.getElementById(id).textContent = val ?? '—'; };
+    set('resultSerial',   raw);
+    set('resultLens',     unit.objectiveLens);
+    set('resultGen',      unit.generation);
+    set('resultPhosphor', unit.phosphor);
+    set('resultFom',      unit.fom   ? unit.fom   + ' FOM' : null);
+    set('resultSnr',      unit.snr   ? unit.snr   + ' dB'  : null);
+    set('resultRes',      unit.resolution);
+    set('resultPcLum',    unit.photocathodeLuminousSensitivity   ? unit.photocathodeLuminousSensitivity   + ' µA/lm' : null);
+    set('resultPcFilter', unit.photocathodeSensitivityWithFilter ? unit.photocathodeSensitivityWithFilter + ' µA/lm' : null);
+    set('resultPcRad',    unit.photocathodeRadiantSensitivity    ? unit.photocathodeRadiantSensitivity    + ' mA/W'  : null);
+    set('resultGain',     unit.luminousGain ? Number(unit.luminousGain).toLocaleString() : null);
+    set('resultBattery',  unit.batteryLife);
+    set('resultIp',       unit.ipRating);
+    set('resultFinish',   unit.finish);
+    set('resultDate',     unit.proofDate);
+    set('resultBatch',    unit.batchId);
+    set('resultQc',       unit.qcResult);
+    set('resultNotes',    unit.notes || 'No notes recorded.');
+    const badge = document.getElementById('resultQcBadge');
+    badge.textContent = 'QC ' + (unit.qcResult ?? 'UNKNOWN');
+    badge.className   = 'serial-badge ' + (unit.qcResult === 'PASS' ? 'pass' : 'fail');
+    okEl.classList.add('visible');
+    okEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
 
-  const unit = data[raw];
-  if (!unit) {
-    document.getElementById('serialErrorMsg').textContent =
-      'No unit found for "' + raw + '". Double-check the format (UW-XXXX) or contact support if you believe this is an error.';
-    errEl.classList.add('visible');
-    return;
-  }
-
-  const set = (id, val) => { document.getElementById(id).textContent = val ?? '—'; };
-
-  set('resultSerial',   raw);
-  set('resultLens',     unit.objectiveLens);
-  set('resultGen',      unit.generation);
-  set('resultPhosphor', unit.phosphor);
-  set('resultFom',      unit.fom   ? unit.fom   + ' FOM' : null);
-  set('resultSnr',      unit.snr   ? unit.snr   + ' dB'  : null);
-  set('resultRes',      unit.resolution);
-  set('resultPcLum',    unit.photocathodeLuminousSensitivity   ? unit.photocathodeLuminousSensitivity   + ' µA/lm' : null);
-  set('resultPcFilter', unit.photocathodeSensitivityWithFilter ? unit.photocathodeSensitivityWithFilter + ' µA/lm' : null);
-  set('resultPcRad',    unit.photocathodeRadiantSensitivity    ? unit.photocathodeRadiantSensitivity    + ' mA/W'  : null);
-  set('resultGain', unit.luminousGain ? Number(unit.luminousGain).toLocaleString() : null);
-  set('resultBattery',  unit.batteryLife);
-  set('resultIp',       unit.ipRating);
-  set('resultFinish',   unit.finish);
-  set('resultDate',     unit.proofDate);
-  set('resultBatch',    unit.batchId);
-  set('resultQc',       unit.qcResult);
-  set('resultNotes',    unit.notes || 'No notes recorded.');
-
-  const badge = document.getElementById('resultQcBadge');
-  badge.textContent = 'QC ' + (unit.qcResult ?? 'UNKNOWN');
-  badge.className   = 'serial-badge ' + (unit.qcResult === 'PASS' ? 'pass' : 'fail');
-
-  okEl.classList.add('visible');
-  okEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-}
   document.getElementById('serialInput').addEventListener('keydown', e => {
     if (e.key === 'Enter') lookupSerial();
   });
 
+  // ── Available units ───────────────────────────────────────────────────────
+  let _allUnits = null;
+  let _currentTier = 'BASE';
+  let _panelOpen = false;
+
+  async function fetchUnits() {
+    if (_allUnits) return _allUnits;
+    try {
+      const res = await fetch('./available-units.json');
+      if (!res.ok) throw new Error();
+      _allUnits = await res.json();
+    } catch { _allUnits = []; }
+    return _allUnits;
+  }
+
+  function tiersWithStock(units) {
+    return ['BASE','PLUS','PRO','ULTRA'].filter(t => units.some(u => u.tier === t));
+  }
+
+  function renderUnitsPanel(units, tier) {
+    const body  = document.getElementById('unitsPanelBody');
+    const title = document.getElementById('unitsPanelTitle');
+    title.textContent = 'Available Units — ' + tier + ' Tier';
+    const tierUnits = units.filter(u => u.tier === tier);
+    if (units.length === 0) {
+      body.innerHTML = '<div class="units-no-stock">Sorry, there are no available units at this time.</div>';
+      return;
+    }
+    if (tierUnits.length === 0) {
+      const available = tiersWithStock(units);
+      const tierList  = available.length ? available.map(t => '<strong>' + t + '</strong>').join(', ') : null;
+      body.innerHTML  = tierList
+        ? '<div class="units-no-stock">Sorry, there are currently no available units in this tier. We have available units for the ' + tierList + ' tiers.</div>'
+        : '<div class="units-no-stock">Sorry, there are no available units at this time.</div>';
+      return;
+    }
+    body.innerHTML = tierUnits.map((u, i) => `
+      <div class="unit-row" id="unit-row-${i}">
+        <div class="unit-row-main" onclick="toggleUnitExpand(${i})">
+          <div class="unit-row-left">
+            <span class="unit-row-serial">${u.serial}</span>
+            <span class="unit-row-tier">${u.tier}</span>
+            <div class="unit-row-stats">
+              <span class="unit-row-stat"><span class="unit-row-stat-label">Phosphor</span>${u.phosphor}</span>
+              <span class="unit-row-stat"><span class="unit-row-stat-label">FOM</span>${u.fom}</span>
+              <span class="unit-row-stat"><span class="unit-row-stat-label">SNR</span>${u.snr} dB</span>
+              <span class="unit-row-stat"><span class="unit-row-stat-label">Resolution</span>${u.resolution}</span>
+            </div>
+          </div>
+          <div class="unit-row-right">
+            <span class="unit-row-price">$${Number(u.price || 0).toLocaleString()}</span>
+            <span class="unit-row-arrow" id="unit-arrow-${i}">▼</span>
+          </div>
+        </div>
+        <div class="unit-expand" id="unit-expand-${i}">
+          <div class="unit-expand-grid">
+            <div class="unit-expand-field"><span class="unit-expand-label">Generation</span><span class="unit-expand-value">${u.generation ?? '—'}</span></div>
+            <div class="unit-expand-field"><span class="unit-expand-label">Phosphor</span><span class="unit-expand-value">${u.phosphor ?? '—'}</span></div>
+            <div class="unit-expand-field"><span class="unit-expand-label">Figure of Merit</span><span class="unit-expand-value highlight">${u.fom ?? '—'}</span></div>
+            <div class="unit-expand-field"><span class="unit-expand-label">Signal-to-Noise Ratio</span><span class="unit-expand-value highlight">${u.snr ?? '—'} dB</span></div>
+            <div class="unit-expand-field"><span class="unit-expand-label">Resolution</span><span class="unit-expand-value highlight">${u.resolution ?? '—'}</span></div>
+            <div class="unit-expand-field"><span class="unit-expand-label">PC Luminous Sensitivity</span><span class="unit-expand-value">${u.photocathodeLuminousSensitivity ?? '—'} µA/lm</span></div>
+            <div class="unit-expand-field"><span class="unit-expand-label">PC Sensitivity w/ Filter</span><span class="unit-expand-value">${u.photocathodeSensitivityWithFilter ?? '—'} µA/lm</span></div>
+            <div class="unit-expand-field"><span class="unit-expand-label">PC Radiant Sensitivity</span><span class="unit-expand-value">${u.photocathodeRadiantSensitivity ?? '—'} mA/W</span></div>
+            <div class="unit-expand-field"><span class="unit-expand-label">Luminous Gain</span><span class="unit-expand-value">${u.luminousGain ? Number(u.luminousGain).toLocaleString() : '—'}</span></div>
+            <div class="unit-expand-field"><span class="unit-expand-label">Battery Life</span><span class="unit-expand-value">${u.batteryLife ?? '—'}</span></div>
+            <div class="unit-expand-field"><span class="unit-expand-label">IP Rating</span><span class="unit-expand-value">${u.ipRating ?? '—'}</span></div>
+            <div class="unit-expand-field"><span class="unit-expand-label">Finish</span><span class="unit-expand-value">${u.finish ?? '—'}</span></div>
+            <div class="unit-expand-field"><span class="unit-expand-label">Proof Date</span><span class="unit-expand-value">${u.proofDate ?? '—'}</span></div>
+            <div class="unit-expand-field"><span class="unit-expand-label">Batch ID</span><span class="unit-expand-value">${u.batchId ?? '—'}</span></div>
+            <div class="unit-expand-field"><span class="unit-expand-label">QC Result</span><span class="unit-expand-value">${u.qcResult ?? '—'}</span></div>
+          </div>
+          ${u.notes ? `<div class="unit-expand-notes"><span class="unit-expand-label">Notes</span><span>${u.notes}</span></div>` : ''}
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function toggleUnitExpand(i) {
+    const expand = document.getElementById('unit-expand-' + i);
+    const arrow  = document.getElementById('unit-arrow-' + i);
+    const open   = expand.classList.toggle('open');
+    arrow.style.transform = open ? 'rotate(180deg)' : 'rotate(0deg)';
+  }
+
+  async function toggleUnitsPanel(tier) {
+    const panel = document.getElementById('unitsPanel');
+    const units = await fetchUnits();
+    if (_panelOpen && tier === _currentTier) {
+      panel.classList.remove('open');
+      _panelOpen = false;
+      return;
+    }
+    renderUnitsPanel(units, tier);
+    panel.classList.add('open');
+    _panelOpen = true;
+    _currentTier = tier;
+    setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
+  }
+
   // ── Config selector ───────────────────────────────────────────────────────
-  function selectConfig(card, price) {
+  function selectConfig(card, price, tier) {
     document.querySelectorAll('.config-card').forEach(c => c.classList.remove('selected'));
     card.classList.add('selected');
+    _currentTier = tier;
     document.getElementById('totalPrice').textContent = '~$' + price.toLocaleString();
+    if (_panelOpen) {
+      fetchUnits().then(units => renderUnitsPanel(units, tier));
+    }
   }
 
   // ── Smooth scroll ─────────────────────────────────────────────────────────
@@ -816,9 +990,8 @@ loadURSIXReviews();
       if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
     });
   });
-</script>
 
-<script>
+  // ── Image swap ────────────────────────────────────────────────────────────
   function ursixSwap(el) {
     document.querySelectorAll('.ursix-thumb').forEach(function(t) {
       t.classList.remove('active');
@@ -831,7 +1004,7 @@ loadURSIXReviews();
     document.getElementById('ursix-main').src = el.getAttribute('data-src');
   }
 </script>
-<div id="reviewModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:99999; justify-content:center; align-items:center;">
+ <div id="reviewModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:99999; justify-content:center; align-items:center;">
   <div style="background: var(--dark); padding: 2rem; width: 90%; max-width: 600px; border: 1px solid var(--border); position: relative;">
 
     <button onclick="closeReviewModal()" style="position:absolute; top:10px; right:15px; background:none; border:none; color:white; font-size:20px; cursor:pointer;">
