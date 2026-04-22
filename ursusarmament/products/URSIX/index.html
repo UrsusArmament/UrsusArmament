@@ -878,7 +878,7 @@ loadURSIXReviews();
   let _panelOpen = false;
 
   async function fetchUnits() {
-    if (_allUnits) return _allUnits;
+    if (false && _allUnits) return _allUnits;
     try {
       const res = await fetch('./available-units.json');
       if (!res.ok) throw new Error();
