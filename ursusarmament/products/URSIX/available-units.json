@@ -1,0 +1,42 @@
+[
+  {
+    "serial": "UW-1042",
+    "tier": "BASE",
+    "fom": 1463,
+    "snr": 21.8,
+    "resolution": "66 lp/mm",
+    "phosphor": "Green",
+    "price": 2350,
+    "notes": "Clean tube, no blemishes."
+  },
+  {
+    "serial": "UW-1055",
+    "tier": "BASE",
+    "fom": 1491,
+    "snr": 22.4,
+    "resolution": "67 lp/mm",
+    "phosphor": "Green",
+    "price": 2350,
+    "notes": "Minor center haze, cosmetic only."
+  },
+  {
+    "serial": "UW-1108",
+    "tier": "PLUS",
+    "fom": 1624,
+    "snr": 24.1,
+    "resolution": "68 lp/mm",
+    "phosphor": "Green",
+    "price": 2700,
+    "notes": "Top of tier. No defects."
+  },
+  {
+    "serial": "UW-1201",
+    "tier": "PRO",
+    "fom": 1844,
+    "snr": 27.6,
+    "resolution": "72 lp/mm",
+    "phosphor": "Green",
+    "price": 3450,
+    "notes": "Exceptional clarity."
+  }
+]
