@@ -221,7 +221,7 @@
 
   /* CONFIG */
   .config-section { background: var(--dark); padding: 6rem 3rem; }
-  .config-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); margin-bottom: 4rem; }
+  .config-options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--border); margin-bottom: 4rem; }
   .config-card { background: var(--dark); padding: 2.5rem 2rem; cursor: pointer; transition: background 0.2s; position: relative; border: 2px solid transparent; }
   .config-card:hover { background: var(--surface); }
   .config-card.selected { background: var(--surface); border-color: var(--accent); }
@@ -806,7 +806,7 @@ loadURSIXReviews();
   function selectConfig(card, price) {
     document.querySelectorAll('.config-card').forEach(c => c.classList.remove('selected'));
     card.classList.add('selected');
-    document.getElementById('totalPrice').textContent = '$' + price.toLocaleString();
+    document.getElementById('totalPrice').textContent = '~$' + price.toLocaleString();
   }
 
   // ── Smooth scroll ─────────────────────────────────────────────────────────
