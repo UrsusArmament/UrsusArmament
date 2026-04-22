@@ -2,7 +2,7 @@
   {
     "serial": "UW-6001",
     "tier": "BASE",
-    "price": 2250,
+    "price": "2250",
     "generation": "Gen 2+",
     "phosphor": "White Phosphor (P45)",
     "snr": "20.03",
