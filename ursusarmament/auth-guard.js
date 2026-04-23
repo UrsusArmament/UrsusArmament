@@ -7,7 +7,7 @@ import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase
 async function enforceGate(user) {
   // Not logged in → redirect to login
   if (!user) {
-    window.location.href = "/ursusarmament/login.html";
+    window.location.replace("/ursusarmament/login/");
     return;
   }
 
@@ -18,20 +18,20 @@ async function enforceGate(user) {
 
     // Block if no record or not approved
     if (!data || data.approved !== true) {
-      window.location.href = "/ursusarmament/pending.html";
+      window.location.replace("/ursusarmament/pending/");
       return;
     }
 
-    // Allowed access
-    document.body.style.display = "block";
+    // Allowed access (page continues normally)
 
   } catch (error) {
     console.error("Auth gate error:", error);
-    window.location.href = "/ursusarmament/login.html";
+    window.location.replace("/ursusarmament/login/");
   }
 }
 
 // 👀 Run gate check on auth state change
 onAuthStateChanged(window.firebaseAuth, (user) => {
   console.log("AUTH STATE:", user);
+  enforceGate(user);
 });
