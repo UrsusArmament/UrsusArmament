@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reset Password | Ursus Armament</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    background: #0a0a08;
+    color: #e8e4d9;
+    font-family: 'Barlow', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .box {
+    width: 360px;
+    padding: 2rem;
+    background: #1a1a17;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+  }
+  p.subtitle {
+    font-size: 0.85rem;
+    color: #8a8678;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+  input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    background: #111110;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #e8e4d9;
+    box-sizing: border-box;
+  }
+  button {
+    width: 100%;
+    padding: 0.8rem;
+    background: #c8922a;
+    border: none;
+    color: #0a0a08;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    transition: background 0.2s;
+  }
+  button:hover { background: #e8a830; }
+  button:disabled { opacity: 0.5; cursor: not-allowed; }
+  .secondary-btn {
+    margin-top: 0.75rem;
+    width: 100%;
+    padding: 0.75rem;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #8a8678;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .secondary-btn:hover {
+    border-color: #c8922a;
+    color: #c8922a;
+    background: rgba(200,146,42,0.08);
+  }
+  .msg {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .msg.success { color: #c8922a; }
+  .msg.error   { color: #c07070; }
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>RESET PASSWORD</h1>
+  <p class="subtitle">Enter the email address associated with your account and we will send you a password reset link.</p>
+  <input type="email" id="email" placeholder="Email">
+  <button id="resetBtn">Send Reset Link</button>
+  <button id="backBtn" class="secondary-btn">Back to Login</button>
+  <div class="msg" id="msg"></div>
+</div>
+<script type="module">
+import { initializeApp }                from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
+  authDomain: "ursus-armament.firebaseapp.com",
+  projectId: "ursus-armament",
+  storageBucket: "ursus-armament.firebasestorage.app",
+  messagingSenderId: "430731167862",
+  appId: "1:430731167862:web:a5447de86db180edad3757"
+};
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const msg  = document.getElementById("msg");
+const resetBtn = document.getElementById("resetBtn");
+
+resetBtn.addEventListener("click", async () => {
+  const email = document.getElementById("email").value.trim();
+
+  if (!email) {
+    msg.className = "msg error";
+    msg.textContent = "Please enter your email address.";
+    return;
+  }
+
+  resetBtn.disabled = true;
+  resetBtn.textContent = "Sending...";
+  msg.textContent = "";
+
+  try {
+    await sendPasswordResetEmail(auth, email);
+    msg.className = "msg success";
+    msg.textContent = "Reset link sent. Please check your email including your spam folder.";
+    resetBtn.textContent = "Link Sent";
+  } catch (error) {
+    msg.className = "msg error";
+    switch (error.code) {
+      case "auth/user-not-found":
+        msg.textContent = "No account found with that email address.";
+        break;
+      case "auth/invalid-email":
+        msg.textContent = "Please enter a valid email address.";
+        break;
+      default:
+        msg.textContent = "An error occurred. Please try again.";
+    }
+    resetBtn.disabled = false;
+    resetBtn.textContent = "Send Reset Link";
+  }
+});
+
+document.getElementById("backBtn").addEventListener("click", () => {
+  window.location.href = "/ursusarmament/login/";
+});
+</script>
+</body>
+</html>
