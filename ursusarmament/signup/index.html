@@ -424,14 +424,15 @@ limitedBtn.addEventListener("click", async () => {
 
   try {
     // 1. Create Firebase Auth user
-    const cred = await createUserWithEmailAndPassword(auth, email, password);
-    const uid  = cred.user.uid;
+    const cred        = await createUserWithEmailAndPassword(auth, email, password);
+    const uid         = cred.user.uid;
+    const emailPrefix = email.split("@")[0];
 
     // 2. Write Firestore document
-    //    Limited accounts: approved = true, status = "active"
+    //    Limited accounts: approved = true, status = "approved"
     //    All non-schema fields for full access are left as empty strings so the
     //    document structure stays consistent across account types.
-    await setDoc(doc(db, "users", uid), {
+    await setDoc(doc(db, "users", emailPrefix), {
       a_email:              email,
       b_name:               name,
       c_business_name:      "",
@@ -556,8 +557,9 @@ fullBtn.addEventListener("click", async () => {
 
   try {
     // 1. Create Firebase Auth user
-    const cred = await createUserWithEmailAndPassword(auth, email, password);
-    const uid  = cred.user.uid;
+    const cred        = await createUserWithEmailAndPassword(auth, email, password);
+    const uid         = cred.user.uid;
+    const emailPrefix = email.split("@")[0];
 
     setLoading(fullBtn, true, "Saving Information…");
 
@@ -587,7 +589,7 @@ fullBtn.addEventListener("click", async () => {
 
     // 3. Write Firestore document
     //    Full access: approved = false, status = "pending", verified_us_person = false
-    await setDoc(doc(db, "users", uid), {
+    await setDoc(doc(db, "users", emailPrefix), {
       a_email:              email,
       b_name:               name,
       c_business_name:      isBusiness ? businessName : "",
