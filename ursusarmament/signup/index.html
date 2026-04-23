@@ -18,6 +18,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 2rem 0;
   }
 
   .container {
@@ -90,91 +91,123 @@
     background: #111110;
     border: 1px solid rgba(255,255,255,0.1);
     color: #e8e4d9;
+    box-sizing: border-box;
   }
 
-  .hidden { display:none; }
+  .hidden { display:none !important; }
 
   .row {
     display:flex;
     gap:0.5rem;
   }
 
-  .msg { margin-top:1rem; color:#8a8678; }
-  #limitedBtn,
-#fullBtn {
-  width: 100%;
-  padding: 0.85rem;
-  border: 1px solid #c8922a;
-  background: transparent;
-  color: #c8922a;
-  font-family: 'Barlow Condensed', sans-serif;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: 0.2s ease;
-  margin-top: 0.5rem;
-}
+  .msg { margin-top:1rem; color:#8a8678; font-size: 0.85rem; }
 
-#limitedBtn:hover,
-#fullBtn:hover {
-  background: rgba(200,146,42,0.08);
-  transform: translateY(-1px);
-}
+  #limitedBtn, #fullBtn {
+    width: 100%;
+    padding: 0.85rem;
+    border: 1px solid #c8922a;
+    background: transparent;
+    color: #c8922a;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.2s ease;
+    margin-top: 0.5rem;
+  }
 
-#limitedBtn:active,
-#fullBtn:active {
-  transform: translateY(0px);
-}
-#modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.75);
+  #limitedBtn:hover, #fullBtn:hover {
+    background: rgba(200,146,42,0.08);
+    transform: translateY(-1px);
+  }
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  #limitedBtn:active, #fullBtn:active {
+    transform: translateY(0px);
+  }
 
-  z-index: 9999;
-}
-  #modal.hidden {
-  display: none;
-}
+  #limitedBtn:disabled, #fullBtn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+  }
 
-.modal-box {
-  width: min(520px, 92%);
-  background: #111110;
-  border: 1px solid rgba(255,255,255,0.1);
-  padding: 2rem;
-  text-align: left;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-}
+  /* MODAL */
+  #modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
 
-.modal-text {
-  font-family: 'Barlow', sans-serif;
-  color: #e8e4d9;
-  font-size: 0.95rem;
-  margin-bottom: 1.5rem;
-  line-height: 1.5;
-}
+  #modal.hidden { display: none; }
 
-.modal-actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: flex-end;
-}
+  .modal-box {
+    width: min(520px, 92%);
+    background: #111110;
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 2rem;
+    text-align: left;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
 
-.modal-actions button {
-  border: 1px solid #c8922a;
-  background: transparent;
-  color: #c8922a;
-  padding: 0.6rem 1rem;
-  cursor: pointer;
-  font-family: 'Barlow Condensed';
-  letter-spacing: 0.1em;
-}
+  .modal-text {
+    font-family: 'Barlow', sans-serif;
+    color: #e8e4d9;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+  }
+
+  .modal-actions button {
+    border: 1px solid #c8922a;
+    background: transparent;
+    color: #c8922a;
+    padding: 0.6rem 1rem;
+    cursor: pointer;
+    font-family: 'Barlow Condensed';
+    letter-spacing: 0.1em;
+  }
+
+  /* UPLOAD PROGRESS */
+  .upload-progress {
+    width: 100%;
+    height: 3px;
+    background: rgba(255,255,255,0.05);
+    margin-bottom: 0.5rem;
+    display: none;
+  }
+
+  .upload-progress-bar {
+    height: 100%;
+    background: #c8922a;
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+
+  .spinner {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid rgba(200,146,42,0.3);
+    border-top-color: #c8922a;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 
@@ -182,150 +215,266 @@
 
 <div class="container">
 
-<!-- ================= LIMITED ================= -->
-<div class="box">
-  <h1>LIMITED ACCESS</h1>
+  <!-- ================= LIMITED ================= -->
+  <div class="box">
+    <h1>LIMITED ACCESS</h1>
 
-  <input type="email" id="l_email" placeholder="Email">
-  <input type="password" id="l_password" placeholder="Password">
-  <input type="text" id="l_name" placeholder="Full Name">
+    <input type="email" id="l_email" placeholder="Email">
+    <input type="password" id="l_password" placeholder="Password">
+    <input type="text" id="l_name" placeholder="Full Name">
 
-  <button id="limitedBtn">Create Limited Account</button>
-  <p style="margin-top: 1rem; font-size: 0.8rem; color: #8a8678; line-height: 1.4;">
-    Limited Access accounts provide a restricted view of our catalog. To unlock full technical specifications, spec sheets, and purchasing for controlled items, a Full Access Account is required. We understand the verification process is an extra step, but this documentation is a federal requirement to ensure our mutual compliance with ITAR and EAR export regulations.
-  </p>
-  <div class="msg" id="l_msg"></div>
-</div>
-
-<!-- ================= FULL ================= -->
-<div class="box">
-  <h1>FULL ACCESS</h1>
-
-  <select id="accountType">
-    <option value="individual">Individual</option>
-    <option value="business">Business</option>
-  </select>
-
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="password" placeholder="Password">
-  <input type="text" id="fullName" placeholder="Full Name">
-
-  <!-- ADDRESS -->
-  <input type="text" id="address1" placeholder="Address Line 1">
-  <input type="text" id="address2" placeholder="Address Line 2">
-
-  <div class="row">
-  <input type="text" id="city" placeholder="City"><select id="state">
-    <option value="">State</option>
-    <option>AL</option><option>AK</option><option>AZ</option><option>AR</option>
-    <option>CA</option><option>CO</option><option>CT</option><option>DE</option>
-    <option>FL</option><option>GA</option><option>HI</option><option>ID</option>
-    <option>IL</option><option>IN</option><option>IA</option><option>KS</option>
-    <option>KY</option><option>LA</option><option>ME</option><option>MD</option>
-    <option>MA</option><option>MI</option><option>MN</option><option>MS</option>
-    <option>MO</option><option>MT</option><option>NE</option><option>NV</option>
-    <option>NH</option><option>NJ</option><option>NM</option><option>NY</option>
-    <option>NC</option><option>ND</option><option>OH</option><option>OK</option>
-    <option>OR</option><option>PA</option><option>RI</option><option>SC</option>
-    <option>SD</option><option>TN</option><option>TX</option><option>UT</option>
-    <option>VT</option><option>VA</option><option>WA</option><option>WV</option>
-    <option>WI</option><option>WY</option>
-  </select>
-    <input type="text" id="zip" placeholder="ZIP">
+    <button id="limitedBtn">Create Limited Account</button>
+    <p style="margin-top: 1rem; font-size: 0.8rem; color: #8a8678; line-height: 1.4;">
+      Limited Access accounts provide a restricted view of our catalog. To unlock full technical specifications, spec sheets, and purchasing for controlled items, a Full Access Account is required. We understand the verification process is an extra step, but this documentation is a federal requirement to ensure our mutual compliance with ITAR and EAR export regulations.
+    </p>
+    <div class="msg" id="l_msg"></div>
   </div>
 
-  <input type="text" id="companyRep" class="hidden" placeholder="Company Representative">
+  <!-- ================= FULL ================= -->
+  <div class="box">
+    <h1>FULL ACCESS</h1>
 
-  <!-- ================= INDIVIDUAL ================= -->
-  <div id="individualOptions" style="display:flex; gap:1rem; margin-bottom:1rem;">
+    <select id="accountType">
+      <option value="individual">Individual</option>
+      <option value="business">Business</option>
+    </select>
 
-    <div id="opt1" class="card selected">
-      <div class="radio"></div>
-      <div class="title">ONE OF THE FOLLOWING:</div>
-      <div class="list">
-        <div>Unexpired Passport or Passport Card</div>
-        <div>Permanent Resident Card (Form I-551)</div>
-        <div>Certificate of Naturalization (N-550 or N-570) or Citizenship (N-560 or N-561)</div>
-        <div>Original or Certified U.S. Birth Certificate</div>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <input type="text" id="fullName" placeholder="Full Name">
+
+    <input type="text" id="address1" placeholder="Address Line 1">
+    <input type="text" id="address2" placeholder="Address Line 2">
+
+    <div class="row">
+      <input type="text" id="city" placeholder="City">
+      <select id="state">
+        <option value="">State</option>
+        <option>AL</option><option>AK</option><option>AZ</option><option>AR</option>
+        <option>CA</option><option>CO</option><option>CT</option><option>DE</option>
+        <option>FL</option><option>GA</option><option>HI</option><option>ID</option>
+        <option>IL</option><option>IN</option><option>IA</option><option>KS</option>
+        <option>KY</option><option>LA</option><option>ME</option><option>MD</option>
+        <option>MA</option><option>MI</option><option>MN</option><option>MS</option>
+        <option>MO</option><option>MT</option><option>NE</option><option>NV</option>
+        <option>NH</option><option>NJ</option><option>NM</option><option>NY</option>
+        <option>NC</option><option>ND</option><option>OH</option><option>OK</option>
+        <option>OR</option><option>PA</option><option>RI</option><option>SC</option>
+        <option>SD</option><option>TN</option><option>TX</option><option>UT</option>
+        <option>VT</option><option>VA</option><option>WA</option><option>WV</option>
+        <option>WI</option><option>WY</option>
+      </select>
+      <input type="text" id="zip" placeholder="ZIP">
+    </div>
+
+    <input type="text" id="companyRep" class="hidden" placeholder="Company Representative">
+
+    <!-- INDIVIDUAL OPTIONS -->
+    <div id="individualOptions" style="display:flex; gap:1rem; margin-bottom:1rem;">
+      <div id="opt1" class="card selected">
+        <div class="radio"></div>
+        <div class="title">ONE OF THE FOLLOWING:</div>
+        <div class="list">
+          <div>Unexpired Passport or Passport Card</div>
+          <div>Permanent Resident Card (Form I-551)</div>
+          <div>Certificate of Naturalization (N-550 or N-570) or Citizenship (N-560 or N-561)</div>
+          <div>Original or Certified U.S. Birth Certificate</div>
+        </div>
+      </div>
+      <div id="opt2" class="card">
+        <div class="radio"></div>
+        <div class="title">TWO OF THE FOLLOWING:</div>
+        <div class="list">
+          <div>State Issued DL (REAL ID)</div>
+          <div>Voter Registration Card</div>
+          <div>Government Photo ID</div>
+          <div>Social Security Card</div>
+          <div>Consular Report of Birth Abroad (FS-240)</div>
+        </div>
       </div>
     </div>
 
-    <div id="opt2" class="card">
-      <div class="radio"></div>
-      <div class="title">TWO OF THE FOLLOWING:</div>
-      <div class="list">
-        <div>State Issued DL (REAL ID)</div>
-        <div>Voter Registration Card</div>
-        <div>Government Photo ID</div>
-        <div>Social Security Card</div>
-        <div>Consular Report of Birth Abroad (FS-240)</div>
+    <!-- BUSINESS OPTIONS -->
+    <div id="businessOptions" class="hidden" style="margin-bottom:1rem; text-align:left;">
+      <div class="card" style="cursor:default;">
+        <div class="title">REQUIRED DOCUMENTS</div>
+        <div class="list">
+          <div>Business License / Registration</div>
+          <div>Articles of Incorporation / Formation</div>
+        </div>
       </div>
     </div>
 
+    <!-- Upload progress bars -->
+    <div class="upload-progress" id="prog1"><div class="upload-progress-bar" id="bar1"></div></div>
+    <input type="file" id="file1" accept="image/*,.pdf">
+    <div class="upload-progress" id="prog2"><div class="upload-progress-bar" id="bar2"></div></div>
+    <input type="file" id="file2" class="hidden" accept="image/*,.pdf">
+
+    <button id="fullBtn">Create Full Access Account</button>
+    <div class="msg" id="msg"></div>
   </div>
 
-  <!-- ================= BUSINESS ================= -->
-  <!-- BUSINESS OPTIONS -->
-<div id="businessOptions" class="hidden" style="margin-bottom:1rem; text-align:left;">
+</div>
 
-  <div class="card" style="cursor:default;">
-    <div class="title">REQUIRED DOCUMENTS</div>
-
-    <div class="list">
-      <div>Business License / Registration</div>
-      <div>Articles of Incorporation / Formation</div>
+<!-- ================= MODAL ================= -->
+<div id="modal" class="hidden">
+  <div class="modal-box">
+    <div id="modalText" class="modal-text"></div>
+    <div class="modal-actions">
+      <button id="goProducts">Back to Products Page →</button>
+      <button id="goLanding">Back to Landing Page →</button>
     </div>
   </div>
-
 </div>
 
-  <input type="file" id="file1">
-  <input type="file" id="file2" class="hidden">
-
-  <button id="fullBtn">Create Full Access Account</button>
-  <div class="msg" id="msg"></div>
-</div>
-
-</div>
-
+<!-- ================= FIREBASE + LOGIC ================= -->
 <script type="module">
-/* ================= ELEMENTS ================= */
 
-const accountType = document.getElementById("accountType");
-const companyRep = document.getElementById("companyRep");
-const fullNameInput = document.getElementById("fullName");
+import { initializeApp }        from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword }
+                                from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, setDoc }
+                                from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL }
+                                from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
-const file1 = document.getElementById("file1");
-const file2 = document.getElementById("file2");
+/* ── Firebase init ── */
+const firebaseConfig = {
+  apiKey:            "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
+  authDomain:        "ursus-armament.firebaseapp.com",
+  projectId:         "ursus-armament",
+  storageBucket:     "ursus-armament.firebasestorage.app",
+  messagingSenderId: "430731167862",
+  appId:             "1:430731167862:web:a5447de86db180edad3757"
+};
 
-const opt1 = document.getElementById("opt1");
-const opt2 = document.getElementById("opt2");
+const app     = initializeApp(firebaseConfig);
+const auth    = getAuth(app);
+const db      = getFirestore(app);
+const storage = getStorage(app);
 
-function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}  
+/* ── Helpers ── */
+function isValidEmail(e)    { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+function isValidPassword(p) { return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{12,}$/.test(p); }
+function containsPOBox(a)   { return /\bpo\s*\.?\s*box\b/i.test(a); }
 
-function isValidPassword(password) {
-  // At least 12 chars, 1 uppercase, 1 lowercase, 1 special character
-  return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{12,}$/.test(password);
-}  
-
-function containsPOBox(address) {
-  return /\bpo\s*\.?\s*box\b/i.test(address);
+function setLoading(btn, loading, label) {
+  btn.disabled = loading;
+  btn.innerHTML = loading
+    ? `<span class="spinner"></span>${label}`
+    : label;
 }
-  
-/* ================= STATE ================= */
 
-let fileMode = "1";
+/* ── Modal ── */
+const modal     = document.getElementById("modal");
+const modalText = document.getElementById("modalText");
 
-/* ================= FILE LOGIC ================= */
+function showModal(msg) { modalText.innerText = msg; modal.classList.remove("hidden"); }
+function hideModal()    { modal.classList.add("hidden"); }
 
+document.getElementById("goProducts").onclick = () => window.location.href = "https://ursusworks.com/ursusarmament/products";
+document.getElementById("goLanding").onclick  = () => window.location.href = "https://ursusworks.com/ursusarmament";
+modal.onclick = e => { if (e.target === modal) hideModal(); };
+
+/* ── File upload to Firebase Storage ── */
+// Returns a Promise that resolves to the public download URL.
+// progEl = the progress bar wrapper div, barEl = the inner bar div.
+function uploadFile(file, path, progEl, barEl) {
+  return new Promise((resolve, reject) => {
+    progEl.style.display = "block";
+    const ref  = storageRef(storage, path);
+    const task = uploadBytesResumable(ref, file);
+
+    task.on("state_changed",
+      snap => {
+        const pct = (snap.bytesTransferred / snap.totalBytes) * 100;
+        barEl.style.width = pct + "%";
+      },
+      err  => reject(err),
+      async () => {
+        const url = await getDownloadURL(task.snapshot.ref);
+        resolve(url);
+      }
+    );
+  });
+}
+
+/* ════════════════════════════════════
+   LIMITED ACCOUNT
+════════════════════════════════════ */
+const limitedBtn = document.getElementById("limitedBtn");
+
+limitedBtn.addEventListener("click", async () => {
+  const email    = document.getElementById("l_email").value.trim();
+  const password = document.getElementById("l_password").value;
+  const name     = document.getElementById("l_name").value.trim();
+  const lMsg     = document.getElementById("l_msg");
+
+  // Validation
+  if (!email || !password || !name) { alert("Please fill out all fields."); return; }
+  if (!isValidEmail(email))         { alert("Please enter a valid email address."); return; }
+  if (!isValidPassword(password)) {
+    alert("Password must be at least 12 characters and include 1 uppercase letter, 1 lowercase letter, and 1 special character.");
+    return;
+  }
+
+  setLoading(limitedBtn, true, "Creating Account…");
+  lMsg.textContent = "";
+
+  try {
+    // 1. Create Firebase Auth user
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    const uid  = cred.user.uid;
+
+    // 2. Write Firestore document
+    //    Limited accounts: approved = true, status = "active"
+    //    All non-schema fields for full access are left as empty strings so the
+    //    document structure stays consistent across account types.
+    await setDoc(doc(db, "users", uid), {
+      email,
+      name,
+      type:              "limited",
+      approved:          true,
+      status:            "approved",
+      verified_us_person: false,
+      address1:          "",
+      address2:          "",
+      city:              "",
+      state:             "",
+      zip:               "",
+      doc1_url:          "",
+      doc2_url:          "",
+      created_at:        new Date().toISOString(),
+    });
+
+    showModal("Your Limited Access Account has been created. You can now browse our catalog.");
+
+  } catch (err) {
+    console.error("Limited signup error:", err);
+    lMsg.textContent = friendlyError(err.code);
+  } finally {
+    setLoading(limitedBtn, false, "Create Limited Account");
+  }
+});
+
+/* ════════════════════════════════════
+   FULL ACCESS ACCOUNT
+════════════════════════════════════ */
+const fullBtn     = document.getElementById("fullBtn");
+const accountType = document.getElementById("accountType");
+const companyRep  = document.getElementById("companyRep");
+const fullNameIn  = document.getElementById("fullName");
+const file1       = document.getElementById("file1");
+const file2       = document.getElementById("file2");
+const opt1        = document.getElementById("opt1");
+const opt2        = document.getElementById("opt2");
+let fileMode      = "1";
+
+/* File-mode UI */
 function updateFileUI(mode) {
   const isBusiness = accountType.value === "business";
-
   fileMode = mode;
-
-  // visual selection ONLY for individual
   if (!isBusiness) {
     opt1.classList.toggle("selected", mode === "1");
     opt2.classList.toggle("selected", mode === "2");
@@ -333,184 +482,153 @@ function updateFileUI(mode) {
     opt1.classList.remove("selected");
     opt2.classList.remove("selected");
   }
-
-  // FILE VISIBILITY RULES
-  if (isBusiness) {
-    file1.classList.remove("hidden");
-    file2.classList.remove("hidden");
-    return;
-  }
-
   file1.classList.remove("hidden");
-  file2.classList.toggle("hidden", mode === "1");
+  if (isBusiness) {
+    file2.classList.remove("hidden");
+  } else {
+    file2.classList.toggle("hidden", mode === "1");
+  }
 }
 
-/* clicks ONLY matter in individual mode */
-opt1.onclick = () => {
-  if (accountType.value !== "business") updateFileUI("1");
-};
-
-opt2.onclick = () => {
-  if (accountType.value !== "business") updateFileUI("2");
-};
-
-/* default */
+opt1.onclick = () => { if (accountType.value !== "business") updateFileUI("1"); };
+opt2.onclick = () => { if (accountType.value !== "business") updateFileUI("2"); };
 updateFileUI("1");
-
-/* ================= MODE SWITCH ================= */
 
 accountType.addEventListener("change", () => {
   const isBusiness = accountType.value === "business";
-
-  // name swap
-  fullNameInput.placeholder = isBusiness ? "Business Name" : "Full Name";
-
-  // business field
+  fullNameIn.placeholder = isBusiness ? "Business Name" : "Full Name";
   companyRep.classList.toggle("hidden", !isBusiness);
-
-  // toggle sections
-  document.getElementById("individualOptions").style.display =
-    isBusiness ? "none" : "flex";
-
-  document.getElementById("businessOptions").style.display =
-    isBusiness ? "block" : "none";
-
-  // reset file inputs
-  file1.value = "";
-  file2.value = "";
-
-  // reset file state properly
+  document.getElementById("individualOptions").style.display = isBusiness ? "none" : "flex";
+  document.getElementById("businessOptions").style.display   = isBusiness ? "block" : "none";
+  file1.value = ""; file2.value = "";
   updateFileUI("1");
 });
-const modal = document.getElementById("modal");
-const modalText = document.getElementById("modalText");
 
-const goProducts = document.getElementById("goProducts");
-const goLanding = document.getElementById("goLanding");
-
-function showModal(message) {
-  modalText.innerText = message;
-  modal.classList.remove("hidden");
-}
-
-function hideModal() {
-  modal.classList.add("hidden");
-}
-
-goProducts.onclick = () => {
-  window.location.href = "https://ursusworks.com/ursusarmament/products";
-};
-
-goLanding.onclick = () => {
-  window.location.href = "https://ursusworks.com/ursusarmament";
-};
-
-modal.onclick = (e) => {
-  if (e.target === modal) hideModal();
-};
-  /* ================= BUTTON LOGIC ================= */
-
-const limitedBtn = document.getElementById("limitedBtn");
-const fullBtn = document.getElementById("fullBtn");
-
-/* LIMITED ACCOUNT */
-limitedBtn.addEventListener("click", () => {
-  const email = document.getElementById("l_email").value;
-  const password = document.getElementById("l_password").value;
-  if (!isValidPassword(password)) {
-    alert("Password must be at least 12 characters and include 1 uppercase letter, 1 lowercase letter, and 1 special character.");
-    return;
-  }
-  const name = document.getElementById("l_name").value;
-  if (!isValidEmail(email)) {
-    alert("Please enter a valid email address.");
-    return;
-  }
-
-  if (!email || !password || !name) {
-    alert("Please fill out all fields.");
-    return;
-  }
-
-  showModal("Thank you. Your Limited Access Account has been created.");
-});
-
-/* FULL ACCOUNT */
-fullBtn.addEventListener("click", () => {
-  const email = document.getElementById("email").value;
-  if (!isValidEmail(email)) {
-    alert("Please enter a valid email address.");
-    return;
-  }
+/* Submit */
+fullBtn.addEventListener("click", async () => {
+  const email    = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
+  const name     = document.getElementById("fullName").value.trim();
+  const address1 = document.getElementById("address1").value.trim();
+  const address2 = document.getElementById("address2").value.trim();
+  const city     = document.getElementById("city").value.trim();
+  const state    = document.getElementById("state").value;
+  const zip      = document.getElementById("zip").value.trim();
+  const isBusiness = accountType.value === "business";
+  const repName  = isBusiness ? companyRep.value.trim() : "";
+  const fMsg     = document.getElementById("msg");
+
+  // Validation
+  if (!email || !password || !name || !address1 || !city || !state || !zip) {
+    alert("Please complete all required fields."); return;
+  }
+  if (!isValidEmail(email))    { alert("Please enter a valid email address."); return; }
   if (!isValidPassword(password)) {
     alert("Password must be at least 12 characters and include 1 uppercase letter, 1 lowercase letter, and 1 special character.");
     return;
   }
-  const isBusiness = accountType.value === "business";
-
-const file1Selected = file1.files.length > 0;
-const file2Selected = file2.files.length > 0;
-
-  // Business requires TWO files
-  if (isBusiness) {
-    if (!file1Selected || !file2Selected) {
-      alert("Please upload both required business documents.");
-      return;
-    }
-  } 
-  // Individual requires ONE file OR TWO depending on mode
-  else {
-    const fileModeIsTwo = fileMode === "2";
-
-    if (fileModeIsTwo && !file1Selected) {
-      alert("Please upload the required identification documents.");
-      return;
-    }
-
-    if (!file1Selected) {
-      alert("Please upload required identification document.");
-      return;
-    }
-  }
-  const name = document.getElementById("fullName").value;
-
-  const address1 = document.getElementById("address1").value;
-  const city = document.getElementById("city").value;
-  const state = document.getElementById("state").value;
-  const zip = document.getElementById("zip").value;
-
-  if (!email || !password || !name || !address1 || !city || !state || !zip) {
-    alert("Please complete all required fields.");
-    return;
-  }
-
   if (containsPOBox(address1)) {
     alert("PO Box addresses are not accepted for Full Access accounts. Please enter a physical address.");
     return;
   }
 
-  showModal(
-    "Thank you. Your Full Access Account has been created. You will be notified when your account has been approved. We will email you if we require any additional information or clarification."
-  );
+  const file1Selected = file1.files.length > 0;
+  const file2Selected = file2.files.length > 0;
+
+  if (isBusiness) {
+    if (!file1Selected || !file2Selected) {
+      alert("Please upload both required business documents."); return;
+    }
+  } else {
+    if (!file1Selected) {
+      alert("Please upload the required identification document(s)."); return;
+    }
+    if (fileMode === "2" && !file2Selected) {
+      alert("Please upload both identification documents for the selected option."); return;
+    }
+  }
+
+  setLoading(fullBtn, true, "Uploading Documents…");
+  fMsg.textContent = "";
+
+  try {
+    // 1. Create Firebase Auth user
+    const cred = await createUserWithEmailAndPassword(auth, email, password);
+    const uid  = cred.user.uid;
+
+    setLoading(fullBtn, true, "Saving Information…");
+
+    // 2. Upload files to Firebase Storage under users/{uid}/docs/
+    let doc1_url = "";
+    let doc2_url = "";
+
+    if (file1Selected) {
+      const ext1 = file1.files[0].name.split(".").pop();
+      doc1_url = await uploadFile(
+        file1.files[0],
+        `users/${uid}/docs/doc1.${ext1}`,
+        document.getElementById("prog1"),
+        document.getElementById("bar1")
+      );
+    }
+
+    if (file2Selected) {
+      const ext2 = file2.files[0].name.split(".").pop();
+      doc2_url = await uploadFile(
+        file2.files[0],
+        `users/${uid}/docs/doc2.${ext2}`,
+        document.getElementById("prog2"),
+        document.getElementById("bar2")
+      );
+    }
+
+    // 3. Write Firestore document
+    //    Full access: approved = false, status = "pending", verified_us_person = false
+    await setDoc(doc(db, "users", uid), {
+      email,
+      name,
+      type:               accountType.value,   // "individual" | "business"
+      company_rep:        repName,
+      approved:           false,
+      status:             "pending",
+      verified_us_person: false,
+      address1,
+      address2,
+      city,
+      state,
+      zip,
+      id_option:          isBusiness ? "business" : (fileMode === "1" ? "single_doc" : "two_doc"),
+      doc1_url,
+      doc2_url,
+      created_at:         new Date().toISOString(),
+    });
+
+    showModal(
+      "Thank you. Your Full Access Account has been created. You will be notified when your account has been approved. We will email you if we require any additional information or clarification."
+    );
+
+  } catch (err) {
+    console.error("Full signup error:", err);
+    fMsg.textContent = friendlyError(err.code);
+  } finally {
+    setLoading(fullBtn, false, "Create Full Access Account");
+    document.getElementById("prog1").style.display = "none";
+    document.getElementById("prog2").style.display = "none";
+  }
 });
+
+/* ── Human-readable Firebase error messages ── */
+function friendlyError(code) {
+  switch (code) {
+    case "auth/email-already-in-use":   return "An account with this email already exists.";
+    case "auth/invalid-email":          return "Please enter a valid email address.";
+    case "auth/weak-password":          return "Password is too weak. Please choose a stronger password.";
+    case "storage/unauthorized":        return "File upload failed: insufficient permissions.";
+    case "storage/canceled":            return "File upload was cancelled.";
+    default:                            return "An error occurred. Please try again. (" + code + ")";
+  }
+}
+
 </script>
-<!-- ================= MODAL ================= -->
-<div id="modal" class="hidden">
-  <div class="modal-box">
-
-    <div id="modalText" class="modal-text"></div>
-
-    <div class="modal-actions">
-      <button id="goProducts">Back to Products Page →</button>
-      <button id="goLanding">Back to Landing Page →</button>
-    </div>
-
-  </div>
-</div>
-
-    </div>
-  </div>
-</div>
 </body>
 </html>
