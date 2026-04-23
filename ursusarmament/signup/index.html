@@ -309,6 +309,10 @@ function isValidPassword(password) {
   // At least 12 chars, 1 uppercase, 1 lowercase, 1 special character
   return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{12,}$/.test(password);
 }  
+
+function containsPOBox(address) {
+  return /\bpo\s*\.?\s*box\b/i.test(address);
+}
   
 /* ================= STATE ================= */
 
@@ -478,6 +482,11 @@ const file2Selected = file2.files.length > 0;
 
   if (!email || !password || !name || !address1 || !city || !state || !zip) {
     alert("Please complete all required fields.");
+    return;
+  }
+
+  if (containsPOBox(address1)) {
+    alert("PO Box addresses are not accepted for Full Access accounts. Please enter a physical address.");
     return;
   }
 
