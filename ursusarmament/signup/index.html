@@ -384,10 +384,50 @@ fullBtn.addEventListener("click", () => {
 </script>
 <!-- ================= MODAL ================= -->
 <div id="modal" class="hidden">
-  align-items:center;
-  justify-content:center;
-  z-index:9999;
-">
+  <div style="
+    width:min(520px, 92%);
+    background:#111110;
+    border:1px solid rgba(255,255,255,0.1);
+    padding:2rem;
+    text-align:left;
+    box-shadow:0 20px 60px rgba(0,0,0,0.6);
+  ">
+
+    <div id="modalText" style="
+      font-family:'Barlow', sans-serif;
+      color:#e8e4d9;
+      font-size:0.95rem;
+      margin-bottom:1.5rem;
+      line-height:1.5;
+    "></div>
+
+    <div style="display:flex; gap:1rem; justify-content:flex-end;">
+      <button id="goProducts" style="
+        border:1px solid #c8922a;
+        background:transparent;
+        color:#c8922a;
+        padding:0.6rem 1rem;
+        cursor:pointer;
+        font-family:'Barlow Condensed';
+        letter-spacing:0.1em;
+      ">
+        Back to Products Page →
+      </button>
+
+      <button id="goLanding" style="
+        border:1px solid #c8922a;
+        background:transparent;
+        color:#c8922a;
+        padding:0.6rem 1rem;
+        cursor:pointer;
+        font-family:'Barlow Condensed';
+        letter-spacing:0.1em;
+      ">
+        Back to Landing Page →
+      </button>
+    </div>
+  </div>
+</div>
 
   <div style="
     width:min(520px, 92%);
