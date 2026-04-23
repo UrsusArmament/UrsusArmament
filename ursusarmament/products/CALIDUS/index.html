@@ -447,7 +447,14 @@
 </section>
 
 <!-- SPECS -->
-<section class="specs-section" id="specs">
+<section class="specs-section" id="specs" style="position:relative;">
+  <div class="feature-lock-overlay" id="specsLock">
+    <div class="feature-lock-box">
+      <div class="feature-lock-title">FULL ACCESS REQUIRED</div>
+      <div class="feature-lock-text">Technical specifications are available to verified Full Access account holders only.</div>
+      <a href="/ursusarmament/settings/" class="feature-lock-btn">Upgrade Account</a>
+    </div>
+  </div>
   <div class="section-tag">Technical Data</div>
   <h2 class="section-title">SPECIFICATIONS</h2>
   <div class="specs-grid">
@@ -794,8 +801,10 @@ onAuthStateChanged(auth, async (user) => {
 
   if (_isFullApproved) {
     document.getElementById("serialLock").classList.remove("active");
+    document.getElementById("specsLock").classList.remove("active");
   } else {
     document.getElementById("serialLock").classList.add("active");
+    document.getElementById("specsLock").classList.add("active");
   }
 });
 
