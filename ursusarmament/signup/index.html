@@ -166,21 +166,19 @@
   </div>
 
   <!-- ================= BUSINESS ================= -->
-  <div id="businessOptions" class="hidden" style="display:flex; gap:1rem; margin-bottom:1rem;">
+  <!-- BUSINESS OPTIONS -->
+<div id="businessOptions" class="hidden" style="margin-bottom:1rem; text-align:left;">
 
-    <div class="card selected">
-      <div class="radio"></div>
-      <div class="title">OPTION 1</div>
-      <div class="list">Business Docs Set A</div>
+  <div class="card" style="cursor:default;">
+    <div class="title">REQUIRED DOCUMENTS</div>
+
+    <div class="list">
+      <div>Option 1: Business License / Registration</div>
+      <div>Option 2: Articles of Incorporation / Formation</div>
     </div>
-
-    <div class="card">
-      <div class="radio"></div>
-      <div class="title">OPTION 2</div>
-      <div class="list">Business Docs Set B</div>
-    </div>
-
   </div>
+
+</div>
 
   <input type="file" id="file1">
   <input type="file" id="file2" class="hidden">
@@ -235,11 +233,11 @@ accountType.addEventListener("change", () => {
 
   // INDIVIDUAL SECTION (ONLY FOR INDIVIDUAL)
   document.getElementById("individualOptions").style.display =
-    isBusiness ? "none" : "flex";
+  isBusiness ? "none" : "flex";
 
   // BUSINESS SECTION (ONLY FOR BUSINESS)
   document.getElementById("businessOptions").style.display =
-    isBusiness ? "flex" : "none";
+  isBusiness ? "block" : "none";
 
   // RESET FILE INPUTS
   file1.value = "";
