@@ -558,6 +558,8 @@ fullBtn.addEventListener("click", async () => {
     const uid  = cred.user.uid;
 
     setLoading(fullBtn, true, "Saving Information…");
+    console.log("Current user:", auth.currentUser);
+    console.log("User UID:", auth.currentUser?.uid);
 
     // 2. Upload files to Firebase Storage under users/{uid}/docs/
     let doc1_url = "";
