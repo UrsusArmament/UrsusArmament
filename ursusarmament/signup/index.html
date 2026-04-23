@@ -33,10 +33,10 @@
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 0.15em;
     font-size: 2rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
   }
 
-  input {
+  select, input {
     width: 100%;
     padding: 0.8rem;
     margin-bottom: 1rem;
@@ -47,7 +47,7 @@
     font-family: 'Barlow', sans-serif;
   }
 
-  input:focus {
+  input:focus, select:focus {
     border-color: #c8922a;
   }
 
@@ -84,6 +84,10 @@
     color: #c8922a;
     text-decoration: none;
   }
+
+  .hidden {
+    display: none;
+  }
 </style>
 </head>
 
@@ -92,8 +96,32 @@
 <div class="box">
   <h1>CREATE ACCOUNT</h1>
 
+  <!-- Account Type -->
+  <select id="accountType">
+    <option value="individual">Individual</option>
+    <option value="business">Business</option>
+  </select>
+
   <input type="email" id="email" placeholder="Email">
   <input type="password" id="password" placeholder="Password">
+  <input type="text" id="fullName" placeholder="Full Name">
+  <input type="text" id="address" placeholder="Physical End-Use Address">
+
+  <!-- Individual option -->
+  <select id="indOption">
+    <option value="1">Submit 1 file</option>
+    <option value="2">Submit 2 files</option>
+  </select>
+
+  <!-- Business fields -->
+  <input type="text" id="companyRep" class="hidden" placeholder="Company Representative Name">
+  <p id="bizNote" class="hidden" style="font-size:0.8rem;color:#8a8678;">
+    Business accounts require 2 file submissions
+  </p>
+
+  <!-- File uploads -->
+  <input type="file" id="file1">
+  <input type="file" id="file2" class="hidden">
 
   <button id="signupBtn">Create Account</button>
 
@@ -111,10 +139,46 @@ from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { doc, setDoc } 
 from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+const accountType = document.getElementById("accountType");
+const indOption = document.getElementById("indOption");
+const file2 = document.getElementById("file2");
+const companyRep = document.getElementById("companyRep");
+const bizNote = document.getElementById("bizNote");
+
+function isPOBox(address) {
+  return /p\s*\.?\s*o\s*\.?\s*box/i.test(address);
+}
+
+// UI logic
+accountType.addEventListener("change", () => {
+  if (accountType.value === "business") {
+    companyRep.classList.remove("hidden");
+    bizNote.classList.remove("hidden");
+    file2.classList.remove("hidden");
+  } else {
+    companyRep.classList.add("hidden");
+    bizNote.classList.add("hidden");
+  }
+});
+
+indOption.addEventListener("change", () => {
+  file2.classList.toggle("hidden", indOption.value !== "2");
+});
+
+// Submit
 document.getElementById("signupBtn").addEventListener("click", async () => {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
+  const fullName = document.getElementById("fullName").value;
+  const address = document.getElementById("address").value;
   const msg = document.getElementById("msg");
+
+  if (isPOBox(address)) {
+    msg.innerText = "PO Boxes are not allowed.";
+    return;
+  }
+
+  const type = accountType.value;
 
   try {
     const userCred = await createUserWithEmailAndPassword(
@@ -124,7 +188,10 @@ document.getElementById("signupBtn").addEventListener("click", async () => {
     );
 
     await setDoc(doc(window.firebaseDB, "users", userCred.user.uid), {
-      email: email,
+      email,
+      fullName,
+      address,
+      accountType: type,
       approved: false,
       createdAt: Date.now()
     });
