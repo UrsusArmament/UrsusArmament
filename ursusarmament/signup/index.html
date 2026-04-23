@@ -287,6 +287,10 @@ const file2 = document.getElementById("file2");
 const opt1 = document.getElementById("opt1");
 const opt2 = document.getElementById("opt2");
 
+function isValidEmail(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}  
+  
 /* ================= STATE ================= */
 
 let fileMode = "1";
@@ -391,6 +395,10 @@ limitedBtn.addEventListener("click", () => {
   const email = document.getElementById("l_email").value;
   const password = document.getElementById("l_password").value;
   const name = document.getElementById("l_name").value;
+  if (!isValidEmail(email)) {
+    alert("Please enter a valid email address.");
+    return;
+  }
 
   if (!email || !password || !name) {
     alert("Please fill out all fields.");
@@ -403,6 +411,10 @@ limitedBtn.addEventListener("click", () => {
 /* FULL ACCOUNT */
 fullBtn.addEventListener("click", () => {
   const email = document.getElementById("email").value;
+  if (!isValidEmail(email)) {
+    alert("Please enter a valid email address.");
+    return;
+  }
   const password = document.getElementById("password").value;
   const name = document.getElementById("fullName").value;
 
