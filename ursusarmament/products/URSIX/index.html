@@ -305,20 +305,28 @@
 
   /* REVIEWS */
   .reviews-section { background: var(--black); padding: 6rem 3rem; }
-  .reviews-container { max-height: 400px; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; background: var(--border); }
-  .review-card { background: var(--surface); padding: 1.75rem 2rem; display: flex; flex-direction: column; gap: 0.6rem; border-left: 3px solid transparent; transition: background 0.2s, border-color 0.2s; }
+  .reviews-container { max-height: 600px; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+  .review-card { background: var(--surface); padding: 2rem 2.5rem; display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; border-left: 3px solid transparent; transition: background 0.2s, border-color 0.2s; width: 100%; }
   .review-card:hover { background: var(--surface2); border-color: var(--accent); }
-  .review-header { display: flex; justify-content: space-between; align-items: center; }
-  .review-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); }
+  .review-content { flex: 1; display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
+  .review-header { display: flex; flex-direction: column; gap: 0.3rem; }
+  .review-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); }
   .review-meta { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.12em; }
   .review-type { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
-  .review-stars { font-size: 0.85rem; letter-spacing: 0.1em; color: var(--accent); }
-  .review-text { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+  .review-stars { font-size: 1.2rem; letter-spacing: 0.1em; color: var(--accent); }
+  .review-meta { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-family: 'Barlow Condensed', sans-serif; }
+  .review-text { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-top: 0.25rem; }
   .reviews-empty { padding: 2rem; text-align: center; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.15em; color: var(--muted); }
 
-  .review-images { display: flex; gap: 0.75rem; margin-top: 0.75rem; flex-wrap: wrap; }
-  .review-img { width: 160px; height: 120px; object-fit: cover; cursor: pointer; border: 1px solid var(--border2); transition: opacity 0.2s, border-color 0.2s; }
+  .review-images { display: flex; flex-direction: column; gap: 0.5rem; flex-shrink: 0; width: 200px; }
+  .review-img { width: 200px; height: 150px; object-fit: cover; cursor: pointer; border: 1px solid var(--border2); transition: opacity 0.2s, border-color 0.2s; display: block; }
   .review-img:hover { opacity: 0.85; border-color: var(--accent); }
+
+  @media (max-width: 600px) {
+    .review-card { flex-direction: column; gap: 1.25rem; padding: 1.5rem; }
+    .review-images { flex-direction: row; width: 100%; }
+    .review-img { width: calc(50% - 0.25rem); height: 120px; }
+  }
 
   @media (max-width: 900px) {
     .product-hero { grid-template-columns: 1fr; }
@@ -1009,13 +1017,14 @@ async function loadURSIXReviews() {
         imgHtml += '</div>';
       }
       div.innerHTML = `
-        <div class="review-header">
-          <div class="review-name">${r.firstName || '—'} (${r.state || ''})</div>
-          <div class="review-stars">${stars}</div>
+        <div class="review-content">
+          <div class="review-header">
+            <div class="review-name">${r.firstName || '—'} (${r.state || ''})</div>
+            <div class="review-stars">${stars}</div>
+          </div>
+          <div class="review-meta">${r.productType || 'URSIX'} &nbsp;·&nbsp; ${r.feedbackType || ''}</div>
+          <div class="review-text">${r.reviewText || ''}</div>
         </div>
-        <div class="review-meta">${r.productType || 'URSIX'}</div>
-        <div class="review-type">${r.feedbackType || ''}</div>
-        <div class="review-text">${r.reviewText || ''}</div>
         ${imgHtml}
       `;
       container.appendChild(div);
