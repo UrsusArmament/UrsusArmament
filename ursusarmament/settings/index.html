@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Account Settings | Ursus Armament</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --surface2: #222220;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+    --accent2: #e8a830;
+    --green: #4a9a6a;
+    --yellow: #c8a02a;
+    --red: #9a4a4a;
+  }
+
+  body {
+    margin: 0;
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,8,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-slogan {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .nav-ribbon {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3rem;
+    height: 38px;
+    background: var(--surface);
+  }
+
+  .nav-ribbon a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0 1.6rem;
+    height: 100%;
+    display: flex; align-items: center;
+    border-right: 1px solid var(--border);
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
+  .nav-ribbon a:hover { color: var(--accent); background: rgba(200,146,42,0.06); }
+
+  .nav-auth {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .nav-auth a, .nav-auth button {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--accent);
+    background: transparent;
+    border: 1px solid var(--accent);
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .nav-auth a:hover, .nav-auth button:hover {
+    background: rgba(200,146,42,0.08);
+  }
+
+  /* ── MAIN CONTENT ── */
+  .page {
+    padding: 8rem 3rem 4rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  /* ── ACCOUNT HERO ── */
+  .account-hero {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .account-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .account-tag::before {
+    content: '';
+    display: block; width: 20px; height: 1px;
+    background: var(--accent);
+  }
+
+  .account-username {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    letter-spacing: 0.08em;
+    line-height: 1;
+    color: var(--text);
+  }
+
+  .account-email {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 0.4rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── CARDS ── */
+  .card {
+    background: linear-gradient(180deg, var(--surface), var(--dark));
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .card-value {
+    font-size: 0.95rem;
+    color: var(--text);
+  }
+
+  /* ── STATUS BADGE ── */
+  .status-badge {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid;
+  }
+
+  .status-approved { color: var(--green); border-color: var(--green); background: rgba(74,154,106,0.08); }
+  .status-pending  { color: var(--yellow); border-color: var(--yellow); background: rgba(200,160,42,0.08); }
+  .status-denied   { color: var(--red); border-color: var(--red); background: rgba(154,74,74,0.08); }
+
+  /* ── BUTTONS ── */
+  .btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.2rem;
+    border: 1px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .btn:hover { background: rgba(200,146,42,0.08); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .btn-danger {
+    border-color: var(--red);
+    color: var(--red);
+  }
+  .btn-danger:hover { background: rgba(154,74,74,0.08); }
+
+  .btn-signout {
+    width: 100%;
+    padding: 0.85rem;
+    margin-top: 2rem;
+    border: 1px solid var(--border2);
+    background: transparent;
+    color: var(--muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .btn-signout:hover { border-color: var(--red); color: var(--red); background: rgba(154,74,74,0.05); }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  .modal-overlay.open { display: flex; }
+
+  .modal-box {
+    width: min(520px, 92%);
+    background: linear-gradient(180deg, var(--surface), var(--dark));
+    border: 1px solid var(--border2);
+    padding: 2rem;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+
+  .modal-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+  }
+
+  .modal-box input, .modal-box select {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 0.75rem;
+    background: var(--dark);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    box-sizing: border-box;
+  }
+
+  .modal-row { display: flex; gap: 0.5rem; }
+  .modal-row input, .modal-row select { flex: 1; }
+
+  .modal-actions {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+
+  .modal-msg {
+    font-size: 0.82rem;
+    margin-top: 0.5rem;
+    min-height: 1.2em;
+  }
+  .modal-msg.success { color: var(--green); }
+  .modal-msg.error   { color: var(--red); }
+
+  /* upgrade modal doc options */
+  .doc-card {
+    flex: 1;
+    padding: 0.8rem;
+    border: 1px solid var(--border2);
+    background: var(--dark);
+    cursor: pointer;
+    text-align: left;
+    position: relative;
+  }
+  .doc-card.selected { border-color: var(--accent); }
+  .doc-radio {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 1px solid var(--muted);
+    position: absolute; top: 8px; right: 8px;
+  }
+  .doc-card.selected .doc-radio { background: var(--accent); border-color: var(--accent); }
+  .doc-title { font-size: 0.7rem; letter-spacing: 0.1em; color: var(--accent); margin-bottom: 0.3rem; font-family: 'Barlow Condensed', sans-serif; text-transform: uppercase; font-weight: 700; }
+  .doc-list  { font-size: 0.68rem; color: var(--muted); line-height: 1.5; }
+
+  .hidden { display: none !important; }
+
+  @media (max-width: 900px) {
+    .nav-top { padding: 0.6rem 1.5rem; }
+    .nav-ribbon { padding: 0 1rem; }
+    .page { padding: 7rem 1.5rem 3rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-top">
+    <div class="nav-brand">
+      <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
+      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    </div>
+    <div class="nav-auth" id="navAuth"><!-- populated by JS --></div>
+  </div>
+  <div class="nav-ribbon">
+    <a href="/ursusarmament/products">Products</a>
+    <a href="/ursusarmament#mission">Our Mission</a>
+    <a href="/ursusarmament#process">Learn</a>
+  </div>
+</nav>
+
+<!-- PAGE -->
+<div class="page" id="pageContent" style="display:none;">
+
+  <!-- ACCOUNT HERO -->
+  <div class="account-hero">
+    <div class="account-tag">Account Settings</div>
+    <div class="account-username" id="displayUsername">—</div>
+    <div class="account-email" id="displayEmail"></div>
+  </div>
+
+  <!-- ACCESS TYPE CARD -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Access Type</div>
+      <span class="card-value" id="displayType">—</span>
+    </div>
+    <!-- LIMITED: upgrade button -->
+    <div id="upgradeSection" class="hidden">
+      <p style="font-size:0.82rem; color:var(--muted); margin-bottom:0.75rem;">
+        Upgrade to Full Access to unlock technical specifications, spec sheets, and purchasing for controlled items.
+      </p>
+      <button class="btn" onclick="openModal('upgradeModal')">Upgrade to Full Access</button>
+    </div>
+    <!-- FULL: status badge -->
+    <div id="statusSection" class="hidden">
+      <div class="card-header" style="margin-bottom:0;">
+        <div class="card-title">Account Status</div>
+        <span id="statusBadge" class="status-badge">—</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ADDRESS CARD (full access only) -->
+  <div class="card hidden" id="addressCard">
+    <div class="card-header">
+      <div class="card-title">Address on File</div>
+      <button class="btn" onclick="openModal('addressModal')">Update</button>
+    </div>
+    <div style="font-size:0.88rem; color:var(--muted); line-height:1.8;" id="displayAddress">—</div>
+  </div>
+
+  <!-- PASSWORD CARD -->
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title">Password</div>
+      <button class="btn" id="pwResetBtn" onclick="sendPasswordReset()">Send Reset Email</button>
+    </div>
+    <div style="font-size:0.82rem; color:var(--muted);">A password reset link will be sent to your email address.</div>
+    <div class="modal-msg" id="pwMsg"></div>
+  </div>
+
+  <!-- SIGN OUT -->
+  <button class="btn-signout" onclick="signOutUser()">Sign Out</button>
+
+</div>
+
+<!-- ════════════ MODALS ════════════ -->
+
+<!-- ADDRESS MODAL -->
+<div class="modal-overlay" id="addressModal">
+  <div class="modal-box">
+    <div class="modal-title">Update Address</div>
+    <input type="text" id="upd_address1" placeholder="Address Line 1">
+    <input type="text" id="upd_address2" placeholder="Address Line 2 (optional)">
+    <div class="modal-row">
+      <input type="text" id="upd_city" placeholder="City">
+      <select id="upd_state">
+        <option value="">State</option>
+        <option>AL</option><option>AK</option><option>AZ</option><option>AR</option>
+        <option>CA</option><option>CO</option><option>CT</option><option>DE</option>
+        <option>FL</option><option>GA</option><option>HI</option><option>ID</option>
+        <option>IL</option><option>IN</option><option>IA</option><option>KS</option>
+        <option>KY</option><option>LA</option><option>ME</option><option>MD</option>
+        <option>MA</option><option>MI</option><option>MN</option><option>MS</option>
+        <option>MO</option><option>MT</option><option>NE</option><option>NV</option>
+        <option>NH</option><option>NJ</option><option>NM</option><option>NY</option>
+        <option>NC</option><option>ND</option><option>OH</option><option>OK</option>
+        <option>OR</option><option>PA</option><option>RI</option><option>SC</option>
+        <option>SD</option><option>TN</option><option>TX</option><option>UT</option>
+        <option>VT</option><option>VA</option><option>WA</option><option>WV</option>
+        <option>WI</option><option>WY</option>
+      </select>
+      <input type="text" id="upd_zip" placeholder="ZIP">
+    </div>
+    <div class="modal-msg" id="addressMsg"></div>
+    <div class="modal-actions">
+      <button class="btn btn-danger" onclick="closeModal('addressModal')">Cancel</button>
+      <button class="btn" onclick="saveAddress()">Save Address</button>
+    </div>
+  </div>
+</div>
+
+<!-- UPGRADE MODAL -->
+<div class="modal-overlay" id="upgradeModal">
+  <div class="modal-box">
+    <div class="modal-title">Upgrade to Full Access</div>
+
+    <select id="upg_accountType" style="width:100%; padding:0.8rem; margin-bottom:0.75rem; background:var(--dark); border:1px solid var(--border2); color:var(--text);">
+      <option value="individual">Individual</option>
+      <option value="business">Business</option>
+    </select>
+
+    <input type="text" id="upg_fullName" placeholder="Full Name">
+    <input type="text" id="upg_businessName" class="hidden" placeholder="Business Name">
+    <input type="text" id="upg_address1" placeholder="Address Line 1">
+    <input type="text" id="upg_address2" placeholder="Address Line 2 (optional)">
+    <div class="modal-row">
+      <input type="text" id="upg_city" placeholder="City">
+      <select id="upg_state" style="background:var(--dark); border:1px solid var(--border2); color:var(--text); padding:0.8rem;">
+        <option value="">State</option>
+        <option>AL</option><option>AK</option><option>AZ</option><option>AR</option>
+        <option>CA</option><option>CO</option><option>CT</option><option>DE</option>
+        <option>FL</option><option>GA</option><option>HI</option><option>ID</option>
+        <option>IL</option><option>IN</option><option>IA</option><option>KS</option>
+        <option>KY</option><option>LA</option><option>ME</option><option>MD</option>
+        <option>MA</option><option>MI</option><option>MN</option><option>MS</option>
+        <option>MO</option><option>MT</option><option>NE</option><option>NV</option>
+        <option>NH</option><option>NJ</option><option>NM</option><option>NY</option>
+        <option>NC</option><option>ND</option><option>OH</option><option>OK</option>
+        <option>OR</option><option>PA</option><option>RI</option><option>SC</option>
+        <option>SD</option><option>TN</option><option>TX</option><option>UT</option>
+        <option>VT</option><option>VA</option><option>WA</option><option>WV</option>
+        <option>WI</option><option>WY</option>
+      </select>
+      <input type="text" id="upg_zip" placeholder="ZIP">
+    </div>
+
+    <!-- Individual doc options -->
+    <div id="upg_individualOptions" style="display:flex; gap:0.5rem; margin-bottom:0.75rem;">
+      <div id="upg_opt1" class="doc-card selected" onclick="selectDocMode('1')">
+        <div class="doc-radio"></div>
+        <div class="doc-title">One of the following:</div>
+        <div class="doc-list">Passport · Permanent Resident Card · Certificate of Naturalization · U.S. Birth Certificate</div>
+      </div>
+      <div id="upg_opt2" class="doc-card" onclick="selectDocMode('2')">
+        <div class="doc-radio"></div>
+        <div class="doc-title">Two of the following:</div>
+        <div class="doc-list">REAL ID · Voter Registration · Government Photo ID · Social Security Card</div>
+      </div>
+    </div>
+
+    <!-- Business doc note -->
+    <div id="upg_businessOptions" class="hidden" style="margin-bottom:0.75rem; padding:0.8rem; border:1px solid var(--border2); background:var(--dark);">
+      <div class="doc-title">Required Documents</div>
+      <div class="doc-list">Business License / Registration · Articles of Incorporation / Formation</div>
+    </div>
+
+    <input type="file" id="upg_file1" accept="image/png,image/jpeg,.pdf" style="margin-bottom:0.5rem;">
+    <input type="file" id="upg_file2" class="hidden" accept="image/png,image/jpeg,.pdf" style="margin-bottom:0.5rem;">
+
+    <div class="modal-msg" id="upgradeMsg"></div>
+    <div class="modal-actions">
+      <button class="btn btn-danger" onclick="closeModal('upgradeModal')">Cancel</button>
+      <button class="btn" id="upgradeSubmitBtn" onclick="submitUpgrade()">Submit Upgrade Request</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════ FIREBASE ════════════ -->
+<script type="module">
+import { initializeApp }        from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged, signOut, sendPasswordResetEmail }
+                                from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, updateDoc }
+                                from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL }
+                                from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
+const firebaseConfig = {
+  apiKey:            "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
+  authDomain:        "ursus-armament.firebaseapp.com",
+  projectId:         "ursus-armament",
+  storageBucket:     "ursus-armament.firebasestorage.app",
+  messagingSenderId: "430731167862",
+  appId:             "1:430731167862:web:a5447de86db180edad3757"
+};
+
+const app     = initializeApp(firebaseConfig);
+const auth    = getAuth(app);
+const db      = getFirestore(app);
+const storage = getStorage(app);
+
+let currentUser   = null;
+let currentData   = null;
+let emailPrefix   = null;
+let upgDocMode    = "1";
+
+/* ── Auth state ── */
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.replace("/ursusarmament/login/");
+    return;
+  }
+
+  currentUser = user;
+  emailPrefix = user.email.split("@")[0];
+
+  // Nav
+  const navAuth = document.getElementById("navAuth");
+  navAuth.innerHTML = `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
+
+  // Load Firestore data
+  try {
+    const snap = await getDoc(doc(db, "users", emailPrefix));
+    currentData = snap.data();
+    renderPage();
+  } catch (e) {
+    console.error("Failed to load user data:", e);
+  }
+});
+
+/* ── Render page from Firestore data ── */
+function renderPage() {
+  document.getElementById("pageContent").style.display = "block";
+  document.getElementById("displayUsername").textContent = emailPrefix.toUpperCase();
+  document.getElementById("displayEmail").textContent    = currentUser.email;
+
+  const type   = currentData?.d_type || "limited";
+  const status = currentData?.f_status || "pending";
+
+  document.getElementById("displayType").textContent =
+    type === "full" ? "Full Access" : "Limited Access";
+
+  if (type === "limited") {
+    document.getElementById("upgradeSection").classList.remove("hidden");
+  } else {
+    document.getElementById("statusSection").classList.remove("hidden");
+    document.getElementById("addressCard").classList.remove("hidden");
+
+    const badge = document.getElementById("statusBadge");
+    if (status === "approved") {
+      badge.textContent = "Approved";
+      badge.className = "status-badge status-approved";
+    } else if (status === "denied") {
+      badge.textContent = "Denied";
+      badge.className = "status-badge status-denied";
+    } else {
+      badge.textContent = "Pending Review";
+      badge.className = "status-badge status-pending";
+    }
+
+    // Address
+    const a1  = currentData?.h_address1 || "";
+    const a2  = currentData?.i_address2 || "";
+    const city = currentData?.j_city || "";
+    const st  = currentData?.k_state || "";
+    const zip = currentData?.l_zip || "";
+    document.getElementById("displayAddress").innerHTML =
+      [a1, a2, `${city}${city && st ? ", " : ""}${st} ${zip}`.trim()]
+      .filter(Boolean).join("<br>");
+  }
+}
+
+/* ── Modal helpers ── */
+window.openModal  = (id) => document.getElementById(id).classList.add("open");
+window.closeModal = (id) => document.getElementById(id).classList.remove("open");
+
+/* Close on backdrop click */
+document.querySelectorAll(".modal-overlay").forEach(m => {
+  m.addEventListener("click", e => { if (e.target === m) m.classList.remove("open"); });
+});
+
+/* ── Password reset ── */
+window.sendPasswordReset = async () => {
+  const btn = document.getElementById("pwResetBtn");
+  const msg = document.getElementById("pwMsg");
+  btn.disabled = true;
+  btn.textContent = "Sending...";
+  try {
+    await sendPasswordResetEmail(auth, currentUser.email);
+    msg.className = "modal-msg success";
+    msg.textContent = "Reset link sent — check your email.";
+    btn.textContent = "Link Sent";
+  } catch (e) {
+    msg.className = "modal-msg error";
+    msg.textContent = "Failed to send reset email. Try again.";
+    btn.disabled = false;
+    btn.textContent = "Send Reset Email";
+  }
+};
+
+/* ── Sign out ── */
+window.signOutUser = async () => {
+  await signOut(auth);
+  window.location.replace("/ursusarmament/login/");
+};
+
+/* ── Save address ── */
+window.saveAddress = async () => {
+  const address1 = document.getElementById("upd_address1").value.trim();
+  const address2 = document.getElementById("upd_address2").value.trim();
+  const city     = document.getElementById("upd_city").value.trim();
+  const state    = document.getElementById("upd_state").value;
+  const zip      = document.getElementById("upd_zip").value.trim();
+  const msg      = document.getElementById("addressMsg");
+
+  if (!address1 || !city || !state || !zip) {
+    msg.className = "modal-msg error";
+    msg.textContent = "Please fill out all required fields.";
+    return;
+  }
+
+  if (/\bpo\s*\.?\s*box\b/i.test(address1)) {
+    msg.className = "modal-msg error";
+    msg.textContent = "PO Box addresses are not accepted.";
+    return;
+  }
+
+  try {
+    await updateDoc(doc(db, "users", emailPrefix), {
+      h_address1: address1,
+      i_address2: address2,
+      j_city:     city,
+      k_state:    state,
+      l_zip:      zip,
+    });
+    currentData.h_address1 = address1;
+    currentData.i_address2 = address2;
+    currentData.j_city     = city;
+    currentData.k_state    = state;
+    currentData.l_zip      = zip;
+    renderPage();
+    msg.className = "modal-msg success";
+    msg.textContent = "Address updated.";
+    setTimeout(() => { closeModal("addressModal"); msg.textContent = ""; }, 1500);
+  } catch (e) {
+    msg.className = "modal-msg error";
+    msg.textContent = "Failed to update. Please try again.";
+  }
+};
+
+/* ── Upgrade doc mode ── */
+window.selectDocMode = (mode) => {
+  upgDocMode = mode;
+  document.getElementById("upg_opt1").classList.toggle("selected", mode === "1");
+  document.getElementById("upg_opt2").classList.toggle("selected", mode === "2");
+  document.getElementById("upg_file2").classList.toggle("hidden", mode === "1");
+};
+
+/* Account type toggle in upgrade modal */
+document.getElementById("upg_accountType").addEventListener("change", () => {
+  const isBiz = document.getElementById("upg_accountType").value === "business";
+  document.getElementById("upg_fullName").placeholder     = isBiz ? "Representative Name" : "Full Name";
+  document.getElementById("upg_businessName").classList.toggle("hidden", !isBiz);
+  document.getElementById("upg_individualOptions").style.display = isBiz ? "none" : "flex";
+  document.getElementById("upg_businessOptions").classList.toggle("hidden", !isBiz);
+  document.getElementById("upg_file1").value = "";
+  document.getElementById("upg_file2").value = "";
+  if (isBiz) {
+    document.getElementById("upg_file2").classList.remove("hidden");
+  } else {
+    selectDocMode("1");
+  }
+});
+
+/* ── File upload helper ── */
+function uploadFile(file, path) {
+  return new Promise((resolve, reject) => {
+    const ref  = storageRef(storage, path);
+    const task = uploadBytesResumable(ref, file);
+    task.on("state_changed", null,
+      err  => reject(err),
+      async () => resolve(await getDownloadURL(task.snapshot.ref))
+    );
+  });
+}
+
+/* ── Submit upgrade ── */
+window.submitUpgrade = async () => {
+  const isBiz    = document.getElementById("upg_accountType").value === "business";
+  const name     = document.getElementById("upg_fullName").value.trim();
+  const bizName  = isBiz ? document.getElementById("upg_businessName").value.trim() : "";
+  const address1 = document.getElementById("upg_address1").value.trim();
+  const address2 = document.getElementById("upg_address2").value.trim();
+  const city     = document.getElementById("upg_city").value.trim();
+  const state    = document.getElementById("upg_state").value;
+  const zip      = document.getElementById("upg_zip").value.trim();
+  const file1    = document.getElementById("upg_file1");
+  const file2    = document.getElementById("upg_file2");
+  const msg      = document.getElementById("upgradeMsg");
+  const btn      = document.getElementById("upgradeSubmitBtn");
+
+  if (!name || !address1 || !city || !state || !zip) {
+    msg.className = "modal-msg error";
+    msg.textContent = "Please complete all required fields.";
+    return;
+  }
+
+  if (/\bpo\s*\.?\s*box\b/i.test(address1)) {
+    msg.className = "modal-msg error";
+    msg.textContent = "PO Box addresses are not accepted.";
+    return;
+  }
+
+  const f1 = file1.files[0];
+  const f2 = file2.files[0];
+
+  if (isBiz && (!f1 || !f2)) {
+    msg.className = "modal-msg error";
+    msg.textContent = "Please upload both required business documents.";
+    return;
+  }
+  if (!isBiz && !f1) {
+    msg.className = "modal-msg error";
+    msg.textContent = "Please upload the required identification document(s).";
+    return;
+  }
+  if (!isBiz && upgDocMode === "2" && !f2) {
+    msg.className = "modal-msg error";
+    msg.textContent = "Please upload both identification documents.";
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = "Uploading...";
+  msg.textContent = "";
+
+  try {
+    let doc1_url = "";
+    let doc2_url = "";
+
+    if (f1) {
+      const ext1 = f1.name.split(".").pop();
+      doc1_url = await uploadFile(f1, `users/${emailPrefix}/docs/doc1.${ext1}`);
+    }
+    if (f2) {
+      const ext2 = f2.name.split(".").pop();
+      doc2_url = await uploadFile(f2, `users/${emailPrefix}/docs/doc2.${ext2}`);
+    }
+
+    btn.textContent = "Saving...";
+
+    await updateDoc(doc(db, "users", emailPrefix), {
+      b_name:               name,
+      c_business_name:      bizName,
+      d_type:               "full",
+      e_approved:           true,
+      f_status:             "pending",
+      g_verified_us_person: false,
+      h_address1:           address1,
+      i_address2:           address2,
+      j_city:               city,
+      k_state:              state,
+      l_zip:                zip,
+      m_doc1_url:           doc1_url,
+      n_doc2_url:           doc2_url,
+    });
+
+    msg.className = "modal-msg success";
+    msg.textContent = "Upgrade request submitted. You will be notified once approved.";
+    setTimeout(() => {
+      closeModal("upgradeModal");
+      currentData.d_type   = "full";
+      currentData.f_status = "pending";
+      renderPage();
+    }, 2000);
+
+  } catch (e) {
+    console.error("Upgrade error:", e);
+    msg.className = "modal-msg error";
+    msg.textContent = "An error occurred. Please try again.";
+    btn.disabled = false;
+    btn.textContent = "Submit Upgrade Request";
+  }
+};
+</script>
+
+</body>
+</html>
