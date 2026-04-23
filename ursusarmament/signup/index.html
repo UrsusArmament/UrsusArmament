@@ -3,18 +3,107 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sign Up</title>
+<title>URSUS CREATE ACCOUNT</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    margin: 0;
+    background: #0a0a08;
+    color: #e8e4d9;
+    font-family: 'Barlow', sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .box {
+    width: min(420px, 92%);
+    background: linear-gradient(180deg, #1a1a17, #111110);
+    border: 1px solid rgba(255,255,255,0.08);
+    padding: 2.5rem;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.15em;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    background: #111110;
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #e8e4d9;
+    outline: none;
+    font-family: 'Barlow', sans-serif;
+  }
+
+  input:focus {
+    border-color: #c8922a;
+  }
+
+  button {
+    width: 100%;
+    padding: 0.85rem;
+    border: 1px solid #c8922a;
+    background: transparent;
+    color: #c8922a;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: 0.2s ease;
+  }
+
+  button:hover {
+    background: rgba(200,146,42,0.08);
+  }
+
+  .msg {
+    margin-top: 1rem;
+    font-size: 0.85rem;
+    color: #8a8678;
+  }
+
+  .sub {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: #8a8678;
+  }
+
+  .sub a {
+    color: #c8922a;
+    text-decoration: none;
+  }
+</style>
 </head>
-<body style="background:#0a0a08; color:white; font-family:sans-serif;">
 
-<h2>Create Account</h2>
+<body>
 
-<input id="email" placeholder="Email" style="display:block; margin:10px 0;">
-<input id="password" type="password" placeholder="Password" style="display:block; margin:10px 0;">
+<div class="box">
+  <h1>CREATE ACCOUNT</h1>
 
-<button id="signupBtn">Sign Up</button>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
 
-<p id="status"></p>
+  <button id="signupBtn">Create Account</button>
+
+  <div class="msg" id="msg"></div>
+
+  <div class="sub">
+    Already have an account?
+    <a href="/ursusarmament/login/">Login</a>
+  </div>
+</div>
 
 <script type="module">
 import { createUserWithEmailAndPassword } 
@@ -25,8 +114,7 @@ from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 document.getElementById("signupBtn").addEventListener("click", async () => {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
-
-  const status = document.getElementById("status");
+  const msg = document.getElementById("msg");
 
   try {
     const userCred = await createUserWithEmailAndPassword(
@@ -35,17 +123,15 @@ document.getElementById("signupBtn").addEventListener("click", async () => {
       password
     );
 
-    // Create Firestore user record (NOT approved by default)
     await setDoc(doc(window.firebaseDB, "users", userCred.user.uid), {
       email: email,
       approved: false,
       createdAt: Date.now()
     });
 
-    status.innerText = "Account created. Await approval.";
+    msg.innerText = "Account created. Await approval.";
   } catch (err) {
-    console.error(err);
-    status.innerText = err.message;
+    msg.innerText = err.message;
   }
 });
 </script>
