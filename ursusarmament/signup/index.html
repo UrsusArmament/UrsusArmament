@@ -264,7 +264,7 @@ const opt1 = document.getElementById("opt1");
 const opt2 = document.getElementById("opt2");
 
 function selectMode(mode) {
-  fileMode = mode;
+  fileMode: fileMode,
 
   opt1.classList.toggle("selected", mode === "1");
   opt2.classList.toggle("selected", mode === "2");
