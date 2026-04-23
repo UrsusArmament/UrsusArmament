@@ -290,6 +290,11 @@ const opt2 = document.getElementById("opt2");
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }  
+
+function isValidPassword(password) {
+  // At least 12 chars, 1 uppercase, 1 lowercase, 1 special character
+  return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{12,}$/.test(password);
+}  
   
 /* ================= STATE ================= */
 
@@ -394,6 +399,10 @@ const fullBtn = document.getElementById("fullBtn");
 limitedBtn.addEventListener("click", () => {
   const email = document.getElementById("l_email").value;
   const password = document.getElementById("l_password").value;
+  if (!isValidPassword(password)) {
+    alert("Password must be at least 12 characters and include 1 uppercase letter, 1 lowercase letter, and 1 special character.");
+    return;
+  }
   const name = document.getElementById("l_name").value;
   if (!isValidEmail(email)) {
     alert("Please enter a valid email address.");
@@ -416,6 +425,10 @@ fullBtn.addEventListener("click", () => {
     return;
   }
   const password = document.getElementById("password").value;
+  if (!isValidPassword(password)) {
+    alert("Password must be at least 12 characters and include 1 uppercase letter, 1 lowercase letter, and 1 special character.");
+    return;
+  }
   const name = document.getElementById("fullName").value;
 
   const address1 = document.getElementById("address1").value;
