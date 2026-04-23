@@ -231,7 +231,26 @@
       <div>4.Social Security Card</div>
       <div>5.Consular Report of Birth Abroad (FS-240)</div>
     </div>
+    
   </div>
+    <div id="businessOptions" class="hidden" style="display:flex; gap:1rem; margin-bottom:1rem;">
+
+  <div class="card selected">
+    <div class="radio"></div>
+    <div class="title">OPTION 1</div>
+    <div class="list">
+      <div>Business Document Upload Set A</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="radio"></div>
+    <div class="title">OPTION 2</div>
+    <div class="list">
+      <div>Business Document Upload Set B</div>
+    </div>
+  </div>
+</div>
 
 </div>
 
@@ -317,12 +336,16 @@ function isAddressComplete() {
 
 accountType.addEventListener("change", () => {
   const isBusiness = accountType.value === "business";
-  fullNameInput.placeholder = isBusiness ? "Business Name" : "Full Name";
-  companyRep.classList.toggle("hidden", !isBusiness);
-  document.getElementById("individualOptions")?.classList.toggle("hidden", isBusiness);
-  document.getElementById("businessFiles")?.classList.toggle("hidden", !isBusiness);
 
-  // 🔥 RESET STATE (important)
+  fullNameInput.placeholder = isBusiness ? "Business Name" : "Full Name";
+
+  companyRep.classList.toggle("hidden", !isBusiness);
+
+  document.getElementById("individualOptions")?.classList.toggle("hidden", isBusiness);
+
+  // ✅ ADD THIS LINE (THIS IS THE FIX YOU WERE MISSING)
+  document.getElementById("businessOptions")?.classList.toggle("hidden", !isBusiness);
+
   file1.value = "";
   file2.value = "";
 
