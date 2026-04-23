@@ -17,8 +17,8 @@ async function enforceGate(user) {
     const snap = await getDoc(doc(window.firebaseDB, "users", emailPrefix));
     const data = snap.data();
 
-    // Block if no record, not approved, or status not approved
-    if (!data || data.e_approved !== true || data.f_status !== "approved") {
+    // Block if no record, not approved, status not approved, or not verified US person
+    if (!data || data.e_approved !== true || data.f_status !== "approved" || data.g_verified_us_person !== true) {
       window.location.replace("/ursusarmament/pending/");
       return;
     }
