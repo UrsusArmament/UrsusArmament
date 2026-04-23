@@ -211,16 +211,18 @@ function updateFileUI(mode) {
   opt1.classList.toggle("selected", mode === "1");
   opt2.classList.toggle("selected", mode === "2");
 
-  // individual logic only
-  if (accountType.value !== "business") {
+  const isBusiness = accountType.value === "business";
+
+  // BUSINESS: always 2 files, ignore mode completely
+  if (isBusiness) {
     file1.classList.remove("hidden");
-    file2.classList.toggle("hidden", mode === "1");
+    file2.classList.remove("hidden");
     return;
   }
 
-  // business logic = ALWAYS 2 files
+  // INDIVIDUAL: normal behavior
   file1.classList.remove("hidden");
-  file2.classList.remove("hidden");
+  file2.classList.toggle("hidden", mode === "1");
 }
 
 opt1.onclick = ()=>updateFileUI("1");
@@ -236,26 +238,21 @@ accountType.addEventListener("change", () => {
   // NAME FIELD
   fullNameInput.placeholder = isBusiness ? "Business Name" : "Full Name";
 
-  // BUSINESS FIELD
+  // BUSINESS ONLY FIELD
   companyRep.classList.toggle("hidden", !isBusiness);
 
-  // =======================
-  // STRICT VISIBILITY RULES
-  // =======================
-
-  // INDIVIDUAL SECTION (ONLY FOR INDIVIDUAL)
+  // TOGGLE UI SECTIONS
   document.getElementById("individualOptions").style.display =
-  isBusiness ? "none" : "flex";
+    isBusiness ? "none" : "flex";
 
-  // BUSINESS SECTION (ONLY FOR BUSINESS)
   document.getElementById("businessOptions").style.display =
-  isBusiness ? "block" : "none";
+    isBusiness ? "block" : "none";
 
   // RESET FILE INPUTS
   file1.value = "";
   file2.value = "";
 
-  // RESET DEFAULT FILE STATE
+  // RESET FILE UI STATE (IMPORTANT)
   updateFileUI("1");
 });
 
