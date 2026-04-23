@@ -100,6 +100,31 @@
   }
 
   .msg { margin-top:1rem; color:#8a8678; }
+  #limitedBtn,
+#fullBtn {
+  width: 100%;
+  padding: 0.85rem;
+  border: 1px solid #c8922a;
+  background: transparent;
+  color: #c8922a;
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+#limitedBtn:hover,
+#fullBtn:hover {
+  background: rgba(200,146,42,0.08);
+  transform: translateY(-1px);
+}
+
+#limitedBtn:active,
+#fullBtn:active {
+  transform: translateY(0px);
+}
 </style>
 </head>
 
