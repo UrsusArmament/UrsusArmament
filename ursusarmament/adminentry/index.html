@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Entry | Ursus Armament</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+    --accent2: #e8a830;
+    --green: #4a9a6a;
+    --red: #9a4a4a;
+  }
+
+  body {
+    margin: 0;
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
+  }
+
+  /* ── LOGIN SCREEN ── */
+  #loginScreen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .login-box {
+    width: min(380px, 92%);
+    background: linear-gradient(180deg, var(--surface), var(--dark));
+    border: 1px solid var(--border2);
+    padding: 2.5rem;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+
+  .login-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .login-box h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.15em;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── ADMIN PANEL ── */
+  #adminPanel {
+    display: none;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+  }
+
+  .admin-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .admin-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.3rem;
+  }
+
+  .admin-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── FORM ── */
+  .form-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(180deg, var(--surface), var(--dark));
+    border: 1px solid var(--border);
+  }
+
+  .form-section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .form-section-title::before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+  }
+
+  .form-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+  .form-grid.full  { grid-template-columns: 1fr; }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .field label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    padding: 0.75rem;
+    background: var(--dark);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.9rem;
+    width: 100%;
+    transition: border-color 0.2s;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .field textarea { resize: vertical; min-height: 80px; }
+
+  /* toggle */
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .toggle-switch {
+    position: relative;
+    width: 48px;
+    height: 26px;
+    flex-shrink: 0;
+  }
+
+  .toggle-switch input { opacity: 0; width: 0; height: 0; }
+
+  .toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: var(--dark);
+    border: 1px solid var(--border2);
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .toggle-slider:before {
+    content: '';
+    position: absolute;
+    height: 18px; width: 18px;
+    left: 3px; bottom: 3px;
+    background: var(--muted);
+    transition: 0.2s;
+  }
+
+  .toggle-switch input:checked + .toggle-slider { background: rgba(74,154,106,0.2); border-color: var(--green); }
+  .toggle-switch input:checked + .toggle-slider:before { transform: translateX(22px); background: var(--green); }
+
+  .toggle-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ── BUTTONS ── */
+  input[type="password"], input[type="email"] {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 0.75rem;
+    background: var(--dark);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 0.85rem;
+    border: 1px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn:hover { background: rgba(200,146,42,0.08); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .btn-submit {
+    background: var(--accent);
+    color: var(--black);
+    border-color: var(--accent);
+    font-size: 0.95rem;
+    padding: 1rem;
+    margin-top: 0.5rem;
+  }
+
+  .btn-submit:hover { background: var(--accent2); border-color: var(--accent2); }
+
+  .btn-signout {
+    border-color: var(--border2);
+    color: var(--muted);
+    width: auto;
+    padding: 0.4rem 1rem;
+    font-size: 0.75rem;
+  }
+
+  .btn-signout:hover { border-color: var(--red); color: var(--red); }
+
+  /* ── MESSAGES ── */
+  .msg {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    min-height: 1.2em;
+    text-align: center;
+  }
+  .msg.success { color: var(--green); }
+  .msg.error   { color: var(--red); }
+
+  .submit-result {
+    margin-top: 1rem;
+    padding: 1rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    display: none;
+  }
+
+  .submit-result.success {
+    display: block;
+    background: rgba(74,154,106,0.08);
+    border: 1px solid var(--green);
+    color: var(--green);
+  }
+
+  .submit-result.error {
+    display: block;
+    background: rgba(154,74,74,0.08);
+    border: 1px solid var(--red);
+    color: var(--red);
+  }
+
+  @media (max-width: 600px) {
+    .form-grid, .form-grid.three { grid-template-columns: 1fr; }
+    #adminPanel { padding: 2rem 1rem 4rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════ LOGIN SCREEN ══════════════ -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-tag">Ursus Armament</div>
+    <h1>ADMIN ACCESS</h1>
+    <input type="email" id="adminEmail" placeholder="Admin Email">
+    <input type="password" id="adminPassword" placeholder="Password">
+    <button class="btn" id="loginBtn" onclick="adminLogin()">Authenticate</button>
+    <div class="msg" id="loginMsg"></div>
+  </div>
+</div>
+
+<!-- ══════════════ ADMIN PANEL ══════════════ -->
+<div id="adminPanel">
+
+  <div class="admin-header">
+    <div>
+      <div class="admin-tag">Ursus Armament — Restricted</div>
+      <div class="admin-title">INVENTORY ENTRY</div>
+    </div>
+    <button class="btn btn-signout" onclick="adminSignOut()">Sign Out</button>
+  </div>
+
+  <!-- IDENTIFICATION -->
+  <div class="form-section">
+    <div class="form-section-title">Unit Identification</div>
+    <div class="form-grid">
+      <div class="field">
+        <label>Product</label>
+        <select id="f_product">
+          <option value="">Select Product</option>
+          <option value="URSIX">URSIX</option>
+          <option value="ROTS">R.O.T.S.</option>
+          <option value="CALIDUS">CALIDUS</option>
+          <option value="NEXIS">NEXIS</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Serial Number</label>
+        <input type="text" id="f_serial" placeholder="e.g. UW-6003">
+      </div>
+      <div class="field">
+        <label>Tier</label>
+        <select id="f_tier">
+          <option value="">Select Tier</option>
+          <option value="BASE">BASE</option>
+          <option value="PLUS">PLUS</option>
+          <option value="PRO">PRO</option>
+          <option value="ULTRA">ULTRA</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Price ($)</label>
+        <input type="number" id="f_price" placeholder="e.g. 2350">
+      </div>
+    </div>
+    <div style="margin-top: 0.75rem;">
+      <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:0.5rem;">Available for Sale</label>
+      <div class="toggle-row">
+        <label class="toggle-switch">
+          <input type="checkbox" id="f_available" checked>
+          <span class="toggle-slider"></span>
+        </label>
+        <span class="toggle-label" id="availableLabel">Available</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TUBE SPECS -->
+  <div class="form-section">
+    <div class="form-section-title">Tube Specifications</div>
+    <div class="form-grid">
+      <div class="field">
+        <label>Generation</label>
+        <select id="f_generation">
+          <option value="">Select Generation</option>
+          <option value="Gen 2+">Gen 2+</option>
+          <option value="Gen 3">Gen 3</option>
+          <option value="Gen 3 Filmless">Gen 3 Filmless</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Phosphor</label>
+        <select id="f_phosphor">
+          <option value="">Select Phosphor</option>
+          <option value="White Phosphor (P45)">White Phosphor (P45)</option>
+          <option value="Green Phosphor (P43)">Green Phosphor (P43)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Figure of Merit (FOM)</label>
+        <input type="text" id="f_fom" placeholder="e.g. 1417.1">
+      </div>
+      <div class="field">
+        <label>Signal-to-Noise Ratio (SNR)</label>
+        <input type="text" id="f_snr" placeholder="e.g. 20.24">
+      </div>
+      <div class="field">
+        <label>Resolution (lp/mm)</label>
+        <input type="text" id="f_resolution" placeholder="e.g. 70 lp/mm">
+      </div>
+      <div class="field">
+        <label>Luminous Gain</label>
+        <input type="text" id="f_luminousGain" placeholder="e.g. 32100">
+      </div>
+    </div>
+  </div>
+
+  <!-- PHOTOCATHODE -->
+  <div class="form-section">
+    <div class="form-section-title">Photocathode Data</div>
+    <div class="form-grid three">
+      <div class="field">
+        <label>Luminous Sensitivity (µA/lm)</label>
+        <input type="text" id="f_pcLum" placeholder="e.g. 700">
+      </div>
+      <div class="field">
+        <label>Sensitivity w/ Filter (µA/lm)</label>
+        <input type="text" id="f_pcFilter" placeholder="e.g. 410">
+      </div>
+      <div class="field">
+        <label>Radiant Sensitivity (mA/W)</label>
+        <input type="text" id="f_pcRad" placeholder="e.g. 90">
+      </div>
+    </div>
+  </div>
+
+  <!-- HARDWARE -->
+  <div class="form-section">
+    <div class="form-section-title">Hardware & Build</div>
+    <div class="form-grid">
+      <div class="field">
+        <label>Objective Lens</label>
+        <select id="f_objectiveLens">
+          <option value="">Select Lens</option>
+          <option value="25mm f/1.2">25mm f/1.2</option>
+          <option value="35mm f/1.0">35mm f/1.0</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Battery Life</label>
+        <input type="text" id="f_batteryLife" placeholder="e.g. 20-40 hrs (CR123A)">
+      </div>
+      <div class="field">
+        <label>IP Rating</label>
+        <select id="f_ipRating">
+          <option value="">Select Rating</option>
+          <option value="IP67">IP67</option>
+          <option value="IP68">IP68</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Finish</label>
+        <input type="text" id="f_finish" placeholder="e.g. Matte Black Hard Anodize">
+      </div>
+    </div>
+  </div>
+
+  <!-- QC & RECORDS -->
+  <div class="form-section">
+    <div class="form-section-title">QC & Records</div>
+    <div class="form-grid">
+      <div class="field">
+        <label>Proof Date</label>
+        <input type="date" id="f_proofDate">
+      </div>
+      <div class="field">
+        <label>Batch ID</label>
+        <input type="text" id="f_batchId" placeholder="e.g. GEN2P-LOT-01">
+      </div>
+      <div class="field">
+        <label>QC Result</label>
+        <select id="f_qcResult">
+          <option value="PASS">PASS</option>
+          <option value="FAIL">FAIL</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-grid full" style="margin-top: 0.75rem;">
+      <div class="field">
+        <label>Manufacturing Notes</label>
+        <textarea id="f_notes" placeholder="Any notes about this unit..."></textarea>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-submit" id="submitBtn" onclick="submitUnit()">Add Unit to Inventory</button>
+  <div class="submit-result" id="submitResult"></div>
+
+</div>
+
+<!-- ══════════════ FIREBASE ══════════════ -->
+<script type="module">
+import { initializeApp }   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+                           from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, setDoc }
+                           from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const ADMIN_EMAIL = "contact@ursusworks.com";
+
+const firebaseConfig = {
+  apiKey:            "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
+  authDomain:        "ursus-armament.firebaseapp.com",
+  projectId:         "ursus-armament",
+  storageBucket:     "ursus-armament.firebasestorage.app",
+  messagingSenderId: "430731167862",
+  appId:             "1:430731167862:web:a5447de86db180edad3757"
+};
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+
+/* ── Always force login screen first — sign out any existing session ── */
+onAuthStateChanged(auth, (user) => {
+  if (user && user.email === ADMIN_EMAIL) {
+    showPanel();
+  } else {
+    if (user) signOut(auth); // sign out non-admin users silently
+    showLogin();
+  }
+});
+
+function showLogin() {
+  document.getElementById("loginScreen").style.display = "flex";
+  document.getElementById("adminPanel").style.display  = "none";
+}
+
+function showPanel() {
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("adminPanel").style.display  = "block";
+}
+
+/* ── Available toggle label ── */
+document.getElementById("f_available").addEventListener("change", function() {
+  document.getElementById("availableLabel").textContent = this.checked ? "Available" : "Not Available";
+});
+
+/* ── Admin login ── */
+window.adminLogin = async () => {
+  const email    = document.getElementById("adminEmail").value.trim();
+  const password = document.getElementById("adminPassword").value;
+  const msg      = document.getElementById("loginMsg");
+  const btn      = document.getElementById("loginBtn");
+
+  if (!email || !password) {
+    msg.className = "msg error";
+    msg.textContent = "Please enter email and password.";
+    return;
+  }
+
+  if (email !== ADMIN_EMAIL) {
+    msg.className = "msg error";
+    msg.textContent = "Access denied.";
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = "Authenticating...";
+  msg.textContent = "";
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    // onAuthStateChanged will handle the rest
+  } catch (err) {
+    msg.className = "msg error";
+    msg.textContent = err.code === "auth/invalid-credential"
+      ? "Invalid email or password."
+      : "Authentication failed. Please try again.";
+    btn.disabled = false;
+    btn.textContent = "Authenticate";
+  }
+};
+
+/* ── Admin sign out ── */
+window.adminSignOut = async () => {
+  await signOut(auth);
+};
+
+/* ── Submit unit ── */
+window.submitUnit = async () => {
+  const result = document.getElementById("submitResult");
+  const btn    = document.getElementById("submitBtn");
+
+  const serial  = document.getElementById("f_serial").value.trim().toUpperCase();
+  const product = document.getElementById("f_product").value;
+
+  // Required field validation
+  if (!product) { showResult("error", "Please select a product."); return; }
+  if (!serial)  { showResult("error", "Serial number is required."); return; }
+  if (!document.getElementById("f_tier").value) { showResult("error", "Please select a tier."); return; }
+  if (!document.getElementById("f_generation").value) { showResult("error", "Please select a generation."); return; }
+  if (!document.getElementById("f_phosphor").value) { showResult("error", "Please select a phosphor type."); return; }
+  if (!document.getElementById("f_proofDate").value) { showResult("error", "Proof date is required."); return; }
+  if (!document.getElementById("f_qcResult").value) { showResult("error", "QC result is required."); return; }
+
+  btn.disabled = true;
+  btn.textContent = "Saving to Firestore...";
+  result.style.display = "none";
+
+  const unitData = {
+    product:                            product,
+    serial:                             serial,
+    tier:                               document.getElementById("f_tier").value,
+    price:                              Number(document.getElementById("f_price").value) || 0,
+    available:                          document.getElementById("f_available").checked,
+    generation:                         document.getElementById("f_generation").value,
+    phosphor:                           document.getElementById("f_phosphor").value,
+    fom:                                document.getElementById("f_fom").value.trim(),
+    snr:                                document.getElementById("f_snr").value.trim(),
+    resolution:                         document.getElementById("f_resolution").value.trim(),
+    luminousGain:                       document.getElementById("f_luminousGain").value.trim(),
+    photocathodeLuminousSensitivity:    document.getElementById("f_pcLum").value.trim(),
+    photocathodeSensitivityWithFilter:  document.getElementById("f_pcFilter").value.trim(),
+    photocathodeRadiantSensitivity:     document.getElementById("f_pcRad").value.trim(),
+    objectiveLens:                      document.getElementById("f_objectiveLens").value,
+    batteryLife:                        document.getElementById("f_batteryLife").value.trim(),
+    ipRating:                           document.getElementById("f_ipRating").value,
+    finish:                             document.getElementById("f_finish").value.trim(),
+    proofDate:                          document.getElementById("f_proofDate").value,
+    batchId:                            document.getElementById("f_batchId").value.trim(),
+    qcResult:                           document.getElementById("f_qcResult").value,
+    notes:                              document.getElementById("f_notes").value.trim(),
+    enteredAt:                          new Date().toISOString(),
+  };
+
+  try {
+    await setDoc(doc(db, "ursus-units", serial), unitData);
+    showResult("success", `✓ Unit ${serial} added to ursus-units successfully.`);
+    clearForm();
+  } catch (err) {
+    console.error("Firestore write error:", err);
+    showResult("error", "Failed to save unit. Check console for details.");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Add Unit to Inventory";
+  }
+};
+
+function showResult(type, message) {
+  const el = document.getElementById("submitResult");
+  el.className = "submit-result " + type;
+  el.textContent = message;
+}
+
+function clearForm() {
+  const ids = [
+    "f_product","f_serial","f_tier","f_price","f_generation","f_phosphor",
+    "f_fom","f_snr","f_resolution","f_luminousGain","f_pcLum","f_pcFilter",
+    "f_pcRad","f_objectiveLens","f_batteryLife","f_ipRating","f_finish",
+    "f_proofDate","f_batchId","f_notes"
+  ];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
+  document.getElementById("f_qcResult").value = "PASS";
+  document.getElementById("f_available").checked = true;
+  document.getElementById("availableLabel").textContent = "Available";
+}
+
+/* Enter key on login */
+document.addEventListener("keydown", e => {
+  if (e.key === "Enter" && document.getElementById("loginScreen").style.display !== "none") {
+    window.adminLogin();
+  }
+});
+</script>
+
+</body>
+</html>
