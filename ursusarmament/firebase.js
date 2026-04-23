@@ -2,27 +2,28 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/fireba
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
+// 🔐 Firebase configuration (REPLACE WITH YOUR REAL VALUES)
 const firebaseConfig = {
-  apiKey: "YOUR_KEY",
-  authDomain: "YOUR_DOMAIN",
-  projectId: "YOUR_PROJECT_ID",
-  storageBucket: "YOUR_BUCKET",
-  messagingSenderId: "YOUR_ID",
-  appId: "YOUR_APP_ID"
+  apiKey: "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
+  authDomain: "ursus-armament.firebaseapp.com",
+  projectId: "ursus-armament",
+  storageBucket: "ursus-armament.firebasestorage.app",
+  messagingSenderId: "430731167862",
+  appId: "1:430731167862:web:a5447de86db180edad3757"
 };
 
-// 🚀 Initialize Firebase
+// 🚀 Initialize Firebase app
 const app = initializeApp(firebaseConfig);
 
-// 🔐 Auth + DB
+// 🔐 Initialize services
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// 🌐 expose globally (IMPORTANT)
+// 🌐 Make available globally for other modules (IMPORTANT)
 window.firebaseAuth = auth;
 window.firebaseDB = db;
 
-// 🧪 DEBUG (ADD THESE HERE)
+// 🧪 Debug checks
 console.log("FIREBASE INIT LOADED");
-console.log("Auth:", window.firebaseAuth);
-console.log("DB:", window.firebaseDB);
+console.log("Auth ready:", !!window.firebaseAuth);
+console.log("DB ready:", !!window.firebaseDB);
