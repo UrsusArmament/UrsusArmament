@@ -227,6 +227,9 @@
     <p style="margin-top: 1rem; font-size: 0.8rem; color: #8a8678; line-height: 1.4;">
       Limited Access accounts provide a restricted view of our catalog. To unlock full technical specifications, spec sheets, and purchasing for controlled items, a Full Access Account is required. We understand the verification process is an extra step, but this documentation is a federal requirement to ensure our mutual compliance with ITAR and EAR export regulations.
     </p>
+    <p style="margin-top: 1rem; font-size: 0.8rem; color: #c8922a; line-height: 1.4;">
+      If you have any issues or questions related to access accounts, please email us at <a href="mailto:contact@ursusworks.com" style="color: #c8922a;">contact@ursusworks.com</a>
+    </p>
     <div class="msg" id="l_msg"></div>
   </div>
 
@@ -571,7 +574,7 @@ fullBtn.addEventListener("click", async () => {
       const ext1 = file1.files[0].name.split(".").pop();
       doc1_url = await uploadFile(
         file1.files[0],
-        `users/${uid}/docs/doc1.${ext1}`,
+        `users/${emailPrefix}/docs/doc1.${ext1}`,
         document.getElementById("prog1"),
         document.getElementById("bar1")
       );
@@ -581,7 +584,7 @@ fullBtn.addEventListener("click", async () => {
       const ext2 = file2.files[0].name.split(".").pop();
       doc2_url = await uploadFile(
         file2.files[0],
-        `users/${uid}/docs/doc2.${ext2}`,
+        `users/${emailPrefix}/docs/doc2.${ext2}`,
         document.getElementById("prog2"),
         document.getElementById("bar2")
       );
