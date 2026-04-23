@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>URSUS CREATE ACCOUNT</title>
+<title>URSUS ACCOUNT PORTAL</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
@@ -14,10 +14,17 @@
     background: #0a0a08;
     color: #e8e4d9;
     font-family: 'Barlow', sans-serif;
+    min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-height: 100vh;
+  }
+
+  .container {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
   }
 
   .box {
@@ -33,10 +40,16 @@
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 0.15em;
     font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    font-size: 0.85rem;
+    color: #8a8678;
     margin-bottom: 1.5rem;
   }
 
-  select, input {
+  input, select {
     width: 100%;
     padding: 0.8rem;
     margin-bottom: 1rem;
@@ -44,7 +57,6 @@
     border: 1px solid rgba(255,255,255,0.1);
     color: #e8e4d9;
     outline: none;
-    font-family: 'Barlow', sans-serif;
   }
 
   input:focus, select:focus {
@@ -74,17 +86,6 @@
     color: #8a8678;
   }
 
-  .sub {
-    margin-top: 1rem;
-    font-size: 0.8rem;
-    color: #8a8678;
-  }
-
-  .sub a {
-    color: #c8922a;
-    text-decoration: none;
-  }
-
   .hidden {
     display: none;
   }
@@ -93,44 +94,44 @@
 
 <body>
 
-<div class="box">
-  <h1>CREATE ACCOUNT</h1>
+<div class="container">
 
-  <!-- Account Type -->
-  <select id="accountType">
-    <option value="individual">Individual</option>
-    <option value="business">Business</option>
-  </select>
+  <!-- LIMITED ACCOUNT -->
+  <div class="box">
+    <h1>LIMITED ACCESS</h1>
+    <p>No access to restricted products.</p>
 
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="password" placeholder="Password">
-  <input type="text" id="fullName" placeholder="Full Name">
-  <input type="text" id="address" placeholder="Physical End-Use Address">
+    <input type="email" id="l_email" placeholder="Email">
+    <input type="password" id="l_password" placeholder="Password">
+    <input type="text" id="l_name" placeholder="Full Name">
 
-  <!-- Individual option -->
-  <select id="indOption">
-    <option value="1">Submit 1 file</option>
-    <option value="2">Submit 2 files</option>
-  </select>
+    <button id="limitedBtn">Create Limited Account</button>
 
-  <!-- Business fields -->
-  <input type="text" id="companyRep" class="hidden" placeholder="Company Representative Name">
-  <p id="bizNote" class="hidden" style="font-size:0.8rem;color:#8a8678;">
-    Business accounts require 2 file submissions
-  </p>
-
-  <!-- File uploads -->
-  <input type="file" id="file1">
-  <input type="file" id="file2" class="hidden">
-
-  <button id="signupBtn">Create Account</button>
-
-  <div class="msg" id="msg"></div>
-
-  <div class="sub">
-    Already have an account?
-    <a href="/ursusarmament/login/">Login</a>
+    <div class="msg" id="l_msg"></div>
   </div>
+
+  <!-- FULL ACCESS ACCOUNT -->
+  <div class="box">
+    <h1>FULL ACCESS</h1>
+    <p>Requires review & approval.</p>
+
+    <select id="accountType">
+      <option value="individual">Individual</option>
+      <option value="business">Business</option>
+    </select>
+
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <input type="text" id="fullName" placeholder="Full Name">
+    <input type="text" id="address" placeholder="Physical End-Use Address">
+
+    <input type="text" id="companyRep" class="hidden" placeholder="Company Representative Name">
+
+    <button id="fullBtn">Create Full Access Account</button>
+
+    <div class="msg" id="msg"></div>
+  </div>
+
 </div>
 
 <script type="module">
@@ -139,46 +140,81 @@ from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { doc, setDoc } 
 from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-const accountType = document.getElementById("accountType");
-const indOption = document.getElementById("indOption");
-const file2 = document.getElementById("file2");
-const companyRep = document.getElementById("companyRep");
-const bizNote = document.getElementById("bizNote");
+/* =========================
+   ELEMENTS
+========================= */
 
-function isPOBox(address) {
-  return /p\s*\.?\s*o\s*\.?\s*box/i.test(address);
+const accountType = document.getElementById("accountType");
+const companyRep = document.getElementById("companyRep");
+
+const l_msg = document.getElementById("l_msg");
+const msg = document.getElementById("msg");
+
+/* =========================
+   HELPERS
+========================= */
+
+function isPOBox(addr) {
+  return /p\s*\.?\s*o\s*\.?\s*box/i.test(addr);
 }
 
-// UI logic
+/* =========================
+   UI TOGGLE
+========================= */
+
 accountType.addEventListener("change", () => {
   if (accountType.value === "business") {
     companyRep.classList.remove("hidden");
-    bizNote.classList.remove("hidden");
-    file2.classList.remove("hidden");
   } else {
     companyRep.classList.add("hidden");
-    bizNote.classList.add("hidden");
   }
 });
 
-indOption.addEventListener("change", () => {
-  file2.classList.toggle("hidden", indOption.value !== "2");
+/* =========================
+   LIMITED ACCOUNT
+========================= */
+
+document.getElementById("limitedBtn").addEventListener("click", async () => {
+  const email = l_email.value;
+  const password = l_password.value;
+  const name = l_name.value;
+
+  try {
+    const userCred = await createUserWithEmailAndPassword(
+      window.firebaseAuth,
+      email,
+      password
+    );
+
+    await setDoc(doc(window.firebaseDB, "users", userCred.user.uid), {
+      email,
+      fullName: name,
+      accountType: "limited",
+      approved: true,
+      createdAt: Date.now()
+    });
+
+    l_msg.innerText = "Limited account created.";
+  } catch (err) {
+    l_msg.innerText = err.message;
+  }
 });
 
-// Submit
-document.getElementById("signupBtn").addEventListener("click", async () => {
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const fullName = document.getElementById("fullName").value;
-  const address = document.getElementById("address").value;
-  const msg = document.getElementById("msg");
+/* =========================
+   FULL ACCOUNT
+========================= */
+
+document.getElementById("fullBtn").addEventListener("click", async () => {
+  const email = email.value;
+  const password = password.value;
+  const fullName = fullName.value;
+  const address = address.value;
+  const type = accountType.value;
 
   if (isPOBox(address)) {
     msg.innerText = "PO Boxes are not allowed.";
     return;
   }
-
-  const type = accountType.value;
 
   try {
     const userCred = await createUserWithEmailAndPassword(
@@ -192,11 +228,12 @@ document.getElementById("signupBtn").addEventListener("click", async () => {
       fullName,
       address,
       accountType: type,
+      companyRep: type === "business" ? companyRep.value : null,
       approved: false,
       createdAt: Date.now()
     });
 
-    msg.innerText = "Account created. Await approval.";
+    msg.innerText = "Submitted for approval.";
   } catch (err) {
     msg.innerText = err.message;
   }
