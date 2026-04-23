@@ -35,7 +35,52 @@
     text-align: center;
     box-shadow: 0 20px 60px rgba(0,0,0,0.6);
   }
+  .card {
+  flex: 1;
+  padding: 1rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: #111110;
+  cursor: pointer;
+  position: relative;
+  text-align: left;
+  transition: 0.2s ease;
+}
 
+.card:hover {
+  border-color: #c8922a;
+}
+
+.card.selected {
+  border-color: #c8922a;
+}
+
+.radio {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid #8a8678;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.card.selected .radio {
+  background: #c8922a;
+  border-color: #c8922a;
+}
+
+.title {
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  color: #c8922a;
+  margin-bottom: 0.5rem;
+}
+
+.list {
+  font-size: 0.75rem;
+  color: #8a8678;
+  line-height: 1.4;
+}
   h1 {
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 0.15em;
@@ -212,6 +257,21 @@ const file2 = document.getElementById("file2");
 
 const l_msg = document.getElementById("l_msg");
 const msg = document.getElementById("msg");
+
+let fileMode = "1";
+
+const opt1 = document.getElementById("opt1");
+const opt2 = document.getElementById("opt2");
+
+function selectMode(mode) {
+  fileMode = mode;
+
+  opt1.classList.toggle("selected", mode === "1");
+  opt2.classList.toggle("selected", mode === "2");
+}
+
+opt1.addEventListener("click", () => selectMode("1"));
+opt2.addEventListener("click", () => selectMode("2"));
 
 /* ADDRESS ELEMENTS */
 const address1 = document.getElementById("address1");
