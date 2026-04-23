@@ -205,10 +205,22 @@ const opt2 = document.getElementById("opt2");
 
 /* ================= FILE MODE ================= */
 
-function updateFileUI(mode){
-  opt1.classList.toggle("selected", mode==="1");
-  opt2.classList.toggle("selected", mode==="2");
-  file2.classList.toggle("hidden", mode==="1");
+function updateFileUI(mode) {
+  fileMode = mode;
+
+  opt1.classList.toggle("selected", mode === "1");
+  opt2.classList.toggle("selected", mode === "2");
+
+  // individual logic only
+  if (accountType.value !== "business") {
+    file1.classList.remove("hidden");
+    file2.classList.toggle("hidden", mode === "1");
+    return;
+  }
+
+  // business logic = ALWAYS 2 files
+  file1.classList.remove("hidden");
+  file2.classList.remove("hidden");
 }
 
 opt1.onclick = ()=>updateFileUI("1");
