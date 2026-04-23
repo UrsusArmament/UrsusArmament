@@ -1,3 +1,5 @@
+console.log("AUTH GUARD LOADED");
+
 import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
@@ -31,5 +33,5 @@ async function enforceGate(user) {
 
 // 👀 Run gate check on auth state change
 onAuthStateChanged(window.firebaseAuth, (user) => {
-  enforceGate(user);
+  console.log("AUTH STATE:", user);
 });
