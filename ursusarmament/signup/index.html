@@ -302,8 +302,129 @@ accountType.addEventListener("change", () => {
   // reset file state properly
   updateFileUI("1");
 });
+const modal = document.getElementById("modal");
+const modalText = document.getElementById("modalText");
 
+const goProducts = document.getElementById("goProducts");
+const goLanding = document.getElementById("goLanding");
+
+function showModal(message) {
+  modalText.innerText = message;
+  modal.classList.remove("hidden");
+}
+
+function hideModal() {
+  modal.classList.add("hidden");
+}
+
+goProducts.onclick = () => {
+  window.location.href = "https://ursusworks.com/ursusarmament/products";
+};
+
+goLanding.onclick = () => {
+  window.location.href = "https://ursusworks.com/ursusarmament";
+};
+
+modal.onclick = (e) => {
+  if (e.target === modal) hideModal();
+};
+  /* ================= BUTTON LOGIC ================= */
+
+const limitedBtn = document.getElementById("limitedBtn");
+const fullBtn = document.getElementById("fullBtn");
+
+/* LIMITED ACCOUNT */
+limitedBtn.addEventListener("click", () => {
+  const email = document.getElementById("l_email").value;
+  const password = document.getElementById("l_password").value;
+  const name = document.getElementById("l_name").value;
+
+  if (!email || !password || !name) {
+    alert("Please fill out all fields.");
+    return;
+  }
+
+  showModal("Thank you. Your Limited Access Account has been created.");
+});
+
+/* FULL ACCOUNT */
+fullBtn.addEventListener("click", () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+  const name = document.getElementById("fullName").value;
+
+  const address1 = document.getElementById("address1").value;
+  const city = document.getElementById("city").value;
+  const state = document.getElementById("state").value;
+  const zip = document.getElementById("zip").value;
+
+  if (!email || !password || !name || !address1 || !city || !state || !zip) {
+    alert("Please complete all required fields.");
+    return;
+  }
+
+  showModal(
+    "Thank you. Your Full Access Account has been created. You will be notified when your account has been approved. We will email you if we require any additional information or clarification."
+  );
+});
 </script>
+<!-- ================= MODAL ================= -->
+<div id="modal" class="hidden" style="
+  position:fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background:rgba(0,0,0,0.75);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:9999;
+">
 
+  <div style="
+    width:min(520px, 92%);
+    background:#111110;
+    border:1px solid rgba(255,255,255,0.1);
+    padding:2rem;
+    text-align:left;
+    box-shadow:0 20px 60px rgba(0,0,0,0.6);
+  ">
+
+    <div id="modalText" style="
+      font-family:'Barlow', sans-serif;
+      color:#e8e4d9;
+      font-size:0.95rem;
+      margin-bottom:1.5rem;
+      line-height:1.5;
+    "></div>
+
+    <div style="display:flex; gap:1rem; justify-content:flex-end;">
+
+      <button id="goProducts" style="
+        border:1px solid #c8922a;
+        background:transparent;
+        color:#c8922a;
+        padding:0.6rem 1rem;
+        cursor:pointer;
+        font-family:'Barlow Condensed';
+        letter-spacing:0.1em;
+      ">
+        Back to Products Page →
+      </button>
+
+      <button id="goLanding" style="
+        border:1px solid #c8922a;
+        background:transparent;
+        color:#c8922a;
+        padding:0.6rem 1rem;
+        cursor:pointer;
+        font-family:'Barlow Condensed';
+        letter-spacing:0.1em;
+      ">
+        Back to Landing Page →
+      </button>
+
+    </div>
+  </div>
+</div>
 </body>
 </html>
