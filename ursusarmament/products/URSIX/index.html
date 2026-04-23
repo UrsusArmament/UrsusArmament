@@ -730,8 +730,9 @@ const db   = getFirestore(app);
 
 let _isFullApproved = false;
 let _allUnits       = null;
-let _currentTier    = 'BASE';
 let _panelOpen      = false;
+window._currentTier = 'BASE';
+let _currentTier    = window._currentTier;
 
 /* ── Auth & tiered access ── */
 onAuthStateChanged(auth, async (user) => {
@@ -932,6 +933,7 @@ window.selectConfig = function(card, price, tier) {
   document.querySelectorAll('.config-card').forEach(c => c.classList.remove('selected'));
   card.classList.add('selected');
   _currentTier = tier;
+  window._currentTier = tier;
   document.getElementById('totalPrice').textContent = '~$' + price.toLocaleString();
   if (_panelOpen) fetchUnits().then(units => renderUnitsPanel(units, tier));
 };
@@ -950,7 +952,9 @@ window.ursixSwap = function(el) {
 
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
-    const t = document.querySelector(a.getAttribute('href'));
+    const href = a.getAttribute('href');
+    if (href === '#') return;
+    const t = document.querySelector(href);
     if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
   });
 });
