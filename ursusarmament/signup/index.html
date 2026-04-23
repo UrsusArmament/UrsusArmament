@@ -35,6 +35,9 @@
     text-align: center;
     box-shadow: 0 20px 60px rgba(0,0,0,0.6);
   }
+  .list div {
+    margin-bottom: 0.2rem;
+  }
   .card {
   flex: 1;
   padding: 1rem;
@@ -208,25 +211,25 @@
   <!-- OPTION 1 -->
   <div id="opt1" class="card selected">
     <div class="radio"></div>
-    <div class="title">ONE OF THE FOLLOWING</div>
+    <div class="title">ONE OF THE FOLLOWING:</div>
     <div class="list">
-      1.Unexpired Passport or Passport Card
-      2.Permanent Resident Card (Form I-551)
-      3.Certificate of Naturalization (N-550 or N-570) or Citizenship (N-560 or N-561)
-      4.Original or Certified U.S. Birth Certificate
+      <div>1.Unexpired Passport or Passport Card</div>
+      <div>2.Permanent Resident Card (Form I-551)</div>
+      <div>3.Certificate of Naturalization (N-550 or N-570) or Citizenship (N-560 or N-561)</div>
+      <div>4.Original or Certified U.S. Birth Certificate</div>
     </div>
   </div>
 
   <!-- OPTION 2 -->
   <div id="opt2" class="card">
     <div class="radio"></div>
-    <div class="title">TWO OF THE FOLLOWING</div>
+    <div class="title">TWO OF THE FOLLOWING:</div>
     <div class="list">
-      1.State Issued DL (REAL ID)
-      2.Voter Registration Card
-      3.Government Photo ID
-      4.Social Security Card
-      5.Consular Report of Birth Abroad (FS-240)
+      <div>1.State Issued DL (REAL ID)</div>
+      <div>2.Voter Registration Card</div>
+      <div>3.Government Photo ID</div>
+      <div>4.Social Security Card</div>
+      <div>5.Consular Report of Birth Abroad (FS-240)</div>
     </div>
   </div>
 
@@ -263,16 +266,28 @@ let fileMode = "1";
 const opt1 = document.getElementById("opt1");
 const opt2 = document.getElementById("opt2");
 
-function selectMode(mode) {
-  fileMode: fileMode,
+const file1 = document.getElementById("file1");
+const file2 = document.getElementById("file2");
+
+function updateFileUI(mode) {
+  fileMode = mode;
 
   opt1.classList.toggle("selected", mode === "1");
   opt2.classList.toggle("selected", mode === "2");
+
+  // show/hide second file input
+  if (mode === "2") {
+    file2.classList.remove("hidden");
+  } else {
+    file2.classList.add("hidden");
+  }
 }
 
-opt1.addEventListener("click", () => selectMode("1"));
-opt2.addEventListener("click", () => selectMode("2"));
+// default state
+updateFileUI("1");
 
+opt1.addEventListener("click", () => updateFileUI("1"));
+opt2.addEventListener("click", () => updateFileUI("2"));
 /* ADDRESS ELEMENTS */
 const address1 = document.getElementById("address1");
 const address2 = document.getElementById("address2");
