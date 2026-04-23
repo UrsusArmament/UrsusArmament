@@ -88,7 +88,29 @@
   .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
   .nav-ribbon a:hover { color: var(--accent); background: rgba(200,146,42,0.06); }
   .nav-ribbon a.active { color: var(--accent); }
+  .nav-auth {
+  display: flex;
+  align-items: center;
+}
 
+.nav-auth a, .nav-auth button {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--accent);
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-auth a:hover, .nav-auth button:hover {
+  background: rgba(200,146,42,0.08);
+}
   section { padding: 5rem 3rem; }
 
   .hero {
@@ -330,11 +352,14 @@ body.gate-active > *:not(#accessGate) {
 </div>
 <nav>
   <div class="nav-top">
-    <div class="nav-brand">
-      <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
-      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
-    </div>
+  <div class="nav-brand">
+    <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
+    <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
   </div>
+  <div class="nav-auth" id="navAuth">
+    <!-- populated by JS -->
+  </div>
+</div>
   <div class="nav-ribbon">
     <a href="/ursusarmament/products">Products</a>
     <a href="/ursusarmament#mission">Our Mission</a>
@@ -538,6 +563,32 @@ function denyAccess() {
 }
 
 window.addEventListener("load", checkGate);
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
+  authDomain: "ursus-armament.firebaseapp.com",
+  projectId: "ursus-armament",
+  storageBucket: "ursus-armament.firebasestorage.app",
+  messagingSenderId: "430731167862",
+  appId: "1:430731167862:web:a5447de86db180edad3757"
+};
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+  const navAuth = document.getElementById("navAuth");
+  if (user) {
+    const emailPrefix = user.email.split("@")[0];
+    navAuth.innerHTML = `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
+  } else {
+    navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
+  }
+});
+ 
 </script>
 </body>
 </html>
