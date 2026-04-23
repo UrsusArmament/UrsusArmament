@@ -575,8 +575,12 @@ function renderPage() {
   const type   = currentData?.d_type || "limited";
   const status = currentData?.f_status || "pending";
 
-  document.getElementById("displayType").textContent =
-    type === "full" ? "Full Access" : "Limited Access";
+  const typeEl = document.getElementById("displayType");
+  typeEl.textContent = type === "full" ? "Full Access" : "Limited";
+  if (type === "limited") {
+    typeEl.style.color = "var(--accent)";
+    typeEl.style.fontFamily = "'Barlow', sans-serif";
+  }
 
   if (type === "limited") {
     document.getElementById("upgradeSection").classList.remove("hidden");
