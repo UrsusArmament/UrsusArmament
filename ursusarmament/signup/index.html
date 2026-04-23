@@ -435,6 +435,7 @@ limitedBtn.addEventListener("click", async () => {
       email,
       name,
       type:              "limited",
+      entity:            "individual",
       approved:          true,
       status:            "approved",
       verified_us_person: false,
@@ -587,7 +588,8 @@ fullBtn.addEventListener("click", async () => {
     await setDoc(doc(db, "users", uid), {
       email,
       name,
-      type:               accountType.value,   // "individual" | "business"
+      type:               "full",
+      entity:             accountType.value,   // "individual" | "business"
       company_rep:        repName,
       approved:           false,
       status:             "pending",
