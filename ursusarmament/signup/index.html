@@ -223,15 +223,29 @@ updateFileUI("1");
 accountType.addEventListener("change", () => {
   const isBusiness = accountType.value === "business";
 
+  // NAME FIELD
   fullNameInput.placeholder = isBusiness ? "Business Name" : "Full Name";
 
+  // BUSINESS FIELD
   companyRep.classList.toggle("hidden", !isBusiness);
 
-  document.getElementById("individualOptions").classList.toggle("hidden", isBusiness);
-  document.getElementById("businessOptions").classList.toggle("hidden", !isBusiness);
+  // =======================
+  // STRICT VISIBILITY RULES
+  // =======================
 
+  // INDIVIDUAL SECTION (ONLY FOR INDIVIDUAL)
+  document.getElementById("individualOptions").style.display =
+    isBusiness ? "none" : "flex";
+
+  // BUSINESS SECTION (ONLY FOR BUSINESS)
+  document.getElementById("businessOptions").style.display =
+    isBusiness ? "flex" : "none";
+
+  // RESET FILE INPUTS
   file1.value = "";
   file2.value = "";
+
+  // RESET DEFAULT FILE STATE
   updateFileUI("1");
 });
 
