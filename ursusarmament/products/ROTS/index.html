@@ -331,10 +331,107 @@
     .timeline-steps { flex-direction: column; }
     .unavail-banner { padding: 0.75rem 1.5rem; }
   }
+  /* ===== ACCESS GATE ===== */
+
+.gate-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10,10,8,0.65);
+  backdrop-filter: blur(12px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+/* Blur everything behind when active */
+body.gate-active > *:not(#accessGate) {
+  filter: blur(10px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.gate-box {
+  width: min(520px, 92%);
+  background: linear-gradient(180deg, var(--surface), var(--dark));
+  border: 1px solid var(--border2);
+  padding: 2.2rem;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+
+.gate-title {
+  font-family: 'Bebas Neue', sans-serif;
+  letter-spacing: 0.2em;
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.gate-text {
+  font-family: 'Barlow', sans-serif;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 2rem;
+}
+
+.gate-text span {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.gate-actions {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.gate-actions button {
+  padding: 0.7rem 2rem;
+  border: 1px solid var(--border2);
+  background: transparent;
+  color: var(--text);
+  font-family: 'Barlow Condensed', sans-serif;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.gate-actions button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(200,146,42,0.08);
+}
+
+.gate-small {
+  font-size: 0.7rem;
+  color: var(--muted);
+  opacity: 0.6;
+}
 </style>
 </head>
 <body>
+<!-- ACCESS GATE OVERLAY -->
+<div id="accessGate" class="gate-overlay">
+  <div class="gate-box">
+    <div class="gate-title">ACCESS CONFIRMATION</div>
+    <div class="gate-text">
+      You must confirm you are <span>18+</span> and a <span>U.S. person</span> to continue.
+    </div>
 
+    <div class="gate-actions">
+      <button onclick="denyAccess()">No</button>
+      <button onclick="allowAccess()">Yes</button>
+    </div>
+
+    <div class="gate-small">
+      By continuing, you certify compliance with applicable export restrictions.
+    </div>
+  </div>
+</div>
 <nav>
   <div class="nav-top">
     <div class="nav-brand">
@@ -698,6 +795,39 @@
       if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
     });
   });
+</script>
+<script>
+const ONE_HOUR = 60 * 60 * 1000;
+
+function checkGate() {
+  const data = JSON.parse(localStorage.getItem("ursus_gate"));
+
+  const valid =
+    data &&
+    data.allowed === true &&
+    (Date.now() - data.time < ONE_HOUR);
+
+  if (valid) return;
+
+  document.body.classList.add("gate-active");
+  document.getElementById("accessGate").style.display = "flex";
+}
+
+function allowAccess() {
+  localStorage.setItem("ursus_gate", JSON.stringify({
+    allowed: true,
+    time: Date.now()
+  }));
+
+  document.body.classList.remove("gate-active");
+  document.getElementById("accessGate").style.display = "none";
+}
+
+function denyAccess() {
+  window.location.href = "https://www.google.com";
+}
+
+window.addEventListener("load", checkGate);
 </script>
 </body>
 </html>
