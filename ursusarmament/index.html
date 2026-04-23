@@ -780,8 +780,10 @@ function denyAccess() {
 }
 
 window.addEventListener("load", checkGate);
-
- import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+ 
+</script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
 const firebaseConfig = {
@@ -805,7 +807,6 @@ onAuthStateChanged(auth, (user) => {
     navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
   }
 });
- 
 </script>
 </body>
 </html>
