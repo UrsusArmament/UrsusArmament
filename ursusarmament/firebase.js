@@ -3,12 +3,12 @@ import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-aut
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
-  authDomain: "ursus-armament.firebaseapp.com",
-  projectId: "ursus-armament",
-  storageBucket: "ursus-armament.firebasestorage.app",
-  messagingSenderId: "430731167862",
-  appId: "1:430731167862:web:a5447de86db180edad3757"
+  apiKey: "YOUR_KEY",
+  authDomain: "YOUR_DOMAIN",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_BUCKET",
+  messagingSenderId: "YOUR_ID",
+  appId: "YOUR_APP_ID"
 };
 
 // 🚀 Initialize Firebase
@@ -18,6 +18,11 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// 🌐 Make available globally for other scripts (important for auth-guard.js)
+// 🌐 expose globally (IMPORTANT)
 window.firebaseAuth = auth;
 window.firebaseDB = db;
+
+// 🧪 DEBUG (ADD THESE HERE)
+console.log("FIREBASE INIT LOADED");
+console.log("Auth:", window.firebaseAuth);
+console.log("DB:", window.firebaseDB);
