@@ -267,7 +267,7 @@
       <input type="text" id="zip" placeholder="ZIP">
     </div>
 
-    <input type="text" id="companyRep" class="hidden" placeholder="Company Representative">
+    <input type="text" id="companyRep" class="hidden" placeholder="Business Name">
 
     <!-- INDIVIDUAL OPTIONS -->
     <div id="individualOptions" style="display:flex; gap:1rem; margin-bottom:1rem;">
@@ -432,21 +432,21 @@ limitedBtn.addEventListener("click", async () => {
     //    All non-schema fields for full access are left as empty strings so the
     //    document structure stays consistent across account types.
     await setDoc(doc(db, "users", uid), {
-      email,
-      name,
-      type:              "limited",
-      entity:            "individual",
-      approved:          true,
-      status:            "approved",
-      verified_us_person: false,
-      address1:          "",
-      address2:          "",
-      city:              "",
-      state:             "",
-      zip:               "",
-      doc1_url:          "",
-      doc2_url:          "",
-      created_at:        new Date().toISOString(),
+      a_email:              email,
+      b_name:               name,
+      c_business_name:      "",
+      d_type:               "limited",
+      e_approved:           true,
+      f_status:             "approved",
+      g_verified_us_person: false,
+      h_address1:           "",
+      i_address2:           "",
+      j_city:               "",
+      k_state:              "",
+      l_zip:                "",
+      m_doc1_url:           "",
+      n_doc2_url:           "",
+      o_created_at:         new Date().toISOString(),
     });
 
     showModal("Your Limited Access Account has been created. You can now browse our catalog.");
@@ -497,7 +497,7 @@ updateFileUI("1");
 
 accountType.addEventListener("change", () => {
   const isBusiness = accountType.value === "business";
-  fullNameIn.placeholder = isBusiness ? "Business Name" : "Full Name";
+  fullNameIn.placeholder = isBusiness ? "Representative Name" : "Full Name";
   companyRep.classList.toggle("hidden", !isBusiness);
   document.getElementById("individualOptions").style.display = isBusiness ? "none" : "flex";
   document.getElementById("businessOptions").style.display   = isBusiness ? "block" : "none";
@@ -507,17 +507,19 @@ accountType.addEventListener("change", () => {
 
 /* Submit */
 fullBtn.addEventListener("click", async () => {
-  const email    = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-  const name     = document.getElementById("fullName").value.trim();
-  const address1 = document.getElementById("address1").value.trim();
-  const address2 = document.getElementById("address2").value.trim();
-  const city     = document.getElementById("city").value.trim();
-  const state    = document.getElementById("state").value;
-  const zip      = document.getElementById("zip").value.trim();
-  const isBusiness = accountType.value === "business";
-  const repName  = isBusiness ? companyRep.value.trim() : "";
-  const fMsg     = document.getElementById("msg");
+  const email        = document.getElementById("email").value.trim();
+  const password     = document.getElementById("password").value;
+  const isBusiness   = accountType.value === "business";
+  // fullName field = individual name OR representative name for business
+  const name         = document.getElementById("fullName").value.trim();
+  // businessName field = business name only, pulled from companyRep input
+  const businessName = isBusiness ? document.getElementById("companyRep").value.trim() : "";
+  const address1     = document.getElementById("address1").value.trim();
+  const address2     = document.getElementById("address2").value.trim();
+  const city         = document.getElementById("city").value.trim();
+  const state        = document.getElementById("state").value;
+  const zip          = document.getElementById("zip").value.trim();
+  const fMsg         = document.getElementById("msg");
 
   // Validation
   if (!email || !password || !name || !address1 || !city || !state || !zip) {
@@ -558,8 +560,6 @@ fullBtn.addEventListener("click", async () => {
     const uid  = cred.user.uid;
 
     setLoading(fullBtn, true, "Saving Information…");
-    console.log("Current user:", auth.currentUser);
-    console.log("User UID:", auth.currentUser?.uid);
 
     // 2. Upload files to Firebase Storage under users/{uid}/docs/
     let doc1_url = "";
@@ -588,23 +588,21 @@ fullBtn.addEventListener("click", async () => {
     // 3. Write Firestore document
     //    Full access: approved = false, status = "pending", verified_us_person = false
     await setDoc(doc(db, "users", uid), {
-      email,
-      name,
-      type:               "full",
-      entity:             accountType.value,   // "individual" | "business"
-      company_rep:        repName,
-      approved:           false,
-      status:             "pending",
-      verified_us_person: false,
-      address1,
-      address2,
-      city,
-      state,
-      zip,
-      id_option:          isBusiness ? "business" : (fileMode === "1" ? "single_doc" : "two_doc"),
-      doc1_url,
-      doc2_url,
-      created_at:         new Date().toISOString(),
+      a_email:              email,
+      b_name:               name,
+      c_business_name:      isBusiness ? businessName : "",
+      d_type:               "full",
+      e_approved:           false,
+      f_status:             "pending",
+      g_verified_us_person: false,
+      h_address1:           address1,
+      i_address2:           address2,
+      j_city:               city,
+      k_state:              state,
+      l_zip:                zip,
+      m_doc1_url:           doc1_url,
+      n_doc2_url:           doc2_url,
+      o_created_at:         new Date().toISOString(),
     });
 
     showModal(
