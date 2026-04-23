@@ -158,10 +158,34 @@
   <input type="text" id="companyRep" class="hidden" placeholder="Company Representative Name">
 
   <!-- Individual file mode -->
-  <select id="indOption">
-    <option value="1"> One of the following: Unexpired Passport or Passport Card, Permanent Resident Card (Form I-551), Certificate of Naturalization (N-550 or N-570) or Citizenship (N-560 or N-561), or Original or Certified U.S. Birth Certificate</option>
-    <option value="2">Two of the following: scans of State issued DL (REAL ID), Voter Registration Card, Government Photo ID, Social Security Card, or Consular Report of Birth Abroad (FS-240)</option>
-  </select>
+  <div style="display:flex; gap:1rem; margin-bottom:1rem;">
+
+  <!-- OPTION 1 -->
+  <div id="opt1" class="card selected">
+    <div class="radio"></div>
+    <div class="title">ONE OF THE FOLLOWING</div>
+    <div class="list">
+      1.Unexpired Passport or Passport Card
+      2.Permanent Resident Card (Form I-551)
+      3.Certificate of Naturalization (N-550 or N-570) or Citizenship (N-560 or N-561)
+      4.Original or Certified U.S. Birth Certificate
+    </div>
+  </div>
+
+  <!-- OPTION 2 -->
+  <div id="opt2" class="card">
+    <div class="radio"></div>
+    <div class="title">TWO OF THE FOLLOWING</div>
+    <div class="list">
+      1.State Issued DL (REAL ID)
+      2.Voter Registration Card
+      3.Government Photo ID
+      4.Social Security Card
+      5.Consular Report of Birth Abroad (FS-240)
+    </div>
+  </div>
+
+</div>
 
   <input type="file" id="file1">
   <input type="file" id="file2" class="hidden">
