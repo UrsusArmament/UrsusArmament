@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up</title>
+</head>
+<body style="background:#0a0a08; color:white; font-family:sans-serif;">
+
+<h2>Create Account</h2>
+
+<input id="email" placeholder="Email" style="display:block; margin:10px 0;">
+<input id="password" type="password" placeholder="Password" style="display:block; margin:10px 0;">
+
+<button id="signupBtn">Sign Up</button>
+
+<p id="status"></p>
+
+<script type="module">
+import { createUserWithEmailAndPassword } 
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { doc, setDoc } 
+from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+document.getElementById("signupBtn").addEventListener("click", async () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  const status = document.getElementById("status");
+
+  try {
+    const userCred = await createUserWithEmailAndPassword(
+      window.firebaseAuth,
+      email,
+      password
+    );
+
+    // Create Firestore user record (NOT approved by default)
+    await setDoc(doc(window.firebaseDB, "users", userCred.user.uid), {
+      email: email,
+      approved: false,
+      createdAt: Date.now()
+    });
+
+    status.innerText = "Account created. Await approval.";
+  } catch (err) {
+    console.error(err);
+    status.innerText = err.message;
+  }
+});
+</script>
+
+<script type="module" src="/ursusarmament/firebase.js"></script>
+
+</body>
+</html>
