@@ -443,6 +443,32 @@ fullBtn.addEventListener("click", () => {
     alert("Password must be at least 12 characters and include 1 uppercase letter, 1 lowercase letter, and 1 special character.");
     return;
   }
+  const isBusiness = accountType.value === "business";
+
+const file1Selected = file1.files.length > 0;
+const file2Selected = file2.files.length > 0;
+
+  // Business requires TWO files
+  if (isBusiness) {
+    if (!file1Selected || !file2Selected) {
+      alert("Please upload both required business documents.");
+      return;
+    }
+  } 
+  // Individual requires ONE file OR TWO depending on mode
+  else {
+    const fileModeIsTwo = fileMode === "2";
+
+    if (fileModeIsTwo && !file1Selected) {
+      alert("Please upload the required identification documents.");
+      return;
+    }
+
+    if (!file1Selected) {
+      alert("Please upload required identification document.");
+      return;
+    }
+  }
   const name = document.getElementById("fullName").value;
 
   const address1 = document.getElementById("address1").value;
