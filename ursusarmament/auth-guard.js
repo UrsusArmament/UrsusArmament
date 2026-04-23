@@ -12,17 +12,18 @@ async function enforceGate(user) {
   }
 
   try {
-    // Get user record from Firestore
-    const snap = await getDoc(doc(window.firebaseDB, "users", user.uid));
+    // Look up Firestore doc by email prefix (e.g. "johndoe" from "johndoe@gmail.com")
+    const emailPrefix = user.email.split("@")[0];
+    const snap = await getDoc(doc(window.firebaseDB, "users", emailPrefix));
     const data = snap.data();
 
-    // Block if no record or not approved
-    if (!data || data.approved !== true) {
+    // Block if no record, not approved, or status not approved
+    if (!data || data.e_approved !== true || data.f_status !== "approved") {
       window.location.replace("/ursusarmament/pending/");
       return;
     }
 
-    // Allowed access (page continues normally)
+    // ✅ Allowed access (page continues normally)
 
   } catch (error) {
     console.error("Auth gate error:", error);
