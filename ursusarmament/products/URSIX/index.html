@@ -859,7 +859,7 @@ function renderUnitsPanel(units, tier) {
     const available = tiersWithStock(units);
     const tierList  = available.length ? available.map(t => '<strong>' + t + '</strong>').join(', ') : null;
     body.innerHTML  = tierList
-      ? '<div class="units-no-stock">Sorry, there are currently no available units in this tier. We have available units for the ' + tierList + ' tiers.</div>'
+      ? '<div class="units-no-stock">Sorry, there are currently no available units in this tier. We have available units for the ' + tierList + ' tier(s).</div>'
       : '<div class="units-no-stock">Sorry, there are no available units at this time.</div>';
     return;
   }
