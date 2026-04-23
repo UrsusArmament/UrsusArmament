@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login | Ursus Armament</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    margin: 0;
+    background: #0a0a08;
+    color: #e8e4d9;
+    font-family: 'Barlow', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .box {
+    width: 360px;
+    padding: 2rem;
+    background: #1a1a17;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    background: #111110;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: #e8e4d9;
+  }
+
+  button {
+    width: 100%;
+    padding: 0.8rem;
+    background: #c8922a;
+    border: none;
+    color: #0a0a08;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #e8a830;
+  }
+
+  .msg {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #8a8678;
+  }
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h1>URSUS LOGIN</h1>
+
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+
+  <button id="loginBtn">Login</button>
+
+  <div class="msg" id="msg"></div>
+</div>
+
+<!-- Firebase -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
+  authDomain: "ursus-armament.firebaseapp.com",
+  projectId: "ursus-armament",
+  storageBucket: "ursus-armament.firebasestorage.app",
+  messagingSenderId: "430731167862",
+  appId: "1:430731167862:web:a5447de86db180edad3757"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+const msg = document.getElementById("msg");
+
+document.getElementById("loginBtn").addEventListener("click", async () => {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    msg.textContent = "Login successful... redirecting";
+
+    window.location.href = "/ursusarmament/products/";
+  } catch (error) {
+    msg.textContent = error.message;
+  }
+});
+</script>
+
+</body>
+</html>
