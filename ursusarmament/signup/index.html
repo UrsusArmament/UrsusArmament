@@ -40,13 +40,7 @@
     font-family: 'Bebas Neue', sans-serif;
     letter-spacing: 0.15em;
     font-size: 2rem;
-    margin-bottom: 0.5rem;
-  }
-
-  p {
-    font-size: 0.85rem;
-    color: #8a8678;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
   }
 
   input, select {
@@ -73,7 +67,6 @@
     letter-spacing: 0.15em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: 0.2s ease;
   }
 
   button:hover {
@@ -86,9 +79,29 @@
     color: #8a8678;
   }
 
-  .hidden {
-    display: none;
+  .hidden { display:none; }
+
+  /* Address grouping */
+  .address-block {
+    text-align: left;
+    margin-bottom: 1rem;
   }
+
+  .address-note {
+    font-size: 0.75rem;
+    color: #8a8678;
+    margin-bottom: 0.5rem;
+  }
+
+  .row {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .row input {
+    margin-bottom: 0.8rem;
+  }
+
 </style>
 </head>
 
@@ -96,41 +109,64 @@
 
 <div class="container">
 
-  <!-- LIMITED ACCOUNT -->
-  <div class="box">
-    <h1>LIMITED ACCESS</h1>
-    <p>No access to restricted products.</p>
+<!-- ================= LIMITED ================= -->
+<div class="box">
+  <h1>LIMITED ACCESS</h1>
 
-    <input type="email" id="l_email" placeholder="Email">
-    <input type="password" id="l_password" placeholder="Password">
-    <input type="text" id="l_name" placeholder="Full Name">
+  <input type="email" id="l_email" placeholder="Email">
+  <input type="password" id="l_password" placeholder="Password">
+  <input type="text" id="l_name" placeholder="Full Name">
 
-    <button id="limitedBtn">Create Limited Account</button>
+  <button id="limitedBtn">Create Limited Account</button>
 
-    <div class="msg" id="l_msg"></div>
+  <div class="msg" id="l_msg"></div>
+</div>
+
+<!-- ================= FULL ================= -->
+<div class="box">
+  <h1>FULL ACCESS</h1>
+
+  <select id="accountType">
+    <option value="individual">Individual</option>
+    <option value="business">Business</option>
+  </select>
+
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Password">
+  <input type="text" id="fullName" placeholder="Full Name">
+
+  <!-- ADDRESS BLOCK -->
+  <div class="address-block">
+    <div class="address-note">
+      Full access accounts require a U.S. physical address.
+    </div>
+
+    <input type="text" id="address1" placeholder="Address Line 1">
+    <input type="text" id="address2" placeholder="Address Line 2 (optional)">
+
+    <div class="row">
+      <input type="text" id="city" placeholder="City">
+      <input type="text" id="state" placeholder="State" style="max-width:90px;">
+      <input type="text" id="zip" placeholder="ZIP" style="max-width:110px;">
+    </div>
   </div>
 
-  <!-- FULL ACCESS ACCOUNT -->
-  <div class="box">
-    <h1>FULL ACCESS</h1>
-    <p>Requires review & approval.</p>
+  <!-- Business only -->
+  <input type="text" id="companyRep" class="hidden" placeholder="Company Representative Name">
 
-    <select id="accountType">
-      <option value="individual">Individual</option>
-      <option value="business">Business</option>
-    </select>
+  <!-- Individual file mode -->
+  <select id="indOption">
+    <option value="1">Submit 1 file</option>
+    <option value="2">Submit 2 files</option>
+  </select>
 
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
-    <input type="text" id="fullName" placeholder="Full Name">
-    <input type="text" id="address" placeholder="Physical End-Use Address">
+  <input type="file" id="file1">
+  <input type="file" id="file2" class="hidden">
 
-    <input type="text" id="companyRep" class="hidden" placeholder="Company Representative Name">
+  <button id="fullBtn">Create Full Access Account</button>
 
-    <button id="fullBtn">Create Full Access Account</button>
-
-    <div class="msg" id="msg"></div>
-  </div>
+  <div class="msg" id="msg"></div>
+</div>
 
 </div>
 
@@ -140,103 +176,114 @@ from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { doc, setDoc } 
 from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-/* =========================
-   ELEMENTS
-========================= */
+/* ================= ELEMENTS ================= */
 
 const accountType = document.getElementById("accountType");
+const indOption = document.getElementById("indOption");
 const companyRep = document.getElementById("companyRep");
+const file2 = document.getElementById("file2");
 
 const l_msg = document.getElementById("l_msg");
 const msg = document.getElementById("msg");
 
-/* =========================
-   HELPERS
-========================= */
+/* ADDRESS ELEMENTS */
+const address1 = document.getElementById("address1");
+const address2 = document.getElementById("address2");
+const city = document.getElementById("city");
+const state = document.getElementById("state");
+const zip = document.getElementById("zip");
 
-function isPOBox(addr) {
-  return /p\s*\.?\s*o\s*\.?\s*box/i.test(addr);
+/* ================= HELPERS ================= */
+
+function isPOBox(v) {
+  return /p\s*\.?\s*o\s*\.?\s*box/i.test(v);
 }
 
-/* =========================
-   UI TOGGLE
-========================= */
+function buildAddress() {
+  return {
+    line1: address1.value,
+    line2: address2.value,
+    city: city.value,
+    state: state.value,
+    zip: zip.value
+  };
+}
+
+function isAddressComplete() {
+  return address1.value && city.value && state.value && zip.value;
+}
+
+/* ================= UI LOGIC ================= */
 
 accountType.addEventListener("change", () => {
-  if (accountType.value === "business") {
-    companyRep.classList.remove("hidden");
-  } else {
-    companyRep.classList.add("hidden");
-  }
+  companyRep.classList.toggle("hidden", accountType.value !== "business");
 });
 
-/* =========================
-   LIMITED ACCOUNT
-========================= */
+indOption.addEventListener("change", () => {
+  file2.classList.toggle("hidden", indOption.value !== "2");
+});
+
+/* ================= LIMITED ACCOUNT ================= */
 
 document.getElementById("limitedBtn").addEventListener("click", async () => {
   const email = l_email.value;
   const password = l_password.value;
   const name = l_name.value;
 
-  try {
-    const userCred = await createUserWithEmailAndPassword(
-      window.firebaseAuth,
-      email,
-      password
-    );
+  const userCred = await createUserWithEmailAndPassword(
+    window.firebaseAuth,
+    email,
+    password
+  );
 
-    await setDoc(doc(window.firebaseDB, "users", userCred.user.uid), {
-      email,
-      fullName: name,
-      accountType: "limited",
-      approved: true,
-      createdAt: Date.now()
-    });
+  await setDoc(doc(window.firebaseDB, "users", userCred.user.uid), {
+    email,
+    fullName: name,
+    accountType: "limited",
+    approved: true,
+    createdAt: Date.now()
+  });
 
-    l_msg.innerText = "Limited account created.";
-  } catch (err) {
-    l_msg.innerText = err.message;
-  }
+  l_msg.innerText = "Limited account created.";
 });
 
-/* =========================
-   FULL ACCOUNT
-========================= */
+/* ================= FULL ACCOUNT ================= */
 
 document.getElementById("fullBtn").addEventListener("click", async () => {
   const email = email.value;
   const password = password.value;
   const fullName = fullName.value;
-  const address = address.value;
-  const type = accountType.value;
 
-  if (isPOBox(address)) {
+  if (!isAddressComplete()) {
+    msg.innerText = "Please complete all address fields.";
+    return;
+  }
+
+  if (isPOBox(address1.value)) {
     msg.innerText = "PO Boxes are not allowed.";
     return;
   }
 
-  try {
-    const userCred = await createUserWithEmailAndPassword(
-      window.firebaseAuth,
-      email,
-      password
-    );
+  const type = accountType.value;
 
-    await setDoc(doc(window.firebaseDB, "users", userCred.user.uid), {
-      email,
-      fullName,
-      address,
-      accountType: type,
-      companyRep: type === "business" ? companyRep.value : null,
-      approved: false,
-      createdAt: Date.now()
-    });
+  const userCred = await createUserWithEmailAndPassword(
+    window.firebaseAuth,
+    email,
+    password
+  );
 
-    msg.innerText = "Submitted for approval.";
-  } catch (err) {
-    msg.innerText = err.message;
-  }
+  await setDoc(doc(window.firebaseDB, "users", userCred.user.uid), {
+    email,
+    fullName,
+    address: buildAddress(),
+    accountType: type,
+    companyRep: type === "business" ? companyRep.value : null,
+    fileMode: indOption.value,
+    approved: false,
+    createdAt: Date.now()
+  });
+
+  msg.innerText = "Submitted for approval.";
 });
 </script>
 
