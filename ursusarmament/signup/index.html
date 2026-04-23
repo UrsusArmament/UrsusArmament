@@ -254,9 +254,7 @@ from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 /* ================= ELEMENTS ================= */
 
 const accountType = document.getElementById("accountType");
-const indOption = document.getElementById("indOption");
 const companyRep = document.getElementById("companyRep");
-const file2 = document.getElementById("file2");
 
 const l_msg = document.getElementById("l_msg");
 const msg = document.getElementById("msg");
@@ -321,10 +319,6 @@ accountType.addEventListener("change", () => {
   companyRep.classList.toggle("hidden", accountType.value !== "business");
 });
 
-indOption.addEventListener("change", () => {
-  file2.classList.toggle("hidden", indOption.value !== "2");
-});
-
 /* ================= LIMITED ACCOUNT ================= */
 
 document.getElementById("limitedBtn").addEventListener("click", async () => {
@@ -380,7 +374,6 @@ document.getElementById("fullBtn").addEventListener("click", async () => {
     address: buildAddress(),
     accountType: type,
     companyRep: type === "business" ? companyRep.value : null,
-    fileMode: indOption.value,
     approved: false,
     createdAt: Date.now()
   });
