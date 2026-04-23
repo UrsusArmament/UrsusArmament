@@ -127,7 +127,7 @@ resetBtn.addEventListener("click", async () => {
   try {
     await sendPasswordResetEmail(auth, email);
     msg.className = "msg success";
-    msg.textContent = "Reset link sent. Please check your email including your spam folder.";
+    msg.textContent = "Reset link sent. Please check your email INCLUDING YOUR SPAM FOLDER.";
     resetBtn.textContent = "Link Sent";
   } catch (error) {
     msg.className = "msg error";
