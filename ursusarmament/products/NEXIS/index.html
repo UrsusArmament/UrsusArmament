@@ -70,9 +70,9 @@
 
   /* HERO */
   .product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; background: var(--dark); }
-  .product-visual { position: relative; background: var(--surface); overflow: hidden; display: flex; flex-direction: column; align-items: stretch; }
+  .product-visual { position: relative; background: var(--surface); overflow: hidden; display: flex; flex-direction: column; align-items: stretch; min-height: 500px; }
   .product-badge { position: absolute; top: 2rem; left: 2rem; background: var(--surface2); color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 0.85rem; z-index: 2; border: 1px solid rgba(200,146,42,0.35); }
-  .visual-main { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; min-height: 0; }
+  .visual-main { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; min-height: 400px; }
   .visual-main::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(200,146,42,0.012) 30px, rgba(200,146,42,0.012) 31px); pointer-events: none; }
   .visual-watermark { position: absolute; font-family: 'Bebas Neue', sans-serif; font-size: 14rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.02); user-select: none; pointer-events: none; white-space: nowrap; }
   .visual-thumb-bar { width: 100%; background: var(--dark); border-top: 1px solid var(--border); padding: 1rem 2rem; display: flex; align-items: center; }
@@ -355,19 +355,13 @@
     <div class="visual-main">
       <div class="visual-watermark">NEXIS</div>
       <svg viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg" style="width:90%;max-width:540px;position:relative;z-index:1;">
-
-        <!-- Frame -->
         <rect x="1" y="1" width="558" height="418" fill="none" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22"/>
         <polyline points="1,22 1,1 22,1" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
         <polyline points="538,1 558,1 558,22" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
         <polyline points="1,396 1,418 22,418" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
         <polyline points="538,418 558,418 558,396" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
-
-        <!-- Faint grid -->
         <line x1="280" y1="0" x2="280" y2="420" stroke="#c8701a" stroke-width="0.4" stroke-opacity="0.06"/>
         <line x1="0" y1="210" x2="560" y2="210" stroke="#c8701a" stroke-width="0.4" stroke-opacity="0.06"/>
-
-        <!-- Network links -->
         <line x1="280" y1="210" x2="156" y2="118" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35" class="net-link"/>
         <line x1="280" y1="210" x2="404" y2="118" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35" class="net-link-slow"/>
         <line x1="280" y1="210" x2="404" y2="302" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35" class="net-link-rev"/>
@@ -376,78 +370,51 @@
         <line x1="280" y1="210" x2="280" y2="348" stroke="#c8701a" stroke-width="1" stroke-opacity="0.28" class="net-link-rev"/>
         <line x1="280" y1="210" x2="72" y2="210" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22" class="net-link"/>
         <line x1="280" y1="210" x2="488" y2="210" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22" class="net-link-slow"/>
-
-        <!-- Cross links -->
         <line x1="156" y1="118" x2="404" y2="118" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.18" class="net-link-slow" stroke-dasharray="4,6"/>
         <line x1="156" y1="302" x2="404" y2="302" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.18" class="net-link-rev" stroke-dasharray="4,6"/>
         <line x1="156" y1="118" x2="156" y2="302" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.15" class="net-link" stroke-dasharray="4,6"/>
         <line x1="404" y1="118" x2="404" y2="302" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.15" class="net-link-slow" stroke-dasharray="4,6"/>
-
-        <!-- Central Hub -->
         <circle cx="280" cy="210" r="32" fill="#111110" stroke="#c8701a" stroke-width="1.8" stroke-opacity="0.7"/>
         <circle cx="280" cy="210" r="24" fill="none" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/>
         <circle cx="280" cy="210" r="14" fill="none" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.2"/>
         <circle cx="280" cy="210" r="5" fill="#c8701a" fill-opacity="0.25" class="node-pulse"/>
-        <text x="280" y="252" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.55" text-anchor="middle" letter-spacing="1">NEXIS HUB</text>
-        <text x="280" y="263" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.35" text-anchor="middle" letter-spacing="0.5">NX-600 CMD</text>
-
-        <!-- NX-100 NOD — top left -->
+        <text x="280" y="255" font-family="monospace" font-size="8" fill="#c8701a" fill-opacity="0.55" text-anchor="middle" letter-spacing="1.5">NEXIS HUB</text>
         <rect x="108" y="88" width="96" height="60" rx="4" fill="#111110" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
         <circle cx="156" cy="118" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse"/>
-        <text x="156" y="106" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">DISMOUNTED</text>
-        <text x="156" y="117" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">NODE</text>
-        <text x="156" y="128" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">PAX Tracking</text>
-        <text x="156" y="140" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">NX-100 NOD</text>
-
-        <!-- NX-200 REL — top right -->
+        <text x="156" y="108" font-family="monospace" font-size="8.5" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1.5">URSIX</text>
+        <text x="156" y="120" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">NV MONOCULAR</text>
+        <text x="156" y="132" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">UNIT-01</text>
         <rect x="356" y="88" width="96" height="60" rx="4" fill="#111110" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
         <circle cx="404" cy="118" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse-b"/>
-        <text x="404" y="106" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">STATIONARY</text>
-        <text x="404" y="117" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">RELAY NODE</text>
-        <text x="404" y="128" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">Persistent Coverage</text>
-        <text x="404" y="140" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">NX-200 REL</text>
-
-        <!-- NX-300 LFT — bottom right -->
+        <text x="404" y="108" font-family="monospace" font-size="8.5" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1.5">CALIDUS</text>
+        <text x="404" y="120" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">THERMAL MONOCULAR</text>
+        <text x="404" y="132" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">UNIT-02</text>
         <rect x="356" y="272" width="96" height="60" rx="4" fill="#111110" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
         <circle cx="404" cy="302" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse-c"/>
-        <text x="404" y="290" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">AERIAL</text>
-        <text x="404" y="301" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">RELAY NODE</text>
-        <text x="404" y="312" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">Rapid Deploy</text>
-        <text x="404" y="324" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">NX-300 LFT</text>
-
-        <!-- NX-400 VEC — bottom left -->
+        <text x="404" y="292" font-family="monospace" font-size="8.5" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1.5">R.O.T.S.</text>
+        <text x="404" y="304" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">TURRET SYSTEM</text>
+        <text x="404" y="316" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">UNIT-03</text>
         <rect x="108" y="272" width="96" height="60" rx="4" fill="#111110" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
         <circle cx="156" cy="302" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse"/>
-        <text x="156" y="290" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">VEHICLE</text>
-        <text x="156" y="301" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">MESH NODE</text>
-        <text x="156" y="312" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">Mobile Coverage</text>
-        <text x="156" y="324" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">NX-400 VEC</text>
-
-        <!-- ASI Modules — relay nodes -->
+        <text x="156" y="292" font-family="monospace" font-size="8.5" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">CMD NODE</text>
+        <text x="156" y="304" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">OPERATOR TERMINAL</text>
+        <text x="156" y="316" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">UNIT-04</text>
         <circle cx="280" cy="62" r="14" fill="#0e0e0c" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
-        <text x="280" y="58" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">ASI</text>
-        <text x="280" y="69" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">MODULE</text>
-
+        <text x="280" y="57" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">RELAY</text>
+        <text x="280" y="68" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">NORTH</text>
         <circle cx="280" cy="358" r="14" fill="#0e0e0c" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
-        <text x="280" y="354" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">ASI</text>
-        <text x="280" y="365" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">MODULE</text>
-
+        <text x="280" y="353" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">RELAY</text>
+        <text x="280" y="364" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">SOUTH</text>
         <circle cx="62" cy="210" r="14" fill="#0e0e0c" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
-        <text x="62" y="206" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">ASI</text>
-        <text x="62" y="217" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">MODULE</text>
-
+        <text x="62" y="205" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">RELAY</text>
+        <text x="62" y="216" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">WEST</text>
         <circle cx="498" cy="210" r="14" fill="#0e0e0c" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
-        <text x="498" y="206" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">ASI</text>
-        <text x="498" y="217" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">MODULE</text>
-
-        <!-- Title -->
+        <text x="498" y="205" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">RELAY</text>
+        <text x="498" y="216" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">EAST</text>
         <text x="280" y="28" font-family="monospace" font-size="18" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="6">NEXIS</text>
         <text x="280" y="42" font-family="monospace" font-size="7.5" fill="#c8701a" fill-opacity="0.35" text-anchor="middle" letter-spacing="2">TACTICAL NETWORK TOPOLOGY  ·  PRE-PRODUCTION</text>
-
-        <!-- Faint diagonals -->
         <line x1="0" y1="0" x2="560" y2="420" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.03"/>
         <line x1="560" y1="0" x2="0" y2="420" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.03"/>
-
       </svg>
     </div>
     <div class="visual-thumb-bar">
@@ -600,19 +567,19 @@
   <div class="section-tag">Technical Data</div>
   <h2 class="section-title">SYSTEM SPECIFICATIONS</h2>
   <div class="specs-grid">
-    <div class="spec-item"><span class="spec-name">Network Architecture</span><span class="spec-value">Encrypted Mesh — Self-Healing Topology</span></div>
+    <div class="spec-item"><span class="spec-name">Network Architecture</span><span class="spec-value">Encrypted mesh — self-healing topology</span></div>
     <div class="spec-item"><span class="spec-name">Encryption</span><span class="spec-value">AES-256 end-to-end (target)</span></div>
-    <div class="spec-item"><span class="spec-name">Frequency Band</span><span class="spec-value">UHF / ISM</span></div>
-    <div class="spec-item"><span class="spec-name">Max Nodes per Network</span><span class="spec-value">72</span></div>
-    <div class="spec-item"><span class="spec-name">Latency</span><span class="spec-value">100-300ms node-to-node</span></div>
-    <div class="spec-item"><span class="spec-name">Range (Node-to-Node)</span><span class="spec-value">LOS</span></div>
-    <div class="spec-item"><span class="spec-name">Data Types</span><span class="spec-value">Telemetry, Command, Sensor Feeds</span></div>
-    <div class="spec-item"><span class="spec-name">Native Integrations</span><span class="spec-value">R.O.T.S.</span></div>
-    <div class="spec-item"><span class="spec-name">Command Interface</span><span class="spec-value">NX-600 CMD / NX-700 IND Terminals</span></div>
+    <div class="spec-item"><span class="spec-name">Frequency Band</span><span class="spec-value">TBD — multi-band design target</span></div>
+    <div class="spec-item"><span class="spec-name">Max Nodes per Network</span><span class="spec-value">TBD — scalable architecture</span></div>
+    <div class="spec-item"><span class="spec-name">Latency</span><span class="spec-value">Target &lt;20ms node-to-node</span></div>
+    <div class="spec-item"><span class="spec-name">Range (Node-to-Node)</span><span class="spec-value">TBD — environment dependent</span></div>
+    <div class="spec-item"><span class="spec-name">Data Types</span><span class="spec-value">Video, telemetry, command, sensor feeds</span></div>
+    <div class="spec-item"><span class="spec-name">Native Integrations</span><span class="spec-value">URSIX · CALIDUS · R.O.T.S.</span></div>
+    <div class="spec-item"><span class="spec-name">Command Interface</span><span class="spec-value">NX-600 CMD / NX-700 IND terminals</span></div>
     <div class="spec-item"><span class="spec-name">Anti-Jamming</span><span class="spec-value">Frequency-hopping spread spectrum (target)</span></div>
-    <div class="spec-item"><span class="spec-name">Power</span><span class="spec-value">DC Battery / Solar-Assist / AC-Grid</span></div>
+    <div class="spec-item"><span class="spec-name">Power</span><span class="spec-value">DC battery / solar-assist / grid — TBD</span></div>
     <div class="spec-item"><span class="spec-name">Environmental Rating</span><span class="spec-value">IP67 all nodes (target)</span></div>
-    <div class="spec-item"><span class="spec-name">Operating Temp</span><span class="spec-value">-40°F to +90°F (target)</span></div>
+    <div class="spec-item"><span class="spec-name">Operating Temp</span><span class="spec-value">-40°F to +120°F (target)</span></div>
     <div class="spec-item"><span class="spec-name">Country of Origin</span><span class="spec-value">United States of America</span></div>
   </div>
   <div class="spec-note">⚠ &nbsp;Specifications are preliminary design targets and subject to revision. Final performance figures will be published at product launch. Export control classification pending — certain configurations may require licensing.</div>
@@ -667,21 +634,21 @@
   <h2 class="section-title">THE URSUS ECOSYSTEM</h2>
   <div class="ecosystem-grid">
     <div class="ecosystem-card">
-      <div class="eco-icon">ASI (Autonomous Systems Interface) Module</div>
-      <div class="eco-name">Systems Link</div>
-      <p class="eco-desc">NEXIS' capabilities are extended to ASI Modules for communication with mission critical systems.  This increases efficiency for those systems, while adding layers of additional knowledge and safety for PAKs in the area of operation.</p>
+      <div class="eco-icon">URSIX</div>
+      <div class="eco-name">Night Vision Node</div>
+      <p class="eco-desc">NEXIS-enabled URSIX units stream real-time image data and tube telemetry back to the command node. Operators see what every URSIX in the network sees — simultaneously.</p>
       <span class="eco-status">↗ Integration Planned</span>
     </div>
     <div class="ecosystem-card">
-      <div class="eco-icon">STRIX Control Layer</div>
-      <div class="eco-name">Software and Network Driven Capability</div>
-      <p class="eco-desc">STRIX transforms distributed observations into actionable information—bridging the gap between detection and engagement.  This 2 way data link is responsible for connecting the computer elements to the human elements in our ecosystem.</p>
+      <div class="eco-icon">CALIDUS</div>
+      <div class="eco-name">Thermal Node</div>
+      <p class="eco-desc">CALIDUS feeds live LWIR video and target detection data into the NEXIS command picture. Thermal tracks are shared network-wide the moment they're acquired.</p>
       <span class="eco-status">↗ Integration Planned</span>
     </div>
     <div class="ecosystem-card">
-      <div class="eco-icon">NEXIS</div>
-      <div class="eco-name">Self-Healing Mesh Network</div>
-      <p class="eco-desc">NEXIS is the human layer of the ecosystem—connecting individuals, teams, and assets through a self-healing mesh network. It maintains shared situational awareness and reliable communication as conditions change, enabling coordinated movement and informed decisions without reliance on fixed infrastructure.</p>
+      <div class="eco-icon">R.O.T.S.</div>
+      <div class="eco-name">Weapon Node</div>
+      <p class="eco-desc">R.O.T.S. turrets receive targeting data and ROE commands directly from the NEXIS command terminal. Fire control, profile switching, and status monitoring — all networked.</p>
       <span class="eco-status">↗ Integration Planned</span>
     </div>
   </div>
@@ -694,19 +661,20 @@
       <div class="feature-item"><div class="feature-num">01</div><div class="feature-title">Self-Healing Mesh Architecture</div><p class="feature-desc">Nodes automatically reroute traffic when a link is lost or jammed. No single point of failure. The network degrades gracefully and reconstitutes without operator intervention.</p></div>
       <div class="feature-item"><div class="feature-num">02</div><div class="feature-title">AES-256 End-to-End Encryption</div><p class="feature-desc">Every packet on the NEXIS network is encrypted at the source and decrypted only at the authorized destination. No plaintext ever transits the air.</p></div>
       <div class="feature-item"><div class="feature-num">03</div><div class="feature-title">Anti-Jamming — FHSS</div><p class="feature-desc">Frequency-hopping spread spectrum transmission makes NEXIS links resistant to broadband jamming and direction-finding. Designed from the ground up for contested RF environments.</p></div>
-      <div class="feature-item"><div class="feature-num">06</div><div class="feature-title">Integration Architecture</div><p class="feature-desc">NEXIS functions as a defined node-based mesh, interfacing with ASI (Autonomous Systems Interface) modules to facilitate communication and coordination through the STRIX™ Fire Control Layer.</p></div>
+      <div class="feature-item"><div class="feature-num">04</div><div class="feature-title">Unified Sensor Feed</div><p class="feature-desc">NV video from URSIX, thermal from CALIDUS, and weapon telemetry from R.O.T.S. all route to a single command picture. One operator. Full situational awareness.</p></div>
+      <div class="feature-item"><div class="feature-num">05</div><div class="feature-title">Networked Fire Control</div><p class="feature-desc">R.O.T.S. turrets in the network receive targeting cues and ROE commands from the NEXIS command terminal. Engagement authority stays with the operator — response time doesn't.</p></div>
+      <div class="feature-item"><div class="feature-num">06</div><div class="feature-title">Open Integration Architecture</div><p class="feature-desc">NEXIS is built to interface with third-party sensors, legacy comms systems, and future Ursus Armament hardware. One network. Expandable without replacement.</p></div>
     </div>
     <div class="features-aside">
       <div class="section-tag">The Bigger Picture</div>
-      <h2 class="section-title" style="margin-bottom: 1.5rem;">Communication is Key</h2>
-      <p>Built as a modular mesh network, NEXIS enables teams to share position, movement, and situational data in real time—supporting informed tactical maneuvering, coordinated search and rescue operations, and distributed team awareness in environments where traditional communications may be limited or unavailable.</p>
-      <p>Each node contributes to a broader operational picture. Personnel, vehicles, and fixed positions become part of a unified network that adapts to the mission—scaling from small, dismounted teams to extended, multi-element deployments across complex terrain.</p>
-      <p>NEXIS is not a weapon system. It is an enabling layer—designed to move information reliably, efficiently, and under constraint. By maintaining connectivity and shared awareness, it allows operators to make faster, more informed decisions in dynamic environments.</p>
-      <p>As part of a larger ecosystem, NEXIS integrates with systems such as R.O.T.S. through the STRIX™ Fire Control Layer, allowing networked data to inform targeting, coordination, and response without compromising its role as a communications backbone.</p>
-     <div class="cert-row">
+      <h2 class="section-title" style="margin-bottom: 1.5rem;">THE NETWORK IS THE WEAPON.</h2>
+      <p>Individual pieces of hardware — no matter how capable — operate in isolation. A night vision unit sees what it sees. A thermal monocular detects what's in its field of view. A turret engages what an operator tells it to.</p>
+      <p>NEXIS changes the equation. When every sensor feeds a shared picture and every effector receives networked commands, the whole becomes something none of the parts could accomplish alone — persistent, coordinated, contested-environment capability.</p>
+      <p>This is why we built NEXIS last. The optics had to exist before the network had anything to carry.</p>
+      <div class="cert-row">
         <div class="cert-item"><span class="cert-label">Encryption</span><span class="cert-value">AES-256</span></div>
         <div class="cert-item"><span class="cert-label">Topology</span><span class="cert-value">MESH</span></div>
-        <div class="cert-item"><span class="cert-label">Latency</span><span class="cert-value">100-300mms</span></div>
+        <div class="cert-item"><span class="cert-label">Latency</span><span class="cert-value">&lt;20ms</span></div>
       </div>
     </div>
   </div>
