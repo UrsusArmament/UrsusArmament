@@ -634,12 +634,12 @@
   <div class="specs-grid">
     <div class="spec-item"><span class="spec-name">Network Architecture</span><span class="spec-value">Encrypted mesh — self-healing topology</span></div>
     <div class="spec-item"><span class="spec-name">Encryption</span><span class="spec-value">AES-256 end-to-end (target)</span></div>
-    <div class="spec-item"><span class="spec-name">Frequency Band</span><span class="spec-value">TBD — multi-band design target</span></div>
-    <div class="spec-item"><span class="spec-name">Max Nodes per Network</span><span class="spec-value">TBD — scalable architecture</span></div>
-    <div class="spec-item"><span class="spec-name">Latency</span><span class="spec-value">Target &lt;20ms node-to-node</span></div>
-    <div class="spec-item"><span class="spec-name">Range (Node-to-Node)</span><span class="spec-value">TBD — environment dependent</span></div>
+    <div class="spec-item"><span class="spec-name">Frequency Band</span><span class="spec-value">UHF / ISM</span></div>
+    <div class="spec-item"><span class="spec-name">Max Nodes per Network</span><span class="spec-value">72</span></div>
+    <div class="spec-item"><span class="spec-name">Latency</span><span class="spec-value">100-300ms node-to-node</span></div>
+    <div class="spec-item"><span class="spec-name">Range (Node-to-Node)</span><span class="spec-value">LOS</span></div>
     <div class="spec-item"><span class="spec-name">Data Types</span><span class="spec-value">Video, telemetry, command, sensor feeds</span></div>
-    <div class="spec-item"><span class="spec-name">Native Integrations</span><span class="spec-value">URSIX · CALIDUS · R.O.T.S.</span></div>
+    <div class="spec-item"><span class="spec-name">Native Integrations</span><span class="spec-value">R.O.T.S.</span></div>
     <div class="spec-item"><span class="spec-name">Command Interface</span><span class="spec-value">NX-600 CMD / NX-700 IND terminals</span></div>
     <div class="spec-item"><span class="spec-name">Anti-Jamming</span><span class="spec-value">Frequency-hopping spread spectrum (target)</span></div>
     <div class="spec-item"><span class="spec-name">Power</span><span class="spec-value">DC battery / solar-assist / grid — TBD</span></div>
@@ -699,21 +699,21 @@
   <h2 class="section-title">THE URSUS ECOSYSTEM</h2>
   <div class="ecosystem-grid">
     <div class="ecosystem-card">
-      <div class="eco-icon">URSIX</div>
-      <div class="eco-name">Night Vision Node</div>
-      <p class="eco-desc">NEXIS-enabled URSIX units stream real-time image data and tube telemetry back to the command node. Operators see what every URSIX in the network sees — simultaneously.</p>
+      <div class="eco-icon">ASI (Autonomous Systems Interface) Module</div>
+      <div class="eco-name">Systems Link</div>
+      <p class="eco-desc">NEXIS' capabilities are extended to ASI Modules for communication with mission critical systems.  This increases efficiency for those systems, while adding layers of additional knowledge and safety for PAKs in the area of operation.</p>
       <span class="eco-status">↗ Integration Planned</span>
     </div>
     <div class="ecosystem-card">
-      <div class="eco-icon">CALIDUS</div>
-      <div class="eco-name">Thermal Node</div>
-      <p class="eco-desc">CALIDUS feeds live LWIR video and target detection data into the NEXIS command picture. Thermal tracks are shared network-wide the moment they're acquired.</p>
+      <div class="eco-icon">STRIX Control Layer</div>
+      <div class="eco-name">Software and Network Driven Capability</div>
+      <p class="eco-desc">STRIX transforms distributed observations into actionable information—bridging the gap between detection and engagement.  This 2 way data link is responsible for connecting the computer elements to the human elements in our ecosystem.</p>
       <span class="eco-status">↗ Integration Planned</span>
     </div>
     <div class="ecosystem-card">
-      <div class="eco-icon">R.O.T.S.</div>
-      <div class="eco-name">Weapon Node</div>
-      <p class="eco-desc">R.O.T.S. turrets receive targeting data and ROE commands directly from the NEXIS command terminal. Fire control, profile switching, and status monitoring — all networked.</p>
+      <div class="eco-icon">NEXIS</div>
+      <div class="eco-name">Self-Healing Mesh Network</div>
+      <p class="eco-desc">NEXIS is the human layer of the ecosystem—connecting individuals, teams, and assets through a self-healing mesh network. It maintains shared situational awareness and reliable communication as conditions change, enabling coordinated movement and informed decisions without reliance on fixed infrastructure.</p>
       <span class="eco-status">↗ Integration Planned</span>
     </div>
   </div>
@@ -726,20 +726,20 @@
       <div class="feature-item"><div class="feature-num">01</div><div class="feature-title">Self-Healing Mesh Architecture</div><p class="feature-desc">Nodes automatically reroute traffic when a link is lost or jammed. No single point of failure. The network degrades gracefully and reconstitutes without operator intervention.</p></div>
       <div class="feature-item"><div class="feature-num">02</div><div class="feature-title">AES-256 End-to-End Encryption</div><p class="feature-desc">Every packet on the NEXIS network is encrypted at the source and decrypted only at the authorized destination. No plaintext ever transits the air.</p></div>
       <div class="feature-item"><div class="feature-num">03</div><div class="feature-title">Anti-Jamming — FHSS</div><p class="feature-desc">Frequency-hopping spread spectrum transmission makes NEXIS links resistant to broadband jamming and direction-finding. Designed from the ground up for contested RF environments.</p></div>
-      <div class="feature-item"><div class="feature-num">04</div><div class="feature-title">Unified Sensor Feed</div><p class="feature-desc">NV video from URSIX, thermal from CALIDUS, and weapon telemetry from R.O.T.S. all route to a single command picture. One operator. Full situational awareness.</p></div>
-      <div class="feature-item"><div class="feature-num">05</div><div class="feature-title">Networked Fire Control</div><p class="feature-desc">R.O.T.S. turrets in the network receive targeting cues and ROE commands from the NEXIS command terminal. Engagement authority stays with the operator — response time doesn't.</p></div>
-      <div class="feature-item"><div class="feature-num">06</div><div class="feature-title">Open Integration Architecture</div><p class="feature-desc">NEXIS is built to interface with third-party sensors, legacy comms systems, and future Ursus Armament hardware. One network. Expandable without replacement.</p></div>
+      <div class="feature-item"><div class="feature-num">04</div><div class="feature-title">Integration Architecture</div><p class="feature-desc">NEXIS functions as a defined node-based mesh, interfacing with ASI (Autonomous Systems Interface) modules to facilitate communication and coordination through the STRIX™ Fire Control Layer.</p></div>
+
     </div>
     <div class="features-aside">
       <div class="section-tag">The Bigger Picture</div>
-      <h2 class="section-title" style="margin-bottom: 1.5rem;">THE NETWORK IS THE WEAPON.</h2>
-      <p>Individual pieces of hardware — no matter how capable — operate in isolation. A night vision unit sees what it sees. A thermal monocular detects what's in its field of view. A turret engages what an operator tells it to.</p>
-      <p>NEXIS changes the equation. When every sensor feeds a shared picture and every effector receives networked commands, the whole becomes something none of the parts could accomplish alone — persistent, coordinated, contested-environment capability.</p>
-      <p>This is why we built NEXIS last. The optics had to exist before the network had anything to carry.</p>
+      <h2 class="section-title" style="margin-bottom: 1.5rem;">Communication is Key</h2>
+      <p>Built as a modular mesh network, NEXIS enables teams to share position, movement, and situational data in real time—supporting informed tactical maneuvering, coordinated search and rescue operations, and distributed team awareness in environments where traditional communications may be limited or unavailable.</p>
+      <p>Each node contributes to a broader operational picture. Personnel, vehicles, and fixed positions become part of a unified network that adapts to the mission—scaling from small, dismounted teams to extended, multi-element deployments across complex terrain.</p>
+      <p>NEXIS is not a weapon system. It is an enabling layer—designed to move information reliably, efficiently, and under constraint. By maintaining connectivity and shared awareness, it allows operators to make faster, more informed decisions in dynamic environments.</p>
+      <P>As part of a larger ecosystem, NEXIS integrates with systems such as R.O.T.S. through the STRIX™ Fire Control Layer, allowing networked data to inform targeting, coordination, and response without compromising its role as a communications backbone.</P>
       <div class="cert-row">
         <div class="cert-item"><span class="cert-label">Encryption</span><span class="cert-value">AES-256</span></div>
         <div class="cert-item"><span class="cert-label">Topology</span><span class="cert-value">MESH</span></div>
-        <div class="cert-item"><span class="cert-label">Latency</span><span class="cert-value">&lt;20ms</span></div>
+        <div class="cert-item"><span class="cert-label">Latency</span><span class="cert-value">100-300mms</span></div>
       </div>
     </div>
   </div>
