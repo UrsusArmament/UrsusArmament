@@ -35,7 +35,6 @@
     overflow-x: hidden;
   }
 
-  /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     background: rgba(10,10,8,0.92);
@@ -47,195 +46,54 @@
     padding: 0.6rem 3rem; border-bottom: 1px solid var(--border);
   }
   .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
-  .nav-logo {
-    font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
-    letter-spacing: 0.12em; color: var(--text); text-decoration: none; line-height: 1;
-  }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.12em; color: var(--text); text-decoration: none; line-height: 1; }
   .nav-logo span { color: var(--accent); }
-  .nav-slogan {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem;
-    font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
-  }
-  .nav-ribbon {
-    display: flex; align-items: center; justify-content: center;
-    padding: 0 3rem; height: 38px; background: var(--surface);
-  }
-  .nav-ribbon a {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem;
-    font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--muted); text-decoration: none; padding: 0 1.6rem; height: 100%;
-    display: flex; align-items: center; border-right: 1px solid var(--border);
-    transition: color 0.2s, background 0.2s;
-  }
+  .nav-slogan { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+  .nav-ribbon { display: flex; align-items: center; justify-content: center; padding: 0 3rem; height: 38px; background: var(--surface); }
+  .nav-ribbon a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0 1.6rem; height: 100%; display: flex; align-items: center; border-right: 1px solid var(--border); transition: color 0.2s, background 0.2s; }
   .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
   .nav-ribbon a:hover, .nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
+  .nav-auth { display: flex; align-items: center; }
+  .nav-auth a, .nav-auth button { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: var(--accent); background: transparent; border: 1px solid var(--accent); padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s ease; }
+  .nav-auth a:hover, .nav-auth button:hover { background: rgba(200,146,42,0.08); }
 
-  .nav-auth {
-  display: flex;
-  align-items: center;
-}
-
-.nav-auth a, .nav-auth button {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--accent);
-  background: transparent;
-  border: 1px solid var(--accent);
-  padding: 0.4rem 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.nav-auth a:hover, .nav-auth button:hover {
-  background: rgba(200,146,42,0.08);
-}
-
-  .breadcrumb {
-    padding: 1rem 3rem; background: var(--dark); border-bottom: 1px solid var(--border);
-    margin-top: 86px; display: flex; align-items: center; gap: 0.5rem;
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem;
-    letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
-  }
+  .breadcrumb { padding: 1rem 3rem; background: var(--dark); border-bottom: 1px solid var(--border); margin-top: 86px; display: flex; align-items: center; gap: 0.5rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
   .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
   .breadcrumb a:hover { color: var(--accent); }
   .breadcrumb span { color: var(--accent); }
 
-  /* UNAVAILABLE BANNER */
-  .unavail-banner {
-    background: rgba(10,10,8,0.97);
-    border-bottom: 1px solid rgba(200,146,42,0.3);
-    padding: 0.75rem 3rem;
-    display: flex; align-items: center; justify-content: center; gap: 1.2rem;
-  }
-  .unavail-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--accent);
-    animation: pulse 2s ease-in-out infinite;
-    flex-shrink: 0;
-  }
-  @keyframes pulse {
-    0%, 100% { opacity: 0.4; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.3); }
-  }
-  .unavail-banner p {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem;
-    font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent);
-  }
-  .unavail-banner span {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem;
-    letter-spacing: 0.12em; color: var(--muted); font-weight: 400; text-transform: uppercase;
-  }
+  .unavail-banner { background: rgba(10,10,8,0.97); border-bottom: 1px solid rgba(200,146,42,0.3); padding: 0.75rem 3rem; display: flex; align-items: center; justify-content: center; gap: 1.2rem; }
+  .unavail-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; flex-shrink: 0; }
+  @keyframes pulse { 0%,100%{opacity:0.4;transform:scale(1)} 50%{opacity:1;transform:scale(1.3)} }
+  .unavail-banner p { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
+  .unavail-banner span { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; color: var(--muted); font-weight: 400; text-transform: uppercase; }
 
   /* HERO */
-  .product-hero {
-    display: grid; grid-template-columns: 1fr 1fr;
-    min-height: 90vh; background: var(--dark);
-  }
+  .product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; background: var(--dark); }
+  .product-visual { position: relative; background: var(--surface); overflow: hidden; display: flex; flex-direction: column; align-items: stretch; }
+  .product-badge { position: absolute; top: 2rem; left: 2rem; background: var(--surface2); color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 0.85rem; z-index: 2; border: 1px solid rgba(200,146,42,0.35); }
+  .visual-main { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; min-height: 0; }
+  .visual-main::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(200,146,42,0.012) 30px, rgba(200,146,42,0.012) 31px); pointer-events: none; }
+  .visual-watermark { position: absolute; font-family: 'Bebas Neue', sans-serif; font-size: 14rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.02); user-select: none; pointer-events: none; white-space: nowrap; }
+  .visual-thumb-bar { width: 100%; background: var(--dark); border-top: 1px solid var(--border); padding: 1rem 2rem; display: flex; align-items: center; }
+  .thumb-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); opacity: 0.5; }
 
-  /* NETWORK DIAGRAM VISUAL */
-  .product-visual {
-    position: relative; background: var(--surface); overflow: hidden;
-    display: flex; flex-direction: column; align-items: stretch;
-  }
-  .product-badge {
-    position: absolute; top: 2rem; left: 2rem;
-    background: var(--surface2); color: var(--accent);
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700;
-    letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 0.85rem; z-index: 2;
-    border: 1px solid rgba(200,146,42,0.35);
-  }
-  .visual-main {
-    flex: 1; display: flex; align-items: center; justify-content: center;
-    position: relative; overflow: hidden; min-height: 0;
-  }
-  .visual-main::before {
-    content: ''; position: absolute; inset: 0;
-    background: repeating-linear-gradient(45deg, transparent, transparent 30px,
-      rgba(200,146,42,0.012) 30px, rgba(200,146,42,0.012) 31px);
-    pointer-events: none;
-  }
-  .visual-watermark {
-    position: absolute;
-    font-family: 'Bebas Neue', sans-serif; font-size: 14rem;
-    letter-spacing: 0.06em; color: rgba(255,255,255,0.02);
-    user-select: none; pointer-events: none; white-space: nowrap;
-  }
-  .visual-thumb-bar {
-    width: 100%; background: var(--dark); border-top: 1px solid var(--border);
-    padding: 1rem 2rem; display: flex; align-items: center;
-  }
-  .thumb-tag {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem;
-    letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); opacity: 0.5;
-  }
-
-  /* PRODUCT INFO */
-  .product-info {
-    padding: 4rem; display: flex; flex-direction: column;
-    justify-content: center; border-left: 1px solid var(--border);
-  }
-  .product-tag {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
-    letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent);
-    margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem;
-  }
+  .product-info { padding: 4rem; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--border); }
+  .product-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
   .product-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
-  .product-name {
-    font-family: 'Bebas Neue', sans-serif; font-size: clamp(4.5rem, 8vw, 7rem);
-    line-height: 0.88; letter-spacing: 0.04em; margin-bottom: 0.4rem; color: var(--text);
-  }
-  .product-tagline {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 600;
-    letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem;
-  }
-  .product-subtitle {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem;
-    font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--muted); margin-bottom: 2rem;
-  }
-  .product-desc {
-    font-size: 1rem; font-weight: 300; color: var(--muted);
-    line-height: 1.8; margin-bottom: 2rem; max-width: 480px;
-  }
-  .product-price-row {
-    display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2rem;
-    padding-bottom: 2rem; border-bottom: 1px solid var(--border);
-  }
+  .product-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4.5rem, 8vw, 7rem); line-height: 0.88; letter-spacing: 0.04em; margin-bottom: 0.4rem; color: var(--text); }
+  .product-tagline { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+  .product-subtitle { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 2rem; }
+  .product-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; max-width: 480px; }
+  .product-price-row { display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
   .unavail-price-block { display: flex; flex-direction: column; gap: 0.3rem; }
-  .unavail-price-tag {
-    font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem;
-    letter-spacing: 0.08em; color: var(--muted);
-  }
-  .unavail-price-sub {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
-    letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.6;
-  }
-  .unavail-pill {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    background: rgba(200,146,42,0.08); border: 1px solid rgba(200,146,42,0.25);
-    padding: 0.5rem 1rem;
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem;
-    font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent);
-  }
+  .unavail-price-tag { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.08em; color: var(--muted); }
+  .unavail-price-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.6; }
+  .unavail-pill { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(200,146,42,0.08); border: 1px solid rgba(200,146,42,0.25); padding: 0.5rem 1rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
   .product-actions { display: flex; gap: 1rem; margin-bottom: 2rem; }
-  .btn-notify {
-    background: transparent; color: var(--accent); font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
-    padding: 0.9rem 2.5rem; border: 1px solid var(--accent); cursor: pointer;
-    text-decoration: none; display: inline-block; transition: background 0.2s;
-    flex: 1; text-align: center;
-  }
+  .btn-notify { background: transparent; color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: 1px solid var(--accent); cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s; flex: 1; text-align: center; }
   .btn-notify:hover { background: rgba(200,146,42,0.1); }
-  .btn-ghost {
-    background: transparent; color: var(--text); font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
-    padding: 0.9rem 2rem; border: 1px solid var(--border2); cursor: pointer;
-    text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s;
-  }
+  .btn-ghost { background: transparent; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; border: 1px solid var(--border2); cursor: pointer; text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s; }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
   .product-trust { display: flex; gap: 2rem; }
   .trust-item { display: flex; flex-direction: column; gap: 0.2rem; }
@@ -243,58 +101,81 @@
   .trust-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text); }
   .trust-value.tbd { color: var(--muted); font-style: italic; }
 
-  /* SHARED */
-  .section-tag {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
-    letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent);
-    margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem;
-  }
+  .section-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
   .section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
   .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5vw, 4.2rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 3.5rem; }
 
+  /* NX PRODUCT LINE */
+  .nx-section { background: var(--black); padding: 6rem 3rem; }
+  .nx-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2px; background: var(--border); margin-bottom: 2rem; }
+  .nx-card { background: var(--dark); padding: 2rem; display: flex; flex-direction: column; gap: 0.75rem; position: relative; overflow: hidden; transition: background 0.2s; }
+  .nx-card:hover { background: var(--surface); }
+  .nx-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); opacity: 0.4; transition: opacity 0.2s; }
+  .nx-card:hover::before { opacity: 1; }
+  .nx-model { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.1em; color: var(--accent); line-height: 1; }
+  .nx-code { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem; }
+  .nx-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); }
+  .nx-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+  .nx-features { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.25rem; }
+  .nx-features li { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted); display: flex; align-items: baseline; gap: 0.5rem; }
+  .nx-features li::before { content: '—'; color: var(--accent); opacity: 0.6; flex-shrink: 0; }
+  .nx-status { margin-top: auto; font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); opacity: 0.65; padding-top: 0.75rem; border-top: 1px solid var(--border); }
+
   /* SPECS */
-  .specs-section { background: var(--black); padding: 6rem 3rem; }
+  .specs-section { background: var(--dark); padding: 6rem 3rem; }
   .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-bottom: 2px; }
-  .spec-item { background: var(--dark); padding: 1.75rem 2rem; display: flex; justify-content: space-between; align-items: baseline; transition: background 0.2s; }
-  .spec-item:hover { background: var(--surface); }
+  .spec-item { background: var(--surface); padding: 1.75rem 2rem; display: flex; justify-content: space-between; align-items: baseline; transition: background 0.2s; }
+  .spec-item:hover { background: var(--surface2); }
   .spec-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
   .spec-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); text-align: right; max-width: 55%; }
   .spec-value.tbd { color: var(--muted); font-style: italic; font-size: 0.88rem; }
-  .spec-note {
-    margin-top: 2rem; padding: 1.25rem 1.75rem;
-    background: var(--dark); border: 1px solid var(--border);
-    border-left: 3px solid rgba(200,146,42,0.4);
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem;
-    letter-spacing: 0.08em; color: var(--muted); line-height: 1.6;
-  }
+  .spec-note { margin-top: 2rem; padding: 1.25rem 1.75rem; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid rgba(200,146,42,0.4); font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); line-height: 1.6; }
 
-  /* ECOSYSTEM / INTEGRATION SECTION */
+  /* SERIAL LOOKUP */
+  .serial-section { background: var(--black); padding: 6rem 3rem; position: relative; }
+  .serial-inner { max-width: 780px; }
+  .serial-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 560px; }
+  .serial-input-row { display: flex; margin-bottom: 2rem; }
+  .serial-input { flex: 1; background: var(--surface); border: 1px solid var(--border2); border-right: none; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.9rem 1.5rem; outline: none; transition: border-color 0.2s; }
+  .serial-input::placeholder { color: var(--muted); font-weight: 400; letter-spacing: 0.08em; text-transform: none; }
+  .serial-input:focus { border-color: var(--accent); }
+  .serial-btn { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.9rem 2rem; border: none; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+  .serial-btn:hover { background: var(--accent2); }
+  .serial-result { display: none; }
+  .serial-result.visible { display: block; }
+  .serial-error { padding: 1.5rem 2rem; background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.3); border-left: 3px solid #c0392b; font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; letter-spacing: 0.08em; color: #e87060; }
+  .serial-card { background: var(--surface); border: 1px solid var(--border2); border-top: 3px solid var(--accent); }
+  .serial-card-header { padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); background: var(--surface2); }
+  .serial-card-id { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.06em; color: var(--accent); }
+  .serial-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 1rem; }
+  .serial-badge.pass { background: rgba(42,156,92,0.15); color: #4cbc7e; border: 1px solid rgba(42,156,92,0.3); }
+  .serial-badge.fail { background: rgba(192,57,43,0.15); color: #e87060; border: 1px solid rgba(192,57,43,0.3); }
+  .serial-card-body { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin: 2px; }
+  .serial-field { background: var(--dark); padding: 1.25rem 1.75rem; display: flex; flex-direction: column; gap: 0.3rem; }
+  .serial-field-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .serial-field-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
+  .serial-card-notes { padding: 1.25rem 1.75rem; margin: 2px; margin-top: 0; background: var(--dark); border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.3rem; }
+  .serial-card-footer { padding: 1rem 2rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border-top: 1px solid var(--border); }
+
+  /* FEATURE LOCK */
+  .feature-lock-overlay { position: absolute; inset: 0; background: rgba(10,10,8,0.88); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 50; }
+  .feature-lock-overlay.active { display: flex; }
+  .feature-lock-box { text-align: center; padding: 2rem; max-width: 380px; }
+  .feature-lock-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.15em; color: var(--text); margin-bottom: 0.75rem; }
+  .feature-lock-text { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+  .feature-lock-btn { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.6rem 1.5rem; text-decoration: none; transition: background 0.2s; }
+  .feature-lock-btn:hover { background: rgba(200,146,42,0.08); }
+
+  /* ECOSYSTEM */
   .ecosystem-section { background: var(--dark); padding: 6rem 3rem; }
   .ecosystem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); margin-bottom: 4rem; }
-  .ecosystem-card {
-    background: var(--surface); padding: 2.5rem 2rem;
-    display: flex; flex-direction: column; gap: 0.75rem;
-    position: relative; overflow: hidden; transition: background 0.2s;
-  }
+  .ecosystem-card { background: var(--surface); padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 0.75rem; position: relative; overflow: hidden; transition: background 0.2s; }
   .ecosystem-card:hover { background: var(--surface2); }
-  .ecosystem-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
-    background: var(--accent); opacity: 0.35;
-  }
-  .eco-icon {
-    font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem;
-    letter-spacing: 0.06em; color: var(--accent); line-height: 1;
-  }
-  .eco-name {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 1rem;
-    font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text);
-  }
+  .ecosystem-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); opacity: 0.35; }
+  .eco-icon { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.06em; color: var(--accent); line-height: 1; }
+  .eco-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); }
   .eco-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
-  .eco-status {
-    margin-top: auto; font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem;
-    font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-    color: var(--accent); opacity: 0.7;
-  }
+  .eco-status { margin-top: auto; font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); opacity: 0.7; }
 
   /* FEATURES */
   .features-section { background: var(--black); padding: 6rem 3rem; }
@@ -319,29 +200,14 @@
   .notify-inner { max-width: 780px; }
   .notify-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 560px; }
   .notify-input-row { display: flex; margin-bottom: 1.5rem; }
-  .notify-input {
-    flex: 1; background: var(--surface); border: 1px solid var(--border2);
-    border-right: none; color: var(--text); font-family: 'Barlow', sans-serif;
-    font-size: 0.95rem; padding: 0.9rem 1.5rem; outline: none; transition: border-color 0.2s;
-  }
+  .notify-input { flex: 1; background: var(--surface); border: 1px solid var(--border2); border-right: none; color: var(--text); font-family: 'Barlow', sans-serif; font-size: 0.95rem; padding: 0.9rem 1.5rem; outline: none; transition: border-color 0.2s; }
   .notify-input::placeholder { color: var(--muted); }
   .notify-input:focus { border-color: var(--accent); }
-  .notify-btn {
-    background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.88rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-    padding: 0.9rem 2rem; border: none; cursor: pointer; transition: background 0.2s; white-space: nowrap;
-  }
+  .notify-btn { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.9rem 2rem; border: none; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
   .notify-btn:hover { background: var(--accent2); }
-  .notify-confirm {
-    display: none; padding: 1.5rem 2rem;
-    background: rgba(42,156,92,0.08); border: 1px solid rgba(42,156,92,0.3);
-    border-left: 3px solid var(--green);
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem;
-    letter-spacing: 0.08em; color: #4cbc7e;
-  }
+  .notify-confirm { display: none; padding: 1.5rem 2rem; background: rgba(42,156,92,0.08); border: 1px solid rgba(42,156,92,0.3); border-left: 3px solid var(--green); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; letter-spacing: 0.08em; color: #4cbc7e; }
   .notify-confirm.visible { display: block; }
   .notify-caveat { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; color: var(--muted); opacity: 0.6; text-transform: uppercase; margin-top: 0.75rem; }
-
   .timeline { margin-top: 3rem; }
   .timeline-title { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
   .timeline-steps { display: flex; gap: 2px; background: var(--border); }
@@ -358,19 +224,43 @@
   .step-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); }
   .step-name.pending { color: var(--muted); opacity: 0.5; }
 
-  /* CTA */
+  /* REVIEWS */
+  .reviews-section { background: var(--black); padding: 6rem 3rem; }
+  .reviews-container { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+  .review-card { background: var(--surface); padding: 2rem 2.5rem; display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; border-left: 3px solid transparent; transition: background 0.2s, border-color 0.2s; width: 100%; }
+  .review-card:hover { background: var(--surface2); border-color: var(--accent); }
+  .review-content { flex: 1; display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
+  .review-header { display: flex; flex-direction: column; gap: 0.3rem; }
+  .review-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); }
+  .review-stars { font-size: 1.2rem; letter-spacing: 0.1em; color: var(--accent); }
+  .review-meta { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-family: 'Barlow Condensed', sans-serif; }
+  .review-text { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-top: 0.25rem; }
+  .review-images { display: flex; flex-direction: column; gap: 0.5rem; flex-shrink: 0; width: 200px; }
+  .review-img { width: 200px; height: 150px; object-fit: cover; cursor: pointer; border: 1px solid var(--border2); transition: opacity 0.2s, border-color 0.2s; display: block; }
+  .review-img:hover { opacity: 0.85; border-color: var(--accent); }
+  .reviews-empty { padding: 2rem; text-align: center; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.15em; color: var(--muted); background: var(--surface); }
+
+  .review-cta-btn { background: var(--surface); color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 1.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 1.5rem 3.5rem; border: 2px solid var(--border2); border-radius: 6px; cursor: pointer; transition: all 0.2s ease; }
+  .review-cta-btn:hover { background: var(--surface2); border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
   .cta-banner { background: var(--surface); padding: 4rem 3rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.06em; color: var(--text); line-height: 1; }
   .cta-banner p { font-size: 1rem; color: var(--muted); margin-top: 0.5rem; }
-  .btn-primary {
-    background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
-    padding: 0.9rem 2.5rem; border: none; cursor: pointer; white-space: nowrap;
-    text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.15s;
-  }
+  .btn-primary { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: none; cursor: pointer; white-space: nowrap; text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.15s; }
   .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
 
-  /* FOOTER */
+  /* GATE */
+  .gate-overlay { position: fixed; inset: 0; background: rgba(10,10,8,0.65); backdrop-filter: blur(12px); display: none; align-items: center; justify-content: center; z-index: 99999; }
+  body.gate-active > *:not(#accessGate) { filter: blur(10px); pointer-events: none; user-select: none; }
+  .gate-box { width: min(520px, 92%); background: linear-gradient(180deg, var(--surface), var(--dark)); border: 1px solid var(--border2); padding: 2.2rem; text-align: center; box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+  .gate-title { font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.2em; font-size: 1.8rem; margin-bottom: 1rem; color: var(--text); }
+  .gate-text { font-family: 'Barlow', sans-serif; color: var(--muted); font-size: 0.95rem; line-height: 1.7; margin-bottom: 2rem; }
+  .gate-text span { color: var(--accent); font-weight: 600; }
+  .gate-actions { display: flex; gap: 1rem; justify-content: center; margin-bottom: 1.5rem; }
+  .gate-actions button { padding: 0.7rem 2rem; border: 1px solid var(--border2); background: transparent; color: var(--text); font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.15em; text-transform: uppercase; cursor: pointer; transition: all 0.2s ease; }
+  .gate-actions button:hover { border-color: var(--accent); color: var(--accent); background: rgba(200,146,42,0.08); }
+  .gate-small { font-size: 0.7rem; color: var(--muted); opacity: 0.6; }
+
   footer { background: var(--dark); border-top: 1px solid var(--border); padding: 4rem 3rem 2rem; }
   .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
   .footer-brand p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-top: 1rem; }
@@ -383,7 +273,7 @@
   .footer-logo span { color: var(--accent); opacity: 1; }
   .footer-legal { font-size: 0.78rem; color: var(--muted); opacity: 0.5; }
 
-  /* NETWORK SVG ANIMATIONS */
+  /* SVG ANIMATIONS */
   .net-link { stroke-dasharray: 6 4; animation: dash 3s linear infinite; }
   .net-link-slow { stroke-dasharray: 6 4; animation: dash 5s linear infinite; }
   .net-link-rev { stroke-dasharray: 6 4; animation: dash-rev 4s linear infinite; }
@@ -392,138 +282,53 @@
   .node-pulse { animation: node-glow 2.4s ease-in-out infinite; }
   .node-pulse-b { animation: node-glow 2.4s ease-in-out infinite; animation-delay: 0.8s; }
   .node-pulse-c { animation: node-glow 2.4s ease-in-out infinite; animation-delay: 1.6s; }
-  @keyframes node-glow {
-    0%,100% { opacity: 0.5; r: 7; }
-    50% { opacity: 1; r: 9; }
-  }
+  @keyframes node-glow { 0%,100%{opacity:0.5;r:7} 50%{opacity:1;r:9} }
 
   @media (max-width: 900px) {
     .product-hero { grid-template-columns: 1fr; }
     .product-info { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--border); }
-    .specs-grid { grid-template-columns: 1fr; }
+    .specs-grid, .serial-card-body { grid-template-columns: 1fr; }
+    .nx-grid { grid-template-columns: 1fr; }
     .ecosystem-grid { grid-template-columns: 1fr; }
     .features-layout { grid-template-columns: 1fr; gap: 2.5rem; }
     .features-aside { position: static; }
     .footer-grid { grid-template-columns: 1fr 1fr; }
     .cta-banner { flex-direction: column; text-align: center; }
-    .breadcrumb, .specs-section, .ecosystem-section, .features-section, .notify-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .breadcrumb, .nx-section, .specs-section, .serial-section, .ecosystem-section, .features-section, .notify-section, .reviews-section { padding-left: 1.5rem; padding-right: 1.5rem; }
     .nav-top, .nav-ribbon { padding-left: 1.5rem; padding-right: 1.5rem; }
-    .notify-input-row { flex-direction: column; }
-    .notify-input { border-right: 1px solid var(--border2); border-bottom: none; }
+    .notify-input-row, .serial-input-row { flex-direction: column; }
+    .notify-input, .serial-input { border-right: 1px solid var(--border2); border-bottom: none; }
     .timeline-steps { flex-direction: column; }
     .unavail-banner { padding: 0.75rem 1.5rem; }
+    .review-card { flex-direction: column; gap: 1.25rem; padding: 1.5rem; }
+    .review-images { flex-direction: row; width: 100%; }
+    .review-img { width: calc(50% - 0.25rem); height: 120px; }
   }
-  /* ===== ACCESS GATE ===== */
-
-.gate-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(10,10,8,0.65);
-  backdrop-filter: blur(12px);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 99999;
-}
-
-/* Blur everything behind when active */
-body.gate-active > *:not(#accessGate) {
-  filter: blur(10px);
-  pointer-events: none;
-  user-select: none;
-}
-
-.gate-box {
-  width: min(520px, 92%);
-  background: linear-gradient(180deg, var(--surface), var(--dark));
-  border: 1px solid var(--border2);
-  padding: 2.2rem;
-  text-align: center;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-}
-
-.gate-title {
-  font-family: 'Bebas Neue', sans-serif;
-  letter-spacing: 0.2em;
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  color: var(--text);
-}
-
-.gate-text {
-  font-family: 'Barlow', sans-serif;
-  color: var(--muted);
-  font-size: 0.95rem;
-  line-height: 1.7;
-  margin-bottom: 2rem;
-}
-
-.gate-text span {
-  color: var(--accent);
-  font-weight: 600;
-}
-
-.gate-actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-}
-
-.gate-actions button {
-  padding: 0.7rem 2rem;
-  border: 1px solid var(--border2);
-  background: transparent;
-  color: var(--text);
-  font-family: 'Barlow Condensed', sans-serif;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.gate-actions button:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: rgba(200,146,42,0.08);
-}
-
-.gate-small {
-  font-size: 0.7rem;
-  color: var(--muted);
-  opacity: 0.6;
-}
 </style>
 </head>
 <body>
-<!-- ACCESS GATE OVERLAY -->
+
+<!-- ACCESS GATE -->
 <div id="accessGate" class="gate-overlay">
   <div class="gate-box">
     <div class="gate-title">ACCESS CONFIRMATION</div>
-    <div class="gate-text">
-      You must confirm you are <span>18+</span> and a <span>U.S. person</span> to continue.
-    </div>
-
+    <div class="gate-text">You must confirm you are <span>18+</span> and a <span>U.S. person</span> to continue.</div>
     <div class="gate-actions">
       <button onclick="denyAccess()">No</button>
       <button onclick="allowAccess()">Yes</button>
     </div>
-
-    <div class="gate-small">
-      By continuing, you certify compliance with applicable export restrictions.
-    </div>
+    <div class="gate-small">By continuing, you certify compliance with applicable export restrictions.</div>
   </div>
 </div>
+
 <nav>
   <div class="nav-top">
-  <div class="nav-brand">
-    <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
-    <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    <div class="nav-brand">
+      <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
+      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    </div>
+    <div class="nav-auth" id="navAuth"><!-- populated by JS --></div>
   </div>
-  <div class="nav-auth" id="navAuth">
-    <!-- populated by JS -->
-  </div>
-</div>
   <div class="nav-ribbon">
     <a href="/ursusarmament/products" class="active">Products</a>
     <a href="/ursusarmament#mission">Our Mission</a>
@@ -532,10 +337,8 @@ body.gate-active > *:not(#accessGate) {
 </nav>
 
 <div class="breadcrumb">
-  <a href="/ursusarmament">Home</a>
-  <span>›</span>
-  <a href="/ursusarmament/products">Products</a>
-  <span>›</span>
+  <a href="/ursusarmament">Home</a><span>›</span>
+  <a href="/ursusarmament/products">Products</a><span>›</span>
   <span>NEXIS</span>
 </div>
 
@@ -545,136 +348,86 @@ body.gate-active > *:not(#accessGate) {
   <span>&nbsp;·&nbsp; Notify me when available</span>
 </div>
 
-<!-- PRODUCT HERO -->
+<!-- HERO -->
 <section class="product-hero">
-
-  <!-- ANIMATED NETWORK DIAGRAM -->
   <div class="product-visual">
     <div class="product-badge">IN DEVELOPMENT</div>
     <div class="visual-main">
       <div class="visual-watermark">NEXIS</div>
-
-      <svg viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg"
-           style="width:90%;max-width:540px;position:relative;z-index:1;">
-
-        <!-- Frame -->
+      <svg viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg" style="width:90%;max-width:540px;position:relative;z-index:1;">
         <rect x="1" y="1" width="558" height="418" fill="none" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22"/>
-        <polyline points="1,22 1,1 22,1"   fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
+        <polyline points="1,22 1,1 22,1" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
         <polyline points="538,1 558,1 558,22" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
         <polyline points="1,396 1,418 22,418" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
         <polyline points="538,418 558,418 558,396" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
-
-        <!-- Faint grid -->
         <line x1="280" y1="0" x2="280" y2="420" stroke="#c8701a" stroke-width="0.4" stroke-opacity="0.06"/>
         <line x1="0" y1="210" x2="560" y2="210" stroke="#c8701a" stroke-width="0.4" stroke-opacity="0.06"/>
-
-        <!-- ── NETWORK LINKS (animated dashes) ── -->
-        <!-- Hub → URSIX -->
         <line x1="280" y1="210" x2="156" y2="118" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35" class="net-link"/>
-        <!-- Hub → CALIDUS -->
         <line x1="280" y1="210" x2="404" y2="118" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35" class="net-link-slow"/>
-        <!-- Hub → ROTS -->
         <line x1="280" y1="210" x2="404" y2="302" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35" class="net-link-rev"/>
-        <!-- Hub → Command -->
         <line x1="280" y1="210" x2="156" y2="302" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35" class="net-link"/>
-        <!-- Hub → Relay North -->
-        <line x1="280" y1="210" x2="280" y2="72"  stroke="#c8701a" stroke-width="1" stroke-opacity="0.28" class="net-link-slow"/>
-        <!-- Hub → Relay South -->
+        <line x1="280" y1="210" x2="280" y2="72" stroke="#c8701a" stroke-width="1" stroke-opacity="0.28" class="net-link-slow"/>
         <line x1="280" y1="210" x2="280" y2="348" stroke="#c8701a" stroke-width="1" stroke-opacity="0.28" class="net-link-rev"/>
-        <!-- Hub → Relay Left -->
-        <line x1="280" y1="210" x2="72"  y1="210" x2="72"  y2="210" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22" class="net-link"/>
-        <line x1="280" y1="210" x2="72"  y2="210" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22" class="net-link"/>
-        <!-- Hub → Relay Right -->
+        <line x1="280" y1="210" x2="72" y2="210" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22" class="net-link"/>
         <line x1="280" y1="210" x2="488" y2="210" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22" class="net-link-slow"/>
-
-        <!-- Lateral cross-links -->
         <line x1="156" y1="118" x2="404" y2="118" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.18" class="net-link-slow" stroke-dasharray="4,6"/>
-        <line x1="156" y1="302" x2="404" y2="302" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.18" class="net-link-rev"  stroke-dasharray="4,6"/>
-        <line x1="156" y1="118" x2="156" y2="302" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.15" class="net-link"      stroke-dasharray="4,6"/>
+        <line x1="156" y1="302" x2="404" y2="302" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.18" class="net-link-rev" stroke-dasharray="4,6"/>
+        <line x1="156" y1="118" x2="156" y2="302" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.15" class="net-link" stroke-dasharray="4,6"/>
         <line x1="404" y1="118" x2="404" y2="302" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.15" class="net-link-slow" stroke-dasharray="4,6"/>
-
-        <!-- ── CENTRAL HUB ── -->
         <circle cx="280" cy="210" r="32" fill="#111110" stroke="#c8701a" stroke-width="1.8" stroke-opacity="0.7"/>
         <circle cx="280" cy="210" r="24" fill="none" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/>
-        <circle cx="280" cy="210" r="14" fill="none" stroke="#c8701a" stroke-width="0.5"  stroke-opacity="0.2"/>
-        <circle cx="280" cy="210" r="5"  fill="#c8701a" fill-opacity="0.25" class="node-pulse"/>
+        <circle cx="280" cy="210" r="14" fill="none" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.2"/>
+        <circle cx="280" cy="210" r="5" fill="#c8701a" fill-opacity="0.25" class="node-pulse"/>
         <text x="280" y="255" font-family="monospace" font-size="8" fill="#c8701a" fill-opacity="0.55" text-anchor="middle" letter-spacing="1.5">NEXIS HUB</text>
-
-        <!-- ── DEVICE NODES ── -->
-
-        <!-- URSIX node (top-left) -->
         <rect x="108" y="88" width="96" height="60" rx="4" fill="#111110" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
         <circle cx="156" cy="118" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse"/>
         <text x="156" y="108" font-family="monospace" font-size="8.5" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1.5">URSIX</text>
         <text x="156" y="120" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">NV MONOCULAR</text>
-        <text x="156" y="132" font-family="monospace" font-size="6"   fill="#c8701a" fill-opacity="0.28" text-anchor="middle">UNIT-01</text>
-
-        <!-- CALIDUS node (top-right) -->
+        <text x="156" y="132" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">UNIT-01</text>
         <rect x="356" y="88" width="96" height="60" rx="4" fill="#111110" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
         <circle cx="404" cy="118" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse-b"/>
         <text x="404" y="108" font-family="monospace" font-size="8.5" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1.5">CALIDUS</text>
         <text x="404" y="120" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">THERMAL MONOCULAR</text>
-        <text x="404" y="132" font-family="monospace" font-size="6"   fill="#c8701a" fill-opacity="0.28" text-anchor="middle">UNIT-02</text>
-
-        <!-- ROTS node (bottom-right) -->
+        <text x="404" y="132" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">UNIT-02</text>
         <rect x="356" y="272" width="96" height="60" rx="4" fill="#111110" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
         <circle cx="404" cy="302" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse-c"/>
         <text x="404" y="292" font-family="monospace" font-size="8.5" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1.5">R.O.T.S.</text>
         <text x="404" y="304" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">TURRET SYSTEM</text>
-        <text x="404" y="316" font-family="monospace" font-size="6"   fill="#c8701a" fill-opacity="0.28" text-anchor="middle">UNIT-03</text>
-
-        <!-- CMD node (bottom-left) -->
+        <text x="404" y="316" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">UNIT-03</text>
         <rect x="108" y="272" width="96" height="60" rx="4" fill="#111110" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
         <circle cx="156" cy="302" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse"/>
         <text x="156" y="292" font-family="monospace" font-size="8.5" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">CMD NODE</text>
         <text x="156" y="304" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">OPERATOR TERMINAL</text>
-        <text x="156" y="316" font-family="monospace" font-size="6"   fill="#c8701a" fill-opacity="0.28" text-anchor="middle">UNIT-04</text>
-
-        <!-- Relay nodes -->
-        <!-- North -->
+        <text x="156" y="316" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">UNIT-04</text>
         <circle cx="280" cy="62" r="14" fill="#0e0e0c" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
         <text x="280" y="57" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">RELAY</text>
-        <text x="280" y="68" font-family="monospace" font-size="6"   fill="#c8701a" fill-opacity="0.35" text-anchor="middle">NORTH</text>
-
-        <!-- South -->
+        <text x="280" y="68" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">NORTH</text>
         <circle cx="280" cy="358" r="14" fill="#0e0e0c" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
         <text x="280" y="353" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">RELAY</text>
-        <text x="280" y="364" font-family="monospace" font-size="6"   fill="#c8701a" fill-opacity="0.35" text-anchor="middle">SOUTH</text>
-
-        <!-- West -->
+        <text x="280" y="364" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">SOUTH</text>
         <circle cx="62" cy="210" r="14" fill="#0e0e0c" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
         <text x="62" y="205" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">RELAY</text>
-        <text x="62" y="216" font-family="monospace" font-size="6"   fill="#c8701a" fill-opacity="0.35" text-anchor="middle">WEST</text>
-
-        <!-- East -->
+        <text x="62" y="216" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">WEST</text>
         <circle cx="498" cy="210" r="14" fill="#0e0e0c" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
         <text x="498" y="205" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">RELAY</text>
-        <text x="498" y="216" font-family="monospace" font-size="6"   fill="#c8701a" fill-opacity="0.35" text-anchor="middle">EAST</text>
-
-        <!-- ── TITLE BLOCK ── -->
+        <text x="498" y="216" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">EAST</text>
         <text x="280" y="28" font-family="monospace" font-size="18" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="6">NEXIS</text>
         <text x="280" y="42" font-family="monospace" font-size="7.5" fill="#c8701a" fill-opacity="0.35" text-anchor="middle" letter-spacing="2">TACTICAL NETWORK TOPOLOGY  ·  PRE-PRODUCTION</text>
-
-        <!-- Faint diagonals -->
         <line x1="0" y1="0" x2="560" y2="420" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.03"/>
         <line x1="560" y1="0" x2="0" y2="420" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.03"/>
       </svg>
     </div>
-
     <div class="visual-thumb-bar">
       <span class="thumb-tag">Network topology diagram · Pre-production · Subject to change</span>
     </div>
   </div>
 
-  <!-- PRODUCT INFO -->
   <div class="product-info">
     <div class="product-tag">Tactical Communications Network</div>
     <h1 class="product-name">NEXIS</h1>
     <div class="product-tagline">Connected. Secure. In Control.</div>
     <div class="product-subtitle">Secure Mesh · Sensor Fusion · Real-Time C2</div>
-    <p class="product-desc">
-      NEXIS is a secure, high-reliability communications and data network designed to unify sensors, optics, and weapon systems into a single operational ecosystem. Built for real-time coordination in contested environments — linking URSIX night vision, CALIDUS thermal, and R.O.T.S. turret systems under one encrypted command architecture.
-    </p>
+    <p class="product-desc">NEXIS is a secure, high-reliability communications and data network designed to unify sensors, optics, and weapon systems into a single operational ecosystem. Built for real-time coordination in contested environments — linking URSIX night vision, CALIDUS thermal, and R.O.T.S. turret systems under one encrypted command architecture.</p>
     <div class="product-price-row">
       <div class="unavail-price-block">
         <div class="unavail-price-tag">PRICE TBD</div>
@@ -692,15 +445,127 @@ body.gate-active > *:not(#accessGate) {
     <div class="product-trust">
       <div class="trust-item"><span class="trust-label">Availability</span><span class="trust-value tbd">TBD</span></div>
       <div class="trust-item"><span class="trust-label">Licensing</span><span class="trust-value tbd">TBD</span></div>
-      <div class="trust-item"><span class="trust-label">Made In</span><span class="trust-value">USA 🇺🇸</span></div>
+      <div class="trust-item"><span class="trust-label">Made In</span><span class="trust-value">USA</span></div>
     </div>
+  </div>
+</section>
+
+<!-- NX PRODUCT LINE -->
+<section class="nx-section" id="lineup">
+  <div class="section-tag">NX-Series</div>
+  <h2 class="section-title">NEXIS PRODUCT LINE</h2>
+  <div class="nx-grid">
+
+    <div class="nx-card">
+      <div class="nx-model">NX-100</div>
+      <div class="nx-code">NOD — Dismounted Mesh Node</div>
+      <div class="nx-name">Personnel & Asset Tracking Node</div>
+      <p class="nx-desc">Compact, low-power node designed for dismounted personnel and equipment tracking in active mesh networks.</p>
+      <ul class="nx-features">
+        <li>LoRa / ISM mesh connectivity</li>
+        <li>Integrated GNSS positioning</li>
+        <li>Personnel & asset tracking</li>
+        <li>Helmet-mountable (ARC rail compatible)</li>
+        <li>Adapter support: Picatinny / carabiner swivel</li>
+        <li>Wearable, field-ready form factor</li>
+      </ul>
+      <div class="nx-status">↗ In Development</div>
+    </div>
+
+    <div class="nx-card">
+      <div class="nx-model">NX-200</div>
+      <div class="nx-code">REL — Stationary Relay Node</div>
+      <div class="nx-name">Extended-Duration Relay</div>
+      <p class="nx-desc">Fixed or semi-permanent relay node engineered for persistent mesh coverage over long-duration field deployments.</p>
+      <ul class="nx-features">
+        <li>Persistent mesh repeater</li>
+        <li>Tuned high-efficiency antennas</li>
+        <li>Extended battery capacity</li>
+        <li>Integrated solar charging capability</li>
+        <li>Designed for long-duration field operation</li>
+      </ul>
+      <div class="nx-status">↗ In Development</div>
+    </div>
+
+    <div class="nx-card">
+      <div class="nx-model">NX-300</div>
+      <div class="nx-code">LFT — Rapid Deploy Aerial Relay</div>
+      <div class="nx-name">On-Demand Elevated Relay</div>
+      <p class="nx-desc">Airborne relay node providing rapid line-of-sight extension over terrain for temporary or mission-specific coverage expansion.</p>
+      <ul class="nx-features">
+        <li>Drone or balloon deployment</li>
+        <li>Line-of-sight extension over terrain</li>
+        <li>Temporary or mission-specific use</li>
+        <li>Lightweight, quick-deploy configuration</li>
+      </ul>
+      <div class="nx-status">↗ In Development</div>
+    </div>
+
+    <div class="nx-card">
+      <div class="nx-model">NX-400</div>
+      <div class="nx-code">VEC — Vehicle Mesh Node</div>
+      <div class="nx-name">High-Power Mobile Node</div>
+      <p class="nx-desc">Vehicle-integrated mesh node providing high-power mobile relay capability for convoy and vehicle-based networking.</p>
+      <ul class="nx-features">
+        <li>Mobile mesh relay / node</li>
+        <li>Vehicle power integration</li>
+        <li>External antenna support</li>
+        <li>Extends network coverage while in motion</li>
+      </ul>
+      <div class="nx-status">↗ In Development</div>
+    </div>
+
+    <div class="nx-card">
+      <div class="nx-model">NX-500</div>
+      <div class="nx-code">BRG — RF ↔ IP Network Bridge</div>
+      <div class="nx-name">Digital Infrastructure Gateway</div>
+      <p class="nx-desc">Gateway node connecting the NEXIS mesh to external digital infrastructure — bridging RF and IP networks for long-distance reach.</p>
+      <ul class="nx-features">
+        <li>RF to IP bridging (mesh ↔ LAN / WAN)</li>
+        <li>Long-distance communication via ISP or local network</li>
+        <li>ATAK / command system integration</li>
+        <li>Functions as a digital repeater across networks</li>
+      </ul>
+      <div class="nx-status">↗ In Development</div>
+    </div>
+
+    <div class="nx-card">
+      <div class="nx-model">NX-600</div>
+      <div class="nx-code">CMD — Command Terminal</div>
+      <div class="nx-name">Centralized Command Interface</div>
+      <p class="nx-desc">Full-featured command and control terminal providing ATAK visualization, mesh management, and overwatch capability.</p>
+      <ul class="nx-features">
+        <li>Large integrated display</li>
+        <li>ATAK visualization and message management</li>
+        <li>Full mesh network participation</li>
+        <li>GNSS reporting to network</li>
+        <li>Designed for command / overwatch roles</li>
+      </ul>
+      <div class="nx-status">↗ In Development</div>
+    </div>
+
+    <div class="nx-card">
+      <div class="nx-model">NX-700</div>
+      <div class="nx-code">IND — Individual Terminal</div>
+      <div class="nx-name">Field Operator Interface</div>
+      <p class="nx-desc">Compact individual terminal for field operators — lightweight, portable, and purpose-built for direct mesh interaction.</p>
+      <ul class="nx-features">
+        <li>Small integrated display</li>
+        <li>Basic messaging capability</li>
+        <li>ATAK viewing functionality</li>
+        <li>Lightweight, portable design</li>
+        <li>Direct interaction with NEXIS mesh</li>
+      </ul>
+      <div class="nx-status">↗ In Development</div>
+    </div>
+
   </div>
 </section>
 
 <!-- SPECS -->
 <section class="specs-section" id="specs">
   <div class="section-tag">Technical Data</div>
-  <h2 class="section-title">SPECIFICATIONS</h2>
+  <h2 class="section-title">SYSTEM SPECIFICATIONS</h2>
   <div class="specs-grid">
     <div class="spec-item"><span class="spec-name">Network Architecture</span><span class="spec-value">Encrypted mesh — self-healing topology</span></div>
     <div class="spec-item"><span class="spec-name">Encryption</span><span class="spec-value">AES-256 end-to-end (target)</span></div>
@@ -710,15 +575,56 @@ body.gate-active > *:not(#accessGate) {
     <div class="spec-item"><span class="spec-name">Range (Node-to-Node)</span><span class="spec-value">TBD — environment dependent</span></div>
     <div class="spec-item"><span class="spec-name">Data Types</span><span class="spec-value">Video, telemetry, command, sensor feeds</span></div>
     <div class="spec-item"><span class="spec-name">Native Integrations</span><span class="spec-value">URSIX · CALIDUS · R.O.T.S.</span></div>
-    <div class="spec-item"><span class="spec-name">Command Interface</span><span class="spec-value">Operator terminal — hardware TBD</span></div>
+    <div class="spec-item"><span class="spec-name">Command Interface</span><span class="spec-value">NX-600 CMD / NX-700 IND terminals</span></div>
     <div class="spec-item"><span class="spec-name">Anti-Jamming</span><span class="spec-value">Frequency-hopping spread spectrum (target)</span></div>
     <div class="spec-item"><span class="spec-name">Power</span><span class="spec-value">DC battery / solar-assist / grid — TBD</span></div>
     <div class="spec-item"><span class="spec-name">Environmental Rating</span><span class="spec-value">IP67 all nodes (target)</span></div>
     <div class="spec-item"><span class="spec-name">Operating Temp</span><span class="spec-value">-40°F to +120°F (target)</span></div>
     <div class="spec-item"><span class="spec-name">Country of Origin</span><span class="spec-value">United States of America</span></div>
   </div>
-  <div class="spec-note">
-    ⚠ &nbsp;Specifications are preliminary design targets and subject to revision. Final performance figures will be published at product launch. Export control classification pending — certain configurations may require licensing.
+  <div class="spec-note">⚠ &nbsp;Specifications are preliminary design targets and subject to revision. Final performance figures will be published at product launch. Export control classification pending — certain configurations may require licensing.</div>
+</section>
+
+<!-- SERIAL LOOKUP -->
+<section class="serial-section" id="serial">
+  <div class="feature-lock-overlay" id="serialLock">
+    <div class="feature-lock-box">
+      <div class="feature-lock-title">FULL ACCESS REQUIRED</div>
+      <div class="feature-lock-text">Serial number lookup is available to verified Full Access account holders only.</div>
+      <a href="/ursusarmament/settings/" class="feature-lock-btn">Upgrade Account</a>
+    </div>
+  </div>
+  <div class="serial-inner">
+    <div class="section-tag">Unit Verification</div>
+    <h2 class="section-title" style="margin-bottom: 1rem;">SERIAL NUMBER LOOKUP</h2>
+    <p class="serial-desc">Every NEXIS unit ships with a documented profile recorded at time of manufacture. Enter your serial number below to retrieve the record for your specific unit.</p>
+    <div class="serial-input-row">
+      <input class="serial-input" id="serialInput" type="text" placeholder="e.g. NX-XXXX" maxlength="20" autocomplete="off" spellcheck="false"/>
+      <button class="serial-btn" onclick="lookupSerial()">Look Up Unit</button>
+    </div>
+    <div class="serial-result" id="serialError">
+      <div class="serial-error" id="serialErrorMsg">No unit found for that serial number.</div>
+    </div>
+    <div class="serial-result" id="serialSuccess">
+      <div class="serial-card">
+        <div class="serial-card-header">
+          <div class="serial-card-id" id="resultSerial">—</div>
+          <span class="serial-badge pass" id="resultQcBadge">QC PASS</span>
+        </div>
+        <div class="serial-card-body">
+          <div class="serial-field"><span class="serial-field-label">Product</span><span class="serial-field-value" id="resultProduct">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">Model</span><span class="serial-field-value" id="resultTier">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">Proof Date</span><span class="serial-field-value" id="resultDate">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">Batch ID</span><span class="serial-field-value" id="resultBatch">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">QC Result</span><span class="serial-field-value" id="resultQc">—</span></div>
+        </div>
+        <div class="serial-card-notes">
+          <span class="serial-field-label">Notes</span>
+          <span class="serial-field-value" id="resultNotes" style="font-weight:400; color:var(--muted); font-size:0.88rem;">—</span>
+        </div>
+        <div class="serial-card-footer">Ursus Armament LLC &nbsp;·&nbsp; All specifications recorded at time of manufacture</div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -752,36 +658,12 @@ body.gate-active > *:not(#accessGate) {
 <section class="features-section" id="features">
   <div class="features-layout">
     <div class="features-list">
-      <div class="feature-item">
-        <div class="feature-num">01</div>
-        <div class="feature-title">Self-Healing Mesh Architecture</div>
-        <p class="feature-desc">Nodes automatically reroute traffic when a link is lost or jammed. No single point of failure. The network degrades gracefully and reconstitutes without operator intervention.</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-num">02</div>
-        <div class="feature-title">AES-256 End-to-End Encryption</div>
-        <p class="feature-desc">Every packet on the NEXIS network is encrypted at the source and decrypted only at the authorized destination. No plaintext ever transits the air.</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-num">03</div>
-        <div class="feature-title">Anti-Jamming — FHSS</div>
-        <p class="feature-desc">Frequency-hopping spread spectrum transmission makes NEXIS links resistant to broadband jamming and direction-finding. Designed from the ground up for contested RF environments.</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-num">04</div>
-        <div class="feature-title">Unified Sensor Feed</div>
-        <p class="feature-desc">NV video from URSIX, thermal from CALIDUS, and weapon telemetry from R.O.T.S. all route to a single command picture. One operator. Full situational awareness.</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-num">05</div>
-        <div class="feature-title">Networked Fire Control</div>
-        <p class="feature-desc">R.O.T.S. turrets in the network receive targeting cues and ROE commands from the NEXIS command terminal. Engagement authority stays with the operator — response time doesn't.</p>
-      </div>
-      <div class="feature-item">
-        <div class="feature-num">06</div>
-        <div class="feature-title">Open Integration Architecture</div>
-        <p class="feature-desc">NEXIS is built to interface with third-party sensors, legacy comms systems, and future Ursus Armament hardware. One network. Expandable without replacement.</p>
-      </div>
+      <div class="feature-item"><div class="feature-num">01</div><div class="feature-title">Self-Healing Mesh Architecture</div><p class="feature-desc">Nodes automatically reroute traffic when a link is lost or jammed. No single point of failure. The network degrades gracefully and reconstitutes without operator intervention.</p></div>
+      <div class="feature-item"><div class="feature-num">02</div><div class="feature-title">AES-256 End-to-End Encryption</div><p class="feature-desc">Every packet on the NEXIS network is encrypted at the source and decrypted only at the authorized destination. No plaintext ever transits the air.</p></div>
+      <div class="feature-item"><div class="feature-num">03</div><div class="feature-title">Anti-Jamming — FHSS</div><p class="feature-desc">Frequency-hopping spread spectrum transmission makes NEXIS links resistant to broadband jamming and direction-finding. Designed from the ground up for contested RF environments.</p></div>
+      <div class="feature-item"><div class="feature-num">04</div><div class="feature-title">Unified Sensor Feed</div><p class="feature-desc">NV video from URSIX, thermal from CALIDUS, and weapon telemetry from R.O.T.S. all route to a single command picture. One operator. Full situational awareness.</p></div>
+      <div class="feature-item"><div class="feature-num">05</div><div class="feature-title">Networked Fire Control</div><p class="feature-desc">R.O.T.S. turrets in the network receive targeting cues and ROE commands from the NEXIS command terminal. Engagement authority stays with the operator — response time doesn't.</p></div>
+      <div class="feature-item"><div class="feature-num">06</div><div class="feature-title">Open Integration Architecture</div><p class="feature-desc">NEXIS is built to interface with third-party sensors, legacy comms systems, and future Ursus Armament hardware. One network. Expandable without replacement.</p></div>
     </div>
     <div class="features-aside">
       <div class="section-tag">The Bigger Picture</div>
@@ -803,50 +685,21 @@ body.gate-active > *:not(#accessGate) {
   <div class="notify-inner">
     <div class="section-tag">Availability Notification</div>
     <h2 class="section-title" style="margin-bottom: 1rem;">GET NOTIFIED AT LAUNCH</h2>
-    <p class="notify-desc">
-      NEXIS is currently in development and not yet available for order. Enter your email below to be notified the moment configurations and licensing details are confirmed — before public announcement.
-    </p>
-
+    <p class="notify-desc">NEXIS is currently in development and not yet available for order. Enter your email below to be notified the moment configurations and licensing details are confirmed — before public announcement.</p>
     <div class="notify-input-row">
-      <input
-        class="notify-input"
-        id="notifyInput"
-        type="email"
-        placeholder="your@email.com"
-        autocomplete="email"
-        spellcheck="false"
-      />
+      <input class="notify-input" id="notifyInput" type="email" placeholder="your@email.com" autocomplete="email" spellcheck="false"/>
       <button class="notify-btn" onclick="submitNotify()">Notify Me</button>
     </div>
-
-    <div class="notify-confirm" id="notifyConfirm">
-      You're on the list. We'll contact you when NEXIS is ready for order.
-    </div>
+    <div class="notify-confirm" id="notifyConfirm">You're on the list. We'll contact you when NEXIS is ready for order.</div>
     <p class="notify-caveat">No spam. No third-party sharing. Unsubscribe any time.</p>
-
     <div class="timeline">
       <div class="timeline-title">Development Status</div>
       <div class="timeline-steps">
-        <div class="timeline-step done">
-          <span class="step-label done">✓ Complete</span>
-          <span class="step-name">Architecture Design</span>
-        </div>
-        <div class="timeline-step current">
-          <span class="step-label current">▶ Active</span>
-          <span class="step-name">Protocol Development</span>
-        </div>
-        <div class="timeline-step">
-          <span class="step-label pending">Pending</span>
-          <span class="step-name pending">Hardware Integration</span>
-        </div>
-        <div class="timeline-step">
-          <span class="step-label pending">Pending</span>
-          <span class="step-name pending">Field Validation</span>
-        </div>
-        <div class="timeline-step">
-          <span class="step-label pending">Pending</span>
-          <span class="step-name pending">Launch</span>
-        </div>
+        <div class="timeline-step done"><span class="step-label done">✓ Complete</span><span class="step-name">Architecture Design</span></div>
+        <div class="timeline-step current"><span class="step-label current">▶ Active</span><span class="step-name">Protocol Development</span></div>
+        <div class="timeline-step"><span class="step-label pending">Pending</span><span class="step-name pending">Hardware Integration</span></div>
+        <div class="timeline-step"><span class="step-label pending">Pending</span><span class="step-name pending">Field Validation</span></div>
+        <div class="timeline-step"><span class="step-label pending">Pending</span><span class="step-name pending">Launch</span></div>
       </div>
     </div>
   </div>
@@ -857,10 +710,22 @@ body.gate-active > *:not(#accessGate) {
     <h2>QUESTIONS ABOUT NEXIS?</h2>
     <p>Our product specialists are available Monday–Friday, 8AM–6PM MST.</p>
   </div>
-  <a href="https://ursusworks.com/ursusarmament/contact" target="_blank" rel="noopener noreferrer" class="btn-primary">
-    Contact Support
-  </a>
+  <a href="https://ursusworks.com/ursusarmament/contact" target="_blank" rel="noopener noreferrer" class="btn-primary">Contact Support</a>
 </div>
+
+<!-- LEAVE REVIEW CTA -->
+<div style="display:flex; justify-content:center; padding: 3rem; background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <button class="review-cta-btn" onclick="openReviewModal()">Leave a Product Review</button>
+</div>
+
+<!-- REVIEWS -->
+<section class="reviews-section">
+  <div class="section-tag">Customer Feedback</div>
+  <h2 class="section-title">REVIEWS</h2>
+  <div class="reviews-container" id="reviewsContainer">
+    <div class="reviews-empty">Loading reviews...</div>
+  </div>
+</section>
 
 <footer>
   <div class="footer-grid">
@@ -900,87 +765,339 @@ body.gate-active > *:not(#accessGate) {
   </div>
 </footer>
 
-<script>
-  function submitNotify() {
-    const input = document.getElementById('notifyInput');
-    const val = input.value.trim();
-    if (!val || !val.includes('@')) { input.focus(); return; }
-    document.getElementById('notifyConfirm').classList.add('visible');
-    input.value = '';
-    input.disabled = true;
-    document.querySelector('.notify-btn').disabled = true;
-    document.querySelector('.notify-btn').style.opacity = '0.5';
-  }
+<!-- REVIEW MODAL -->
+<div id="reviewModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:99999; justify-content:center; align-items:center; overflow-y:auto; padding: 2rem 0;">
+  <div style="background: var(--dark); padding: 2rem; width: 90%; max-width: 600px; border: 1px solid var(--border); position: relative; margin: auto;">
+    <button onclick="closeReviewModal()" style="position:absolute; top:10px; right:15px; background:none; border:none; color:white; font-size:20px; cursor:pointer;">✕</button>
+    <div id="reviewFormContainer">
+      <h2 style="font-family:'Bebas Neue'; letter-spacing:0.06em; margin-bottom:1rem;">Leave a Review</h2>
+      <div style="display:flex; flex-direction:column; gap:1rem;">
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Product</label>
+          <select id="rv_product" style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);">
+            <option value="">Select Product</option>
+            <option value="URSIX">URSIX</option>
+            <option value="ROTS">R.O.T.S.</option>
+            <option value="CALIDUS">CALIDUS</option>
+            <option value="NEXIS">NEXIS</option>
+          </select>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Feedback Type</label>
+          <select id="rv_feedbackType" style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);">
+            <option value="">Select Type</option>
+            <option value="Customer Purchase">Customer Purchase</option>
+            <option value="Field Review">Field Review</option>
+          </select>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Star Rating</label>
+          <div id="starRating" style="display:flex; gap:0.4rem; font-size:1.8rem; cursor:pointer;">
+            <span data-value="1">☆</span><span data-value="2">☆</span><span data-value="3">☆</span><span data-value="4">☆</span><span data-value="5">☆</span>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">First Name</label>
+          <input id="rv_firstName" type="text" placeholder="Your First Name" style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);" />
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">State</label>
+          <select id="rv_state" style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);">
+            <option value="">Select State</option>
+            <option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option>
+          </select>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Review</label>
+          <textarea id="rv_reviewText" rows="5" placeholder="Write your review here..." style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border); font-family:'Barlow',sans-serif; resize:vertical;"></textarea>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Photos (Optional — Max 2)</label>
+          <input id="rv_img1" type="file" accept="image/png,image/jpeg,image/webp" style="padding:0.5rem; background:var(--surface); border:1px solid var(--border); color:var(--muted);">
+          <input id="rv_img2" type="file" accept="image/png,image/jpeg,image/webp" style="padding:0.5rem; background:var(--surface); border:1px solid var(--border); color:var(--muted);">
+        </div>
+        <div id="rv_msg" style="font-size:0.82rem; min-height:1.2em;"></div>
+        <button id="rv_submitBtn" onclick="submitReview()" style="background:var(--accent); color:var(--black); font-family:'Barlow Condensed',sans-serif; font-size:0.9rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; padding:0.9rem; border:none; cursor:pointer; margin-top:0.5rem;">Submit Review</button>
+      </div>
+    </div>
+    <div id="reviewThankYou" style="display:none; text-align:center; padding: 2rem 0;">
+      <h2 style="font-family:'Bebas Neue'; letter-spacing:0.06em; margin-bottom:0.75rem;">Thank You!</h2>
+      <p style="color:var(--muted);">Your review has been submitted and is pending approval.</p>
+    </div>
+  </div>
+</div>
 
-  document.getElementById('notifyInput').addEventListener('keydown', e => {
-    if (e.key === 'Enter') submitNotify();
-  });
-
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const t = document.querySelector(a.getAttribute('href'));
-      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
-    });
-  });
-</script>
+<!-- GATE + NOTIFY SCRIPT -->
 <script>
 const ONE_HOUR = 60 * 60 * 1000;
-
 function checkGate() {
   const data = JSON.parse(localStorage.getItem("ursus_gate"));
-
-  const valid =
-    data &&
-    data.allowed === true &&
-    (Date.now() - data.time < ONE_HOUR);
-
+  const valid = data && data.allowed === true && (Date.now() - data.time < ONE_HOUR);
   if (valid) return;
-
   document.body.classList.add("gate-active");
   document.getElementById("accessGate").style.display = "flex";
 }
-
 function allowAccess() {
-  localStorage.setItem("ursus_gate", JSON.stringify({
-    allowed: true,
-    time: Date.now()
-  }));
-
+  localStorage.setItem("ursus_gate", JSON.stringify({ allowed: true, time: Date.now() }));
   document.body.classList.remove("gate-active");
   document.getElementById("accessGate").style.display = "none";
 }
-
-function denyAccess() {
-  window.location.href = "https://www.google.com";
-}
-
+function denyAccess() { window.location.href = "https://www.google.com"; }
 window.addEventListener("load", checkGate);
-</script>
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
-  authDomain: "ursus-armament.firebaseapp.com",
-  projectId: "ursus-armament",
-  storageBucket: "ursus-armament.firebasestorage.app",
-  messagingSenderId: "430731167862",
-  appId: "1:430731167862:web:a5447de86db180edad3757"
-};
+function openReviewModal()  { document.getElementById("reviewModal").style.display = "flex"; }
+function closeReviewModal() { document.getElementById("reviewModal").style.display = "none"; }
 
-const app  = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+function submitNotify() {
+  const input = document.getElementById('notifyInput');
+  const val = input.value.trim();
+  if (!val || !val.includes('@')) { input.focus(); return; }
+  document.getElementById('notifyConfirm').classList.add('visible');
+  input.value = '';
+  input.disabled = true;
+  document.querySelector('.notify-btn').disabled = true;
+  document.querySelector('.notify-btn').style.opacity = '0.5';
+}
+document.getElementById('notifyInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') submitNotify();
+});
 
-onAuthStateChanged(auth, (user) => {
-  const navAuth = document.getElementById("navAuth");
-  if (user) {
-    const emailPrefix = user.email.split("@")[0];
-    navAuth.innerHTML = `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
-  } else {
-    navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
-  }
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const href = a.getAttribute('href');
+    if (href === '#') return;
+    const t = document.querySelector(href);
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+  });
+});
+
+let _starRating = 0;
+document.addEventListener("DOMContentLoaded", function () {
+  const stars = document.querySelectorAll("#starRating span");
+  stars.forEach(star => {
+    star.addEventListener("click", () => {
+      _starRating = parseInt(star.dataset.value);
+      stars.forEach(s => { s.textContent = parseInt(s.dataset.value) <= _starRating ? "★" : "☆"; });
+    });
+  });
 });
 </script>
+
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp }     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged }
+                             from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, addDoc, collection, query, where, getDocs, updateDoc }
+                             from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL }
+                             from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
+const firebaseConfig = {
+  apiKey:            "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
+  authDomain:        "ursus-armament.firebaseapp.com",
+  projectId:         "ursus-armament",
+  storageBucket:     "ursus-armament.firebasestorage.app",
+  messagingSenderId: "430731167862",
+  appId:             "1:430731167862:web:a5447de86db180edad3757"
+};
+
+const app     = initializeApp(firebaseConfig);
+const auth    = getAuth(app);
+const db      = getFirestore(app);
+const storage = getStorage(app);
+
+let _isFullApproved = false;
+
+onAuthStateChanged(auth, async (user) => {
+  if (!user) {
+    window.location.replace("/ursusarmament/login/");
+    return;
+  }
+  const emailPrefix = user.email.split("@")[0];
+  document.getElementById("navAuth").innerHTML =
+    `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
+
+  try {
+    const snap = await getDoc(doc(db, "users", emailPrefix));
+    const data = snap.data();
+    _isFullApproved =
+      data &&
+      data.d_type               === "full" &&
+      data.e_approved           === true   &&
+      data.f_status             === "approved" &&
+      data.g_verified_us_person === true;
+  } catch (err) {
+    _isFullApproved = false;
+  }
+
+  // Only serial lookup is locked — specs and everything else open to all
+  if (_isFullApproved) {
+    document.getElementById("serialLock").classList.remove("active");
+  } else {
+    document.getElementById("serialLock").classList.add("active");
+  }
+});
+
+/* ── Serial lookup ── */
+window.lookupSerial = async function() {
+  if (!_isFullApproved) return;
+  const raw   = document.getElementById('serialInput').value.trim().toUpperCase();
+  const errEl = document.getElementById('serialError');
+  const okEl  = document.getElementById('serialSuccess');
+  errEl.classList.remove('visible');
+  okEl.classList.remove('visible');
+  if (!raw) return;
+  try {
+    const snap = await getDoc(doc(db, "ursus-units", raw));
+    if (!snap.exists()) {
+      document.getElementById('serialErrorMsg').textContent =
+        'No unit found for "' + raw + '". Double-check the format or contact support.';
+      errEl.classList.add('visible');
+      return;
+    }
+    const unit = snap.data();
+    const set  = (id, val) => { document.getElementById(id).textContent = val ?? '—'; };
+    set('resultSerial',  raw);
+    set('resultProduct', unit.product);
+    set('resultTier',    unit.tier);
+    set('resultDate',    unit.proofDate);
+    set('resultBatch',   unit.batchId);
+    set('resultQc',      unit.qcResult);
+    set('resultNotes',   unit.notes || 'No notes recorded.');
+    const badge = document.getElementById('resultQcBadge');
+    badge.textContent = 'QC ' + (unit.qcResult ?? 'UNKNOWN');
+    badge.className   = 'serial-badge ' + (unit.qcResult === 'PASS' ? 'pass' : 'fail');
+    okEl.classList.add('visible');
+    okEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  } catch (err) {
+    document.getElementById('serialErrorMsg').textContent = 'Error retrieving data. Please try again.';
+    errEl.classList.add('visible');
+  }
+};
+
+document.getElementById('serialInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') window.lookupSerial();
+});
+
+/* ── Load NEXIS reviews ── */
+async function loadNEXISReviews() {
+  const container = document.getElementById('reviewsContainer');
+  try {
+    const q    = query(
+      collection(db, "ursus-reviews"),
+      where("productType",    "==", "NEXIS"),
+      where("reviewApproval", "==", true)
+    );
+    const snap = await getDocs(q);
+    if (snap.empty) {
+      container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
+      return;
+    }
+    const reviews = snap.docs.map(d => d.data()).sort((a, b) => {
+      return (b.timestamp?.toMillis?.() ?? 0) - (a.timestamp?.toMillis?.() ?? 0);
+    });
+    container.innerHTML = '';
+    reviews.forEach(r => {
+      const stars = '★'.repeat(r.starRating || 0) + '☆'.repeat(5 - (r.starRating || 0));
+      let imgHtml = '';
+      if (r.img1_url || r.img2_url) {
+        imgHtml = '<div class="review-images">';
+        if (r.img1_url) imgHtml += `<img src="${r.img1_url}" class="review-img" onclick="openReviewImage('${r.img1_url}')" alt="Review photo">`;
+        if (r.img2_url) imgHtml += `<img src="${r.img2_url}" class="review-img" onclick="openReviewImage('${r.img2_url}')" alt="Review photo">`;
+        imgHtml += '</div>';
+      }
+      const div = document.createElement('div');
+      div.className = 'review-card';
+      div.innerHTML = `
+        <div class="review-content">
+          <div class="review-header">
+            <div class="review-name">${r.firstName || '—'} (${r.state || ''})</div>
+            <div class="review-stars">${stars}</div>
+          </div>
+          <div class="review-meta">${r.productType || 'NEXIS'} &nbsp;·&nbsp; ${r.feedbackType || ''}</div>
+          <div class="review-text">${r.reviewText || ''}</div>
+        </div>
+        ${imgHtml}
+      `;
+      container.appendChild(div);
+    });
+  } catch (err) {
+    console.error("Reviews load error:", err);
+    container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
+  }
+}
+loadNEXISReviews();
+
+/* ── Image lightbox ── */
+window.openReviewImage = function(url) {
+  const lb = document.createElement("div");
+  lb.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:999999;display:flex;align-items:center;justify-content:center;cursor:pointer;";
+  lb.innerHTML = `<img src="${url}" style="max-width:90vw;max-height:90vh;object-fit:contain;">`;
+  lb.onclick = () => document.body.removeChild(lb);
+  document.body.appendChild(lb);
+};
+
+/* ── Upload helper ── */
+function uploadReviewImage(file, path) {
+  return new Promise((resolve, reject) => {
+    const ref  = storageRef(storage, path);
+    const task = uploadBytesResumable(ref, file);
+    task.on("state_changed", null,
+      err  => reject(err),
+      async () => resolve(await getDownloadURL(task.snapshot.ref))
+    );
+  });
+}
+
+/* ── Submit review ── */
+window.submitReview = async function() {
+  const msg  = document.getElementById("rv_msg");
+  const btn  = document.getElementById("rv_submitBtn");
+  const productType  = document.getElementById("rv_product").value;
+  const feedbackType = document.getElementById("rv_feedbackType").value;
+  const firstName    = document.getElementById("rv_firstName").value.trim();
+  const state        = document.getElementById("rv_state").value;
+  const reviewText   = document.getElementById("rv_reviewText").value.trim();
+  const img1File     = document.getElementById("rv_img1").files[0];
+  const img2File     = document.getElementById("rv_img2").files[0];
+
+  if (!productType)      { msg.style.color="#c0392b"; msg.textContent="Please select a product."; return; }
+  if (!feedbackType)     { msg.style.color="#c0392b"; msg.textContent="Please select a feedback type."; return; }
+  if (_starRating === 0) { msg.style.color="#c0392b"; msg.textContent="Please select a star rating."; return; }
+  if (!firstName)        { msg.style.color="#c0392b"; msg.textContent="Please enter your first name."; return; }
+  if (!state)            { msg.style.color="#c0392b"; msg.textContent="Please select your state."; return; }
+  if (!reviewText)       { msg.style.color="#c0392b"; msg.textContent="Please write your review."; return; }
+
+  btn.disabled = true; btn.textContent = "Submitting..."; msg.textContent = "";
+
+  try {
+    const reviewRef = await addDoc(collection(db, "ursus-reviews"), {
+      productType, feedbackType, starRating: _starRating,
+      firstName, state, reviewText,
+      reviewApproval: false, img1_url: "", img2_url: "",
+      timestamp: new Date(),
+    });
+    const docId = reviewRef.id;
+    let img1_url = "", img2_url = "";
+    if (img1File) {
+      btn.textContent = "Uploading photos...";
+      img1_url = await uploadReviewImage(img1File, `ursus-reviews/${docId}/img1.${img1File.name.split('.').pop()}`);
+    }
+    if (img2File) {
+      img2_url = await uploadReviewImage(img2File, `ursus-reviews/${docId}/img2.${img2File.name.split('.').pop()}`);
+    }
+    if (img1_url || img2_url) await updateDoc(reviewRef, { img1_url, img2_url });
+    document.getElementById("reviewFormContainer").style.display = "none";
+    document.getElementById("reviewThankYou").style.display      = "block";
+  } catch (err) {
+    console.error("Review submit error:", err);
+    msg.style.color = "#c0392b";
+    msg.textContent = "Submission failed. Please try again.";
+    btn.disabled = false; btn.textContent = "Submit Review";
+  }
+};
+</script>
+
 </body>
 </html>
