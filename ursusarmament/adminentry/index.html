@@ -98,6 +98,61 @@
     letter-spacing: 0.1em;
   }
 
+  /* ── SPEC SHEET GENERATOR ── */
+  .spec-generator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .spec-input {
+    padding: 0.4rem 0.75rem;
+    background: var(--dark);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.8rem;
+    width: 200px;
+    transition: border-color 0.2s;
+  }
+
+  .spec-input:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .spec-input::placeholder {
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+
+  .btn-generate {
+    border: 1px solid var(--border2);
+    background: transparent;
+    color: var(--muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    padding: 0.4rem 0.9rem;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+
+  .btn-generate:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-generate:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .spec-msg {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+  }
+  .spec-msg.error  { color: var(--red); }
+  .spec-msg.ok     { color: var(--green); }
+
   /* ── FORM ── */
   .form-section {
     margin-bottom: 2rem;
@@ -305,6 +360,8 @@
   @media (max-width: 600px) {
     .form-grid, .form-grid.three { grid-template-columns: 1fr; }
     #adminPanel { padding: 2rem 1rem 4rem; }
+    .spec-generator { flex-wrap: wrap; }
+    .spec-input { width: 100%; }
   }
 </style>
 </head>
@@ -330,7 +387,14 @@
       <div class="admin-tag">Ursus Armament — Restricted</div>
       <div class="admin-title">INVENTORY ENTRY</div>
     </div>
-    <button class="btn btn-signout" onclick="adminSignOut()">Sign Out</button>
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <div class="spec-generator">
+        <input type="text" class="spec-input" id="specSerialInput" placeholder="S/N to generate spec sheet">
+        <button class="btn-generate" id="generateBtn" onclick="generateSpecSheet()">Generate</button>
+        <span class="spec-msg" id="specMsg"></span>
+      </div>
+      <button class="btn btn-signout" onclick="adminSignOut()">Sign Out</button>
+    </div>
   </div>
 
   <!-- IDENTIFICATION -->
@@ -506,7 +570,7 @@
 import { initializeApp }   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
                            from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, setDoc }
+import { getFirestore, doc, setDoc, getDoc }
                            from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const ADMIN_EMAIL = "contact@ursusworks.com";
@@ -589,6 +653,223 @@ window.adminLogin = async () => {
 window.adminSignOut = async () => {
   await signOut(auth);
 };
+
+/* ── Generate spec sheet ── */
+window.generateSpecSheet = async () => {
+  const serial  = document.getElementById("specSerialInput").value.trim().toUpperCase();
+  const msg     = document.getElementById("specMsg");
+  const btn     = document.getElementById("generateBtn");
+
+  msg.textContent = "";
+  msg.className   = "spec-msg";
+
+  if (!serial) {
+    msg.className   = "spec-msg error";
+    msg.textContent = "Enter a serial number.";
+    return;
+  }
+
+  btn.disabled    = true;
+  btn.textContent = "Looking up...";
+
+  try {
+    const snap = await getDoc(doc(db, "ursus-units", serial));
+
+    if (!snap.exists()) {
+      msg.className   = "spec-msg error";
+      msg.textContent = "No Match";
+      btn.disabled    = false;
+      btn.textContent = "Generate";
+      return;
+    }
+
+    const d = snap.data();
+    btn.textContent = "Building...";
+
+    // ── Load docx via CDN (UMD build) ──
+    await loadDocxLib();
+
+    const {
+      Document, Packer, Paragraph, TextRun,
+      Table, TableRow, TableCell,
+      AlignmentType, BorderStyle, WidthType, ShadingType, VerticalAlign
+    } = window.docx;
+
+    const border  = { style: BorderStyle.SINGLE, size: 1, color: "CCCCCC" };
+    const borders = { top: border, bottom: border, left: border, right: border };
+
+    const headerShade = { fill: "1A1A17", type: ShadingType.CLEAR };
+    const rowShadeA   = { fill: "111110", type: ShadingType.CLEAR };
+    const rowShadeB   = { fill: "0A0A08", type: ShadingType.CLEAR };
+
+    const cellMargins = { top: 100, bottom: 100, left: 150, right: 150 };
+
+    // Label / value widths (total = 9360 DXA for US Letter 1" margins)
+    const LW = 3120; // label col
+    const VW = 6240; // value col
+
+    function makeHeaderRow(label) {
+      return new TableRow({
+        children: [
+          new TableCell({
+            columnSpan: 2,
+            borders,
+            shading: headerShade,
+            margins: cellMargins,
+            width: { size: LW + VW, type: WidthType.DXA },
+            children: [new Paragraph({
+              children: [new TextRun({
+                text: label.toUpperCase(),
+                bold: true,
+                color: "C8922A",
+                font: "Arial",
+                size: 20
+              })]
+            })]
+          })
+        ]
+      });
+    }
+
+    function makeRow(label, value, shade) {
+      const v = (value !== undefined && value !== null && value !== "") ? String(value) : "—";
+      return new TableRow({
+        children: [
+          new TableCell({
+            borders,
+            shading: shade,
+            margins: cellMargins,
+            width: { size: LW, type: WidthType.DXA },
+            children: [new Paragraph({
+              children: [new TextRun({ text: label, bold: true, font: "Arial", size: 18, color: "8A8678" })]
+            })]
+          }),
+          new TableCell({
+            borders,
+            shading: shade,
+            margins: cellMargins,
+            width: { size: VW, type: WidthType.DXA },
+            children: [new Paragraph({
+              children: [new TextRun({ text: v, font: "Arial", size: 18, color: "E8E4D9" })]
+            })]
+          })
+        ]
+      });
+    }
+
+    // Build rows with alternating shade
+    let ri = 0;
+    function row(label, value) {
+      const shade = (ri++ % 2 === 0) ? rowShadeA : rowShadeB;
+      return makeRow(label, value, shade);
+    }
+
+    const rows = [
+      makeHeaderRow("Unit Identification"),
+      row("Product",          d.product),
+      row("Serial Number",    d.serial),
+      row("Tier",             d.tier),
+      row("Price",            d.price ? `$${d.price.toLocaleString()}` : ""),
+      row("Available",        d.available ? "Yes" : "No"),
+
+      makeHeaderRow("Tube Specifications"),
+      row("Generation",       d.generation),
+      row("Phosphor",         d.phosphor),
+      row("Figure of Merit",  d.fom),
+      row("SNR",              d.snr),
+      row("Resolution",       d.resolution),
+      row("Luminous Gain",    d.luminousGain),
+
+      makeHeaderRow("Photocathode Data"),
+      row("Luminous Sensitivity",       d.photocathodeLuminousSensitivity),
+      row("Sensitivity w/ Filter",      d.photocathodeSensitivityWithFilter),
+      row("Radiant Sensitivity",        d.photocathodeRadiantSensitivity),
+
+      makeHeaderRow("Hardware & Build"),
+      row("Objective Lens",   d.objectiveLens),
+      row("Battery Life",     d.batteryLife),
+      row("IP Rating",        d.ipRating),
+      row("Finish",           d.finish),
+
+      makeHeaderRow("QC & Records"),
+      row("Proof Date",       d.proofDate),
+      row("Batch ID",         d.batchId),
+      row("QC Result",        d.qcResult),
+      row("Notes",            d.notes),
+      row("Entered At",       d.enteredAt ? new Date(d.enteredAt).toLocaleString() : ""),
+    ];
+
+    const table = new Table({
+      width: { size: 9360, type: WidthType.DXA },
+      columnWidths: [LW, VW],
+      rows
+    });
+
+    const docFile = new Document({
+      sections: [{
+        properties: {
+          page: {
+            size: { width: 12240, height: 15840 },
+            margin: { top: 1440, right: 1440, bottom: 1440, left: 1440 }
+          }
+        },
+        children: [
+          new Paragraph({
+            children: [new TextRun({
+              text: `URSUS ARMAMENT — UNIT SPEC SHEET`,
+              bold: true,
+              font: "Arial",
+              size: 32,
+              color: "C8922A"
+            })]
+          }),
+          new Paragraph({
+            children: [new TextRun({
+              text: `Serial: ${d.serial}   |   Product: ${d.product || "—"}   |   Tier: ${d.tier || "—"}`,
+              font: "Arial",
+              size: 20,
+              color: "8A8678"
+            })],
+            spacing: { after: 300 }
+          }),
+          table
+        ]
+      }]
+    });
+
+    const buffer = await Packer.toBuffer(docFile);
+    const blob   = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" });
+    const url    = URL.createObjectURL(blob);
+    const a      = document.createElement("a");
+    a.href       = url;
+    a.download   = `SpecSheet_${serial}.docx`;
+    a.click();
+    URL.revokeObjectURL(url);
+
+    msg.className   = "spec-msg ok";
+    msg.textContent = `Downloaded`;
+
+  } catch (err) {
+    console.error("Spec sheet error:", err);
+    msg.className   = "spec-msg error";
+    msg.textContent = "Error generating sheet.";
+  }
+
+  btn.disabled    = false;
+  btn.textContent = "Generate";
+};
+
+/* ── Lazy-load docx UMD from CDN ── */
+function loadDocxLib() {
+  return new Promise((resolve, reject) => {
+    if (window.docx) { resolve(); return; }
+    const s  = document.createElement("script");
+    s.src    = "https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js";
+    s.onload = resolve;
+    s.onerror = reject;
+    document.head.appendChild(s);
+  });
+}
 
 /* ── Submit unit ── */
 window.submitUnit = async () => {
