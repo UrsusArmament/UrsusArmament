@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Access Restricted | Ursus Armament</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --surface2: #222220;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+    --accent2: #e8a830;
+  }
+
+  html, body {
+    height: 100%;
+  }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,8,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-slogan {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* MAIN CONTENT */
+  .page-wrap {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8rem 3rem 4rem;
+  }
+
+  .restriction-box {
+    max-width: 680px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .denied-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.35em;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .denied-tag::before,
+  .denied-tag::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 3rem;
+    background: var(--accent);
+    opacity: 0.4;
+  }
+
+  .denied-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    letter-spacing: 0.04em;
+    line-height: 0.95;
+    margin-bottom: 0.5rem;
+    color: var(--text);
+  }
+  .denied-title span { color: var(--accent); }
+
+  .denied-subtitle {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.4rem, 4vw, 2.2rem);
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 3rem;
+  }
+
+  .divider {
+    width: 4rem;
+    height: 1px;
+    background: var(--accent);
+    opacity: 0.4;
+    margin: 0 auto 3rem;
+  }
+
+  .paragraphs {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: left;
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    padding: 2.5rem;
+  }
+
+  .para-accent {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--accent);
+  }
+
+  .para-muted {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+  .para-muted ul, .para-muted li {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--muted);
+  }
+
+  .para-divider {
+    height: 1px;
+    background: var(--border);
+    width: 100%;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    opacity: 0.5;
+  }
+  .footer-logo span { color: var(--accent); opacity: 1; }
+
+  .footer-legal {
+    font-size: 0.78rem;
+    color: var(--muted);
+    opacity: 0.5;
+  }
+
+  @media (max-width: 700px) {
+    .nav-top { padding: 0.6rem 1.5rem; }
+    .page-wrap { padding: 7rem 1.5rem 3rem; }
+    .paragraphs { padding: 1.5rem; }
+    footer { padding: 2rem 1.5rem; }
+    .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-top">
+    <div class="nav-brand">
+      <div class="nav-logo">URSUS <span>ARMAMENT</span></div>
+      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    </div>
+  </div>
+</nav>
+
+<div class="page-wrap">
+  <div class="restriction-box">
+
+    <div class="denied-tag">Access Denied</div>
+    <div class="denied-title">URSUS <span>ARMAMENT</span></div>
+    <div class="denied-subtitle">RESTRICTED</div>
+    <div class="divider"></div>
+
+    <div class="paragraphs">
+      <p class="para-accent">
+        We're sorry, but we're unable to provide you access to this content at this time. Access to this site is restricted to individuals who are at least 18 years of age, qualify as a U.S. person, and are physically accessing the site from within the United States.
+      </p>
+      <div class="para-divider"></div>
+      <p class="para-muted">
+        Due to the nature of our industry, we are required to comply with U.S. export control regulations, including the International Traffic in Arms Regulations (ITAR) and the Export Administration Regulations (EAR). As a result, we cannot provide access to products or technical information to minors or to non-U.S. persons or entities.
+        <br><br>Under 22 CFR § 120.62, a "U.S. person" includes:
+        <ul style="margin: 0; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0; color: #8a8678; line-height: 1.4;">
+          <li>A U.S. citizen (by birth or naturalization)</li>
+          <li>A lawful permanent resident (Green Card holder, as defined by 8 U.S.C. § 1101(a)(20))</li>
+          <li>A protected individual, including those granted refugee or asylee status (8 U.S.C. § 1324b(a)(3))</li>
+        </ul>
+        <span style="color: #8a8678;">U.S. entities include:</span>
+        <ul style="margin: 0; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0; color: #8a8678; line-height: 1.4;">
+          <li>Organizations incorporated or otherwise authorized to do business in the United States</li>
+          <li>Federal, state, and local government agencies</li>
+        </ul>
+      </p>
+      <div class="para-divider"></div>
+      <p class="para-muted">
+        Additionally, due to export restrictions, we do not permit access to users located outside of the United States. If you are physically within the U.S. but are still being redirected to this page, <span style="color: var(--accent); text-transform: uppercase;">please ensure that any VPN</span><span style="color: var(--accent);">s</span><span style="color: var(--accent); text-transform: uppercase;">, proxy services, or anonymization tools (such as the Tor browser) are disabled</span>, as these may cause your location to appear outside the United States.
+      </p>
+    </div>
+
+    <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+      <a href="https://www.ursusworks.com" style="flex: 1; text-align: center; font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border2); padding: 0.8rem; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.color='var(--accent)';this.style.borderColor='var(--accent)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='rgba(255,255,255,0.12)'">Return to Ursus Works</a>
+      <a href="https://www.pmddtc.state.gov/ddtc_public?id=ddtc_public_portal_itar_landing" target="_blank" rel="noopener noreferrer" style="flex: 1; text-align: center; font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border2); padding: 0.8rem; text-decoration: none; transition: all 0.2s;" onmouseover="this.style.color='var(--accent)';this.style.borderColor='var(--accent)'" onmouseout="this.style.color='var(--muted)';this.style.borderColor='rgba(255,255,255,0.12)'">Learn About ITAR</a>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footer-bottom">
+    <div class="footer-logo">URSUS <span>ARMAMENT</span></div>
+    <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
+  </div>
+</footer>
+
+</body>
+</html>
