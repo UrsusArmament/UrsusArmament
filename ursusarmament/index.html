@@ -748,40 +748,7 @@ body.gate-active > *:not(#accessGate) {
     });
   });
 </script>
-<script>
-const ONE_HOUR = 60 * 60 * 1000;
-
-function checkGate() {
-  const data = JSON.parse(localStorage.getItem("ursus_gate"));
-
-  const valid =
-    data &&
-    data.allowed === true &&
-    (Date.now() - data.time < ONE_HOUR);
-
-  if (valid) return;
-
-  document.body.classList.add("gate-active");
-  document.getElementById("accessGate").style.display = "flex";
-}
-
-function allowAccess() {
-  localStorage.setItem("ursus_gate", JSON.stringify({
-    allowed: true,
-    time: Date.now()
-  }));
-
-  document.body.classList.remove("gate-active");
-  document.getElementById("accessGate").style.display = "none";
-}
-
-function denyAccess() {
-  window.location.href = "https://www.google.com";
-}
-
-window.addEventListener("load", checkGate);
- 
-</script>
+<script src="/ursusarmament/access-check.js"></script>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
