@@ -250,14 +250,30 @@
     letter-spacing: 0.05em;
   }
 
-  .result-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 1.5rem;
+  .result-table {
+    width: 100%;
+    border-collapse: collapse;
     margin-top: 1rem;
   }
-
-  .result-field { display: flex; flex-direction: column; gap: 0.2rem; }
+  .result-table tr { border-bottom: 1px solid var(--border); }
+  .result-table tr:last-child { border-bottom: none; }
+  .result-table tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+  .result-table td {
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+    vertical-align: top;
+  }
+  .result-table td:first-child {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 0.72rem;
+    color: var(--muted);
+    width: 38%;
+    white-space: nowrap;
+  }
+  .result-table td:last-child { color: var(--text); }
 
   /* ===== LOCK OVERLAY ===== */
   .serial-lock {
@@ -754,14 +770,10 @@ window.lookupSerial = async function () {
 
     const d = snap.data();
 
-    // Dynamically render every field on the document
-    const fieldsHtml = [
-      `<div class="result-field">
-        <div class="result-label">Serial</div>
-        <div class="result-value">${serial}</div>
-      </div>`,
+    // Dynamically render every field on the document as a table
+    const rows = [
+      `<tr><td>Serial</td><td>${serial}</td></tr>`,
       ...Object.entries(d).map(([key, val]) => {
-        // Format the key: remove underscores, title-case each word
         const label = key.replace(/_/g, " ").replace(/\b\w/g, c => c.toUpperCase());
         let display;
         if (val === null || val === undefined || val === "") {
@@ -769,21 +781,17 @@ window.lookupSerial = async function () {
         } else if (typeof val === "boolean") {
           display = val ? "Yes" : "No";
         } else if (val?.toDate) {
-          // Firestore Timestamp
           display = val.toDate().toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric" });
         } else {
           display = String(val);
         }
-        return `<div class="result-field">
-          <div class="result-label">${label}</div>
-          <div class="result-value">${display}</div>
-        </div>`;
+        return `<tr><td>${label}</td><td>${display}</td></tr>`;
       })
     ].join("");
 
     resultEl.innerHTML = `<div class="result-box">
       <div class="result-label" style="margin-bottom:1rem;">Unit Record — ${serial}</div>
-      <div class="result-grid">${fieldsHtml}</div>
+      <table class="result-table">${rows}</table>
     </div>`;
 
   } catch (err) {
