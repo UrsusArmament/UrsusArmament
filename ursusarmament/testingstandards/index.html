@@ -15,6 +15,7 @@
     --surface: #1a1a17;
     --surface2: #222220;
     --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.12);
     --text: #e8e4d9;
     --muted: #8a8678;
     --accent: #c8922a;
@@ -91,28 +92,28 @@
   .nav-ribbon a:hover { color: var(--accent); background: rgba(200,146,42,0.06); }
 
   .nav-auth {
-  display: flex;
-  align-items: center;
-}
+    display: flex;
+    align-items: center;
+  }
 
-.nav-auth a, .nav-auth button {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--accent);
-  background: transparent;
-  border: 1px solid var(--accent);
-  padding: 0.4rem 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
+  .nav-auth a, .nav-auth button {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--accent);
+    background: transparent;
+    border: 1px solid var(--accent);
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
 
-.nav-auth a:hover, .nav-auth button:hover {
-  background: rgba(200,146,42,0.08);
-}
+  .nav-auth a:hover, .nav-auth button:hover {
+    background: rgba(200,146,42,0.08);
+  }
 
   section { padding: 6rem 3rem; }
 
@@ -167,20 +168,38 @@
     margin-bottom: 0.5rem;
   }
 
+  /* ===== SERIAL LOOKUP ===== */
+  .lookup-section {
+    position: relative;
+  }
+
   .lookup {
     background: var(--surface2);
     padding: 3rem;
-    margin-top: 4rem;
+    margin-top: 2rem;
     border: 1px solid var(--border);
+  }
+
+  .lookup-row {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 1.5rem;
   }
 
   .lookup input {
     background: transparent;
-    border: 1px solid var(--border);
-    padding: 0.8rem;
+    border: 1px solid var(--border2);
+    padding: 0.8rem 1rem;
     color: var(--text);
-    width: 250px;
+    width: 280px;
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s;
   }
+  .lookup input:focus { border-color: var(--accent); }
+  .lookup input::placeholder { color: var(--muted); opacity: 0.6; }
 
   .btn {
     background: var(--accent);
@@ -191,6 +210,189 @@
     cursor: pointer;
     font-family: 'Barlow Condensed', sans-serif;
     letter-spacing: 0.1em;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    transition: background 0.2s;
+  }
+  .btn:hover { background: var(--accent2); }
+
+  #serialResult {
+    margin-top: 0;
+  }
+
+  .result-box {
+    border: 1px solid var(--border2);
+    background: var(--surface);
+    padding: 2rem;
+  }
+
+  .result-box.error {
+    border-color: rgba(200,60,60,0.4);
+    background: rgba(200,60,60,0.05);
+  }
+
+  .result-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    color: var(--accent);
+    margin-bottom: 0.4rem;
+  }
+
+  .result-label.error-label { color: #c84040; }
+
+  .result-value {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem;
+    color: var(--text);
+    letter-spacing: 0.05em;
+  }
+
+  .result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .result-field { display: flex; flex-direction: column; gap: 0.2rem; }
+
+  /* ===== LOCK OVERLAY ===== */
+  .serial-lock {
+    display: none;
+    position: absolute;
+    inset: 0;
+    background: rgba(10,10,8,0.82);
+    backdrop-filter: blur(8px);
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+  }
+
+  .serial-lock.active {
+    display: flex;
+  }
+
+  .lock-box {
+    text-align: center;
+    max-width: 400px;
+    padding: 2.5rem;
+    background: linear-gradient(180deg, var(--surface), var(--dark));
+    border: 1px solid var(--border2);
+  }
+
+  .lock-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    opacity: 0.6;
+  }
+
+  .lock-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.15em;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+  }
+
+  .lock-text {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .lock-btn {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.6rem 1.6rem;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .lock-btn:hover { background: rgba(200,146,42,0.1); }
+
+  /* ===== ACCESS GATE ===== */
+  .gate-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,10,8,0.65);
+    backdrop-filter: blur(12px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+  }
+
+  body.gate-active > *:not(#accessGate) {
+    filter: blur(10px);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .gate-box {
+    width: min(520px, 92%);
+    background: linear-gradient(180deg, var(--surface), var(--dark));
+    border: 1px solid var(--border2);
+    padding: 2.2rem;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+  }
+
+  .gate-title {
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 0.2em;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+
+  .gate-text {
+    font-family: 'Barlow', sans-serif;
+    color: var(--muted);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+
+  .gate-text span { color: var(--accent); font-weight: 600; }
+
+  .gate-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .gate-actions button {
+    padding: 0.7rem 2rem;
+    border: 1px solid var(--border2);
+    background: transparent;
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .gate-actions button:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(200,146,42,0.08);
+  }
+
+  .gate-small {
+    font-size: 0.7rem;
+    color: var(--muted);
+    opacity: 0.6;
   }
 
   /* Footer */
@@ -263,90 +465,12 @@
     .grid { grid-template-columns: 1fr; }
     footer { padding: 3rem 1.5rem 2rem; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .lookup input { width: 200px; }
   }
-  /* ===== ACCESS GATE ===== */
-
-.gate-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(10,10,8,0.65);
-  backdrop-filter: blur(12px);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  z-index: 99999;
-}
-
-/* Blur everything behind when active */
-body.gate-active > *:not(#accessGate) {
-  filter: blur(10px);
-  pointer-events: none;
-  user-select: none;
-}
-
-.gate-box {
-  width: min(520px, 92%);
-  background: linear-gradient(180deg, var(--surface), var(--dark));
-  border: 1px solid var(--border2);
-  padding: 2.2rem;
-  text-align: center;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
-}
-
-.gate-title {
-  font-family: 'Bebas Neue', sans-serif;
-  letter-spacing: 0.2em;
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  color: var(--text);
-}
-
-.gate-text {
-  font-family: 'Barlow', sans-serif;
-  color: var(--muted);
-  font-size: 0.95rem;
-  line-height: 1.7;
-  margin-bottom: 2rem;
-}
-
-.gate-text span {
-  color: var(--accent);
-  font-weight: 600;
-}
-
-.gate-actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  margin-bottom: 1.5rem;
-}
-
-.gate-actions button {
-  padding: 0.7rem 2rem;
-  border: 1px solid var(--border2);
-  background: transparent;
-  color: var(--text);
-  font-family: 'Barlow Condensed', sans-serif;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.gate-actions button:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  background: rgba(200,146,42,0.08);
-}
-
-.gate-small {
-  font-size: 0.7rem;
-  color: var(--muted);
-  opacity: 0.6;
-}
 </style>
 </head>
 <body>
+
 <!-- ACCESS GATE OVERLAY -->
 <div id="accessGate" class="gate-overlay">
   <div class="gate-box">
@@ -354,27 +478,26 @@ body.gate-active > *:not(#accessGate) {
     <div class="gate-text">
       You must confirm you are <span>18+</span> and a <span>U.S. person</span> to continue.
     </div>
-
     <div class="gate-actions">
       <button onclick="denyAccess()">No</button>
       <button onclick="allowAccess()">Yes</button>
     </div>
-
     <div class="gate-small">
       By continuing, you certify compliance with applicable export restrictions.
     </div>
   </div>
 </div>
+
 <nav>
   <div class="nav-top">
-  <div class="nav-brand">
-    <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
-    <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    <div class="nav-brand">
+      <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
+      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    </div>
+    <div class="nav-auth" id="navAuth">
+      <!-- populated by JS -->
+    </div>
   </div>
-  <div class="nav-auth" id="navAuth">
-    <!-- populated by JS -->
-  </div>
-</div>
   <div class="nav-ribbon">
     <a href="/ursusarmament/products">Products</a>
     <a href="/ursusarmament#mission">Our Mission</a>
@@ -435,7 +558,21 @@ body.gate-active > *:not(#accessGate) {
 </section>
 
 <!-- SERIAL LOOKUP -->
-<section>
+<section class="lookup-section">
+
+  <!-- Lock overlay — shown for non-full-access users -->
+  <div class="serial-lock" id="serialLock">
+    <div class="lock-box">
+      <div class="lock-icon">🔒</div>
+      <div class="lock-title">FULL ACCESS REQUIRED</div>
+      <div class="lock-text">
+        Serialized product record lookup is available to verified Full Access account holders only.
+        Log in or upgrade your account to continue.
+      </div>
+      <a href="/ursusarmament/settings/" class="lock-btn">Upgrade Account</a>
+    </div>
+  </div>
+
   <div class="section-tag">Verification</div>
   <h2>Serialized Product Records</h2>
   <p>
@@ -443,10 +580,15 @@ body.gate-active > *:not(#accessGate) {
     testing data. Enter a serial number below to access configuration details and associated
     validation data where applicable.
   </p>
+
   <div class="lookup">
-    <input type="text" placeholder="Enter Serial Number">
-    <button class="btn">Search</button>
+    <div class="lookup-row">
+      <input type="text" id="serialInput" placeholder="Enter Serial Number" />
+      <button class="btn" onclick="lookupSerial()">Search</button>
+    </div>
+    <div id="serialResult"></div>
   </div>
+
 </section>
 
 <!-- DISCLAIMER -->
@@ -496,29 +638,21 @@ body.gate-active > *:not(#accessGate) {
     <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
   </div>
 </footer>
+
+<!-- Age/US gate script -->
 <script>
 const ONE_HOUR = 60 * 60 * 1000;
 
 function checkGate() {
   const data = JSON.parse(localStorage.getItem("ursus_gate"));
-
-  const valid =
-    data &&
-    data.allowed === true &&
-    (Date.now() - data.time < ONE_HOUR);
-
+  const valid = data && data.allowed === true && (Date.now() - data.time < ONE_HOUR);
   if (valid) return;
-
   document.body.classList.add("gate-active");
   document.getElementById("accessGate").style.display = "flex";
 }
 
 function allowAccess() {
-  localStorage.setItem("ursus_gate", JSON.stringify({
-    allowed: true,
-    time: Date.now()
-  }));
-
+  localStorage.setItem("ursus_gate", JSON.stringify({ allowed: true, time: Date.now() }));
   document.body.classList.remove("gate-active");
   document.getElementById("accessGate").style.display = "none";
 }
@@ -529,9 +663,12 @@ function denyAccess() {
 
 window.addEventListener("load", checkGate);
 </script>
+
+<!-- Firebase + auth + serial lookup -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { initializeApp }        from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
@@ -544,15 +681,116 @@ const firebaseConfig = {
 
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db   = getFirestore(app);
 
-onAuthStateChanged(auth, (user) => {
-  const navAuth = document.getElementById("navAuth");
+let _isFullApproved = false;
+
+onAuthStateChanged(auth, async (user) => {
+  const navAuth  = document.getElementById("navAuth");
+  const lockEl   = document.getElementById("serialLock");
+
   if (user) {
     const emailPrefix = user.email.split("@")[0];
     navAuth.innerHTML = `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
+
+    // Check Firestore user doc for full access
+    try {
+      const userSnap = await getDoc(doc(db, "users", user.uid));
+      if (userSnap.exists()) {
+        const data = userSnap.data();
+        const isFullAccess = data.accountType === "full" &&
+                             data.fullApproval  === true  &&
+                             data.verifiedUSPerson === true &&
+                             data.status        === "approved";
+        _isFullApproved = isFullAccess;
+      }
+    } catch (e) {
+      console.error("Error reading user doc:", e);
+      _isFullApproved = false;
+    }
   } else {
     navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
+    _isFullApproved = false;
   }
+
+  // Show or hide lock overlay
+  if (_isFullApproved) {
+    lockEl.classList.remove("active");
+  } else {
+    lockEl.classList.add("active");
+  }
+});
+
+// Serial lookup
+window.lookupSerial = async function () {
+  if (!_isFullApproved) return; // safety guard
+
+  const serial    = document.getElementById("serialInput").value.trim().toUpperCase();
+  const resultEl  = document.getElementById("serialResult");
+
+  if (!serial) {
+    resultEl.innerHTML = `<div class="result-box error">
+      <div class="result-label error-label">Input Required</div>
+      <div class="result-value">Please enter a serial number.</div>
+    </div>`;
+    return;
+  }
+
+  resultEl.innerHTML = `<div class="result-box">
+    <div class="result-label">Searching…</div>
+    <div class="result-value" style="color:var(--muted);">Querying records for <strong>${serial}</strong></div>
+  </div>`;
+
+  try {
+    const snap = await getDoc(doc(db, "ursus-units", serial));
+
+    if (!snap.exists()) {
+      resultEl.innerHTML = `<div class="result-box error">
+        <div class="result-label error-label">No Record Found</div>
+        <div class="result-value">No unit found for serial number <strong>${serial}</strong>.</div>
+      </div>`;
+      return;
+    }
+
+    const d = snap.data();
+
+    // Build field rows — show whatever fields exist in the document
+    const fields = [
+      { label: "Serial",    value: serial },
+      { label: "Product",   value: d.product   || "—" },
+      { label: "Tier",      value: d.tier       || "—" },
+      { label: "Status",    value: d.available ? "Available" : "Registered" },
+      { label: "Build Date",value: d.buildDate  || "—" },
+      { label: "Config",    value: d.config     || "—" },
+      { label: "Notes",     value: d.notes      || "—" },
+    ];
+
+    const fieldsHtml = fields
+      .filter(f => f.value !== "—")
+      .map(f => `
+        <div class="result-field">
+          <div class="result-label">${f.label}</div>
+          <div class="result-value">${f.value}</div>
+        </div>`)
+      .join("");
+
+    resultEl.innerHTML = `<div class="result-box">
+      <div class="result-label" style="margin-bottom:1rem;">Unit Record — ${serial}</div>
+      <div class="result-grid">${fieldsHtml}</div>
+    </div>`;
+
+  } catch (err) {
+    console.error("Firestore lookup error:", err);
+    resultEl.innerHTML = `<div class="result-box error">
+      <div class="result-label error-label">Error</div>
+      <div class="result-value">Could not retrieve record. Please try again.</div>
+    </div>`;
+  }
+};
+
+// Allow Enter key to trigger search
+document.getElementById("serialInput").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") window.lookupSerial();
 });
 </script>
 </body>
