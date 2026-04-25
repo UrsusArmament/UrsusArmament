@@ -698,10 +698,10 @@ onAuthStateChanged(auth, async (user) => {
       const userSnap = await getDoc(doc(db, "users", user.uid));
       if (userSnap.exists()) {
         const data = userSnap.data();
-        const isFullAccess = data.accountType === "full" &&
-                             data.fullApproval  === true  &&
-                             data.verifiedUSPerson === true &&
-                             data.status        === "approved";
+        const isFullAccess = data.d_type                === "full" &&
+                             data.e_approved          === true  &&
+                             data.f_status            === "approved" &&
+                             data.g_verified_us_person === true;
         _isFullApproved = isFullAccess;
       }
     } catch (e) {
