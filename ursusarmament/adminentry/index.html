@@ -695,12 +695,12 @@ window.generateSpecSheet = async () => {
       AlignmentType, BorderStyle, WidthType, ShadingType, VerticalAlign
     } = window.docx;
 
-    const border  = { style: BorderStyle.SINGLE, size: 1, color: "CCCCCC" };
+    const border  = { style: BorderStyle.SINGLE, size: 4, color: "000000" };
     const borders = { top: border, bottom: border, left: border, right: border };
 
-    const headerShade = { fill: "1A1A17", type: ShadingType.CLEAR };
-    const rowShadeA   = { fill: "111110", type: ShadingType.CLEAR };
-    const rowShadeB   = { fill: "0A0A08", type: ShadingType.CLEAR };
+    const headerShade = undefined;
+    const rowShadeA   = undefined;
+    const rowShadeB   = undefined;
 
     const cellMargins = { top: 100, bottom: 100, left: 150, right: 150 };
 
@@ -714,14 +714,13 @@ window.generateSpecSheet = async () => {
           new TableCell({
             columnSpan: 2,
             borders,
-            shading: headerShade,
             margins: cellMargins,
             width: { size: LW + VW, type: WidthType.DXA },
             children: [new Paragraph({
               children: [new TextRun({
                 text: label.toUpperCase(),
                 bold: true,
-                color: "C8922A",
+                color: "000000",
                 font: "Arial",
                 size: 20
               })]
@@ -737,20 +736,18 @@ window.generateSpecSheet = async () => {
         children: [
           new TableCell({
             borders,
-            shading: shade,
             margins: cellMargins,
             width: { size: LW, type: WidthType.DXA },
             children: [new Paragraph({
-              children: [new TextRun({ text: label, bold: true, font: "Arial", size: 18, color: "8A8678" })]
+              children: [new TextRun({ text: label, bold: true, font: "Arial", size: 18, color: "000000" })]
             })]
           }),
           new TableCell({
             borders,
-            shading: shade,
             margins: cellMargins,
             width: { size: VW, type: WidthType.DXA },
             children: [new Paragraph({
-              children: [new TextRun({ text: v, font: "Arial", size: 18, color: "E8E4D9" })]
+              children: [new TextRun({ text: v, font: "Arial", size: 18, color: "000000" })]
             })]
           })
         ]
@@ -820,7 +817,7 @@ window.generateSpecSheet = async () => {
               bold: true,
               font: "Arial",
               size: 32,
-              color: "C8922A"
+              color: "000000"
             })]
           }),
           new Paragraph({
@@ -828,7 +825,7 @@ window.generateSpecSheet = async () => {
               text: `Serial: ${d.serial}   |   Product: ${d.product || "—"}   |   Tier: ${d.tier || "—"}`,
               font: "Arial",
               size: 20,
-              color: "8A8678"
+              color: "000000"
             })],
             spacing: { after: 300 }
           }),
