@@ -698,6 +698,7 @@ onAuthStateChanged(auth, async (user) => {
       const userSnap = await getDoc(doc(db, "users", user.uid));
       if (userSnap.exists()) {
         const data = userSnap.data();
+        console.log(data)
         const isFullAccess = data.d_type                === "full" &&
                              data.e_approved          === true  &&
                              data.f_status            === "approved" &&
