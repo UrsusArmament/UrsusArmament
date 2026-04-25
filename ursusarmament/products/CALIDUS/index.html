@@ -694,22 +694,8 @@
 </div>
 
 <!-- GATE + NOTIFY SCRIPT -->
+<script src="/ursusarmament/access-check.js"></script>
 <script>
-const ONE_HOUR = 60 * 60 * 1000;
-function checkGate() {
-  const data = JSON.parse(localStorage.getItem("ursus_gate"));
-  const valid = data && data.allowed === true && (Date.now() - data.time < ONE_HOUR);
-  if (valid) return;
-  document.body.classList.add("gate-active");
-  document.getElementById("accessGate").style.display = "flex";
-}
-function allowAccess() {
-  localStorage.setItem("ursus_gate", JSON.stringify({ allowed: true, time: Date.now() }));
-  document.body.classList.remove("gate-active");
-  document.getElementById("accessGate").style.display = "none";
-}
-function denyAccess() { window.location.href = "https://www.google.com"; }
-window.addEventListener("load", checkGate);
 
 function openReviewModal()  { document.getElementById("reviewModal").style.display = "flex"; }
 function closeReviewModal() { document.getElementById("reviewModal").style.display = "none"; }
