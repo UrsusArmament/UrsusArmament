@@ -251,7 +251,11 @@ async function checkRegion() {
 function checkGate() {
   const data  = JSON.parse(localStorage.getItem("ursus_gate") || "null");
   const valid = data && data.allowed === true && (Date.now() - data.time < TWELVE_HOURS);
-  if (valid) return;
+  if (valid) {
+    console.log("[Ursus Gate] Cache hit — gate acknowledged, skipping. Expires in", Math.round((TWELVE_HOURS - (Date.now() - data.time)) / 60000), "minutes.");
+    return;
+  }
+  console.log("[Ursus Gate] No valid cache — showing gate.");
   document.body.classList.add("gate-active");
   document.getElementById("accessGate").style.display = "flex";
 }
