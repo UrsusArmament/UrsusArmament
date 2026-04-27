@@ -69,6 +69,67 @@
   .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
   .nav-ribbon a:hover, .nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
 
+  /* NAV RIGHT: cart icon + auth */
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  /* CART ICON BUTTON */
+  .nav-cart-btn {
+    position: relative;
+    background: transparent;
+    border: 1px solid var(--border2);
+    color: var(--text);
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+    flex-shrink: 0;
+  }
+  .nav-cart-btn:hover {
+    border-color: var(--accent);
+    background: rgba(200,146,42,0.06);
+  }
+  .nav-cart-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--text);
+    fill: none;
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: stroke 0.2s;
+  }
+  .nav-cart-btn:hover svg { stroke: var(--accent); }
+
+  /* Cart count badge */
+  .cart-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: var(--accent);
+    color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    min-width: 16px;
+    height: 16px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
+    line-height: 1;
+    display: none; /* hidden when 0 */
+  }
+  .cart-count.visible { display: flex; }
+
   .nav-auth { display: flex; align-items: center; }
   .nav-auth a, .nav-auth button {
     font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700;
@@ -272,8 +333,28 @@
   .unit-expand-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
   .unit-expand-value.highlight { color: var(--accent); }
   .unit-expand-notes { background: var(--surface); margin: 2px; margin-top: 0; padding: 1rem 1.5rem; display: flex; flex-direction: column; gap: 0.2rem; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
-  .unit-add-btn { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.6rem 1.25rem; border: none; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
-  .unit-add-btn:hover { background: var(--accent2); }
+
+  /* ADD TO CART BUTTON — matches existing site style */
+  .unit-add-btn {
+    background: var(--accent);
+    color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.6rem 1.25rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    white-space: nowrap;
+  }
+  .unit-add-btn:hover { background: var(--accent2); transform: translateY(-1px); }
+  .unit-add-btn:active { transform: translateY(0); }
+  .unit-add-btn.added {
+    background: var(--green);
+    color: #fff;
+  }
 
   /* FEATURE LOCK OVERLAY */
   .feature-lock-overlay {
@@ -305,10 +386,23 @@
   .review-meta { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-family: 'Barlow Condensed', sans-serif; }
   .review-text { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-top: 0.25rem; }
   .reviews-empty { padding: 2rem; text-align: center; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.15em; color: var(--muted); }
-
   .review-images { display: flex; flex-direction: column; gap: 0.5rem; flex-shrink: 0; width: 200px; }
   .review-img { width: 200px; height: 150px; object-fit: cover; cursor: pointer; border: 1px solid var(--border2); transition: opacity 0.2s, border-color 0.2s; display: block; }
   .review-img:hover { opacity: 0.85; border-color: var(--accent); }
+
+  /* TOAST */
+  .cart-toast {
+    position: fixed; bottom: 2rem; right: 2rem;
+    background: var(--surface2); border: 1px solid var(--accent);
+    color: var(--text); padding: 1rem 1.5rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem; letter-spacing: 0.05em;
+    z-index: 999; transform: translateY(100px); opacity: 0;
+    transition: transform 0.3s, opacity 0.3s;
+    max-width: 320px;
+    pointer-events: none;
+  }
+  .cart-toast.show { transform: translateY(0); opacity: 1; }
 
   @media (max-width: 600px) {
     .review-card { flex-direction: column; gap: 1.25rem; padding: 1.5rem; }
@@ -335,13 +429,31 @@
 </head>
 <body>
 
+<!-- CART TOAST -->
+<div class="cart-toast" id="cartToast"></div>
+
 <nav>
   <div class="nav-top">
     <div class="nav-brand">
       <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
       <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
     </div>
-    <div class="nav-auth" id="navAuth"><!-- populated by JS --></div>
+
+    <!-- NAV RIGHT: cart icon + auth -->
+    <div class="nav-right">
+
+      <!-- Cart icon button -->
+      <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <span class="cart-count" id="cartCount"></span>
+      </a>
+
+      <div class="nav-auth" id="navAuth"><!-- populated by JS --></div>
+    </div>
   </div>
   <div class="nav-ribbon">
     <a href="/ursusarmament/products" class="active">Products</a>
@@ -424,7 +536,6 @@
 
 <!-- SERIAL LOOKUP -->
 <section class="serial-section" id="serial">
-  <!-- LOCK OVERLAY -->
   <div class="feature-lock-overlay" id="serialLock">
     <div class="feature-lock-box">
       <div class="feature-lock-title">FULL ACCESS REQUIRED</div>
@@ -498,9 +609,8 @@
   </div>
 </section>
 
-<!-- CONFIGURE -->
+<!-- CONFIGURE / AVAILABLE UNITS -->
 <section class="config-section" id="configure">
-  <!-- LOCK OVERLAY -->
   <div class="feature-lock-overlay" id="unitsLock">
     <div class="feature-lock-box">
       <div class="feature-lock-title">FULL ACCESS REQUIRED</div>
@@ -600,7 +710,6 @@
     <div id="reviewFormContainer">
       <h2 style="font-family:'Bebas Neue'; letter-spacing:0.06em; margin-bottom:1rem;">Leave a Review</h2>
       <div style="display:flex; flex-direction:column; gap:1rem;">
-
         <div style="display:flex; flex-direction:column; gap:0.3rem;">
           <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Product</label>
           <select id="rv_product" required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);">
@@ -611,7 +720,6 @@
             <option value="NEXIS">NEXIS</option>
           </select>
         </div>
-
         <div style="display:flex; flex-direction:column; gap:0.3rem;">
           <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Feedback Type</label>
           <select id="rv_feedbackType" required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);">
@@ -620,19 +728,16 @@
             <option value="Field Review">Field Review</option>
           </select>
         </div>
-
         <div style="display:flex; flex-direction:column; gap:0.3rem;">
           <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Star Rating</label>
           <div id="starRating" style="display:flex; gap:0.4rem; font-size:1.8rem; cursor:pointer;">
             <span data-value="1">☆</span><span data-value="2">☆</span><span data-value="3">☆</span><span data-value="4">☆</span><span data-value="5">☆</span>
           </div>
         </div>
-
         <div style="display:flex; flex-direction:column; gap:0.3rem;">
           <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">First Name</label>
           <input id="rv_firstName" type="text" placeholder="Your First Name" required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);" />
         </div>
-
         <div style="display:flex; flex-direction:column; gap:0.3rem;">
           <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">State</label>
           <select id="rv_state" required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);">
@@ -640,18 +745,15 @@
             <option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option>
           </select>
         </div>
-
         <div style="display:flex; flex-direction:column; gap:0.3rem;">
           <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Review</label>
           <textarea id="rv_reviewText" rows="5" placeholder="Write your review here..." required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border); font-family:'Barlow',sans-serif; resize:vertical;"></textarea>
         </div>
-
         <div style="display:flex; flex-direction:column; gap:0.3rem;">
           <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Photos (Optional — Max 2)</label>
           <input id="rv_img1" type="file" accept="image/png,image/jpeg,image/webp" style="padding:0.5rem; background:var(--surface); border:1px solid var(--border); color:var(--muted);">
           <input id="rv_img2" type="file" accept="image/png,image/jpeg,image/webp" style="padding:0.5rem; background:var(--surface); border:1px solid var(--border); color:var(--muted);">
         </div>
-
         <div id="rv_msg" style="font-size:0.82rem; min-height:1.2em;"></div>
         <button id="rv_submitBtn" onclick="submitReview()" class="btn-dark" style="margin-top:0.5rem;">Submit Review</button>
       </div>
@@ -663,18 +765,94 @@
   </div>
 </div>
 
+<!-- ============================================================
+     CART ENGINE
+     Reads/writes localStorage key "ursus_cart"
+     Cart item shape: { id, product, price, tier, serial, quantity }
+============================================================ -->
+<script>
+const CART_KEY = 'ursus_cart';
+
+function getCart() {
+  try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+  catch { return []; }
+}
+
+function saveCart(cart) {
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  updateCartBadge();
+}
+
+function updateCartBadge() {
+  const cart  = getCart();
+  const count = cart.reduce((sum, i) => sum + (i.quantity || 1), 0);
+  const badge = document.getElementById('cartCount');
+  if (!badge) return;
+  if (count > 0) {
+    badge.textContent = count > 99 ? '99+' : count;
+    badge.classList.add('visible');
+  } else {
+    badge.classList.remove('visible');
+  }
+}
+
+// ── addToCart — called from unit buttons ──
+window.addToCart = function(item, btnEl) {
+  const cart         = getCart();
+  const isSerialized = !!item.serial;
+
+  if (isSerialized) {
+    // Each serial is unique — only 1 per cart
+    const already = cart.find(c => c.id === item.id && c.serial === item.serial);
+    if (already) {
+      showToast(`${item.product} (S/N: ${item.serial}) is already in your cart.`);
+      return;
+    }
+    cart.push({ ...item, quantity: 1 });
+  } else {
+    const existing = cart.find(c => c.id === item.id);
+    if (existing) {
+      existing.quantity += 1;
+    } else {
+      cart.push({ ...item, quantity: 1 });
+    }
+  }
+
+  saveCart(cart);
+  showToast(`${item.product}${item.serial ? ' (S/N: ' + item.serial + ')' : ''} added to cart!`);
+
+  // Visual feedback on the button
+  if (btnEl) {
+    const orig = btnEl.textContent;
+    btnEl.textContent = '✓ Added';
+    btnEl.classList.add('added');
+    setTimeout(() => {
+      btnEl.textContent = orig;
+      btnEl.classList.remove('added');
+    }, 2000);
+  }
+};
+
+// ── Toast ──
+function showToast(msg) {
+  const toast = document.getElementById('cartToast');
+  if (!toast) return;
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+// Run badge on page load
+updateCartBadge();
+</script>
+
 <!-- GATE SCRIPT -->
 <script src="/ursusarmament/access-check.js"></script>
 <script>
+function openReviewModal()  { document.getElementById("reviewModal").style.display = "flex"; }
+function closeReviewModal() { document.getElementById("reviewModal").style.display = "none"; }
 
-function openReviewModal() {
-  document.getElementById("reviewModal").style.display = "flex";
-}
-function closeReviewModal() {
-  document.getElementById("reviewModal").style.display = "none";
-}
-
-// Star rating
 let _starRating = 0;
 document.addEventListener("DOMContentLoaded", function () {
   const stars = document.querySelectorAll("#starRating span");
@@ -692,7 +870,7 @@ document.addEventListener("DOMContentLoaded", function () {
 import { initializeApp }     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged }
                              from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, addDoc, collection, query, where, getDocs, orderBy }
+import { getFirestore, doc, getDoc, addDoc, collection, query, where, getDocs, updateDoc }
                              from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL }
                              from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
@@ -717,19 +895,17 @@ let _panelOpen      = false;
 window._currentTier = 'BASE';
 let _currentTier    = window._currentTier;
 
-/* ── Auth & tiered access ── */
+/* ── Auth & access ── */
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     window.location.replace("/ursusarmament/login/");
     return;
   }
 
-  // Nav
   const emailPrefix = user.email.split("@")[0];
   document.getElementById("navAuth").innerHTML =
     `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
 
-  // Check user Firestore record
   try {
     const snap = await getDoc(doc(db, "users", emailPrefix));
     const data = snap.data();
@@ -744,7 +920,6 @@ onAuthStateChanged(auth, async (user) => {
     _isFullApproved = false;
   }
 
-  // Show or hide locks
   if (_isFullApproved) {
     document.getElementById("serialLock").classList.remove("active");
     document.getElementById("unitsLock").classList.remove("active");
@@ -807,7 +982,7 @@ document.getElementById('serialInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') window.lookupSerial();
 });
 
-/* ── Available units ── */
+/* ── Fetch available units ── */
 async function fetchUnits() {
   if (_allUnits) return _allUnits;
   try {
@@ -817,7 +992,8 @@ async function fetchUnits() {
       where("available", "==", true)
     );
     const snap = await getDocs(q);
-    _allUnits  = snap.docs.map(d => d.data());
+    // Store both the data AND the Firestore document ID
+    _allUnits  = snap.docs.map(d => ({ ...d.data(), _docId: d.id }));
   } catch (err) {
     console.error("Units fetch error:", err);
     _allUnits = [];
@@ -829,11 +1005,13 @@ function tiersWithStock(units) {
   return ['BASE','PLUS','PRO','ULTRA'].filter(t => units.some(u => u.tier === t));
 }
 
+/* ── Render units panel ── */
 function renderUnitsPanel(units, tier) {
-  const body  = document.getElementById('unitsPanelBody');
-  const title = document.getElementById('unitsPanelTitle');
+  const body      = document.getElementById('unitsPanelBody');
+  const title     = document.getElementById('unitsPanelTitle');
   title.textContent = 'Available Units — ' + tier + ' Tier';
   const tierUnits = units.filter(u => u.tier === tier);
+
   if (units.length === 0) {
     body.innerHTML = '<div class="units-no-stock">Sorry, there are no available units at this time.</div>';
     return;
@@ -846,21 +1024,26 @@ function renderUnitsPanel(units, tier) {
       : '<div class="units-no-stock">Sorry, there are no available units at this time.</div>';
     return;
   }
+
   body.innerHTML = tierUnits.map((u, i) => `
     <div class="unit-row" id="unit-row-${i}">
       <div class="unit-row-main" onclick="toggleUnitExpand(${i})">
         <div class="unit-row-left">
-          <span class="unit-row-serial">${u.serial}</span>
+          <span class="unit-row-serial">${u.serial ?? '—'}</span>
           <span class="unit-row-tier">${u.tier}</span>
           <div class="unit-row-stats">
-            <span class="unit-row-stat"><span class="unit-row-stat-label">Phosphor</span>${u.phosphor}</span>
-            <span class="unit-row-stat"><span class="unit-row-stat-label">FOM</span>${u.fom}</span>
-            <span class="unit-row-stat"><span class="unit-row-stat-label">SNR</span>${u.snr} dB</span>
-            <span class="unit-row-stat"><span class="unit-row-stat-label">Resolution</span>${u.resolution}</span>
+            <span class="unit-row-stat"><span class="unit-row-stat-label">Phosphor</span>${u.phosphor ?? '—'}</span>
+            <span class="unit-row-stat"><span class="unit-row-stat-label">FOM</span>${u.fom ?? '—'}</span>
+            <span class="unit-row-stat"><span class="unit-row-stat-label">SNR</span>${u.snr ? u.snr + ' dB' : '—'}</span>
+            <span class="unit-row-stat"><span class="unit-row-stat-label">Resolution</span>${u.resolution ?? '—'}</span>
           </div>
         </div>
         <div class="unit-row-right">
-          <button class="unit-add-btn" onclick="event.stopPropagation()">Add to Cart</button>
+          <button
+            class="unit-add-btn"
+            id="add-btn-${i}"
+            onclick="event.stopPropagation(); handleAddToCart(${i})"
+          >Add to Cart</button>
           <span class="unit-row-price">$${Number(u.price || 0).toLocaleString()}</span>
           <span class="unit-row-arrow" id="unit-arrow-${i}">▼</span>
         </div>
@@ -870,11 +1053,11 @@ function renderUnitsPanel(units, tier) {
           <div class="unit-expand-field"><span class="unit-expand-label">Generation</span><span class="unit-expand-value">${u.generation ?? '—'}</span></div>
           <div class="unit-expand-field"><span class="unit-expand-label">Phosphor</span><span class="unit-expand-value">${u.phosphor ?? '—'}</span></div>
           <div class="unit-expand-field"><span class="unit-expand-label">Figure of Merit</span><span class="unit-expand-value highlight">${u.fom ?? '—'}</span></div>
-          <div class="unit-expand-field"><span class="unit-expand-label">Signal-to-Noise Ratio</span><span class="unit-expand-value highlight">${u.snr ?? '—'} dB</span></div>
+          <div class="unit-expand-field"><span class="unit-expand-label">Signal-to-Noise Ratio</span><span class="unit-expand-value highlight">${u.snr ? u.snr + ' dB' : '—'}</span></div>
           <div class="unit-expand-field"><span class="unit-expand-label">Resolution</span><span class="unit-expand-value highlight">${u.resolution ?? '—'}</span></div>
-          <div class="unit-expand-field"><span class="unit-expand-label">PC Luminous Sensitivity</span><span class="unit-expand-value">${u.photocathodeLuminousSensitivity ?? '—'} µA/lm</span></div>
-          <div class="unit-expand-field"><span class="unit-expand-label">PC Sensitivity w/ Filter</span><span class="unit-expand-value">${u.photocathodeSensitivityWithFilter ?? '—'} µA/lm</span></div>
-          <div class="unit-expand-field"><span class="unit-expand-label">PC Radiant Sensitivity</span><span class="unit-expand-value">${u.photocathodeRadiantSensitivity ?? '—'} mA/W</span></div>
+          <div class="unit-expand-field"><span class="unit-expand-label">PC Luminous Sensitivity</span><span class="unit-expand-value">${u.photocathodeLuminousSensitivity ? u.photocathodeLuminousSensitivity + ' µA/lm' : '—'}</span></div>
+          <div class="unit-expand-field"><span class="unit-expand-label">PC Sensitivity w/ Filter</span><span class="unit-expand-value">${u.photocathodeSensitivityWithFilter ? u.photocathodeSensitivityWithFilter + ' µA/lm' : '—'}</span></div>
+          <div class="unit-expand-field"><span class="unit-expand-label">PC Radiant Sensitivity</span><span class="unit-expand-value">${u.photocathodeRadiantSensitivity ? u.photocathodeRadiantSensitivity + ' mA/W' : '—'}</span></div>
           <div class="unit-expand-field"><span class="unit-expand-label">Luminous Gain</span><span class="unit-expand-value">${u.luminousGain ? Number(u.luminousGain).toLocaleString() : '—'}</span></div>
           <div class="unit-expand-field"><span class="unit-expand-label">Battery Life</span><span class="unit-expand-value">${u.batteryLife ?? '—'}</span></div>
           <div class="unit-expand-field"><span class="unit-expand-label">IP Rating</span><span class="unit-expand-value">${u.ipRating ?? '—'}</span></div>
@@ -887,7 +1070,26 @@ function renderUnitsPanel(units, tier) {
       </div>
     </div>
   `).join('');
+
+  // Store the current tier units so handleAddToCart can access them
+  window._renderedTierUnits = tierUnits;
 }
+
+/* ── Add to cart from units panel ── */
+window.handleAddToCart = function(i) {
+  const units = window._renderedTierUnits;
+  if (!units || !units[i]) return;
+  const u   = units[i];
+  const btn = document.getElementById('add-btn-' + i);
+
+  window.addToCart({
+    id:      u._docId,       // Firestore document ID
+    product: u.product || 'URSIX',
+    price:   String(u.price || '0'),
+    tier:    u.tier || null,
+    serial:  u.serial || null   // null if field doesn't exist
+  }, btn);
+};
 
 window.toggleUnitExpand = function(i) {
   const expand = document.getElementById('unit-expand-' + i);
@@ -915,7 +1117,7 @@ window.toggleUnitsPanel = async function(tier) {
 window.selectConfig = function(card, price, tier) {
   document.querySelectorAll('.config-card').forEach(c => c.classList.remove('selected'));
   card.classList.add('selected');
-  _currentTier = tier;
+  _currentTier        = tier;
   window._currentTier = tier;
   document.getElementById('totalPrice').textContent = '~$' + price.toLocaleString();
   if (_panelOpen) fetchUnits().then(units => renderUnitsPanel(units, tier));
@@ -942,23 +1144,20 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
-/* ══════════════════════════════════════════════
-   LOAD URSIX REVIEWS FROM FIRESTORE
-══════════════════════════════════════════════ */
+/* ── Load URSIX reviews ── */
 async function loadURSIXReviews() {
   const container = document.getElementById('reviewsContainer');
   try {
     const q    = query(
       collection(db, "ursus-reviews"),
-      where("productType",      "==", "URSIX"),
-      where("reviewApproval",   "==", true)
+      where("productType",    "==", "URSIX"),
+      where("reviewApproval", "==", true)
     );
     const snap = await getDocs(q);
     if (snap.empty) {
       container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
       return;
     }
-    // Sort by timestamp descending client-side (avoids needing composite index)
     const reviews = snap.docs.map(d => d.data()).sort((a, b) => {
       const ta = a.timestamp?.toMillis?.() ?? 0;
       const tb = b.timestamp?.toMillis?.() ?? 0;
@@ -967,9 +1166,8 @@ async function loadURSIXReviews() {
     container.innerHTML = '';
     reviews.forEach(r => {
       const stars = '★'.repeat(r.starRating || 0) + '☆'.repeat(5 - (r.starRating || 0));
-      const div = document.createElement('div');
+      const div   = document.createElement('div');
       div.className = 'review-card';
-      // Build image HTML if present
       let imgHtml = '';
       if (r.img1_url || r.img2_url) {
         imgHtml = '<div class="review-images">';
@@ -997,9 +1195,7 @@ async function loadURSIXReviews() {
 }
 loadURSIXReviews();
 
-/* ══════════════════════════════════════════════
-   SUBMIT REVIEW TO FIRESTORE + STORAGE
-══════════════════════════════════════════════ */
+/* ── Submit review ── */
 function uploadReviewImage(file, path) {
   return new Promise((resolve, reject) => {
     const ref  = storageRef(storage, path);
@@ -1014,7 +1210,6 @@ function uploadReviewImage(file, path) {
 window.submitReview = async function() {
   const msg    = document.getElementById("rv_msg");
   const btn    = document.getElementById("rv_submitBtn");
-
   const productType  = document.getElementById("rv_product").value;
   const feedbackType = document.getElementById("rv_feedbackType").value;
   const firstName    = document.getElementById("rv_firstName").value.trim();
@@ -1023,58 +1218,38 @@ window.submitReview = async function() {
   const img1File     = document.getElementById("rv_img1").files[0];
   const img2File     = document.getElementById("rv_img2").files[0];
 
-  // Validation
-  if (!productType)  { msg.style.color = "#c0392b"; msg.textContent = "Please select a product."; return; }
-  if (!feedbackType) { msg.style.color = "#c0392b"; msg.textContent = "Please select a feedback type."; return; }
-  if (_starRating === 0) { msg.style.color = "#c0392b"; msg.textContent = "Please select a star rating."; return; }
-  if (!firstName)    { msg.style.color = "#c0392b"; msg.textContent = "Please enter your first name."; return; }
-  if (!state)        { msg.style.color = "#c0392b"; msg.textContent = "Please select your state."; return; }
-  if (!reviewText)   { msg.style.color = "#c0392b"; msg.textContent = "Please write your review."; return; }
+  if (!productType)       { msg.style.color = "#c0392b"; msg.textContent = "Please select a product."; return; }
+  if (!feedbackType)      { msg.style.color = "#c0392b"; msg.textContent = "Please select a feedback type."; return; }
+  if (_starRating === 0)  { msg.style.color = "#c0392b"; msg.textContent = "Please select a star rating."; return; }
+  if (!firstName)         { msg.style.color = "#c0392b"; msg.textContent = "Please enter your first name."; return; }
+  if (!state)             { msg.style.color = "#c0392b"; msg.textContent = "Please select your state."; return; }
+  if (!reviewText)        { msg.style.color = "#c0392b"; msg.textContent = "Please write your review."; return; }
 
   btn.disabled    = true;
   btn.textContent = "Submitting...";
   msg.textContent = "";
 
   try {
-    // 1. Create Firestore document first to get the auto-generated ID
     const reviewRef = await addDoc(collection(db, "ursus-reviews"), {
-      productType,
-      feedbackType,
-      starRating:      _starRating,
-      firstName,
-      state,
-      reviewText,
-      reviewApproval:  false,
-      img1_url:        "",
-      img2_url:        "",
-      timestamp:       new Date(),
+      productType, feedbackType, starRating: _starRating,
+      firstName, state, reviewText,
+      reviewApproval: false, img1_url: "", img2_url: "",
+      timestamp: new Date(),
     });
-
     const docId = reviewRef.id;
-    let img1_url = "";
-    let img2_url = "";
-
-    // 2. Upload images if provided
+    let img1_url = "", img2_url = "";
     if (img1File) {
       btn.textContent = "Uploading photos...";
-      const ext1 = img1File.name.split(".").pop();
-      img1_url = await uploadReviewImage(img1File, `ursus-reviews/${docId}/img1.${ext1}`);
+      img1_url = await uploadReviewImage(img1File, `ursus-reviews/${docId}/img1.${img1File.name.split('.').pop()}`);
     }
     if (img2File) {
-      const ext2 = img2File.name.split(".").pop();
-      img2_url = await uploadReviewImage(img2File, `ursus-reviews/${docId}/img2.${ext2}`);
+      img2_url = await uploadReviewImage(img2File, `ursus-reviews/${docId}/img2.${img2File.name.split('.').pop()}`);
     }
-
-    // 3. If images were uploaded, update the document with URLs
     if (img1_url || img2_url) {
-      const { updateDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
       await updateDoc(reviewRef, { img1_url, img2_url });
     }
-
-    // Show thank you
     document.getElementById("reviewFormContainer").style.display = "none";
     document.getElementById("reviewThankYou").style.display      = "block";
-
   } catch (err) {
     console.error("Review submit error:", err);
     msg.style.color = "#c0392b";
@@ -1084,7 +1259,6 @@ window.submitReview = async function() {
   }
 };
 
-/* ── Review image lightbox ── */
 window.openReviewImage = function(url) {
   const lb = document.createElement("div");
   lb.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:999999;display:flex;align-items:center;justify-content:center;cursor:pointer;";
