@@ -455,6 +455,22 @@
 <!-- GATE SCRIPT -->
 <script src="/ursusarmament/access-check.js"></script>
 
+<script>
+function openReviewModal()  { document.getElementById("reviewModal").style.display = "flex"; }
+function closeReviewModal() { document.getElementById("reviewModal").style.display = "none"; }
+
+let _starRating = 0;
+document.addEventListener("DOMContentLoaded", function () {
+  const stars = document.querySelectorAll("#starRating span");
+  stars.forEach(star => {
+    star.addEventListener("click", () => {
+      _starRating = parseInt(star.dataset.value);
+      stars.forEach(s => { s.textContent = parseInt(s.dataset.value) <= _starRating ? "★" : "☆"; });
+    });
+  });
+});
+</script>
+ 
 <!-- FIREBASE + REVIEWS + SUBMIT -->
 <script type="module">
 import { initializeApp }   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
