@@ -943,10 +943,9 @@
 
       // Worker returns { url: "https://checkout.stripe.com/..." }
       if (data.url) {
-        // Clear cart and redirect to Stripe
-        saveCart([]);
         window.location.href = data.url;
-      } else {
+      } 
+      else {
         throw new Error('No checkout URL received.');
       }
 
