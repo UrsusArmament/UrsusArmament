@@ -1,1 +1,1042 @@
-placeholder
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart — Ursus Armament</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --surface2: #222220;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+    --accent2: #e8a830;
+    --danger: #c0392b;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,8,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-slogan {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .nav-auth {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-auth a, .nav-auth button {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--accent);
+    background: transparent;
+    border: 1px solid var(--accent);
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .nav-auth a:hover, .nav-auth button:hover {
+    background: rgba(200,146,42,0.08);
+  }
+
+  .nav-ribbon {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0;
+    padding: 0 3rem;
+    height: 38px;
+    background: var(--surface);
+  }
+
+  .nav-ribbon a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0 1.6rem;
+    height: 100%;
+    display: flex; align-items: center;
+    border-right: 1px solid var(--border);
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
+  .nav-ribbon a:hover, .nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
+
+  /* PAGE LAYOUT */
+  .page-wrapper {
+    padding-top: 124px;
+    min-height: 100vh;
+    padding-bottom: 6rem;
+  }
+
+  /* PAGE HEADER */
+  .page-header {
+    padding: 3rem 3rem 0;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 2rem;
+    margin-bottom: 3rem;
+  }
+
+  .page-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .page-eyebrow::before {
+    content: '';
+    display: block; width: 20px; height: 1px;
+    background: var(--accent);
+  }
+
+  .page-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    color: var(--text);
+  }
+
+  /* CART LAYOUT */
+  .cart-layout {
+    display: grid;
+    grid-template-columns: 1fr 380px;
+    gap: 2rem;
+    padding: 0 3rem;
+    align-items: start;
+  }
+
+  /* CART ITEMS */
+  .cart-items-section {}
+
+  .cart-items-header {
+    display: grid;
+    grid-template-columns: 1fr 120px 120px 48px;
+    gap: 1rem;
+    padding: 0.5rem 1.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .cart-items-header span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .cart-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    margin-bottom: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 120px 120px 48px;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    transition: border-color 0.2s;
+    position: relative;
+  }
+
+  .cart-item::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 3px;
+    background: var(--accent);
+  }
+
+  .cart-item:hover {
+    border-color: var(--border2);
+  }
+
+  .item-info {}
+
+  .item-product {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+
+  .item-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+  }
+
+  .item-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.5rem;
+    background: rgba(200,146,42,0.12);
+    color: var(--accent);
+    border: 1px solid rgba(200,146,42,0.25);
+  }
+
+  .item-serial {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+
+  .item-qty {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .qty-btn {
+    width: 28px;
+    height: 28px;
+    background: var(--surface2);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s, border-color 0.15s;
+    line-height: 1;
+    padding: 0;
+    font-family: 'Barlow', sans-serif;
+  }
+
+  .qty-btn:hover {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: var(--black);
+  }
+
+  .qty-num {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    min-width: 20px;
+    text-align: center;
+    color: var(--text);
+  }
+
+  /* Serialized items can only have qty 1 */
+  .cart-item[data-serialized="true"] .qty-btn {
+    opacity: 0.3;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  .item-price {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--text);
+  }
+
+  .item-remove {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 0.25rem;
+    transition: color 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+  }
+
+  .item-remove:hover {
+    color: var(--danger);
+  }
+
+  /* EMPTY STATE */
+  .cart-empty {
+    padding: 5rem 1.5rem;
+    text-align: center;
+    display: none;
+  }
+
+  .cart-empty.visible {
+    display: block;
+  }
+
+  .cart-empty-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.2;
+  }
+
+  .cart-empty h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .cart-empty p {
+    color: var(--muted);
+    font-size: 0.95rem;
+    margin-bottom: 2rem;
+  }
+
+  /* ORDER SUMMARY */
+  .order-summary {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    position: sticky;
+    top: 140px;
+  }
+
+  .summary-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .summary-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
+    color: var(--text);
+  }
+
+  .summary-body {
+    padding: 1.5rem;
+  }
+
+  .summary-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .summary-line .label {
+    color: var(--muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
+  }
+
+  .summary-line .value {
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .summary-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 1rem 0;
+  }
+
+  .summary-total {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+  }
+
+  .summary-total .label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .summary-total .value {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.8rem;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+  }
+
+  /* SHIPPING NOTICE */
+  .shipping-notice {
+    background: rgba(200,146,42,0.08);
+    border: 1px solid rgba(200,146,42,0.2);
+    padding: 0.75rem 1rem;
+    margin-bottom: 1.25rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .shipping-notice.earned {
+    background: rgba(40,160,80,0.08);
+    border-color: rgba(40,160,80,0.25);
+    color: #4caf7d;
+  }
+
+  /* CHECKOUT BTN */
+  .btn-checkout {
+    width: 100%;
+    background: var(--accent);
+    color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+  }
+
+  .btn-checkout:hover:not(:disabled) {
+    background: var(--accent2);
+    transform: translateY(-1px);
+  }
+
+  .btn-checkout:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  .btn-checkout.loading {
+    opacity: 0.7;
+    cursor: wait;
+  }
+
+  .btn-checkout .spinner {
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(0,0,0,0.3);
+    border-top-color: var(--black);
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    display: none;
+  }
+
+  .btn-checkout.loading .spinner {
+    display: block;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .btn-continue {
+    display: block;
+    text-align: center;
+    margin-top: 1rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .btn-continue:hover { color: var(--accent); }
+
+  /* TRUST BADGES */
+  .trust-row {
+    display: flex;
+    gap: 0;
+    background: var(--border);
+    border-top: 1px solid var(--border);
+    margin-top: 1.5rem;
+  }
+
+  .trust-item {
+    flex: 1;
+    background: var(--surface);
+    padding: 0.85rem 0.75rem;
+    text-align: center;
+    border-right: 1px solid var(--border);
+  }
+
+  .trust-item:last-child { border-right: none; }
+
+  .trust-icon {
+    display: block;
+    font-size: 1.1rem;
+    margin-bottom: 0.25rem;
+  }
+
+  .trust-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    line-height: 1.3;
+  }
+
+  /* ERROR MESSAGE */
+  .error-banner {
+    background: rgba(192,57,43,0.1);
+    border: 1px solid rgba(192,57,43,0.3);
+    color: #e57373;
+    padding: 1rem 1.5rem;
+    margin-bottom: 1rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    display: none;
+  }
+
+  .error-banner.visible {
+    display: block;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    padding: 2rem 3rem;
+    margin-top: 6rem;
+  }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    opacity: 0.4;
+  }
+
+  .footer-logo span { color: var(--accent); opacity: 1; }
+
+  .footer-legal {
+    font-size: 0.78rem;
+    color: var(--muted);
+    opacity: 0.5;
+  }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    .nav-top { padding: 0.6rem 1.5rem; }
+    .nav-ribbon { padding: 0 1.5rem; }
+    .page-header { padding: 2rem 1.5rem 1.5rem; }
+    .cart-layout { grid-template-columns: 1fr; padding: 0 1.5rem; }
+    .cart-items-header { display: none; }
+    .cart-item {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+    }
+    .item-qty { grid-column: 1; }
+    .item-price { grid-column: 2; justify-self: end; }
+    .item-remove { position: absolute; top: 1rem; right: 1rem; }
+    .order-summary { position: static; }
+    footer { padding: 2rem 1.5rem; }
+    .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-top">
+    <div class="nav-brand">
+      <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
+      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    </div>
+    <div class="nav-auth" id="navAuth"></div>
+  </div>
+  <div class="nav-ribbon">
+    <a href="/ursusarmament/products">Products</a>
+    <a href="/ursusarmament/#mission">Our Mission</a>
+    <a href="/ursusarmament/#process">Learn</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+  <div class="page-header">
+    <div class="page-eyebrow">Checkout</div>
+    <h1 class="page-title">YOUR CART</h1>
+  </div>
+
+  <div class="cart-layout">
+
+    <!-- LEFT: ITEMS -->
+    <div class="cart-items-section">
+
+      <!-- Column headers (hidden on mobile) -->
+      <div class="cart-items-header">
+        <span>Item</span>
+        <span>Quantity</span>
+        <span>Price</span>
+        <span></span>
+      </div>
+
+      <!-- Error banner -->
+      <div class="error-banner" id="errorBanner"></div>
+
+      <!-- Cart items injected here -->
+      <div id="cartItemsContainer"></div>
+
+      <!-- Empty state -->
+      <div class="cart-empty" id="cartEmpty">
+        <div class="cart-empty-icon">◈</div>
+        <h3>Your Cart is Empty</h3>
+        <p>Browse our arsenal and add items to get started.</p>
+        <a href="/ursusarmament/products" class="btn-checkout" style="display:inline-flex; width:auto; padding: 0.9rem 2.5rem; text-decoration:none;">
+          View Products
+        </a>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: ORDER SUMMARY -->
+    <div class="order-summary" id="orderSummary">
+      <div class="summary-header">
+        <div class="summary-title">Order Summary</div>
+      </div>
+      <div class="summary-body">
+
+        <div class="summary-line">
+          <span class="label">Items</span>
+          <span class="value" id="summaryItemCount">0</span>
+        </div>
+        <div class="summary-line">
+          <span class="label">Subtotal</span>
+          <span class="value" id="summarySubtotal">$0.00</span>
+        </div>
+        <div class="summary-line">
+          <span class="label">Shipping</span>
+          <span class="value" id="summaryShipping">Calculated at checkout</span>
+        </div>
+
+        <hr class="summary-divider">
+
+        <div class="summary-total">
+          <span class="label">Estimated Total</span>
+          <span class="value" id="summaryTotal">$0.00</span>
+        </div>
+
+        <!-- Free shipping notice -->
+        <div class="shipping-notice" id="shippingNotice">
+          ◈ Add <span id="shippingRemaining"></span> more for free shipping
+        </div>
+
+        <button class="btn-checkout" id="checkoutBtn" disabled>
+          <span class="spinner"></span>
+          <span class="btn-label">Proceed to Checkout</span>
+        </button>
+
+        <a href="/ursusarmament/products" class="btn-continue">← Continue Shopping</a>
+
+        <div class="trust-row">
+          <div class="trust-item">
+            <span class="trust-icon">🔒</span>
+            <span class="trust-label">Secure<br>Payment</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">🚚</span>
+            <span class="trust-label">Fast<br>Shipping</span>
+          </div>
+          <div class="trust-item">
+            <span class="trust-icon">◆</span>
+            <span class="trust-label">Lifetime<br>Warranty</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-bottom">
+    <div class="footer-logo">URSUS <span>ARMAMENT</span></div>
+    <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved.</div>
+  </div>
+</footer>
+
+
+<script>
+  // ============================================================
+  // CART ENGINE
+  // Reads/writes cart from localStorage key "ursus_cart"
+  // Cart item shape:
+  //   { id, product, price, tier, serial, quantity }
+  //   - id: Firestore document ID
+  //   - serial: null for non-serialized items (qty can be > 1)
+  //   - serial: string for serialized items (qty locked at 1)
+  // ============================================================
+
+  const CART_KEY     = 'ursus_cart';
+  const WORKER_URL   = 'https://raspy-credit-ce5f.ursus-generalcontracting.workers.dev/checkout';
+  const FREE_SHIP_THRESHOLD = 250; // dollars
+
+  // --- Storage helpers ---
+  function getCart() {
+    try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+    catch { return []; }
+  }
+
+  function saveCart(cart) {
+    localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  }
+
+  // ============================================================
+  // PUBLIC FUNCTION: addToCart(item)
+  // Call this from your product pages.
+  // item = { id, product, price, tier, serial }
+  //   price should be a string like "2250" (whole dollars, no $)
+  //   serial should be null/undefined for non-serialized products
+  // ============================================================
+  window.addToCart = function(item) {
+    const cart = getCart();
+    const isSerialized = !!item.serial;
+
+    if (isSerialized) {
+      // Serialized: each serial number is unique — only 1 per cart
+      const existing = cart.find(c => c.id === item.id && c.serial === item.serial);
+      if (existing) {
+        showToast(`${item.product} (S/N: ${item.serial}) is already in your cart.`);
+        return;
+      }
+      cart.push({ ...item, quantity: 1 });
+    } else {
+      // Non-serialized: can stack
+      const existing = cart.find(c => c.id === item.id);
+      if (existing) {
+        existing.quantity += 1;
+      } else {
+        cart.push({ ...item, quantity: 1 });
+      }
+    }
+
+    saveCart(cart);
+    showToast(`${item.product} added to cart!`);
+    renderCart();
+  };
+
+  // ============================================================
+  // RENDER
+  // ============================================================
+  function renderCart() {
+    const cart = getCart();
+    const container = document.getElementById('cartItemsContainer');
+    const emptyState = document.getElementById('cartEmpty');
+    const orderSummary = document.getElementById('orderSummary');
+
+    container.innerHTML = '';
+
+    if (cart.length === 0) {
+      emptyState.classList.add('visible');
+      orderSummary.style.display = 'none';
+      updateSummary(cart);
+      return;
+    }
+
+    emptyState.classList.remove('visible');
+    orderSummary.style.display = '';
+
+    cart.forEach((item, index) => {
+      const isSerialized = !!item.serial;
+      const priceNum = parseFloat(item.price) || 0;
+      const lineTotal = priceNum * item.quantity;
+
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+      div.dataset.index = index;
+      if (isSerialized) div.dataset.serialized = 'true';
+
+      div.innerHTML = `
+        <div class="item-info">
+          <div class="item-product">${escHtml(item.product)}</div>
+          <div class="item-meta">
+            ${item.tier ? `<span class="item-badge">${escHtml(item.tier)}</span>` : ''}
+            ${isSerialized ? `<span class="item-serial">S/N: ${escHtml(item.serial)}</span>` : ''}
+          </div>
+        </div>
+        <div class="item-qty">
+          <button class="qty-btn" onclick="changeQty(${index}, -1)">−</button>
+          <span class="qty-num">${item.quantity}</span>
+          <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+        </div>
+        <div class="item-price">${formatDollar(lineTotal)}</div>
+        <button class="item-remove" onclick="removeItem(${index})" title="Remove item">✕</button>
+      `;
+
+      container.appendChild(div);
+    });
+
+    updateSummary(cart);
+  }
+
+  function updateSummary(cart) {
+    const itemCount  = cart.reduce((sum, i) => sum + i.quantity, 0);
+    const subtotal   = cart.reduce((sum, i) => sum + (parseFloat(i.price) || 0) * i.quantity, 0);
+
+    document.getElementById('summaryItemCount').textContent = itemCount;
+    document.getElementById('summarySubtotal').textContent  = formatDollar(subtotal);
+    document.getElementById('summaryTotal').textContent     = formatDollar(subtotal);
+
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    checkoutBtn.disabled = cart.length === 0;
+
+    // Free shipping notice
+    const notice = document.getElementById('shippingNotice');
+    const remaining = FREE_SHIP_THRESHOLD - subtotal;
+    if (subtotal >= FREE_SHIP_THRESHOLD) {
+      notice.innerHTML = '✓ Free shipping unlocked!';
+      notice.classList.add('earned');
+      document.getElementById('summaryShipping').textContent = 'Free';
+    } else {
+      notice.innerHTML = `◈ Add <strong>${formatDollar(remaining)}</strong> more for free shipping`;
+      notice.classList.remove('earned');
+      document.getElementById('summaryShipping').textContent = 'Calculated at checkout';
+    }
+  }
+
+  // ============================================================
+  // CART ACTIONS
+  // ============================================================
+  window.changeQty = function(index, delta) {
+    const cart = getCart();
+    const item = cart[index];
+    if (!item) return;
+    if (item.serial) return; // serialized: locked at 1
+
+    item.quantity = Math.max(1, item.quantity + delta);
+    saveCart(cart);
+    renderCart();
+  };
+
+  window.removeItem = function(index) {
+    const cart = getCart();
+    cart.splice(index, 1);
+    saveCart(cart);
+    renderCart();
+  };
+
+  // ============================================================
+  // CHECKOUT
+  // ============================================================
+  document.getElementById('checkoutBtn').addEventListener('click', async () => {
+    const cart = getCart();
+    if (cart.length === 0) return;
+
+    const btn    = document.getElementById('checkoutBtn');
+    const error  = document.getElementById('errorBanner');
+
+    btn.classList.add('loading');
+    btn.disabled = true;
+    error.classList.remove('visible');
+
+    // Build the payload the Worker expects:
+    // [{ id: "firestore-doc-id", quantity: 1 }, ...]
+    const payload = cart.map(item => ({
+      id:       item.id,
+      quantity: item.quantity
+    }));
+
+    try {
+      const res  = await fetch(WORKER_URL, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify({ cart: payload })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok || data.error) {
+        throw new Error(data.error || 'Something went wrong. Please try again.');
+      }
+
+      // Worker returns { url: "https://checkout.stripe.com/..." }
+      if (data.url) {
+        // Clear cart and redirect to Stripe
+        saveCart([]);
+        window.location.href = data.url;
+      } else {
+        throw new Error('No checkout URL received.');
+      }
+
+    } catch (err) {
+      error.textContent = err.message || 'Checkout failed. Please try again.';
+      error.classList.add('visible');
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    }
+  });
+
+  // ============================================================
+  // UTILS
+  // ============================================================
+  function formatDollar(amount) {
+    return '$' + parseFloat(amount).toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
+
+  function escHtml(str) {
+    if (!str) return '';
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // Simple toast (reuse your existing one or this minimal version)
+  function showToast(msg) {
+    let toast = document.getElementById('cartToast');
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.id = 'cartToast';
+      toast.style.cssText = `
+        position:fixed; bottom:2rem; right:2rem;
+        background:var(--surface2); border:1px solid var(--accent);
+        color:var(--text); padding:1rem 1.5rem;
+        font-family:'Barlow Condensed',sans-serif;
+        font-size:0.9rem; letter-spacing:0.05em;
+        z-index:999; transform:translateY(100px); opacity:0;
+        transition:transform 0.3s, opacity 0.3s;
+        max-width: 320px;
+      `;
+      document.body.appendChild(toast);
+    }
+    toast.textContent = msg;
+    requestAnimationFrame(() => {
+      toast.style.transform = 'translateY(0)';
+      toast.style.opacity   = '1';
+    });
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(() => {
+      toast.style.transform = 'translateY(100px)';
+      toast.style.opacity   = '0';
+    }, 3000);
+  }
+
+  // ============================================================
+  // INIT
+  // ============================================================
+  renderCart();
+</script>
+
+
+<!-- Firebase Auth (same pattern as your main page) -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey:            "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
+  authDomain:        "ursus-armament.firebaseapp.com",
+  projectId:         "ursus-armament",
+  storageBucket:     "ursus-armament.firebasestorage.app",
+  messagingSenderId: "430731167862",
+  appId:             "1:430731167862:web:a5447de86db180edad3757"
+};
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+  const navAuth = document.getElementById("navAuth");
+  if (user) {
+    const emailPrefix = user.email.split("@")[0];
+    navAuth.innerHTML = `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
+  } else {
+    navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
+  }
+});
+</script>
+
+</body>
+</html>
