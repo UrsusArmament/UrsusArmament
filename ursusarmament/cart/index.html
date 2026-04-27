@@ -929,10 +929,10 @@
     }));
 
     try {
-      const res  = await fetch(WORKER_URL, {
+      const res = await fetch(WORKER_URL, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ cart: payload })
+        body:    JSON.stringify({ cart: payload, email: window._currentUserEmail || null })
       });
 
       const data = await res.json();
@@ -1029,9 +1029,11 @@ const auth = getAuth(app);
 onAuthStateChanged(auth, (user) => {
   const navAuth = document.getElementById("navAuth");
   if (user) {
+    window._currentUserEmail = user.email;
     const emailPrefix = user.email.split("@")[0];
     navAuth.innerHTML = `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
   } else {
+    window._currentUserEmail = null;
     navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
   }
 });
