@@ -250,6 +250,83 @@
   }
   .btn-signout:hover { border-color: var(--red); color: var(--red); background: rgba(154,74,74,0.05); }
 
+  /* ── MY ORDERS ── */
+  .orders-section {
+    margin-bottom: 1rem;
+  }
+
+  .orders-section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+  }
+  .orders-section-header::before {
+    content: '';
+    display: block; width: 20px; height: 1px;
+    background: var(--muted);
+  }
+
+  .order-card {
+    background: linear-gradient(180deg, var(--surface), var(--dark));
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .order-id {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    letter-spacing: 0.12em;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .order-status-line {
+    font-size: 0.82rem;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+
+  .order-status-line span {
+    color: var(--muted);
+  }
+
+  .order-tracking {
+    font-size: 0.78rem;
+    color: var(--accent2);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.25rem;
+  }
+
+  .order-date {
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.05em;
+    margin-top: 0.4rem;
+    padding-top: 0.4rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .orders-empty {
+    font-size: 0.85rem;
+    color: var(--muted);
+    padding: 1rem 0;
+  }
+
+  .orders-loading {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-style: italic;
+  }
+
   /* ── MODAL ── */
   .modal-overlay {
     position: fixed;
@@ -396,6 +473,14 @@
     <div style="font-size:0.88rem; color:var(--muted); line-height:1.8;" id="displayAddress">—</div>
   </div>
 
+  <!-- MY ORDERS -->
+  <div class="orders-section">
+    <div class="orders-section-header">My Orders</div>
+    <div id="ordersContainer">
+      <div class="orders-loading">Loading orders...</div>
+    </div>
+  </div>
+
   <!-- PASSWORD CARD -->
   <div class="card">
     <div class="card-header">
@@ -518,7 +603,7 @@
 import { initializeApp }        from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged, signOut, sendPasswordResetEmail }
                                 from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, updateDoc }
+import { getFirestore, doc, getDoc, updateDoc, collection, query, where, getDocs, orderBy }
                                 from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL }
                                 from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
@@ -556,7 +641,7 @@ onAuthStateChanged(auth, async (user) => {
   const navAuth = document.getElementById("navAuth");
   navAuth.innerHTML = `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
 
-  // Load Firestore data
+  // Load Firestore user data
   try {
     const snap = await getDoc(doc(db, "users", emailPrefix));
     currentData = snap.data();
@@ -564,7 +649,58 @@ onAuthStateChanged(auth, async (user) => {
   } catch (e) {
     console.error("Failed to load user data:", e);
   }
+
+  // Load orders separately
+  loadOrders(user.email);
 });
+
+/* ── Load orders by email ── */
+async function loadOrders(email) {
+  const container = document.getElementById("ordersContainer");
+  try {
+    const q = query(
+      collection(db, "customer-orders"),
+      where("email", "==", email)
+    );
+    const snap = await getDocs(q);
+
+    if (snap.empty) {
+      container.innerHTML = '<div class="orders-empty">No orders found.</div>';
+      return;
+    }
+
+    // Sort by date descending (newest first)
+    const orders = [];
+    snap.forEach(docSnap => orders.push({ id: docSnap.id, ...docSnap.data() }));
+    orders.sort((a, b) => {
+      const da = a.date ? new Date(a.date) : 0;
+      const db2 = b.date ? new Date(b.date) : 0;
+      return db2 - da;
+    });
+
+    container.innerHTML = orders.map(order => {
+      const shipped = order.shipped === true;
+      const tracking = order.tracking_number || "";
+      const dateRaw = order.date ? new Date(order.date) : null;
+      const dateStr = dateRaw
+        ? dateRaw.toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })
+        : "—";
+
+      return `
+        <div class="order-card">
+          <div class="order-id">${order.id}</div>
+          <div class="order-status-line"><span>Status:</span> ${shipped ? "Shipped" : "Waiting to be shipped"}</div>
+          ${shipped && tracking ? `<div class="order-tracking">Tracking: ${tracking}</div>` : ""}
+          <div class="order-date">${dateStr}</div>
+        </div>
+      `;
+    }).join("");
+
+  } catch (e) {
+    console.error("Failed to load orders:", e);
+    container.innerHTML = '<div class="orders-empty">Unable to load orders.</div>';
+  }
+}
 
 /* ── Render page from Firestore data ── */
 function renderPage() {
