@@ -615,8 +615,8 @@
     font-size: 0.65rem;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: var(--muted);
-    opacity: 0.5;
+    color: var(--text);
+    opacity: 0.8;
     text-align: center;
     margin-bottom: 0.75rem;
   }
@@ -1135,6 +1135,8 @@
     const cb = el.querySelector('input[type="checkbox"]');
     if (cb.checked) {
       el.classList.add('confirmed');
+      // Auto-collapse after a brief moment so the user sees the check land
+      setTimeout(() => { el.classList.remove('open'); }, 300);
     } else {
       el.classList.remove('confirmed');
     }
