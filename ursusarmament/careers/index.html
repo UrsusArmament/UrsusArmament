@@ -242,6 +242,26 @@
     footer { padding: 3rem 1.5rem 2rem; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
   }
+ .nav-cart-btn {
+  position: relative;
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--text);
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+.nav-cart-btn:hover { border-color: var(--accent); background: rgba(200,146,42,0.06); }
+.nav-cart-btn svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
+.nav-cart-btn:hover svg { stroke: var(--accent); }
+.cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
+.cart-count.visible { display: flex; }
 </style>
 </head>
 <body>
@@ -251,8 +271,16 @@
     <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
     <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
   </div>
-  <div class="nav-auth" id="navAuth">
-    <!-- populated by JS -->
+  <div class="nav-right" style="display:flex; align-items:center; gap:0.75rem;">
+    <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="9" cy="21" r="1"/>
+        <circle cx="20" cy="21" r="1"/>
+        <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/>
+      </svg>
+      <span class="cart-count" id="cartCount"></span>
+    </a>
+    <div class="nav-auth" id="navAuth"></div>
   </div>
 </div>
   <div class="nav-ribbon">
@@ -353,6 +381,19 @@ onAuthStateChanged(auth, (user) => {
     navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
   }
 });
+</script>
+<script>
+function updateCartBadge() {
+  try {
+    const cart  = JSON.parse(localStorage.getItem('ursus_cart')) || [];
+    const count = cart.reduce((sum, i) => sum + (i.quantity || 1), 0);
+    const badge = document.getElementById('cartCount');
+    if (!badge) return;
+    if (count > 0) { badge.textContent = count > 99 ? '99+' : count; badge.classList.add('visible'); }
+    else { badge.classList.remove('visible'); }
+  } catch {}
+}
+updateCartBadge();
 </script>
 </body>
 </html>
