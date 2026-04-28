@@ -651,32 +651,35 @@ onAuthStateChanged(auth, async (user) => {
   }
 
   // Load orders separately
-  loadOrders(user.email);
+  loadOrders(emailPrefix);
 });
 
 /* ── Load orders by email ── */
-async function loadOrders(email) {
+async function loadOrders(emailPrefix) {
   const container = document.getElementById("ordersContainer");
   try {
-    const q = query(
-      collection(db, "customer-orders"),
-      where("email", "==", email)
-    );
-    const snap = await getDocs(q);
+    // Read order IDs from user document (already loaded)
+    const orderIds = currentData?.orders || [];
 
-    if (snap.empty) {
+    if (orderIds.length === 0) {
       container.innerHTML = '<div class="orders-empty">No orders found.</div>';
       return;
     }
 
-    // Sort by date descending (newest first)
-    const orders = [];
-    snap.forEach(docSnap => orders.push({ id: docSnap.id, ...docSnap.data() }));
-    orders.sort((a, b) => {
-      const da = a.date ? new Date(a.date) : 0;
-      const db2 = b.date ? new Date(b.date) : 0;
-      return db2 - da;
-    });
+    // Fetch each order document by ID
+    const orderDocs = await Promise.all(
+      orderIds.map(id => getDoc(doc(db, "customer-orders", id)))
+    );
+
+    // Sort newest first by date
+    const orders = orderDocs
+      .filter(snap => snap.exists())
+      .map(snap => ({ id: snap.id, ...snap.data() }))
+      .sort((a, b) => {
+        const da = a.date ? new Date(a.date) : 0;
+        const db2 = b.date ? new Date(b.date) : 0;
+        return db2 - da;
+      });
 
     container.innerHTML = orders.map(order => {
       const shipped = order.shipped === true;
