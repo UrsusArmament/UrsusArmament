@@ -642,6 +642,95 @@
 .nav-cart-btn:hover svg { stroke: var(--accent); }
 .cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
 .cart-count.visible { display: flex; }
+/* COMPLIANCE CHECKBOXES */
+.compliance-checks {
+  margin-bottom: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.compliance-check {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.85rem 1rem;
+  background: rgba(200,146,42,0.04);
+  border: 1px solid rgba(200,146,42,0.15);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.compliance-check:hover {
+  border-color: rgba(200,146,42,0.35);
+  background: rgba(200,146,42,0.07);
+}
+
+.compliance-check input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  min-width: 16px;
+  border: 1px solid var(--border2);
+  background: var(--surface2);
+  cursor: pointer;
+  margin-top: 2px;
+  position: relative;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.compliance-check input[type="checkbox"]:checked {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.compliance-check input[type="checkbox"]:checked::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 5px;
+  height: 9px;
+  border: 2px solid var(--black);
+  border-top: none;
+  border-left: none;
+  transform: rotate(45deg);
+}
+
+.compliance-check label {
+  font-family: 'Barlow', sans-serif;
+  font-size: 0.72rem;
+  line-height: 1.55;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.compliance-check:has(input:checked) label {
+  color: var(--text);
+}
+
+.compliance-check label ul {
+  margin: 0.4rem 0 0 1rem;
+  padding: 0;
+  list-style: disc;
+}
+
+.compliance-check label ul li {
+  margin-bottom: 0.2rem;
+}
+
+.compliance-required-note {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  opacity: 0.6;
+  text-align: center;
+  margin-bottom: 0.75rem;
+}
 </style>
 </head>
 <body>
@@ -740,6 +829,26 @@
         <div class="shipping-notice" id="shippingNotice">
           ◈ Add <span id="shippingRemaining"></span> more for free shipping
         </div>
+
+        <div class="compliance-checks">
+          <label class="compliance-check">
+            <input type="checkbox" id="check1" onchange="updateCheckoutState()">
+            <span>I confirm that I am a U.S. person or represent a qualifying U.S. entity, as defined under 22 CFR § 120.62. This includes:
+              <ul>
+                <li>A U.S. citizen (by birth or naturalization)</li>
+                <li>A lawful permanent resident (Green Card holder, 8 U.S.C. § 1101(a)(20))</li>
+                <li>A protected individual granted refugee or asylee status (8 U.S.C. § 1324b(a)(3))</li>
+                <li>An organization incorporated or authorized to do business in the U.S.</li>
+                <li>A federal, state, or local government agency</li>
+              </ul>
+            </span>
+          </label>
+          <label class="compliance-check">
+            <input type="checkbox" id="check2" onchange="updateCheckoutState()">
+            <span>I confirm that I, or third-party entities at my direction, will not sell, transport, ship or transfer outside the borders of the United States, nor to any foreign person*, any product(s) which are export-restricted by U.S. export-control law and regulation, without proper U.S. Government export authorization, licensing, and documentation.</span>
+          </label>
+        </div>
+        <p class="compliance-required-note">Both confirmations required to proceed</p>
 
         <button class="btn-checkout" id="checkoutBtn" disabled>
           <span class="spinner"></span>
@@ -902,7 +1011,7 @@
     document.getElementById('summaryTotal').textContent     = formatDollar(subtotal);
 
     const checkoutBtn = document.getElementById('checkoutBtn');
-    checkoutBtn.disabled = cart.length === 0;
+    updateCheckoutState();
 
     // Free shipping notice
     const notice = document.getElementById('shippingNotice');
@@ -932,6 +1041,23 @@
     saveCart(cart);
     renderCart();
   };
+
+  window.changeQty = function(index, delta) {
+    const cart = getCart();
+    const item = cart[index];
+    if (!item) return;
+    if (item.serial) return; // serialized: locked at 1
+
+    item.quantity = Math.max(1, item.quantity + delta);
+    saveCart(cart);
+    renderCart();
+  };          // <-- paste your new function below this line
+
+function updateCheckoutState() {
+  ...
+}
+
+  window.removeItem = function(index) {
 
   window.removeItem = function(index) {
     const cart = getCart();
