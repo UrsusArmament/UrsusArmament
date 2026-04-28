@@ -912,10 +912,11 @@
       notice.classList.add('earned');
       document.getElementById('summaryShipping').textContent = 'Free';
     } else {
-      notice.innerHTML = `◈ Add <strong>${formatDollar(remaining)}</strong> more for free shipping`;
-      notice.classList.remove('earned');
-      document.getElementById('summaryShipping').textContent = 'Calculated at checkout';
-    }
+  notice.innerHTML = `◈ Add <strong>${formatDollar(remaining)}</strong> more for free shipping`;
+  notice.classList.remove('earned');
+  document.getElementById('summaryShipping').textContent = '$20.00';
+  document.getElementById('summaryTotal').textContent = formatDollar(subtotal + 20);
+  }
   }
 
   // ============================================================
