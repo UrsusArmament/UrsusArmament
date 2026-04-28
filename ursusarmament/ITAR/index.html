@@ -1,1 +1,629 @@
-placeholder
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITAR Compliance — Ursus Armament</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --surface2: #222220;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+    --accent2: #e8a830;
+    --danger: #c0392b;
+    --danger-bg: rgba(192,57,43,0.08);
+    --danger-border: rgba(192,57,43,0.3);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,8,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-slogan {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .nav-auth {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-auth a, .nav-auth button {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--accent);
+    background: transparent;
+    border: 1px solid var(--accent);
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-block;
+  }
+  .nav-auth a:hover, .nav-auth button:hover {
+    background: rgba(200,146,42,0.08);
+  }
+
+  .nav-cart-btn {
+    position: relative;
+    background: transparent;
+    border: 1px solid var(--border2);
+    color: var(--text);
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+    flex-shrink: 0;
+  }
+  .nav-cart-btn:hover { border-color: var(--accent); background: rgba(200,146,42,0.06); }
+  .nav-cart-btn svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
+  .nav-cart-btn:hover svg { stroke: var(--accent); }
+  .cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
+  .cart-count.visible { display: flex; }
+
+  .nav-ribbon {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3rem;
+    height: 38px;
+    background: var(--surface);
+  }
+
+  .nav-ribbon a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0 1.6rem;
+    height: 100%;
+    display: flex; align-items: center;
+    border-right: 1px solid var(--border);
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
+  .nav-ribbon a:hover { color: var(--accent); background: rgba(200,146,42,0.06); }
+
+  /* PAGE */
+  .page-wrapper { padding-top: 124px; }
+
+  /* HERO */
+  .itar-hero {
+    position: relative;
+    padding: 4rem 3rem 3rem;
+    border-bottom: 1px solid var(--border);
+    overflow: hidden;
+  }
+
+  .itar-hero::before {
+    content: 'ITAR';
+    position: absolute;
+    right: -0.02em;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(8rem, 20vw, 18rem);
+    letter-spacing: 0.04em;
+    color: rgba(200,146,42,0.04);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .page-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .page-eyebrow::before {
+    content: '';
+    display: block; width: 20px; height: 1px;
+    background: var(--accent);
+  }
+
+  .page-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 7vw, 6rem);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .page-subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    max-width: 640px;
+  }
+
+  /* CONTENT */
+  .itar-content {
+    max-width: 860px;
+    padding: 3.5rem 3rem 5rem;
+  }
+
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    max-width: 200px;
+  }
+
+  .compliance-statement {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 2rem;
+    margin-bottom: 2rem;
+  }
+  .compliance-statement p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+  }
+  .compliance-statement p:last-child { margin-bottom: 0; }
+
+  .info-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+  }
+  .info-block .block-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.85rem;
+  }
+  .info-block p {
+    font-size: 0.9rem;
+    line-height: 1.75;
+    color: var(--muted);
+  }
+
+  .definition-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    position: relative;
+  }
+  .definition-block::before {
+    content: 'S';
+    position: absolute;
+    right: 1.5rem;
+    top: 1rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3rem;
+    color: rgba(200,146,42,0.08);
+    line-height: 1;
+  }
+  .definition-block .block-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.85rem;
+  }
+  .definition-block p {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .reg-list {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    margin-bottom: 2rem;
+  }
+  .reg-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .reg-item:last-child { border-bottom: none; }
+  .reg-code {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: rgba(200,146,42,0.1);
+    border: 1px solid rgba(200,146,42,0.2);
+    padding: 0.2rem 0.5rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 0.15rem;
+  }
+  .reg-text {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* WARNING */
+  .warning-banner {
+    background: var(--danger-bg);
+    border: 1px solid var(--danger-border);
+    border-left: 3px solid var(--danger);
+    padding: 1.75rem 2rem;
+    margin-bottom: 2rem;
+  }
+  .warning-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .warning-icon {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    background: var(--danger);
+    color: #fff;
+    padding: 0.2rem 0.6rem;
+    line-height: 1.4;
+    flex-shrink: 0;
+  }
+  .warning-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #e57373;
+  }
+  .warning-banner p {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    line-height: 1.7;
+    color: #e57373;
+    text-transform: uppercase;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    padding: 4rem 3rem 2rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .footer-brand p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-top: 1rem;
+  }
+
+  .footer-col h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+  }
+
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+  .footer-col a {
+    font-size: 0.9rem;
+    color: var(--text);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .footer-col a:hover { opacity: 1; color: var(--accent); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    opacity: 0.5;
+  }
+  .footer-logo span { color: var(--accent); opacity: 1; }
+
+  .footer-legal {
+    font-size: 0.78rem;
+    color: var(--muted);
+    opacity: 0.5;
+  }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    .nav-top { padding: 0.6rem 1.5rem; }
+    .nav-ribbon { padding: 0 1.5rem; }
+    .itar-hero { padding: 3rem 1.5rem 2rem; }
+    .itar-hero::before { font-size: 6rem; opacity: 0.03; }
+    .itar-content { padding: 2rem 1.5rem 4rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    footer { padding: 3rem 1.5rem 2rem; }
+    .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-top">
+    <div class="nav-brand">
+      <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
+      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    </div>
+    <div class="nav-right" style="display:flex; align-items:center; gap:0.75rem;">
+      <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/>
+        </svg>
+        <span class="cart-count" id="cartCount"></span>
+      </a>
+      <div class="nav-auth" id="navAuth"></div>
+    </div>
+  </div>
+  <div class="nav-ribbon">
+    <a href="/ursusarmament/products">Products</a>
+    <a href="/ursusarmament/#mission">Our Mission</a>
+    <a href="/ursusarmament/#process">Learn</a>
+  </div>
+</nav>
+
+<div class="page-wrapper">
+
+  <!-- HERO -->
+  <div class="itar-hero">
+    <div class="page-eyebrow">Regulatory Compliance</div>
+    <h1 class="page-title">ITAR</h1>
+    <p class="page-subtitle">International Traffic in Arms Regulations &amp; Export Administration Regulations</p>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="itar-content">
+
+    <div class="section-label">Compliance Statement</div>
+
+    <div class="compliance-statement">
+      <p>By ordering any product(s) from <a href="https://www.ursusworks.com" style="color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(200,146,42,0.3);">www.ursusworks.com</a>, you certify that you, or third-party entities at your direction, will not sell, transport, ship or transfer outside the borders of the United States, nor to any foreign person*, any product(s) which are export-restricted by U.S. export-control law and regulation, without proper U.S. Government export authorization, licensing, and documentation.</p>
+    </div>
+
+    <div class="info-block">
+      <div class="block-label">Export-Restricted Items Include</div>
+      <p>Electronic equipment, certain gear and accessories, handheld optical equipment including night vision and night vision accessories, holographic sight systems, "red-dot" optics, optic mounting systems, thermal vision, and tactical lights and lasers. This list is not exhaustive.</p>
+    </div>
+
+    <div class="info-block">
+      <div class="block-label">Export Intent &amp; Enforcement</div>
+      <p>You must indicate on your order if you intend for an item(s) to be exported. An indication of desire of exportation in no way compels Ursus Works to assist with export in any way, before or after purchase of an item(s). Export, or attempt to export, any controlled or prohibited items outside of the U.S. without complying with U.S. export control regulations can result in severe civil and criminal penalties and/or constitute a federal crime. Ursus Works will not and does not participate in any transaction, directly or indirectly, involving the illegal export or re-export of any prohibited items.</p>
+    </div>
+
+    <div class="section-label">Legal Definitions</div>
+
+    <div class="definition-block">
+      <div class="block-label">* "Foreign Person" — ITAR § 120.16</div>
+      <p>"Foreign Person" under ITAR § 120.16 means "any natural person who is not a lawful permanent resident as defined by 8 U.S.C. § 1101(a)(20) or who is not a protected individual as defined by 8 U.S.C. § 1324b(a)(3)", and can mean "any foreign corporation, business association, trust, society, or any other entity or group that is not incorporated or organized to do business in the U.S., as well as international organizations, foreign governments, and any agency or subdivisions of government (e.g. diplomatic missions)."</p>
+    </div>
+
+    <div class="reg-list">
+      <div class="reg-item">
+        <span class="reg-code">ITAR § 120.16</span>
+        <span class="reg-text">Definition of "Foreign Person" under the International Traffic in Arms Regulations.</span>
+      </div>
+      <div class="reg-item">
+        <span class="reg-code">8 U.S.C. § 1101(a)(20)</span>
+        <span class="reg-text">Definition of "lawful permanent resident" — Green Card holders.</span>
+      </div>
+      <div class="reg-item">
+        <span class="reg-code">8 U.S.C. § 1324b(a)(3)</span>
+        <span class="reg-text">Definition of "protected individual" — refugees and asylees granted protected status.</span>
+      </div>
+    </div>
+
+    <div class="section-label">Order Policy</div>
+
+    <div class="warning-banner">
+      <div class="warning-header">
+        <span class="warning-icon">NOTICE</span>
+        <span class="warning-title">Order Cancellation &amp; Restriction Policy</span>
+      </div>
+      <p>If you order an ITAR controlled product and are not a United States citizen or have a shipping address outside of the United States, your order will be canceled and subject to a 15% cancellation/restocking/refund fee. This also applies if you attempt to order armor and are a Connecticut resident. No exemptions — even if LE/MIL.</p>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">URSUS <span>ARMAMENT</span></div>
+      <p>Developing next-generation tactical gear for the American people. Manufactured, tested, and deployed with pride in the USA.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="/ursusarmament/products/ROTS">R.O.T.S.</a></li>
+        <li><a href="/ursusarmament/products/URSIX">URSIX</a></li>
+        <li><a href="/ursusarmament/products">View All</a></li>
+        <li><a href="/ursusarmament/customerreviews">Customer Reviews</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/ursusarmament/aboutus/">About Us</a></li>
+        <li><a href="/ursusarmament/testingstandards/">Testing Standards</a></li>
+        <li><a href="/ursusarmament/careers/">Careers</a></li>
+        <li><a href="https://www.youtube.com/@UrsusWorks/" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="/ursusarmament/contact/">Contact</a></li>
+        <li><a href="/ursusarmament/warranty/">Warranty</a></li>
+        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-logo">URSUS <span>ARMAMENT</span></div>
+    <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
+  </div>
+</footer>
+
+<script>
+  function updateCartBadge() {
+    try {
+      const cart  = JSON.parse(localStorage.getItem('ursus_cart')) || [];
+      const count = cart.reduce((sum, i) => sum + (i.quantity || 1), 0);
+      const badge = document.getElementById('cartCount');
+      if (!badge) return;
+      if (count > 0) { badge.textContent = count > 99 ? '99+' : count; badge.classList.add('visible'); }
+      else { badge.classList.remove('visible'); }
+    } catch {}
+  }
+  updateCartBadge();
+</script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey:            "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
+  authDomain:        "ursus-armament.firebaseapp.com",
+  projectId:         "ursus-armament",
+  storageBucket:     "ursus-armament.firebasestorage.app",
+  messagingSenderId: "430731167862",
+  appId:             "1:430731167862:web:a5447de86db180edad3757"
+};
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+  const navAuth = document.getElementById("navAuth");
+  if (user) {
+    window._currentUserEmail = user.email;
+    const emailPrefix = user.email.split("@")[0];
+    navAuth.innerHTML = `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
+  } else {
+    window._currentUserEmail = null;
+    navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
+  }
+});
+</script>
+
+</body>
+</html>
