@@ -288,7 +288,6 @@
     color: var(--text);
   }
 
-  /* Serialized items can only have qty 1 */
   .cart-item[data-serialized="true"] .qty-btn {
     opacity: 0.3;
     cursor: not-allowed;
@@ -454,6 +453,174 @@
     color: #4caf7d;
   }
 
+  /* COMPLIANCE CHECKBOXES */
+  .compliance-checks {
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .compliance-check {
+    border: 1px solid rgba(200,146,42,0.2);
+    background: rgba(200,146,42,0.03);
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+
+  .compliance-check.open {
+    border-color: rgba(200,146,42,0.4);
+  }
+
+  .compliance-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+
+  .compliance-header:hover {
+    background: rgba(200,146,42,0.06);
+  }
+
+  .compliance-header-left {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .compliance-status-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--border2);
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+
+  .compliance-check.confirmed .compliance-status-dot {
+    background: #4caf7d;
+  }
+
+  .compliance-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .compliance-arrow {
+    font-size: 0.75rem;
+    color: var(--muted);
+    transition: transform 0.2s;
+    line-height: 1;
+  }
+
+  .compliance-check.open .compliance-arrow {
+    transform: rotate(90deg);
+  }
+
+  .compliance-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .compliance-check.open .compliance-body {
+    max-height: 500px;
+    border-top: 1px solid var(--border);
+  }
+
+  .compliance-body p {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.75rem;
+    line-height: 1.6;
+    color: var(--muted);
+    padding: 0.85rem 1rem 0.5rem;
+  }
+
+  .compliance-body ul {
+    margin: 0 0 0.75rem 2.25rem;
+    padding: 0;
+    list-style: disc;
+  }
+
+  .compliance-body ul li {
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin-bottom: 0.2rem;
+    line-height: 1.5;
+  }
+
+  .compliance-confirm-label {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.65rem 1rem 0.75rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text);
+    cursor: pointer;
+    border-top: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  .compliance-confirm-label:hover {
+    background: rgba(200,146,42,0.04);
+  }
+
+  .compliance-confirm-label input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 15px;
+    height: 15px;
+    min-width: 15px;
+    border: 1px solid var(--border2);
+    background: var(--surface2);
+    cursor: pointer;
+    position: relative;
+    transition: background 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .compliance-confirm-label input[type="checkbox"]:checked {
+    background: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .compliance-confirm-label input[type="checkbox"]:checked::after {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    width: 4px;
+    height: 8px;
+    border: 2px solid var(--black);
+    border-top: none;
+    border-left: none;
+    transform: rotate(45deg);
+  }
+
+  .compliance-required-note {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0.5;
+    text-align: center;
+    margin-bottom: 0.75rem;
+  }
+
   /* CHECKOUT BTN */
   .btn-checkout {
     width: 100%;
@@ -574,6 +741,28 @@
     display: block;
   }
 
+  /* NAV CART */
+  .nav-cart-btn {
+    position: relative;
+    background: transparent;
+    border: 1px solid var(--border2);
+    color: var(--text);
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+    flex-shrink: 0;
+  }
+  .nav-cart-btn:hover { border-color: var(--accent); background: rgba(200,146,42,0.06); }
+  .nav-cart-btn svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
+  .nav-cart-btn:hover svg { stroke: var(--accent); }
+  .cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
+  .cart-count.visible { display: flex; }
+
   /* FOOTER */
   footer {
     background: var(--dark);
@@ -622,115 +811,6 @@
     footer { padding: 2rem 1.5rem; }
     .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
   }
-.nav-cart-btn {
-  position: relative;
-  background: transparent;
-  border: 1px solid var(--border2);
-  color: var(--text);
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  text-decoration: none;
-  transition: border-color 0.2s, background 0.2s;
-  flex-shrink: 0;
-}
-.nav-cart-btn:hover { border-color: var(--accent); background: rgba(200,146,42,0.06); }
-.nav-cart-btn svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
-.nav-cart-btn:hover svg { stroke: var(--accent); }
-.cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
-.cart-count.visible { display: flex; }
-/* COMPLIANCE CHECKBOXES */
-.compliance-checks {
-  margin-bottom: 1.25rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.85rem;
-}
-
-.compliance-check {
-  display: flex;
-  gap: 0.75rem;
-  align-items: flex-start;
-  padding: 0.85rem 1rem;
-  background: rgba(200,146,42,0.04);
-  border: 1px solid rgba(200,146,42,0.15);
-  cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
-}
-
-.compliance-check:hover {
-  border-color: rgba(200,146,42,0.35);
-  background: rgba(200,146,42,0.07);
-}
-
-.compliance-check input[type="checkbox"] {
-  appearance: none;
-  -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
-  min-width: 16px;
-  border: 1px solid var(--border2);
-  background: var(--surface2);
-  cursor: pointer;
-  margin-top: 2px;
-  position: relative;
-  transition: background 0.15s, border-color 0.15s;
-}
-
-.compliance-check input[type="checkbox"]:checked {
-  background: var(--accent);
-  border-color: var(--accent);
-}
-
-.compliance-check input[type="checkbox"]:checked::after {
-  content: '';
-  position: absolute;
-  left: 4px;
-  top: 1px;
-  width: 5px;
-  height: 9px;
-  border: 2px solid var(--black);
-  border-top: none;
-  border-left: none;
-  transform: rotate(45deg);
-}
-
-.compliance-check label {
-  font-family: 'Barlow', sans-serif;
-  font-size: 0.72rem;
-  line-height: 1.55;
-  color: var(--muted);
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.compliance-check:has(input:checked) label {
-  color: var(--text);
-}
-
-.compliance-check label ul {
-  margin: 0.4rem 0 0 1rem;
-  padding: 0;
-  list-style: disc;
-}
-
-.compliance-check label ul li {
-  margin-bottom: 0.2rem;
-}
-
-.compliance-required-note {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 0.65rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  opacity: 0.6;
-  text-align: center;
-  margin-bottom: 0.75rem;
-}
 </style>
 </head>
 <body>
@@ -738,22 +818,22 @@
 <!-- NAV -->
 <nav>
   <div class="nav-top">
-  <div class="nav-brand">
-    <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
-    <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    <div class="nav-brand">
+      <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
+      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    </div>
+    <div class="nav-right" style="display:flex; align-items:center; gap:0.75rem;">
+      <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/>
+        </svg>
+        <span class="cart-count" id="cartCount"></span>
+      </a>
+      <div class="nav-auth" id="navAuth"></div>
+    </div>
   </div>
-  <div class="nav-right" style="display:flex; align-items:center; gap:0.75rem;">
-    <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="9" cy="21" r="1"/>
-        <circle cx="20" cy="21" r="1"/>
-        <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/>
-      </svg>
-      <span class="cart-count" id="cartCount"></span>
-    </a>
-    <div class="nav-auth" id="navAuth"></div>
-  </div>
-</div>
   <div class="nav-ribbon">
     <a href="/ursusarmament/products">Products</a>
     <a href="/ursusarmament/#mission">Our Mission</a>
@@ -772,7 +852,6 @@
     <!-- LEFT: ITEMS -->
     <div class="cart-items-section">
 
-      <!-- Column headers (hidden on mobile) -->
       <div class="cart-items-header">
         <span>Item</span>
         <span>Quantity</span>
@@ -780,13 +859,10 @@
         <span></span>
       </div>
 
-      <!-- Error banner -->
       <div class="error-banner" id="errorBanner"></div>
 
-      <!-- Cart items injected here -->
       <div id="cartItemsContainer"></div>
 
-      <!-- Empty state -->
       <div class="cart-empty" id="cartEmpty">
         <div class="cart-empty-icon">◈</div>
         <h3>Your Cart is Empty</h3>
@@ -825,15 +901,23 @@
           <span class="value" id="summaryTotal">$0.00</span>
         </div>
 
-        <!-- Free shipping notice -->
         <div class="shipping-notice" id="shippingNotice">
           ◈ Add <span id="shippingRemaining"></span> more for free shipping
         </div>
 
+        <!-- COMPLIANCE ACCORDIONS -->
         <div class="compliance-checks">
-          <label class="compliance-check">
-            <input type="checkbox" id="check1" onchange="updateCheckoutState()">
-            <span>I confirm that I am a U.S. person or represent a qualifying U.S. entity, as defined under 22 CFR § 120.62. This includes:
+
+          <div class="compliance-check" id="cc1">
+            <div class="compliance-header" onclick="toggleCompliance('cc1')">
+              <div class="compliance-header-left">
+                <span class="compliance-status-dot"></span>
+                <span class="compliance-title">22 CFR § 120.62 Compliance</span>
+              </div>
+              <span class="compliance-arrow">▸</span>
+            </div>
+            <div class="compliance-body">
+              <p>I confirm that I am a U.S. person or represent a qualifying U.S. entity, as defined under 22 CFR § 120.62. This includes:</p>
               <ul>
                 <li>A U.S. citizen (by birth or naturalization)</li>
                 <li>A lawful permanent resident (Green Card holder, 8 U.S.C. § 1101(a)(20))</li>
@@ -841,12 +925,30 @@
                 <li>An organization incorporated or authorized to do business in the U.S.</li>
                 <li>A federal, state, or local government agency</li>
               </ul>
-            </span>
-          </label>
-          <label class="compliance-check">
-            <input type="checkbox" id="check2" onchange="updateCheckoutState()">
-            <span>I confirm that I, or third-party entities at my direction, will not sell, transport, ship or transfer outside the borders of the United States, nor to any foreign person*, any product(s) which are export-restricted by U.S. export-control law and regulation, without proper U.S. Government export authorization, licensing, and documentation.</span>
-          </label>
+              <label class="compliance-confirm-label">
+                <input type="checkbox" id="check1" onchange="handleCheck('cc1')">
+                I confirm and agree
+              </label>
+            </div>
+          </div>
+
+          <div class="compliance-check" id="cc2">
+            <div class="compliance-header" onclick="toggleCompliance('cc2')">
+              <div class="compliance-header-left">
+                <span class="compliance-status-dot"></span>
+                <span class="compliance-title">Export Control Policy</span>
+              </div>
+              <span class="compliance-arrow">▸</span>
+            </div>
+            <div class="compliance-body">
+              <p>I confirm that I, or third-party entities at my direction, will not sell, transport, ship or transfer outside the borders of the United States, nor to any foreign person*, any product(s) which are export-restricted by U.S. export-control law and regulation, without proper U.S. Government export authorization, licensing, and documentation.</p>
+              <label class="compliance-confirm-label">
+                <input type="checkbox" id="check2" onchange="handleCheck('cc2')">
+                I confirm and agree
+              </label>
+            </div>
+          </div>
+
         </div>
         <p class="compliance-required-note">Both confirmations required to proceed</p>
 
@@ -886,23 +988,11 @@
   </div>
 </footer>
 
-
 <script>
-  // ============================================================
-  // CART ENGINE
-  // Reads/writes cart from localStorage key "ursus_cart"
-  // Cart item shape:
-  //   { id, product, price, tier, serial, quantity }
-  //   - id: Firestore document ID
-  //   - serial: null for non-serialized items (qty can be > 1)
-  //   - serial: string for serialized items (qty locked at 1)
-  // ============================================================
+  const CART_KEY = 'ursus_cart';
+  const WORKER_URL = 'https://raspy-credit-ce5f.ursus-generalcontracting.workers.dev/checkout';
+  const FREE_SHIP_THRESHOLD = 250;
 
-  const CART_KEY     = 'ursus_cart';
-  const WORKER_URL   = 'https://raspy-credit-ce5f.ursus-generalcontracting.workers.dev/checkout';
-  const FREE_SHIP_THRESHOLD = 250; // dollars
-
-  // --- Storage helpers ---
   function getCart() {
     try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
     catch { return []; }
@@ -913,34 +1003,21 @@
   }
 
   // ============================================================
-  // PUBLIC FUNCTION: addToCart(item)
-  // Call this from your product pages.
+  // PUBLIC: addToCart(item)
   // item = { id, product, price, tier, serial }
-  //   price should be a string like "2250" (whole dollars, no $)
-  //   serial should be null/undefined for non-serialized products
   // ============================================================
   window.addToCart = function(item) {
     const cart = getCart();
     const isSerialized = !!item.serial;
-
     if (isSerialized) {
-      // Serialized: each serial number is unique — only 1 per cart
       const existing = cart.find(c => c.id === item.id && c.serial === item.serial);
-      if (existing) {
-        showToast(`${item.product} (S/N: ${item.serial}) is already in your cart.`);
-        return;
-      }
+      if (existing) { showToast(`${item.product} (S/N: ${item.serial}) is already in your cart.`); return; }
       cart.push({ ...item, quantity: 1 });
     } else {
-      // Non-serialized: can stack
       const existing = cart.find(c => c.id === item.id);
-      if (existing) {
-        existing.quantity += 1;
-      } else {
-        cart.push({ ...item, quantity: 1 });
-      }
+      if (existing) { existing.quantity += 1; }
+      else { cart.push({ ...item, quantity: 1 }); }
     }
-
     saveCart(cart);
     showToast(`${item.product} added to cart!`);
     renderCart();
@@ -994,7 +1071,6 @@
         <div class="item-price">${formatDollar(lineTotal)}</div>
         <button class="item-remove" onclick="removeItem(${index})" title="Remove item">✕</button>
       `;
-
       container.appendChild(div);
     });
 
@@ -1003,29 +1079,27 @@
   }
 
   function updateSummary(cart) {
-    const itemCount  = cart.reduce((sum, i) => sum + i.quantity, 0);
-    const subtotal   = cart.reduce((sum, i) => sum + (parseFloat(i.price) || 0) * i.quantity, 0);
+    const itemCount = cart.reduce((sum, i) => sum + i.quantity, 0);
+    const subtotal  = cart.reduce((sum, i) => sum + (parseFloat(i.price) || 0) * i.quantity, 0);
 
     document.getElementById('summaryItemCount').textContent = itemCount;
     document.getElementById('summarySubtotal').textContent  = formatDollar(subtotal);
     document.getElementById('summaryTotal').textContent     = formatDollar(subtotal);
 
-    const checkoutBtn = document.getElementById('checkoutBtn');
     updateCheckoutState();
 
-    // Free shipping notice
-    const notice = document.getElementById('shippingNotice');
+    const notice    = document.getElementById('shippingNotice');
     const remaining = FREE_SHIP_THRESHOLD - subtotal;
     if (subtotal >= FREE_SHIP_THRESHOLD) {
       notice.innerHTML = '✓ Free shipping unlocked!';
       notice.classList.add('earned');
       document.getElementById('summaryShipping').textContent = 'Free';
     } else {
-  notice.innerHTML = `◈ Add <strong>${formatDollar(remaining)}</strong> more for free shipping`;
-  notice.classList.remove('earned');
-  document.getElementById('summaryShipping').textContent = '$20.00';
-  document.getElementById('summaryTotal').textContent = formatDollar(subtotal + 20);
-  }
+      notice.innerHTML = `◈ Add <strong>${formatDollar(remaining)}</strong> more for free shipping`;
+      notice.classList.remove('earned');
+      document.getElementById('summaryShipping').textContent = '$20.00';
+      document.getElementById('summaryTotal').textContent = formatDollar(subtotal + 20);
+    }
   }
 
   // ============================================================
@@ -1035,29 +1109,11 @@
     const cart = getCart();
     const item = cart[index];
     if (!item) return;
-    if (item.serial) return; // serialized: locked at 1
-
+    if (item.serial) return;
     item.quantity = Math.max(1, item.quantity + delta);
     saveCart(cart);
     renderCart();
   };
-
-  window.changeQty = function(index, delta) {
-    const cart = getCart();
-    const item = cart[index];
-    if (!item) return;
-    if (item.serial) return; // serialized: locked at 1
-
-    item.quantity = Math.max(1, item.quantity + delta);
-    saveCart(cart);
-    renderCart();
-  };          // <-- paste your new function below this line
-
-function updateCheckoutState() {
-  ...
-}
-
-  window.removeItem = function(index) {
 
   window.removeItem = function(index) {
     const cart = getCart();
@@ -1067,47 +1123,63 @@ function updateCheckoutState() {
   };
 
   // ============================================================
-  // CHECKOUT
+  // COMPLIANCE ACCORDION
+  // ============================================================
+  function toggleCompliance(id) {
+    const el = document.getElementById(id);
+    el.classList.toggle('open');
+  }
+
+  function handleCheck(id) {
+    const el = document.getElementById(id);
+    const cb = el.querySelector('input[type="checkbox"]');
+    if (cb.checked) {
+      el.classList.add('confirmed');
+    } else {
+      el.classList.remove('confirmed');
+    }
+    updateCheckoutState();
+  }
+
+  // ============================================================
+  // CHECKOUT STATE
+  // ============================================================
+  function updateCheckoutState() {
+    const cart = getCart();
+    const c1   = document.getElementById('check1');
+    const c2   = document.getElementById('check2');
+    const btn  = document.getElementById('checkoutBtn');
+    if (btn) {
+      btn.disabled = !(cart.length > 0 && c1 && c1.checked && c2 && c2.checked);
+    }
+  }
+
+  // ============================================================
+  // CHECKOUT SUBMIT
   // ============================================================
   document.getElementById('checkoutBtn').addEventListener('click', async () => {
     const cart = getCart();
     if (cart.length === 0) return;
 
-    const btn    = document.getElementById('checkoutBtn');
-    const error  = document.getElementById('errorBanner');
+    const btn   = document.getElementById('checkoutBtn');
+    const error = document.getElementById('errorBanner');
 
     btn.classList.add('loading');
     btn.disabled = true;
     error.classList.remove('visible');
 
-    // Build the payload the Worker expects:
-    // [{ id: "firestore-doc-id", quantity: 1 }, ...]
-    const payload = cart.map(item => ({
-      id:       item.id,
-      quantity: item.quantity
-    }));
+    const payload = cart.map(item => ({ id: item.id, quantity: item.quantity }));
 
     try {
-      const res = await fetch(WORKER_URL, {
+      const res  = await fetch(WORKER_URL, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({ cart: payload, email: window._currentUserEmail || null })
       });
-
       const data = await res.json();
-
-      if (!res.ok || data.error) {
-        throw new Error(data.error || 'Something went wrong. Please try again.');
-      }
-
-      // Worker returns { url: "https://checkout.stripe.com/..." }
-      if (data.url) {
-        window.location.href = data.url;
-      } 
-      else {
-        throw new Error('No checkout URL received.');
-      }
-
+      if (!res.ok || data.error) throw new Error(data.error || 'Something went wrong. Please try again.');
+      if (data.url) { window.location.href = data.url; }
+      else { throw new Error('No checkout URL received.'); }
     } catch (err) {
       error.textContent = err.message || 'Checkout failed. Please try again.';
       error.classList.add('visible');
@@ -1120,10 +1192,7 @@ function updateCheckoutState() {
   // UTILS
   // ============================================================
   function formatDollar(amount) {
-    return '$' + parseFloat(amount).toLocaleString('en-US', {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
+    return '$' + parseFloat(amount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
 
   function escHtml(str) {
@@ -1131,44 +1200,39 @@ function updateCheckoutState() {
     return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
   }
 
-  // Simple toast (reuse your existing one or this minimal version)
   function showToast(msg) {
     let toast = document.getElementById('cartToast');
     if (!toast) {
       toast = document.createElement('div');
       toast.id = 'cartToast';
-      toast.style.cssText = `
-        position:fixed; bottom:2rem; right:2rem;
-        background:var(--surface2); border:1px solid var(--accent);
-        color:var(--text); padding:1rem 1.5rem;
-        font-family:'Barlow Condensed',sans-serif;
-        font-size:0.9rem; letter-spacing:0.05em;
-        z-index:999; transform:translateY(100px); opacity:0;
-        transition:transform 0.3s, opacity 0.3s;
-        max-width: 320px;
-      `;
+      toast.style.cssText = `position:fixed;bottom:2rem;right:2rem;background:var(--surface2);border:1px solid var(--accent);color:var(--text);padding:1rem 1.5rem;font-family:'Barlow Condensed',sans-serif;font-size:0.9rem;letter-spacing:0.05em;z-index:999;transform:translateY(100px);opacity:0;transition:transform 0.3s,opacity 0.3s;max-width:320px;`;
       document.body.appendChild(toast);
     }
     toast.textContent = msg;
-    requestAnimationFrame(() => {
-      toast.style.transform = 'translateY(0)';
-      toast.style.opacity   = '1';
-    });
+    requestAnimationFrame(() => { toast.style.transform = 'translateY(0)'; toast.style.opacity = '1'; });
     clearTimeout(toast._timer);
-    toast._timer = setTimeout(() => {
-      toast.style.transform = 'translateY(100px)';
-      toast.style.opacity   = '0';
-    }, 3000);
+    toast._timer = setTimeout(() => { toast.style.transform = 'translateY(100px)'; toast.style.opacity = '0'; }, 3000);
+  }
+
+  function updateCartBadge() {
+    try {
+      const cart  = JSON.parse(localStorage.getItem(CART_KEY)) || [];
+      const count = cart.reduce((sum, i) => sum + (i.quantity || 1), 0);
+      const badge = document.getElementById('cartCount');
+      if (!badge) return;
+      if (count > 0) { badge.textContent = count > 99 ? '99+' : count; badge.classList.add('visible'); }
+      else { badge.classList.remove('visible'); }
+    } catch {}
   }
 
   // ============================================================
   // INIT
   // ============================================================
   renderCart();
+  updateCartBadge();
 </script>
 
-
-<!-- Firebase Auth (same pattern as your main page) -->
+<!-- Firebase Auth -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -1197,18 +1261,6 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 </script>
-<script>
-function updateCartBadge() {
-  try {
-    const cart  = JSON.parse(localStorage.getItem('ursus_cart')) || [];
-    const count = cart.reduce((sum, i) => sum + (i.quantity || 1), 0);
-    const badge = document.getElementById('cartCount');
-    if (!badge) return;
-    if (count > 0) { badge.textContent = count > 99 ? '99+' : count; badge.classList.add('visible'); }
-    else { badge.classList.remove('visible'); }
-  } catch {}
-}
-updateCartBadge();
-</script>
+
 </body>
 </html>
