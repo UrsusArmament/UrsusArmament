@@ -1106,14 +1106,20 @@
   // CART ACTIONS
   // ============================================================
   window.changeQty = function(index, delta) {
-    const cart = getCart();
-    const item = cart[index];
-    if (!item) return;
-    if (item.serial) return;
-    item.quantity = Math.max(1, item.quantity + delta);
-    saveCart(cart);
-    renderCart();
-  };
+  const cart = getCart();
+  const item = cart[index];
+  if (!item) return;
+  if (item.serial) return;
+  const max = item.maxQty || Infinity;
+  const newQty = item.quantity + delta;
+  if (newQty > max) {
+    showToast(`Only ${max} available for this item.`);
+    return;
+  }
+  item.quantity = Math.max(1, newQty);
+  saveCart(cart);
+  renderCart();
+};
 
   window.removeItem = function(index) {
     const cart = getCart();
