@@ -1072,33 +1072,6 @@ onAuthStateChanged(auth, (user) => {
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
-  authDomain: "ursus-armament.firebaseapp.com",
-  projectId: "ursus-armament",
-  storageBucket: "ursus-armament.firebasestorage.app",
-  messagingSenderId: "430731167862",
-  appId: "1:430731167862:web:a5447de86db180edad3757"
-};
-
-const app  = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-onAuthStateChanged(auth, (user) => {
-  const navAuth = document.getElementById("navAuth");
-  if (user) {
-    const emailPrefix = user.email.split("@")[0];
-    navAuth.innerHTML = `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
-  } else {
-    navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
-  }
-});
-</script>
-
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, doc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -1113,13 +1086,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
 
-// ── fetch availability data once and cache it ──
 let availabilityCache = null;
 
 async function fetchAvailability() {
   if (availabilityCache) return availabilityCache;
 
-  const [ursixSnap, dovetailSnap, bayonetSnap] = await Promise.all([
+  const [ursixSnap, dovetailSnap, bayonetSnap, bridgeSnap] = await Promise.all([
     getDocs(query(collection(db, "ursus-units"), where("product", "==", "URSIX"), where("available", "==", true))),
     getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Adapter")),
     getDoc(doc(db, "ursus-units", "MUM-14_Bayonet_Adapter")),
@@ -1127,16 +1099,15 @@ async function fetchAvailability() {
   ]);
 
   availabilityCache = {
-    ursixCount:      ursixSnap.size,
-    dovetailAvail:   dovetailSnap.exists() && dovetailSnap.data()?.available === true,
-    bayonetAvail:    bayonetSnap.exists()  && bayonetSnap.data()?.available  === true,
+    ursixCount:    ursixSnap.size,
+    dovetailAvail: dovetailSnap.exists() && dovetailSnap.data()?.available === true,
+    bayonetAvail:  bayonetSnap.exists()  && bayonetSnap.data()?.available  === true,
     bridgeAvail:   bridgeSnap.exists()   && bridgeSnap.data()?.available   === true,
   };
 
   return availabilityCache;
 }
 
-// ── apply availability to DOM elements ──
 async function applyAvailability() {
   try {
     const data = await fetchAvailability();
@@ -1153,23 +1124,11 @@ async function applyAvailability() {
       }
     }
 
-    // MUM-14
+    // MUM-14 Adapter
     const mum14El = document.getElementById("mum14-status");
     if (mum14El) {
       const dyText = data.dovetailAvail ? "DY Style Available" : "DY Style Unavailable";
       const bnText = data.bayonetAvail  ? "BN Style Available" : "BN Style Unavailable";
-      const eitherAvail = data.dovetailAvail || data.bayonetAvail;
-
-      mum14El.innerHTML = `
-        <span style="display:flex;align-items:center;gap:0.4rem;">
-          <span style="width:5px;height:5px;border-radius:50%;background:${data.dovetailAvail ? '#2a9c5c' : 'var(--muted)'};flex-shrink:0;display:inline-block;"></span>
-          ${dyText}
-        </span>
-        <span style="display:flex;align-items:center;gap:0.4rem;margin-top:0.2rem;">
-          <span style="width:5px;height:5px;border-radius:50%;background:${data.bayonetAvail ? '#2a9c5c' : 'var(--muted)'};flex-shrink:0;display:inline-block;"></span>
-          ${bnText}
-        </span>
-      `;
       mum14El.style.flexDirection = 'column';
       mum14El.style.alignItems = 'flex-start';
       mum14El.innerHTML = `
@@ -1181,9 +1140,10 @@ async function applyAvailability() {
           <span style="width:5px;height:5px;border-radius:50%;background:${data.bayonetAvail ? '#2a9c5c' : 'var(--muted)'};flex-shrink:0;display:inline-block;"></span>
           ${bnText}
         </span>
-    `;
+      `;
     }
-// MUM-14 Bridge
+
+    // MUM-14 Bridge
     const bridgeEl = document.getElementById("mum14-bridge-status");
     if (bridgeEl) {
       if (data.bridgeAvail) {
@@ -1199,20 +1159,13 @@ async function applyAvailability() {
     console.error(err);
   }
 }
-  } catch(err) {
-    console.error(err);
-  }
-}
 
-// ── hook into renderGrid so availability updates whenever grid redraws ──
 const _originalRenderGrid = window.renderGrid;
 window.renderGrid = function() {
   _originalRenderGrid?.();
-  // slight delay to let DOM update first
   setTimeout(applyAvailability, 50);
 };
 
-// initial call
 applyAvailability();
 </script>
 
