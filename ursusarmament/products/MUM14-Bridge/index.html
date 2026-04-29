@@ -545,7 +545,7 @@ async function loadBridge() {
     colors.forEach(c => {
       const b = document.createElement('button');
       b.className = 'color-btn';
-      b.innerHTML = `${c.name} <span class="color-btn-qty">(${c.qty})</span>`;
+      b.innerHTML = `${c.name} <span class="color-btn-qty">(${c.qty} Available)</span>`;
       b.disabled = c.qty === 0;
       b.addEventListener('click', () => {
         document.querySelectorAll('#color-btns-bridge .color-btn').forEach(x => x.classList.remove('selected'));
