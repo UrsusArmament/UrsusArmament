@@ -1098,16 +1098,19 @@ let availabilityCache = null;
 async function fetchAvailability() {
   if (availabilityCache) return availabilityCache;
 
- const [ursixSnap, dyBlackSnap, dySandSnap, bayonetSnap, bridgeBlackSnap, bridgeSandSnap] = await Promise.all([
+const [ursixSnap, dyBlackSnap, dySandSnap, bayonetSnap, bridgeBlackSnap, bridgeSandSnap, pvsDySnap, pvsBnSnap] = await Promise.all([
   getDocs(query(collection(db, "ursus-units"), where("product", "==", "URSIX"), where("available", "==", true))),
   getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Adapter_Black")),
   getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Adapter_Sand")),
   getDoc(doc(db, "ursus-units", "MUM-14_Bayonet_Adapter")),
   getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Black")),
   getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Sand")),
-  const pvsDyQty  = pvsDySnap.exists()  ? (pvsDySnap.data()?.['quantity-available']  || 0) : 0;
-  const pvsBnQty  = pvsBnSnap.exists()  ? (pvsBnSnap.data()?.['quantity-available']  || 0) : 0;
+  getDoc(doc(db, "ursus-units", "PVS-14_Dovetail_Adapter_Black")),
+  getDoc(doc(db, "ursus-units", "PVS-14_Bayonet_Adapter_Black")),
 ]);
+
+const pvsDyQty = pvsDySnap.exists() ? (pvsDySnap.data()?.['quantity-available'] || 0) : 0;
+const pvsBnQty = pvsBnSnap.exists() ? (pvsBnSnap.data()?.['quantity-available'] || 0) : 0;
 
 const dyBlackQty     = dyBlackSnap.exists()     ? (dyBlackSnap.data()?.['quantity-available']     || 0) : 0;
 const dySandQty      = dySandSnap.exists()      ? (dySandSnap.data()?.['quantity-available']      || 0) : 0;
