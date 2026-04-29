@@ -127,7 +127,7 @@
     letter-spacing: -0.02em; color: rgba(255,255,255,0.025); user-select: none; pointer-events: none;
   }
   .product-visual-main img {
-    width: 100%; height: 100%; object-fit: contain; position: relative; z-index: 1;
+    width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1;
   }
   .product-thumbs {
     width: 100%; background: var(--dark); border-top: 1px solid var(--border);
@@ -386,6 +386,17 @@
     .breadcrumb, .variants-section, .specs-section, .features-section { padding-left: 1.5rem; padding-right: 1.5rem; }
     .nav-top, .nav-ribbon { padding-left: 1.5rem; padding-right: 1.5rem; }
   }
+ .color-btn {
+  font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 0.4rem 0.9rem; border: 1px solid var(--border2);
+  background: var(--surface2); color: var(--muted); cursor: pointer;
+  transition: all 0.2s; white-space: nowrap;
+}
+.color-btn:hover { border-color: var(--accent); color: var(--text); }
+.color-btn.selected { border-color: var(--accent); background: rgba(200,146,42,0.12); color: var(--accent); }
+.color-btn:disabled { opacity: 0.35; cursor: not-allowed; border-color: var(--border); }
+.color-btn-qty { font-size: 0.58rem; opacity: 0.7; margin-left: 0.3rem; }
 </style>
 </head>
 <body>
@@ -491,25 +502,26 @@
         </div>
       </div>
       <div class="variant-footer">
-        <div>
-          <div class="variant-price" id="price-dovetail">—</div>
-          <div class="variant-price-label">Free Shipping on Orders $250+</div>
-        </div>
-        <div style="display:flex; flex-direction:column; gap: 0.75rem; align-items: flex-end;">
-          <div class="variant-status" id="status-dovetail">
-            <span class="variant-status-dot" id="dot-dovetail"></span>
-            <span id="status-text-dovetail">Checking...</span>
-          </div>
-          <div class="qty-row">
-            <button class="qty-btn" onclick="changeQty('dovetail', -1)">−</button>
-            <span class="qty-display" id="qty-input-dovetail">1</span>
-            <button class="qty-btn" onclick="changeQty('dovetail', 1)">+</button>
-          </div>
-          <button class="btn-primary" id="btn-dovetail" onclick="addVariantToCart('dovetail')" disabled>
-            Add to Cart
-          </button>
-        </div>
-      </div>
+  <div>
+    <div class="variant-price" id="price-dovetail">—</div>
+    <div class="variant-price-label">Free Shipping on Orders $250+</div>
+  </div>
+  <div style="display:flex; flex-direction:column; gap: 0.75rem; align-items: flex-end;">
+    <div class="variant-status" id="status-dovetail">
+      <span class="variant-status-dot" id="dot-dovetail"></span>
+      <span id="status-text-dovetail">Checking...</span>
+    </div>
+    <div id="color-btns-dovetail" style="display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:flex-end;"></div>
+    <div class="qty-row">
+      <button class="qty-btn" onclick="changeQty('dovetail', -1)">−</button>
+      <span class="qty-display" id="qty-input-dovetail">1</span>
+      <button class="qty-btn" onclick="changeQty('dovetail', 1)">+</button>
+    </div>
+    <button class="btn-primary" id="btn-dovetail" onclick="addVariantToCart('dovetail')" disabled>
+      Add to Cart
+    </button>
+  </div>
+</div>
     </div>
 
     <!-- BAYONET -->
@@ -789,14 +801,47 @@ async function loadVariant(key, docId) {
     const btn       = document.getElementById('btn-' + key);
 
     if (available) {
-      dot.classList.add('available');
-      statusEl.classList.add('available');
-      statusTxt.textContent = 'In Stock';
-      btn.disabled = false;
-    } else {
-      statusTxt.textContent = 'Currently Unavailable';
-      btn.disabled = true;
-    }
+  dot.classList.add('available');
+  statusEl.classList.add('available');
+  statusTxt.textContent = 'In Stock';
+} else {
+  statusTxt.textContent = 'Currently Unavailable';
+}
+
+// Render color buttons if color fields exist
+if (key === 'dovetail' && (d.black != null || d.sand != null)) {
+  const colorContainer = document.getElementById('color-btns-dovetail');
+  colorContainer.innerHTML = '';
+  window._selectedColor = window._selectedColor || {};
+
+  const colors = [];
+  if (d.black != null) colors.push({ name: 'Black', qty: d.black });
+  if (d.sand  != null) colors.push({ name: 'Sand',  qty: d.sand  });
+
+  colors.forEach(c => {
+    const b = document.createElement('button');
+    b.className = 'color-btn';
+    b.innerHTML = `${c.name} <span class="color-btn-qty">(${c.qty})</span>`;
+    b.disabled = c.qty === 0;
+    b.addEventListener('click', () => {
+      document.querySelectorAll('#color-btns-dovetail .color-btn').forEach(x => x.classList.remove('selected'));
+      b.classList.add('selected');
+      window._selectedColor['dovetail'] = c.name.toLowerCase();
+      window._variantMax['dovetail'] = c.qty;
+      // reset qty to 1
+      window._qty['dovetail'] = 1;
+      document.getElementById('qty-input-dovetail').textContent = 1;
+      // enable/disable add to cart
+      btn.disabled = c.qty === 0;
+    });
+    colorContainer.appendChild(b);
+  });
+
+  // disable cart until a color is selected
+  btn.disabled = true;
+} else {
+  btn.disabled = !available;
+}
 
   } catch (err) {
     console.error('Error loading variant ' + key, err);
@@ -829,14 +874,16 @@ window.addVariantToCart = function(key) {
   const qty = window._qty[key] || 1;
   if (!d) return;
 
-  window.addToCart({
-    id:      d._docId,
-    product: d.product || ('MUM-14 Adapter — ' + (key === 'dovetail' ? 'Dovetail' : 'Bayonet')),
-    price:   String(d.price || '0'),
-    sku:     d.sku || null,
-    finish:  d.finish || null,
-    quantity: qty,
-  }, btn);
+  const color = window._selectedColor?.[key] || null;
+window.addToCart({
+  id:      d._docId + (color ? '_' + color : ''),
+  product: d.product || ('MUM-14 Adapter — ' + (key === 'dovetail' ? 'Dovetail' : 'Bayonet')),
+  price:   String(d.price || '0'),
+  sku:     d.sku || null,
+  finish:  d.finish || null,
+  color:   color,
+  quantity: qty,
+}, btn);
 };
 
 // Load both variants
