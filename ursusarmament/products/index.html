@@ -874,6 +874,19 @@ const PRODUCTS = [
     displayCat: 'NVG Adapter',
   },
   {
+    id: 'mum14-bridge',
+    name: 'MUM-14 Bridge',
+    cat: 'nvg',
+    subcats: ['adapters'],
+    flagship: false,
+    url: '/ursusarmament/products/MUM14-Bridge',
+    bgLabel: 'MUM14',
+    desc: '',
+    status: 'unavailable',
+    statusId: 'mum14-bridge-status',
+    displayCat: 'NVG Adapter',
+  },
+  {
     id: 'pvs14-adapter',
     name: 'PVS-14 Adapter',
     cat: 'nvg',
@@ -1110,12 +1123,14 @@ async function fetchAvailability() {
     getDocs(query(collection(db, "ursus-units"), where("product", "==", "URSIX"), where("available", "==", true))),
     getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Adapter")),
     getDoc(doc(db, "ursus-units", "MUM-14_Bayonet_Adapter")),
+    getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge")),
   ]);
 
   availabilityCache = {
     ursixCount:      ursixSnap.size,
     dovetailAvail:   dovetailSnap.exists() && dovetailSnap.data()?.available === true,
     bayonetAvail:    bayonetSnap.exists()  && bayonetSnap.data()?.available  === true,
+    bridgeAvail:   bridgeSnap.exists()   && bridgeSnap.data()?.available   === true,
   };
 
   return availabilityCache;
@@ -1168,7 +1183,22 @@ async function applyAvailability() {
         </span>
     `;
     }
+// MUM-14 Bridge
+    const bridgeEl = document.getElementById("mum14-bridge-status");
+    if (bridgeEl) {
+      if (data.bridgeAvail) {
+        bridgeEl.textContent = "Available";
+        bridgeEl.classList.add("available");
+      } else {
+        bridgeEl.textContent = "Currently Unavailable";
+        bridgeEl.classList.remove("available");
+      }
+    }
 
+  } catch(err) {
+    console.error(err);
+  }
+}
   } catch(err) {
     console.error(err);
   }
