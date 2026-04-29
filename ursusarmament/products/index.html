@@ -1169,11 +1169,16 @@ async function applyAvailability() {
       `;
       mum14El.style.flexDirection = 'column';
       mum14El.style.alignItems = 'flex-start';
-      if (eitherAvail) {
-        mum14El.classList.add("available");
-      } else {
-        mum14El.classList.remove("available");
-      }
+      mum14El.innerHTML = `
+        <span style="display:flex;align-items:center;gap:0.4rem;color:${data.dovetailAvail ? '#2a9c5c' : 'var(--muted)'};">
+          <span style="width:5px;height:5px;border-radius:50%;background:${data.dovetailAvail ? '#2a9c5c' : 'var(--muted)'};flex-shrink:0;display:inline-block;"></span>
+          ${dyText}
+        </span>
+        <span style="display:flex;align-items:center;gap:0.4rem;margin-top:0.2rem;color:${data.bayonetAvail ? '#2a9c5c' : 'var(--muted)'};">
+          <span style="width:5px;height:5px;border-radius:50%;background:${data.bayonetAvail ? '#2a9c5c' : 'var(--muted)'};flex-shrink:0;display:inline-block;"></span>
+          ${bnText}
+        </span>
+    `;
     }
 
   } catch(err) {
