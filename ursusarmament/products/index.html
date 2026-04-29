@@ -965,8 +965,7 @@ function renderGrid() {
       ? `<img src="${p.image}" alt="${p.name}" loading="lazy">`
       : `<span class="card-bg-label">${p.bgLabel}</span>`;
 
-    const overlayHTML = p.status === 'unavailable' ? '<div class="card-unavailable-overlay"></div>' : '';
-
+    const overlayHTML = (p.status === 'unavailable' && !p.variants) ? '<div class="card-unavailable-overlay"></div>' : '';
     card.innerHTML = `
       ${overlayHTML}
       <div class="card-image">
