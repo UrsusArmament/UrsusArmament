@@ -1092,19 +1092,24 @@ let availabilityCache = null;
 async function fetchAvailability() {
   if (availabilityCache) return availabilityCache;
 
-  const [ursixSnap, dovetailSnap, bayonetSnap, bridgeSnap] = await Promise.all([
-    getDocs(query(collection(db, "ursus-units"), where("product", "==", "URSIX"), where("available", "==", true))),
-    getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Adapter")),
-    getDoc(doc(db, "ursus-units", "MUM-14_Bayonet_Adapter")),
-    getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge")),
-  ]);
+  const [ursixSnap, dyBlackSnap, dySandSnap, bayonetSnap, bridgeSnap] = await Promise.all([
+  getDocs(query(collection(db, "ursus-units"), where("product", "==", "URSIX"), where("available", "==", true))),
+  getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Adapter_Black")),
+  getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Adapter_Sand")),
+  getDoc(doc(db, "ursus-units", "MUM-14_Bayonet_Adapter")),
+  getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge")),
+]);
 
-  availabilityCache = {
-    ursixCount:    ursixSnap.size,
-    dovetailAvail: dovetailSnap.exists() && dovetailSnap.data()?.available === true,
-    bayonetAvail:  bayonetSnap.exists()  && bayonetSnap.data()?.available  === true,
-    bridgeAvail:   bridgeSnap.exists()   && bridgeSnap.data()?.available   === true,
-  };
+const dyBlackQty = dyBlackSnap.exists() ? (dyBlackSnap.data()?.['quantity-available'] || 0) : 0;
+const dySandQty  = dySandSnap.exists()  ? (dySandSnap.data()?.['quantity-available']  || 0) : 0;
+const bayonetQty = bayonetSnap.exists() ? (bayonetSnap.data()?.['quantity-available'] || 0) : 0;
+
+availabilityCache = {
+  ursixCount:    ursixSnap.size,
+  dovetailAvail: (dyBlackQty + dySandQty) > 0,
+  bayonetAvail:  bayonetQty > 0,
+  bridgeAvail:   bridgeSnap.exists() && bridgeSnap.data()?.['quantity-available'] > 0,
+};
 
   return availabilityCache;
 }
