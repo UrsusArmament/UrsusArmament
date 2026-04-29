@@ -559,17 +559,17 @@
     </a>
 
     <!-- URSIX -->
-    <a class="product-card" href="/ursusarmament/products/URSIX">
-      <div class="product-card-bg">
-        <span class="product-card-bg-label">UR-6</span>
-      </div>
-      <div class="product-card-body">
-        <div class="product-cat">Night Vision Monocular</div>
-        <div class="product-name">URSIX</div>
-        <div class="product-desc">URSIX Night Vision Monocular — Own the Night. A compact, PVS14-style, high-performance white phosphor / autogating monocular built for tactical operators and law enforcement.</div>
-        <div class="product-status">Currently Unavailable</div>
-      </div>
-    </a>
+<a class="product-card" href="/ursusarmament/products/URSIX">
+  <div class="product-card-bg">
+    <img src="/ursusarmament/images/pvs14dark.png" style="width:100%;height:100%;object-fit:cover;object-position:center;"/>
+  </div>
+  <div class="product-card-body">
+    <div class="product-cat">Night Vision Monocular</div>
+    <div class="product-name">URSIX</div>
+    <div class="product-desc">URSIX Night Vision Monocular — Own the Night. A compact, PVS14-style, high-performance white phosphor / autogating monocular built for tactical operators and law enforcement.</div>
+    <div class="product-status active" id="ursix-status">Checking availability...</div>
+  </div>
+</a>
 
     <!-- CALIDUS -->
     <a class="product-card" href="/ursusarmament/products/CALIDUS">
@@ -763,6 +763,39 @@ function updateCartBadge() {
   } catch {}
 }
 updateCartBadge();
+</script>
+  <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
+  authDomain: "ursus-armament.firebaseapp.com",
+  projectId: "ursus-armament",
+  storageBucket: "ursus-armament.firebasestorage.app",
+  messagingSenderId: "430731167862",
+  appId: "1:430731167862:web:a5447de86db180edad3757"
+};
+
+const app = initializeApp(firebaseConfig);
+const db  = getFirestore(app);
+
+const q    = query(
+  collection(db, "ursus-units"),
+  where("product",   "==", "URSIX"),
+  where("available", "==", true)
+);
+const snap  = await getDocs(q);
+const count = snap.size;
+const el    = document.getElementById("ursix-status");
+
+if (count > 0) {
+  el.textContent = count + " Unit" + (count === 1 ? "" : "s") + " Available";
+  el.classList.add("active");
+} else {
+  el.textContent = "Currently Unavailable";
+  el.classList.remove("active");
+}
 </script>
 </body>
 </html>
