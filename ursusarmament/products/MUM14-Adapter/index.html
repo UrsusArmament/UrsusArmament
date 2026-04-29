@@ -871,7 +871,16 @@ async function loadDovetail() {
     });
 
     // Disable until color selected
-    btn.disabled = true;
+    const blackOption = colors.find(c => c.name === 'Black' && c.qty > 0);
+const sandOption  = colors.find(c => c.name === 'Sand'  && c.qty > 0);
+const autoSelect  = blackOption || sandOption || null;
+
+if (autoSelect) {
+  const autoBtn = colorContainer.querySelector(`button:nth-child(${colors.indexOf(autoSelect) + 1})`);
+  if (autoBtn) autoBtn.click();
+} else {
+  btn.disabled = true;
+}
 
   } catch (err) {
     console.error('Error loading dovetail:', err);
