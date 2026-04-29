@@ -757,8 +757,9 @@ const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
 
-// Store variant data for cart
-window._variantData = { dovetail: null, bayonet: null };
+window._variantData  = {};
+window._selectedColor = {};
+window._variantMax   = {};
 
 // ── Auth ──
 onAuthStateChanged(auth, (user) => {
@@ -770,90 +771,16 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-// ── Load variant data from Firestore ──
-async function loadVariant(key, docId) {
-  try {
-    const snap = await getDoc(doc(db, "ursus-units", docId));
-    if (!snap.exists()) {
-      setVariantUnavailable(key);
-      return;
-    }
-    const d = snap.data();
-      window._variantData[key] = { ...d, _docId: docId };
-      window._variantMax = window._variantMax || {};
-      window._variantMax[key] = d['quantity-available'] || 1;
-
-    // Populate fields
-    setText('sku-' + key,     d.sku      || '—');
-    setText('finish-' + key,  d.finish   || '—');
-    setText('product-' + key, d.product  || '—');
-    setText('qty-' + key,     d['quantity-available'] != null ? d['quantity-available'] : '—');
-
-    // Price
-    const priceEl = document.getElementById('price-' + key);
-    if (priceEl) priceEl.textContent = d.price ? '$' + Number(d.price).toLocaleString() : '—';
-
-    // Availability
-    const available = d.available === true && (d['quantity-available'] > 0);
-    const dot       = document.getElementById('dot-' + key);
-    const statusEl  = document.getElementById('status-' + key);
-    const statusTxt = document.getElementById('status-text-' + key);
-    const btn       = document.getElementById('btn-' + key);
-
-    if (available) {
-  dot.classList.add('available');
-  statusEl.classList.add('available');
-  statusTxt.textContent = 'In Stock';
-} else {
-  statusTxt.textContent = 'Currently Unavailable';
-}
-
-// Render color buttons if color fields exist
-if (key === 'dovetail' && (d.black != null || d.sand != null)) {
-  const colorContainer = document.getElementById('color-btns-dovetail');
-  colorContainer.innerHTML = '';
-  window._selectedColor = window._selectedColor || {};
-
-  const colors = [];
-  if (d.black != null) colors.push({ name: 'Black', qty: d.black });
-  if (d.sand  != null) colors.push({ name: 'Sand',  qty: d.sand  });
-
-  colors.forEach(c => {
-    const b = document.createElement('button');
-    b.className = 'color-btn';
-    b.innerHTML = `${c.name} <span class="color-btn-qty">(${c.qty})</span>`;
-    b.disabled = c.qty === 0;
-    b.addEventListener('click', () => {
-      document.querySelectorAll('#color-btns-dovetail .color-btn').forEach(x => x.classList.remove('selected'));
-      b.classList.add('selected');
-      window._selectedColor['dovetail'] = c.name.toLowerCase();
-      window._variantMax['dovetail'] = c.qty;
-      // reset qty to 1
-      window._qty['dovetail'] = 1;
-      document.getElementById('qty-input-dovetail').textContent = 1;
-      // enable/disable add to cart
-      btn.disabled = c.qty === 0;
-    });
-    colorContainer.appendChild(b);
-  });
-
-  // disable cart until a color is selected
-  btn.disabled = true;
-} else {
-  btn.disabled = !available;
-}
-
-  } catch (err) {
-    console.error('Error loading variant ' + key, err);
-    setVariantUnavailable(key);
-  }
+function setText(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = val;
 }
 
 function setVariantUnavailable(key) {
-  setText('sku-' + key,     '—');
-  setText('finish-' + key,  '—');
+  setText('sku-'     + key, '—');
+  setText('finish-'  + key, '—');
   setText('product-' + key, '—');
-  setText('qty-' + key,     '0');
+  setText('qty-'     + key, '0');
   const priceEl = document.getElementById('price-' + key);
   if (priceEl) priceEl.textContent = '—';
   const statusTxt = document.getElementById('status-text-' + key);
@@ -862,9 +789,126 @@ function setVariantUnavailable(key) {
   if (btn) btn.disabled = true;
 }
 
-function setText(id, val) {
-  const el = document.getElementById(id);
-  if (el) el.textContent = val;
+// ── DOVETAIL — fetches Black + Sand separately ──
+async function loadDovetail() {
+  try {
+    const [blackSnap, sandSnap] = await Promise.all([
+      getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Adapter_Black")),
+      getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Adapter_Sand")),
+    ]);
+
+    const blackData = blackSnap.exists() ? blackSnap.data() : null;
+    const sandData  = sandSnap.exists()  ? sandSnap.data()  : null;
+
+    if (!blackData && !sandData) {
+      setVariantUnavailable('dovetail');
+      return;
+    }
+
+    // Use first available doc for shared fields (price, product, sku)
+    const primary = blackData || sandData;
+    setText('product-dovetail', primary.product || '—');
+    setText('finish-dovetail',  'Black / Sand');
+    setText('sku-dovetail',     primary.sku     || '—');
+
+    // Total qty
+    const blackQty = blackData ? (blackData['quantity-available'] || 0) : 0;
+    const sandQty  = sandData  ? (sandData['quantity-available']  || 0) : 0;
+    const totalQty = blackQty + sandQty;
+    setText('qty-dovetail', totalQty);
+
+    // Price — show lower price if different, or just one price
+    const priceEl = document.getElementById('price-dovetail');
+    if (priceEl) priceEl.textContent = primary.price ? '$' + Number(primary.price).toLocaleString() : '—';
+
+    // Overall status
+    const dot       = document.getElementById('dot-dovetail');
+    const statusEl  = document.getElementById('status-dovetail');
+    const statusTxt = document.getElementById('status-text-dovetail');
+    const btn       = document.getElementById('btn-dovetail');
+
+    if (totalQty > 0) {
+      dot.classList.add('available');
+      statusEl.classList.add('available');
+      statusTxt.textContent = 'In Stock';
+    } else {
+      statusTxt.textContent = 'Currently Unavailable';
+    }
+
+    // Color buttons
+    const colorContainer = document.getElementById('color-btns-dovetail');
+    colorContainer.innerHTML = '';
+
+    const colors = [];
+    if (blackData) colors.push({ name: 'Black', qty: blackQty, docId: 'MUM-14_Dovetail_Adapter_Black', data: blackData });
+    if (sandData)  colors.push({ name: 'Sand',  qty: sandQty,  docId: 'MUM-14_Dovetail_Adapter_Sand',  data: sandData  });
+
+    colors.forEach(c => {
+      const b = document.createElement('button');
+      b.className = 'color-btn';
+      b.innerHTML = `${c.name} <span class="color-btn-qty">(${c.qty})</span>`;
+      b.disabled = c.qty === 0;
+      b.addEventListener('click', () => {
+        document.querySelectorAll('#color-btns-dovetail .color-btn').forEach(x => x.classList.remove('selected'));
+        b.classList.add('selected');
+        window._selectedColor['dovetail']  = c.name.toLowerCase();
+        window._variantMax['dovetail']     = c.qty;
+        window._variantData['dovetail']    = { ...c.data, _docId: c.docId };
+        window._qty['dovetail'] = 1;
+        document.getElementById('qty-input-dovetail').textContent = 1;
+        btn.disabled = c.qty === 0;
+      });
+      colorContainer.appendChild(b);
+    });
+
+    // Disable until color selected
+    btn.disabled = true;
+
+  } catch (err) {
+    console.error('Error loading dovetail:', err);
+    setVariantUnavailable('dovetail');
+  }
+}
+
+// ── BAYONET — single document ──
+async function loadBayonet() {
+  try {
+    const snap = await getDoc(doc(db, "ursus-units", "MUM-14_Bayonet_Adapter"));
+    if (!snap.exists()) { setVariantUnavailable('bayonet'); return; }
+
+    const d = snap.data();
+    window._variantData['bayonet'] = { ...d, _docId: 'MUM-14_Bayonet_Adapter' };
+    const qty = d['quantity-available'] || 0;
+    window._variantMax['bayonet'] = qty;
+
+    setText('sku-bayonet',     d.sku     || '—');
+    setText('finish-bayonet',  d.finish  || '—');
+    setText('product-bayonet', d.product || '—');
+    setText('qty-bayonet',     qty);
+
+    const priceEl = document.getElementById('price-bayonet');
+    if (priceEl) priceEl.textContent = d.price ? '$' + Number(d.price).toLocaleString() : '—';
+
+    const available = d.available === true && qty > 0;
+    const dot       = document.getElementById('dot-bayonet');
+    const statusEl  = document.getElementById('status-bayonet');
+    const statusTxt = document.getElementById('status-text-bayonet');
+    const btn       = document.getElementById('btn-bayonet');
+
+    if (available) {
+      dot.classList.add('available');
+      statusEl.classList.add('available');
+      statusTxt.textContent = 'In Stock';
+      btn.disabled = false;
+    } else {
+      statusTxt.textContent = 'Currently Unavailable';
+      btn.disabled = true;
+    }
+
+  } catch (err) {
+    console.error('Error loading bayonet:', err);
+    setVariantUnavailable('bayonet');
+  }
 }
 
 // ── Add to cart ──
@@ -874,21 +918,25 @@ window.addVariantToCart = function(key) {
   const qty = window._qty[key] || 1;
   if (!d) return;
 
-  const color = window._selectedColor?.[key] || null;
-window.addToCart({
-  id:      d._docId + (color ? '_' + color : ''),
-  product: d.product || ('MUM-14 Adapter — ' + (key === 'dovetail' ? 'Dovetail' : 'Bayonet')),
-  price:   String(d.price || '0'),
-  sku:     d.sku || null,
-  finish:  d.finish || null,
-  color:   color,
-  quantity: qty,
-}, btn);
+  // Dovetail requires color selection
+  if (key === 'dovetail' && !window._selectedColor['dovetail']) {
+    showToast('Please select a color before adding to cart.');
+    return;
+  }
+
+  window.addToCart({
+    id:      d._docId,
+    product: d.product || ('MUM-14 Adapter — ' + (key === 'dovetail' ? 'Dovetail' : 'Bayonet')),
+    price:   String(d.price || '0'),
+    sku:     d.sku    || null,
+    finish:  d.finish || null,
+    color:   window._selectedColor[key] || null,
+    quantity: qty,
+  }, btn);
 };
 
-// Load both variants
-loadVariant('dovetail', 'MUM-14_Dovetail_Adapter');
-loadVariant('bayonet',  'MUM-14_Bayonet_Adapter');
+loadDovetail();
+loadBayonet();
 </script>
 
 </body>
