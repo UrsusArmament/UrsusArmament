@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
+<link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Products — Ursus Armament</title>
@@ -34,6 +34,7 @@
     overflow-x: hidden;
   }
 
+  /* ── NAV ── */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     background: rgba(10,10,8,0.92);
@@ -94,31 +95,48 @@
   .nav-ribbon a.active { color: var(--accent); }
 
   .nav-auth {
-  display: flex;
-  align-items: center;
-}
+    display: flex;
+    align-items: center;
+  }
+  .nav-auth a, .nav-auth button {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--accent);
+    background: transparent;
+    border: 1px solid var(--accent);
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .nav-auth a:hover, .nav-auth button:hover {
+    background: rgba(200,146,42,0.08);
+  }
 
-.nav-auth a, .nav-auth button {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: var(--accent);
-  background: transparent;
-  border: 1px solid var(--accent);
-  padding: 0.4rem 1rem;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
+  .nav-cart-btn {
+    position: relative;
+    background: transparent;
+    border: 1px solid var(--border2);
+    color: var(--text);
+    width: 38px; height: 38px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+    flex-shrink: 0;
+  }
+  .nav-cart-btn:hover { border-color: var(--accent); background: rgba(200,146,42,0.06); }
+  .nav-cart-btn svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
+  .nav-cart-btn:hover svg { stroke: var(--accent); }
+  .cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
+  .cart-count.visible { display: flex; }
 
-.nav-auth a:hover, .nav-auth button:hover {
-  background: rgba(200,146,42,0.08);
-}
-
+  /* ── PAGE HEADER ── */
   .page-header {
-    padding: 10rem 3rem 5rem;
+    padding: 7.5rem 3rem 3rem;
     background: var(--dark);
     border-bottom: 1px solid var(--border);
     position: relative;
@@ -156,186 +174,333 @@
 
   .page-header h1 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3rem, 7vw, 6rem);
+    font-size: clamp(3rem, 7vw, 5rem);
     letter-spacing: 0.04em;
     line-height: 1;
     color: var(--text);
-    margin-bottom: 1rem;
   }
 
-  .page-header p {
-    font-size: 1.05rem;
-    font-weight: 300;
+  .breadcrumb {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
     color: var(--muted);
-    max-width: 560px;
-    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb span { color: var(--accent); }
+
+  /* ── PRODUCTS SECTION ── */
+  .products-section {
+    padding: 0 3rem 6rem;
+    background: var(--black);
   }
 
-  .products-section {
-    padding: 6rem 3rem;
+  /* ── CATEGORY NAV ── */
+  .cat-nav-wrapper {
+    position: sticky;
+    top: 101px; /* height of fixed nav */
+    z-index: 50;
     background: var(--black);
+    border-bottom: 1px solid var(--border);
+    padding: 0 3rem;
+    margin: 0 -3rem;
+  }
+
+  .cat-nav {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .cat-nav::-webkit-scrollbar { display: none; }
+
+  .cat-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+    position: relative;
+  }
+
+  .cat-btn:hover { color: var(--text); }
+  .cat-btn.active {
+    color: var(--accent);
+    border-bottom-color: var(--accent);
+  }
+
+  /* subcategory row */
+  .subcat-nav-wrapper {
+    background: var(--surface);
+    border-bottom: 1px solid var(--border);
+    padding: 0 3rem;
+    margin: 0 -3rem;
+    display: none;
+  }
+  .subcat-nav-wrapper.visible { display: block; }
+
+  .subcat-nav {
+    display: flex; align-items: stretch; gap: 0;
+    overflow-x: auto; scrollbar-width: none;
+  }
+  .subcat-nav::-webkit-scrollbar { display: none; }
+
+  .subcat-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid transparent;
+    padding: 0.65rem 1.2rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .subcat-btn:hover { color: var(--text); }
+  .subcat-btn.active { color: var(--accent2); border-bottom-color: var(--accent2); }
+
+  /* ── PRODUCT GRID ── */
+  .grid-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2rem 0 1.25rem;
+  }
+
+  .grid-header-left {
+    display: flex; align-items: baseline; gap: 0.75rem;
+  }
+
+  .grid-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .grid-count {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--accent);
+    background: rgba(200,146,42,0.1);
+    padding: 0.15rem 0.5rem;
+    border: 1px solid rgba(200,146,42,0.25);
   }
 
   .product-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
     background: var(--border);
-    margin-top: 3rem;
   }
 
-  /* All cards are anchor tags now — shared base style */
+  /* compact card */
   .product-card {
     background: var(--dark);
     position: relative;
     overflow: hidden;
-    aspect-ratio: 4/3;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     cursor: pointer;
-    transition: transform 0.3s;
     text-decoration: none;
     color: inherit;
+    transition: background 0.2s;
+    aspect-ratio: 3/4;
   }
 
-  .product-card:hover { transform: scale(1.01); }
+  .product-card:hover { background: var(--surface); }
+  .product-card:hover .card-arrow { opacity: 1; transform: translate(2px, -2px); }
 
-  .product-card-bg {
-    position: absolute;
-    inset: 0;
-    background: var(--surface2);
+  /* flagship cards span 2 cols on all-products view */
+  .product-card.flagship {
+    aspect-ratio: auto;
+  }
+
+  .card-image {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: var(--surface2);
+    min-height: 120px;
   }
 
-  .product-card-bg-label {
+  .card-image img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+    opacity: 0.85;
+    transition: opacity 0.3s, transform 0.4s;
+  }
+  .product-card:hover .card-image img { opacity: 1; transform: scale(1.03); }
+
+  .card-bg-label {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 8rem;
-    color: var(--border2);
-    letter-spacing: 0.1em;
+    font-size: 4.5rem;
+    color: rgba(255,255,255,0.06);
+    letter-spacing: 0.08em;
     user-select: none;
+    line-height: 1;
   }
 
-  .product-card-body {
+  .card-body {
+    padding: 1rem 1.1rem 1.1rem;
+    border-top: 1px solid var(--border);
     position: relative;
-    z-index: 2;
-    padding: 2rem;
-    background: linear-gradient(to top, rgba(10,10,8,0.97) 60%, transparent);
   }
 
-  .product-cat {
+  .card-cat {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.68rem;
+    font-size: 0.62rem;
     font-weight: 700;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     color: var(--accent);
+    margin-bottom: 0.25rem;
+  }
+
+  .card-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.05em;
+    color: var(--text);
+    line-height: 1;
     margin-bottom: 0.4rem;
   }
 
-  .product-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 3rem;
-    letter-spacing: 0.06em;
-    color: var(--text);
-    line-height: 1;
-    margin-bottom: 0.75rem;
-  }
-
-  .product-desc {
-    font-size: 0.9rem;
+  .card-desc {
+    font-size: 0.78rem;
+    font-weight: 300;
     color: var(--muted);
-    line-height: 1.6;
-    margin-bottom: 1.25rem;
-    max-width: 380px;
+    line-height: 1.5;
+    margin-bottom: 0.75rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
-  .product-status {
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-status {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 600;
-    letter-spacing: 0.12em;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    display: flex; align-items: center; gap: 0.4rem;
   }
-
-  .product-status::before {
+  .card-status::before {
     content: '';
     display: block;
-    width: 6px;
-    height: 6px;
+    width: 5px; height: 5px;
     border-radius: 50%;
     background: var(--muted);
+    flex-shrink: 0;
   }
+  .card-status.available::before { background: #2a9c5c; }
+  .card-status.available { color: #2a9c5c; }
 
-  .product-status.active::before { background: var(--accent); }
-  .product-status.available::before { background: #2a9c5c; }
-
-  .specs-section {
-    padding: 6rem 3rem;
-    background: var(--dark);
-    border-top: 1px solid var(--border);
-  }
-
-  .specs-inner {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: start;
-  }
-
-  .specs-text h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2rem, 4vw, 3.5rem);
-    letter-spacing: 0.04em;
-    color: var(--text);
-    margin-bottom: 1rem;
-  }
-
-  .specs-text p {
-    font-size: 1rem;
-    color: var(--muted);
-    line-height: 1.8;
-    font-weight: 300;
-  }
-
-  .specs-table {
-    display: flex;
-    flex-direction: column;
-    border: 1px solid var(--border);
-  }
-
-  .spec-row {
-    display: flex;
-    border-bottom: 1px solid var(--border);
-    padding: 0.9rem 1.2rem;
-    align-items: center;
-    gap: 1rem;
-    transition: background 0.15s;
-  }
-  .spec-row:last-child { border-bottom: none; }
-  .spec-row:hover { background: var(--surface); }
-
-  .spec-key {
+  .card-price {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.72rem;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.05em;
+  }
+
+  .card-arrow {
+    position: absolute;
+    top: 0.8rem; right: 0.9rem;
+    font-size: 0.7rem;
+    color: var(--accent);
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+    line-height: 1;
+  }
+
+  /* flagship badge */
+  .flagship-badge {
+    position: absolute;
+    top: 0.65rem;
+    left: 0.75rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.58rem;
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
+    color: var(--black);
+    background: var(--accent);
+    padding: 0.2rem 0.5rem;
+    z-index: 2;
+  }
+
+  /* "coming soon" overlay */
+  .card-unavailable-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(10,10,8,0.45);
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* divider within all-products view (flagship vs accessories) */
+  .grid-divider {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.5rem 0 0.25rem;
+    background: var(--black);
+    border: none;
+  }
+  .grid-divider span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
     color: var(--muted);
-    min-width: 140px;
+    white-space: nowrap;
   }
-
-  .spec-val {
-    font-size: 0.9rem;
-    color: var(--text);
+  .grid-divider::before, .grid-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
   }
+  .grid-divider::before { display: none; }
 
+  /* ── NOTIFY BANNER ── */
   .notify-banner {
     background: var(--accent);
     padding: 4rem 3rem;
@@ -377,6 +542,7 @@
   }
   .btn-dark:hover { background: #1a1a17; }
 
+  /* ── FOOTER ── */
   footer {
     background: var(--dark);
     border-top: 1px solid var(--border);
@@ -438,36 +604,42 @@
     opacity: 0.5;
   }
 
-  .breadcrumb {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    grid-column: 1 / -1;
+    padding: 5rem 2rem;
+    text-align: center;
     color: var(--muted);
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 1px dashed var(--border);
   }
 
-  .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
-  .breadcrumb a:hover { color: var(--accent); }
-  .breadcrumb span { color: var(--accent); }
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    .product-grid { grid-template-columns: repeat(3, 1fr); }
+  }
 
-  @media (max-width: 900px) {
+  @media (max-width: 768px) {
     .nav-top { padding: 0.6rem 1.5rem; }
     .nav-ribbon { padding: 0 1rem; }
-    .page-header { padding: 9rem 1.5rem 3rem; }
-    .products-section { padding: 4rem 1.5rem; }
-    .product-grid { grid-template-columns: 1fr; }
-    .specs-section { padding: 4rem 1.5rem; }
-    .specs-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+    .page-header { padding: 7.5rem 1.5rem 2.5rem; }
+    .products-section { padding: 0 1.5rem 4rem; }
+    .cat-nav-wrapper { padding: 0 1.5rem; margin: 0 -1.5rem; }
+    .subcat-nav-wrapper { padding: 0 1.5rem; margin: 0 -1.5rem; }
+    .product-grid { grid-template-columns: repeat(2, 1fr); }
     .notify-banner { flex-direction: column; text-align: center; padding: 3rem 1.5rem; }
     footer { padding: 3rem 1.5rem 2rem; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
   }
 
+  @media (max-width: 480px) {
+    .product-grid { grid-template-columns: 1fr; }
+  }
+
+  /* modal */
   #sib-container {
     background-color: var(--surface) !important;
     border-color: var(--border2) !important;
@@ -475,56 +647,32 @@
   }
   #sib-container .entry__label,
   #sib-container .sib-form-block p,
-  #sib-container .entry__specification {
-    color: var(--muted) !important;
-  }
+  #sib-container .entry__specification { color: var(--muted) !important; }
   #sib-container input {
     background-color: var(--dark) !important;
     color: var(--text) !important;
     border-color: var(--border2) !important;
   }
   .sib-form { background-color: transparent !important; }
-.nav-cart-btn {
-  position: relative;
-  background: transparent;
-  border: 1px solid var(--border2);
-  color: var(--text);
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  text-decoration: none;
-  transition: border-color 0.2s, background 0.2s;
-  flex-shrink: 0;
-}
-.nav-cart-btn:hover { border-color: var(--accent); background: rgba(200,146,42,0.06); }
-.nav-cart-btn svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
-.nav-cart-btn:hover svg { stroke: var(--accent); }
-.cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
-.cart-count.visible { display: flex; }
 </style>
 </head>
 <body>
+
+<!-- ── NAV ── -->
 <nav>
   <div class="nav-top">
-  <div class="nav-brand">
-    <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
-    <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    <div class="nav-brand">
+      <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
+      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    </div>
+    <div class="nav-right" style="display:flex; align-items:center; gap:0.75rem;">
+      <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
+        <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>
+        <span class="cart-count" id="cartCount"></span>
+      </a>
+      <div class="nav-auth" id="navAuth"></div>
+    </div>
   </div>
-  <div class="nav-right" style="display:flex; align-items:center; gap:0.75rem;">
-    <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="9" cy="21" r="1"/>
-        <circle cx="20" cy="21" r="1"/>
-        <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/>
-      </svg>
-      <span class="cart-count" id="cartCount"></span>
-    </a>
-    <div class="nav-auth" id="navAuth"></div>
-  </div>
-</div>
   <div class="nav-ribbon">
     <a href="/ursusarmament/products" class="active">Products</a>
     <a href="/ursusarmament#mission">Our Mission</a>
@@ -532,6 +680,7 @@
   </div>
 </nav>
 
+<!-- ── PAGE HEADER ── -->
 <div class="page-header">
   <div class="breadcrumb">
     <a href="/ursusarmament">Ursus Armament</a>
@@ -540,91 +689,42 @@
   </div>
   <div class="section-tag">Arsenal</div>
   <h1>OUR PRODUCTS</h1>
-  <p>Every item in the Ursus Armament lineup is engineered from first principles — tested beyond military specification and built to perform when failure is not an option.</p>
 </div>
 
+<!-- ── PRODUCTS ── -->
 <section class="products-section">
-  <div class="product-grid">
 
-    <!-- R.O.T.S. -->
-    <a class="product-card" href="/ursusarmament/products/ROTS">
-      <div class="product-card-bg">
-        <span class="product-card-bg-label">R.O.T.S.</span>
-      </div>
-      <div class="product-card-body">
-        <div class="product-cat">Tactical System</div>
-        <div class="product-name" style="color: var(--accent);">R.O.T.S.</div>
-        <div class="product-desc">Remotely Operated Turret System. LRF, VIM &amp; TIM equipped. Dual-weapon rails. Stand-alone and networked operation. Full specifications coming soon.</div>
-        <div class="product-status">Currently Unavailable</div>
-      </div>
-    </a>
-
-    <!-- URSIX -->
-<a class="product-card" href="/ursusarmament/products/URSIX">
-  <div class="product-card-bg">
-    <img src="/ursusarmament/images/pvs14dark.png" style="width:100%;height:100%;object-fit:cover;object-position:center;"/>
-  </div>
-  <div class="product-card-body" style="background: linear-gradient(to top right, rgba(10,10,8,0.95) 0%, rgba(10,10,8,0.4) 40%, transparent 70%);">
-    <div class="product-cat">Night Vision Monocular</div>
-    <div class="product-name" style="color: var(--accent) !important;">URSIX</div>
-    <div class="product-desc" style="color: #ffffff;">URSIX Night Vision Monocular — Own the Night. A compact, PVS14-style, high-performance white phosphor / autogating monocular built for tactical operators and law enforcement.</div>
-    <div class="product-status available" id="ursix-status" style="color: #ffffff;">Checking availability...</div>
-  </div>
-</a>
-
-    <!-- CALIDUS -->
-    <a class="product-card" href="/ursusarmament/products/CALIDUS">
-      <div class="product-card-bg">
-        <span class="product-card-bg-label">CL-DS</span>
-      </div>
-      <div class="product-card-body">
-        <div class="product-cat">Thermal Monocular</div>
-        <div class="product-name">CALIDUS</div>
-        <div class="product-desc">CALIDUS Thermal Monocular — See Heat. Own the Night. A compact, high-performance LWIR monocular built for reliable vision in total darkness, smoke, and obscurants.</div>
-        <div class="product-status">Currently Unavailable</div>
-      </div>
-    </a>
-
-    <!-- NEXIS -->
-    <a class="product-card" href="/ursusarmament/products/NEXIS">
-      <div class="product-card-bg">
-        <span class="product-card-bg-label">NX-SYS</span>
-      </div>
-      <div class="product-card-body">
-        <div class="product-cat">Tactical Network</div>
-        <div class="product-name">NEXIS</div>
-        <div class="product-desc">Nexis Tactical Network — Connected. Secure. In Control. A secure, high-reliability communications platform unifying sensors, optics, and weapon systems into one operational ecosystem.</div>
-        <div class="product-status">Currently Unavailable</div>
-      </div>
-    </a>
-
-  </div>
-</section>
-
-<section class="specs-section">
-  <div class="specs-inner">
-    <div class="specs-text">
-      <div class="section-tag">Engineering</div>
-      <h2>BUILT TO OUTLAST</h2>
-      <p>Every Ursus product is engineered to exceed military specifications. Our in-house testing division subjects each product to conditions that go far beyond standard commercial certifications.</p>
-    </div>
-    <div class="specs-table">
-      <div class="spec-row">
-        <span class="spec-key">Standard</span>
-        <span class="spec-val">MIL-STD-810H environmental testing</span>
-      </div>
-      <div class="spec-row">
-        <span class="spec-key">Origin</span>
-        <span class="spec-val">Designed &amp; manufactured in the USA</span>
-      </div>
-      <div class="spec-row">
-        <span class="spec-key">Warranty</span>
-        <span class="spec-val">Limited 5-year</span>
-      </div>
+  <!-- category nav -->
+  <div class="cat-nav-wrapper">
+    <div class="cat-nav">
+      <button class="cat-btn active" data-cat="all">All Products</button>
+      <button class="cat-btn" data-cat="flagship">Main Products</button>
+      <button class="cat-btn" data-cat="nvg">NVG</button>
+      <button class="cat-btn" data-cat="thermal">Thermal</button>
+      <button class="cat-btn" data-cat="comms">Comms</button>
+      <button class="cat-btn" data-cat="systems">Systems</button>
     </div>
   </div>
+
+  <!-- subcategory nav (only visible when a category has subcategories) -->
+  <div class="subcat-nav-wrapper" id="subcatWrapper">
+    <div class="subcat-nav" id="subcatNav"></div>
+  </div>
+
+  <!-- grid header -->
+  <div class="grid-header">
+    <div class="grid-header-left">
+      <span class="grid-label" id="gridLabel">All Products</span>
+      <span class="grid-count" id="gridCount">0</span>
+    </div>
+  </div>
+
+  <!-- product grid -->
+  <div class="product-grid" id="productGrid"></div>
+
 </section>
 
+<!-- ── NOTIFY BANNER ── -->
 <div class="notify-banner" id="support">
   <div>
     <h2>GET NOTIFIED AT LAUNCH</h2>
@@ -633,6 +733,7 @@
   <a href="#" class="btn-dark" onclick="openModal(); return false;">Join the List</a>
 </div>
 
+<!-- ── FOOTER ── -->
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
@@ -662,7 +763,7 @@
       <ul>
         <li><a href="/ursusarmament/contact/">Contact</a></li>
         <li><a href="/ursusarmament/warranty/">Warranty</a></li>
-        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>          
+        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>
       </ul>
     </div>
   </div>
@@ -671,28 +772,23 @@
     <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
   </div>
 </footer>
-<!-- Newsletter Modal -->
+
+<!-- ── NEWSLETTER MODAL ── -->
 <div id="newsletterModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:9999; justify-content:center; align-items:center;">
   <div style="position:relative; max-width:600px; width:90%;">
     <button onclick="closeModal()" style="position:absolute; top:-40px; right:0; background:none; border:none; color:white; font-size:24px; cursor:pointer;">✕</button>
     <div class="sib-form" style="text-align:center; background-color:#EFF2F7;">
       <div id="sib-form-container" class="sib-form-container">
         <div id="sib-container" class="sib-container--large sib-container--vertical" style="text-align:center; background-color:rgba(255,255,255,1); max-width:540px; border-radius:3px; border-width:1px; border-color:#C0CCD9; border-style:solid;">
-          <form id="sib-form" method="POST" action="https://1ba63958.sibforms.com/serve/MUIFAAud21KrkC2NyS5mihBbHJcIJiloM4Y2UWi_gvGGsankrosXI7QdJjLqH10HnZAUODWt5KnMAYBrJA66jV2EksrLm8d-bYMPCXyzOTftZGonwKJ09PDWHZGfUfXLNqL4HtprAKtBhmYag-q8dO3r5-qX6-IBRDlS88ndnwgJ2nuvhTV9O2nsNXgxXIlMN9b1YCgokzGi0c2AqA==" data-redirect="https://yourdomain.com/ursusarmament/products">
-            <div style="padding:8px 0;">
-              <div class="sib-form-block" style="font-size:32px; text-align:left; font-weight:700; font-family:Helvetica,sans-serif; color:#0e0f0e; background-color:transparent;"><p>Newsletter</p></div>
-            </div>
-            <div style="padding:8px 0;">
-              <div class="sib-form-block" style="font-size:16px; text-align:left; font-family:Helvetica,sans-serif; color:#3C4858; background-color:transparent;"><div class="sib-text-form-block"><p>Subscribe to our newsletter and stay updated.</p></div></div>
-            </div>
+          <form id="sib-form" method="POST" action="https://1ba63958.sibforms.com/serve/MUIFAAud21KrkC2NyS5mihBbHJcIJiloM4Y2UWi_gvGGsankrosXI7QdJjLqH10HnZAUODWt5KnMAYBrJA66jV2EksrLm8d-bYMPCXyzOTftZGonwKJ09PDWHZGfUfXLNqL4HtprAKtBhmYag-q8dO3r5-qX6-IBRDlS88ndnwgJ2nuvhTV9O2nsNXgxXIlMN9b1YCgokzGi0c2AqA==">
+            <div style="padding:8px 0;"><div class="sib-form-block" style="font-size:32px; text-align:left; font-weight:700; font-family:Helvetica,sans-serif; color:#0e0f0e;"><p>Newsletter</p></div></div>
+            <div style="padding:8px 0;"><div class="sib-form-block" style="font-size:16px; text-align:left; font-family:Helvetica,sans-serif; color:#3C4858;"><div class="sib-text-form-block"><p>Subscribe to our newsletter and stay updated.</p></div></div></div>
             <div style="padding:8px 0;">
               <div class="sib-input sib-form-block">
                 <div class="form__entry entry_block">
                   <div class="form__label-row">
                     <label class="entry__label" style="font-weight:700; text-align:left; font-size:16px; font-family:Helvetica,sans-serif; color:#3c4858;" for="EMAIL" data-required="*">Enter your email address to subscribe</label>
-                    <div class="entry__field">
-                      <input class="input" type="text" id="EMAIL" name="EMAIL" autocomplete="off" placeholder="EMAIL" data-required="true" required />
-                    </div>
+                    <div class="entry__field"><input class="input" type="text" id="EMAIL" name="EMAIL" autocomplete="off" placeholder="EMAIL" data-required="true" required /></div>
                   </div>
                   <label class="entry__error entry__error--primary" style="font-size:16px; text-align:left; font-family:Helvetica,sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;"></label>
                   <label class="entry__specification" style="font-size:12px; text-align:left; font-family:Helvetica,sans-serif; color:#8390A4;">Provide your email address to subscribe. For e.g abc@xyz.com</label>
@@ -702,7 +798,6 @@
             <div style="padding:8px 0;">
               <div class="sib-form-block" style="text-align:left;">
                 <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:16px; text-align:left; font-weight:700; font-family:Helvetica,sans-serif; color:#FFFFFF; background-color:#111112; border-radius:3px; border-width:0px;" form="sib-form" type="submit">
-                  <svg class="icon clickable__icon progress-indicator__icon sib-hide-loader-icon" viewBox="0 0 512 512"><path d="M460.116 373.846l-20.823-12.022c-5.541-3.199-7.54-10.159-4.663-15.874 30.137-59.886 28.343-131.652-5.386-189.946-33.641-58.394-94.896-95.833-161.827-99.676C261.028 55.961 256 50.751 256 44.352V20.309c0-6.904 5.808-12.337 12.703-11.982 83.556 4.306 160.163 50.864 202.11 123.677 42.063 72.696 44.079 162.316 6.031 236.832-3.14 6.148-10.75 8.461-16.728 5.01z"/></svg>
                   SUBSCRIBE
                 </button>
               </div>
@@ -718,14 +813,233 @@
 </div>
 
 <script>
-function openModal() {
-  document.getElementById('newsletterModal').style.display = 'flex';
+// ── PRODUCT DATA ──────────────────────────────────────────────────────────────
+// Each product: id, name, cat (category key), subcats[], url, image (optional),
+// bgLabel, desc, status ('available'|'unavailable'), price (optional), flagship
+const PRODUCTS = [
+  {
+    id: 'rots',
+    name: 'R.O.T.S.',
+    cat: 'systems',
+    subcats: [],
+    flagship: true,
+    url: '/ursusarmament/products/ROTS',
+    bgLabel: 'R.O.T.S.',
+    desc: 'Remotely Operated Turret System. LRF, VIM & TIM equipped. Dual-weapon rails. Stand-alone and networked operation.',
+    status: 'unavailable',
+    displayCat: 'Tactical System',
+  },
+  {
+    id: 'ursix',
+    name: 'URSIX',
+    cat: 'nvg',
+    subcats: ['monoculars'],
+    flagship: true,
+    url: '/ursusarmament/products/URSIX',
+    image: '/ursusarmament/images/pvs14dark.png',
+    bgLabel: 'URSIX',
+    desc: 'Compact PVS14-style white phosphor / autogating monocular built for tactical operators and law enforcement.',
+    status: 'checking',
+    statusId: 'ursix-status',
+    displayCat: 'Night Vision Monocular',
+  },
+  {
+    id: 'calidus',
+    name: 'CALIDUS',
+    cat: 'thermal',
+    subcats: ['monoculars'],
+    flagship: true,
+    url: '/ursusarmament/products/CALIDUS',
+    bgLabel: 'CL-DS',
+    desc: 'Compact LWIR monocular built for reliable vision in total darkness, smoke, and obscurants.',
+    status: 'unavailable',
+    displayCat: 'Thermal Monocular',
+  },
+  {
+    id: 'nexis',
+    name: 'NEXIS',
+    cat: 'comms',
+    subcats: [],
+    flagship: true,
+    url: '/ursusarmament/products/NEXIS',
+    bgLabel: 'NX-SYS',
+    desc: 'Secure, high-reliability communications platform unifying sensors, optics, and weapon systems into one operational ecosystem.',
+    status: 'unavailable',
+    displayCat: 'Tactical Network',
+  },
+  // ── accessories / lower-dollar items (add more here) ──
+  {
+    id: 'mum14-adapter',
+    name: 'MUM-14 Adapter',
+    cat: 'nvg',
+    subcats: ['adapters'],
+    flagship: false,
+    url: '/ursusarmament/products/MUM14-Adapter',
+    bgLabel: 'MUM14',
+    desc: 'Mil-spec MUM-14 helmet mount adapter. Compatible with standard J-arm and rhino mount systems.',
+    status: 'unavailable',
+    displayCat: 'NVG Adapter',
+  },
+  {
+    id: 'pvs14-adapter',
+    name: 'PVS-14 Adapter',
+    cat: 'nvg',
+    subcats: ['adapters'],
+    flagship: false,
+    url: '/ursusarmament/products/PVS14-Adapter',
+    bgLabel: 'PVS14',
+    desc: 'Drop-in PVS-14 interface adapter. Fits all standard AN/PVS-14 compatible mounts.',
+    status: 'unavailable',
+    displayCat: 'NVG Adapter',
+  },
+];
+
+// ── CATEGORY / SUBCATEGORY DEFINITIONS ───────────────────────────────────────
+const CATEGORIES = {
+  all:      { label: 'All Products' },
+  flagship: { label: 'Main Products' },
+  nvg:      { label: 'NVG', subcats: { all: 'All NVG', monoculars: 'Monoculars', adapters: 'Adapters' } },
+  thermal:  { label: 'Thermal', subcats: { all: 'All Thermal', monoculars: 'Monoculars' } },
+  comms:    { label: 'Comms' },
+  systems:  { label: 'Systems' },
+};
+
+let activeCat    = 'all';
+let activeSubcat = 'all';
+
+// ── RENDER GRID ───────────────────────────────────────────────────────────────
+function renderGrid() {
+  const grid = document.getElementById('productGrid');
+  const label = document.getElementById('gridLabel');
+  const count = document.getElementById('gridCount');
+  grid.innerHTML = '';
+
+  // filter
+  let items = [];
+  if (activeCat === 'all') {
+    // flagships first, then rest
+    const flagships = PRODUCTS.filter(p => p.flagship);
+    const rest      = PRODUCTS.filter(p => !p.flagship);
+    items = [...flagships, ...rest];
+  } else if (activeCat === 'flagship') {
+    items = PRODUCTS.filter(p => p.flagship);
+  } else {
+    items = PRODUCTS.filter(p => p.cat === activeCat);
+    if (activeSubcat !== 'all') {
+      items = items.filter(p => p.subcats.includes(activeSubcat));
+    }
+  }
+
+  label.textContent = CATEGORIES[activeCat]?.label || 'Products';
+  count.textContent = items.length;
+
+  if (items.length === 0) {
+    grid.innerHTML = '<div class="empty-state">No products in this category yet — check back soon.</div>';
+    return;
+  }
+
+  // in all-products view, insert divider before accessories
+  const hasAccs = activeCat === 'all' && items.some(p => !p.flagship);
+
+  items.forEach((p, i) => {
+    // divider injection
+    if (activeCat === 'all' && hasAccs && !p.flagship && (i === 0 || items[i-1].flagship)) {
+      const div = document.createElement('div');
+      div.className = 'grid-divider';
+      div.innerHTML = '<span>Accessories &amp; Components</span>';
+      grid.appendChild(div);
+    }
+
+    const card = document.createElement('a');
+    card.href = p.url;
+    card.className = 'product-card';
+
+    const statusClass  = p.status === 'available' ? 'available' : '';
+    const statusText   = p.status === 'checking'  ? 'Checking...' : p.status === 'available' ? 'Available' : 'Currently Unavailable';
+    const badgeHTML    = p.flagship ? '<span class="flagship-badge">Flagship</span>' : '';
+    const priceHTML    = p.price ? `<span class="card-price">${p.price}</span>` : '';
+
+    const imageHTML = p.image
+      ? `<img src="${p.image}" alt="${p.name}" loading="lazy">`
+      : `<span class="card-bg-label">${p.bgLabel}</span>`;
+
+    const overlayHTML = p.status === 'unavailable' ? '<div class="card-unavailable-overlay"></div>' : '';
+
+    card.innerHTML = `
+      ${overlayHTML}
+      <div class="card-image">
+        ${badgeHTML}
+        ${imageHTML}
+      </div>
+      <div class="card-body">
+        <span class="card-arrow">↗</span>
+        <div class="card-cat">${p.displayCat}</div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-desc">${p.desc}</div>
+        <div class="card-footer">
+          <span class="card-status ${statusClass}" ${p.statusId ? `id="${p.statusId}"` : ''}>${statusText}</span>
+          ${priceHTML}
+        </div>
+      </div>
+    `;
+
+    grid.appendChild(card);
+  });
 }
-function closeModal() {
-  document.getElementById('newsletterModal').style.display = 'none';
+
+// ── RENDER SUBCATS ────────────────────────────────────────────────────────────
+function renderSubcats() {
+  const wrapper = document.getElementById('subcatWrapper');
+  const nav     = document.getElementById('subcatNav');
+  const catDef  = CATEGORIES[activeCat];
+
+  if (!catDef?.subcats) {
+    wrapper.classList.remove('visible');
+    nav.innerHTML = '';
+    return;
+  }
+
+  nav.innerHTML = '';
+  Object.entries(catDef.subcats).forEach(([key, label]) => {
+    const btn = document.createElement('button');
+    btn.className = 'subcat-btn' + (activeSubcat === key ? ' active' : '');
+    btn.textContent = label;
+    btn.addEventListener('click', () => {
+      activeSubcat = key;
+      document.querySelectorAll('.subcat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderGrid();
+    });
+    nav.appendChild(btn);
+  });
+
+  wrapper.classList.add('visible');
 }
+
+// ── CAT NAV LISTENERS ─────────────────────────────────────────────────────────
+document.querySelectorAll('.cat-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    activeCat    = btn.dataset.cat;
+    activeSubcat = 'all';
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderSubcats();
+    renderGrid();
+  });
+});
+
+// initial render
+renderSubcats();
+renderGrid();
 </script>
+
+<script>
+function openModal()  { document.getElementById('newsletterModal').style.display = 'flex'; }
+function closeModal() { document.getElementById('newsletterModal').style.display = 'none'; }
+</script>
+
 <script src="/ursusarmament/access-check.js"></script>
+
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
@@ -752,20 +1066,8 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 </script>
-<script>
-function updateCartBadge() {
-  try {
-    const cart  = JSON.parse(localStorage.getItem('ursus_cart')) || [];
-    const count = cart.reduce((sum, i) => sum + (i.quantity || 1), 0);
-    const badge = document.getElementById('cartCount');
-    if (!badge) return;
-    if (count > 0) { badge.textContent = count > 99 ? '99+' : count; badge.classList.add('visible'); }
-    else { badge.classList.remove('visible'); }
-  } catch {}
-}
-updateCartBadge();
-</script>
-  <script type="module">
+
+<script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
@@ -781,38 +1083,39 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db  = getFirestore(app);
 
-const q    = query(
-  collection(db, "ursus-units"),
-  where("product",   "==", "URSIX"),
-  where("available", "==", true)
-);
-const snap  = await getDocs(q);
-const count = snap.size;
-const el    = document.getElementById("ursix-status");
-
 try {
-  const q    = query(
-    collection(db, "ursus-units"),
-    where("product",   "==", "URSIX"),
-    where("available", "==", true)
-  );
+  const q     = query(collection(db, "ursus-units"), where("product", "==", "URSIX"), where("available", "==", true));
   const snap  = await getDocs(q);
   const count = snap.size;
   const el    = document.getElementById("ursix-status");
-
-  if (count > 0) {
-    el.textContent = count + " Unit" + (count === 1 ? "" : "s") + " Available";
-    el.classList.remove("active");
-    el.classList.add("available");
-  } else {
-    el.textContent = "Currently Unavailable";
-    el.classList.remove("available");
-    el.classList.remove("active");
+  if (el) {
+    if (count > 0) {
+      el.textContent = count + " Unit" + (count === 1 ? "" : "s") + " Available";
+      el.classList.add("available");
+    } else {
+      el.textContent = "Currently Unavailable";
+    }
   }
 } catch(err) {
   console.error(err);
-  document.getElementById("ursix-status").textContent = "Currently Unavailable";
+  const el = document.getElementById("ursix-status");
+  if (el) el.textContent = "Currently Unavailable";
 }
 </script>
+
+<script>
+function updateCartBadge() {
+  try {
+    const cart  = JSON.parse(localStorage.getItem('ursus_cart')) || [];
+    const count = cart.reduce((sum, i) => sum + (i.quantity || 1), 0);
+    const badge = document.getElementById('cartCount');
+    if (!badge) return;
+    if (count > 0) { badge.textContent = count > 99 ? '99+' : count; badge.classList.add('visible'); }
+    else { badge.classList.remove('visible'); }
+  } catch {}
+}
+updateCartBadge();
+</script>
+
 </body>
 </html>
