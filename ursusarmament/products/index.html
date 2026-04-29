@@ -902,6 +902,8 @@ const PRODUCTS = [
     desc: 'Drop-in PVS-14 interface adapter. Fits all standard AN/PVS-14 compatible mounts.',
     status: 'unavailable',
     displayCat: 'NVG Adapter',
+    status: 'checking',
+    statusId: 'pvs14-status',
   },
 ];
 
@@ -1103,6 +1105,8 @@ async function fetchAvailability() {
   getDoc(doc(db, "ursus-units", "MUM-14_Bayonet_Adapter")),
   getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Black")),
   getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Sand")),
+  const pvsDyQty  = pvsDySnap.exists()  ? (pvsDySnap.data()?.['quantity-available']  || 0) : 0;
+  const pvsBnQty  = pvsBnSnap.exists()  ? (pvsBnSnap.data()?.['quantity-available']  || 0) : 0;
 ]);
 
 const dyBlackQty     = dyBlackSnap.exists()     ? (dyBlackSnap.data()?.['quantity-available']     || 0) : 0;
@@ -1116,6 +1120,7 @@ availabilityCache = {
   dovetailAvail: (dyBlackQty + dySandQty) > 0,
   bayonetAvail:  bayonetQty > 0,
   bridgeAvail:   (bridgeBlackQty + bridgeSandQty) > 0,
+  pvs14Avail: (pvsDyQty + pvsBnQty) > 0,
 };
 
   return availabilityCache;
@@ -1167,6 +1172,16 @@ async function applyAvailability() {
         bridgeEl.classList.remove("available");
       }
     }
+    const pvs14El = document.getElementById("pvs14-status");
+if (pvs14El) {
+  if (data.pvs14Avail) {
+    pvs14El.textContent = "Available";
+    pvs14El.classList.add("available");
+  } else {
+    pvs14El.textContent = "Currently Unavailable";
+    pvs14El.classList.remove("available");
+  }
+}
 
   } catch(err) {
     console.error(err);
