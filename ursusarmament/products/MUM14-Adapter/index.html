@@ -703,7 +703,13 @@ window.addToCart = function(item, btnEl) {
   const cart = getCart();
   const existing = cart.find(c => c.id === item.id);
   if (existing) {
-    existing.quantity = (existing.quantity || 1) + (item.quantity || 1);
+    const max = item.maxQty || Infinity;
+    const newQty = (existing.quantity || 1) + (item.quantity || 1);
+    if (newQty > max) {
+      showToast(`Only ${max} available for this item.`);
+      return;
+    }
+    existing.quantity = newQty;
   } else {
     cart.push({ ...item });
   }
@@ -932,6 +938,7 @@ window.addVariantToCart = function(key) {
     finish:  d.finish || null,
     color:   window._selectedColor[key] || null,
     quantity: qty,
+    maxQty:  window._variantMax[key] || 1,
   }, btn);
 };
 
