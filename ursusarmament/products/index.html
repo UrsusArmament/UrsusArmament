@@ -464,15 +464,6 @@
     z-index: 2;
   }
 
-  /* "coming soon" overlay */
-  .card-unavailable-overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(10,10,8,0.45);
-    z-index: 1;
-    pointer-events: none;
-  }
-
   /* divider within all-products view (flagship vs accessories) */
   .grid-divider {
     grid-column: 1 / -1;
@@ -965,10 +956,8 @@ function renderGrid() {
       ? `<img src="${p.image}" alt="${p.name}" loading="lazy">`
       : `<span class="card-bg-label">${p.bgLabel}</span>`;
 
-    const overlayHTML = (p.status === 'unavailable' && !p.variants) ? '<div class="card-unavailable-overlay"></div>' : '';
     card.innerHTML = `
-      ${overlayHTML}
-      <div class="card-image">
+  <div class="card-image">
         ${badgeHTML}
         ${imageHTML}
       </div>
