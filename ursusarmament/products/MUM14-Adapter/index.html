@@ -706,7 +706,8 @@ updateCartBadge();
 window._qty = { dovetail: 1, bayonet: 1 };
 
 window.changeQty = function(variant, delta) {
-  window._qty[variant] = Math.max(1, (window._qty[variant] || 1) + delta);
+  const maxQty = window._variantMax?.[variant] || 1;
+  window._qty[variant] = Math.max(1, Math.min(maxQty, (window._qty[variant] || 1) + delta));
   document.getElementById('qty-input-' + variant).textContent = window._qty[variant];
 };
 
@@ -761,7 +762,9 @@ async function loadVariant(key, docId) {
       return;
     }
     const d = snap.data();
-    window._variantData[key] = { ...d, _docId: docId };
+      window._variantData[key] = { ...d, _docId: docId };
+      window._variantMax = window._variantMax || {};
+      window._variantMax[key] = d['quantity-available'] || 1;
 
     // Populate fields
     setText('sku-' + key,     d.sku      || '—');
@@ -818,7 +821,7 @@ function setText(id, val) {
 window.addVariantToCart = function(key) {
   const d   = window._variantData[key];
   const btn = document.getElementById('btn-' + key);
-  const qty = _qty[key] || 1;
+  const qty = window._qty[key] || 1;
   if (!d) return;
 
   window.addToCart({
