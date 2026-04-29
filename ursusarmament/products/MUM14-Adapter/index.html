@@ -127,7 +127,7 @@
     letter-spacing: -0.02em; color: rgba(255,255,255,0.025); user-select: none; pointer-events: none;
   }
   .product-visual-main img {
-    width: 100%; height: 100%; object-fit: cover; position: relative; z-index: 1;
+    width: 100%; height: 100%; object-fit: contain; object-position: center; position: relative; z-index: 1;
   }
   .product-thumbs {
     width: 100%; background: var(--dark); border-top: 1px solid var(--border);
@@ -439,7 +439,7 @@
   <div class="product-visual">
     <div class="product-visual-main">
       <!-- PLACEHOLDER: replace src with your image path -->
-      <img id="main-image" src="/ursusarmament/images/mum14A.png" alt="MUM-14 Adapter" style="width:80%;">
+      <img id="main-image" src="/ursusarmament/images/mum14A.png" alt="MUM-14 Adapter">
     </div>
     <div class="product-thumbs">
   <div class="thumb active" onclick="swapImage(this)" data-src="/ursusarmament/images/mum14A.png">
