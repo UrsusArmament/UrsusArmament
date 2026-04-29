@@ -189,7 +189,7 @@
     background: var(--dark);
     position: relative;
     overflow: hidden;
-    aspect-ratio: 3/4;
+    aspect-ratio: 4/3;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -790,17 +790,28 @@ const snap  = await getDocs(q);
 const count = snap.size;
 const el    = document.getElementById("ursix-status");
 
-if (count > 0) {
-  el.textContent = count + " Unit" + (count === 1 ? "" : "s") + " Available";
-  el.classList.remove("active");
-  el.classList.add("available");
-} else {
-  el.textContent = "Currently Unavailable";
-  el.classList.remove("available");
-  el.classList.remove("active");
-} else {
-  el.textContent = "Currently Unavailable";
-  el.classList.remove("active");
+try {
+  const q    = query(
+    collection(db, "ursus-units"),
+    where("product",   "==", "URSIX"),
+    where("available", "==", true)
+  );
+  const snap  = await getDocs(q);
+  const count = snap.size;
+  const el    = document.getElementById("ursix-status");
+
+  if (count > 0) {
+    el.textContent = count + " Unit" + (count === 1 ? "" : "s") + " Available";
+    el.classList.remove("active");
+    el.classList.add("available");
+  } else {
+    el.textContent = "Currently Unavailable";
+    el.classList.remove("available");
+    el.classList.remove("active");
+  }
+} catch(err) {
+  console.error(err);
+  document.getElementById("ursix-status").textContent = "Currently Unavailable";
 }
 </script>
 </body>
