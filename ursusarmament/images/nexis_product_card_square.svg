@@ -1,0 +1,83 @@
+<svg width="100%" height="100%" viewBox="42 -27 475 475" preserveAspectRatio="xMidYMid slice" role="img" xmlns="http://www.w3.org/2000/svg">
+  <title>NEXIS product card image</title>
+  <desc>Animated tactical mesh network topology diagram for the NEXIS product card</desc>
+  <style>
+    .net-link { stroke-dasharray: 6 4; animation: dash 3s linear infinite; }
+    .net-link-slow { stroke-dasharray: 6 4; animation: dash 5s linear infinite; }
+    .net-link-rev { stroke-dasharray: 6 4; animation: dash-rev 4s linear infinite; }
+    @keyframes dash { to { stroke-dashoffset: -60; } }
+    @keyframes dash-rev { to { stroke-dashoffset: 60; } }
+    .node-pulse { animation: node-glow 2.4s ease-in-out infinite; }
+    .node-pulse-b { animation: node-glow 2.4s ease-in-out infinite; animation-delay: 0.8s; }
+    .node-pulse-c { animation: node-glow 2.4s ease-in-out infinite; animation-delay: 1.6s; }
+    @keyframes node-glow { 0%,100%{opacity:0.5} 50%{opacity:1} }
+  </style>
+  <rect x="42" y="-27" width="475" height="475" fill="#37332d"/>
+  <line x1="280" y1="0" x2="280" y2="420" stroke="#c8701a" stroke-width="0.4" stroke-opacity="0.06"/>
+  <line x1="0" y1="210" x2="560" y2="210" stroke="#c8701a" stroke-width="0.4" stroke-opacity="0.06"/>
+  <line x1="280" y1="210" x2="156" y2="118" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35" class="net-link"/>
+  <line x1="280" y1="210" x2="404" y2="118" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35" class="net-link-slow"/>
+  <line x1="280" y1="210" x2="404" y2="302" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35" class="net-link-rev"/>
+  <line x1="280" y1="210" x2="156" y2="302" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35" class="net-link"/>
+  <line x1="280" y1="210" x2="280" y2="72" stroke="#c8701a" stroke-width="1" stroke-opacity="0.28" class="net-link-slow"/>
+  <line x1="280" y1="210" x2="280" y2="348" stroke="#c8701a" stroke-width="1" stroke-opacity="0.28" class="net-link-rev"/>
+  <line x1="280" y1="210" x2="72" y2="210" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22" class="net-link"/>
+  <line x1="280" y1="210" x2="488" y2="210" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22" class="net-link-slow"/>
+  <line x1="156" y1="118" x2="404" y2="118" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.18" class="net-link-slow" stroke-dasharray="4,6"/>
+  <line x1="156" y1="302" x2="404" y2="302" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.18" class="net-link-rev" stroke-dasharray="4,6"/>
+  <line x1="156" y1="118" x2="156" y2="302" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.15" class="net-link" stroke-dasharray="4,6"/>
+  <line x1="404" y1="118" x2="404" y2="302" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.15" class="net-link-slow" stroke-dasharray="4,6"/>
+  <line x1="280" y1="76" x2="156" y2="118" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link-slow" stroke-dasharray="4,6"/>
+  <line x1="280" y1="76" x2="404" y2="118" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link-rev" stroke-dasharray="4,6"/>
+  <line x1="280" y1="344" x2="156" y2="302" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link" stroke-dasharray="4,6"/>
+  <line x1="280" y1="344" x2="404" y2="302" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link-slow" stroke-dasharray="4,6"/>
+  <line x1="76" y1="210" x2="156" y2="118" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link-rev" stroke-dasharray="4,6"/>
+  <line x1="76" y1="210" x2="156" y2="302" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link" stroke-dasharray="4,6"/>
+  <line x1="484" y1="210" x2="404" y2="118" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link-slow" stroke-dasharray="4,6"/>
+  <line x1="484" y1="210" x2="404" y2="302" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link-rev" stroke-dasharray="4,6"/>
+  <circle cx="280" cy="210" r="32" fill="#37332d" stroke="#c8701a" stroke-width="1.8" stroke-opacity="0.7"/>
+  <circle cx="280" cy="210" r="24" fill="none" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/>
+  <circle cx="280" cy="210" r="14" fill="none" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.2"/>
+  <circle cx="280" cy="210" r="5" fill="#c8701a" fill-opacity="0.25" class="node-pulse"/>
+  <text x="280" y="252" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.55" text-anchor="middle" letter-spacing="1">NEXIS HUB</text>
+  <text x="280" y="263" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.35" text-anchor="middle" letter-spacing="0.5">NX-600 CMD</text>
+  <rect x="108" y="88" width="96" height="60" rx="4" fill="#37332d" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
+  <circle cx="156" cy="118" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse"/>
+  <text x="156" y="106" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">DISMOUNTED</text>
+  <text x="156" y="117" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">NODE</text>
+  <text x="156" y="128" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">PAX Tracking</text>
+  <text x="156" y="140" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">NX-100 NOD</text>
+  <rect x="356" y="88" width="96" height="60" rx="4" fill="#37332d" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
+  <circle cx="404" cy="118" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse-b"/>
+  <text x="404" y="106" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">STATIONARY</text>
+  <text x="404" y="117" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">RELAY NODE</text>
+  <text x="404" y="128" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">Persistent Coverage</text>
+  <text x="404" y="140" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">NX-200 REL</text>
+  <rect x="356" y="272" width="96" height="60" rx="4" fill="#37332d" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
+  <circle cx="404" cy="302" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse-c"/>
+  <text x="404" y="290" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">AERIAL</text>
+  <text x="404" y="301" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">RELAY NODE</text>
+  <text x="404" y="312" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">Rapid Deploy</text>
+  <text x="404" y="324" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">NX-300 LFT</text>
+  <rect x="108" y="272" width="96" height="60" rx="4" fill="#37332d" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
+  <circle cx="156" cy="302" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse"/>
+  <text x="156" y="290" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">VEHICLE</text>
+  <text x="156" y="301" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">MESH NODE</text>
+  <text x="156" y="312" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">Mobile Coverage</text>
+  <text x="156" y="324" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">NX-400 VEC</text>
+  <circle cx="280" cy="62" r="14" fill="#37332d" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
+  <text x="280" y="58" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">ASI</text>
+  <text x="280" y="69" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">MODULE</text>
+  <circle cx="280" cy="358" r="14" fill="#37332d" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
+  <text x="280" y="354" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">ASI</text>
+  <text x="280" y="365" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">MODULE</text>
+  <circle cx="62" cy="210" r="14" fill="#37332d" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
+  <text x="62" y="206" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">ASI</text>
+  <text x="62" y="217" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">MODULE</text>
+  <circle cx="498" cy="210" r="14" fill="#37332d" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
+  <text x="498" y="206" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">ASI</text>
+  <text x="498" y="217" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">MODULE</text>
+  <text x="280" y="405" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.25" text-anchor="middle" letter-spacing="1.5">TACTICAL NETWORK TOPOLOGY · PRE-PRODUCTION</text>
+  <line x1="0" y1="0" x2="560" y2="420" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.03"/>
+  <line x1="560" y1="0" x2="0" y2="420" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.03"/>
+</svg>
