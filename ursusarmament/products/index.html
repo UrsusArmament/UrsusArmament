@@ -1115,11 +1115,12 @@ async function fetchAvailability() {
 
   // URSIX runs separately — collection query will fail for logged-out users
   let ursixCount = 0;
+  let ursixAccessDenied = false;
   try {
     const ursixSnap = await getDocs(query(collection(db, "ursus-units"), where("product", "==", "URSIX"), where("available", "==", true)));
     ursixCount = ursixSnap.size;
   } catch(e) {
-    // expected to fail when not logged in — silently skip
+    ursixAccessDenied = true;
   }
 
   // Whitelisted individual doc fetches — these are allowed publicly
@@ -1151,6 +1152,7 @@ async function fetchAvailability() {
 
   availabilityCache = {
     ursixCount,
+    ursixAccessDenied,
     dovetailAvail: (dyBlackQty + dySandQty) > 0,
     bayonetAvail:  bayonetQty > 0,
     bridgeAvail:   (bridgeBlackQty + bridgeSandQty) > 0,
