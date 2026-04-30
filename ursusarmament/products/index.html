@@ -433,6 +433,7 @@
   .card-status.available::before { background: #2a9c5c; }
   .card-status.available { color: #2a9c5c; }
   #mum14-status::before { display: none; }
+  .card-status.no-dot::before { display: none; }
   .card-price {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.88rem;
@@ -1181,6 +1182,8 @@ async function applyAvailability() {
         ursixEl.style.display = 'flex';
         ursixEl.style.alignItems = 'center';
         ursixEl.style.gap = '0.4rem';
+        ursixEl.style.setProperty('--before-display', 'none');
+        ursixEl.classList.add('no-dot');
       } else {
         ursixEl.textContent = "Currently Unavailable";
         ursixEl.classList.remove("available");
