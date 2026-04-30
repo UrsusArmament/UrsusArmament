@@ -1171,6 +1171,14 @@ async function applyAvailability() {
       if (data.ursixCount > 0) {
         ursixEl.textContent = data.ursixCount + " Unit" + (data.ursixCount === 1 ? "" : "s") + " Available";
         ursixEl.classList.add("available");
+      } else if (data.ursixCount === 0 && data.ursixAccessDenied) {
+        ursixEl.innerHTML = `
+          <span style="width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;display:inline-block;"></span>
+          <span style="color:var(--accent);">Full Access Account Required For Availability</span>
+        `;
+        ursixEl.style.display = 'flex';
+        ursixEl.style.alignItems = 'center';
+        ursixEl.style.gap = '0.4rem';
       } else {
         ursixEl.textContent = "Currently Unavailable";
         ursixEl.classList.remove("available");
