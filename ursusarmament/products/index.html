@@ -905,6 +905,19 @@ const PRODUCTS = [
     status: 'checking',
     statusId: 'pvs14-status',
   },
+  {
+    id: 'rhino-mount',
+    name: 'Rhino Mount',
+    cat: 'nvg',
+    subcats: ['adapters'],
+    flagship: false,
+    url: '/ursusarmament/products/rhinomounts',
+    bgLabel: 'RHINO',
+    desc: 'Mil-spec rhino mount system for PASGT, ACH, and MICH helmet platforms. Available in Dovetail and Bayonet configurations in Black and Sand anodize.',
+    status: 'checking',
+    statusId: 'rhino-status',
+    displayCat: 'NVG Mount',
+  },
 ];
 
 // ── CATEGORY / SUBCATEGORY DEFINITIONS ───────────────────────────────────────
@@ -1098,7 +1111,7 @@ let availabilityCache = null;
 async function fetchAvailability() {
   if (availabilityCache) return availabilityCache;
 
-const [ursixSnap, dyBlackSnap, dySandSnap, bayonetSnap, bridgeBlackSnap, bridgeSandSnap, pvsDySnap, pvsBnSnap] = await Promise.all([
+const [ursixSnap, dyBlackSnap, dySandSnap, bayonetSnap, bridgeBlackSnap, bridgeSandSnap, pvsDySnap, pvsBnSnap, rhinoDyBlackSnap, rhinoDySandSnap, rhinoBnBlackSnap, rhinoBnSandSnap] = await Promise.all([
   getDocs(query(collection(db, "ursus-units"), where("product", "==", "URSIX"), where("available", "==", true))),
   getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Adapter_Black")),
   getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Adapter_Sand")),
@@ -1107,6 +1120,10 @@ const [ursixSnap, dyBlackSnap, dySandSnap, bayonetSnap, bridgeBlackSnap, bridgeS
   getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Sand")),
   getDoc(doc(db, "ursus-units", "PVS-14_Dovetail_Adapter_Black")),
   getDoc(doc(db, "ursus-units", "PVS-14_Bayonet_Adapter_Black")),
+  getDoc(doc(db, "ursus-units", "rhino_mount_dovetail_black")),
+  getDoc(doc(db, "ursus-units", "rhino_mount_dovetail_sand")),
+  getDoc(doc(db, "ursus-units", "rhino_mount_bayonet_black")),
+  getDoc(doc(db, "ursus-units", "rhino_mount_bayonet_sand")),
 ]);
 
 const pvsDyQty = pvsDySnap.exists() ? (pvsDySnap.data()?.['quantity-available'] || 0) : 0;
@@ -1117,6 +1134,10 @@ const dySandQty      = dySandSnap.exists()      ? (dySandSnap.data()?.['quantity
 const bayonetQty     = bayonetSnap.exists()     ? (bayonetSnap.data()?.['quantity-available']     || 0) : 0;
 const bridgeBlackQty = bridgeBlackSnap.exists() ? (bridgeBlackSnap.data()?.['quantity-available'] || 0) : 0;
 const bridgeSandQty  = bridgeSandSnap.exists()  ? (bridgeSandSnap.data()?.['quantity-available']  || 0) : 0;
+const rhinoDyBlackQty = rhinoDyBlackSnap.exists() ? (rhinoDyBlackSnap.data()?.['quantity-available'] || 0) : 0;
+const rhinoDySandQty  = rhinoDySandSnap.exists()  ? (rhinoDySandSnap.data()?.['quantity-available']  || 0) : 0;
+const rhinoBnBlackQty = rhinoBnBlackSnap.exists() ? (rhinoBnBlackSnap.data()?.['quantity-available'] || 0) : 0;
+const rhinoBnSandQty  = rhinoBnSandSnap.exists()  ? (rhinoBnSandSnap.data()?.['quantity-available']  || 0) : 0; 
 
 availabilityCache = {
   ursixCount:    ursixSnap.size,
@@ -1124,6 +1145,7 @@ availabilityCache = {
   bayonetAvail:  bayonetQty > 0,
   bridgeAvail:   (bridgeBlackQty + bridgeSandQty) > 0,
   pvs14Avail: (pvsDyQty + pvsBnQty) > 0,
+  rhinoAvail: (rhinoDyBlackQty + rhinoDySandQty + rhinoBnBlackQty + rhinoBnSandQty) > 0,
 };
 
   return availabilityCache;
@@ -1183,6 +1205,16 @@ if (pvs14El) {
   } else {
     pvs14El.textContent = "Currently Unavailable";
     pvs14El.classList.remove("available");
+  }
+}
+   const rhinoEl = document.getElementById("rhino-status");
+if (rhinoEl) {
+  if (data.rhinoAvail) {
+    rhinoEl.textContent = "Available";
+    rhinoEl.classList.add("available");
+  } else {
+    rhinoEl.textContent = "Currently Unavailable";
+    rhinoEl.classList.remove("available");
   }
 }
 
