@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rhino Mounts — Ursus Armament</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --surface2: #222220;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+    --accent2: #e8a830;
+    --green: #2a9c5c;
+    --red: #c0392b;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--text); font-family: 'Barlow', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,8,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-top { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 3rem; border-bottom: 1px solid var(--border); }
+  .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.12em; color: var(--text); text-decoration: none; line-height: 1; }
+  .nav-logo span { color: var(--accent); }
+  .nav-slogan { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+  .nav-ribbon { display: flex; align-items: center; justify-content: center; padding: 0 3rem; height: 38px; background: var(--surface); }
+  .nav-ribbon a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0 1.6rem; height: 100%; display: flex; align-items: center; border-right: 1px solid var(--border); transition: color 0.2s, background 0.2s; }
+  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
+  .nav-ribbon a:hover, .nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
+  .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+  .nav-cart-btn { position: relative; background: transparent; border: 1px solid var(--border2); color: var(--text); width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; transition: border-color 0.2s, background 0.2s; flex-shrink: 0; }
+  .nav-cart-btn:hover { border-color: var(--accent); background: rgba(200,146,42,0.06); }
+  .nav-cart-btn svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
+  .nav-cart-btn:hover svg { stroke: var(--accent); }
+  .cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
+  .cart-count.visible { display: flex; }
+  .nav-auth { display: flex; align-items: center; }
+  .nav-auth a, .nav-auth button { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: var(--accent); background: transparent; border: 1px solid var(--accent); padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s ease; }
+  .nav-auth a:hover, .nav-auth button:hover { background: rgba(200,146,42,0.08); }
+
+  .breadcrumb { padding: 1rem 3rem; background: var(--dark); border-bottom: 1px solid var(--border); margin-top: 86px; display: flex; align-items: center; gap: 0.5rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+  .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb span { color: var(--accent); }
+
+  .product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; background: var(--dark); }
+  .product-visual { position: relative; background: var(--surface); overflow: hidden; display: flex; flex-direction: column; align-items: stretch; }
+  .product-visual-main { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; min-height: 0; }
+  .product-visual-main::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(200,146,42,0.015) 30px,rgba(200,146,42,0.015) 31px); pointer-events: none; }
+  .product-visual-bg-label { position: absolute; font-family: 'Bebas Neue', sans-serif; font-size: 10rem; letter-spacing: -0.02em; color: rgba(255,255,255,0.025); user-select: none; pointer-events: none; }
+  .product-visual-main img { width: 100%; height: 100%; object-fit: contain; object-position: center; position: relative; z-index: 1; }
+  .product-thumbs { width: 100%; background: var(--dark); border-top: 1px solid var(--border); padding: 1rem; display: flex; gap: 0.75rem; justify-content: center; }
+  .thumb { width: 80px; height: 80px; cursor: pointer; border: 1px solid #444; box-sizing: border-box; flex-shrink: 0; overflow: hidden; opacity: 0.6; transition: opacity 0.2s, border-color 0.2s; }
+  .thumb.active { border: 2px solid var(--accent); opacity: 1; }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+
+  .product-info { padding: 4rem; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--border); }
+  .product-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
+  .product-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+  .product-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 6vw, 6rem); line-height: 0.9; letter-spacing: 0.04em; margin-bottom: 0.5rem; color: var(--text); }
+  .product-subtitle { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 2rem; }
+  .product-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; max-width: 480px; }
+  .product-trust { display: flex; gap: 2rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+  .trust-item { display: flex; flex-direction: column; gap: 0.2rem; }
+  .trust-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .trust-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text); }
+
+  .section-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
+  .section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5vw, 4.2rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 3rem; }
+
+  .variants-section { background: var(--black); padding: 6rem 3rem; }
+  .variants-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
+  .variant-card { background: var(--dark); padding: 2.5rem; display: flex; flex-direction: column; gap: 1.5rem; transition: background 0.2s; position: relative; border: 2px solid transparent; }
+  .variant-card:hover { background: var(--surface); }
+  .variant-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+  .variant-name { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.04em; color: var(--text); line-height: 1; }
+  .variant-sku { font-family: 'Barlow Condensed', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); background: var(--surface2); padding: 0.25rem 0.6rem; border: 1px solid var(--border); white-space: nowrap; }
+  .variant-details { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+  .variant-detail-row { display: flex; justify-content: space-between; align-items: baseline; background: var(--surface2); padding: 0.75rem 1rem; }
+  .variant-detail-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .variant-detail-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
+  .variant-price { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; letter-spacing: 0.04em; color: var(--accent); line-height: 1; }
+  .variant-price-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 0.2rem; }
+  .variant-status { display: flex; align-items: center; gap: 0.5rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+  .variant-status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); flex-shrink: 0; }
+  .variant-status-dot.available { background: var(--green); }
+  .variant-status.available { color: var(--green); }
+  .variant-footer { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+
+  .btn-primary { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; border: none; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.15s; text-align: center; white-space: nowrap; }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-primary:disabled { background: var(--muted); cursor: not-allowed; transform: none; }
+  .btn-primary.added { background: var(--green); color: #fff; }
+  .btn-ghost { background: transparent; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; border: 1px solid var(--border2); cursor: pointer; text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s; }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .specs-section { background: var(--dark); padding: 6rem 3rem; }
+  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
+  .spec-item { background: var(--dark); padding: 1.75rem 2rem; display: flex; justify-content: space-between; align-items: baseline; transition: background 0.2s; }
+  .spec-item:hover { background: var(--surface); }
+  .spec-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .spec-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); text-align: right; }
+
+  .features-section { background: var(--black); padding: 6rem 3rem; }
+  .features-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .features-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+  .feature-item { background: var(--surface); padding: 2rem; position: relative; overflow: hidden; transition: background 0.2s; }
+  .feature-item:hover { background: var(--surface2); }
+  .feature-item::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
+  .feature-item:hover::before { opacity: 1; }
+  .feature-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(200,146,42,0.12); line-height: 1; position: absolute; top: 1rem; right: 1.5rem; }
+  .feature-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+  .feature-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+  .features-aside { position: sticky; top: 110px; }
+  .features-aside p { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+
+  .cta-banner { background: var(--accent); padding: 4rem 3rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+  .cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.06em; color: var(--black); line-height: 1; }
+  .cta-banner p { font-size: 1rem; color: rgba(10,10,8,0.65); margin-top: 0.5rem; }
+  .btn-dark { background: var(--black); color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: none; cursor: pointer; white-space: nowrap; text-decoration: none; display: inline-block; transition: background 0.2s; }
+  .btn-dark:hover { background: #1a1a17; }
+
+  footer { background: var(--dark); border-top: 1px solid var(--border); padding: 4rem 3rem 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
+  .footer-brand p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-top: 1rem; }
+  .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+  .footer-col a { font-size: 0.9rem; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
+  .footer-col a:hover { opacity: 1; color: var(--accent); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.12em; color: var(--text); opacity: 0.5; }
+  .footer-logo span { color: var(--accent); opacity: 1; }
+  .footer-legal { font-size: 0.78rem; color: var(--muted); opacity: 0.5; }
+
+  .cart-toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--surface2); border: 1px solid var(--accent); color: var(--text); padding: 1rem 1.5rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em; z-index: 999; transform: translateY(100px); opacity: 0; transition: transform 0.3s, opacity 0.3s; max-width: 320px; pointer-events: none; }
+  .cart-toast.show { transform: translateY(0); opacity: 1; }
+
+  .qty-row { display: flex; align-items: center; gap: 0.75rem; }
+  .qty-btn { width: 32px; height: 32px; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, background 0.2s; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; }
+  .qty-btn:hover { border-color: var(--accent); background: var(--surface); }
+  .qty-display { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; color: var(--text); min-width: 2rem; text-align: center; }
+
+  .color-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.4rem 0.9rem; border: 1px solid var(--border2); background: var(--surface2); color: var(--muted); cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+  .color-btn:hover { border-color: var(--accent); color: var(--text); }
+  .color-btn.selected { border-color: var(--accent); background: rgba(200,146,42,0.12); color: var(--accent); }
+  .color-btn:disabled { opacity: 0.35; cursor: not-allowed; border-color: var(--border); }
+  .color-btn-qty { font-size: 0.58rem; opacity: 0.7; margin-left: 0.3rem; }
+
+  @media (max-width: 900px) {
+    .product-hero { grid-template-columns: 1fr; }
+    .product-visual-main { min-height: 50vw; }
+    .product-info { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--border); }
+    .variants-grid { grid-template-columns: 1fr; }
+    .specs-grid { grid-template-columns: 1fr; }
+    .features-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .features-aside { position: static; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .cta-banner { flex-direction: column; text-align: center; }
+    .breadcrumb, .variants-section, .specs-section, .features-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .nav-top, .nav-ribbon { padding-left: 1.5rem; padding-right: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cart-toast" id="cartToast"></div>
+
+<nav>
+  <div class="nav-top">
+    <div class="nav-brand">
+      <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
+      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    </div>
+    <div class="nav-right">
+      <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
+        <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>
+        <span class="cart-count" id="cartCount"></span>
+      </a>
+      <div class="nav-auth" id="navAuth"></div>
+    </div>
+  </div>
+  <div class="nav-ribbon">
+    <a href="/ursusarmament/products" class="active">Products</a>
+    <a href="/ursusarmament#mission">Our Mission</a>
+    <a href="/ursusarmament#process">Learn</a>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="/ursusarmament">Home</a><span>›</span>
+  <a href="/ursusarmament/products">Products</a><span>›</span>
+  <a href="/ursusarmament/products">NVG</a><span>›</span>
+  <span>Rhino Mounts</span>
+</div>
+
+<section class="product-hero">
+  <div class="product-visual">
+    <div class="product-visual-main">
+      <div class="product-visual-bg-label">RHINO</div>
+      <img id="main-image" src="/ursusarmament/images/xxx.png" alt="Rhino Mount">
+    </div>
+    <div class="product-thumbs">
+      <div class="thumb active" onclick="swapImage(this)" data-src="/ursusarmament/images/xxx.png">
+        <img src="/ursusarmament/images/xxx.png" alt="Rhino Mount">
+      </div>
+      <div class="thumb" onclick="swapImage(this)" data-src="/ursusarmament/images/xxx.png">
+        <img src="/ursusarmament/images/xxx.png" alt="Rhino Mount angle 2">
+      </div>
+      <div class="thumb" onclick="swapImage(this)" data-src="/ursusarmament/images/xxx.png">
+        <img src="/ursusarmament/images/xxx.png" alt="Rhino Mount angle 3">
+      </div>
+    </div>
+  </div>
+
+  <div class="product-info">
+    <div class="product-tag">NVG Mount</div>
+    <h1 class="product-name">RHINO<br>MOUNT</h1>
+    <div class="product-subtitle">Mil-Spec Helmet Mount System</div>
+    <p class="product-desc">Mil-spec rhino mount system engineered for secure, reliable NOD attachment to PASGT, ACH, and MICH helmet platforms. Available in Dovetail and Bayonet interface configurations in Black and Sand anodize.</p>
+    <div style="display:flex; gap: 1rem; flex-wrap: wrap;">
+      <a href="#variants" class="btn-primary">Select Variant</a>
+      <a href="#specs" class="btn-ghost">Specifications</a>
+    </div>
+    <div class="product-trust">
+      <div class="trust-item"><span class="trust-label">Compatibility</span><span class="trust-value">PASGT / ACH / MICH</span></div>
+      <div class="trust-item"><span class="trust-label">Material</span><span class="trust-value">Aircraft Aluminum</span></div>
+      <div class="trust-item"><span class="trust-label">Made In</span><span class="trust-value">USA</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="variants-section" id="variants">
+  <div class="section-tag">Choose Your Configuration</div>
+  <h2 class="section-title">SELECT VARIANT</h2>
+  <div class="variants-grid">
+
+    <!-- DOVETAIL -->
+    <div class="variant-card" id="card-dovetail">
+      <div class="variant-header">
+        <div class="variant-name">DOVETAIL</div>
+        <div class="variant-sku" id="sku-dovetail">Loading...</div>
+      </div>
+      <div class="variant-details">
+        <div class="variant-detail-row">
+          <span class="variant-detail-label">Interface</span>
+          <span class="variant-detail-value">Dovetail (DY)</span>
+        </div>
+        <div class="variant-detail-row">
+          <span class="variant-detail-label">Finish</span>
+          <span class="variant-detail-value">Black / Sand</span>
+        </div>
+        <div class="variant-detail-row">
+          <span class="variant-detail-label">Product</span>
+          <span class="variant-detail-value" id="product-dovetail">Loading...</span>
+        </div>
+        <div class="variant-detail-row">
+          <span class="variant-detail-label">Qty Available</span>
+          <span class="variant-detail-value" id="qty-dovetail">Loading...</span>
+        </div>
+      </div>
+      <div class="variant-footer">
+        <div>
+          <div class="variant-price" id="price-dovetail">—</div>
+          <div class="variant-price-label">Free Shipping on Orders $250+</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap: 0.75rem; align-items: flex-end;">
+          <div class="variant-status" id="status-dovetail">
+            <span class="variant-status-dot" id="dot-dovetail"></span>
+            <span id="status-text-dovetail">Checking...</span>
+          </div>
+          <div id="color-btns-dovetail" style="display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:flex-end;"></div>
+          <div class="qty-row">
+            <button class="qty-btn" onclick="changeQty('dovetail', -1)">−</button>
+            <span class="qty-display" id="qty-input-dovetail">1</span>
+            <button class="qty-btn" onclick="changeQty('dovetail', 1)">+</button>
+          </div>
+          <button class="btn-primary" id="btn-dovetail" onclick="addVariantToCart('dovetail')" disabled>
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BAYONET -->
+    <div class="variant-card" id="card-bayonet">
+      <div class="variant-header">
+        <div class="variant-name">BAYONET</div>
+        <div class="variant-sku" id="sku-bayonet">Loading...</div>
+      </div>
+      <div class="variant-details">
+        <div class="variant-detail-row">
+          <span class="variant-detail-label">Interface</span>
+          <span class="variant-detail-value">Bayonet (BN)</span>
+        </div>
+        <div class="variant-detail-row">
+          <span class="variant-detail-label">Finish</span>
+          <span class="variant-detail-value">Black / Sand</span>
+        </div>
+        <div class="variant-detail-row">
+          <span class="variant-detail-label">Product</span>
+          <span class="variant-detail-value" id="product-bayonet">Loading...</span>
+        </div>
+        <div class="variant-detail-row">
+          <span class="variant-detail-label">Qty Available</span>
+          <span class="variant-detail-value" id="qty-bayonet">Loading...</span>
+        </div>
+      </div>
+      <div class="variant-footer">
+        <div>
+          <div class="variant-price" id="price-bayonet">—</div>
+          <div class="variant-price-label">Free Shipping on Orders $250+</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap: 0.75rem; align-items: flex-end;">
+          <div class="variant-status" id="status-bayonet">
+            <span class="variant-status-dot" id="dot-bayonet"></span>
+            <span id="status-text-bayonet">Checking...</span>
+          </div>
+          <div id="color-btns-bayonet" style="display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:flex-end;"></div>
+          <div class="qty-row">
+            <button class="qty-btn" onclick="changeQty('bayonet', -1)">−</button>
+            <span class="qty-display" id="qty-input-bayonet">1</span>
+            <button class="qty-btn" onclick="changeQty('bayonet', 1)">+</button>
+          </div>
+          <button class="btn-primary" id="btn-bayonet" onclick="addVariantToCart('bayonet')" disabled>
+            Add to Cart
+          </button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="specs-section" id="specs">
+  <div class="section-tag">Technical Data</div>
+  <h2 class="section-title">SPECIFICATIONS</h2>
+  <div class="specs-grid">
+    <div class="spec-item"><span class="spec-name">Material</span><span class="spec-value">Aircraft-Grade Aluminum</span></div>
+    <div class="spec-item"><span class="spec-name">Available Finishes</span><span class="spec-value">Black / Sand Anodize</span></div>
+    <div class="spec-item"><span class="spec-name">Interface Types</span><span class="spec-value">Dovetail (DY) / Bayonet (BN)</span></div>
+    <div class="spec-item"><span class="spec-name">Helmet Compatibility</span><span class="spec-value">PASGT, ACH, MICH</span></div>
+    <div class="spec-item"><span class="spec-name">Standard</span><span class="spec-value">Mil-Spec</span></div>
+    <div class="spec-item"><span class="spec-name">Country of Origin</span><span class="spec-value">United States of America</span></div>
+    <div class="spec-item"><span class="spec-name">Warranty</span><span class="spec-value">Limited Lifetime</span></div>
+  </div>
+</section>
+
+<section class="features-section" id="features">
+  <div class="features-layout">
+    <div class="features-list">
+      <div class="feature-item">
+        <div class="feature-num">01</div>
+        <div class="feature-title">Mil-Spec Construction</div>
+        <p class="feature-desc">Machined from aircraft-grade aluminum and anodized to military specification. Built to withstand field conditions without compromise.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">02</div>
+        <div class="feature-title">Dual Interface Options</div>
+        <p class="feature-desc">Available in Dovetail and Bayonet configurations to match your existing NOD and optic setup.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">03</div>
+        <div class="feature-title">Two Color Options</div>
+        <p class="feature-desc">Available in Matte Black and Sand anodize to match your helmet and kit configuration.</p>
+      </div>
+    </div>
+    <div class="features-aside">
+      <div class="section-tag">Why This Mount</div>
+      <h2 class="section-title" style="margin-bottom: 1.5rem;">BUILT TO HOLD. ZERO COMPROMISE.</h2>
+      <p>The Rhino Mount was engineered to give operators a reliable, mil-spec helmet attachment for their NOD — without the rattle, without the failure points, and without the imported mystery metal.</p>
+      <p>Machined domestically from aircraft-grade aluminum, anodized to spec, and inspected before it ships. The kind of mount that disappears into your kit and never gives you a reason to think about it again.</p>
+    </div>
+  </div>
+</section>
+
+<div class="cta-banner">
+  <div>
+    <h2>QUESTIONS ABOUT THE RHINO MOUNT?</h2>
+    <p>Our product specialists are available Monday–Friday, 8AM–6PM MST.</p>
+  </div>
+  <a href="/ursusarmament/contact/" class="btn-dark">Contact Support</a>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">URSUS <span style="color: var(--accent);">ARMAMENT</span></div>
+      <p>Developing next-generation tactical gear for the American people. Manufactured, tested, and deployed with pride in the USA.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="/ursusarmament/products/ROTS">R.O.T.S.</a></li>
+        <li><a href="/ursusarmament/products/URSIX">URSIX</a></li>
+        <li><a href="/ursusarmament/products">View All</a></li>
+        <li><a href="/ursusarmament/customerreviews">Customer Reviews</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/ursusarmament/aboutus/">About Us</a></li>
+        <li><a href="/ursusarmament/testingstandards/">Testing Standards</a></li>
+        <li><a href="/ursusarmament/careers/">Careers</a></li>
+        <li><a href="https://www.youtube.com/@UrsusWorks/" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="/ursusarmament/contact/">Contact</a></li>
+        <li><a href="/ursusarmament/warranty/">Warranty</a></li>
+        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-logo">URSUS <span>ARMAMENT</span></div>
+    <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
+  </div>
+</footer>
+
+<script>
+const CART_KEY = 'ursus_cart';
+
+function getCart() {
+  try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+  catch { return []; }
+}
+
+function saveCart(cart) {
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  updateCartBadge();
+}
+
+function updateCartBadge() {
+  const cart  = getCart();
+  const count = cart.reduce((sum, i) => sum + (i.quantity || 1), 0);
+  const badge = document.getElementById('cartCount');
+  if (!badge) return;
+  if (count > 0) { badge.textContent = count > 99 ? '99+' : count; badge.classList.add('visible'); }
+  else { badge.classList.remove('visible'); }
+}
+
+function showToast(msg) {
+  const toast = document.getElementById('cartToast');
+  if (!toast) return;
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+window.addToCart = function(item, btnEl) {
+  const cart = getCart();
+  const existing = cart.find(c => c.id === item.id);
+  if (existing) {
+    const max = item.maxQty || Infinity;
+    const newQty = (existing.quantity || 1) + (item.quantity || 1);
+    if (newQty > max) {
+      showToast(`Only ${max} available for this item.`);
+      return;
+    }
+    existing.quantity = newQty;
+  } else {
+    cart.push({ ...item });
+  }
+  saveCart(cart);
+  showToast(`${item.product} added to cart!`);
+  if (btnEl) {
+    const orig = btnEl.textContent;
+    btnEl.textContent = '✓ Added';
+    btnEl.classList.add('added');
+    setTimeout(() => { btnEl.textContent = orig; btnEl.classList.remove('added'); }, 2000);
+  }
+};
+
+updateCartBadge();
+
+window._qty = { dovetail: 1, bayonet: 1 };
+window._selectedColor = {};
+window._variantData   = {};
+window._variantMax    = {};
+
+window.changeQty = function(variant, delta) {
+  const maxQty = window._variantMax?.[variant] || 1;
+  window._qty[variant] = Math.max(1, Math.min(maxQty, (window._qty[variant] || 1) + delta));
+  document.getElementById('qty-input-' + variant).textContent = window._qty[variant];
+};
+
+window.swapImage = function(el) {
+  document.querySelectorAll('.thumb').forEach(t => { t.classList.remove('active'); });
+  el.classList.add('active');
+  document.getElementById('main-image').src = el.getAttribute('data-src');
+};
+</script>
+
+<script src="/ursusarmament/access-check.js"></script>
+
+<script type="module">
+import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc }   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey:            "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
+  authDomain:        "ursus-armament.firebaseapp.com",
+  projectId:         "ursus-armament",
+  storageBucket:     "ursus-armament.firebasestorage.app",
+  messagingSenderId: "430731167862",
+  appId:             "1:430731167862:web:a5447de86db180edad3757"
+};
+
+const app  = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+
+onAuthStateChanged(auth, (user) => {
+  const navAuth = document.getElementById("navAuth");
+  if (user) {
+    navAuth.innerHTML = `<a href="/ursusarmament/settings/">${user.email.split("@")[0]}</a>`;
+  } else {
+    navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
+  }
+});
+
+function setText(id, val) {
+  const el = document.getElementById(id);
+  if (el) el.textContent = val;
+}
+
+function setVariantUnavailable(key) {
+  setText('sku-'     + key, '—');
+  setText('product-' + key, '—');
+  setText('qty-'     + key, '0');
+  const priceEl = document.getElementById('price-' + key);
+  if (priceEl) priceEl.textContent = '—';
+  const statusTxt = document.getElementById('status-text-' + key);
+  if (statusTxt) statusTxt.textContent = 'Currently Unavailable';
+  const btn = document.getElementById('btn-' + key);
+  if (btn) btn.disabled = true;
+}
+
+async function loadVariant(key, blackDocId, sandDocId) {
+  try {
+    const [blackSnap, sandSnap] = await Promise.all([
+      getDoc(doc(db, "ursus-units", blackDocId)),
+      getDoc(doc(db, "ursus-units", sandDocId)),
+    ]);
+
+    const blackData = blackSnap.exists() ? blackSnap.data() : null;
+    const sandData  = sandSnap.exists()  ? sandSnap.data()  : null;
+
+    if (!blackData && !sandData) { setVariantUnavailable(key); return; }
+
+    const primary  = blackData || sandData;
+    const blackQty = blackData ? (blackData['quantity-available'] || 0) : 0;
+    const sandQty  = sandData  ? (sandData['quantity-available']  || 0) : 0;
+    const totalQty = blackQty + sandQty;
+
+    setText('product-' + key, primary.product || '—');
+    setText('sku-'     + key, primary.sku     || '—');
+    setText('qty-'     + key, totalQty);
+
+    const priceEl = document.getElementById('price-' + key);
+    if (priceEl) priceEl.textContent = primary.price ? '$' + Number(primary.price).toLocaleString() : '—';
+
+    const dot       = document.getElementById('dot-'         + key);
+    const statusEl  = document.getElementById('status-'      + key);
+    const statusTxt = document.getElementById('status-text-' + key);
+    const btn       = document.getElementById('btn-'         + key);
+
+    if (totalQty > 0) {
+      dot.classList.add('available');
+      statusEl.classList.add('available');
+      statusTxt.textContent = 'In Stock';
+    } else {
+      statusTxt.textContent = 'Currently Unavailable';
+    }
+
+    const colorContainer = document.getElementById('color-btns-' + key);
+    colorContainer.innerHTML = '';
+
+    const colors = [];
+    if (blackData) colors.push({ name: 'Black', qty: blackQty, docId: blackDocId, data: blackData });
+    if (sandData)  colors.push({ name: 'Sand',  qty: sandQty,  docId: sandDocId,  data: sandData  });
+
+    colors.forEach(c => {
+      const b = document.createElement('button');
+      b.className = 'color-btn';
+      b.innerHTML = `${c.name} <span class="color-btn-qty">(${c.qty} Available)</span>`;
+      b.disabled = c.qty === 0;
+      b.addEventListener('click', () => {
+        document.querySelectorAll(`#color-btns-${key} .color-btn`).forEach(x => x.classList.remove('selected'));
+        b.classList.add('selected');
+        window._selectedColor[key] = c.name.toLowerCase();
+        window._variantMax[key]    = c.qty;
+        window._variantData[key]   = { ...c.data, _docId: c.docId };
+        window._qty[key] = 1;
+        document.getElementById('qty-input-' + key).textContent = 1;
+        btn.disabled = c.qty === 0;
+      });
+      colorContainer.appendChild(b);
+    });
+
+    // Auto-select Black if available, else Sand, else nothing
+    const blackOption = colors.find(c => c.name === 'Black' && c.qty > 0);
+    const sandOption  = colors.find(c => c.name === 'Sand'  && c.qty > 0);
+    const autoSelect  = blackOption || sandOption || null;
+
+    if (autoSelect) {
+      const autoBtn = colorContainer.querySelector(`button:nth-child(${colors.indexOf(autoSelect) + 1})`);
+      if (autoBtn) autoBtn.click();
+    } else {
+      btn.disabled = true;
+    }
+
+  } catch (err) {
+    console.error('Error loading variant ' + key, err);
+    setVariantUnavailable(key);
+  }
+}
+
+window.addVariantToCart = function(key) {
+  const d   = window._variantData[key];
+  const btn = document.getElementById('btn-' + key);
+  const qty = window._qty[key] || 1;
+  if (!d) return;
+
+  if (!window._selectedColor[key]) {
+    showToast('Please select a color before adding to cart.');
+    return;
+  }
+
+  window.addToCart({
+    id:      d._docId,
+    product: d.product || ('Rhino Mount — ' + (key === 'dovetail' ? 'Dovetail' : 'Bayonet')),
+    price:   String(d.price || '0'),
+    sku:     d.sku    || null,
+    finish:  d.finish || null,
+    color:   window._selectedColor[key] || null,
+    quantity: qty,
+    maxQty:  window._variantMax[key] || 1,
+  }, btn);
+};
+
+loadVariant('dovetail', 'rhino_mount_dovetail_black', 'rhino_mount_dovetail_sand');
+loadVariant('bayonet',  'rhino_mount_bayonet_black',  'rhino_mount_bayonet_sand');
+</script>
+
+</body>
+</html>
