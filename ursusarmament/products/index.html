@@ -203,7 +203,7 @@
   /* ── CATEGORY NAV ── */
   .cat-nav-wrapper {
     position: sticky;
-    top: 101px; /* height of fixed nav */
+    top: 101px;
     z-index: 50;
     background: var(--black);
     border-bottom: 1px solid var(--border);
@@ -277,7 +277,7 @@
   .subcat-btn:hover { color: var(--text); }
   .subcat-btn.active { color: var(--accent2); border-bottom-color: var(--accent2); }
 
-  /* ── PRODUCT GRID ── */
+  /* ── GRID HEADER ── */
   .grid-header {
     display: flex;
     align-items: center;
@@ -309,6 +309,139 @@
     border: 1px solid rgba(200,146,42,0.25);
   }
 
+  /* ── FLAGSHIP CAROUSEL ── */
+  .flagship-carousel-section {
+    margin-bottom: 0;
+  }
+
+  .flagship-row-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.75rem 0 1rem;
+  }
+
+  .flagship-row-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .flagship-row-label::before {
+    content: '';
+    display: block;
+    width: 14px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .carousel-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .carousel-arrow {
+    width: 34px;
+    height: 34px;
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+    flex-shrink: 0;
+    font-size: 0;
+    padding: 0;
+  }
+  .carousel-arrow:hover:not(:disabled) {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(200,146,42,0.07);
+  }
+  .carousel-arrow:disabled {
+    opacity: 0.25;
+    cursor: default;
+  }
+  .carousel-arrow svg {
+    width: 14px;
+    height: 14px;
+    stroke: currentColor;
+    fill: none;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    pointer-events: none;
+  }
+
+  .carousel-dots {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 0 0.25rem;
+  }
+
+  .carousel-dot {
+    width: 5px;
+    height: 5px;
+    background: var(--border2);
+    border-radius: 0;
+    transition: background 0.2s, width 0.25s;
+    flex-shrink: 0;
+  }
+  .carousel-dot.active {
+    background: var(--accent);
+    width: 18px;
+  }
+
+  .carousel-viewport {
+    position: relative;
+    overflow: hidden;
+    /* fade-out edges */
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 2%, black 92%, transparent 100%);
+    mask-image: linear-gradient(to right, transparent 0%, black 2%, black 92%, transparent 100%);
+  }
+
+  .carousel-track {
+    display: flex;
+    gap: 1px;
+    transition: transform 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    will-change: transform;
+  }
+
+  /* ── FLAGSHIP CARD (carousel) ── */
+  .flagship-card {
+    flex: 0 0 calc(25% - 1px);
+    min-width: 0;
+    background: var(--dark);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.2s;
+    aspect-ratio: 3/4;
+    border: 1px solid transparent;
+  }
+
+  .flagship-card:hover {
+    background: var(--surface);
+    border-color: var(--accent);
+    outline: none;
+  }
+  .flagship-card:hover .card-arrow { opacity: 1; transform: translate(2px, -2px); }
+  .flagship-card:hover .card-image img { transform: scale(1.05); }
+
+  /* ── STANDARD PRODUCT GRID ── */
   .product-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -316,7 +449,6 @@
     background: var(--border);
   }
 
-  /* compact card */
   .product-card {
     background: var(--dark);
     position: relative;
@@ -335,12 +467,9 @@
     outline: 2px solid var(--accent);
   }
   .product-card:hover .card-arrow { opacity: 1; transform: translate(2px, -2px); }
+  .product-card:hover .card-image img { transform: scale(1.05); }
 
-  /* flagship cards span 2 cols on all-products view */
-  .product-card.flagship {
-    aspect-ratio: auto;
-  }
-
+  /* shared card internals */
   .card-image {
     flex: 1;
     position: relative;
@@ -356,10 +485,8 @@
     width: 100%; height: 100%;
     object-fit: cover;
     object-position: center;
-    opacity: 1;
     transition: transform 0.4s;
   }
-  .product-card:hover .card-image img { transform: scale(1.05); }
 
   .card-bg-label {
     font-family: 'Bebas Neue', sans-serif;
@@ -432,8 +559,8 @@
   }
   .card-status.available::before { background: #2a9c5c; }
   .card-status.available { color: #2a9c5c; }
-  #mum14-status::before { display: none; }
   .card-status.no-dot::before { display: none; }
+
   .card-price {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.88rem;
@@ -452,7 +579,6 @@
     line-height: 1;
   }
 
-  /* flagship badge */
   .flagship-badge {
     position: absolute;
     top: 0.65rem;
@@ -468,7 +594,7 @@
     z-index: 2;
   }
 
-  /* divider within all-products view (flagship vs accessories) */
+  /* section divider (accessories) */
   .grid-divider {
     grid-column: 1 / -1;
     display: flex;
@@ -615,6 +741,7 @@
   /* ── RESPONSIVE ── */
   @media (max-width: 1100px) {
     .product-grid { grid-template-columns: repeat(3, 1fr); }
+    .flagship-card { flex: 0 0 calc(33.333% - 1px); }
   }
 
   @media (max-width: 768px) {
@@ -625,6 +752,7 @@
     .cat-nav-wrapper { padding: 0 1.5rem; margin: 0 -1.5rem; }
     .subcat-nav-wrapper { padding: 0 1.5rem; margin: 0 -1.5rem; }
     .product-grid { grid-template-columns: repeat(2, 1fr); }
+    .flagship-card { flex: 0 0 calc(50% - 1px); }
     .notify-banner { flex-direction: column; text-align: center; padding: 3rem 1.5rem; }
     footer { padding: 3rem 1.5rem 2rem; }
     .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
@@ -632,6 +760,7 @@
 
   @media (max-width: 480px) {
     .product-grid { grid-template-columns: 1fr; }
+    .flagship-card { flex: 0 0 85%; }
   }
 
   /* modal */
@@ -701,7 +830,7 @@
     </div>
   </div>
 
-  <!-- subcategory nav (only visible when a category has subcategories) -->
+  <!-- subcategory nav -->
   <div class="subcat-nav-wrapper" id="subcatWrapper">
     <div class="subcat-nav" id="subcatNav"></div>
   </div>
@@ -714,7 +843,49 @@
     </div>
   </div>
 
-  <!-- product grid -->
+  <!-- flagship carousel -->
+  <div class="flagship-carousel-section" id="flagshipCarouselSection" style="display:none;">
+    <div class="flagship-row-header">
+      <span class="flagship-row-label">Flagship Products</span>
+      <div style="display:flex; align-items:center; gap:1rem;">
+        <div class="carousel-dots" id="flagshipDots"></div>
+        <div class="carousel-controls">
+          <button class="carousel-arrow" id="flagshipPrev" aria-label="Previous flagship products">
+            <svg viewBox="0 0 16 16"><polyline points="10,3 5,8 10,13"/></svg>
+          </button>
+          <button class="carousel-arrow" id="flagshipNext" aria-label="Next flagship products">
+            <svg viewBox="0 0 16 16"><polyline points="6,3 11,8 6,13"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-viewport" id="flagshipViewport">
+      <div class="carousel-track" id="flagshipTrack"></div>
+    </div>
+  </div>
+
+  <!-- accessories carousel -->
+  <div class="flagship-carousel-section" id="accessoriesCarouselSection" style="display:none;">
+    <div class="flagship-row-header">
+      <span class="flagship-row-label">Accessories &amp; Components</span>
+      <div style="display:flex; align-items:center; gap:1rem;">
+        <div class="carousel-dots" id="accessoriesDots"></div>
+        <div class="carousel-controls">
+          <button class="carousel-arrow" id="accessoriesPrev" aria-label="Previous accessories">
+            <svg viewBox="0 0 16 16"><polyline points="10,3 5,8 10,13"/></svg>
+          </button>
+          <button class="carousel-arrow" id="accessoriesNext" aria-label="Next accessories">
+            <svg viewBox="0 0 16 16"><polyline points="6,3 11,8 6,13"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-viewport" id="accessoriesViewport">
+      <div class="carousel-track" id="accessoriesTrack"></div>
+    </div>
+  </div>
+
+  <!-- product grid (category-filtered views only) -->
   <div class="product-grid" id="productGrid"></div>
 
 </section>
@@ -809,8 +980,6 @@
 
 <script>
 // ── PRODUCT DATA ──────────────────────────────────────────────────────────────
-// Each product: id, name, cat (category key), subcats[], url, image (optional),
-// bgLabel, desc, status ('available'|'unavailable'), price (optional), flagship
 const PRODUCTS = [
   {
     id: 'rots',
@@ -863,7 +1032,19 @@ const PRODUCTS = [
     status: 'unavailable',
     displayCat: 'Tactical Network',
   },
-  // ── accessories / lower-dollar items (add more here) ──
+  {
+    id: 'axion',
+    name: 'AXION',
+    cat: 'nvg',
+    subcats: ['monoculars'],
+    flagship: true,
+    url: '/ursusarmament/products/AXION',
+    bgLabel: 'AXION',
+    desc: 'Next-generation dual-tube binocular night vision system engineered for extended operations. Featuring fused sensor architecture and wide field-of-view optics.',
+    status: 'unavailable',
+    displayCat: 'Binocular Night Vision',
+  },
+  // ── accessories / components ──
   {
     id: 'mum14-adapter',
     name: 'MUM-14 Adapters',
@@ -886,7 +1067,7 @@ const PRODUCTS = [
     flagship: false,
     url: '/ursusarmament/products/MUM14-Bridge',
     image: '/ursusarmament/images/mum14BTC.png',
-    bgLabel: 'MUM14', 
+    bgLabel: 'MUM14',
     desc: 'Dovetail interface MUM-14/28 bridge designed for helmet-mounted binocular night vision configurations compatible with standard Rhino mount systems.',
     status: 'unavailable',
     statusId: 'mum14-bridge-status',
@@ -902,10 +1083,9 @@ const PRODUCTS = [
     image: '/ursusarmament/images/pvs14jarmTC.png',
     bgLabel: 'PVS14',
     desc: 'Drop-in PVS-14 interface adapter. Fits all standard AN/PVS-14 compatible mounts.',
-    status: 'unavailable',
-    displayCat: 'NVG Adapter',
     status: 'checking',
     statusId: 'pvs14-status',
+    displayCat: 'NVG Adapter',
   },
   {
     id: 'rhino-mount',
@@ -936,81 +1116,170 @@ const CATEGORIES = {
 let activeCat    = 'all';
 let activeSubcat = 'all';
 
-// ── RENDER GRID ───────────────────────────────────────────────────────────────
+// ── CARD HTML BUILDER ─────────────────────────────────────────────────────────
+function buildCardHTML(p, showBadge) {
+  const statusClass = p.status === 'available' ? 'available' : '';
+  const statusText  = p.status === 'checking' ? 'Checking...' : p.status === 'available' ? 'Available' : 'Currently Unavailable';
+  const priceHTML   = p.price ? `<span class="card-price">${p.price}</span>` : '';
+  const imageHTML   = p.image
+    ? `<img src="${p.image}" alt="${p.name}" loading="lazy">`
+    : `<span class="card-bg-label">${p.bgLabel}</span>`;
+  const badgeHTML   = showBadge ? '<span class="flagship-badge">Flagship</span>' : '';
+  return `
+    <div class="card-image">${badgeHTML}${imageHTML}</div>
+    <div class="card-body">
+      <span class="card-arrow">↗</span>
+      <div class="card-cat">${p.displayCat}</div>
+      <div class="card-name">${p.name}</div>
+      <div class="card-desc">${p.desc}</div>
+      <div class="card-footer">
+        <span class="card-status ${statusClass}" ${p.statusId ? `id="${p.statusId}"` : ''}>${statusText}</span>
+        ${priceHTML}
+      </div>
+    </div>
+  `;
+}
+
+// ── GENERIC CAROUSEL ──────────────────────────────────────────────────────────
+function createCarousel({ trackId, prevId, nextId, dotsId, viewportId, sectionId }) {
+  let index   = 0;
+  let items   = [];
+
+  function getVisible() {
+    const vw = window.innerWidth;
+    if (vw <= 480)  return 1;
+    if (vw <= 768)  return 2;
+    if (vw <= 1100) return 3;
+    return 4;
+  }
+
+  function getCardW() {
+    const track = document.getElementById(trackId);
+    if (!track) return 0;
+    const first = track.querySelector('.flagship-card');
+    if (!first) return 0;
+    return first.getBoundingClientRect().width + 1;
+  }
+
+  function update() {
+    const track  = document.getElementById(trackId);
+    const prev   = document.getElementById(prevId);
+    const next   = document.getElementById(nextId);
+    const dots   = document.getElementById(dotsId);
+    if (!track) return;
+
+    const visible  = getVisible();
+    const maxIndex = Math.max(0, items.length - visible);
+    index = Math.min(index, maxIndex);
+
+    track.style.transform = `translateX(-${index * getCardW()}px)`;
+    if (prev) prev.disabled = index === 0;
+    if (next) next.disabled = index >= maxIndex;
+
+    if (dots) {
+      dots.innerHTML = '';
+      for (let i = 0; i <= maxIndex; i++) {
+        const d = document.createElement('div');
+        d.className = 'carousel-dot' + (i === index ? ' active' : '');
+        dots.appendChild(d);
+      }
+      dots.style.display = maxIndex < 1 ? 'none' : 'flex';
+    }
+  }
+
+  function step(dir) {
+    const maxIndex = Math.max(0, items.length - getVisible());
+    index = Math.max(0, Math.min(maxIndex, index + dir));
+    update();
+  }
+
+  function load(products, showBadge) {
+    const section = document.getElementById(sectionId);
+    const track   = document.getElementById(trackId);
+    if (!section || !track) return;
+
+    items = products;
+    index = 0;
+    track.innerHTML = '';
+
+    products.forEach(p => {
+      const card = document.createElement('a');
+      card.href      = p.url;
+      card.className = 'flagship-card';
+      card.innerHTML = buildCardHTML(p, showBadge);
+      track.appendChild(card);
+    });
+
+    section.style.display = products.length > 0 ? 'block' : 'none';
+    requestAnimationFrame(() => requestAnimationFrame(update));
+  }
+
+  function hide() {
+    const section = document.getElementById(sectionId);
+    if (section) section.style.display = 'none';
+  }
+
+  // swipe
+  const vp = document.getElementById(viewportId);
+  if (vp) {
+    let startX = 0;
+    vp.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+    vp.addEventListener('touchend',   e => {
+      const dx = startX - e.changedTouches[0].clientX;
+      if (Math.abs(dx) > 40) step(dx > 0 ? 1 : -1);
+    }, { passive: true });
+  }
+
+  document.getElementById(prevId)?.addEventListener('click', () => step(-1));
+  document.getElementById(nextId)?.addEventListener('click', () => step(1));
+
+  return { load, hide, update };
+}
+
+const flagshipCarousel    = createCarousel({ trackId: 'flagshipTrack',    prevId: 'flagshipPrev',    nextId: 'flagshipNext',    dotsId: 'flagshipDots',    viewportId: 'flagshipViewport',    sectionId: 'flagshipCarouselSection' });
+const accessoriesCarousel = createCarousel({ trackId: 'accessoriesTrack', prevId: 'accessoriesPrev', nextId: 'accessoriesNext', dotsId: 'accessoriesDots', viewportId: 'accessoriesViewport', sectionId: 'accessoriesCarouselSection' });
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
 function renderGrid() {
-  const grid = document.getElementById('productGrid');
+  const grid  = document.getElementById('productGrid');
   const label = document.getElementById('gridLabel');
   const count = document.getElementById('gridCount');
   grid.innerHTML = '';
-
-  // filter
-  let items = [];
-  if (activeCat === 'all') {
-    // flagships first, then rest
-    const flagships = PRODUCTS.filter(p => p.flagship);
-    const rest      = PRODUCTS.filter(p => !p.flagship);
-    items = [...flagships, ...rest];
-  } else if (activeCat === 'flagship') {
-    items = PRODUCTS.filter(p => p.flagship);
-  } else {
-    items = PRODUCTS.filter(p => p.cat === activeCat);
-    if (activeSubcat !== 'all') {
-      items = items.filter(p => p.subcats.includes(activeSubcat));
-    }
-  }
+  flagshipCarousel.hide();
+  accessoriesCarousel.hide();
 
   label.textContent = CATEGORIES[activeCat]?.label || 'Products';
-  count.textContent = items.length;
 
-  if (items.length === 0) {
-    grid.innerHTML = '<div class="empty-state">No products in this category yet — check back soon.</div>';
-    return;
+  if (activeCat === 'all' || activeCat === 'flagship') {
+    const flagships   = PRODUCTS.filter(p => p.flagship);
+    const accessories = activeCat === 'all' ? PRODUCTS.filter(p => !p.flagship) : [];
+
+    count.textContent = flagships.length + accessories.length;
+    flagshipCarousel.load(flagships, true);
+    if (accessories.length > 0) accessoriesCarousel.load(accessories, false);
+
+  } else {
+    // category-filtered: both carousels
+    let catItems = PRODUCTS.filter(p => {
+      if (p.cat !== activeCat) return false;
+      if (activeSubcat !== 'all') return p.subcats.includes(activeSubcat);
+      return true;
+    });
+
+    const flagships   = catItems.filter(p => p.flagship);
+    const accessories = catItems.filter(p => !p.flagship);
+
+    count.textContent = catItems.length;
+
+    if (catItems.length === 0) {
+      grid.innerHTML = '<div class="empty-state">No products in this category yet — check back soon.</div>';
+    } else {
+      flagshipCarousel.load(flagships, true);
+      if (accessories.length > 0) accessoriesCarousel.load(accessories, false);
+    }
   }
 
-  // in all-products view, insert divider before accessories
-  const hasAccs = activeCat === 'all' && items.some(p => !p.flagship);
-
-  items.forEach((p, i) => {
-    // divider injection
-    if (activeCat === 'all' && hasAccs && !p.flagship && (i === 0 || items[i-1].flagship)) {
-      const div = document.createElement('div');
-      div.className = 'grid-divider';
-      div.innerHTML = '<span>Accessories &amp; Components</span>';
-      grid.appendChild(div);
-    }
-
-    const card = document.createElement('a');
-    card.href = p.url;
-    card.className = 'product-card';
-
-    const statusClass  = p.status === 'available' ? 'available' : '';
-    const statusText   = p.status === 'checking'  ? 'Checking...' : p.status === 'available' ? 'Available' : 'Currently Unavailable';
-    const badgeHTML    = p.flagship ? '<span class="flagship-badge">Flagship</span>' : '';
-    const priceHTML    = p.price ? `<span class="card-price">${p.price}</span>` : '';
-
-    const imageHTML = p.image
-      ? `<img src="${p.image}" alt="${p.name}" loading="lazy">`
-      : `<span class="card-bg-label">${p.bgLabel}</span>`;
-
-    card.innerHTML = `
-  <div class="card-image">
-        ${badgeHTML}
-        ${imageHTML}
-      </div>
-      <div class="card-body">
-        <span class="card-arrow">↗</span>
-        <div class="card-cat">${p.displayCat}</div>
-        <div class="card-name">${p.name}</div>
-        <div class="card-desc">${p.desc}</div>
-        <div class="card-footer">
-          <span class="card-status ${statusClass}" ${p.statusId ? `id="${p.statusId}"` : ''}>${statusText}</span>
-          ${priceHTML}
-        </div>
-      </div>
-    `;
-
-    grid.appendChild(card);
-  });
+  setTimeout(applyAvailability, 50);
 }
 
 // ── RENDER SUBCATS ────────────────────────────────────────────────────────────
@@ -1026,10 +1295,10 @@ function renderSubcats() {
   }
 
   nav.innerHTML = '';
-  Object.entries(catDef.subcats).forEach(([key, label]) => {
+  Object.entries(catDef.subcats).forEach(([key, lbl]) => {
     const btn = document.createElement('button');
     btn.className = 'subcat-btn' + (activeSubcat === key ? ' active' : '');
-    btn.textContent = label;
+    btn.textContent = lbl;
     btn.addEventListener('click', () => {
       activeSubcat = key;
       document.querySelectorAll('.subcat-btn').forEach(b => b.classList.remove('active'));
@@ -1052,6 +1321,11 @@ document.querySelectorAll('.cat-btn').forEach(btn => {
     renderSubcats();
     renderGrid();
   });
+});
+
+window.addEventListener('resize', () => {
+  flagshipCarousel.update();
+  accessoriesCarousel.update();
 });
 
 // initial render
@@ -1114,7 +1388,6 @@ let availabilityCache = null;
 async function fetchAvailability() {
   if (availabilityCache) return availabilityCache;
 
-  // URSIX runs separately — collection query will fail for logged-out users
   let ursixCount = 0;
   let ursixAccessDenied = false;
   try {
@@ -1124,7 +1397,6 @@ async function fetchAvailability() {
     ursixAccessDenied = true;
   }
 
-  // Whitelisted individual doc fetches — these are allowed publicly
   const [dyBlackSnap, dySandSnap, bayonetSnap, bridgeBlackSnap, bridgeSandSnap, pvsDySnap, pvsBnSnap, rhinoDyBlackSnap, rhinoDySandSnap, rhinoBnBlackSnap, rhinoBnSandSnap] = await Promise.all([
     getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Adapter_Black")),
     getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Adapter_Sand")),
@@ -1168,7 +1440,6 @@ async function applyAvailability() {
   try {
     const data = await fetchAvailability();
 
-    // URSIX
     const ursixEl = document.getElementById("ursix-status");
     if (ursixEl) {
       if (data.ursixCount > 0) {
@@ -1182,7 +1453,6 @@ async function applyAvailability() {
         ursixEl.style.display = 'flex';
         ursixEl.style.alignItems = 'center';
         ursixEl.style.gap = '0.4rem';
-        ursixEl.style.setProperty('--before-display', 'none');
         ursixEl.classList.add('no-dot');
       } else {
         ursixEl.textContent = "Currently Unavailable";
@@ -1190,7 +1460,6 @@ async function applyAvailability() {
       }
     }
 
-    // MUM-14 Adapter
     const mum14El = document.getElementById("mum14-status");
     if (mum14El) {
       const dyText = data.dovetailAvail ? "DT Style Available" : "DT Style Unavailable";
@@ -1209,7 +1478,6 @@ async function applyAvailability() {
       `;
     }
 
-    // MUM-14 Bridge
     const bridgeEl = document.getElementById("mum14-bridge-status");
     if (bridgeEl) {
       if (data.bridgeAvail) {
@@ -1220,38 +1488,35 @@ async function applyAvailability() {
         bridgeEl.classList.remove("available");
       }
     }
+
     const pvs14El = document.getElementById("pvs14-status");
-if (pvs14El) {
-  if (data.pvs14Avail) {
-    pvs14El.textContent = "Available";
-    pvs14El.classList.add("available");
-  } else {
-    pvs14El.textContent = "Currently Unavailable";
-    pvs14El.classList.remove("available");
-  }
-}
-   const rhinoEl = document.getElementById("rhino-status");
-if (rhinoEl) {
-  if (data.rhinoAvail) {
-    rhinoEl.textContent = "Available";
-    rhinoEl.classList.add("available");
-  } else {
-    rhinoEl.textContent = "Currently Unavailable";
-    rhinoEl.classList.remove("available");
-  }
-}
+    if (pvs14El) {
+      if (data.pvs14Avail) {
+        pvs14El.textContent = "Available";
+        pvs14El.classList.add("available");
+      } else {
+        pvs14El.textContent = "Currently Unavailable";
+        pvs14El.classList.remove("available");
+      }
+    }
+
+    const rhinoEl = document.getElementById("rhino-status");
+    if (rhinoEl) {
+      if (data.rhinoAvail) {
+        rhinoEl.textContent = "Available";
+        rhinoEl.classList.add("available");
+      } else {
+        rhinoEl.textContent = "Currently Unavailable";
+        rhinoEl.classList.remove("available");
+      }
+    }
 
   } catch(err) {
     console.error(err);
   }
 }
 
-const _originalRenderGrid = window.renderGrid;
-window.renderGrid = function() {
-  _originalRenderGrid?.();
-  setTimeout(applyAvailability, 50);
-};
-
+window.applyAvailability = applyAvailability;
 applyAvailability();
 </script>
 
