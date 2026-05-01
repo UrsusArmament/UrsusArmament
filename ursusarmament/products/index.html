@@ -828,6 +828,7 @@
       <button class="cat-btn" data-cat="thermal">Thermal</button>
       <button class="cat-btn" data-cat="comms">Comms</button>
       <button class="cat-btn" data-cat="systems">Systems</button>
+      <button class="cat-btn" data-cat="loadout">Loadout</button>
     </div>
   </div>
 
@@ -883,6 +884,27 @@
     </div>
     <div class="carousel-viewport" id="accessoriesViewport">
       <div class="carousel-track" id="accessoriesTrack"></div>
+    </div>
+  </div>
+
+  <!-- loadout carousel -->
+  <div class="flagship-carousel-section" id="loadoutCarouselSection" style="display:none;">
+    <div class="flagship-row-header">
+      <span class="flagship-row-label">Loadout</span>
+      <div style="display:flex; align-items:center; gap:1rem;">
+        <div class="carousel-dots" id="loadoutDots"></div>
+        <div class="carousel-controls">
+          <button class="carousel-arrow" id="loadoutPrev" aria-label="Previous loadout products">
+            <svg viewBox="0 0 16 16"><polyline points="10,3 5,8 10,13"/></svg>
+          </button>
+          <button class="carousel-arrow" id="loadoutNext" aria-label="Next loadout products">
+            <svg viewBox="0 0 16 16"><polyline points="6,3 11,8 6,13"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-viewport" id="loadoutViewport">
+      <div class="carousel-track" id="loadoutTrack"></div>
     </div>
   </div>
 
@@ -1102,6 +1124,31 @@ const PRODUCTS = [
     statusId: 'rhino-status',
     displayCat: 'NVG Mount',
   },
+  // ── loadout ──
+  {
+    id: 'combat-top',
+    name: 'Combat Tops',
+    cat: 'loadout',
+    subcats: ['apparel'],
+    flagship: false,
+    url: '/ursusarmament/products/combat-tops',
+    bgLabel: 'CMBT',
+    desc: 'Durable combat shirt engineered for prolonged field use. Moisture-wicking construction, reinforced elbows, and integrated loop fields for patches and insignia.',
+    status: 'unavailable',
+    displayCat: 'Apparel',
+  },
+  {
+    id: 'helmet',
+    name: 'Helmets',
+    cat: 'loadout',
+    subcats: ['protection'],
+    flagship: false,
+    url: '/ursusarmament/products/helmets',
+    bgLabel: 'HLMT',
+    desc: 'Ballistic helmet platform designed for compatibility with NVG mounts, communication systems, and accessory rails. NIJ rating TBD.',
+    status: 'unavailable',
+    displayCat: 'Head Protection',
+  },
 ];
 
 // ── CATEGORY / SUBCATEGORY DEFINITIONS ───────────────────────────────────────
@@ -1112,6 +1159,7 @@ const CATEGORIES = {
   thermal:  { label: 'Thermal', subcats: { all: 'All Thermal', monoculars: 'Monoculars' } },
   comms:    { label: 'Comms' },
   systems:  { label: 'Systems' },
+  loadout:  { label: 'Loadout', subcats: { all: 'All Loadout', protection: 'Protection', apparel: 'Apparel' } },
 };
 
 let activeCat    = 'all';
@@ -1239,6 +1287,7 @@ function createCarousel({ trackId, prevId, nextId, dotsId, viewportId, sectionId
 
 const flagshipCarousel    = createCarousel({ trackId: 'flagshipTrack',    prevId: 'flagshipPrev',    nextId: 'flagshipNext',    dotsId: 'flagshipDots',    viewportId: 'flagshipViewport',    sectionId: 'flagshipCarouselSection' });
 const accessoriesCarousel = createCarousel({ trackId: 'accessoriesTrack', prevId: 'accessoriesPrev', nextId: 'accessoriesNext', dotsId: 'accessoriesDots', viewportId: 'accessoriesViewport', sectionId: 'accessoriesCarouselSection' });
+const loadoutCarousel     = createCarousel({ trackId: 'loadoutTrack',     prevId: 'loadoutPrev',     nextId: 'loadoutNext',     dotsId: 'loadoutDots',     viewportId: 'loadoutViewport',     sectionId: 'loadoutCarouselSection' });
 
 // ── RENDER ────────────────────────────────────────────────────────────────────
 function renderGrid() {
@@ -1248,19 +1297,21 @@ function renderGrid() {
   grid.innerHTML = '';
   flagshipCarousel.hide();
   accessoriesCarousel.hide();
+  loadoutCarousel.hide();
 
   label.textContent = CATEGORIES[activeCat]?.label || 'Products';
 
   if (activeCat === 'all' || activeCat === 'flagship') {
     const flagships   = PRODUCTS.filter(p => p.flagship);
-    const accessories = activeCat === 'all' ? PRODUCTS.filter(p => !p.flagship) : [];
+    const accessories = activeCat === 'all' ? PRODUCTS.filter(p => !p.flagship && p.cat !== 'loadout') : [];
+    const loadout     = activeCat === 'all' ? PRODUCTS.filter(p => p.cat === 'loadout') : [];
 
-    count.textContent = flagships.length + accessories.length;
+    count.textContent = flagships.length + accessories.length + loadout.length;
     flagshipCarousel.load(flagships, true);
     if (accessories.length > 0) accessoriesCarousel.load(accessories, false);
+    if (loadout.length > 0)     loadoutCarousel.load(loadout, false);
 
   } else {
-    // category-filtered: both carousels
     let catItems = PRODUCTS.filter(p => {
       if (p.cat !== activeCat) return false;
       if (activeSubcat !== 'all') return p.subcats.includes(activeSubcat);
@@ -1268,15 +1319,15 @@ function renderGrid() {
     });
 
     const flagships   = catItems.filter(p => p.flagship);
-    const accessories = catItems.filter(p => !p.flagship);
+    const nonFlagship = catItems.filter(p => !p.flagship);
 
     count.textContent = catItems.length;
 
     if (catItems.length === 0) {
       grid.innerHTML = '<div class="empty-state">No products in this category yet — check back soon.</div>';
     } else {
-      flagshipCarousel.load(flagships, true);
-      if (accessories.length > 0) accessoriesCarousel.load(accessories, false);
+      if (flagships.length > 0)   flagshipCarousel.load(flagships, true);
+      if (nonFlagship.length > 0) accessoriesCarousel.load(nonFlagship, false);
     }
   }
 
@@ -1327,6 +1378,7 @@ document.querySelectorAll('.cat-btn').forEach(btn => {
 window.addEventListener('resize', () => {
   flagshipCarousel.update();
   accessoriesCarousel.update();
+  loadoutCarousel.update();
 });
 
 // initial render
