@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Helmet — Ursus Armament</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --surface2: #222220;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+    --accent2: #e8a830;
+    --green: #2a9c5c;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--text); font-family: 'Barlow', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,8,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-top { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 3rem; border-bottom: 1px solid var(--border); }
+  .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.12em; color: var(--text); text-decoration: none; line-height: 1; }
+  .nav-logo span { color: var(--accent); }
+  .nav-slogan { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+  .nav-ribbon { display: flex; align-items: center; justify-content: center; padding: 0 3rem; height: 38px; background: var(--surface); }
+  .nav-ribbon a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0 1.6rem; height: 100%; display: flex; align-items: center; border-right: 1px solid var(--border); transition: color 0.2s, background 0.2s; }
+  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
+  .nav-ribbon a:hover, .nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
+  .nav-auth { display: flex; align-items: center; }
+  .nav-auth a, .nav-auth button { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: var(--accent); background: transparent; border: 1px solid var(--accent); padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s ease; }
+  .nav-auth a:hover, .nav-auth button:hover { background: rgba(200,146,42,0.08); }
+  .nav-cart-btn { position: relative; background: transparent; border: 1px solid var(--border2); color: var(--text); width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; transition: border-color 0.2s, background 0.2s; flex-shrink: 0; }
+  .nav-cart-btn:hover { border-color: var(--accent); background: rgba(200,146,42,0.06); }
+  .nav-cart-btn svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
+  .nav-cart-btn:hover svg { stroke: var(--accent); }
+  .cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
+  .cart-count.visible { display: flex; }
+
+  .breadcrumb { padding: 1rem 3rem; background: var(--dark); border-bottom: 1px solid var(--border); margin-top: 86px; display: flex; align-items: center; gap: 0.5rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+  .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb span { color: var(--accent); }
+
+  .unavail-banner { background: rgba(10,10,8,0.97); border-bottom: 1px solid rgba(200,146,42,0.3); padding: 0.75rem 3rem; display: flex; align-items: center; justify-content: center; gap: 1.2rem; text-align: center; }
+  .unavail-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); opacity: 0.7; animation: pulse 2s ease-in-out infinite; flex-shrink: 0; }
+  @keyframes pulse { 0%, 100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 1; transform: scale(1.25); } }
+  .unavail-banner p { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
+  .unavail-banner span { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; color: var(--muted); font-weight: 400; text-transform: uppercase; }
+
+  .product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; background: var(--dark); }
+  .product-visual { position: relative; background: var(--surface); overflow: hidden; display: flex; flex-direction: column; justify-content: flex-start; }
+  .product-badge { position: absolute; top: 2rem; left: 2rem; background: var(--surface2); color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 0.85rem; z-index: 2; border: 1px solid rgba(200,146,42,0.35); }
+  .product-info { padding: 4rem; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--border); }
+
+  .product-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
+  .product-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+  .product-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 6.5vw, 6rem); line-height: 0.88; letter-spacing: 0.05em; margin-bottom: 0.5rem; color: var(--text); }
+  .product-subtitle { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 2rem; }
+  .product-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; max-width: 480px; }
+
+  .product-price-row { display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .price-block { display: flex; flex-direction: column; gap: 0.3rem; }
+  .price-tag { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.08em; color: var(--text); }
+  .price-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.7; }
+  .unavail-pill { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(200,146,42,0.08); border: 1px solid rgba(200,146,42,0.25); padding: 0.5rem 1rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+
+  /* COLOR SELECTOR */
+  .selector-block { margin-bottom: 1.75rem; }
+  .selector-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.65rem; display: block; }
+  .color-options { display: flex; gap: 6px; flex-wrap: wrap; }
+  .color-chip { width: 28px; height: 28px; border: 1px solid var(--border2); cursor: not-allowed; opacity: 0.5; position: relative; }
+  .selector-note { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--muted); opacity: 0.55; margin-top: 0.5rem; text-transform: uppercase; }
+
+  /* LAW NOTE */
+  .law-note { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid rgba(200,146,42,0.5); padding: 1rem 1.25rem; margin-bottom: 2rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted); line-height: 1.6; }
+  .law-note strong { color: var(--accent); font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; display: block; margin-bottom: 0.3rem; font-size: 0.68rem; }
+
+  .product-actions { display: flex; gap: 1rem; margin-bottom: 2rem; }
+  .btn-notify { background: transparent; color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: 1px solid var(--accent); cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s; flex: 1; text-align: center; }
+  .btn-notify:hover { background: rgba(200,146,42,0.1); }
+  .btn-ghost { background: transparent; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; border: 1px solid var(--border2); cursor: pointer; text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s; }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .product-trust { display: flex; gap: 2rem; }
+  .trust-item { display: flex; flex-direction: column; gap: 0.2rem; }
+  .trust-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .trust-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text); }
+  .trust-value.tbd { color: var(--muted); font-style: italic; }
+
+  .section-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
+  .section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5vw, 4.2rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 3.5rem; }
+
+  .specs-section { background: var(--black); padding: 6rem 3rem; }
+  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-bottom: 2px; }
+  .spec-item { background: var(--dark); padding: 1.75rem 2rem; display: flex; justify-content: space-between; align-items: baseline; transition: background 0.2s; }
+  .spec-item:hover { background: var(--surface); }
+  .spec-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .spec-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); text-align: right; max-width: 55%; }
+  .spec-value.tbd { color: var(--muted); font-style: italic; font-size: 0.88rem; }
+  .spec-note { margin-top: 2rem; padding: 1.25rem 1.75rem; background: var(--dark); border: 1px solid var(--border); border-left: 3px solid rgba(200,146,42,0.4); font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); line-height: 1.6; }
+
+  .features-section { background: var(--black); padding: 6rem 3rem; }
+  .features-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .features-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+  .feature-item { background: var(--surface); padding: 2rem; position: relative; overflow: hidden; transition: background 0.2s; }
+  .feature-item:hover { background: var(--surface2); }
+  .feature-item::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
+  .feature-item:hover::before { opacity: 1; }
+  .feature-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(200,146,42,0.12); line-height: 1; position: absolute; top: 1rem; right: 1.5rem; }
+  .feature-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+  .feature-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+  .features-aside { position: sticky; top: 110px; }
+  .features-aside p { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+  .cert-row { display: flex; gap: 1.5px; background: var(--border); margin-top: 2rem; }
+  .cert-item { flex: 1; background: var(--surface); padding: 1.25rem; text-align: center; }
+  .cert-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.3rem; }
+  .cert-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; color: var(--accent); }
+
+  .notify-section { background: var(--dark); padding: 6rem 3rem; }
+  .notify-inner { max-width: 780px; }
+  .notify-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 560px; }
+  .notify-input-row { display: flex; margin-bottom: 1.5rem; }
+  .notify-input { flex: 1; background: var(--surface); border: 1px solid var(--border2); border-right: none; color: var(--text); font-family: 'Barlow', sans-serif; font-size: 0.95rem; padding: 0.9rem 1.5rem; outline: none; transition: border-color 0.2s; }
+  .notify-input::placeholder { color: var(--muted); }
+  .notify-input:focus { border-color: var(--accent); }
+  .notify-btn { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.9rem 2rem; border: none; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+  .notify-btn:hover { background: var(--accent2); }
+  .notify-confirm { display: none; padding: 1.5rem 2rem; background: rgba(42,156,92,0.08); border: 1px solid rgba(42,156,92,0.3); border-left: 3px solid var(--green); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; letter-spacing: 0.08em; color: #4cbc7e; }
+  .notify-confirm.visible { display: block; }
+  .notify-caveat { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; color: var(--muted); opacity: 0.6; text-transform: uppercase; margin-top: 0.75rem; }
+
+  .timeline { margin-top: 3rem; }
+  .timeline-title { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+  .timeline-steps { display: flex; gap: 2px; background: var(--border); }
+  .timeline-step { flex: 1; background: var(--dark); padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 0.4rem; position: relative; overflow: hidden; }
+  .timeline-step.done { background: var(--surface); }
+  .timeline-step.done::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--green); }
+  .timeline-step.current { background: var(--surface); }
+  .timeline-step.current::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); animation: shimmer 2s ease-in-out infinite; }
+  @keyframes shimmer { 0%,100%{opacity:0.5} 50%{opacity:1} }
+  .step-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .step-label.done { color: var(--green); }
+  .step-label.current { color: var(--accent); }
+  .step-label.pending { color: var(--muted); opacity: 0.5; }
+  .step-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); }
+  .step-name.pending { color: var(--muted); opacity: 0.5; }
+
+  .cta-banner { background: var(--surface); padding: 4rem 3rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.06em; color: var(--text); line-height: 1; }
+  .cta-banner p { font-size: 1rem; color: var(--muted); margin-top: 0.5rem; }
+  .btn-primary { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: none; cursor: pointer; white-space: nowrap; text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+
+  footer { background: var(--dark); border-top: 1px solid var(--border); padding: 4rem 3rem 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
+  .footer-brand p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-top: 1rem; }
+  .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+  .footer-col a { font-size: 0.9rem; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
+  .footer-col a:hover { opacity: 1; color: var(--accent); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.12em; color: var(--text); opacity: 0.5; }
+  .footer-logo span { color: var(--accent); opacity: 1; }
+  .footer-legal { font-size: 0.78rem; color: var(--muted); opacity: 0.5; }
+
+  @media (max-width: 900px) {
+    .product-hero { grid-template-columns: 1fr; }
+    .product-visual { min-height: 50vw; }
+    .product-info { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--border); }
+    .specs-grid { grid-template-columns: 1fr; }
+    .features-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .features-aside { position: static; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .cta-banner { flex-direction: column; text-align: center; }
+    .breadcrumb, .specs-section, .notify-section, .features-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .nav-top, .nav-ribbon { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .notify-input-row { flex-direction: column; }
+    .notify-input { border-right: 1px solid var(--border2); border-bottom: none; }
+    .timeline-steps { flex-direction: column; }
+    .unavail-banner { padding: 0.75rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-top">
+    <div class="nav-brand">
+      <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
+      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    </div>
+    <div class="nav-right" style="display:flex; align-items:center; gap:0.75rem;">
+      <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
+        <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>
+        <span class="cart-count" id="cartCount"></span>
+      </a>
+      <div class="nav-auth" id="navAuth"></div>
+    </div>
+  </div>
+  <div class="nav-ribbon">
+    <a href="/ursusarmament/products" class="active">Products</a>
+    <a href="/ursusarmament#mission">Our Mission</a>
+    <a href="/ursusarmament#process">Learn</a>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="/ursusarmament">Home</a>
+  <span>›</span>
+  <a href="/ursusarmament/products">Products</a>
+  <span>›</span>
+  <span>Helmet</span>
+</div>
+
+<div class="unavail-banner">
+  <div class="unavail-dot"></div>
+  <p>Currently Unavailable</p>
+  <span>&nbsp;·&nbsp; Notify me when available</span>
+</div>
+
+<section class="product-hero">
+  <div class="product-visual">
+    <div class="product-badge">COMING SOON</div>
+    <div style="width:100%; flex:1; display:flex; align-items:center; justify-content:center; background:var(--surface); min-height:0; position:relative; overflow:hidden;">
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(200,146,42,0.015) 30px,rgba(200,146,42,0.015) 31px);pointer-events:none;"></div>
+      <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.25rem;text-align:center;padding:3rem;">
+        <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(5rem,12vw,9rem);letter-spacing:0.1em;color:rgba(232,228,217,0.08);line-height:1;user-select:none;">HELMET</div>
+        <div style="margin-top:-1.5rem;display:flex;flex-direction:column;align-items:center;gap:0.6rem;">
+          <div style="width:32px;height:1px;background:var(--accent);opacity:0.5;"></div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);opacity:0.6;">Imagery Coming Soon</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="product-info">
+    <div class="product-tag">Loadout · Protection</div>
+    <h1 class="product-name">Helmet</h1>
+    <div class="product-subtitle">High Cut · NIJ Level IIIA · ARC Rails · Custom Paint</div>
+    <p class="product-desc">
+      High-cut ballistic helmet platform rated to NIJ Level IIIA. Equipped with ARC accessory rails for lights, cameras, and communication mounts. Available in multiple colorways with custom paint options for unit and personal customization. Availability subject to applicable local laws.
+    </p>
+
+    <div class="product-price-row">
+      <div class="price-block">
+        <div class="price-tag">$400</div>
+        <div class="price-sub">All colorways — custom paint pricing TBD</div>
+      </div>
+      <div class="unavail-pill">
+        <div class="unavail-dot" style="width:6px;height:6px;"></div>
+        Prototype / Testing
+      </div>
+    </div>
+
+    <div class="selector-block">
+      <span class="selector-label">Colorway</span>
+      <div class="color-options">
+        <div class="color-chip" style="background:#1a1a1a;opacity:0.5;" title="Black"></div>
+        <div class="color-chip" style="background:#c9a87c;opacity:0.5;" title="Coyote"></div>
+        <div class="color-chip" style="background:#3d3d2e;opacity:0.5;" title="OD Green"></div>
+        <div class="color-chip" style="background:#4a4a4a;opacity:0.5;" title="Wolf Grey"></div>
+        <div class="color-chip" style="background:linear-gradient(135deg,#c8922a 50%,#1a1a17 50%);opacity:0.5;" title="Custom Paint"></div>
+      </div>
+      <div class="selector-note">Final colorways confirmed at launch · Custom paint options available</div>
+    </div>
+
+    <div class="law-note">
+      <strong>⚠ Local Law Notice</strong>
+      Ballistic helmets are legal for civilian purchase and ownership in most U.S. states. Some jurisdictions impose restrictions. It is your responsibility to verify compliance with applicable local, state, and federal laws before ordering. Ursus Armament assumes no liability for purchases made in violation of local regulations.
+    </div>
+
+    <div class="product-actions">
+      <a href="#notify" class="btn-notify">Notify Me at Launch</a>
+      <a href="#specs" class="btn-ghost">View Specs</a>
+    </div>
+    <div class="product-trust">
+      <div class="trust-item"><span class="trust-label">Price</span><span class="trust-value">$400</span></div>
+      <div class="trust-item"><span class="trust-label">Protection</span><span class="trust-value">NIJ IIIA</span></div>
+      <div class="trust-item"><span class="trust-label">Made In</span><span class="trust-value">USA 🇺🇸</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="specs-section" id="specs">
+  <div class="section-tag">Technical Data</div>
+  <h2 class="section-title">SPECIFICATIONS</h2>
+  <div class="specs-grid">
+    <div class="spec-item"><span class="spec-name">Cut Profile</span><span class="spec-value">High Cut</span></div>
+    <div class="spec-item"><span class="spec-name">Ballistic Rating</span><span class="spec-value">NIJ Level IIIA</span></div>
+    <div class="spec-item"><span class="spec-name">Rail System</span><span class="spec-value">ARC Rails (bilateral)</span></div>
+    <div class="spec-item"><span class="spec-name">NVG Shroud</span><span class="spec-value tbd">TBD</span></div>
+    <div class="spec-item"><span class="spec-name">Suspension / Padding</span><span class="spec-value tbd">TBD</span></div>
+    <div class="spec-item"><span class="spec-name">Retention System</span><span class="spec-value tbd">TBD</span></div>
+    <div class="spec-item"><span class="spec-name">Shell Material</span><span class="spec-value tbd">TBD</span></div>
+    <div class="spec-item"><span class="spec-name">Weight</span><span class="spec-value tbd">TBD</span></div>
+    <div class="spec-item"><span class="spec-name">Colorways</span><span class="spec-value">Multiple standard + custom paint</span></div>
+    <div class="spec-item"><span class="spec-name">Custom Paint</span><span class="spec-value">Available — pricing TBD</span></div>
+    <div class="spec-item"><span class="spec-name">Price</span><span class="spec-value">$400 — standard colorways</span></div>
+    <div class="spec-item"><span class="spec-name">Country of Origin</span><span class="spec-value">United States of America</span></div>
+  </div>
+  <div class="spec-note">
+    ⚠ &nbsp;Specifications are preliminary and subject to revision. Final performance figures and construction details will be published at product launch. All specs represent design targets, not guaranteed minimums. Civilian availability subject to local laws — verify before ordering.
+  </div>
+</section>
+
+<section class="features-section" id="features">
+  <div class="features-layout">
+    <div class="features-list">
+      <div class="feature-item">
+        <div class="feature-num">01</div>
+        <div class="feature-title">NIJ Level IIIA Ballistic Protection</div>
+        <p class="feature-desc">Rated to NIJ Level IIIA — protection against handgun rounds up to .44 Magnum and most pistol-caliber threats. The same protection standard used by law enforcement agencies across the country.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">02</div>
+        <div class="feature-title">High Cut Profile</div>
+        <p class="feature-desc">High-cut geometry clears the ears for unobstructed communication headset use and hearing protection. Maintains full ballistic coverage of the crown and sides without interfering with comms equipment.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">03</div>
+        <div class="feature-title">ARC Rail System</div>
+        <p class="feature-desc">Bilateral ARC accessory rails provide mounting points for tactical lights, cameras, counterweights, and other rail-compatible accessories. Compatible with the widest range of aftermarket ARC-standard accessories.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">04</div>
+        <div class="feature-title">Custom Paint Options</div>
+        <p class="feature-desc">Beyond standard colorways, custom paint jobs are available for unit insignia, personal markings, and operational camouflage patterns. Pricing and lead time for custom work will be confirmed at launch.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">05</div>
+        <div class="feature-title">Multiple Standard Colorways</div>
+        <p class="feature-desc">Available in a range of standard finishes including Black, Coyote, OD Green, and Wolf Grey. All standard colorways are priced uniformly at $400 — no premium for specific colors.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">06</div>
+        <div class="feature-title">Open Availability</div>
+        <p class="feature-desc">Available to law enforcement, military, and civilians where permitted by law. We believe in the right of law-abiding Americans to protect themselves. Verify local regulations before ordering.</p>
+      </div>
+    </div>
+    <div class="features-aside">
+      <div class="section-tag">Design Philosophy</div>
+      <h2 class="section-title" style="margin-bottom:1.5rem;">PROTECTION YOU CAN BUILD ON.</h2>
+      <p>A ballistic helmet is a platform, not just protection. The ARC rail system means your helmet works with your existing kit — lights, cameras, comms mounts — without adapter plates or compromises.</p>
+      <p>The high-cut profile is a deliberate choice. Ear coverage matters less than the ability to hear your team and communicate clearly under pressure. We designed for the way operators actually work.</p>
+      <p>Custom paint is there because unit cohesion and individual identity aren't vanity — they matter in the field. We'll support both.</p>
+      <div class="cert-row">
+        <div class="cert-item"><span class="cert-label">Rating</span><span class="cert-value">IIIA</span></div>
+        <div class="cert-item"><span class="cert-label">Rails</span><span class="cert-value">ARC</span></div>
+        <div class="cert-item"><span class="cert-label">Price</span><span class="cert-value">$400</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="notify-section" id="notify">
+  <div class="notify-inner">
+    <div class="section-tag">Availability Notification</div>
+    <h2 class="section-title" style="margin-bottom:1rem;">GET NOTIFIED AT LAUNCH</h2>
+    <p class="notify-desc">The Helmet is not yet available for order. Enter your email and we'll notify you the moment it's ready — before public announcement. Civilian availability subject to local laws.</p>
+    <div class="notify-input-row">
+      <input class="notify-input" id="notifyInput" type="email" placeholder="your@email.com" autocomplete="email" spellcheck="false"/>
+      <button class="notify-btn" onclick="submitNotify()">Notify Me</button>
+    </div>
+    <div class="notify-confirm" id="notifyConfirm">You're on the list. We'll contact you when the Helmet is ready for order.</div>
+    <p class="notify-caveat">No spam. No third-party sharing. Unsubscribe any time.</p>
+    <div class="timeline">
+      <div class="timeline-title">Development Status</div>
+      <div class="timeline-steps">
+        <div class="timeline-step done"><span class="step-label done">✓ Complete</span><span class="step-name">Concept &amp; Design</span></div>
+        <div class="timeline-step current"><span class="step-label current">▶ Active</span><span class="step-name">Prototype / Testing</span></div>
+        <div class="timeline-step"><span class="step-label pending">Pending</span><span class="step-name pending">Certification</span></div>
+        <div class="timeline-step"><span class="step-label pending">Pending</span><span class="step-name pending">Production</span></div>
+        <div class="timeline-step"><span class="step-label pending">Pending</span><span class="step-name pending">Launch</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-banner">
+  <div>
+    <h2>QUESTIONS ABOUT THE HELMET?</h2>
+    <p>Our team is available Monday–Friday, 8AM–6PM MST.</p>
+  </div>
+  <a href="/ursusarmament/contact/" class="btn-primary">Contact Us</a>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">URSUS <span style="color:var(--accent);">ARMAMENT</span></div>
+      <p>Developing next-generation tactical gear for the American people. Manufactured, tested, and deployed with pride in the USA.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="/ursusarmament/products/ROTS">R.O.T.S.</a></li>
+        <li><a href="/ursusarmament/products/URSIX">URSIX</a></li>
+        <li><a href="/ursusarmament/products">View All</a></li>
+        <li><a href="/ursusarmament/customerreviews">Customer Reviews</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/ursusarmament/aboutus/">About Us</a></li>
+        <li><a href="/ursusarmament/testingstandards/">Testing Standards</a></li>
+        <li><a href="/ursusarmament/careers/">Careers</a></li>
+        <li><a href="https://www.youtube.com/@UrsusWorks/" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="/ursusarmament/contact/">Contact</a></li>
+        <li><a href="/ursusarmament/warranty/">Warranty</a></li>
+        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-logo">URSUS <span>ARMAMENT</span></div>
+    <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
+  </div>
+</footer>
+
+<script>
+  function submitNotify() {
+    const input = document.getElementById('notifyInput');
+    const val = input.value.trim();
+    if (!val || !val.includes('@')) { input.focus(); return; }
+    document.getElementById('notifyConfirm').classList.add('visible');
+    input.value = '';
+    input.disabled = true;
+    document.querySelector('.notify-btn').disabled = true;
+    document.querySelector('.notify-btn').style.opacity = '0.5';
+  }
+  document.getElementById('notifyInput').addEventListener('keydown', e => { if (e.key === 'Enter') submitNotify(); });
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+
+<script src="/ursusarmament/access-check.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+const firebaseConfig = { apiKey: "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA", authDomain: "ursus-armament.firebaseapp.com", projectId: "ursus-armament", storageBucket: "ursus-armament.firebasestorage.app", messagingSenderId: "430731167862", appId: "1:430731167862:web:a5447de86db180edad3757" };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+onAuthStateChanged(auth, (user) => {
+  const navAuth = document.getElementById("navAuth");
+  if (user) { navAuth.innerHTML = `<a href="/ursusarmament/settings/">${user.email.split("@")[0]}</a>`; }
+  else { navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`; }
+});
+</script>
+<script>
+function updateCartBadge() {
+  try {
+    const cart = JSON.parse(localStorage.getItem('ursus_cart')) || [];
+    const count = cart.reduce((sum, i) => sum + (i.quantity || 1), 0);
+    const badge = document.getElementById('cartCount');
+    if (!badge) return;
+    if (count > 0) { badge.textContent = count > 99 ? '99+' : count; badge.classList.add('visible'); }
+    else { badge.classList.remove('visible'); }
+  } catch {}
+}
+updateCartBadge();
+</script>
+</body>
+</html>
