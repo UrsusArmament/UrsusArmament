@@ -59,16 +59,20 @@
 
   /* PRODUCT VISUAL + IMAGE GALLERY */
   .product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; background: var(--dark); }
-  .product-visual { position: relative; background: var(--surface); overflow: hidden; display: flex; flex-direction: column; }
+  .product-visual { position: relative; background: var(--surface); display: flex; flex-direction: column; }
   .product-badge { position: absolute; top: 2rem; left: 2rem; background: var(--surface2); color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 0.85rem; z-index: 2; border: 1px solid rgba(200,146,42,0.35); }
 
-  .main-image-wrap { flex: 1; min-height: 0; position: relative; overflow: hidden; background: var(--surface); display: flex; align-items: center; justify-content: center; }
-  .main-image-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 0.25s ease; }
+  /* 4:3 main image area */
+  .main-image-wrap { width: 100%; position: relative; background: var(--surface); overflow: hidden; }
+  .main-image-wrap::before { content: ''; display: block; padding-top: 75%; /* 4:3 ratio */ }
+  .main-image-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 0.25s ease; }
   .main-image-wrap img.fading { opacity: 0; }
 
+  /* 4:3 thumbnails */
   .thumb-strip { display: flex; gap: 6px; padding: 0.75rem; background: var(--dark); border-top: 1px solid var(--border); flex-shrink: 0; }
-  .thumb-btn { width: 72px; height: 72px; border: 2px solid var(--border2); overflow: hidden; cursor: pointer; flex-shrink: 0; transition: border-color 0.2s, transform 0.15s; background: var(--surface2); }
-  .thumb-btn img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .thumb-btn { width: 96px; position: relative; border: 2px solid var(--border2); overflow: hidden; cursor: pointer; flex-shrink: 0; transition: border-color 0.2s, transform 0.15s; background: var(--surface2); }
+  .thumb-btn::before { content: ''; display: block; padding-top: 75%; /* 4:3 */ }
+  .thumb-btn img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
   .thumb-btn:hover { border-color: rgba(200,146,42,0.55); transform: translateY(-2px); }
   .thumb-btn.active { border-color: var(--accent); }
 
@@ -130,8 +134,6 @@
     z-index: 10;
   }
   .color-chip:hover::after { opacity: 1; }
-
-
 
   .selector-note { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--muted); opacity: 0.55; margin-top: 0.5rem; text-transform: uppercase; }
 
@@ -226,7 +228,7 @@
 
   @media (max-width: 900px) {
     .product-hero { grid-template-columns: 1fr; }
-    .product-visual { min-height: 50vw; }
+    .product-visual { min-height: unset; }
     .product-info { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--border); }
     .specs-grid { grid-template-columns: 1fr; }
     .features-layout { grid-template-columns: 1fr; gap: 2.5rem; }
@@ -239,6 +241,7 @@
     .notify-input { border-right: 1px solid var(--border2); border-bottom: none; }
     .timeline-steps { flex-direction: column; }
     .unavail-banner { padding: 0.75rem 1.5rem; }
+    .thumb-btn { width: 72px; }
   }
 </style>
 </head>
@@ -283,23 +286,23 @@
   <div class="product-visual">
     <div class="product-badge">COMING SOON</div>
 
-    <!-- Main image display -->
+    <!-- Main image — 4:3 via padding-top trick -->
     <div class="main-image-wrap">
       <img id="mainProductImg" src="/ursusarmament/images/combat-topMC.png" alt="Combat Top – Multi-Terrain" />
     </div>
 
-    <!-- Thumbnail strip -->
+    <!-- Thumbnail strip — each thumb also 4:3 -->
     <div class="thumb-strip">
-      <div class="thumb-btn active" data-img="/ursusarmament/images/combat-topMC.png" data-colorway="0" onclick="switchImage(0, this)">
+      <div class="thumb-btn active" onclick="switchImage(0)">
         <img src="/ursusarmament/images/combat-topMC.png" alt="Multi-Terrain" />
       </div>
-      <div class="thumb-btn" data-img="/ursusarmament/images/combat-topBDU.png" data-colorway="1" onclick="switchImage(1, this)">
+      <div class="thumb-btn" onclick="switchImage(1)">
         <img src="/ursusarmament/images/combat-topBDU.png" alt="BDU" />
       </div>
-      <div class="thumb-btn" data-img="/ursusarmament/images/combat-topATACSAU.png" data-colorway="2" onclick="switchImage(2, this)">
-        <img src="/ursusarmament/images/combat-topATACSAU.png" alt="TerraBlend-Arid" />
+      <div class="thumb-btn" onclick="switchImage(2)">
+        <img src="/ursusarmament/images/combat-topATACS-AU.png" alt="TerraBlend-Arid" />
       </div>
-      <div class="thumb-btn" data-img="/ursusarmament/images/combat-topBLK-SNK.png" data-colorway="3" onclick="switchImage(3, this)">
+      <div class="thumb-btn" onclick="switchImage(3)">
         <img src="/ursusarmament/images/combat-topBLK-SNK.png" alt="Scaled-Black" />
       </div>
     </div>
@@ -339,7 +342,7 @@
       <span class="selector-label">Colorway</span>
       <div class="color-options">
 
-        <!-- 1: Multi-Terrain — 50% brown, 25% light green, 25% tan, diffused edges -->
+        <!-- 1: Multi-Terrain -->
         <div class="color-chip active" id="chip-0" data-label="Multi-Terrain" onclick="switchImage(0)" title="">
           <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -364,7 +367,7 @@
           </svg>
         </div>
 
-        <!-- 2: BDU — 50% brown, 25% black, 25% dark green, diffused edges -->
+        <!-- 2: BDU -->
         <div class="color-chip" id="chip-1" data-label="BDU" onclick="switchImage(1)" title="">
           <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -389,7 +392,7 @@
           </svg>
         </div>
 
-        <!-- 3: TerraBlend-Arid — four-tone desert, diffused edges -->
+        <!-- 3: TerraBlend-Arid -->
         <div class="color-chip" id="chip-2" data-label="TerraBlend-Arid" onclick="switchImage(2)" title="">
           <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -415,37 +418,23 @@
           </svg>
         </div>
 
-        <!-- 4: Scaled-Black — full-coverage hex/chickenwire, grey wire on black -->
+        <!-- 4: Scaled-Black -->
         <div class="color-chip" id="chip-3" data-label="Scaled-Black" onclick="switchImage(3)" title="">
           <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
             <rect width="32" height="32" fill="#080808"/>
-            <!-- 
-              Flat-top hexagons tiled to fill 32x32.
-              Hex width W=10, height H=11.55, col step=10, row step=8.66
-              Even cols start y=0, odd cols offset y=5.77
-              Cols: x centers at 5, 15, 25, 35(clip ok)
-              Rows per col: 0..4
-            -->
-            <!-- Col 0, x=5, even (y offset 0): rows at y=5.77,17.32,28.87 -->
-            <polygon points="5,0 10,2.88 10,8.66 5,11.54 0,8.66 0,2.88"   fill="none" stroke="#606060" stroke-width="0.7"/>
-            <polygon points="5,11.54 10,14.42 10,20.2 5,23.08 0,20.2 0,14.42" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="5,0 10,2.88 10,8.66 5,11.54 0,8.66 0,2.88"        fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="5,11.54 10,14.42 10,20.2 5,23.08 0,20.2 0,14.42"  fill="none" stroke="#606060" stroke-width="0.7"/>
             <polygon points="5,23.08 10,25.96 10,31.74 5,34.62 0,31.74 0,25.96" fill="none" stroke="#606060" stroke-width="0.7"/>
-
-            <!-- Col 1, x=15, odd (y offset 5.77): rows at y=5.77,17.32,28.87 -->
-            <polygon points="15,5.77 20,8.65 20,14.43 15,17.31 10,14.43 10,8.65" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="15,5.77 20,8.65 20,14.43 15,17.31 10,14.43 10,8.65"  fill="none" stroke="#606060" stroke-width="0.7"/>
             <polygon points="15,17.31 20,20.19 20,25.97 15,28.85 10,25.97 10,20.19" fill="none" stroke="#606060" stroke-width="0.7"/>
-            <polygon points="15,-0.01 20,2.87 20,8.65 15,11.53 10,8.65 10,2.87" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="15,-0.01 20,2.87 20,8.65 15,11.53 10,8.65 10,2.87"  fill="none" stroke="#606060" stroke-width="0.7"/>
             <polygon points="15,28.85 20,31.73 20,37.51 15,40.39 10,37.51 10,31.73" fill="none" stroke="#606060" stroke-width="0.7"/>
-
-            <!-- Col 2, x=25, even (y offset 0): rows same as col 0 -->
-            <polygon points="25,0 30,2.88 30,8.66 25,11.54 20,8.66 20,2.88"   fill="none" stroke="#606060" stroke-width="0.7"/>
-            <polygon points="25,11.54 30,14.42 30,20.2 25,23.08 20,20.2 20,14.42" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="25,0 30,2.88 30,8.66 25,11.54 20,8.66 20,2.88"        fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="25,11.54 30,14.42 30,20.2 25,23.08 20,20.2 20,14.42"  fill="none" stroke="#606060" stroke-width="0.7"/>
             <polygon points="25,23.08 30,25.96 30,31.74 25,34.62 20,31.74 20,25.96" fill="none" stroke="#606060" stroke-width="0.7"/>
-
-            <!-- Col 3, x=35, odd — clips at right edge, still closes the grid visually -->
-            <polygon points="35,5.77 40,8.65 40,14.43 35,17.31 30,14.43 30,8.65" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="35,5.77 40,8.65 40,14.43 35,17.31 30,14.43 30,8.65"  fill="none" stroke="#606060" stroke-width="0.7"/>
             <polygon points="35,17.31 40,20.19 40,25.97 35,28.85 30,25.97 30,20.19" fill="none" stroke="#606060" stroke-width="0.7"/>
-            <polygon points="35,-0.01 40,2.87 40,8.65 35,11.53 30,8.65 30,2.87" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="35,-0.01 40,2.87 40,8.65 35,11.53 30,8.65 30,2.87"  fill="none" stroke="#606060" stroke-width="0.7"/>
             <polygon points="35,28.85 40,31.73 40,37.51 35,40.39 30,37.51 30,31.73" fill="none" stroke="#606060" stroke-width="0.7"/>
           </svg>
         </div>
@@ -597,34 +586,28 @@
 </footer>
 
 <script>
-  // Image + colorway switching
   const images = [
     '/ursusarmament/images/combat-topMC.png',
     '/ursusarmament/images/combat-topBDU.png',
-    '/ursusarmament/images/combat-topATACSAU.png',
+    '/ursusarmament/images/combat-topATACS-AU.png',
     '/ursusarmament/images/combat-topBLK-SNK.png'
   ];
 
-  function switchImage(index, thumbEl) {
+  function switchImage(index) {
     const mainImg = document.getElementById('mainProductImg');
     const thumbBtns = document.querySelectorAll('.thumb-btn');
     const chips = document.querySelectorAll('.color-chip');
 
-    // Fade out
     mainImg.classList.add('fading');
     setTimeout(() => {
       mainImg.src = images[index];
       mainImg.classList.remove('fading');
     }, 200);
 
-    // Update thumb active state
     thumbBtns.forEach((t, i) => t.classList.toggle('active', i === index));
-
-    // Update chip active state
     chips.forEach((c, i) => c.classList.toggle('active', i === index));
   }
 
-  // Notify form
   function submitNotify() {
     const input = document.getElementById('notifyInput');
     const val = input.value.trim();
@@ -637,7 +620,6 @@
   }
   document.getElementById('notifyInput').addEventListener('keydown', e => { if (e.key === 'Enter') submitNotify(); });
 
-  // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const t = document.querySelector(a.getAttribute('href'));
