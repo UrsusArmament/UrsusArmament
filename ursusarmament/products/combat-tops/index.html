@@ -57,9 +57,21 @@
   .unavail-banner p { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
   .unavail-banner span { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; color: var(--muted); font-weight: 400; text-transform: uppercase; }
 
+  /* PRODUCT VISUAL + IMAGE GALLERY */
   .product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; background: var(--dark); }
-  .product-visual { position: relative; background: var(--surface); overflow: hidden; display: flex; flex-direction: column; justify-content: flex-start; }
+  .product-visual { position: relative; background: var(--surface); overflow: hidden; display: flex; flex-direction: column; }
   .product-badge { position: absolute; top: 2rem; left: 2rem; background: var(--surface2); color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 0.85rem; z-index: 2; border: 1px solid rgba(200,146,42,0.35); }
+
+  .main-image-wrap { flex: 1; min-height: 0; position: relative; overflow: hidden; background: var(--surface); display: flex; align-items: center; justify-content: center; }
+  .main-image-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 0.25s ease; }
+  .main-image-wrap img.fading { opacity: 0; }
+
+  .thumb-strip { display: flex; gap: 6px; padding: 0.75rem; background: var(--dark); border-top: 1px solid var(--border); flex-shrink: 0; }
+  .thumb-btn { width: 72px; height: 72px; border: 2px solid var(--border2); overflow: hidden; cursor: pointer; flex-shrink: 0; transition: border-color 0.2s, transform 0.15s; background: var(--surface2); }
+  .thumb-btn img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .thumb-btn:hover { border-color: rgba(200,146,42,0.55); transform: translateY(-2px); }
+  .thumb-btn.active { border-color: var(--accent); }
+
   .product-info { padding: 4rem; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--border); }
 
   .product-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
@@ -79,10 +91,48 @@
   .selector-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.65rem; display: block; }
   .size-options { display: flex; gap: 6px; flex-wrap: wrap; }
   .size-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; color: var(--muted); background: var(--surface); border: 1px solid var(--border2); padding: 0.5rem 1.1rem; cursor: not-allowed; transition: all 0.2s; opacity: 0.5; }
-  .color-options { display: flex; gap: 6px; flex-wrap: wrap; }
-  .color-chip { width: 28px; height: 28px; border: 1px solid var(--border2); cursor: not-allowed; opacity: 0.5; position: relative; }
-  .color-chip[title]::after { content: attr(title); position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%); background: var(--surface2); color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; letter-spacing: 0.1em; white-space: nowrap; padding: 0.2rem 0.4rem; pointer-events: none; opacity: 0; transition: opacity 0.2s; }
+
+  /* COLORWAY CHIPS */
+  .color-options { display: flex; gap: 8px; flex-wrap: wrap; }
+  .color-chip {
+    width: 32px; height: 32px;
+    border: 2px solid var(--border2);
+    cursor: pointer;
+    opacity: 0.75;
+    position: relative;
+    transition: opacity 0.2s, border-color 0.2s, transform 0.15s;
+    overflow: visible;
+  }
+  .color-chip svg { width: 100%; height: 100%; display: block; overflow: hidden; }
+  .color-chip:hover { opacity: 1; border-color: rgba(200,146,42,0.6); transform: translateY(-2px); }
+  .color-chip.active { opacity: 1; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+
+  /* Tooltip */
+  .color-chip::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--surface2);
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--border2);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.18s;
+    z-index: 10;
+  }
   .color-chip:hover::after { opacity: 1; }
+
+
+
   .selector-note { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--muted); opacity: 0.55; margin-top: 0.5rem; text-transform: uppercase; }
 
   .product-actions { display: flex; gap: 1rem; margin-bottom: 2rem; }
@@ -232,14 +282,25 @@
 <section class="product-hero">
   <div class="product-visual">
     <div class="product-badge">COMING SOON</div>
-    <div style="width:100%; flex:1; display:flex; align-items:center; justify-content:center; background:var(--surface); min-height:0; position:relative; overflow:hidden;">
-      <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(200,146,42,0.015) 30px,rgba(200,146,42,0.015) 31px);pointer-events:none;"></div>
-      <div style="position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.25rem;text-align:center;padding:3rem;">
-        <div style="font-family:'Bebas Neue',sans-serif;font-size:clamp(4rem,10vw,8rem);letter-spacing:0.1em;color:rgba(232,228,217,0.08);line-height:1;user-select:none;">COMBAT<br>TOPS</div>
-        <div style="margin-top:-1rem;display:flex;flex-direction:column;align-items:center;gap:0.6rem;">
-          <div style="width:32px;height:1px;background:var(--accent);opacity:0.5;"></div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:0.7rem;font-weight:700;letter-spacing:0.3em;text-transform:uppercase;color:var(--accent);opacity:0.6;">Imagery Coming Soon</div>
-        </div>
+
+    <!-- Main image display -->
+    <div class="main-image-wrap">
+      <img id="mainProductImg" src="combat-topMC.png" alt="Combat Top – Multi-Terrain" />
+    </div>
+
+    <!-- Thumbnail strip -->
+    <div class="thumb-strip">
+      <div class="thumb-btn active" data-img="combat-topMC.png" data-colorway="0" onclick="switchImage(0, this)">
+        <img src="combat-topMC.png" alt="Multi-Terrain" />
+      </div>
+      <div class="thumb-btn" data-img="combat-topBDU.png" data-colorway="1" onclick="switchImage(1, this)">
+        <img src="combat-topBDU.png" alt="BDU" />
+      </div>
+      <div class="thumb-btn" data-img="combat-topATACSAU.png" data-colorway="2" onclick="switchImage(2, this)">
+        <img src="combat-topATACSAU.png" alt="TerraBlend-Arid" />
+      </div>
+      <div class="thumb-btn" data-img="combat-topBLK-SNK.png" data-colorway="3" onclick="switchImage(3, this)">
+        <img src="combat-topBLK-SNK.png" alt="Scaled-Black" />
       </div>
     </div>
   </div>
@@ -277,11 +338,118 @@
     <div class="selector-block">
       <span class="selector-label">Colorway</span>
       <div class="color-options">
-        <div class="color-chip" style="background:#3d3d2e;" title="OD Green"></div>
-        <div class="color-chip" style="background:#1a1a1a;" title="Black"></div>
-        <div class="color-chip" style="background:#c9a87c;" title="Coyote"></div>
-        <div class="color-chip" style="background:#6b7c5a;background:repeating-linear-gradient(45deg,#6b7c5a,#6b7c5a 3px,#4a5e3a 3px,#4a5e3a 6px,#8a9070 6px,#8a9070 9px,#5e6e4a 9px,#5e6e4a 12px);" title="MultiCam"></div>
-        <div class="color-chip" style="background:#4a4a4a;" title="Wolf Grey"></div>
+
+        <!-- 1: Multi-Terrain — 50% brown, 25% light green, 25% tan, diffused edges -->
+        <div class="color-chip active" id="chip-0" data-label="Multi-Terrain" onclick="switchImage(0)" title="">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="camo1" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="turbulence" baseFrequency="0.18 0.22" numOctaves="3" seed="5" result="noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+              </filter>
+            </defs>
+            <rect width="32" height="32" fill="#6b4a2a"/>
+            <g filter="url(#camo1)">
+              <ellipse cx="4"  cy="5"  rx="6" ry="5" fill="#7a9e5a"/>
+              <ellipse cx="22" cy="2"  rx="5" ry="4" fill="#7a9e5a"/>
+              <ellipse cx="15" cy="14" rx="6" ry="4" fill="#7a9e5a"/>
+              <ellipse cx="29" cy="19" rx="5" ry="6" fill="#7a9e5a"/>
+              <ellipse cx="5"  cy="28" rx="6" ry="5" fill="#7a9e5a"/>
+              <ellipse cx="27" cy="8"  rx="5" ry="4" fill="#c4a46a"/>
+              <ellipse cx="10" cy="22" rx="5" ry="4" fill="#c4a46a"/>
+              <ellipse cx="20" cy="28" rx="6" ry="4" fill="#c4a46a"/>
+              <ellipse cx="1"  cy="16" rx="4" ry="5" fill="#c4a46a"/>
+              <ellipse cx="14" cy="4"  rx="4" ry="3" fill="#c4a46a"/>
+            </g>
+          </svg>
+        </div>
+
+        <!-- 2: BDU — 50% brown, 25% black, 25% dark green, diffused edges -->
+        <div class="color-chip" id="chip-1" data-label="BDU" onclick="switchImage(1)" title="">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="camo2" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="turbulence" baseFrequency="0.2 0.15" numOctaves="3" seed="11" result="noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+              </filter>
+            </defs>
+            <rect width="32" height="32" fill="#5c3d1e"/>
+            <g filter="url(#camo2)">
+              <ellipse cx="5"  cy="5"  rx="6" ry="5" fill="#2e4a1e"/>
+              <ellipse cx="21" cy="3"  rx="5" ry="4" fill="#2e4a1e"/>
+              <ellipse cx="13" cy="15" rx="6" ry="4" fill="#2e4a1e"/>
+              <ellipse cx="28" cy="21" rx="5" ry="6" fill="#2e4a1e"/>
+              <ellipse cx="4"  cy="28" rx="6" ry="5" fill="#2e4a1e"/>
+              <ellipse cx="26" cy="10" rx="5" ry="4" fill="#111"/>
+              <ellipse cx="10" cy="24" rx="5" ry="4" fill="#111"/>
+              <ellipse cx="22" cy="29" rx="6" ry="4" fill="#111"/>
+              <ellipse cx="1"  cy="15" rx="4" ry="5" fill="#111"/>
+              <ellipse cx="17" cy="10" rx="4" ry="3" fill="#111"/>
+            </g>
+          </svg>
+        </div>
+
+        <!-- 3: TerraBlend-Arid — four-tone desert, diffused edges -->
+        <div class="color-chip" id="chip-2" data-label="TerraBlend-Arid" onclick="switchImage(2)" title="">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="camo3" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="turbulence" baseFrequency="0.16 0.2" numOctaves="3" seed="17" result="noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+              </filter>
+            </defs>
+            <rect width="32" height="32" fill="#d4b87a"/>
+            <g filter="url(#camo3)">
+              <ellipse cx="3"  cy="5"  rx="6" ry="6" fill="#7a5530"/>
+              <ellipse cx="19" cy="8"  rx="6" ry="5" fill="#7a5530"/>
+              <ellipse cx="29" cy="26" rx="6" ry="6" fill="#7a5530"/>
+              <ellipse cx="10" cy="29" rx="5" ry="4" fill="#7a5530"/>
+              <ellipse cx="25" cy="4"  rx="5" ry="4" fill="#3d2410"/>
+              <ellipse cx="8"  cy="18" rx="5" ry="6" fill="#3d2410"/>
+              <ellipse cx="21" cy="27" rx="6" ry="4" fill="#3d2410"/>
+              <ellipse cx="15" cy="14" rx="6" ry="5" fill="#c8a45e"/>
+              <ellipse cx="1"  cy="29" rx="5" ry="5" fill="#c8a45e"/>
+              <ellipse cx="29" cy="14" rx="5" ry="5" fill="#c8a45e"/>
+              <ellipse cx="4"  cy="14" rx="4" ry="3" fill="#c8a45e"/>
+            </g>
+          </svg>
+        </div>
+
+        <!-- 4: Scaled-Black — full-coverage hex/chickenwire, grey wire on black -->
+        <div class="color-chip" id="chip-3" data-label="Scaled-Black" onclick="switchImage(3)" title="">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" fill="#080808"/>
+            <!-- 
+              Flat-top hexagons tiled to fill 32x32.
+              Hex width W=10, height H=11.55, col step=10, row step=8.66
+              Even cols start y=0, odd cols offset y=5.77
+              Cols: x centers at 5, 15, 25, 35(clip ok)
+              Rows per col: 0..4
+            -->
+            <!-- Col 0, x=5, even (y offset 0): rows at y=5.77,17.32,28.87 -->
+            <polygon points="5,0 10,2.88 10,8.66 5,11.54 0,8.66 0,2.88"   fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="5,11.54 10,14.42 10,20.2 5,23.08 0,20.2 0,14.42" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="5,23.08 10,25.96 10,31.74 5,34.62 0,31.74 0,25.96" fill="none" stroke="#606060" stroke-width="0.7"/>
+
+            <!-- Col 1, x=15, odd (y offset 5.77): rows at y=5.77,17.32,28.87 -->
+            <polygon points="15,5.77 20,8.65 20,14.43 15,17.31 10,14.43 10,8.65" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="15,17.31 20,20.19 20,25.97 15,28.85 10,25.97 10,20.19" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="15,-0.01 20,2.87 20,8.65 15,11.53 10,8.65 10,2.87" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="15,28.85 20,31.73 20,37.51 15,40.39 10,37.51 10,31.73" fill="none" stroke="#606060" stroke-width="0.7"/>
+
+            <!-- Col 2, x=25, even (y offset 0): rows same as col 0 -->
+            <polygon points="25,0 30,2.88 30,8.66 25,11.54 20,8.66 20,2.88"   fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="25,11.54 30,14.42 30,20.2 25,23.08 20,20.2 20,14.42" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="25,23.08 30,25.96 30,31.74 25,34.62 20,31.74 20,25.96" fill="none" stroke="#606060" stroke-width="0.7"/>
+
+            <!-- Col 3, x=35, odd — clips at right edge, still closes the grid visually -->
+            <polygon points="35,5.77 40,8.65 40,14.43 35,17.31 30,14.43 30,8.65" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="35,17.31 40,20.19 40,25.97 35,28.85 30,25.97 30,20.19" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="35,-0.01 40,2.87 40,8.65 35,11.53 30,8.65 30,2.87" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="35,28.85 40,31.73 40,37.51 35,40.39 30,37.51 30,31.73" fill="none" stroke="#606060" stroke-width="0.7"/>
+          </svg>
+        </div>
+
       </div>
       <div class="selector-note">Final colorways confirmed at launch · Additional options may be added</div>
     </div>
@@ -429,6 +597,34 @@
 </footer>
 
 <script>
+  // Image + colorway switching
+  const images = [
+    'combat-topMC.png',
+    'combat-topBDU.png',
+    'combat-topATACSAU.png',
+    'combat-topBLK-SNK.png'
+  ];
+
+  function switchImage(index, thumbEl) {
+    const mainImg = document.getElementById('mainProductImg');
+    const thumbBtns = document.querySelectorAll('.thumb-btn');
+    const chips = document.querySelectorAll('.color-chip');
+
+    // Fade out
+    mainImg.classList.add('fading');
+    setTimeout(() => {
+      mainImg.src = images[index];
+      mainImg.classList.remove('fading');
+    }, 200);
+
+    // Update thumb active state
+    thumbBtns.forEach((t, i) => t.classList.toggle('active', i === index));
+
+    // Update chip active state
+    chips.forEach((c, i) => c.classList.toggle('active', i === index));
+  }
+
+  // Notify form
   function submitNotify() {
     const input = document.getElementById('notifyInput');
     const val = input.value.trim();
@@ -440,6 +636,8 @@
     document.querySelector('.notify-btn').style.opacity = '0.5';
   }
   document.getElementById('notifyInput').addEventListener('keydown', e => { if (e.key === 'Enter') submitNotify(); });
+
+  // Smooth scroll for anchor links
   document.querySelectorAll('a[href^="#"]').forEach(a => {
     a.addEventListener('click', e => {
       const t = document.querySelector(a.getAttribute('href'));
