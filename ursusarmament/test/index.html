@@ -103,7 +103,7 @@
   .color-chip svg { width: 100%; height: 100%; display: block; overflow: hidden; }
   .color-chip:hover { opacity: 1; border-color: rgba(200,146,42,0.6); transform: translateY(-2px); }
   .color-chip.active { opacity: 1; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
-  .color-chip.unavailable { opacity: 0.25; cursor: not-allowed; }
+  .color-chip.unavailable { opacity: 0.25; }
   .color-chip.unavailable:hover { transform: none; border-color: var(--border2); }
   .color-chip::after { content: attr(data-label); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--surface2); color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; padding: 0.25rem 0.5rem; border: 1px solid var(--border2); pointer-events: none; opacity: 0; transition: opacity 0.18s; z-index: 10; }
   .color-chip:hover::after { opacity: 1; }
@@ -113,7 +113,8 @@
   .size-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; color: var(--muted); background: var(--surface); border: 1px solid var(--border2); padding: 0.55rem 1.2rem; cursor: pointer; transition: all 0.2s; position: relative; }
   .size-btn:hover:not(.disabled):not(.out-of-stock) { border-color: rgba(200,146,42,0.6); color: var(--text); }
   .size-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(200,146,42,0.08); }
-  .size-btn.disabled, .size-btn.out-of-stock { opacity: 0.32; cursor: not-allowed; text-decoration: line-through; }
+  .size-btn.disabled, .size-btn.out-of-stock { opacity: 0.5; cursor: not-allowed; text-decoration: line-through; }
+  .size-btn.out-of-stock .size-qty { color: var(--red) !important; }
   .size-btn .size-qty { font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; letter-spacing: 0.08em; color: var(--muted); display: block; line-height: 1; margin-top: 1px; }
   .size-btn.active .size-qty { color: var(--accent); opacity: 0.7; }
   .size-btn.low .size-qty { color: var(--accent); }
@@ -691,19 +692,18 @@ function renderInventoryUI() {
 }
 
 function updateStockBadge() {
-  const el    = document.getElementById('stockBadge');
-  const txt   = document.getElementById('stockBadgeText');
-  const total = getTotalStock();
+  const el  = document.getElementById('stockBadge');
+  const txt = document.getElementById('stockBadgeText');
+  const qa  = inventory?.['quantity-available']?.[0] || {};
+  const availableColorways = Object.values(qa).filter(cw => Object.values(cw).reduce((s,v) => s + (v||0), 0) > 0).length;
+  const totalColorways = COLORWAY_KEYS.length;
 
-  if (total === 0) {
+  if (availableColorways === 0) {
     el.className = 'stock-badge out-stock';
-    txt.textContent = 'Not Yet Available';
-  } else if (total <= 10) {
-    el.className = 'stock-badge low-stock';
-    txt.innerHTML = `<div class="stock-dot"></div> Low Stock — ${total} left`;
+    txt.textContent = 'Out of Stock';
   } else {
     el.className = 'stock-badge in-stock';
-    txt.innerHTML = `<div class="stock-dot"></div> In Stock`;
+    txt.innerHTML = `<div class="stock-dot"></div> ${availableColorways} Available`;
   }
 }
 
@@ -801,7 +801,6 @@ window.adjustQty = function(delta) {
 // ── Colorway selection ───────────────────────────────────────
 window.selectColorway = function(index) {
   const chip = document.getElementById(`chip-${index}`);
-  if (chip && chip.classList.contains('unavailable')) return; // blocked
 
   selectedColorway = index;
   selectedSize     = null;
