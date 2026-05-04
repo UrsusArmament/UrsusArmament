@@ -21,6 +21,7 @@
     --accent: #c8922a;
     --accent2: #e8a830;
     --green: #2a9c5c;
+    --red: #c84040;
   }
 
   html { scroll-behavior: smooth; }
@@ -51,27 +52,19 @@
   .breadcrumb a:hover { color: var(--accent); }
   .breadcrumb span { color: var(--accent); }
 
-  .unavail-banner { background: rgba(10,10,8,0.97); border-bottom: 1px solid rgba(200,146,42,0.3); padding: 0.75rem 3rem; display: flex; align-items: center; justify-content: center; gap: 1.2rem; text-align: center; }
-  .unavail-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); opacity: 0.7; animation: pulse 2s ease-in-out infinite; flex-shrink: 0; }
-  @keyframes pulse { 0%, 100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 1; transform: scale(1.25); } }
-  .unavail-banner p { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
-  .unavail-banner span { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; color: var(--muted); font-weight: 400; text-transform: uppercase; }
-
   /* PRODUCT VISUAL + IMAGE GALLERY */
   .product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; background: var(--dark); }
   .product-visual { position: relative; background: var(--dark); display: flex; flex-direction: column; }
   .product-badge { position: absolute; top: 2rem; left: 2rem; background: var(--surface2); color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 0.85rem; z-index: 2; border: 1px solid rgba(200,146,42,0.35); }
 
-  /* 4:3 main image area */
   .main-image-wrap { width: 100%; position: relative; background: var(--surface); overflow: hidden; }
-  .main-image-wrap::before { content: ''; display: block; padding-top: 75%; /* 4:3 ratio */ }
+  .main-image-wrap::before { content: ''; display: block; padding-top: 75%; }
   .main-image-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 0.25s ease; }
   .main-image-wrap img.fading { opacity: 0; }
 
-  /* 4:3 thumbnails */
   .thumb-strip { display: flex; gap: 6px; padding: 0.75rem; background: var(--dark); border-top: 1px solid var(--border); flex-shrink: 0; }
   .thumb-btn { width: 96px; position: relative; border: 2px solid var(--border2); overflow: hidden; cursor: pointer; flex-shrink: 0; transition: border-color 0.2s, transform 0.15s; background: var(--surface2); }
-  .thumb-btn::before { content: ''; display: block; padding-top: 75%; /* 4:3 */ }
+  .thumb-btn::before { content: ''; display: block; padding-top: 75%; }
   .thumb-btn img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
   .thumb-btn:hover { border-color: rgba(200,146,42,0.55); transform: translateY(-2px); }
   .thumb-btn.active { border-color: var(--accent); }
@@ -88,58 +81,74 @@
   .price-block { display: flex; flex-direction: column; gap: 0.3rem; }
   .price-tag { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.08em; color: var(--text); }
   .price-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.7; }
-  .unavail-pill { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(200,146,42,0.08); border: 1px solid rgba(200,146,42,0.25); padding: 0.5rem 1rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
 
-  /* SIZE + COLOR SELECTORS */
+  /* Stock badge */
+  .stock-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; border: 1px solid; }
+  .stock-badge.in-stock { background: rgba(42,156,92,0.08); border-color: rgba(42,156,92,0.3); color: #4cbc7e; }
+  .stock-badge.low-stock { background: rgba(200,146,42,0.08); border-color: rgba(200,146,42,0.3); color: var(--accent); }
+  .stock-badge.out-stock { background: rgba(200,64,64,0.08); border-color: rgba(200,64,64,0.3); color: var(--red); }
+  .stock-badge.loading { background: var(--surface); border-color: var(--border2); color: var(--muted); }
+  .stock-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+  .stock-dot.pulse { animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100%{opacity:0.4;transform:scale(1)} 50%{opacity:1;transform:scale(1.3)} }
+
+  /* SELECTOR BLOCKS */
   .selector-block { margin-bottom: 1.75rem; }
-  .selector-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.65rem; display: block; }
-  .size-options { display: flex; gap: 6px; flex-wrap: wrap; }
-  .size-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; color: var(--muted); background: var(--surface); border: 1px solid var(--border2); padding: 0.5rem 1.1rem; cursor: not-allowed; transition: all 0.2s; opacity: 0.5; }
+  .selector-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.65rem; display: flex; align-items: center; justify-content: space-between; }
+  .selector-label-selected { color: var(--text); font-weight: 600; }
 
   /* COLORWAY CHIPS */
   .color-options { display: flex; gap: 8px; flex-wrap: wrap; }
-  .color-chip {
-    width: 32px; height: 32px;
-    border: 2px solid var(--border2);
-    cursor: pointer;
-    opacity: 0.75;
-    position: relative;
-    transition: opacity 0.2s, border-color 0.2s, transform 0.15s;
-    overflow: visible;
-  }
+  .color-chip { width: 36px; height: 36px; border: 2px solid var(--border2); cursor: pointer; opacity: 0.75; position: relative; transition: opacity 0.2s, border-color 0.2s, transform 0.15s; overflow: visible; }
   .color-chip svg { width: 100%; height: 100%; display: block; overflow: hidden; }
   .color-chip:hover { opacity: 1; border-color: rgba(200,146,42,0.6); transform: translateY(-2px); }
   .color-chip.active { opacity: 1; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
-
-  /* Tooltip */
-  .color-chip::after {
-    content: attr(data-label);
-    position: absolute;
-    bottom: calc(100% + 8px);
-    left: 50%;
-    transform: translateX(-50%);
-    background: var(--surface2);
-    color: var(--text);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    white-space: nowrap;
-    padding: 0.25rem 0.5rem;
-    border: 1px solid var(--border2);
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.18s;
-    z-index: 10;
-  }
+  .color-chip.unavailable { opacity: 0.25; }
+  .color-chip.unavailable:hover { transform: none; border-color: var(--border2); }
+  .color-chip::after { content: attr(data-label); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--surface2); color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; padding: 0.25rem 0.5rem; border: 1px solid var(--border2); pointer-events: none; opacity: 0; transition: opacity 0.18s; z-index: 10; }
   .color-chip:hover::after { opacity: 1; }
+
+  /* SIZE BUTTONS */
+  .size-options { display: flex; gap: 6px; flex-wrap: wrap; }
+  .size-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; color: var(--muted); background: var(--surface); border: 1px solid var(--border2); padding: 0.55rem 1.2rem; cursor: pointer; transition: all 0.2s; position: relative; }
+  .size-btn:hover:not(.disabled):not(.out-of-stock) { border-color: rgba(200,146,42,0.6); color: var(--text); }
+  .size-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(200,146,42,0.08); }
+  .size-btn.disabled, .size-btn.out-of-stock { opacity: 0.5; cursor: not-allowed; text-decoration: line-through; }
+  .size-btn.out-of-stock .size-qty { color: var(--red) !important; }
+  .size-btn .size-qty { font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; letter-spacing: 0.08em; color: var(--muted); display: block; line-height: 1; margin-top: 1px; }
+  .size-btn.active .size-qty { color: var(--accent); opacity: 0.7; }
+  .size-btn.low .size-qty { color: var(--accent); }
 
   .selector-note { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--muted); opacity: 0.55; margin-top: 0.5rem; text-transform: uppercase; }
 
+  /* QUANTITY CONTROL */
+  .qty-block { display: flex; align-items: center; gap: 0; margin-bottom: 1.75rem; }
+  .qty-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.65rem; display: block; }
+  .qty-row { display: flex; align-items: stretch; gap: 0; }
+  .qty-btn { width: 42px; height: 42px; background: var(--surface); border: 1px solid var(--border2); color: var(--text); font-size: 1.2rem; font-family: 'Barlow Condensed', sans-serif; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s, border-color 0.2s, color 0.2s; user-select: none; }
+  .qty-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); background: rgba(200,146,42,0.06); }
+  .qty-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+  .qty-display { width: 56px; height: 42px; background: var(--surface2); border-top: 1px solid var(--border2); border-bottom: 1px solid var(--border2); border-left: none; border-right: none; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.08em; text-align: center; display: flex; align-items: center; justify-content: center; }
+  .qty-max-note { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-left: 0.75rem; opacity: 0.8; }
+  .qty-max-note.hidden { opacity: 0; }
+
+  /* ADD TO CART BUTTON */
   .product-actions { display: flex; gap: 1rem; margin-bottom: 2rem; }
-  .btn-notify { background: transparent; color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: 1px solid var(--accent); cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s; flex: 1; text-align: center; }
-  .btn-notify:hover { background: rgba(200,146,42,0.1); }
+  .btn-add-cart { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: none; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; transition: background 0.2s, transform 0.15s; flex: 1; position: relative; overflow: hidden; }
+  .btn-add-cart:hover:not(:disabled) { background: var(--accent2); transform: translateY(-1px); }
+  .btn-add-cart:disabled { opacity: 0.38; cursor: not-allowed; transform: none; }
+  .btn-add-cart svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
+
+  /* Cart flash animation */
+  @keyframes cartPulse { 0%{transform:scale(1)} 30%{transform:scale(1.12)} 60%{transform:scale(0.96)} 100%{transform:scale(1)} }
+  .cart-flash { animation: cartPulse 0.4s ease; }
+
+  /* Add feedback */
+  .add-feedback { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.5rem 0; height: 24px; transition: all 0.3s; color: transparent; }
+  .add-feedback.show-success { color: #4cbc7e; }
+  .add-feedback.show-error { color: var(--red); }
+  .add-feedback.show-warning { color: var(--accent); }
+
   .btn-ghost { background: transparent; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; border: 1px solid var(--border2); cursor: pointer; text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s; }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
@@ -149,6 +158,17 @@
   .trust-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text); }
   .trust-value.tbd { color: var(--muted); font-style: italic; }
 
+  /* INVENTORY LOADING STATE */
+  .inventory-loading { display: flex; align-items: center; gap: 0.5rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); padding: 0.5rem 0; }
+  .spin { width: 14px; height: 14px; border: 2px solid var(--border2); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Skeleton shimmer for size buttons */
+  .skel { background: var(--surface); border: 1px solid var(--border); width: 60px; height: 42px; position: relative; overflow: hidden; }
+  .skel::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.04) 50%, transparent 100%); animation: shimmer 1.4s ease-in-out infinite; }
+  @keyframes shimmer { 0%{transform:translateX(-100%)} 100%{transform:translateX(100%)} }
+
+  /* SPECS / FEATURES / NOTIFY sections */
   .section-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
   .section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
   .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5vw, 4.2rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 3.5rem; }
@@ -199,8 +219,8 @@
   .timeline-step.done { background: var(--surface); }
   .timeline-step.done::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--green); }
   .timeline-step.current { background: var(--surface); }
-  .timeline-step.current::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); animation: shimmer 2s ease-in-out infinite; }
-  @keyframes shimmer { 0%,100%{opacity:0.5} 50%{opacity:1} }
+  .timeline-step.current::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); animation: shimmer-bar 2s ease-in-out infinite; }
+  @keyframes shimmer-bar { 0%,100%{opacity:0.5} 50%{opacity:1} }
   .step-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
   .step-label.done { color: var(--green); }
   .step-label.current { color: var(--accent); }
@@ -240,8 +260,8 @@
     .notify-input-row { flex-direction: column; }
     .notify-input { border-right: 1px solid var(--border2); border-bottom: none; }
     .timeline-steps { flex-direction: column; }
-    .unavail-banner { padding: 0.75rem 1.5rem; }
     .thumb-btn { width: 72px; }
+    .product-trust { flex-wrap: wrap; gap: 1.2rem; }
   }
 </style>
 </head>
@@ -276,22 +296,12 @@
   <span>Combat Tops</span>
 </div>
 
-<div class="unavail-banner">
-  <div class="unavail-dot"></div>
-  <p>Currently Unavailable</p>
-  <span>&nbsp;·&nbsp; Notify me when available</span>
-</div>
-
 <section class="product-hero">
   <div class="product-visual">
-    <div class="product-badge">COMING SOON</div>
-
-    <!-- Main image — 4:3 via padding-top trick -->
+    <div class="product-badge" id="productBadge">COMING SOON</div>
     <div class="main-image-wrap">
       <img id="mainProductImg" src="/ursusarmament/images/combat-topMC.png" alt="Combat Top – Multi-Terrain" />
     </div>
-
-    <!-- Thumbnail strip — each thumb also 4:3 -->
     <div class="thumb-strip">
       <div class="thumb-btn active" onclick="switchImage(0)">
         <img src="/ursusarmament/images/combat-topMC.png" alt="Multi-Terrain" />
@@ -311,144 +321,135 @@
   <div class="product-info">
     <div class="product-tag">Loadout · Apparel</div>
     <h1 class="product-name">Combat Tops</h1>
-    <div class="product-subtitle">Multiple Colorways · S / M / L / XL · Field Ready</div>
+    <div class="product-subtitle" id="productSubtitle">Multiple Colorways · S / M / L / XL · Field Ready</div>
     <p class="product-desc">
       Purpose-built combat tops designed for prolonged field use. Available in multiple colorways to suit your operational environment. Sized S through XL with a uniform fit across all patterns. Open to all — law enforcement, military, and civilian.
     </p>
 
+    <!-- PRICE + STOCK -->
     <div class="product-price-row">
       <div class="price-block">
         <div class="price-tag">$50</div>
         <div class="price-sub">All sizes &amp; colorways — uniform pricing</div>
       </div>
-      <div class="unavail-pill">
-        <div class="unavail-dot" style="width:6px;height:6px;"></div>
-        Prototype / Testing
+      <div id="stockBadge" class="stock-badge loading">
+        <div class="stock-dot pulse"></div>
+        <span id="stockBadgeText">Loading inventory...</span>
       </div>
     </div>
 
+    <!-- COLORWAY SELECTOR -->
     <div class="selector-block">
-      <span class="selector-label">Colorway</span>
-      <div class="color-options">
-
-        <!-- 1: Multi-Terrain -->
-        <div class="color-chip active" id="chip-0" data-label="Multi-Terrain" onclick="switchImage(0)" title="">
+      <span class="selector-label">
+        Colorway
+        <span class="selector-label-selected" id="selectedColorLabel"></span>
+      </span>
+      <div class="color-options" id="colorOptions">
+        <!-- chip-0: Multi-Terrain -->
+        <div class="color-chip active" id="chip-0" data-colorway="multi-terrain" data-label="Multi-Terrain" onclick="selectColorway(0)" title="">
           <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <filter id="camo1" x="-20%" y="-20%" width="140%" height="140%">
-                <feTurbulence type="turbulence" baseFrequency="0.18 0.22" numOctaves="3" seed="5" result="noise"/>
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
-              </filter>
-            </defs>
+            <defs><filter id="camo1" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="turbulence" baseFrequency="0.18 0.22" numOctaves="3" seed="5" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
             <rect width="32" height="32" fill="#6b4a2a"/>
             <g filter="url(#camo1)">
-              <ellipse cx="4"  cy="5"  rx="6" ry="5" fill="#7a9e5a"/>
-              <ellipse cx="22" cy="2"  rx="5" ry="4" fill="#7a9e5a"/>
-              <ellipse cx="15" cy="14" rx="6" ry="4" fill="#7a9e5a"/>
-              <ellipse cx="29" cy="19" rx="5" ry="6" fill="#7a9e5a"/>
-              <ellipse cx="5"  cy="28" rx="6" ry="5" fill="#7a9e5a"/>
-              <ellipse cx="27" cy="8"  rx="5" ry="4" fill="#c4a46a"/>
-              <ellipse cx="10" cy="22" rx="5" ry="4" fill="#c4a46a"/>
-              <ellipse cx="20" cy="28" rx="6" ry="4" fill="#c4a46a"/>
-              <ellipse cx="1"  cy="16" rx="4" ry="5" fill="#c4a46a"/>
-              <ellipse cx="14" cy="4"  rx="4" ry="3" fill="#c4a46a"/>
+              <ellipse cx="4" cy="5" rx="6" ry="5" fill="#7a9e5a"/><ellipse cx="22" cy="2" rx="5" ry="4" fill="#7a9e5a"/><ellipse cx="15" cy="14" rx="6" ry="4" fill="#7a9e5a"/><ellipse cx="29" cy="19" rx="5" ry="6" fill="#7a9e5a"/><ellipse cx="5" cy="28" rx="6" ry="5" fill="#7a9e5a"/>
+              <ellipse cx="27" cy="8" rx="5" ry="4" fill="#c4a46a"/><ellipse cx="10" cy="22" rx="5" ry="4" fill="#c4a46a"/><ellipse cx="20" cy="28" rx="6" ry="4" fill="#c4a46a"/><ellipse cx="1" cy="16" rx="4" ry="5" fill="#c4a46a"/><ellipse cx="14" cy="4" rx="4" ry="3" fill="#c4a46a"/>
             </g>
           </svg>
         </div>
-
-        <!-- 2: BDU -->
-        <div class="color-chip" id="chip-1" data-label="BDU" onclick="switchImage(1)" title="">
+        <!-- chip-1: BDU -->
+        <div class="color-chip" id="chip-1" data-colorway="bdu" data-label="BDU" onclick="selectColorway(1)" title="">
           <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <filter id="camo2" x="-20%" y="-20%" width="140%" height="140%">
-                <feTurbulence type="turbulence" baseFrequency="0.2 0.15" numOctaves="3" seed="11" result="noise"/>
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
-              </filter>
-            </defs>
+            <defs><filter id="camo2" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="turbulence" baseFrequency="0.2 0.15" numOctaves="3" seed="11" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
             <rect width="32" height="32" fill="#5c3d1e"/>
             <g filter="url(#camo2)">
-              <ellipse cx="5"  cy="5"  rx="6" ry="5" fill="#2e4a1e"/>
-              <ellipse cx="21" cy="3"  rx="5" ry="4" fill="#2e4a1e"/>
-              <ellipse cx="13" cy="15" rx="6" ry="4" fill="#2e4a1e"/>
-              <ellipse cx="28" cy="21" rx="5" ry="6" fill="#2e4a1e"/>
-              <ellipse cx="4"  cy="28" rx="6" ry="5" fill="#2e4a1e"/>
-              <ellipse cx="26" cy="10" rx="5" ry="4" fill="#111"/>
-              <ellipse cx="10" cy="24" rx="5" ry="4" fill="#111"/>
-              <ellipse cx="22" cy="29" rx="6" ry="4" fill="#111"/>
-              <ellipse cx="1"  cy="15" rx="4" ry="5" fill="#111"/>
-              <ellipse cx="17" cy="10" rx="4" ry="3" fill="#111"/>
+              <ellipse cx="5" cy="5" rx="6" ry="5" fill="#2e4a1e"/><ellipse cx="21" cy="3" rx="5" ry="4" fill="#2e4a1e"/><ellipse cx="13" cy="15" rx="6" ry="4" fill="#2e4a1e"/><ellipse cx="28" cy="21" rx="5" ry="6" fill="#2e4a1e"/><ellipse cx="4" cy="28" rx="6" ry="5" fill="#2e4a1e"/>
+              <ellipse cx="26" cy="10" rx="5" ry="4" fill="#111"/><ellipse cx="10" cy="24" rx="5" ry="4" fill="#111"/><ellipse cx="22" cy="29" rx="6" ry="4" fill="#111"/><ellipse cx="1" cy="15" rx="4" ry="5" fill="#111"/><ellipse cx="17" cy="10" rx="4" ry="3" fill="#111"/>
             </g>
           </svg>
         </div>
-
-        <!-- 3: TerraBlend-Arid -->
-        <div class="color-chip" id="chip-2" data-label="TerraBlend-Arid" onclick="switchImage(2)" title="">
+        <!-- chip-2: TerraBlend-Arid -->
+        <div class="color-chip" id="chip-2" data-colorway="terrablend-arid" data-label="TerraBlend-Arid" onclick="selectColorway(2)" title="">
           <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <filter id="camo3" x="-20%" y="-20%" width="140%" height="140%">
-                <feTurbulence type="turbulence" baseFrequency="0.16 0.2" numOctaves="3" seed="17" result="noise"/>
-                <feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
-              </filter>
-            </defs>
+            <defs><filter id="camo3" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="turbulence" baseFrequency="0.16 0.2" numOctaves="3" seed="17" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
             <rect width="32" height="32" fill="#d4b87a"/>
             <g filter="url(#camo3)">
-              <ellipse cx="3"  cy="5"  rx="6" ry="6" fill="#7a5530"/>
-              <ellipse cx="19" cy="8"  rx="6" ry="5" fill="#7a5530"/>
-              <ellipse cx="29" cy="26" rx="6" ry="6" fill="#7a5530"/>
-              <ellipse cx="10" cy="29" rx="5" ry="4" fill="#7a5530"/>
-              <ellipse cx="25" cy="4"  rx="5" ry="4" fill="#3d2410"/>
-              <ellipse cx="8"  cy="18" rx="5" ry="6" fill="#3d2410"/>
-              <ellipse cx="21" cy="27" rx="6" ry="4" fill="#3d2410"/>
-              <ellipse cx="15" cy="14" rx="6" ry="5" fill="#c8a45e"/>
-              <ellipse cx="1"  cy="29" rx="5" ry="5" fill="#c8a45e"/>
-              <ellipse cx="29" cy="14" rx="5" ry="5" fill="#c8a45e"/>
-              <ellipse cx="4"  cy="14" rx="4" ry="3" fill="#c8a45e"/>
+              <ellipse cx="3" cy="5" rx="6" ry="6" fill="#7a5530"/><ellipse cx="19" cy="8" rx="6" ry="5" fill="#7a5530"/><ellipse cx="29" cy="26" rx="6" ry="6" fill="#7a5530"/><ellipse cx="10" cy="29" rx="5" ry="4" fill="#7a5530"/>
+              <ellipse cx="25" cy="4" rx="5" ry="4" fill="#3d2410"/><ellipse cx="8" cy="18" rx="5" ry="6" fill="#3d2410"/><ellipse cx="21" cy="27" rx="6" ry="4" fill="#3d2410"/>
+              <ellipse cx="15" cy="14" rx="6" ry="5" fill="#c8a45e"/><ellipse cx="1" cy="29" rx="5" ry="5" fill="#c8a45e"/><ellipse cx="29" cy="14" rx="5" ry="5" fill="#c8a45e"/><ellipse cx="4" cy="14" rx="4" ry="3" fill="#c8a45e"/>
             </g>
           </svg>
         </div>
-
-        <!-- 4: Scaled-Black -->
-        <div class="color-chip" id="chip-3" data-label="Scaled-Black" onclick="switchImage(3)" title="">
+        <!-- chip-3: Scaled-Black -->
+        <div class="color-chip" id="chip-3" data-colorway="scaled-black" data-label="Scaled-Black" onclick="selectColorway(3)" title="">
           <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
             <rect width="32" height="32" fill="#080808"/>
-            <polygon points="5,0 10,2.88 10,8.66 5,11.54 0,8.66 0,2.88"        fill="none" stroke="#606060" stroke-width="0.7"/>
-            <polygon points="5,11.54 10,14.42 10,20.2 5,23.08 0,20.2 0,14.42"  fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="5,0 10,2.88 10,8.66 5,11.54 0,8.66 0,2.88" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="5,11.54 10,14.42 10,20.2 5,23.08 0,20.2 0,14.42" fill="none" stroke="#606060" stroke-width="0.7"/>
             <polygon points="5,23.08 10,25.96 10,31.74 5,34.62 0,31.74 0,25.96" fill="none" stroke="#606060" stroke-width="0.7"/>
-            <polygon points="15,5.77 20,8.65 20,14.43 15,17.31 10,14.43 10,8.65"  fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="15,5.77 20,8.65 20,14.43 15,17.31 10,14.43 10,8.65" fill="none" stroke="#606060" stroke-width="0.7"/>
             <polygon points="15,17.31 20,20.19 20,25.97 15,28.85 10,25.97 10,20.19" fill="none" stroke="#606060" stroke-width="0.7"/>
-            <polygon points="15,-0.01 20,2.87 20,8.65 15,11.53 10,8.65 10,2.87"  fill="none" stroke="#606060" stroke-width="0.7"/>
-            <polygon points="15,28.85 20,31.73 20,37.51 15,40.39 10,37.51 10,31.73" fill="none" stroke="#606060" stroke-width="0.7"/>
-            <polygon points="25,0 30,2.88 30,8.66 25,11.54 20,8.66 20,2.88"        fill="none" stroke="#606060" stroke-width="0.7"/>
-            <polygon points="25,11.54 30,14.42 30,20.2 25,23.08 20,20.2 20,14.42"  fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="25,0 30,2.88 30,8.66 25,11.54 20,8.66 20,2.88" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="25,11.54 30,14.42 30,20.2 25,23.08 20,20.2 20,14.42" fill="none" stroke="#606060" stroke-width="0.7"/>
             <polygon points="25,23.08 30,25.96 30,31.74 25,34.62 20,31.74 20,25.96" fill="none" stroke="#606060" stroke-width="0.7"/>
-            <polygon points="35,5.77 40,8.65 40,14.43 35,17.31 30,14.43 30,8.65"  fill="none" stroke="#606060" stroke-width="0.7"/>
-            <polygon points="35,17.31 40,20.19 40,25.97 35,28.85 30,25.97 30,20.19" fill="none" stroke="#606060" stroke-width="0.7"/>
-            <polygon points="35,-0.01 40,2.87 40,8.65 35,11.53 30,8.65 30,2.87"  fill="none" stroke="#606060" stroke-width="0.7"/>
-            <polygon points="35,28.85 40,31.73 40,37.51 35,40.39 30,37.51 30,31.73" fill="none" stroke="#606060" stroke-width="0.7"/>
           </svg>
         </div>
-
       </div>
-      <div class="selector-note">Final colorways confirmed at launch · Additional options may be added</div>
+      <div class="selector-note" id="colorNote">Select a colorway to see available sizes</div>
     </div>
 
-    <div class="product-actions">
-      <a href="#notify" class="btn-notify">Notify Me at Launch</a>
-      <a href="#specs" class="btn-ghost">View Specs</a>
+    <!-- SIZE SELECTOR -->
+    <div class="selector-block" id="sizeBlock">
+      <span class="selector-label">
+        Size
+        <span class="selector-label-selected" id="selectedSizeLabel"></span>
+      </span>
+      <div class="size-options" id="sizeOptions">
+        <!-- Skeleton placeholders while loading -->
+        <div class="skel"></div>
+        <div class="skel"></div>
+        <div class="skel"></div>
+        <div class="skel"></div>
+      </div>
+      <div class="selector-note" id="sizeNote">Select your size above</div>
     </div>
+
+    <!-- QUANTITY -->
+    <div class="selector-block" id="qtyBlock">
+      <span class="selector-label" style="display:block;">Quantity</span>
+      <div class="qty-row">
+        <button class="qty-btn" id="qtyMinus" onclick="adjustQty(-1)" disabled>−</button>
+        <div class="qty-display" id="qtyDisplay">1</div>
+        <button class="qty-btn" id="qtyPlus" onclick="adjustQty(1)" disabled>+</button>
+        <span class="qty-max-note hidden" id="qtyMaxNote"></span>
+      </div>
+    </div>
+
+    <!-- ADD TO CART -->
+    <div class="product-actions">
+      <button class="btn-add-cart" id="addToCartBtn" onclick="addToCart()" disabled>
+        <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>
+        <span id="addToCartLabel">Select Size to Continue</span>
+      </button>
+
+    </div>
+    <div class="add-feedback" id="addFeedback"></div>
+
     <div class="product-trust">
       <div class="trust-item"><span class="trust-label">Price</span><span class="trust-value">$50 / all sizes</span></div>
-      <div class="trust-item"><span class="trust-label">Availability</span><span class="trust-value tbd">TBD</span></div>
       <div class="trust-item"><span class="trust-label">Made In</span><span class="trust-value">USA</span></div>
+      <div class="trust-item"><span class="trust-label">Shipping</span><span class="trust-value tbd">TBD at launch</span></div>
     </div>
   </div>
 </section>
 
+
+
+<!-- NOTIFY -->
 <section class="notify-section" id="notify">
   <div class="notify-inner">
     <div class="section-tag">Availability Notification</div>
     <h2 class="section-title" style="margin-bottom:1rem;">GET NOTIFIED AT LAUNCH</h2>
-    <p class="notify-desc">Combat Tops are not yet available for order. Enter your email and we'll notify you the moment they're ready — before public announcement.</p>
+    <p class="notify-desc">Enter your email and we'll notify you the moment Combat Tops are ready for order — before public announcement.</p>
     <div class="notify-input-row">
       <input class="notify-input" id="notifyInput" type="email" placeholder="your@email.com" autocomplete="email" spellcheck="false"/>
       <button class="notify-btn" onclick="submitNotify()">Notify Me</button>
@@ -514,74 +515,436 @@
   </div>
 </footer>
 
+<!-- =========================================================
+     SCRIPTS
+========================================================== -->
 <script>
-  const images = [
-    '/ursusarmament/images/combat-topMC.png',
-    '/ursusarmament/images/combat-topBDU.png',
-    '/ursusarmament/images/combat-topATACS-AU.png',
-    '/ursusarmament/images/combat-topBLK-SNK.png'
-  ];
+// ── Image gallery ────────────────────────────────────────────
+const images = [
+  '/ursusarmament/images/combat-topMC.png',
+  '/ursusarmament/images/combat-topBDU.png',
+  '/ursusarmament/images/combat-topATACS-AU.png',
+  '/ursusarmament/images/combat-topBLK-SNK.png'
+];
 
-  function switchImage(index) {
-    const mainImg = document.getElementById('mainProductImg');
-    const thumbBtns = document.querySelectorAll('.thumb-btn');
-    const chips = document.querySelectorAll('.color-chip');
+function switchImage(index) {
+  const mainImg = document.getElementById('mainProductImg');
+  const thumbBtns = document.querySelectorAll('.thumb-btn');
+  mainImg.classList.add('fading');
+  setTimeout(() => {
+    mainImg.src = images[index];
+    mainImg.classList.remove('fading');
+  }, 200);
+  thumbBtns.forEach((t, i) => t.classList.toggle('active', i === index));
+}
 
-    mainImg.classList.add('fading');
-    setTimeout(() => {
-      mainImg.src = images[index];
-      mainImg.classList.remove('fading');
-    }, 200);
-
-    thumbBtns.forEach((t, i) => t.classList.toggle('active', i === index));
-    chips.forEach((c, i) => c.classList.toggle('active', i === index));
-  }
-
-  function submitNotify() {
-    const input = document.getElementById('notifyInput');
-    const val = input.value.trim();
-    if (!val || !val.includes('@')) { input.focus(); return; }
-    document.getElementById('notifyConfirm').classList.add('visible');
-    input.value = '';
-    input.disabled = true;
-    document.querySelector('.notify-btn').disabled = true;
-    document.querySelector('.notify-btn').style.opacity = '0.5';
-  }
-  document.getElementById('notifyInput').addEventListener('keydown', e => { if (e.key === 'Enter') submitNotify(); });
-
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const t = document.querySelector(a.getAttribute('href'));
-      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
-    });
+// ── Smooth anchors ───────────────────────────────────────────
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    const t = document.querySelector(a.getAttribute('href'));
+    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
   });
-</script>
+});
 
-<script src="/ursusarmament/access-check.js"></script>
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-const firebaseConfig = { apiKey: "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA", authDomain: "ursus-armament.firebaseapp.com", projectId: "ursus-armament", storageBucket: "ursus-armament.firebasestorage.app", messagingSenderId: "430731167862", appId: "1:430731167862:web:a5447de86db180edad3757" };
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-onAuthStateChanged(auth, (user) => {
-  const navAuth = document.getElementById("navAuth");
-  if (user) { navAuth.innerHTML = `<a href="/ursusarmament/settings/">${user.email.split("@")[0]}</a>`; }
-  else { navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`; }
+// ── Notify ───────────────────────────────────────────────────
+function submitNotify() {
+  const input = document.getElementById('notifyInput');
+  const val = input.value.trim();
+  if (!val || !val.includes('@')) { input.focus(); return; }
+  document.getElementById('notifyConfirm').classList.add('visible');
+  input.value = '';
+  input.disabled = true;
+  document.querySelector('.notify-btn').disabled = true;
+  document.querySelector('.notify-btn').style.opacity = '0.5';
+}
+document.getElementById('notifyInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') submitNotify();
 });
 </script>
-<script>
-function updateCartBadge() {
+
+<!-- Firebase + Inventory + Cart Logic -->
+<script type="module">
+import { initializeApp }       from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, onSnapshot }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey:            "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
+  authDomain:        "ursus-armament.firebaseapp.com",
+  projectId:         "ursus-armament",
+  storageBucket:     "ursus-armament.firebasestorage.app",
+  messagingSenderId: "430731167862",
+  appId:             "1:430731167862:web:a5447de86db180edad3757"
+};
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+
+// ── Auth ─────────────────────────────────────────────────────
+onAuthStateChanged(auth, user => {
+  const navAuth = document.getElementById("navAuth");
+  if (user) navAuth.innerHTML = `<a href="/ursusarmament/settings/">${user.email.split("@")[0]}</a>`;
+  else       navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
+});
+
+// ── State ─────────────────────────────────────────────────────
+// inventory shape expected from Firestore:
+// /products/combat-tops  →  { available: true, colorways: { "multi-terrain": { S: 5, M: 0, L: 12, XL: 3 }, ... } }
+const SIZES = ['S', 'M', 'L', 'XL'];
+const COLORWAY_KEYS = ['MULTI-TERRAIN', 'BDU', 'TERRABLEND-ARID', 'SCALED-BLACK'];
+
+let inventory       = null;   // raw Firestore data
+let selectedColorway = 0;     // chip index
+let selectedSize    = null;   // 'S'|'M'|'L'|'XL'|null
+let quantity        = 1;
+let maxQty          = 0;      // max purchasable for current selection
+
+// ── Cart helpers ─────────────────────────────────────────────
+function getCart() {
+  try { return JSON.parse(localStorage.getItem('ursus_cart')) || []; }
+  catch { return []; }
+}
+function saveCart(cart) {
+  localStorage.setItem('ursus_cart', JSON.stringify(cart));
+  updateCartBadge();
+}
+function cartQtyFor(colorway, size) {
+  const cart = getCart();
+  const item = cart.find(i => i.sku === `combat-tops-${colorway}-${size}`);
+  return item ? (item.quantity || 1) : 0;
+}
+window.updateCartBadge = function() {
   try {
-    const cart = JSON.parse(localStorage.getItem('ursus_cart')) || [];
-    const count = cart.reduce((sum, i) => sum + (i.quantity || 1), 0);
+    const cart  = getCart();
+    const count = cart.reduce((s, i) => s + (i.quantity || 1), 0);
     const badge = document.getElementById('cartCount');
     if (!badge) return;
     if (count > 0) { badge.textContent = count > 99 ? '99+' : count; badge.classList.add('visible'); }
-    else { badge.classList.remove('visible'); }
+    else           { badge.classList.remove('visible'); }
   } catch {}
-}
+};
 updateCartBadge();
+
+// ── Feedback helper ──────────────────────────────────────────
+let feedbackTimer = null;
+function showFeedback(msg, type = 'success') {
+  const el = document.getElementById('addFeedback');
+  el.textContent = msg;
+  el.className = `add-feedback show-${type}`;
+  clearTimeout(feedbackTimer);
+  feedbackTimer = setTimeout(() => { el.className = 'add-feedback'; }, 3200);
+}
+
+// ── Inventory accessor helpers ────────────────────────────────
+// Firestore structure: { "quantity-available": { "BDU": { "S": 5, "M": 3, ... }, ... } }
+function getColorData(colorKey) {
+  return inventory?.['quantity-available']?.[0]?.[colorKey] || {};
+}
+function getTotalStock() {
+  let total = 0;
+  const qa = inventory?.['quantity-available']?.[0];
+  if (qa) Object.values(qa).forEach(cw => Object.values(cw).forEach(q => { total += (q || 0); }));
+  return total;
+}
+
+// ── Load inventory from Firestore ─────────────────────────────
+(async () => {
+  try {
+    onSnapshot(doc(db, 'ursus-units', 'combat-tops'), snap => {
+      inventory = snap.exists() ? snap.data() : {};
+      console.log('[Ursus Inventory] snap.exists:', snap.exists(), 'data:', JSON.stringify(inventory));
+      renderInventoryUI();
+    });
+  } catch (err) {
+    console.error('Inventory fetch error:', err);
+    inventory = {};
+    renderInventoryUI();
+  }
+})();
+
+// ── Render everything based on inventory ─────────────────────
+function updateProductBadge() {
+  const badge = document.getElementById('productBadge');
+  const colorKey = COLORWAY_KEYS[selectedColorway];
+  const colorData = getColorData(colorKey);
+  const colorTotal = Object.values(colorData).reduce((s, v) => s + (v || 0), 0);
+  if (colorTotal > 0) {
+    badge.textContent = 'IN STOCK';
+    badge.style.borderColor = 'rgba(42,156,92,0.45)';
+    badge.style.color = '#4cbc7e';
+  } else {
+    badge.textContent = 'OUT OF STOCK';
+    badge.style.borderColor = 'rgba(200,64,64,0.45)';
+    badge.style.color = 'var(--red)';
+  }
+}
+
+function renderInventoryUI() {
+  // Product badge
+  updateProductBadge();
+
+  // Global stock badge
+  updateStockBadge();
+
+  // Color chips — grey out those with zero stock across all sizes
+  document.querySelectorAll('.color-chip').forEach(c => c.classList.remove('unavailable'));
+  COLORWAY_KEYS.forEach((key, i) => {
+    const chip = document.getElementById(`chip-${i}`);
+    if (!chip) return;
+    const colorData = getColorData(key);
+    const colorTotal = Object.values(colorData).reduce((s, v) => s + (v || 0), 0);
+    console.log('[Chip]', key, 'colorData:', JSON.stringify(colorData), 'total:', colorTotal);
+    if (colorTotal === 0) chip.classList.add('unavailable');
+    else                  chip.classList.remove('unavailable');
+  });
+
+  renderSizes();
+  updateAddToCartState();
+}
+
+function updateStockBadge() {
+  const el  = document.getElementById('stockBadge');
+  const txt = document.getElementById('stockBadgeText');
+  const qa  = inventory?.['quantity-available']?.[0] || {};
+  const availableColorways = Object.values(qa).filter(cw => Object.values(cw).reduce((s,v) => s + (v||0), 0) > 0).length;
+  const totalColorways = COLORWAY_KEYS.length;
+
+  if (availableColorways === 0) {
+    el.className = 'stock-badge out-stock';
+    txt.textContent = 'Out of Stock';
+  } else {
+    el.className = 'stock-badge in-stock';
+    txt.innerHTML = `<div class="stock-dot"></div> ${availableColorways} Available`;
+  }
+}
+
+// ── Render size buttons for current colorway ──────────────────
+function renderSizes() {
+  const container = document.getElementById('sizeOptions');
+  const sizeNote  = document.getElementById('sizeNote');
+  const colorKey  = COLORWAY_KEYS[selectedColorway];
+  const colorData = getColorData(colorKey);
+
+  container.innerHTML = '';
+
+  SIZES.forEach(size => {
+    const btn       = document.createElement('button');
+    const stockQty  = colorData[size] ?? 0;
+    const inCartQty = cartQtyFor(colorKey, size);
+    const avail     = stockQty - inCartQty;
+
+    btn.className = 'size-btn';
+
+    const qtySpan = document.createElement('span');
+    qtySpan.className = 'size-qty';
+
+    if (stockQty === 0 || avail <= 0) {
+      btn.classList.add('out-of-stock');
+      btn.disabled = true;
+      qtySpan.textContent = stockQty === 0 ? 'Out of Stock' : 'Cart limit reached';
+    } else {
+      btn.onclick = () => selectSize(size);
+      btn.classList.add('low');
+      if (avail <= 3) {
+        qtySpan.textContent = `${avail} left`;
+      } else {
+        qtySpan.textContent = `${avail} available`;
+      }
+    }
+
+    if (selectedSize === size && !btn.disabled) btn.classList.add('active');
+
+    btn.innerHTML = `<strong>${size}</strong>`;
+    btn.appendChild(qtySpan);
+    container.appendChild(btn);
+  });
+
+  if (!selectedSize) {
+    sizeNote.textContent = 'Select your size above';
+  } else {
+    const stockQty  = colorData[selectedSize] ?? 0;
+    const inCartQty = cartQtyFor(colorKey, selectedSize);
+    const avail     = stockQty - inCartQty;
+    sizeNote.textContent = `${avail} unit${avail !== 1 ? 's' : ''} available to add`;
+  }
+}
+
+// ── Quantity controls ─────────────────────────────────────────
+function computeMaxQty() {
+  if (!selectedSize) return 0;
+  const colorKey  = COLORWAY_KEYS[selectedColorway];
+  const colorData = getColorData(colorKey);
+  const stockQty  = colorData[selectedSize] ?? 0;
+  const inCartQty = cartQtyFor(colorKey, selectedSize);
+  return Math.max(0, stockQty - inCartQty);
+}
+
+function renderQty() {
+  const minus   = document.getElementById('qtyMinus');
+  const plus    = document.getElementById('qtyPlus');
+  const display = document.getElementById('qtyDisplay');
+  const maxNote = document.getElementById('qtyMaxNote');
+
+  maxQty = computeMaxQty();
+
+  // Clamp quantity
+  if (quantity > maxQty) quantity = Math.max(1, maxQty);
+  if (quantity < 1)      quantity = 1;
+
+  display.textContent = quantity;
+  minus.disabled = quantity <= 1;
+  plus.disabled  = quantity >= maxQty || maxQty === 0;
+
+  if (maxQty > 0 && quantity >= maxQty) {
+    maxNote.textContent = `Max: ${maxQty}`;
+    maxNote.classList.remove('hidden');
+  } else {
+    maxNote.classList.add('hidden');
+  }
+}
+
+window.adjustQty = function(delta) {
+  maxQty = computeMaxQty();
+  quantity = Math.min(maxQty, Math.max(1, quantity + delta));
+  renderQty();
+};
+
+// ── Colorway selection ───────────────────────────────────────
+window.selectColorway = function(index) {
+  const chip = document.getElementById(`chip-${index}`);
+
+  selectedColorway = index;
+  selectedSize     = null;
+  quantity         = 1;
+
+  // Update chip active states
+  document.querySelectorAll('.color-chip').forEach((c, i) => {
+    c.classList.toggle('active', i === index);
+  });
+
+  // Update label
+  document.getElementById('selectedColorLabel').textContent =
+    COLORWAY_KEYS[index].replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
+
+  document.getElementById('selectedSizeLabel').textContent = '';
+
+  // Sync thumbnail image
+  switchImage(index);
+  updateProductBadge();
+
+  renderSizes();
+  renderQty();
+  updateAddToCartState();
+};
+
+// ── Size selection ────────────────────────────────────────────
+function selectSize(size) {
+  selectedSize = size;
+  quantity     = 1;
+
+  document.getElementById('selectedSizeLabel').textContent = size;
+  document.getElementById('sizeNote').textContent = (() => {
+    const colorKey  = COLORWAY_KEYS[selectedColorway];
+    const colorData = getColorData(colorKey);
+    const stockQty  = colorData[size] ?? 0;
+    const inCartQty = cartQtyFor(colorKey, size);
+    const avail     = stockQty - inCartQty;
+    return `${avail} unit${avail !== 1 ? 's' : ''} available to add`;
+  })();
+
+  renderSizes(); // re-render to update active state
+  renderQty();
+  updateAddToCartState();
+}
+
+// ── Add-to-cart button state ──────────────────────────────────
+function updateAddToCartState() {
+  const btn   = document.getElementById('addToCartBtn');
+  const label = document.getElementById('addToCartLabel');
+  if (!selectedSize) {
+    btn.disabled = true;
+    label.textContent = 'Select Size to Continue';
+    return;
+  }
+  maxQty = computeMaxQty();
+  if (maxQty <= 0) {
+    btn.disabled = true;
+    label.textContent = 'Out of Stock';
+    return;
+  }
+  btn.disabled = false;
+  label.textContent = `Add to Cart — $${50 * quantity}`;
+
+  // Update qty button states while we're here
+  document.getElementById('qtyMinus').disabled = quantity <= 1;
+  document.getElementById('qtyPlus').disabled  = quantity >= maxQty;
+}
+
+// ── Add to cart ───────────────────────────────────────────────
+window.addToCart = function() {
+  if (!selectedSize) { showFeedback('Please select a size first.', 'warning'); return; }
+
+  const colorKey  = COLORWAY_KEYS[selectedColorway];
+  const colorData = getColorData(colorKey);
+  const stockQty  = colorData[selectedSize] ?? 0;
+  const sku       = `combat-tops-${colorKey}-${selectedSize}`;
+
+  let cart        = getCart();
+  const existing  = cart.find(i => i.sku === sku);
+  const inCartQty = existing ? (existing.quantity || 1) : 0;
+  const avail     = stockQty - inCartQty;
+
+  // Hard guard: can't exceed stock
+  if (avail <= 0) {
+    showFeedback('You already have the max available in your cart.', 'error');
+    renderSizes();
+    renderQty();
+    updateAddToCartState();
+    return;
+  }
+
+  const adding = Math.min(quantity, avail);
+
+  if (existing) {
+    existing.quantity = (existing.quantity || 1) + adding;
+    existing.maxQty = stockQty;
+  } else {
+    cart.push({
+      id:       sku,
+      product:  'Combat Top',
+      tier:     `${colorKey} / ${selectedSize}`,
+      price:    50,
+      quantity: adding,
+      maxQty:   stockQty
+    });
+  }
+
+  saveCart(cart);
+
+  // Flash the nav cart icon
+  const navBtn = document.getElementById('navCartBtn');
+  if (navBtn) { navBtn.classList.add('cart-flash'); setTimeout(() => navBtn.classList.remove('cart-flash'), 500); }
+
+  const label = document.getElementById('selectedColorLabel').textContent || 'Selected';
+  showFeedback(`✓ ${adding}× ${label} / ${selectedSize} added to cart`, 'success');
+
+  // Reset quantity, re-render constraints
+  quantity = 1;
+  renderSizes();
+  renderQty();
+  updateAddToCartState();
+};
+
+// Expose for inline calls
+window.selectColorway = window.selectColorway; // already set above
+window.addToCart      = window.addToCart;
+window.adjustQty      = window.adjustQty;
+
+// Init default colorway label
+document.getElementById('selectedColorLabel').textContent = 'Multi-Terrain';
 </script>
+
+<script src="/ursusarmament/access-check.js"></script>
 </body>
 </html>
