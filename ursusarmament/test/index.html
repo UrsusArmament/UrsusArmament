@@ -908,16 +908,15 @@ window.addToCart = function() {
 
   if (existing) {
     existing.quantity = (existing.quantity || 1) + adding;
+    existing.maxQty = stockQty;
   } else {
     cart.push({
-      sku,
-      productId:  'combat-tops',
-      name:       'Combat Top',
-      colorway:   colorKey,
-      size:       selectedSize,
-      price:      50,
-      quantity:   adding,
-      image:      images[selectedColorway]
+      id:       sku,
+      product:  'Combat Top',
+      tier:     `${colorKey} / ${selectedSize}`,
+      price:    50,
+      quantity: adding,
+      maxQty:   stockQty
     });
   }
 
