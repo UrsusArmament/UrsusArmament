@@ -404,7 +404,6 @@
   .carousel-viewport {
     position: relative;
     overflow: hidden;
-    /* fade-out edges */
     -webkit-mask-image: linear-gradient(to right, transparent 0%, black 2%, black 92%, transparent 100%);
     mask-image: linear-gradient(to right, transparent 0%, black 2%, black 92%, transparent 100%);
   }
@@ -1135,7 +1134,8 @@ const PRODUCTS = [
     image: '/ursusarmament/images/combat-topTC.png',
     bgLabel: 'CMBT',
     desc: 'Durable combat shirt engineered for prolonged field use. Moisture-wicking construction, reinforced elbows, and integrated loop fields for patches and insignia.',
-    status: 'unavailable',
+    status: 'checking',
+    statusId: 'combat-top-status',
     displayCat: 'Apparel',
   },
   {
@@ -1451,7 +1451,7 @@ async function fetchAvailability() {
     ursixAccessDenied = true;
   }
 
-  const [dyBlackSnap, dySandSnap, bayonetSnap, bridgeBlackSnap, bridgeSandSnap, pvsDySnap, pvsBnSnap, rhinoDyBlackSnap, rhinoDySandSnap, rhinoBnBlackSnap, rhinoBnSandSnap] = await Promise.all([
+  const [dyBlackSnap, dySandSnap, bayonetSnap, bridgeBlackSnap, bridgeSandSnap, pvsDySnap, pvsBnSnap, rhinoDyBlackSnap, rhinoDySandSnap, rhinoBnBlackSnap, rhinoBnSandSnap, combatTopsSnap] = await Promise.all([
     getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Adapter_Black")),
     getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Adapter_Sand")),
     getDoc(doc(db, "ursus-units", "MUM-14_Bayonet_Adapter")),
@@ -1463,19 +1463,35 @@ async function fetchAvailability() {
     getDoc(doc(db, "ursus-units", "rhino_mount_dovetail_sand")),
     getDoc(doc(db, "ursus-units", "rhino_mount_bayonet_black")),
     getDoc(doc(db, "ursus-units", "rhino_mount_bayonet_sand")),
+    getDoc(doc(db, "ursus-units", "combat-tops")),
   ]);
 
-  const pvsDyQty       = pvsDySnap.exists()        ? (pvsDySnap.data()?.['quantity-available']        || 0) : 0;
-  const pvsBnQty       = pvsBnSnap.exists()         ? (pvsBnSnap.data()?.['quantity-available']        || 0) : 0;
-  const dyBlackQty     = dyBlackSnap.exists()       ? (dyBlackSnap.data()?.['quantity-available']      || 0) : 0;
-  const dySandQty      = dySandSnap.exists()        ? (dySandSnap.data()?.['quantity-available']       || 0) : 0;
-  const bayonetQty     = bayonetSnap.exists()       ? (bayonetSnap.data()?.['quantity-available']      || 0) : 0;
-  const bridgeBlackQty = bridgeBlackSnap.exists()   ? (bridgeBlackSnap.data()?.['quantity-available']  || 0) : 0;
-  const bridgeSandQty  = bridgeSandSnap.exists()    ? (bridgeSandSnap.data()?.['quantity-available']   || 0) : 0;
-  const rhinoDyBlackQty = rhinoDyBlackSnap.exists() ? (rhinoDyBlackSnap.data()?.['quantity-available'] || 0) : 0;
-  const rhinoDySandQty  = rhinoDySandSnap.exists()  ? (rhinoDySandSnap.data()?.['quantity-available']  || 0) : 0;
-  const rhinoBnBlackQty = rhinoBnBlackSnap.exists() ? (rhinoBnBlackSnap.data()?.['quantity-available'] || 0) : 0;
-  const rhinoBnSandQty  = rhinoBnSandSnap.exists()  ? (rhinoBnSandSnap.data()?.['quantity-available']  || 0) : 0;
+  const pvsDyQty        = pvsDySnap.exists()        ? (pvsDySnap.data()?.['quantity-available']        || 0) : 0;
+  const pvsBnQty        = pvsBnSnap.exists()         ? (pvsBnSnap.data()?.['quantity-available']        || 0) : 0;
+  const dyBlackQty      = dyBlackSnap.exists()       ? (dyBlackSnap.data()?.['quantity-available']      || 0) : 0;
+  const dySandQty       = dySandSnap.exists()        ? (dySandSnap.data()?.['quantity-available']       || 0) : 0;
+  const bayonetQty      = bayonetSnap.exists()       ? (bayonetSnap.data()?.['quantity-available']      || 0) : 0;
+  const bridgeBlackQty  = bridgeBlackSnap.exists()   ? (bridgeBlackSnap.data()?.['quantity-available']  || 0) : 0;
+  const bridgeSandQty   = bridgeSandSnap.exists()    ? (bridgeSandSnap.data()?.['quantity-available']   || 0) : 0;
+  const rhinoDyBlackQty = rhinoDyBlackSnap.exists()  ? (rhinoDyBlackSnap.data()?.['quantity-available'] || 0) : 0;
+  const rhinoDySandQty  = rhinoDySandSnap.exists()   ? (rhinoDySandSnap.data()?.['quantity-available']  || 0) : 0;
+  const rhinoBnBlackQty = rhinoBnBlackSnap.exists()  ? (rhinoBnBlackSnap.data()?.['quantity-available'] || 0) : 0;
+  const rhinoBnSandQty  = rhinoBnSandSnap.exists()   ? (rhinoBnSandSnap.data()?.['quantity-available']  || 0) : 0;
+
+  // ── Combat Tops: count how many colorway styles have any size qty > 0 ──
+  let combatTopStylesAvailable = 0;
+  if (combatTopsSnap.exists()) {
+    const qtArray = combatTopsSnap.data()?.['quantity-available'];
+    if (Array.isArray(qtArray) && qtArray.length > 0) {
+      const colorwayMap = qtArray[0]; // single map entry containing all colorways
+      for (const colorway of Object.values(colorwayMap)) {
+        if (colorway && typeof colorway === 'object') {
+          const hasStock = Object.values(colorway).some(qty => typeof qty === 'number' && qty > 0);
+          if (hasStock) combatTopStylesAvailable++;
+        }
+      }
+    }
+  }
 
   availabilityCache = {
     ursixCount,
@@ -1485,6 +1501,7 @@ async function fetchAvailability() {
     bridgeAvail:   (bridgeBlackQty + bridgeSandQty) > 0,
     pvs14Avail:    (pvsDyQty + pvsBnQty) > 0,
     rhinoAvail:    (rhinoDyBlackQty + rhinoDySandQty + rhinoBnBlackQty + rhinoBnSandQty) > 0,
+    combatTopStylesAvailable,
   };
 
   return availabilityCache;
@@ -1562,6 +1579,19 @@ async function applyAvailability() {
       } else {
         rhinoEl.textContent = "Currently Unavailable";
         rhinoEl.classList.remove("available");
+      }
+    }
+
+    // ── Combat Tops ──
+    const combatEl = document.getElementById("combat-top-status");
+    if (combatEl) {
+      const n = data.combatTopStylesAvailable;
+      if (n > 0) {
+        combatEl.textContent = n + " Style" + (n === 1 ? "" : "s") + " Available";
+        combatEl.classList.add("available");
+      } else {
+        combatEl.textContent = "Out of Stock";
+        combatEl.classList.remove("available");
       }
     }
 
