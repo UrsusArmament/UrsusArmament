@@ -639,7 +639,7 @@ function showFeedback(msg, type = 'success') {
 (async () => {
   try {
     // Real-time listener so stock stays fresh without reload
-    onSnapshot(doc(db, 'products', 'combat-tops'), snap => {
+    onSnapshot(doc(db, 'ursus-units', 'combat-tops'), snap => {
       if (snap.exists()) {
         inventory = snap.data();
       } else {
