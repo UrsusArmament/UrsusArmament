@@ -664,13 +664,25 @@ function getTotalStock() {
 })();
 
 // ── Render everything based on inventory ─────────────────────
+function updateProductBadge() {
+  const badge = document.getElementById('productBadge');
+  const colorKey = COLORWAY_KEYS[selectedColorway];
+  const colorData = getColorData(colorKey);
+  const colorTotal = Object.values(colorData).reduce((s, v) => s + (v || 0), 0);
+  if (colorTotal > 0) {
+    badge.textContent = 'IN STOCK';
+    badge.style.borderColor = 'rgba(42,156,92,0.45)';
+    badge.style.color = '#4cbc7e';
+  } else {
+    badge.textContent = 'OUT OF STOCK';
+    badge.style.borderColor = 'rgba(200,64,64,0.45)';
+    badge.style.color = 'var(--red)';
+  }
+}
+
 function renderInventoryUI() {
   // Product badge
-  const total = getTotalStock();
-  const badge = document.getElementById('productBadge');
-  badge.textContent = total > 0 ? 'IN STOCK' : 'COMING SOON';
-  badge.style.borderColor = total > 0 ? 'rgba(42,156,92,0.45)' : 'rgba(200,146,42,0.35)';
-  badge.style.color = total > 0 ? '#4cbc7e' : 'var(--accent)';
+  updateProductBadge();
 
   // Global stock badge
   updateStockBadge();
@@ -819,6 +831,7 @@ window.selectColorway = function(index) {
 
   // Sync thumbnail image
   switchImage(index);
+  updateProductBadge();
 
   renderSizes();
   renderQty();
