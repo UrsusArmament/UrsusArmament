@@ -655,6 +655,7 @@ function isAvailable() {
   try {
     onSnapshot(doc(db, 'ursus-units', 'combat-tops'), snap => {
       inventory = snap.exists() ? snap.data() : {};
+      console.log('[Ursus Inventory] snap.exists:', snap.exists(), 'data:', JSON.stringify(inventory));
       renderInventoryUI();
     });
   } catch (err) {
