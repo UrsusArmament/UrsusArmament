@@ -681,6 +681,7 @@ function renderInventoryUI() {
     if (!chip) return;
     const colorData = getColorData(key);
     const colorTotal = Object.values(colorData).reduce((s, v) => s + (v || 0), 0);
+    console.log('[Chip]', key, 'colorData:', JSON.stringify(colorData), 'total:', colorTotal);
     if (colorTotal === 0) chip.classList.add('unavailable');
     else                  chip.classList.remove('unavailable');
   });
