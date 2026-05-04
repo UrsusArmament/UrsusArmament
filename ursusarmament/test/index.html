@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Combat Tops — Ursus Armament</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --surface2: #222220;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+    --accent2: #e8a830;
+    --green: #2a9c5c;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--text); font-family: 'Barlow', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,8,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-top { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 3rem; border-bottom: 1px solid var(--border); }
+  .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.12em; color: var(--text); text-decoration: none; line-height: 1; }
+  .nav-logo span { color: var(--accent); }
+  .nav-slogan { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+  .nav-ribbon { display: flex; align-items: center; justify-content: center; padding: 0 3rem; height: 38px; background: var(--surface); }
+  .nav-ribbon a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0 1.6rem; height: 100%; display: flex; align-items: center; border-right: 1px solid var(--border); transition: color 0.2s, background 0.2s; }
+  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
+  .nav-ribbon a:hover, .nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
+  .nav-auth { display: flex; align-items: center; }
+  .nav-auth a, .nav-auth button { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: var(--accent); background: transparent; border: 1px solid var(--accent); padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s ease; }
+  .nav-auth a:hover, .nav-auth button:hover { background: rgba(200,146,42,0.08); }
+  .nav-cart-btn { position: relative; background: transparent; border: 1px solid var(--border2); color: var(--text); width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; transition: border-color 0.2s, background 0.2s; flex-shrink: 0; }
+  .nav-cart-btn:hover { border-color: var(--accent); background: rgba(200,146,42,0.06); }
+  .nav-cart-btn svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
+  .nav-cart-btn:hover svg { stroke: var(--accent); }
+  .cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
+  .cart-count.visible { display: flex; }
+
+  .breadcrumb { padding: 1rem 3rem; background: var(--dark); border-bottom: 1px solid var(--border); margin-top: 86px; display: flex; align-items: center; gap: 0.5rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+  .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb span { color: var(--accent); }
+
+  .unavail-banner { background: rgba(10,10,8,0.97); border-bottom: 1px solid rgba(200,146,42,0.3); padding: 0.75rem 3rem; display: flex; align-items: center; justify-content: center; gap: 1.2rem; text-align: center; }
+  .unavail-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); opacity: 0.7; animation: pulse 2s ease-in-out infinite; flex-shrink: 0; }
+  @keyframes pulse { 0%, 100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 1; transform: scale(1.25); } }
+  .unavail-banner p { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
+  .unavail-banner span { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; color: var(--muted); font-weight: 400; text-transform: uppercase; }
+
+  /* PRODUCT VISUAL + IMAGE GALLERY */
+  .product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; background: var(--dark); }
+  .product-visual { position: relative; background: var(--dark); display: flex; flex-direction: column; }
+  .product-badge { position: absolute; top: 2rem; left: 2rem; background: var(--surface2); color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 0.85rem; z-index: 2; border: 1px solid rgba(200,146,42,0.35); }
+
+  /* 4:3 main image area */
+  .main-image-wrap { width: 100%; position: relative; background: var(--surface); overflow: hidden; }
+  .main-image-wrap::before { content: ''; display: block; padding-top: 75%; /* 4:3 ratio */ }
+  .main-image-wrap img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; transition: opacity 0.25s ease; }
+  .main-image-wrap img.fading { opacity: 0; }
+
+  /* 4:3 thumbnails */
+  .thumb-strip { display: flex; gap: 6px; padding: 0.75rem; background: var(--dark); border-top: 1px solid var(--border); flex-shrink: 0; }
+  .thumb-btn { width: 96px; position: relative; border: 2px solid var(--border2); overflow: hidden; cursor: pointer; flex-shrink: 0; transition: border-color 0.2s, transform 0.15s; background: var(--surface2); }
+  .thumb-btn::before { content: ''; display: block; padding-top: 75%; /* 4:3 */ }
+  .thumb-btn img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .thumb-btn:hover { border-color: rgba(200,146,42,0.55); transform: translateY(-2px); }
+  .thumb-btn.active { border-color: var(--accent); }
+
+  .product-info { padding: 4rem; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--border); }
+
+  .product-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
+  .product-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+  .product-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 6.5vw, 6rem); line-height: 0.88; letter-spacing: 0.05em; margin-bottom: 0.5rem; color: var(--text); }
+  .product-subtitle { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 2rem; }
+  .product-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; max-width: 480px; }
+
+  .product-price-row { display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .price-block { display: flex; flex-direction: column; gap: 0.3rem; }
+  .price-tag { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.08em; color: var(--text); }
+  .price-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.7; }
+  .unavail-pill { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(200,146,42,0.08); border: 1px solid rgba(200,146,42,0.25); padding: 0.5rem 1rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+
+  /* SIZE + COLOR SELECTORS */
+  .selector-block { margin-bottom: 1.75rem; }
+  .selector-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.65rem; display: block; }
+  .size-options { display: flex; gap: 6px; flex-wrap: wrap; }
+  .size-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.12em; color: var(--muted); background: var(--surface); border: 1px solid var(--border2); padding: 0.5rem 1.1rem; cursor: not-allowed; transition: all 0.2s; opacity: 0.5; }
+
+  /* COLORWAY CHIPS */
+  .color-options { display: flex; gap: 8px; flex-wrap: wrap; }
+  .color-chip {
+    width: 32px; height: 32px;
+    border: 2px solid var(--border2);
+    cursor: pointer;
+    opacity: 0.75;
+    position: relative;
+    transition: opacity 0.2s, border-color 0.2s, transform 0.15s;
+    overflow: visible;
+  }
+  .color-chip svg { width: 100%; height: 100%; display: block; overflow: hidden; }
+  .color-chip:hover { opacity: 1; border-color: rgba(200,146,42,0.6); transform: translateY(-2px); }
+  .color-chip.active { opacity: 1; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+
+  /* Tooltip */
+  .color-chip::after {
+    content: attr(data-label);
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--surface2);
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid var(--border2);
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.18s;
+    z-index: 10;
+  }
+  .color-chip:hover::after { opacity: 1; }
+
+  .selector-note { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; color: var(--muted); opacity: 0.55; margin-top: 0.5rem; text-transform: uppercase; }
+
+  .product-actions { display: flex; gap: 1rem; margin-bottom: 2rem; }
+  .btn-notify { background: transparent; color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: 1px solid var(--accent); cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s; flex: 1; text-align: center; }
+  .btn-notify:hover { background: rgba(200,146,42,0.1); }
+  .btn-ghost { background: transparent; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; border: 1px solid var(--border2); cursor: pointer; text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s; }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .product-trust { display: flex; gap: 2rem; }
+  .trust-item { display: flex; flex-direction: column; gap: 0.2rem; }
+  .trust-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .trust-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text); }
+  .trust-value.tbd { color: var(--muted); font-style: italic; }
+
+  .section-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
+  .section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5vw, 4.2rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 3.5rem; }
+
+  .specs-section { background: var(--black); padding: 6rem 3rem; }
+  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-bottom: 2px; }
+  .spec-item { background: var(--dark); padding: 1.75rem 2rem; display: flex; justify-content: space-between; align-items: baseline; transition: background 0.2s; }
+  .spec-item:hover { background: var(--surface); }
+  .spec-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .spec-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); text-align: right; max-width: 55%; }
+  .spec-value.tbd { color: var(--muted); font-style: italic; font-size: 0.88rem; }
+  .spec-note { margin-top: 2rem; padding: 1.25rem 1.75rem; background: var(--dark); border: 1px solid var(--border); border-left: 3px solid rgba(200,146,42,0.4); font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); line-height: 1.6; }
+
+  .features-section { background: var(--black); padding: 6rem 3rem; }
+  .features-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .features-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+  .feature-item { background: var(--surface); padding: 2rem; position: relative; overflow: hidden; transition: background 0.2s; }
+  .feature-item:hover { background: var(--surface2); }
+  .feature-item::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
+  .feature-item:hover::before { opacity: 1; }
+  .feature-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(200,146,42,0.12); line-height: 1; position: absolute; top: 1rem; right: 1.5rem; }
+  .feature-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+  .feature-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+  .features-aside { position: sticky; top: 110px; }
+  .features-aside p { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+  .cert-row { display: flex; gap: 1.5px; background: var(--border); margin-top: 2rem; }
+  .cert-item { flex: 1; background: var(--surface); padding: 1.25rem; text-align: center; }
+  .cert-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.3rem; }
+  .cert-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; color: var(--accent); }
+
+  .notify-section { background: var(--dark); padding: 6rem 3rem; }
+  .notify-inner { max-width: 780px; }
+  .notify-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 560px; }
+  .notify-input-row { display: flex; margin-bottom: 1.5rem; }
+  .notify-input { flex: 1; background: var(--surface); border: 1px solid var(--border2); border-right: none; color: var(--text); font-family: 'Barlow', sans-serif; font-size: 0.95rem; padding: 0.9rem 1.5rem; outline: none; transition: border-color 0.2s; }
+  .notify-input::placeholder { color: var(--muted); }
+  .notify-input:focus { border-color: var(--accent); }
+  .notify-btn { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.9rem 2rem; border: none; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+  .notify-btn:hover { background: var(--accent2); }
+  .notify-confirm { display: none; padding: 1.5rem 2rem; background: rgba(42,156,92,0.08); border: 1px solid rgba(42,156,92,0.3); border-left: 3px solid var(--green); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; letter-spacing: 0.08em; color: #4cbc7e; }
+  .notify-confirm.visible { display: block; }
+  .notify-caveat { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; color: var(--muted); opacity: 0.6; text-transform: uppercase; margin-top: 0.75rem; }
+
+  .timeline { margin-top: 3rem; }
+  .timeline-title { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+  .timeline-steps { display: flex; gap: 2px; background: var(--border); }
+  .timeline-step { flex: 1; background: var(--dark); padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 0.4rem; position: relative; overflow: hidden; }
+  .timeline-step.done { background: var(--surface); }
+  .timeline-step.done::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--green); }
+  .timeline-step.current { background: var(--surface); }
+  .timeline-step.current::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); animation: shimmer 2s ease-in-out infinite; }
+  @keyframes shimmer { 0%,100%{opacity:0.5} 50%{opacity:1} }
+  .step-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+  .step-label.done { color: var(--green); }
+  .step-label.current { color: var(--accent); }
+  .step-label.pending { color: var(--muted); opacity: 0.5; }
+  .step-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); }
+  .step-name.pending { color: var(--muted); opacity: 0.5; }
+
+  .cta-banner { background: var(--surface); padding: 4rem 3rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.06em; color: var(--text); line-height: 1; }
+  .cta-banner p { font-size: 1rem; color: var(--muted); margin-top: 0.5rem; }
+  .btn-primary { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: none; cursor: pointer; white-space: nowrap; text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+
+  footer { background: var(--dark); border-top: 1px solid var(--border); padding: 4rem 3rem 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
+  .footer-brand p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-top: 1rem; }
+  .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+  .footer-col a { font-size: 0.9rem; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
+  .footer-col a:hover { opacity: 1; color: var(--accent); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.12em; color: var(--text); opacity: 0.5; }
+  .footer-logo span { color: var(--accent); opacity: 1; }
+  .footer-legal { font-size: 0.78rem; color: var(--muted); opacity: 0.5; }
+
+  @media (max-width: 900px) {
+    .product-hero { grid-template-columns: 1fr; }
+    .product-visual { min-height: unset; }
+    .product-info { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--border); }
+    .specs-grid { grid-template-columns: 1fr; }
+    .features-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+    .features-aside { position: static; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .cta-banner { flex-direction: column; text-align: center; }
+    .breadcrumb, .specs-section, .notify-section, .features-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .nav-top, .nav-ribbon { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .notify-input-row { flex-direction: column; }
+    .notify-input { border-right: 1px solid var(--border2); border-bottom: none; }
+    .timeline-steps { flex-direction: column; }
+    .unavail-banner { padding: 0.75rem 1.5rem; }
+    .thumb-btn { width: 72px; }
+  }
+
+  /* CHECKOUT BLOCK */
+  .checkout-block { margin-bottom: 2rem; padding: 1.5rem; background: var(--surface); border: 1px solid var(--border2); }
+  .checkout-row { display: flex; gap: 1rem; margin-bottom: 1rem; }
+  .checkout-field { display: flex; flex-direction: column; gap: 0.4rem; flex: 1; }
+  .checkout-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+  .checkout-select-wrap { position: relative; }
+  .checkout-select { width: 100%; background: var(--dark); color: var(--text); border: 1px solid var(--border2); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.08em; padding: 0.6rem 0.9rem; appearance: none; cursor: pointer; outline: none; transition: border-color 0.2s; }
+  .checkout-select:focus { border-color: var(--accent); }
+  .checkout-select-wrap::after { content: '▾'; position: absolute; right: 0.75rem; top: 50%; transform: translateY(-50%); color: var(--muted); pointer-events: none; font-size: 0.75rem; }
+  .btn-add-cart { width: 100%; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.95rem 2rem; border: none; cursor: pointer; transition: background 0.2s; }
+  .btn-add-cart:hover { background: var(--accent2); }
+  .checkout-msg { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 0.75rem; min-height: 1.2em; }
+  .checkout-msg.success { color: var(--green); }
+  .checkout-msg.error { color: #e05a5a; }
+
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-top">
+    <div class="nav-brand">
+      <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
+      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    </div>
+    <div class="nav-right" style="display:flex; align-items:center; gap:0.75rem;">
+      <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
+        <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>
+        <span class="cart-count" id="cartCount"></span>
+      </a>
+      <div class="nav-auth" id="navAuth"></div>
+    </div>
+  </div>
+  <div class="nav-ribbon">
+    <a href="/ursusarmament/products" class="active">Products</a>
+    <a href="/ursusarmament#mission">Our Mission</a>
+    <a href="/ursusarmament#process">Learn</a>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="/ursusarmament">Home</a>
+  <span>›</span>
+  <a href="/ursusarmament/products">Products</a>
+  <span>›</span>
+  <span>Combat Tops</span>
+</div>
+
+<div class="unavail-banner">
+  <div class="unavail-dot"></div>
+  <p>Currently Unavailable</p>
+  <span>&nbsp;·&nbsp; Notify me when available</span>
+</div>
+
+<section class="product-hero">
+  <div class="product-visual">
+    <div class="product-badge">COMING SOON</div>
+
+    <!-- Main image — 4:3 via padding-top trick -->
+    <div class="main-image-wrap">
+      <img id="mainProductImg" src="/ursusarmament/images/combat-topMC.png" alt="Combat Top – Multi-Terrain" />
+    </div>
+
+    <!-- Thumbnail strip — each thumb also 4:3 -->
+    <div class="thumb-strip">
+      <div class="thumb-btn active" onclick="switchImage(0)">
+        <img src="/ursusarmament/images/combat-topMC.png" alt="Multi-Terrain" />
+      </div>
+      <div class="thumb-btn" onclick="switchImage(1)">
+        <img src="/ursusarmament/images/combat-topBDU.png" alt="BDU" />
+      </div>
+      <div class="thumb-btn" onclick="switchImage(2)">
+        <img src="/ursusarmament/images/combat-topATACS-AU.png" alt="TerraBlend-Arid" />
+      </div>
+      <div class="thumb-btn" onclick="switchImage(3)">
+        <img src="/ursusarmament/images/combat-topBLK-SNK.png" alt="Scaled-Black" />
+      </div>
+    </div>
+  </div>
+
+  <div class="product-info">
+    <div class="product-tag">Loadout · Apparel</div>
+    <h1 class="product-name">Combat Tops</h1>
+    <div class="product-subtitle">Multiple Colorways · S / M / L / XL · Field Ready</div>
+    <p class="product-desc">
+      Purpose-built combat tops designed for prolonged field use. Available in multiple colorways to suit your operational environment. Sized S through XL with a uniform fit across all patterns. Open to all — law enforcement, military, and civilian.
+    </p>
+
+    <div class="product-price-row">
+      <div class="price-block">
+        <div class="price-tag">$50</div>
+        <div class="price-sub">All sizes &amp; colorways — uniform pricing</div>
+      </div>
+      <div class="unavail-pill">
+        <div class="unavail-dot" style="width:6px;height:6px;"></div>
+        Prototype / Testing
+      </div>
+    </div>
+
+    <div class="selector-block">
+      <span class="selector-label">Size</span>
+      <div class="size-options">
+        <div class="size-btn">S</div>
+        <div class="size-btn">M</div>
+        <div class="size-btn">L</div>
+        <div class="size-btn">XL</div>
+      </div>
+      <div class="selector-note">Size selection available at launch</div>
+    </div>
+
+    <div class="selector-block">
+      <span class="selector-label">Colorway</span>
+      <div class="color-options">
+
+        <!-- 1: Multi-Terrain -->
+        <div class="color-chip active" id="chip-0" data-label="Multi-Terrain" onclick="switchImage(0)" title="">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="camo1" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="turbulence" baseFrequency="0.18 0.22" numOctaves="3" seed="5" result="noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+              </filter>
+            </defs>
+            <rect width="32" height="32" fill="#6b4a2a"/>
+            <g filter="url(#camo1)">
+              <ellipse cx="4"  cy="5"  rx="6" ry="5" fill="#7a9e5a"/>
+              <ellipse cx="22" cy="2"  rx="5" ry="4" fill="#7a9e5a"/>
+              <ellipse cx="15" cy="14" rx="6" ry="4" fill="#7a9e5a"/>
+              <ellipse cx="29" cy="19" rx="5" ry="6" fill="#7a9e5a"/>
+              <ellipse cx="5"  cy="28" rx="6" ry="5" fill="#7a9e5a"/>
+              <ellipse cx="27" cy="8"  rx="5" ry="4" fill="#c4a46a"/>
+              <ellipse cx="10" cy="22" rx="5" ry="4" fill="#c4a46a"/>
+              <ellipse cx="20" cy="28" rx="6" ry="4" fill="#c4a46a"/>
+              <ellipse cx="1"  cy="16" rx="4" ry="5" fill="#c4a46a"/>
+              <ellipse cx="14" cy="4"  rx="4" ry="3" fill="#c4a46a"/>
+            </g>
+          </svg>
+        </div>
+
+        <!-- 2: BDU -->
+        <div class="color-chip" id="chip-1" data-label="BDU" onclick="switchImage(1)" title="">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="camo2" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="turbulence" baseFrequency="0.2 0.15" numOctaves="3" seed="11" result="noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+              </filter>
+            </defs>
+            <rect width="32" height="32" fill="#5c3d1e"/>
+            <g filter="url(#camo2)">
+              <ellipse cx="5"  cy="5"  rx="6" ry="5" fill="#2e4a1e"/>
+              <ellipse cx="21" cy="3"  rx="5" ry="4" fill="#2e4a1e"/>
+              <ellipse cx="13" cy="15" rx="6" ry="4" fill="#2e4a1e"/>
+              <ellipse cx="28" cy="21" rx="5" ry="6" fill="#2e4a1e"/>
+              <ellipse cx="4"  cy="28" rx="6" ry="5" fill="#2e4a1e"/>
+              <ellipse cx="26" cy="10" rx="5" ry="4" fill="#111"/>
+              <ellipse cx="10" cy="24" rx="5" ry="4" fill="#111"/>
+              <ellipse cx="22" cy="29" rx="6" ry="4" fill="#111"/>
+              <ellipse cx="1"  cy="15" rx="4" ry="5" fill="#111"/>
+              <ellipse cx="17" cy="10" rx="4" ry="3" fill="#111"/>
+            </g>
+          </svg>
+        </div>
+
+        <!-- 3: TerraBlend-Arid -->
+        <div class="color-chip" id="chip-2" data-label="TerraBlend-Arid" onclick="switchImage(2)" title="">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <filter id="camo3" x="-20%" y="-20%" width="140%" height="140%">
+                <feTurbulence type="turbulence" baseFrequency="0.16 0.2" numOctaves="3" seed="17" result="noise"/>
+                <feDisplacementMap in="SourceGraphic" in2="noise" scale="4.5" xChannelSelector="R" yChannelSelector="G"/>
+              </filter>
+            </defs>
+            <rect width="32" height="32" fill="#d4b87a"/>
+            <g filter="url(#camo3)">
+              <ellipse cx="3"  cy="5"  rx="6" ry="6" fill="#7a5530"/>
+              <ellipse cx="19" cy="8"  rx="6" ry="5" fill="#7a5530"/>
+              <ellipse cx="29" cy="26" rx="6" ry="6" fill="#7a5530"/>
+              <ellipse cx="10" cy="29" rx="5" ry="4" fill="#7a5530"/>
+              <ellipse cx="25" cy="4"  rx="5" ry="4" fill="#3d2410"/>
+              <ellipse cx="8"  cy="18" rx="5" ry="6" fill="#3d2410"/>
+              <ellipse cx="21" cy="27" rx="6" ry="4" fill="#3d2410"/>
+              <ellipse cx="15" cy="14" rx="6" ry="5" fill="#c8a45e"/>
+              <ellipse cx="1"  cy="29" rx="5" ry="5" fill="#c8a45e"/>
+              <ellipse cx="29" cy="14" rx="5" ry="5" fill="#c8a45e"/>
+              <ellipse cx="4"  cy="14" rx="4" ry="3" fill="#c8a45e"/>
+            </g>
+          </svg>
+        </div>
+
+        <!-- 4: Scaled-Black -->
+        <div class="color-chip" id="chip-3" data-label="Scaled-Black" onclick="switchImage(3)" title="">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+            <rect width="32" height="32" fill="#080808"/>
+            <polygon points="5,0 10,2.88 10,8.66 5,11.54 0,8.66 0,2.88"        fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="5,11.54 10,14.42 10,20.2 5,23.08 0,20.2 0,14.42"  fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="5,23.08 10,25.96 10,31.74 5,34.62 0,31.74 0,25.96" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="15,5.77 20,8.65 20,14.43 15,17.31 10,14.43 10,8.65"  fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="15,17.31 20,20.19 20,25.97 15,28.85 10,25.97 10,20.19" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="15,-0.01 20,2.87 20,8.65 15,11.53 10,8.65 10,2.87"  fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="15,28.85 20,31.73 20,37.51 15,40.39 10,37.51 10,31.73" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="25,0 30,2.88 30,8.66 25,11.54 20,8.66 20,2.88"        fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="25,11.54 30,14.42 30,20.2 25,23.08 20,20.2 20,14.42"  fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="25,23.08 30,25.96 30,31.74 25,34.62 20,31.74 20,25.96" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="35,5.77 40,8.65 40,14.43 35,17.31 30,14.43 30,8.65"  fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="35,17.31 40,20.19 40,25.97 35,28.85 30,25.97 30,20.19" fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="35,-0.01 40,2.87 40,8.65 35,11.53 30,8.65 30,2.87"  fill="none" stroke="#606060" stroke-width="0.7"/>
+            <polygon points="35,28.85 40,31.73 40,37.51 35,40.39 30,37.51 30,31.73" fill="none" stroke="#606060" stroke-width="0.7"/>
+          </svg>
+        </div>
+
+      </div>
+      <div class="selector-note">Final colorways confirmed at launch · Additional options may be added</div>
+    </div>
+
+    <div class="product-actions">
+      <a href="#notify" class="btn-notify">Notify Me at Launch</a>
+      <a href="#specs" class="btn-ghost">View Specs</a>
+    </div>
+    <div class="product-trust">
+      <div class="trust-item"><span class="trust-label">Price</span><span class="trust-value">$50 / all sizes</span></div>
+      <div class="trust-item"><span class="trust-label">Availability</span><span class="trust-value tbd">TBD</span></div>
+      <div class="trust-item"><span class="trust-label">Made In</span><span class="trust-value">USA 🇺🇸</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="specs-section" id="specs">
+  <div class="section-tag">Technical Data</div>
+  <h2 class="section-title">SPECIFICATIONS</h2>
+  <div class="specs-grid">
+    <div class="spec-item"><span class="spec-name">Product Type</span><span class="spec-value">Combat Top / Field Shirt</span></div>
+    <div class="spec-item"><span class="spec-name">Sizing</span><span class="spec-value">S, M, L, XL</span></div>
+    <div class="spec-item"><span class="spec-name">Material / Construction</span><span class="spec-value tbd">TBD</span></div>
+    <div class="spec-item"><span class="spec-name">Colorways</span><span class="spec-value">Multiple — final options confirmed at launch</span></div>
+    <div class="spec-item"><span class="spec-name">Fit</span><span class="spec-value tbd">TBD</span></div>
+    <div class="spec-item"><span class="spec-name">Closure</span><span class="spec-value tbd">TBD</span></div>
+    <div class="spec-item"><span class="spec-name">Pocket Configuration</span><span class="spec-value tbd">TBD</span></div>
+    <div class="spec-item"><span class="spec-name">Elbow Reinforcement</span><span class="spec-value tbd">TBD</span></div>
+    <div class="spec-item"><span class="spec-name">Loop / Patch Fields</span><span class="spec-value tbd">TBD</span></div>
+    <div class="spec-item"><span class="spec-name">Care Instructions</span><span class="spec-value tbd">TBD</span></div>
+    <div class="spec-item"><span class="spec-name">Price</span><span class="spec-value">$50 — all sizes &amp; colorways</span></div>
+    <div class="spec-item"><span class="spec-name">Country of Origin</span><span class="spec-value">United States of America</span></div>
+  </div>
+  <div class="spec-note">
+    ⚠ &nbsp;Specifications are preliminary. Final construction details, material composition, and feature set will be confirmed at product launch.
+  </div>
+</section>
+
+<section class="features-section" id="features">
+  <div class="features-layout">
+    <div class="features-list">
+      <div class="feature-item">
+        <div class="feature-num">01</div>
+        <div class="feature-title">Multiple Colorways</div>
+        <p class="feature-desc">Available in a range of patterns and solid colors to suit your environment and mission profile. Whether you need to blend in or stand out on the range, there's a colorway for it.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">02</div>
+        <div class="feature-title">Full Size Run</div>
+        <p class="feature-desc">Offered in S, M, L, and XL at a uniform price of $50 across all sizes and colorways. No upcharge for larger sizes, no premium for specific patterns.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">03</div>
+        <div class="feature-title">Built for Extended Wear</div>
+        <p class="feature-desc">Designed with field use in mind — extended operations, range days, training rotations. Construction details are being finalized to ensure comfort and durability hold up under sustained use.</p>
+      </div>
+      <div class="feature-item">
+        <div class="feature-num">04</div>
+        <div class="feature-title">Open Availability</div>
+        <p class="feature-desc">Available to law enforcement, military, and civilians alike. No restricted purchase requirements — if you need quality field apparel, this is built for you.</p>
+      </div>
+    </div>
+    <div class="features-aside">
+      <div class="section-tag">Design Philosophy</div>
+      <h2 class="section-title" style="margin-bottom:1.5rem;">GEAR THAT WORKS AS HARD AS YOU DO.</h2>
+      <p>Most field apparel makes you choose between performance and price. We're not interested in that trade-off. The Combat Top is built to work — and priced so you can outfit your whole team without a budget conversation.</p>
+      <p>Details are still being finalized through prototype testing. When it ships, every construction decision will have been validated in the field, not just on a spec sheet.</p>
+      <div class="cert-row">
+        <div class="cert-item"><span class="cert-label">Sizes</span><span class="cert-value">S–XL</span></div>
+        <div class="cert-item"><span class="cert-label">Price</span><span class="cert-value">$50</span></div>
+        <div class="cert-item"><span class="cert-label">Origin</span><span class="cert-value">USA</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="notify-section" id="notify">
+  <div class="notify-inner">
+    <div class="section-tag">Availability Notification</div>
+    <h2 class="section-title" style="margin-bottom:1rem;">GET NOTIFIED AT LAUNCH</h2>
+    <p class="notify-desc">Combat Tops are not yet available for order. Enter your email and we'll notify you the moment they're ready — before public announcement.</p>
+    <div class="notify-input-row">
+      <input class="notify-input" id="notifyInput" type="email" placeholder="your@email.com" autocomplete="email" spellcheck="false"/>
+      <button class="notify-btn" onclick="submitNotify()">Notify Me</button>
+    </div>
+    <div class="notify-confirm" id="notifyConfirm">You're on the list. We'll contact you when Combat Tops are ready for order.</div>
+    <p class="notify-caveat">No spam. No third-party sharing. Unsubscribe any time.</p>
+    <div class="timeline">
+      <div class="timeline-title">Development Status</div>
+      <div class="timeline-steps">
+        <div class="timeline-step done"><span class="step-label done">✓ Complete</span><span class="step-name">Concept &amp; Design</span></div>
+        <div class="timeline-step current"><span class="step-label current">▶ Active</span><span class="step-name">Prototype / Testing</span></div>
+        <div class="timeline-step"><span class="step-label pending">Pending</span><span class="step-name pending">Production</span></div>
+        <div class="timeline-step"><span class="step-label pending">Pending</span><span class="step-name pending">Launch</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-banner">
+  <div>
+    <h2>QUESTIONS ABOUT COMBAT TOPS?</h2>
+    <p>Our team is available Monday–Friday, 8AM–6PM MST.</p>
+  </div>
+  <a href="/ursusarmament/contact/" class="btn-primary">Contact Us</a>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">URSUS <span style="color:var(--accent);">ARMAMENT</span></div>
+      <p>Developing next-generation tactical gear for the American people. Manufactured, tested, and deployed with pride in the USA.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="/ursusarmament/products/ROTS">R.O.T.S.</a></li>
+        <li><a href="/ursusarmament/products/URSIX">URSIX</a></li>
+        <li><a href="/ursusarmament/products">View All</a></li>
+        <li><a href="/ursusarmament/customerreviews">Customer Reviews</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/ursusarmament/aboutus/">About Us</a></li>
+        <li><a href="/ursusarmament/testingstandards/">Testing Standards</a></li>
+        <li><a href="/ursusarmament/careers/">Careers</a></li>
+        <li><a href="https://www.youtube.com/@UrsusWorks/" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="/ursusarmament/contact/">Contact</a></li>
+        <li><a href="/ursusarmament/warranty/">Warranty</a></li>
+        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-logo">URSUS <span>ARMAMENT</span></div>
+    <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
+  </div>
+</footer>
+
+<script>
+  const images = [
+    '/ursusarmament/images/combat-topMC.png',
+    '/ursusarmament/images/combat-topBDU.png',
+    '/ursusarmament/images/combat-topATACS-AU.png',
+    '/ursusarmament/images/combat-topBLK-SNK.png'
+  ];
+
+  function switchImage(index) {
+    const mainImg = document.getElementById('mainProductImg');
+    const thumbBtns = document.querySelectorAll('.thumb-btn');
+    const chips = document.querySelectorAll('.color-chip');
+
+    mainImg.classList.add('fading');
+    setTimeout(() => {
+      mainImg.src = images[index];
+      mainImg.classList.remove('fading');
+    }, 200);
+
+    thumbBtns.forEach((t, i) => t.classList.toggle('active', i === index));
+    chips.forEach((c, i) => c.classList.toggle('active', i === index));
+  }
+
+
+  function addToCart() {
+    const colorway = document.getElementById('checkoutColorway').value;
+    const size = document.getElementById('checkoutSize').value;
+    const msg = document.getElementById('checkoutMsg');
+
+    if (!colorway || !size) {
+      msg.textContent = 'Please select a colorway and size.';
+      msg.className = 'checkout-msg error';
+      return;
+    }
+
+    try {
+      const cart = JSON.parse(localStorage.getItem('ursus_cart')) || [];
+      const existing = cart.find(i => i.id === 'combat-top' && i.colorway === colorway && i.size === size);
+      if (existing) {
+        existing.quantity = (existing.quantity || 1) + 1;
+      } else {
+        cart.push({ id: 'combat-top', name: 'Combat Top', colorway, size, price: 50, quantity: 1 });
+      }
+      localStorage.setItem('ursus_cart', JSON.stringify(cart));
+      msg.textContent = colorway + ' / ' + size + ' added to cart.';
+      msg.className = 'checkout-msg success';
+      updateCartBadge();
+    } catch(e) {
+      msg.textContent = 'Error adding to cart.';
+      msg.className = 'checkout-msg error';
+    }
+  }
+
+  function submitNotify() {
+    const input = document.getElementById('notifyInput');
+    const val = input.value.trim();
+    if (!val || !val.includes('@')) { input.focus(); return; }
+    document.getElementById('notifyConfirm').classList.add('visible');
+    input.value = '';
+    input.disabled = true;
+    document.querySelector('.notify-btn').disabled = true;
+    document.querySelector('.notify-btn').style.opacity = '0.5';
+  }
+  document.getElementById('notifyInput').addEventListener('keydown', e => { if (e.key === 'Enter') submitNotify(); });
+
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const t = document.querySelector(a.getAttribute('href'));
+      if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+
+<script src="/ursusarmament/access-check.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+const firebaseConfig = { apiKey: "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA", authDomain: "ursus-armament.firebaseapp.com", projectId: "ursus-armament", storageBucket: "ursus-armament.firebasestorage.app", messagingSenderId: "430731167862", appId: "1:430731167862:web:a5447de86db180edad3757" };
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+onAuthStateChanged(auth, (user) => {
+  const navAuth = document.getElementById("navAuth");
+  if (user) { navAuth.innerHTML = `<a href="/ursusarmament/settings/">${user.email.split("@")[0]}</a>`; }
+  else { navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`; }
+});
+</script>
+<script>
+function updateCartBadge() {
+  try {
+    const cart = JSON.parse(localStorage.getItem('ursus_cart')) || [];
+    const count = cart.reduce((sum, i) => sum + (i.quantity || 1), 0);
+    const badge = document.getElementById('cartCount');
+    if (!badge) return;
+    if (count > 0) { badge.textContent = count > 99 ? '99+' : count; badge.classList.add('visible'); }
+    else { badge.classList.remove('visible'); }
+  } catch {}
+}
+updateCartBadge();
+</script>
+</body>
+</html>
