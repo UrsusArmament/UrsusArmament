@@ -733,8 +733,8 @@ function renderSizes() {
       qtySpan.textContent = stockQty === 0 ? 'Out of Stock' : 'Cart limit reached';
     } else {
       btn.onclick = () => selectSize(size);
+      btn.classList.add('low');
       if (avail <= 3) {
-        btn.classList.add('low');
         qtySpan.textContent = `${avail} left`;
       } else {
         qtySpan.textContent = `${avail} available`;
