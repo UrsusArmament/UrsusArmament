@@ -675,6 +675,7 @@ function renderInventoryUI() {
   updateStockBadge();
 
   // Color chips — grey out those with zero stock across all sizes
+  document.querySelectorAll('.color-chip').forEach(c => c.classList.remove('unavailable'));
   COLORWAY_KEYS.forEach((key, i) => {
     const chip = document.getElementById(`chip-${i}`);
     if (!chip) return;
