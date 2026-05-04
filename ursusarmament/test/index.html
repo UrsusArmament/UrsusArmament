@@ -591,7 +591,7 @@ onAuthStateChanged(auth, user => {
 // inventory shape expected from Firestore:
 // /products/combat-tops  →  { available: true, colorways: { "multi-terrain": { S: 5, M: 0, L: 12, XL: 3 }, ... } }
 const SIZES = ['S', 'M', 'L', 'XL'];
-const COLORWAY_KEYS = ['multi-terrain', 'bdu', 'terrablend-arid', 'scaled-black'];
+const COLORWAY_KEYS = ['MULTI-TERRAIN', 'BDU', 'TERRABLEND-ARID', 'SCALED-BLACK'];
 
 let inventory       = null;   // raw Firestore data
 let selectedColorway = 0;     // chip index
