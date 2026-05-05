@@ -1357,7 +1357,7 @@ function renderGrid() {
     }
   }
 
-  setTimeout(applyAvailability, 50);
+  setTimeout(() => { if (window.applyAvailability) window.applyAvailability(); }, 200);
 }
 
 // ── RENDER SUBCATS ────────────────────────────────────────────────────────────
