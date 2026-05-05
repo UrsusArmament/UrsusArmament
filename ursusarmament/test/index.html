@@ -202,6 +202,14 @@
 .config-summary-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); min-width: 90px; }
 .config-summary-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
 .config-actions { display: flex; align-items: center; gap: 1rem; }
+
+.style-chip { flex-direction: row; align-items: center; gap: 0.85rem; padding: 0.6rem 1.2rem 0.6rem 0.6rem; }
+.style-chip-icon { width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.style-chip-info { display: flex; flex-direction: column; gap: 0.15rem; text-align: left; }
+.style-chip-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); }
+.style-chip.selected .style-chip-name { color: var(--accent); }
+.style-chip-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; color: var(--muted); }
+.style-chip:disabled { opacity: 0.25; cursor: not-allowed; }
 </style>
 </head>
 <body>
@@ -273,35 +281,63 @@
 
 <section class="variants-section" id="variants">
   <div class="section-tag">Choose Your Configuration</div>
-  <h2 class="section-title">SELECT VARIANT</h2>
+  <h2 class="section-title">SELECT STYLE</h2>
 
   <div class="configurator">
 
-    <!-- STEP 1: Mount Style -->
-    <div class="config-step" id="step-mount">
+    <!-- STYLE CHIPS -->
+    <div class="config-step active" id="step-style">
       <div class="config-step-header">
         <span class="config-step-num">01</span>
-        <span class="config-step-label">Mount Style</span>
+        <span class="config-step-label">Style — <span id="selectedStyleLabel" style="color:var(--text);">None Selected</span></span>
       </div>
-      <div class="config-options" id="options-mount"></div>
-    </div>
+      <div class="config-options" id="options-style">
 
-    <!-- STEP 2: Material -->
-    <div class="config-step locked" id="step-material">
-      <div class="config-step-header">
-        <span class="config-step-num">02</span>
-        <span class="config-step-label">Material</span>
-      </div>
-      <div class="config-options" id="options-material"></div>
-    </div>
+        <!-- DT Black -->
+        <button class="config-opt style-chip" id="style-dt-black" data-mount="dovetail" data-material="metal" data-color="black" onclick="selectStyle(this)">
+          <div class="style-chip-icon" style="background:var(--accent);">
+            <svg viewBox="0 0 36 36" width="36" height="36"><polygon points="18,28 4,8 32,8" fill="#0a0a08"/></svg>
+          </div>
+          <div class="style-chip-info">
+            <div class="style-chip-name">DT Black</div>
+            <div class="style-chip-sub" id="qty-dt-black">—</div>
+          </div>
+        </button>
 
-    <!-- STEP 3: Color -->
-    <div class="config-step locked" id="step-color">
-      <div class="config-step-header">
-        <span class="config-step-num">03</span>
-        <span class="config-step-label">Color</span>
+        <!-- DT Khaki -->
+        <button class="config-opt style-chip" id="style-dt-khaki" data-mount="dovetail" data-material="metal" data-color="khaki" onclick="selectStyle(this)">
+          <div class="style-chip-icon" style="background:#0a0a08; border:1px solid var(--border2);">
+            <svg viewBox="0 0 36 36" width="36" height="36"><polygon points="18,28 4,8 32,8" fill="#c4a46a"/></svg>
+          </div>
+          <div class="style-chip-info">
+            <div class="style-chip-name">DT Khaki</div>
+            <div class="style-chip-sub" id="qty-dt-khaki">—</div>
+          </div>
+        </button>
+
+        <!-- BN Black -->
+        <button class="config-opt style-chip" id="style-bn-black" data-mount="bayonet" data-material="metal" data-color="black" onclick="selectStyle(this)">
+          <div class="style-chip-icon" style="background:var(--accent);">
+            <svg viewBox="0 0 36 36" width="36" height="36"><rect x="14" y="6" width="8" height="24" fill="#0a0a08"/></svg>
+          </div>
+          <div class="style-chip-info">
+            <div class="style-chip-name">BN Black</div>
+            <div class="style-chip-sub" id="qty-bn-black">—</div>
+          </div>
+        </button>
+
+        <!-- BN Khaki -->
+        <button class="config-opt style-chip" id="style-bn-khaki" data-mount="bayonet" data-material="metal" data-color="khaki" onclick="selectStyle(this)">
+          <div class="style-chip-icon" style="background:#0a0a08; border:1px solid var(--border2);">
+            <svg viewBox="0 0 36 36" width="36" height="36"><rect x="14" y="6" width="8" height="24" fill="#c4a46a"/></svg>
+          </div>
+          <div class="style-chip-info">
+            <div class="style-chip-name">BN Khaki</div>
+            <div class="style-chip-sub" id="qty-bn-khaki">—</div>
+          </div>
+        </button>
+
       </div>
-      <div class="config-options" id="options-color"></div>
     </div>
 
     <!-- Summary + Add to Cart -->
@@ -309,7 +345,7 @@
       <div class="config-summary-inner">
         <div class="config-summary-details">
           <div class="config-summary-row">
-            <span class="config-summary-label">Configuration</span>
+            <span class="config-summary-label">Style</span>
             <span class="config-summary-value" id="summary-config">—</span>
           </div>
           <div class="config-summary-row">
@@ -474,7 +510,7 @@ window.swapImage = function(el) {
 <script type="module">
 import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, getDoc }   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey:            "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
@@ -496,170 +532,102 @@ onAuthStateChanged(auth, user => {
     : `<a href="/ursusarmament/login/">Login</a>`;
 });
 
-// ── STATE ──────────────────────────────────────────────────────────────────
-let mountData  = {};   // full Firestore mount object
-let selection  = { mount: null, material: null, color: null };
+let mountData  = {};
+let priceData  = {};
 let configQty  = 1;
+let activeStyle = null; // { mount, material, color, label, qtyElId }
 
-// ── LOAD FIRESTORE ─────────────────────────────────────────────────────────
+const STYLES = [
+  { id: 'dt-black', mount: 'dovetail', material: 'metal', color: 'black', label: 'DT Black',  image: '/ursusarmament/images/pvs14jarm.png' },
+  { id: 'dt-khaki', mount: 'dovetail', material: 'metal', color: 'khaki', label: 'DT Khaki',  image: '/ursusarmament/images/pvs14jarm.png' },
+  { id: 'bn-black', mount: 'bayonet',  material: 'metal', color: 'black', label: 'BN Black',  image: '/ursusarmament/images/pvs14jarm.png' },
+  { id: 'bn-khaki', mount: 'bayonet',  material: 'metal', color: 'khaki', label: 'BN Khaki',  image: '/ursusarmament/images/pvs14jarm.png' },
+];
+
+function getQty(mount, material, color) {
+  return mountData?.[mount]?.[material]?.[color] || 0;
+}
+
 async function loadData() {
   try {
     const snap = await getDoc(doc(db, "ursus-units", "PVS-14 Adapter"));
-    if (!snap.exists()) { showLoadError(); return; }
+    if (!snap.exists()) return;
     mountData = snap.data().mount || {};
-    window._priceData = snap.data().price || {};
-    buildStep('mount', Object.keys(mountData), getMountQty);
-    activateStep('mount');
+    priceData = snap.data().price || {};
+    renderChips();
   } catch(err) {
     console.error(err);
-    showLoadError();
   }
 }
 
-// total qty across all children of a mount key
-function getMountQty(mountKey) {
-  const materials = mountData[mountKey] || {};
-  let total = 0;
-  for (const mat of Object.values(materials))
-    for (const qty of Object.values(mat))
-      if (typeof qty === 'number') total += qty;
-  return total;
-}
-
-function getMaterialQty(mountKey, matKey) {
-  const colors = (mountData[mountKey] || {})[matKey] || {};
-  return Object.values(colors).reduce((s, q) => s + (typeof q === 'number' ? q : 0), 0);
-}
-
-function getColorQty(mountKey, matKey, colorKey) {
-  return ((mountData[mountKey] || {})[matKey] || {})[colorKey] || 0;
-}
-
-// ── BUILD OPTION BUTTONS ───────────────────────────────────────────────────
-function buildStep(stepKey, keys, qtyFn) {
-  const container = document.getElementById('options-' + stepKey);
-  container.innerHTML = '';
-  keys.forEach(key => {
-    const qty = qtyFn(key);
-    const btn = document.createElement('button');
-    btn.className   = 'config-opt';
-    btn.disabled    = qty === 0;
-    btn.dataset.val = key;
-    btn.innerHTML   = `${formatLabel(key)} <span class="opt-qty">${qty > 0 ? qty + ' avail' : 'unavailable'}</span>`;
-    btn.addEventListener('click', () => onSelect(stepKey, key));
-    container.appendChild(btn);
+function renderChips() {
+  STYLES.forEach(s => {
+    const qty   = getQty(s.mount, s.material, s.color);
+    const qtyEl = document.getElementById('qty-' + s.id);
+    const btn   = document.getElementById('style-' + s.id);
+    if (qtyEl) qtyEl.textContent = qty > 0 ? qty + ' available' : 'Unavailable';
+    if (btn)   btn.disabled = qty === 0;
   });
 }
 
-function formatLabel(key) {
-  return key.charAt(0).toUpperCase() + key.slice(1);
-}
+window.selectStyle = function(btn) {
+  const mount    = btn.dataset.mount;
+  const material = btn.dataset.material;
+  const color    = btn.dataset.color;
+  const style    = STYLES.find(s => s.mount === mount && s.material === material && s.color === color);
+  if (!style) return;
 
-// ── SELECTION LOGIC ────────────────────────────────────────────────────────
-function onSelect(stepKey, val) {
-  selection[stepKey] = val;
+  activeStyle = style;
+  configQty   = 1;
 
-  // mark selected
-  document.querySelectorAll(`#options-${stepKey} .config-opt`).forEach(b => {
-    b.classList.toggle('selected', b.dataset.val === val);
-  });
+  document.querySelectorAll('.style-chip').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
 
-  if (stepKey === 'mount') {
-    selection.material = null;
-    selection.color    = null;
-    lockStep('color');
-    hideSummary();
-    const materials = Object.keys(mountData[val] || {});
-    buildStep('material', materials, k => getMaterialQty(val, k));
-    activateStep('material');
-    doneStep('mount');
-  }
+  document.getElementById('selectedStyleLabel').textContent = style.label;
 
-  if (stepKey === 'material') {
-    selection.color = null;
-    hideSummary();
-    const colors = Object.keys((mountData[selection.mount] || {})[val] || {});
-    buildStep('color', colors, k => getColorQty(selection.mount, val, k));
-    activateStep('color');
-    doneStep('material');
-  }
+  // swap image
+  const mainImg = document.getElementById('main-image');
+  if (mainImg && style.image) mainImg.src = style.image;
 
-  if (stepKey === 'color') {
-    doneStep('color');
-    showSummary();
-  }
-}
+  updateSummary();
+};
 
-// ── STEP STATE ─────────────────────────────────────────────────────────────
-function activateStep(key) {
-  const el = document.getElementById('step-' + key);
-  el.classList.remove('locked', 'done');
-  el.classList.add('active');
-}
-function doneStep(key) {
-  const el = document.getElementById('step-' + key);
-  el.classList.remove('locked', 'active');
-  el.classList.add('done');
-}
-function lockStep(key) {
-  const el = document.getElementById('step-' + key);
-  el.classList.remove('active', 'done');
-  el.classList.add('locked');
-}
+function updateSummary() {
+  if (!activeStyle) return;
+  const qty   = getQty(activeStyle.mount, activeStyle.material, activeStyle.color);
+  const price = priceData[activeStyle.material];
 
-// ── SUMMARY ────────────────────────────────────────────────────────────────
-function showSummary() {
-  const { mount, material, color } = selection;
-  const qty = getColorQty(mount, material, color);
-  configQty = 1;
-  document.getElementById('config-qty-display').textContent = 1;
+  configQty = Math.min(configQty, qty);
   window._configMax = qty;
 
-  document.getElementById('summary-config').textContent =
-    `${formatLabel(mount)} / ${formatLabel(material)} / ${formatLabel(color)}`;
-  document.getElementById('summary-qty').textContent = qty + ' unit' + (qty === 1 ? '' : 's');
-  const price = window._priceData[material];
-  document.getElementById('summary-price').textContent = price ? '$' + Number(price).toLocaleString() + ' per unit' : '—';
-
-  document.getElementById('btn-add-config').disabled = qty === 0;
+  document.getElementById('config-qty-display').textContent = configQty;
+  document.getElementById('summary-config').textContent     = activeStyle.label;
+  document.getElementById('summary-qty').textContent        = qty + ' unit' + (qty === 1 ? '' : 's');
+  document.getElementById('summary-price').textContent      = price ? '$' + Number(price).toLocaleString() + ' per unit' : '—';
+  document.getElementById('btn-add-config').disabled        = qty === 0;
   document.getElementById('config-summary').classList.add('ready');
 }
 
-function hideSummary() {
-  document.getElementById('config-summary').classList.remove('ready');
-  document.getElementById('summary-config').textContent = '—';
-  document.getElementById('summary-price').textContent = '—';
-  document.getElementById('summary-qty').textContent = '—';
-  document.getElementById('config-qty-display').textContent = '1';
-}
-
-// ── QTY ────────────────────────────────────────────────────────────────────
 window.changeConfigQty = function(delta) {
   const max = window._configMax || 1;
   configQty = Math.max(1, Math.min(max, configQty + delta));
   document.getElementById('config-qty-display').textContent = configQty;
 };
 
-// ── ADD TO CART ────────────────────────────────────────────────────────────
 window.addConfigToCart = function() {
-  const { mount, material, color } = selection;
-  const qty = getColorQty(mount, material, color);
+  if (!activeStyle) return;
+  const qty = getQty(activeStyle.mount, activeStyle.material, activeStyle.color);
   if (qty === 0) return;
   const btn = document.getElementById('btn-add-config');
+  const price = priceData[activeStyle.material] || 0;
   window.addToCart({
-    id:       `PVS-14-Adapter-${mount}-${material}-${color}`,
-    product:  `PVS-14 Adapter — ${formatLabel(mount)} / ${formatLabel(material)} / ${formatLabel(color)}`,
-    price:    String(window._priceData[selection.material] || 0),
+    id:       `PVS-14-Adapter-${activeStyle.mount}-${activeStyle.material}-${activeStyle.color}`,
+    product:  `PVS-14 Adapter — ${activeStyle.label}`,
+    price:    String(price),
     quantity: configQty,
     maxQty:   qty,
   }, btn);
 };
-
-function showLoadError() {
-  ['step-mount','step-material','step-color'].forEach(id => {
-    document.getElementById(id).innerHTML += '<p style="color:var(--muted);font-size:0.85rem;">Unable to load availability.</p>';
-  });
-}
 
 loadData();
 </script>
