@@ -1083,20 +1083,6 @@ const PRODUCTS = [
     displayCat: 'NVG Adapter',
   },
   {
-    id: 'mum14-bridge',
-    name: 'MUM-14/28 Bridges',
-    cat: 'nvg',
-    subcats: ['adapters'],
-    flagship: false,
-    url: '/ursusarmament/products/MUM14-Bridge',
-    image: '/ursusarmament/images/mum14BTC.png',
-    bgLabel: 'MUM14',
-    desc: 'Dovetail interface MUM-14/28 bridge designed for helmet-mounted binocular night vision configurations compatible with standard Rhino mount systems.',
-    status: 'unavailable',
-    statusId: 'mum14-bridge-status',
-    displayCat: 'NVG Adapter',
-  },
-  {
     id: 'pvs14-adapter',
     name: 'PVS-14 Adapters',
     cat: 'nvg',
@@ -1108,6 +1094,20 @@ const PRODUCTS = [
     desc: 'Drop-in PVS-14 interface adapter. Fits all standard AN/PVS-14 compatible mounts.',
     status: 'checking',
     statusId: 'pvs14-status',
+    displayCat: 'NVG Adapter',
+  },
+  {
+    id: 'mum14-bridge',
+    name: 'MUM-14/28 Bridges',
+    cat: 'nvg',
+    subcats: ['adapters'],
+    flagship: false,
+    url: '/ursusarmament/products/MUM14-Bridge',
+    image: '/ursusarmament/images/mum14BTC.png',
+    bgLabel: 'MUM14',
+    desc: 'Dovetail interface MUM-14/28 bridge designed for helmet-mounted binocular night vision configurations compatible with standard Rhino mount systems.',
+    status: 'unavailable',
+    statusId: 'mum14-bridge-status',
     displayCat: 'NVG Adapter',
   },
   {
@@ -1357,7 +1357,7 @@ function renderGrid() {
     }
   }
 
-  setTimeout(applyAvailability, 50);
+  setTimeout(() => { if (window.applyAvailability) window.applyAvailability(); }, 200);
 }
 
 // ── RENDER SUBCATS ────────────────────────────────────────────────────────────
@@ -1476,14 +1476,13 @@ async function fetchAvailability() {
     ursixAccessDenied = true;
   }
 
-  const [dyBlackSnap, dySandSnap, bayonetSnap, bridgeBlackSnap, bridgeSandSnap, pvsDySnap, pvsBnSnap, rhinoDyBlackSnap, rhinoDySandSnap, rhinoBnBlackSnap, rhinoBnSandSnap, combatTopsSnap] = await Promise.all([
+  const [dyBlackSnap, dySandSnap, bayonetSnap, bridgeBlackSnap, bridgeSandSnap, pvs14Snap, rhinoDyBlackSnap, rhinoDySandSnap, rhinoBnBlackSnap, rhinoBnSandSnap, combatTopsSnap] = await Promise.all([
     getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Adapter_Black")),
     getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Adapter_Sand")),
     getDoc(doc(db, "ursus-units", "MUM-14_Bayonet_Adapter")),
     getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Black")),
     getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Sand")),
-    getDoc(doc(db, "ursus-units", "PVS-14_Dovetail_Adapter_Black")),
-    getDoc(doc(db, "ursus-units", "PVS-14_Bayonet_Adapter_Black")),
+    getDoc(doc(db, "ursus-units", "PVS-14 Adapter")),
     getDoc(doc(db, "ursus-units", "rhino_mount_dovetail_black")),
     getDoc(doc(db, "ursus-units", "rhino_mount_dovetail_sand")),
     getDoc(doc(db, "ursus-units", "rhino_mount_bayonet_black")),
@@ -1491,8 +1490,6 @@ async function fetchAvailability() {
     getDoc(doc(db, "ursus-units", "combat-tops")),
   ]);
 
-  const pvsDyQty        = pvsDySnap.exists()        ? (pvsDySnap.data()?.['quantity-available']        || 0) : 0;
-  const pvsBnQty        = pvsBnSnap.exists()         ? (pvsBnSnap.data()?.['quantity-available']        || 0) : 0;
   const dyBlackQty      = dyBlackSnap.exists()       ? (dyBlackSnap.data()?.['quantity-available']      || 0) : 0;
   const dySandQty       = dySandSnap.exists()        ? (dySandSnap.data()?.['quantity-available']       || 0) : 0;
   const bayonetQty      = bayonetSnap.exists()       ? (bayonetSnap.data()?.['quantity-available']      || 0) : 0;
@@ -1503,7 +1500,21 @@ async function fetchAvailability() {
   const rhinoBnBlackQty = rhinoBnBlackSnap.exists()  ? (rhinoBnBlackSnap.data()?.['quantity-available'] || 0) : 0;
   const rhinoBnSandQty  = rhinoBnSandSnap.exists()   ? (rhinoBnSandSnap.data()?.['quantity-available']  || 0) : 0;
 
-  // ── Combat Tops: count how many colorway styles have any size qty > 0 ──
+  let pvs14DtAvail = false;
+  let pvs14BnAvail = false;
+  if (pvs14Snap.exists()) {
+    const mount    = pvs14Snap.data()?.mount || {};
+    const dovetail = mount.dovetail || {};
+    const bayonet  = mount.bayonet  || {};
+    pvs14DtAvail = Object.values(dovetail).some(mat =>
+      typeof mat === 'object' && Object.values(mat).some(qty => typeof qty === 'number' && qty > 0)
+    );
+    pvs14BnAvail = Object.values(bayonet).some(mat =>
+      typeof mat === 'object' && Object.values(mat).some(qty => typeof qty === 'number' && qty > 0)
+    );
+  } 
+ 
+ // ── Combat Tops: count how many colorway styles have any size qty > 0 ──
   let combatTopStylesAvailable = 0;
   if (combatTopsSnap.exists()) {
     const qtArray = combatTopsSnap.data()?.['quantity-available'];
@@ -1524,9 +1535,10 @@ async function fetchAvailability() {
     dovetailAvail: (dyBlackQty + dySandQty) > 0,
     bayonetAvail:  bayonetQty > 0,
     bridgeAvail:   (bridgeBlackQty + bridgeSandQty) > 0,
-    pvs14Avail:    (pvsDyQty + pvsBnQty) > 0,
     rhinoAvail:    (rhinoDyBlackQty + rhinoDySandQty + rhinoBnBlackQty + rhinoBnSandQty) > 0,
     combatTopStylesAvailable,
+    pvs14DtAvail,
+    pvs14BnAvail,
   };
 
   return availabilityCache;
@@ -1587,13 +1599,21 @@ async function applyAvailability() {
 
     const pvs14El = document.getElementById("pvs14-status");
     if (pvs14El) {
-      if (data.pvs14Avail) {
-        pvs14El.textContent = "Available";
-        pvs14El.classList.add("available");
-      } else {
-        pvs14El.textContent = "Currently Unavailable";
-        pvs14El.classList.remove("available");
-      }
+      const dtText = data.pvs14DtAvail ? "DT Style Available" : "DT Style Unavailable";
+      const bnText = data.pvs14BnAvail ? "BN Style Available" : "BN Style Unavailable";
+      pvs14El.style.flexDirection = 'column';
+      pvs14El.style.alignItems = 'flex-start';
+      pvs14El.classList.add('no-dot');
+      pvs14El.innerHTML = `
+        <span style="display:flex;align-items:center;gap:0.4rem;color:${data.pvs14DtAvail ? '#2a9c5c' : 'var(--muted)'};">
+          <span style="width:5px;height:5px;border-radius:50%;background:${data.pvs14DtAvail ? '#2a9c5c' : 'var(--muted)'};flex-shrink:0;display:inline-block;"></span>
+          ${dtText}
+        </span>
+        <span style="display:flex;align-items:center;gap:0.4rem;margin-top:0.2rem;color:${data.pvs14BnAvail ? '#2a9c5c' : 'var(--muted)'};">
+          <span style="width:5px;height:5px;border-radius:50%;background:${data.pvs14BnAvail ? '#2a9c5c' : 'var(--muted)'};flex-shrink:0;display:inline-block;"></span>
+          ${bnText}
+        </span>
+      `;
     }
 
     const rhinoEl = document.getElementById("rhino-status");
