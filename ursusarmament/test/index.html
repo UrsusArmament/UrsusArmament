@@ -506,6 +506,7 @@ async function loadData() {
     const snap = await getDoc(doc(db, "ursus-units", "PVS-14 Adapter"));
     if (!snap.exists()) { showLoadError(); return; }
     mountData = snap.data().mount || {};
+    window._priceData = snap.data().price || {};
     buildStep('mount', Object.keys(mountData), getMountQty);
     activateStep('mount');
   } catch(err) {
@@ -616,7 +617,9 @@ function showSummary() {
   document.getElementById('summary-config').textContent =
     `${formatLabel(mount)} / ${formatLabel(material)} / ${formatLabel(color)}`;
   document.getElementById('summary-qty').textContent = qty + ' unit' + (qty === 1 ? '' : 's');
-  document.getElementById('summary-price').textContent = '—'; // set price here if stored in Firestore
+  const priceMap = snap_data_price; // placeholder — see below
+  const price = mountData_price?.[material] || null;
+  document.getElementById('summary-price').textContent = price ? '$' + Number(price).toLocaleString() : '—';
 
   const btn = document.getElementById('btn-add-config');
   btn.disabled = qty === 0;
