@@ -210,6 +210,15 @@
 .style-chip.selected .style-chip-name { color: var(--accent); }
 .style-chip-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; color: var(--muted); }
 .style-chip:disabled { opacity: 0.25; cursor: not-allowed; }
+.selector-block { margin-bottom: 1.75rem; }
+.selector-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.65rem; display: flex; align-items: center; justify-content: space-between; }
+.selector-label-selected { color: var(--text); font-weight: 600; }
+.style-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.style-chip-btn { width: 52px; height: 52px; border: 2px solid var(--border2); cursor: pointer; opacity: 0.75; position: relative; transition: opacity 0.2s, border-color 0.2s, transform 0.15s; overflow: hidden; background: none; padding: 0; }
+.style-chip-btn:hover { opacity: 1; border-color: rgba(200,146,42,0.6); transform: translateY(-2px); }
+.style-chip-btn.active { opacity: 1; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.style-chip-btn::after { content: attr(data-label); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--surface2); color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; padding: 0.25rem 0.5rem; border: 1px solid var(--border2); pointer-events: none; opacity: 0; transition: opacity 0.18s; z-index: 10; }
+.style-chip-btn:hover::after { opacity: 1; }
 </style>
 </head>
 <body>
@@ -276,6 +285,47 @@
       <div class="trust-item"><span class="trust-label">Compatibility</span><span class="trust-value">J-Arm / Rhino</span></div>
       <div class="trust-item"><span class="trust-label">Material</span><span class="trust-value">Aircraft Aluminum</span></div>
     </div>
+    <div class="selector-block" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+  <span class="selector-label">
+    Style
+    <span class="selector-label-selected" id="selectedStyleLabel"></span>
+  </span>
+  <div class="style-chips">
+
+    <!-- DT Black -->
+    <button class="style-chip-btn active" id="style-chip-0" data-label="DT Black" onclick="selectPVSStyle(0)">
+      <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+        <rect width="52" height="52" fill="#c8922a"/>
+        <polygon points="26,38 10,14 42,14" fill="#0a0a08"/>
+      </svg>
+    </button>
+
+    <!-- DT Khaki -->
+    <button class="style-chip-btn" id="style-chip-1" data-label="DT Khaki" onclick="selectPVSStyle(1)">
+      <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+        <rect width="52" height="52" fill="#0a0a08"/>
+        <polygon points="26,38 10,14 42,14" fill="#c4a46a"/>
+      </svg>
+    </button>
+
+    <!-- BN Black -->
+    <button class="style-chip-btn" id="style-chip-2" data-label="BN Black" onclick="selectPVSStyle(2)">
+      <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+        <rect width="52" height="52" fill="#c8922a"/>
+        <rect x="20" y="8" width="12" height="36" fill="#0a0a08"/>
+      </svg>
+    </button>
+
+    <!-- BN Khaki -->
+    <button class="style-chip-btn" id="style-chip-3" data-label="BN Khaki" onclick="selectPVSStyle(3)">
+      <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+        <rect width="52" height="52" fill="#0a0a08"/>
+        <rect x="20" y="8" width="12" height="36" fill="#c4a46a"/>
+      </svg>
+    </button>
+
+  </div>
+</div>
   </div>
 </section>
 
@@ -503,6 +553,26 @@ window.swapImage = function(el) {
   el.classList.add('active');
   document.getElementById('main-image').src = el.getAttribute('data-src');
 };
+const PVS_IMAGES = [
+  '/ursusarmament/images/pvs14jarm.png',
+  '/ursusarmament/images/pvs14jarm.png',
+  '/ursusarmament/images/pvs14jarm.png',
+  '/ursusarmament/images/pvs14jarm.png',
+];
+const PVS_LABELS = ['DT Black', 'DT Khaki', 'BN Black', 'BN Khaki'];
+
+window.selectPVSStyle = function(index) {
+  document.querySelectorAll('.style-chip-btn').forEach((c, i) => {
+    c.classList.toggle('active', i === index);
+  });
+  document.getElementById('selectedStyleLabel').textContent = PVS_LABELS[index];
+  document.getElementById('main-image').src = PVS_IMAGES[index];
+};
+
+// set default label
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('selectedStyleLabel').textContent = PVS_LABELS[0];
+});
 </script>
 
 <script src="/ursusarmament/access-check.js"></script>
