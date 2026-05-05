@@ -619,7 +619,7 @@ function showSummary() {
     `${formatLabel(mount)} / ${formatLabel(material)} / ${formatLabel(color)}`;
   document.getElementById('summary-qty').textContent = qty + ' unit' + (qty === 1 ? '' : 's');
   const price = window._priceData[material];
-  document.getElementById('summary-price').textContent = price ? '$' + Number(price).toLocaleString() : '—';
+  document.getElementById('summary-price').textContent = price ? '$' + Number(price).toLocaleString() + ' per unit' : '—';
 
   document.getElementById('btn-add-config').disabled = qty === 0;
   document.getElementById('config-summary').classList.add('ready');
