@@ -617,8 +617,7 @@ function showSummary() {
   document.getElementById('summary-config').textContent =
     `${formatLabel(mount)} / ${formatLabel(material)} / ${formatLabel(color)}`;
   document.getElementById('summary-qty').textContent = qty + ' unit' + (qty === 1 ? '' : 's');
-  const priceMap = snap_data_price; // placeholder — see below
-  const price = mountData_price?.[material] || null;
+  const price = window._priceData[material];
   document.getElementById('summary-price').textContent = price ? '$' + Number(price).toLocaleString() : '—';
 
   const btn = document.getElementById('btn-add-config');
@@ -647,7 +646,7 @@ window.addConfigToCart = function() {
   window.addToCart({
     id:       `PVS-14-Adapter-${mount}-${material}-${color}`,
     product:  `PVS-14 Adapter — ${formatLabel(mount)} / ${formatLabel(material)} / ${formatLabel(color)}`,
-    price:    '0',
+    price:    String(window._priceData[selection.material] || 0),
     quantity: configQty,
     maxQty:   qty,
   }, btn);
