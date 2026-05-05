@@ -1599,13 +1599,21 @@ async function applyAvailability() {
 
     const pvs14El = document.getElementById("pvs14-status");
     if (pvs14El) {
-      if (data.pvs14Avail) {
-        pvs14El.textContent = "Available";
-        pvs14El.classList.add("available");
-      } else {
-        pvs14El.textContent = "Currently Unavailable";
-        pvs14El.classList.remove("available");
-      }
+      const dtText = data.pvs14DtAvail ? "DT Style Available" : "DT Style Unavailable";
+      const bnText = data.pvs14BnAvail ? "BN Style Available" : "BN Style Unavailable";
+      pvs14El.style.flexDirection = 'column';
+      pvs14El.style.alignItems = 'flex-start';
+      pvs14El.classList.add('no-dot');
+      pvs14El.innerHTML = `
+        <span style="display:flex;align-items:center;gap:0.4rem;color:${data.pvs14DtAvail ? '#2a9c5c' : 'var(--muted)'};">
+          <span style="width:5px;height:5px;border-radius:50%;background:${data.pvs14DtAvail ? '#2a9c5c' : 'var(--muted)'};flex-shrink:0;display:inline-block;"></span>
+          ${dtText}
+        </span>
+        <span style="display:flex;align-items:center;gap:0.4rem;margin-top:0.2rem;color:${data.pvs14BnAvail ? '#2a9c5c' : 'var(--muted)'};">
+          <span style="width:5px;height:5px;border-radius:50%;background:${data.pvs14BnAvail ? '#2a9c5c' : 'var(--muted)'};flex-shrink:0;display:inline-block;"></span>
+          ${bnText}
+        </span>
+      `;
     }
 
     const rhinoEl = document.getElementById("rhino-status");
