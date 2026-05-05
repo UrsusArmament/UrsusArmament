@@ -204,7 +204,7 @@
 .config-actions { display: flex; align-items: center; gap: 1rem; }
 
 .style-chip { flex-direction: row; align-items: center; gap: 0.85rem; padding: 0.6rem 1.2rem 0.6rem 0.6rem; }
-.style-chip-icon { width: 52px; height: 52px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.style-chip-icon { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .style-chip-info { display: flex; flex-direction: column; gap: 0.15rem; text-align: left; }
 .style-chip-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); }
 .style-chip.selected .style-chip-name { color: var(--accent); }
@@ -214,7 +214,7 @@
 .selector-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.65rem; display: flex; align-items: center; justify-content: space-between; }
 .selector-label-selected { color: var(--text); font-weight: 600; }
 .style-chips { display: flex; gap: 8px; flex-wrap: wrap; }
-.style-chip-btn { width: 52px; height: 52px; border: 2px solid var(--border2); cursor: pointer; opacity: 0.75; position: relative; transition: opacity 0.2s, border-color 0.2s, transform 0.15s; overflow: hidden; background: none; padding: 0; }
+.style-chip-btn { width: 36px; height: 36px; border: 2px solid var(--border2); cursor: pointer; opacity: 0.75; position: relative; transition: opacity 0.2s, border-color 0.2s, transform 0.15s; overflow: hidden; background: none; padding: 0; }
 .style-chip-btn:hover { opacity: 1; border-color: rgba(200,146,42,0.6); transform: translateY(-2px); }
 .style-chip-btn.active { opacity: 1; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
 .style-chip-btn::after { content: attr(data-label); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--surface2); color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; padding: 0.25rem 0.5rem; border: 1px solid var(--border2); pointer-events: none; opacity: 0; transition: opacity 0.18s; z-index: 10; }
@@ -277,14 +277,6 @@
     <h1 class="product-name">PVS-14<br>ADAPTER</h1>
     <div class="product-subtitle">Mil-Spec PVS-14 Mount Interface</div>
     <p class="product-desc">Mil-spec PVS-14 helmet mount adapter engineered for seamless compatibility with standard J-arm and rhino mount systems. Available in Dovetail and Bayonet interface configurations. Machined from aircraft-grade aluminum with a durable matte black anodized finish.</p>
-    <div style="display:flex; gap: 1rem; flex-wrap: wrap;">
-      <a href="#variants" class="btn-primary">Select Mount Type</a>
-      <a href="#specs" class="btn-ghost">Specifications</a>
-    </div>
-    <div class="product-trust">
-      <div class="trust-item"><span class="trust-label">Compatibility</span><span class="trust-value">J-Arm / Rhino</span></div>
-      <div class="trust-item"><span class="trust-label">Material</span><span class="trust-value">Aircraft Aluminum</span></div>
-    </div>
     <div class="selector-block" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
   <span class="selector-label">
     Style
@@ -326,6 +318,14 @@
 
   </div>
 </div>
+    <div style="display:flex; gap: 1rem; flex-wrap: wrap;">
+      <a href="#variants" class="btn-primary">Select Mount Type</a>
+      <a href="#specs" class="btn-ghost">Specifications</a>
+    </div>
+    <div class="product-trust">
+      <div class="trust-item"><span class="trust-label">Compatibility</span><span class="trust-value">J-Arm / Rhino</span></div>
+      <div class="trust-item"><span class="trust-label">Material</span><span class="trust-value">Aircraft Aluminum</span></div>
+    </div>
   </div>
 </section>
 
