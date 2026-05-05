@@ -194,7 +194,8 @@
 .config-opt .opt-qty { font-size: 0.65rem; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; }
 .config-opt.selected .opt-qty { color: var(--accent); opacity: 0.7; }
 
-.config-summary { background: var(--surface); border-top: 1px solid var(--border); }
+.config-summary { background: var(--surface); border-top: 1px solid var(--border); opacity: 0.4; pointer-events: none; transition: opacity 0.3s; }
+.config-summary.ready { opacity: 1; pointer-events: all; }
 .config-summary-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 2rem 2.5rem; flex-wrap: wrap; }
 .config-summary-details { display: flex; flex-direction: column; gap: 0.5rem; }
 .config-summary-row { display: flex; gap: 1.5rem; align-items: baseline; }
@@ -304,7 +305,7 @@
     </div>
 
     <!-- Summary + Add to Cart -->
-    <div class="config-summary" id="config-summary" style="display:none;">
+    <div class="config-summary" id="config-summary">
       <div class="config-summary-inner">
         <div class="config-summary-details">
           <div class="config-summary-row">
@@ -620,14 +621,16 @@ function showSummary() {
   const price = window._priceData[material];
   document.getElementById('summary-price').textContent = price ? '$' + Number(price).toLocaleString() : '—';
 
-  const btn = document.getElementById('btn-add-config');
-  btn.disabled = qty === 0;
-
-  document.getElementById('config-summary').style.display = 'block';
+  document.getElementById('btn-add-config').disabled = qty === 0;
+  document.getElementById('config-summary').classList.add('ready');
 }
 
 function hideSummary() {
-  document.getElementById('config-summary').style.display = 'none';
+  document.getElementById('config-summary').classList.remove('ready');
+  document.getElementById('summary-config').textContent = '—';
+  document.getElementById('summary-price').textContent = '—';
+  document.getElementById('summary-qty').textContent = '—';
+  document.getElementById('config-qty-display').textContent = '1';
 }
 
 // ── QTY ────────────────────────────────────────────────────────────────────
