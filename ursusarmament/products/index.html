@@ -1574,8 +1574,8 @@ async function applyAvailability() {
 
     const mum14El = document.getElementById("mum14-status");
     if (mum14El) {
-      const dyText = data.dovetailAvail ? "DT Style Available" : "DT Style Unavailable";
-      const bnText = data.bayonetAvail  ? "BN Style Available" : "BN Style Unavailable";
+      const dyText = data.mum14DtAvail ? "DT Style Available" : "DT Style Unavailable";
+      const bnText = data.mum14BnAvail ? "BN Style Available" : "BN Style Unavailable";
       mum14El.style.flexDirection = 'column';
       mum14El.style.alignItems = 'flex-start';
       mum14El.innerHTML = `
