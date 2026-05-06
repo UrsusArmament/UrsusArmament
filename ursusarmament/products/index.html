@@ -1477,9 +1477,7 @@ async function fetchAvailability() {
   }
 
   const [dyBlackSnap, dySandSnap, bayonetSnap, bridgeBlackSnap, bridgeSandSnap, pvs14Snap, rhinoDyBlackSnap, rhinoDySandSnap, rhinoBnBlackSnap, rhinoBnSandSnap, combatTopsSnap] = await Promise.all([
-    getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Adapter_Black")),
-    getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Adapter_Sand")),
-    getDoc(doc(db, "ursus-units", "MUM-14_Bayonet_Adapter")),
+    getDoc(doc(db, "ursus-units", "MUM-14 Adapter")),
     getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Black")),
     getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Sand")),
     getDoc(doc(db, "ursus-units", "PVS-14 Adapter")),
