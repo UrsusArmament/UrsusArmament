@@ -542,7 +542,15 @@ window.selectPVSStyle = function(index) {
   });
   document.getElementById('selectedStyleLabel').textContent = PVS_LABELS[index];
   document.getElementById('main-image').src = PVS_IMAGES[index];
+  document.querySelectorAll('.thumb').forEach((t, i) => {
+    t.classList.toggle('active', i === index);
+  });
 };
+
+// load default on page open
+document.addEventListener('DOMContentLoaded', () => {
+  selectPVSStyle(0);
+});
 
 // set default label
 document.addEventListener('DOMContentLoaded', () => {
