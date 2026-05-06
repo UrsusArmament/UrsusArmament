@@ -718,7 +718,13 @@ window.selectMUMStyle = function(index) {
 
 window.swapImage = function(el) {
   const index = Array.from(document.querySelectorAll('.thumb')).indexOf(el);
-  selectMUMStyle(index);
+  if (index <= 1) {
+    selectMUMStyle(index);
+  } else {
+    document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('main-image').src = el.getAttribute('data-src');
+  }
 };
 
 document.addEventListener('DOMContentLoaded', () => {
