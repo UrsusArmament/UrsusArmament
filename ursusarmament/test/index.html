@@ -524,9 +524,8 @@ window.changeQty = function(variant, delta) {
 };
 
 window.swapImage = function(el) {
-  document.querySelectorAll('.thumb').forEach(t => { t.classList.remove('active'); });
-  el.classList.add('active');
-  document.getElementById('main-image').src = el.getAttribute('data-src');
+  const index = Array.from(document.querySelectorAll('.thumb')).indexOf(el);
+  selectPVSStyle(index);
 };
 const PVS_IMAGES = [
   '/ursusarmament/images/pvs14jarm.png',      // DT Black
@@ -726,7 +725,8 @@ window.addConfigToCart = function() {
   const btn = document.getElementById('btn-add-config');
   window.addToCart({
     id:       `PVS-14-Adapter-${mount}-${material}-${color}`,
-    product:  `PVS-14 Adapter — ${formatLabel(mount)} / ${formatLabel(material)} / ${formatLabel(color)}`,
+    product:  'PVS-14 Adapter',
+    tier:     `${formatLabel(mount)} / ${formatLabel(material)} / ${formatLabel(color)}`,
     price:    String(window._priceData[material] || 0),
     quantity: configQty,
     maxQty:   qty,
