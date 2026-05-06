@@ -1579,15 +1579,15 @@ async function applyAvailability() {
       mum14El.style.flexDirection = 'column';
       mum14El.style.alignItems = 'flex-start';
       mum14El.innerHTML = `
-        <span style="display:flex;align-items:center;gap:0.4rem;color:${data.dovetailAvail ? '#2a9c5c' : 'var(--muted)'};">
-          <span style="width:5px;height:5px;border-radius:50%;background:${data.dovetailAvail ? '#2a9c5c' : 'var(--muted)'};flex-shrink:0;display:inline-block;"></span>
-          ${dyText}
-        </span>
-        <span style="display:flex;align-items:center;gap:0.4rem;margin-top:0.2rem;color:${data.bayonetAvail ? '#2a9c5c' : 'var(--muted)'};">
-          <span style="width:5px;height:5px;border-radius:50%;background:${data.bayonetAvail ? '#2a9c5c' : 'var(--muted)'};flex-shrink:0;display:inline-block;"></span>
-          ${bnText}
-        </span>
-      `;
+  <span style="display:flex;align-items:center;gap:0.4rem;color:${data.mum14DtAvail ? '#2a9c5c' : 'var(--muted)'};">
+    <span style="width:5px;height:5px;border-radius:50%;background:${data.mum14DtAvail ? '#2a9c5c' : 'var(--muted)'};flex-shrink:0;display:inline-block;"></span>
+    ${dyText}
+  </span>
+  <span style="display:flex;align-items:center;gap:0.4rem;margin-top:0.2rem;color:${data.mum14BnAvail ? '#2a9c5c' : 'var(--muted)'};">
+    <span style="width:5px;height:5px;border-radius:50%;background:${data.mum14BnAvail ? '#2a9c5c' : 'var(--muted)'};flex-shrink:0;display:inline-block;"></span>
+    ${bnText}
+  </span>
+`;
     }
 
     const bridgeEl = document.getElementById("mum14-bridge-status");
