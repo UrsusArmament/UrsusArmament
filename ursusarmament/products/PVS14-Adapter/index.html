@@ -164,6 +164,61 @@
     .breadcrumb, .variants-section, .specs-section, .features-section { padding-left: 1.5rem; padding-right: 1.5rem; }
     .nav-top, .nav-ribbon { padding-left: 1.5rem; padding-right: 1.5rem; }
   }
+  .configurator { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+
+.config-step { background: var(--dark); padding: 2rem 2.5rem; transition: background 0.2s; }
+.config-step.locked { opacity: 0.4; pointer-events: none; }
+.config-step.active { background: var(--surface); opacity: 1; pointer-events: all; }
+.config-step.done { background: var(--dark); opacity: 1; pointer-events: all; }
+
+.config-step-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+.config-step-num { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: rgba(200,146,42,0.25); line-height: 1; }
+.config-step.active .config-step-num, .config-step.done .config-step-num { color: var(--accent); }
+.config-step-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
+.config-step.active .config-step-label, .config-step.done .config-step-label { color: var(--text); }
+
+.config-options { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+.config-opt {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.82rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 0.75rem 1.5rem;
+  background: var(--surface2); border: 1px solid var(--border2);
+  color: var(--text); cursor: pointer;
+  transition: border-color 0.2s, background 0.2s, color 0.2s;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.config-opt:hover:not(:disabled) { border-color: var(--accent); background: rgba(200,146,42,0.06); }
+.config-opt.selected { border-color: var(--accent); background: rgba(200,146,42,0.12); color: var(--accent); }
+.config-opt:disabled { opacity: 0.25; cursor: not-allowed; }
+.config-opt .opt-qty { font-size: 0.65rem; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; }
+.config-opt.selected .opt-qty { color: var(--accent); opacity: 0.7; }
+
+.config-summary { background: var(--surface); border-top: 1px solid var(--border); opacity: 0.4; pointer-events: none; transition: opacity 0.3s; }
+.config-summary.ready { opacity: 1; pointer-events: all; }
+.config-summary-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 2rem 2.5rem; flex-wrap: wrap; }
+.config-summary-details { display: flex; flex-direction: column; gap: 0.5rem; }
+.config-summary-row { display: flex; gap: 1.5rem; align-items: baseline; }
+.config-summary-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); min-width: 90px; }
+.config-summary-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
+.config-actions { display: flex; align-items: center; gap: 1rem; }
+
+.style-chip { flex-direction: row; align-items: center; gap: 0.85rem; padding: 0.6rem 1.2rem 0.6rem 0.6rem; }
+.style-chip-icon { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.style-chip-info { display: flex; flex-direction: column; gap: 0.15rem; text-align: left; }
+.style-chip-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); }
+.style-chip.selected .style-chip-name { color: var(--accent); }
+.style-chip-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 600; letter-spacing: 0.1em; color: var(--muted); }
+.style-chip:disabled { opacity: 0.25; cursor: not-allowed; }
+.selector-block { margin-bottom: 1.75rem; }
+.selector-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.65rem; display: flex; align-items: center; justify-content: space-between; }
+.selector-label-selected { color: var(--text); font-weight: 600; }
+.style-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.style-chip-btn { width: 36px; height: 36px; border: 2px solid var(--border2); cursor: pointer; opacity: 0.75; position: relative; transition: opacity 0.2s, border-color 0.2s, transform 0.15s; overflow: hidden; background: none; padding: 0; }
+.style-chip-btn:hover { opacity: 1; border-color: rgba(200,146,42,0.6); transform: translateY(-2px); }
+.style-chip-btn.active { opacity: 1; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.style-chip-btn::after { content: attr(data-label); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--surface2); color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; padding: 0.25rem 0.5rem; border: 1px solid var(--border2); pointer-events: none; opacity: 0; transition: opacity 0.18s; z-index: 10; }
+.style-chip-btn:hover::after { opacity: 1; }
 </style>
 </head>
 <body>
@@ -195,7 +250,7 @@
   <a href="/ursusarmament">Home</a><span>›</span>
   <a href="/ursusarmament/products">Products</a><span>›</span>
   <a href="/ursusarmament/products">NVG</a><span>›</span>
-  <span>PVS-14 Adapter</span>
+  <span>PVS-14 Adapters</span>
 </div>
 
 <section class="product-hero">
@@ -208,11 +263,14 @@
       <div class="thumb active" onclick="swapImage(this)" data-src="/ursusarmament/images/pvs14jarm.png">
         <img src="/ursusarmament/images/pvs14jarm.png" alt="PVS-14 Adapter">
       </div>
-      <div class="thumb" onclick="swapImage(this)" data-src="/ursusarmament/images/xxx.png">
-        <img src="/ursusarmament/images/xxx.png" alt="PVS-14 Adapter angle 2">
+      <div class="thumb" onclick="swapImage(this)" data-src="/ursusarmament/images/pvs14jarmdttan.png">
+        <img src="/ursusarmament/images/pvs14jarmdttan.png" alt="PVS-14 Adapter angle 2">
       </div>
-      <div class="thumb" onclick="swapImage(this)" data-src="/ursusarmament/images/xxx.png">
-        <img src="/ursusarmament/images/xxx.png" alt="PVS-14 Adapter angle 3">
+      <div class="thumb" onclick="swapImage(this)" data-src="/ursusarmament/images/pvs14jarmbn.png">
+        <img src="/ursusarmament/images/pvs14jarmbn.png" alt="PVS-14 Adapter angle 3">
+      </div>
+      <div class="thumb" onclick="swapImage(this)" data-src="/ursusarmament/images/pvs14jarmbntan.png">
+        <img src="/ursusarmament/images/pvs14jarmbntan.png" alt="PVS-14 Adapter angle 3">
       </div>
     </div>
   </div>
@@ -221,14 +279,56 @@
     <div class="product-tag">NVG Adapter</div>
     <h1 class="product-name">PVS-14<br>ADAPTER</h1>
     <div class="product-subtitle">Mil-Spec PVS-14 Mount Interface</div>
-    <p class="product-desc">Mil-spec PVS-14 helmet mount adapter engineered for seamless compatibility with standard J-arm and rhino mount systems. Available in Dovetail and Bayonet interface configurations. Machined from aircraft-grade aluminum with a durable matte black anodized finish.</p>
+    <p class="product-desc">Mil-spec PVS-14 helmet mount adapter engineered for seamless compatibility with standard rhino mount systems. Available in Dovetail and Bayonet interface configurations. Select either Aluminum or Plastic construction in Black or Khaki finish.</p>
+    <div class="selector-block" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+  <span class="selector-label">
+    Style
+    <span class="selector-label-selected" id="selectedStyleLabel"></span>
+  </span>
+  <div class="style-chips">
+
+    <!-- DT Black -->
+    <button class="style-chip-btn active" id="style-chip-0" data-label="DT Black" onclick="selectPVSStyle(0)">
+      <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+        <rect width="52" height="52" fill="#c8922a"/>
+        <polygon points="26,38 10,14 42,14" fill="#0a0a08"/>
+      </svg>
+    </button>
+
+    <!-- DT Khaki -->
+    <button class="style-chip-btn" id="style-chip-1" data-label="DT Khaki" onclick="selectPVSStyle(1)">
+      <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+        <rect width="52" height="52" fill="#0a0a08"/>
+        <polygon points="26,38 10,14 42,14" fill="#c4a46a"/>
+      </svg>
+    </button>
+
+    <!-- BN Black -->
+    <button class="style-chip-btn" id="style-chip-2" data-label="BN Black" onclick="selectPVSStyle(2)">
+      <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+        <rect width="52" height="52" fill="#c8922a"/>
+        <rect x="20" y="8" width="12" height="36" fill="#0a0a08"/>
+      </svg>
+    </button>
+
+    <!-- BN Khaki -->
+    <button class="style-chip-btn" id="style-chip-3" data-label="BN Khaki" onclick="selectPVSStyle(3)">
+      <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+        <rect width="52" height="52" fill="#0a0a08"/>
+        <rect x="20" y="8" width="12" height="36" fill="#c4a46a"/>
+      </svg>
+    </button>
+
+  </div>
+</div>
     <div style="display:flex; gap: 1rem; flex-wrap: wrap;">
       <a href="#variants" class="btn-primary">Select Mount Type</a>
       <a href="#specs" class="btn-ghost">Specifications</a>
     </div>
     <div class="product-trust">
       <div class="trust-item"><span class="trust-label">Compatibility</span><span class="trust-value">J-Arm / Rhino</span></div>
-      <div class="trust-item"><span class="trust-label">Material</span><span class="trust-value">Aircraft Aluminum</span></div>
+      <div class="trust-item"><span class="trust-label">Material</span><span class="trust-value">Aircraft Aluminum or Plastic</span></div>
+      <div class="trust-item"><span class="trust-label">Warranty</span><span class="trust-value">Limited 5-year</span></div>
     </div>
   </div>
 </section>
@@ -236,96 +336,60 @@
 <section class="variants-section" id="variants">
   <div class="section-tag">Choose Your Configuration</div>
   <h2 class="section-title">SELECT VARIANT</h2>
-  <div class="variants-grid">
 
-    <!-- DOVETAIL -->
-    <div class="variant-card" id="card-dovetail">
-      <div class="variant-header">
-        <div class="variant-name">DOVETAIL</div>
-        <div class="variant-sku" id="sku-dovetail">Loading...</div>
+  <div class="configurator">
+
+    <!-- STEP 1: Mount Style -->
+    <div class="config-step" id="step-mount">
+      <div class="config-step-header">
+        <span class="config-step-num">01</span>
+        <span class="config-step-label">Mount Style</span>
       </div>
-      <div class="variant-details">
-        <div class="variant-detail-row">
-          <span class="variant-detail-label">Interface</span>
-          <span class="variant-detail-value">Dovetail (DY)</span>
-        </div>
-        <div class="variant-detail-row">
-          <span class="variant-detail-label">Finish</span>
-          <span class="variant-detail-value" id="finish-dovetail">Loading...</span>
-        </div>
-        <div class="variant-detail-row">
-          <span class="variant-detail-label">Product</span>
-          <span class="variant-detail-value" id="product-dovetail">Loading...</span>
-        </div>
-        <div class="variant-detail-row">
-          <span class="variant-detail-label">Qty Available</span>
-          <span class="variant-detail-value" id="qty-dovetail">Loading...</span>
-        </div>
-      </div>
-      <div class="variant-footer">
-        <div>
-          <div class="variant-price" id="price-dovetail">—</div>
-          <div class="variant-price-label">Free Shipping on Orders $250+</div>
-        </div>
-        <div style="display:flex; flex-direction:column; gap: 0.75rem; align-items: flex-end;">
-          <div class="variant-status" id="status-dovetail">
-            <span class="variant-status-dot" id="dot-dovetail"></span>
-            <span id="status-text-dovetail">Checking...</span>
-          </div>
-          <div class="qty-row">
-            <button class="qty-btn" onclick="changeQty('dovetail', -1)">−</button>
-            <span class="qty-display" id="qty-input-dovetail">1</span>
-            <button class="qty-btn" onclick="changeQty('dovetail', 1)">+</button>
-          </div>
-          <button class="btn-primary" id="btn-dovetail" onclick="addVariantToCart('dovetail')" disabled>
-            Add to Cart
-          </button>
-        </div>
-      </div>
+      <div class="config-options" id="options-mount"></div>
     </div>
 
-    <!-- BAYONET -->
-    <div class="variant-card" id="card-bayonet">
-      <div class="variant-header">
-        <div class="variant-name">BAYONET</div>
-        <div class="variant-sku" id="sku-bayonet">Loading...</div>
+    <!-- STEP 2: Material -->
+    <div class="config-step locked" id="step-material">
+      <div class="config-step-header">
+        <span class="config-step-num">02</span>
+        <span class="config-step-label">Material</span>
       </div>
-      <div class="variant-details">
-        <div class="variant-detail-row">
-          <span class="variant-detail-label">Interface</span>
-          <span class="variant-detail-value">Bayonet (BN)</span>
-        </div>
-        <div class="variant-detail-row">
-          <span class="variant-detail-label">Finish</span>
-          <span class="variant-detail-value" id="finish-bayonet">Loading...</span>
-        </div>
-        <div class="variant-detail-row">
-          <span class="variant-detail-label">Product</span>
-          <span class="variant-detail-value" id="product-bayonet">Loading...</span>
-        </div>
-        <div class="variant-detail-row">
-          <span class="variant-detail-label">Qty Available</span>
-          <span class="variant-detail-value" id="qty-bayonet">Loading...</span>
-        </div>
+      <div class="config-options" id="options-material"></div>
+    </div>
+
+    <!-- STEP 3: Color -->
+    <div class="config-step locked" id="step-color">
+      <div class="config-step-header">
+        <span class="config-step-num">03</span>
+        <span class="config-step-label">Color</span>
       </div>
-      <div class="variant-footer">
-        <div>
-          <div class="variant-price" id="price-bayonet">—</div>
-          <div class="variant-price-label">Free Shipping on Orders $250+</div>
-        </div>
-        <div style="display:flex; flex-direction:column; gap: 0.75rem; align-items: flex-end;">
-          <div class="variant-status" id="status-bayonet">
-            <span class="variant-status-dot" id="dot-bayonet"></span>
-            <span id="status-text-bayonet">Checking...</span>
+      <div class="config-options" id="options-color"></div>
+    </div>
+
+    <!-- Summary + Add to Cart -->
+    <div class="config-summary" id="config-summary">
+      <div class="config-summary-inner">
+        <div class="config-summary-details">
+          <div class="config-summary-row">
+            <span class="config-summary-label">Configuration</span>
+            <span class="config-summary-value" id="summary-config">—</span>
           </div>
+          <div class="config-summary-row">
+            <span class="config-summary-label">Price</span>
+            <span class="config-summary-value" id="summary-price">—</span>
+          </div>
+          <div class="config-summary-row">
+            <span class="config-summary-label">Available</span>
+            <span class="config-summary-value" id="summary-qty">—</span>
+          </div>
+        </div>
+        <div class="config-actions">
           <div class="qty-row">
-            <button class="qty-btn" onclick="changeQty('bayonet', -1)">−</button>
-            <span class="qty-display" id="qty-input-bayonet">1</span>
-            <button class="qty-btn" onclick="changeQty('bayonet', 1)">+</button>
+            <button class="qty-btn" onclick="changeConfigQty(-1)">−</button>
+            <span class="qty-display" id="config-qty-display">1</span>
+            <button class="qty-btn" onclick="changeConfigQty(1)">+</button>
           </div>
-          <button class="btn-primary" id="btn-bayonet" onclick="addVariantToCart('bayonet')" disabled>
-            Add to Cart
-          </button>
+          <button class="btn-primary" id="btn-add-config" onclick="addConfigToCart()">Add to Cart</button>
         </div>
       </div>
     </div>
@@ -337,11 +401,9 @@
   <div class="section-tag">Technical Data</div>
   <h2 class="section-title">SPECIFICATIONS</h2>
   <div class="specs-grid">
-    <div class="spec-item"><span class="spec-name">Material</span><span class="spec-value">Aircraft-Grade Aluminum</span></div>
-    <div class="spec-item"><span class="spec-name">Finish</span><span class="spec-value">Matte Black Anodize</span></div>
+    <div class="spec-item"><span class="spec-name">Material</span><span class="spec-value">2 Options: Aircraft-Grade Aluminum or Plastic</span></div>
+    <div class="spec-item"><span class="spec-name">Finish</span><span class="spec-value">Matte Black Anodize / Khaki Anodize</span></div>
     <div class="spec-item"><span class="spec-name">Interface Types</span><span class="spec-value">Dovetail (DY) / Bayonet (BN)</span></div>
-    <div class="spec-item"><span class="spec-name">Compatibility</span><span class="spec-value">Standard J-Arm, Rhino Mount</span></div>
-    <div class="spec-item"><span class="spec-name">Device Compatibility</span><span class="spec-value">AN/PVS-14 & Compatible NODs</span></div>
     <div class="spec-item"><span class="spec-name">Standard</span><span class="spec-value">Mil-Spec</span></div>
     <div class="spec-item"><span class="spec-name">Country of Origin</span><span class="spec-value">United States of America</span></div>
     <div class="spec-item"><span class="spec-name">Warranty</span><span class="spec-value">Limited 5-year</span></div>
@@ -461,10 +523,37 @@ window.changeQty = function(variant, delta) {
 };
 
 window.swapImage = function(el) {
-  document.querySelectorAll('.thumb').forEach(t => { t.classList.remove('active'); });
-  el.classList.add('active');
-  document.getElementById('main-image').src = el.getAttribute('data-src');
+  const index = Array.from(document.querySelectorAll('.thumb')).indexOf(el);
+  selectPVSStyle(index);
 };
+const PVS_IMAGES = [
+  '/ursusarmament/images/pvs14jarm.png',      // DT Black
+  '/ursusarmament/images/pvs14jarmdttan.png',    // DT Khaki
+  '/ursusarmament/images/pvs14jarmbn.png',        // BN Black
+  '/ursusarmament/images/pvs14jarmbntan.png',      // BN Khaki
+];
+const PVS_LABELS = ['DOVETAIL Black', 'DOVETAIL Khaki', 'BAYONET Black', 'BAYONET Khaki'];
+
+window.selectPVSStyle = function(index) {
+  document.querySelectorAll('.style-chip-btn').forEach((c, i) => {
+    c.classList.toggle('active', i === index);
+  });
+  document.getElementById('selectedStyleLabel').textContent = PVS_LABELS[index];
+  document.getElementById('main-image').src = PVS_IMAGES[index];
+  document.querySelectorAll('.thumb').forEach((t, i) => {
+    t.classList.toggle('active', i === index);
+  });
+};
+
+// load default on page open
+document.addEventListener('DOMContentLoaded', () => {
+  selectPVSStyle(0);
+});
+
+// set default label
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('selectedStyleLabel').textContent = PVS_LABELS[0];
+});
 </script>
 
 <script src="/ursusarmament/access-check.js"></script>
@@ -472,7 +561,7 @@ window.swapImage = function(el) {
 <script type="module">
 import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, getDoc }   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey:            "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
@@ -487,95 +576,170 @@ const app  = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
 
-window._variantData = {};
-window._variantMax  = {};
-
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, user => {
   const navAuth = document.getElementById("navAuth");
-  if (user) {
-    navAuth.innerHTML = `<a href="/ursusarmament/settings/">${user.email.split("@")[0]}</a>`;
-  } else {
-    navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
-  }
+  navAuth.innerHTML = user
+    ? `<a href="/ursusarmament/settings/">${user.email.split("@")[0]}</a>`
+    : `<a href="/ursusarmament/login/">Login</a>`;
 });
 
-function setText(id, val) {
-  const el = document.getElementById(id);
-  if (el) el.textContent = val;
-}
+let mountData = {};
+let configQty = 1;
 
-async function loadVariant(key, docId) {
+async function loadData() {
   try {
-    const snap = await getDoc(doc(db, "ursus-units", docId));
-    if (!snap.exists()) { setVariantUnavailable(key); return; }
-
-    const d = snap.data();
-    const qty = d['quantity-available'] || 0;
-    window._variantData[key] = { ...d, _docId: docId };
-    window._variantMax[key]  = qty;
-
-    setText('sku-'     + key, d.sku     || '—');
-    setText('finish-'  + key, d.finish  || '—');
-    setText('product-' + key, d.product || '—');
-    setText('qty-'     + key, qty);
-
-    const priceEl = document.getElementById('price-' + key);
-    if (priceEl) priceEl.textContent = d.price ? '$' + Number(d.price).toLocaleString() : '—';
-
-    const available = d.available === true && qty > 0;
-    const dot       = document.getElementById('dot-'         + key);
-    const statusEl  = document.getElementById('status-'      + key);
-    const statusTxt = document.getElementById('status-text-' + key);
-    const btn       = document.getElementById('btn-'         + key);
-
-    if (available) {
-      dot.classList.add('available');
-      statusEl.classList.add('available');
-      statusTxt.textContent = 'In Stock';
-      btn.disabled = false;
-    } else {
-      statusTxt.textContent = 'Currently Unavailable';
-      btn.disabled = true;
-    }
-
-  } catch (err) {
-    console.error('Error loading variant ' + key, err);
-    setVariantUnavailable(key);
+    const snap = await getDoc(doc(db, "ursus-units", "PVS-14 Adapter"));
+    if (!snap.exists()) { showLoadError(); return; }
+    mountData = snap.data().mount || {};
+    window._priceData = snap.data().price || {};
+    buildStep('mount', Object.keys(mountData), getMountQty);
+    activateStep('mount');
+  } catch(err) {
+    console.error(err);
+    showLoadError();
   }
 }
 
-function setVariantUnavailable(key) {
-  setText('sku-'     + key, '—');
-  setText('finish-'  + key, '—');
-  setText('product-' + key, '—');
-  setText('qty-'     + key, '0');
-  const priceEl = document.getElementById('price-' + key);
-  if (priceEl) priceEl.textContent = '—';
-  const statusTxt = document.getElementById('status-text-' + key);
-  if (statusTxt) statusTxt.textContent = 'Currently Unavailable';
-  const btn = document.getElementById('btn-' + key);
-  if (btn) btn.disabled = true;
+function getMountQty(mountKey) {
+  const materials = mountData[mountKey] || {};
+  let total = 0;
+  for (const mat of Object.values(materials))
+    for (const qty of Object.values(mat))
+      if (typeof qty === 'number') total += qty;
+  return total;
 }
 
-window.addVariantToCart = function(key) {
-  const d   = window._variantData[key];
-  const btn = document.getElementById('btn-' + key);
-  const qty = window._qty[key] || 1;
-  if (!d) return;
+function getMaterialQty(mountKey, matKey) {
+  const colors = (mountData[mountKey] || {})[matKey] || {};
+  return Object.values(colors).reduce((s, q) => s + (typeof q === 'number' ? q : 0), 0);
+}
 
+function getColorQty(mountKey, matKey, colorKey) {
+  return ((mountData[mountKey] || {})[matKey] || {})[colorKey] || 0;
+}
+
+function buildStep(stepKey, keys, qtyFn) {
+  const container = document.getElementById('options-' + stepKey);
+  container.innerHTML = '';
+  keys.forEach(key => {
+    const qty = qtyFn(key);
+    const btn = document.createElement('button');
+    btn.className   = 'config-opt';
+    btn.disabled    = qty === 0;
+    btn.dataset.val = key;
+    btn.innerHTML   = `${formatLabel(key)} <span class="opt-qty">${qty > 0 ? qty + ' avail' : 'unavailable'}</span>`;
+    btn.addEventListener('click', () => onSelect(stepKey, key));
+    container.appendChild(btn);
+  });
+}
+
+function formatLabel(key) {
+  return key.charAt(0).toUpperCase() + key.slice(1);
+}
+
+function onSelect(stepKey, val) {
+  selection[stepKey] = val;
+  document.querySelectorAll(`#options-${stepKey} .config-opt`).forEach(b => {
+    b.classList.toggle('selected', b.dataset.val === val);
+  });
+
+  if (stepKey === 'mount') {
+    selection.material = null;
+    selection.color    = null;
+    lockStep('color');
+    hideSummary();
+    const materials = Object.keys(mountData[val] || {});
+    buildStep('material', materials, k => getMaterialQty(val, k));
+    activateStep('material');
+    doneStep('mount');
+  }
+
+  if (stepKey === 'material') {
+    selection.color = null;
+    hideSummary();
+    const colors = Object.keys((mountData[selection.mount] || {})[val] || {});
+    buildStep('color', colors, k => getColorQty(selection.mount, val, k));
+    activateStep('color');
+    doneStep('material');
+  }
+
+  if (stepKey === 'color') {
+    doneStep('color');
+    showSummary();
+  }
+}
+
+let selection = { mount: null, material: null, color: null };
+
+function activateStep(key) {
+  const el = document.getElementById('step-' + key);
+  el.classList.remove('locked', 'done');
+  el.classList.add('active');
+}
+function doneStep(key) {
+  const el = document.getElementById('step-' + key);
+  el.classList.remove('locked', 'active');
+  el.classList.add('done');
+}
+function lockStep(key) {
+  const el = document.getElementById('step-' + key);
+  el.classList.remove('active', 'done');
+  el.classList.add('locked');
+}
+
+function showSummary() {
+  const { mount, material, color } = selection;
+  const qty = getColorQty(mount, material, color);
+  configQty = 1;
+  document.getElementById('config-qty-display').textContent = 1;
+  window._configMax = qty;
+
+  document.getElementById('summary-config').textContent =
+    `${formatLabel(mount)} / ${formatLabel(material)} / ${formatLabel(color)}`;
+  document.getElementById('summary-qty').textContent = qty + ' unit' + (qty === 1 ? '' : 's');
+  const price = window._priceData[material];
+  document.getElementById('summary-price').textContent = price ? '$' + Number(price).toLocaleString() + ' per unit' : '—';
+  document.getElementById('btn-add-config').disabled = qty === 0;
+  document.getElementById('config-summary').classList.add('ready');
+}
+
+function hideSummary() {
+  document.getElementById('config-summary').classList.remove('ready');
+  document.getElementById('summary-config').textContent = '—';
+  document.getElementById('summary-price').textContent = '—';
+  document.getElementById('summary-qty').textContent = '—';
+  document.getElementById('config-qty-display').textContent = '1';
+}
+
+window.changeConfigQty = function(delta) {
+  const max = window._configMax || 1;
+  configQty = Math.max(1, Math.min(max, configQty + delta));
+  document.getElementById('config-qty-display').textContent = configQty;
+};
+
+window.addConfigToCart = function() {
+  const { mount, material, color } = selection;
+  const qty = getColorQty(mount, material, color);
+  if (qty === 0) return;
+  const btn = document.getElementById('btn-add-config');
   window.addToCart({
-    id:      d._docId,
-    product: d.product || ('PVS-14 Adapter — ' + (key === 'dovetail' ? 'Dovetail' : 'Bayonet')),
-    price:   String(d.price || '0'),
-    sku:     d.sku    || null,
-    finish:  d.finish || null,
-    quantity: qty,
-    maxQty:  window._variantMax[key] || 1,
+    id:       `PVS-14-Adapter-${mount}-${material}-${color}`,
+    product:  'PVS-14 Adapter',
+    tier:     `${formatLabel(mount)} / ${formatLabel(material)} / ${formatLabel(color)}`,
+    price:    String(window._priceData[material] || 0),
+    quantity: configQty,
+    maxQty:   qty,
   }, btn);
 };
 
-loadVariant('dovetail', 'PVS-14_Dovetail_Adapter_Black');
-loadVariant('bayonet',  'PVS-14_Bayonet_Adapter_Black');
+function showLoadError() {
+  ['step-mount','step-material','step-color'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML += '<p style="color:var(--muted);font-size:0.85rem;">Unable to load availability.</p>';
+  });
+}
+
+loadData();
 </script>
 
 </body>
