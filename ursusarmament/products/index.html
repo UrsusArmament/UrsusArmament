@@ -1476,7 +1476,7 @@ async function fetchAvailability() {
     ursixAccessDenied = true;
   }
 
-  const [dyBlackSnap, dySandSnap, bayonetSnap, bridgeBlackSnap, bridgeSandSnap, pvs14Snap, rhinoDyBlackSnap, rhinoDySandSnap, rhinoBnBlackSnap, rhinoBnSandSnap, combatTopsSnap] = await Promise.all([
+  const [mum14Snap, bridgeBlackSnap, bridgeSandSnap, pvs14Snap, rhinoDyBlackSnap, rhinoDySandSnap, rhinoBnBlackSnap, rhinoBnSandSnap, combatTopsSnap] = await Promise.all([
     getDoc(doc(db, "ursus-units", "MUM-14 Adapter")),
     getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Black")),
     getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Sand")),
@@ -1488,9 +1488,15 @@ async function fetchAvailability() {
     getDoc(doc(db, "ursus-units", "combat-tops")),
   ]);
 
-  const dyBlackQty      = dyBlackSnap.exists()       ? (dyBlackSnap.data()?.['quantity-available']      || 0) : 0;
-  const dySandQty       = dySandSnap.exists()        ? (dySandSnap.data()?.['quantity-available']       || 0) : 0;
-  const bayonetQty      = bayonetSnap.exists()       ? (bayonetSnap.data()?.['quantity-available']      || 0) : 0;
+  let mum14DtAvail = false;
+  let mum14BnAvail = false;
+  if (mum14Snap.exists()) {
+    const mount    = mum14Snap.data()?.mount || {};
+    const dovetail = mount.dovetail || {};
+    const bayonet  = mount.bayonet  || {};
+    mum14DtAvail = Object.values(dovetail).some(qty => typeof qty === 'number' && qty > 0);
+    mum14BnAvail = Object.values(bayonet).some(qty => typeof qty === 'number' && qty > 0);
+  }
   const bridgeBlackQty  = bridgeBlackSnap.exists()   ? (bridgeBlackSnap.data()?.['quantity-available']  || 0) : 0;
   const bridgeSandQty   = bridgeSandSnap.exists()    ? (bridgeSandSnap.data()?.['quantity-available']   || 0) : 0;
   const rhinoDyBlackQty = rhinoDyBlackSnap.exists()  ? (rhinoDyBlackSnap.data()?.['quantity-available'] || 0) : 0;
@@ -1530,8 +1536,8 @@ async function fetchAvailability() {
   availabilityCache = {
     ursixCount,
     ursixAccessDenied,
-    dovetailAvail: (dyBlackQty + dySandQty) > 0,
-    bayonetAvail:  bayonetQty > 0,
+    mum14DtAvail,
+    mum14BnAvail,
     bridgeAvail:   (bridgeBlackQty + bridgeSandQty) > 0,
     rhinoAvail:    (rhinoDyBlackQty + rhinoDySandQty + rhinoBnBlackQty + rhinoBnSandQty) > 0,
     combatTopStylesAvailable,
