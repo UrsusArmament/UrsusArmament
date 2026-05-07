@@ -1476,17 +1476,14 @@ async function fetchAvailability() {
     ursixAccessDenied = true;
   }
 
-  const [mum14Snap, bridgeBlackSnap, bridgeSandSnap, pvs14Snap, rhinoDyBlackSnap, rhinoDySandSnap, rhinoBnBlackSnap, rhinoBnSandSnap, combatTopsSnap] = await Promise.all([
+  const [mum14Snap, bridgeBlackSnap, bridgeSandSnap, pvs14Snap, rhinoSnap, combatTopsSnap] = await Promise.all([
     getDoc(doc(db, "ursus-units", "MUM-14 Adapter")),
     getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Black")),
     getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Sand")),
     getDoc(doc(db, "ursus-units", "PVS-14 Adapter")),
-    getDoc(doc(db, "ursus-units", "rhino_mount_dovetail_black")),
-    getDoc(doc(db, "ursus-units", "rhino_mount_dovetail_sand")),
-    getDoc(doc(db, "ursus-units", "rhino_mount_bayonet_black")),
-    getDoc(doc(db, "ursus-units", "rhino_mount_bayonet_sand")),
+    getDoc(doc(db, "ursus-units", "rhino-mounts")),
     getDoc(doc(db, "ursus-units", "combat-tops")),
-  ]);
+]);
 
   let mum14DtAvail = false;
   let mum14BnAvail = false;
@@ -1499,10 +1496,13 @@ async function fetchAvailability() {
   }
   const bridgeBlackQty  = bridgeBlackSnap.exists()   ? (bridgeBlackSnap.data()?.['quantity-available']  || 0) : 0;
   const bridgeSandQty   = bridgeSandSnap.exists()    ? (bridgeSandSnap.data()?.['quantity-available']   || 0) : 0;
-  const rhinoDyBlackQty = rhinoDyBlackSnap.exists()  ? (rhinoDyBlackSnap.data()?.['quantity-available'] || 0) : 0;
-  const rhinoDySandQty  = rhinoDySandSnap.exists()   ? (rhinoDySandSnap.data()?.['quantity-available']  || 0) : 0;
-  const rhinoBnBlackQty = rhinoBnBlackSnap.exists()  ? (rhinoBnBlackSnap.data()?.['quantity-available'] || 0) : 0;
-  const rhinoBnSandQty  = rhinoBnSandSnap.exists()   ? (rhinoBnSandSnap.data()?.['quantity-available']  || 0) : 0;
+  let rhinoAvailVal = false;
+  if (rhinoSnap.exists()) {
+    const mounts = rhinoSnap.data()?.mounts || {};
+    rhinoAvailVal = Object.values(mounts).some(style =>
+        typeof style === 'object' && Object.values(style).some(qty => typeof qty === 'number' && qty > 0)
+    );
+  }
 
   let pvs14DtAvail = false;
   let pvs14BnAvail = false;
@@ -1539,7 +1539,7 @@ async function fetchAvailability() {
     mum14DtAvail,
     mum14BnAvail,
     bridgeAvail:   (bridgeBlackQty + bridgeSandQty) > 0,
-    rhinoAvail:    (rhinoDyBlackQty + rhinoDySandQty + rhinoBnBlackQty + rhinoBnSandQty) > 0,
+    rhinoAvail: rhinoAvailVal,
     combatTopStylesAvailable,
     pvs14DtAvail,
     pvs14BnAvail,
