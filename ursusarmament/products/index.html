@@ -1496,13 +1496,15 @@ async function fetchAvailability() {
   }
   const bridgeBlackQty  = bridgeBlackSnap.exists()   ? (bridgeBlackSnap.data()?.['quantity-available']  || 0) : 0;
   const bridgeSandQty   = bridgeSandSnap.exists()    ? (bridgeSandSnap.data()?.['quantity-available']   || 0) : 0;
-  let rhinoAvailVal = false;
-  if (rhinoSnap.exists()) {
+  let rhinoDtAvail = false;
+let rhinoBnAvail = false;
+if (rhinoSnap.exists()) {
     const mounts = rhinoSnap.data()?.mounts || {};
-    rhinoAvailVal = Object.values(mounts).some(style =>
-        typeof style === 'object' && Object.values(style).some(qty => typeof qty === 'number' && qty > 0)
-    );
-  }
+    const dovetail = mounts.dovetail || {};
+    const bayonet  = mounts.bayonet  || {};
+    rhinoDtAvail = Object.values(dovetail).some(qty => typeof qty === 'number' && qty > 0);
+    rhinoBnAvail = Object.values(bayonet).some(qty => typeof qty === 'number' && qty > 0);
+}
 
   let pvs14DtAvail = false;
   let pvs14BnAvail = false;
@@ -1623,14 +1625,22 @@ async function applyAvailability() {
 
     const rhinoEl = document.getElementById("rhino-status");
     if (rhinoEl) {
-      if (data.rhinoAvail) {
-        rhinoEl.textContent = "Available";
-        rhinoEl.classList.add("available");
-      } else {
-        rhinoEl.textContent = "Currently Unavailable";
-        rhinoEl.classList.remove("available");
-      }
-    }
+      const dtText = data.rhinoDtAvail ? "DT Style Available" : "DT Style Unavailable";
+      const bnText = data.rhinoBnAvail ? "BN Style Available" : "BN Style Unavailable";
+      rhinoEl.style.flexDirection = 'column';
+      rhinoEl.style.alignItems = 'flex-start';
+      rhinoEl.classList.add('no-dot');
+      rhinoEl.innerHTML = `
+          <span style="display:flex;align-items:center;gap:0.4rem;color:${data.rhinoDtAvail ? '#2a9c5c' : 'var(--muted)'};">
+            <span style="width:5px;height:5px;border-radius:50%;background:${data.rhinoDtAvail ? '#2a9c5c' : 'var(--muted)'};flex-shrink:0;display:inline-block;"></span>
+            ${dtText}
+          </span>
+          <span style="display:flex;align-items:center;gap:0.4rem;margin-top:0.2rem;color:${data.rhinoBnAvail ? '#2a9c5c' : 'var(--muted)'};">
+            <span style="width:5px;height:5px;border-radius:50%;background:${data.rhinoBnAvail ? '#2a9c5c' : 'var(--muted)'};flex-shrink:0;display:inline-block;"></span>
+            ${bnText}
+          </span>
+      `;
+  }
 
     // ── Combat Tops ──
     const combatEl = document.getElementById("combat-top-status");
