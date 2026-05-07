@@ -1596,17 +1596,18 @@ async function applyAvailability() {
     }
 
     const bridgeEl = document.getElementById("mum14-bridge-status");
-    if (data.bridgeAvail) {
-      bridgeEl.textContent = "Available";
-      bridgeEl.classList.add("available");
-    } else {
-      bridgeEl.classList.remove("available");
-      bridgeEl.classList.add("no-dot");
-      bridgeEl.innerHTML = `
-        <span style="display:flex;align-items:center;gap:0.4rem;color:#c0392b;">
-          <span style="width:5px;height:5px;border-radius:50%;background:#c0392b;flex-shrink:0;display:inline-block;"></span>
-          Currently Unavailable
-        </span>`;
+    if (bridgeEl) {
+      if (data.bridgeAvail) {
+        bridgeEl.textContent = "Available";
+        bridgeEl.classList.add("available");
+      } else {
+        bridgeEl.classList.remove("available");
+        bridgeEl.classList.add("no-dot");
+        bridgeEl.innerHTML = `
+          <span style="display:flex;align-items:center;gap:0.4rem;color:#c0392b;">
+            <span style="width:5px;height:5px;border-radius:50%;background:#c0392b;flex-shrink:0;display:inline-block;"></span>
+            Currently Unavailable
+          </span>`;
       }
     }
 
