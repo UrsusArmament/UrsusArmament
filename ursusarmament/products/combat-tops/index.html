@@ -689,7 +689,7 @@ function updateStockBadge() {
     txt.textContent = 'Out of Stock';
   } else {
     el.className = 'stock-badge in-stock';
-    txt.innerHTML = `<div class="stock-dot"></div> ${availableColorways} Available`;
+    txt.textContent = `${availableColorways} Colorway${availableColorways !== 1 ? 's' : ''} Available`;
   }
 }
 
