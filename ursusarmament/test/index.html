@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MUM-14 Adapter — Ursus Armament</title>
+<title>Rhino Mounts — Ursus Armament</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -25,318 +25,86 @@
   }
 
   html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--text); font-family: 'Barlow', sans-serif; font-size: 16px; line-height: 1.6; overflow-x: hidden; }
 
-  body {
-    background: var(--black);
-    color: var(--text);
-    font-family: 'Barlow', sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    overflow-x: hidden;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(10,10,8,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-top {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0.6rem 3rem; border-bottom: 1px solid var(--border);
-  }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(10,10,8,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); }
+  .nav-top { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 3rem; border-bottom: 1px solid var(--border); }
   .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
-  .nav-logo {
-    font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
-    letter-spacing: 0.12em; color: var(--text); text-decoration: none; line-height: 1;
-  }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.12em; color: var(--text); text-decoration: none; line-height: 1; }
   .nav-logo span { color: var(--accent); }
-  .nav-slogan {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem;
-    font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
-  }
-  .nav-ribbon {
-    display: flex; align-items: center; justify-content: center;
-    padding: 0 3rem; height: 38px; background: var(--surface);
-  }
-  .nav-ribbon a {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem;
-    font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--muted); text-decoration: none; padding: 0 1.6rem; height: 100%;
-    display: flex; align-items: center; border-right: 1px solid var(--border);
-    transition: color 0.2s, background 0.2s;
-  }
+  .nav-slogan { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
+  .nav-ribbon { display: flex; align-items: center; justify-content: center; padding: 0 3rem; height: 38px; background: var(--surface); }
+  .nav-ribbon a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0 1.6rem; height: 100%; display: flex; align-items: center; border-right: 1px solid var(--border); transition: color 0.2s, background 0.2s; }
   .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
   .nav-ribbon a:hover, .nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
   .nav-right { display: flex; align-items: center; gap: 0.75rem; }
-  .nav-cart-btn {
-    position: relative; background: transparent; border: 1px solid var(--border2);
-    color: var(--text); width: 38px; height: 38px; display: flex; align-items: center;
-    justify-content: center; cursor: pointer; text-decoration: none;
-    transition: border-color 0.2s, background 0.2s; flex-shrink: 0;
-  }
+  .nav-cart-btn { position: relative; background: transparent; border: 1px solid var(--border2); color: var(--text); width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; cursor: pointer; text-decoration: none; transition: border-color 0.2s, background 0.2s; flex-shrink: 0; }
   .nav-cart-btn:hover { border-color: var(--accent); background: rgba(200,146,42,0.06); }
   .nav-cart-btn svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
   .nav-cart-btn:hover svg { stroke: var(--accent); }
-  .cart-count {
-    position: absolute; top: -6px; right: -6px; background: var(--accent);
-    color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem;
-    font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px;
-    display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1;
-  }
+  .cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
   .cart-count.visible { display: flex; }
   .nav-auth { display: flex; align-items: center; }
-  .nav-auth a, .nav-auth button {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700;
-    letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none;
-    color: var(--accent); background: transparent; border: 1px solid var(--accent);
-    padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s ease;
-  }
+  .nav-auth a, .nav-auth button { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: var(--accent); background: transparent; border: 1px solid var(--accent); padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s ease; }
   .nav-auth a:hover, .nav-auth button:hover { background: rgba(200,146,42,0.08); }
 
-  /* ── BREADCRUMB ── */
-  .breadcrumb {
-    padding: 1rem 3rem; background: var(--dark); border-bottom: 1px solid var(--border);
-    margin-top: 86px; display: flex; align-items: center; gap: 0.5rem;
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem;
-    letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
-  }
+  .breadcrumb { padding: 1rem 3rem; background: var(--dark); border-bottom: 1px solid var(--border); margin-top: 86px; display: flex; align-items: center; gap: 0.5rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
   .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
   .breadcrumb a:hover { color: var(--accent); }
   .breadcrumb span { color: var(--accent); }
 
-  /* ── PRODUCT HERO ── */
   .product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; background: var(--dark); }
-  .product-visual {
-    position: relative; background: var(--surface); overflow: hidden;
-    display: flex; flex-direction: column; align-items: stretch;
-  }
-  .product-visual-main {
-    flex: 1; display: flex; align-items: center; justify-content: center;
-    position: relative; overflow: hidden; min-height: 0;
-  }
-  .product-visual-main::before {
-    content: '';
-    position: absolute; inset: 0;
-    background: repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(200,146,42,0.015) 30px,rgba(200,146,42,0.015) 31px);
-    pointer-events: none;
-  }
-  .product-visual-bg-label {
-    position: absolute; font-family: 'Bebas Neue', sans-serif; font-size: 10rem;
-    letter-spacing: -0.02em; color: rgba(255,255,255,0.025); user-select: none; pointer-events: none;
-  }
-  .product-visual-main img {
-    width: 100%; height: 100%; object-fit: contain; object-position: center; position: relative; z-index: 1;
-  }
-  .product-thumbs {
-    width: 100%; background: var(--dark); border-top: 1px solid var(--border);
-    padding: 1rem; display: flex; gap: 0.75rem; justify-content: center;
-  }
-  .thumb {
-    width: 80px; height: 80px; cursor: pointer; border: 1px solid #444;
-    box-sizing: border-box; flex-shrink: 0; overflow: hidden; opacity: 0.6;
-    transition: opacity 0.2s, border-color 0.2s;
-  }
+  .product-visual { position: relative; background: var(--surface); overflow: hidden; display: flex; flex-direction: column; align-items: stretch; }
+  .product-visual-main { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; min-height: 0; }
+  .product-visual-main::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(200,146,42,0.015) 30px,rgba(200,146,42,0.015) 31px); pointer-events: none; }
+  .product-visual-bg-label { position: absolute; font-family: 'Bebas Neue', sans-serif; font-size: 10rem; letter-spacing: -0.02em; color: rgba(255,255,255,0.025); user-select: none; pointer-events: none; }
+  .product-visual-main img { width: 100%; height: 100%; object-fit: contain; object-position: center; position: relative; z-index: 1; }
+  .product-thumbs { width: 100%; background: var(--dark); border-top: 1px solid var(--border); padding: 1rem; display: flex; gap: 0.75rem; justify-content: center; }
+  .thumb { width: 80px; height: 80px; cursor: pointer; border: 1px solid #444; box-sizing: border-box; flex-shrink: 0; overflow: hidden; opacity: 0.6; transition: opacity 0.2s, border-color 0.2s; }
   .thumb.active { border: 2px solid var(--accent); opacity: 1; }
   .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
 
-  .product-info {
-    padding: 4rem; display: flex; flex-direction: column; justify-content: center;
-    border-left: 1px solid var(--border);
-  }
-  .product-tag {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
-    letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent);
-    margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem;
-  }
+  .product-info { padding: 4rem; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--border); }
+  .product-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
   .product-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
-  .product-name {
-    font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 6vw, 6rem);
-    line-height: 0.9; letter-spacing: 0.04em; margin-bottom: 0.5rem; color: var(--text);
-  }
-  .product-subtitle {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600;
-    letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 2rem;
-  }
-  .product-desc {
-    font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8;
-    margin-bottom: 2rem; max-width: 480px;
-  }
+  .product-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 6vw, 6rem); line-height: 0.9; letter-spacing: 0.04em; margin-bottom: 0.5rem; color: var(--text); }
+  .product-subtitle { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 2rem; }
+  .product-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; max-width: 480px; }
   .product-trust { display: flex; gap: 2rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border); }
   .trust-item { display: flex; flex-direction: column; gap: 0.2rem; }
   .trust-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
   .trust-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text); }
 
-  /* ── SECTION TAGS ── */
-  .section-tag {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
-    letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent);
-    margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem;
-  }
+  .section-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
   .section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5vw, 4.2rem);
-    letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 3rem;
-  }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5vw, 4.2rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 3rem; }
 
-  /* ── VARIANTS SECTION ── */
   .variants-section { background: var(--black); padding: 6rem 3rem; }
-  .variants-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
 
-  .variant-card {
-    background: var(--dark); padding: 2.5rem; display: flex; flex-direction: column;
-    gap: 1.5rem; transition: background 0.2s; position: relative;
-    border: 2px solid transparent;
-  }
-  .variant-card:hover { background: var(--surface); }
-  .variant-card.selected { background: var(--surface); border-color: var(--accent); }
-  .variant-card.selected::after {
-    content: '✓'; position: absolute; top: 1rem; right: 1rem; width: 1.5rem; height: 1.5rem;
-    background: var(--accent); color: var(--black); border-radius: 50%;
-    display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700;
-  }
-
-  .variant-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
-  .variant-name {
-    font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.04em;
-    color: var(--text); line-height: 1;
-  }
-  .variant-sku {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.62rem; font-weight: 700;
-    letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
-    background: var(--surface2); padding: 0.25rem 0.6rem; border: 1px solid var(--border);
-    white-space: nowrap;
-  }
-
-  .variant-details { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
-  .variant-detail-row {
-    display: flex; justify-content: space-between; align-items: baseline;
-    background: var(--surface2); padding: 0.75rem 1rem;
-  }
-  .variant-detail-label {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700;
-    letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
-  }
-  .variant-detail-value {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600;
-    letter-spacing: 0.06em; color: var(--text);
-  }
-
-  .variant-price {
-    font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; letter-spacing: 0.04em;
-    color: var(--accent); line-height: 1;
-  }
-  .variant-price-label {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700;
-    letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 0.2rem;
-  }
-
-  .variant-status {
-    display: flex; align-items: center; gap: 0.5rem;
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
-    letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
-  }
-  .variant-status-dot {
-    width: 7px; height: 7px; border-radius: 50%; background: var(--muted); flex-shrink: 0;
-  }
-  .variant-status-dot.available { background: var(--green); }
-  .variant-status.available { color: var(--green); }
-
-  .variant-footer { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
-
-  .btn-primary {
-    background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
-    padding: 0.9rem 2rem; border: none; cursor: pointer; text-decoration: none;
-    display: inline-block; transition: background 0.2s, transform 0.15s; text-align: center;
-    white-space: nowrap;
-  }
+  .btn-primary { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; border: none; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.15s; text-align: center; white-space: nowrap; }
   .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
   .btn-primary:disabled { background: var(--muted); cursor: not-allowed; transform: none; }
   .btn-primary.added { background: var(--green); color: #fff; }
-
-  .btn-ghost {
-    background: transparent; color: var(--text); font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
-    padding: 0.9rem 2rem; border: 1px solid var(--border2); cursor: pointer;
-    text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s;
-  }
+  .btn-ghost { background: transparent; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; border: 1px solid var(--border2); cursor: pointer; text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s; }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
 
-  /* ── SPECS ── */
   .specs-section { background: var(--dark); padding: 6rem 3rem; }
   .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
-  .spec-item {
-    background: var(--dark); padding: 1.75rem 2rem;
-    display: flex; justify-content: space-between; align-items: baseline;
-    transition: background 0.2s;
-  }
+  .spec-item { background: var(--dark); padding: 1.75rem 2rem; display: flex; justify-content: space-between; align-items: baseline; transition: background 0.2s; }
   .spec-item:hover { background: var(--surface); }
-  .spec-name {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700;
-    letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
-  }
-  .spec-value {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600;
-    letter-spacing: 0.08em; color: var(--text); text-align: right;
-  }
+  .spec-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .spec-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); text-align: right; }
 
-  /* ── FEATURES ── */
-  .features-section { background: var(--black); padding: 6rem 3rem; }
-  .features-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-  .features-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
-  .feature-item {
-    background: var(--surface); padding: 2rem; position: relative;
-    overflow: hidden; transition: background 0.2s;
-  }
-  .feature-item:hover { background: var(--surface2); }
-  .feature-item::before {
-    content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
-    background: var(--accent); opacity: 0; transition: opacity 0.2s;
-  }
-  .feature-item:hover::before { opacity: 1; }
-  .feature-num {
-    font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(200,146,42,0.12);
-    line-height: 1; position: absolute; top: 1rem; right: 1.5rem;
-  }
-  .feature-title {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700;
-    letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
-  }
-  .feature-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
-  .features-aside { position: sticky; top: 110px; }
-  .features-aside p { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
-
-  /* ── CTA BANNER ── */
-  .cta-banner {
-    background: var(--accent); padding: 4rem 3rem;
-    display: flex; align-items: center; justify-content: space-between; gap: 2rem;
-  }
-  .cta-banner h2 {
-    font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem);
-    letter-spacing: 0.06em; color: var(--black); line-height: 1;
-  }
+  .cta-banner { background: var(--accent); padding: 4rem 3rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+  .cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.06em; color: var(--black); line-height: 1; }
   .cta-banner p { font-size: 1rem; color: rgba(10,10,8,0.65); margin-top: 0.5rem; }
-  .btn-dark {
-    background: var(--black); color: var(--accent); font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
-    padding: 0.9rem 2.5rem; border: none; cursor: pointer; white-space: nowrap;
-    text-decoration: none; display: inline-block; transition: background 0.2s;
-  }
+  .btn-dark { background: var(--black); color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: none; cursor: pointer; white-space: nowrap; text-decoration: none; display: inline-block; transition: background 0.2s; }
   .btn-dark:hover { background: #1a1a17; }
 
-  /* ── FOOTER ── */
   footer { background: var(--dark); border-top: 1px solid var(--border); padding: 4rem 3rem 2rem; }
-  .footer-grid {
-    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem;
-    margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border);
-  }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
   .footer-brand p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-top: 1rem; }
-  .footer-col h4 {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
-    letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem;
-  }
+  .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
   .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
   .footer-col a { font-size: 0.9rem; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
   .footer-col a:hover { opacity: 1; color: var(--accent); }
@@ -345,102 +113,73 @@
   .footer-logo span { color: var(--accent); opacity: 1; }
   .footer-legal { font-size: 0.78rem; color: var(--muted); opacity: 0.5; }
 
-  /* ── TOAST ── */
-  .cart-toast {
-    position: fixed; bottom: 2rem; right: 2rem;
-    background: var(--surface2); border: 1px solid var(--accent);
-    color: var(--text); padding: 1rem 1.5rem;
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em;
-    z-index: 999; transform: translateY(100px); opacity: 0;
-    transition: transform 0.3s, opacity 0.3s; max-width: 320px; pointer-events: none;
-  }
+  .cart-toast { position: fixed; bottom: 2rem; right: 2rem; background: var(--surface2); border: 1px solid var(--accent); color: var(--text); padding: 1rem 1.5rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em; z-index: 999; transform: translateY(100px); opacity: 0; transition: transform 0.3s, opacity 0.3s; max-width: 320px; pointer-events: none; }
   .cart-toast.show { transform: translateY(0); opacity: 1; }
 
-  /* ── QUANTITY SELECTOR ── */
-  .qty-row {
-    display: flex; align-items: center; gap: 0.75rem;
-  }
-  .qty-btn {
-    width: 32px; height: 32px; background: var(--surface2); border: 1px solid var(--border2);
-    color: var(--text); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center;
-    justify-content: center; transition: border-color 0.2s, background 0.2s;
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
-  }
+  .qty-row { display: flex; align-items: center; gap: 0.75rem; }
+  .qty-btn { width: 32px; height: 32px; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, background 0.2s; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; }
   .qty-btn:hover { border-color: var(--accent); background: var(--surface); }
-  .qty-display {
-    font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em;
-    color: var(--text); min-width: 2rem; text-align: center;
-  }
+  .qty-display { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; color: var(--text); min-width: 2rem; text-align: center; }
 
-  /* ── RESPONSIVE ── */
+  /* ── CONFIGURATOR (identical to PVS-14) ── */
+  .configurator { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+
+  .config-step { background: var(--dark); padding: 2rem 2.5rem; transition: background 0.2s; }
+  .config-step.locked { opacity: 0.4; pointer-events: none; }
+  .config-step.active { background: var(--surface); opacity: 1; pointer-events: all; }
+  .config-step.done { background: var(--dark); opacity: 1; pointer-events: all; }
+
+  .config-step-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+  .config-step-num { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: rgba(200,146,42,0.25); line-height: 1; }
+  .config-step.active .config-step-num, .config-step.done .config-step-num { color: var(--accent); }
+  .config-step-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
+  .config-step.active .config-step-label, .config-step.done .config-step-label { color: var(--text); }
+
+  .config-options { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+  .config-opt { font-family: 'Barlow Condensed', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.75rem 1.5rem; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); cursor: pointer; transition: border-color 0.2s, background 0.2s, color 0.2s; display: flex; align-items: center; gap: 0.5rem; }
+  .config-opt:hover:not(:disabled) { border-color: var(--accent); background: rgba(200,146,42,0.06); }
+  .config-opt.selected { border-color: var(--accent); background: rgba(200,146,42,0.12); color: var(--accent); }
+  .config-opt:disabled { opacity: 0.25; cursor: not-allowed; }
+  .config-opt .opt-qty { font-size: 0.65rem; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; }
+  .config-opt.selected .opt-qty { color: var(--accent); opacity: 0.7; }
+
+  .config-summary { background: var(--surface); border-top: 1px solid var(--border); opacity: 0.4; pointer-events: none; transition: opacity 0.3s; }
+  .config-summary.ready { opacity: 1; pointer-events: all; }
+  .config-summary-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 2rem 2.5rem; flex-wrap: wrap; }
+  .config-summary-details { display: flex; flex-direction: column; gap: 0.5rem; }
+  .config-summary-row { display: flex; gap: 1.5rem; align-items: baseline; }
+  .config-summary-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); min-width: 90px; }
+  .config-summary-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
+  .config-actions { display: flex; align-items: center; gap: 1rem; }
+
+  /* ── STYLE CHIPS (identical to PVS-14) ── */
+  .selector-block { margin-bottom: 1.75rem; }
+  .selector-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.65rem; display: flex; align-items: center; justify-content: space-between; }
+  .selector-label-selected { color: var(--text); font-weight: 600; }
+  .style-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .style-chip-btn { width: 36px; height: 36px; border: 2px solid var(--border2); cursor: pointer; opacity: 0.75; position: relative; transition: opacity 0.2s, border-color 0.2s, transform 0.15s; overflow: hidden; background: none; padding: 0; }
+  .style-chip-btn:hover { opacity: 1; border-color: rgba(200,146,42,0.6); transform: translateY(-2px); }
+  .style-chip-btn.active { opacity: 1; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .style-chip-btn::after { content: attr(data-label); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--surface2); color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; padding: 0.25rem 0.5rem; border: 1px solid var(--border2); pointer-events: none; opacity: 0; transition: opacity 0.18s; z-index: 10; }
+  .style-chip-btn:hover::after { opacity: 1; }
+
   @media (max-width: 900px) {
     .product-hero { grid-template-columns: 1fr; }
     .product-visual-main { min-height: 50vw; }
     .product-info { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--border); }
-    .variants-grid { grid-template-columns: 1fr; }
     .specs-grid { grid-template-columns: 1fr; }
-    .features-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-    .features-aside { position: static; }
     .footer-grid { grid-template-columns: 1fr 1fr; }
     .cta-banner { flex-direction: column; text-align: center; }
-    .breadcrumb, .variants-section, .specs-section, .features-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .breadcrumb, .variants-section, .specs-section { padding-left: 1.5rem; padding-right: 1.5rem; }
     .nav-top, .nav-ribbon { padding-left: 1.5rem; padding-right: 1.5rem; }
   }
- .color-btn {
-  font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700;
-  letter-spacing: 0.15em; text-transform: uppercase;
-  padding: 0.4rem 0.9rem; border: 1px solid var(--border2);
-  background: var(--surface2); color: var(--muted); cursor: pointer;
-  transition: all 0.2s; white-space: nowrap;
-}
-.color-btn:hover { border-color: var(--accent); color: var(--text); }
-.color-btn.selected { border-color: var(--accent); background: rgba(200,146,42,0.12); color: var(--accent); }
-.color-btn:disabled { opacity: 0.35; cursor: not-allowed; border-color: var(--border); }
-.color-btn-qty { font-size: 0.58rem; opacity: 0.7; margin-left: 0.3rem; }
-
-.configurator { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
-.config-step { background: var(--dark); padding: 2rem 2.5rem; transition: background 0.2s; }
-.config-step.locked { opacity: 0.4; pointer-events: none; }
-.config-step.active { background: var(--surface); opacity: 1; pointer-events: all; }
-.config-step.done { background: var(--dark); opacity: 1; pointer-events: all; }
-.config-step-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
-.config-step-num { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: rgba(200,146,42,0.25); line-height: 1; }
-.config-step.active .config-step-num, .config-step.done .config-step-num { color: var(--accent); }
-.config-step-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
-.config-step.active .config-step-label, .config-step.done .config-step-label { color: var(--text); }
-.config-options { display: flex; gap: 0.75rem; flex-wrap: wrap; }
-.config-opt { font-family: 'Barlow Condensed', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.75rem 1.5rem; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); cursor: pointer; transition: border-color 0.2s, background 0.2s, color 0.2s; display: flex; align-items: center; gap: 0.5rem; }
-.config-opt:hover:not(:disabled) { border-color: var(--accent); background: rgba(200,146,42,0.06); }
-.config-opt.selected { border-color: var(--accent); background: rgba(200,146,42,0.12); color: var(--accent); }
-.config-opt:disabled { opacity: 0.25; cursor: not-allowed; }
-.config-opt .opt-qty { font-size: 0.65rem; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; }
-.config-opt.selected .opt-qty { color: var(--accent); opacity: 0.7; }
-.config-summary { background: var(--surface); border-top: 1px solid var(--border); opacity: 0.4; pointer-events: none; transition: opacity 0.3s; }
-.config-summary.ready { opacity: 1; pointer-events: all; }
-.config-summary-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 2rem 2.5rem; flex-wrap: wrap; }
-.config-summary-details { display: flex; flex-direction: column; gap: 0.5rem; }
-.config-summary-row { display: flex; gap: 1.5rem; align-items: baseline; }
-.config-summary-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); min-width: 90px; }
-.config-summary-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
-.config-actions { display: flex; align-items: center; gap: 1rem; }
-
-.selector-block { margin-bottom: 1.75rem; }
-.selector-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.65rem; display: flex; align-items: center; justify-content: space-between; }
-.selector-label-selected { color: var(--text); font-weight: 600; }
-.style-chips { display: flex; gap: 8px; flex-wrap: wrap; }
-.style-chip-btn { width: 36px; height: 36px; border: 2px solid var(--border2); cursor: pointer; opacity: 0.75; position: relative; transition: opacity 0.2s, border-color 0.2s, transform 0.15s; overflow: hidden; background: none; padding: 0; }
-.style-chip-btn:hover { opacity: 1; border-color: rgba(200,146,42,0.6); transform: translateY(-2px); }
-.style-chip-btn.active { opacity: 1; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
-.style-chip-btn::after { content: attr(data-label); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--surface2); color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; padding: 0.25rem 0.5rem; border: 1px solid var(--border2); pointer-events: none; opacity: 0; transition: opacity 0.18s; z-index: 10; }
-.style-chip-btn:hover::after { opacity: 1; }
 </style>
 </head>
 <body>
 
-<!-- CART TOAST -->
 <div class="cart-toast" id="cartToast"></div>
 
-<!-- ── NAV ── -->
 <nav>
   <div class="nav-top">
     <div class="nav-brand">
@@ -462,42 +201,41 @@
   </div>
 </nav>
 
-<!-- ── BREADCRUMB ── -->
 <div class="breadcrumb">
   <a href="/ursusarmament">Home</a><span>›</span>
   <a href="/ursusarmament/products">Products</a><span>›</span>
   <a href="/ursusarmament/products">NVG</a><span>›</span>
-  <span>MUM-14 Adapter</span>
+  <span>Rhino Mounts</span>
 </div>
 
-<!-- ── PRODUCT HERO ── -->
 <section class="product-hero">
   <div class="product-visual">
     <div class="product-visual-main">
-      <!-- PLACEHOLDER: replace src with your image path -->
-      <img id="main-image" src="/ursusarmament/images/mum14A.png" alt="MUM-14 Adapter">
+      <div class="product-visual-bg-label">RHINO</div>
+      <img id="main-image" src="/ursusarmament/images/mainDTBlack.png" alt="Rhino Mount">
     </div>
     <div class="product-thumbs">
-  <div class="thumb active" onclick="swapImage(this)" data-src="/ursusarmament/images/mum14A.png">
-    <img src="/ursusarmament/images/mum14A.png" alt="MUM-14 Adapter">
-  </div>
-  <div class="thumb" onclick="swapImage(this)" data-src="/ursusarmament/images/mum14-2.png">
-    <img src="/ursusarmament/images/mum14-2.png" alt="MUM-14 Adapter - Angle 2">
-  </div>
-  <div class="thumb" onclick="swapImage(this)" data-src="/ursusarmament/images/mum14-3.png">
-    <img src="/ursusarmament/images/mum14-3.png" alt="MUM-14 Adapter - Angle 3">
-  </div>
-  <div class="thumb" onclick="swapImage(this)" data-src="/ursusarmament/images/mum14-4.png">
-    <img src="/ursusarmament/images/mum14-4.png" alt="MUM-14 Adapter - Angle 4">
-  </div>
-</div>
+      <div class="thumb active" onclick="swapImage(this)" data-src="/ursusarmament/images/mainDTBlack.png">
+        <img src="/ursusarmament/images/DTBlack.png" alt="DT Black">
+      </div>
+      <div class="thumb" onclick="swapImage(this)" data-src="/ursusarmament/images/mainDTKhaki.png">
+        <img src="/ursusarmament/images/DTKhaki.png" alt="DT Khaki">
+      </div>
+      <div class="thumb" onclick="swapImage(this)" data-src="/ursusarmament/images/mainBNBlack.png">
+        <img src="/ursusarmament/images/BNBlack.png" alt="BN Black">
+      </div>
+      <div class="thumb" onclick="swapImage(this)" data-src="/ursusarmament/images/mainBNKhaki.png">
+        <img src="/ursusarmament/images/BNKhaki.png" alt="BN Khaki">
+      </div>
+    </div>
   </div>
 
   <div class="product-info">
-    <div class="product-tag">NVG Adapter</div>
-    <h1 class="product-name">MUM-14<br>ADAPTER</h1>
-    <div class="product-subtitle">Mil-Spec Helmet Mount Interface</div>
-    <p class="product-desc">Mil-spec MUM-14 helmet mount adapter engineered for seamless compatibility with rhino mount systems. Available in Dovetail and Bayonet interface configurations. Machined from aircraft-grade aluminum with a durable matte black anodized finish or matte sand anodized finish.</p>
+    <div class="product-tag">NVG Mount</div>
+    <h1 class="product-name">RHINO<br>MOUNT</h1>
+    <div class="product-subtitle">Mil-Spec Helmet Mount System</div>
+    <p class="product-desc">Mil-spec rhino mount system engineered for secure, reliable NOD attachment to PASGT, ACH, and MICH helmet platforms. Available in Dovetail and Bayonet interface configurations in Black and Khaki anodize.</p>
+
     <div class="selector-block" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
       <span class="selector-label">
         Style
@@ -505,43 +243,66 @@
       </span>
       <div class="style-chips">
 
-        <!-- Black -->
-          <button class="style-chip-btn active" id="style-chip-0" data-label="Black" onclick="selectMUMStyle(0)">
-            <svg viewBox="0 0 36 36"><rect width="36" height="36" fill="#0a0a08"/></svg>
-          </button>
+        <!-- DT Black -->
+        <button class="style-chip-btn active" id="style-chip-0" data-label="DT Black" onclick="selectRhinoStyle(0)">
+          <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+            <rect width="52" height="52" fill="#c8922a"/>
+            <polygon points="26,38 10,14 42,14" fill="#0a0a08"/>
+          </svg>
+        </button>
 
-        <!-- Khaki -->
-          <button class="style-chip-btn" id="style-chip-1" data-label="Khaki" onclick="selectMUMStyle(1)">
-            <svg viewBox="0 0 36 36"><rect width="36" height="36" fill="#c4a46a"/></svg>
-          </button>
+        <!-- DT Khaki -->
+        <button class="style-chip-btn" id="style-chip-1" data-label="DT Khaki" onclick="selectRhinoStyle(1)">
+          <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+            <rect width="52" height="52" fill="#0a0a08"/>
+            <polygon points="26,38 10,14 42,14" fill="#c4a46a"/>
+          </svg>
+        </button>
+
+        <!-- BN Black -->
+        <button class="style-chip-btn" id="style-chip-2" data-label="BN Black" onclick="selectRhinoStyle(2)">
+          <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+            <rect width="52" height="52" fill="#c8922a"/>
+            <rect x="20" y="8" width="12" height="36" fill="#0a0a08"/>
+          </svg>
+        </button>
+
+        <!-- BN Khaki -->
+        <button class="style-chip-btn" id="style-chip-3" data-label="BN Khaki" onclick="selectRhinoStyle(3)">
+          <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+            <rect width="52" height="52" fill="#0a0a08"/>
+            <rect x="20" y="8" width="12" height="36" fill="#c4a46a"/>
+          </svg>
+        </button>
 
       </div>
     </div>
+
     <div style="display:flex; gap: 1rem; flex-wrap: wrap;">
-      <a href="#variants" class="btn-primary">Select Mount Type & Color</a>
+      <a href="#variants" class="btn-primary">Select Variant</a>
       <a href="#specs" class="btn-ghost">Specifications</a>
     </div>
     <div class="product-trust">
-      <div class="trust-item"><span class="trust-label">Compatibility</span><span class="trust-value">J-Arm / Rhino</span></div>
+      <div class="trust-item"><span class="trust-label">Compatibility</span><span class="trust-value">PASGT / ACH / MICH</span></div>
       <div class="trust-item"><span class="trust-label">Material</span><span class="trust-value">Aircraft Aluminum</span></div>
+      <div class="trust-item"><span class="trust-label">Made In</span><span class="trust-value">USA</span></div>
     </div>
   </div>
 </section>
 
-<!-- ── VARIANTS ── -->
 <section class="variants-section" id="variants">
   <div class="section-tag">Choose Your Configuration</div>
   <h2 class="section-title">SELECT VARIANT</h2>
 
   <div class="configurator">
 
-    <!-- STEP 1: Mount Style -->
-    <div class="config-step" id="step-mount">
+    <!-- STEP 1: Interface -->
+    <div class="config-step" id="step-interface">
       <div class="config-step-header">
         <span class="config-step-num">01</span>
-        <span class="config-step-label">Mount Style</span>
+        <span class="config-step-label">Interface</span>
       </div>
-      <div class="config-options" id="options-mount"></div>
+      <div class="config-options" id="options-interface"></div>
     </div>
 
     <!-- STEP 2: Color -->
@@ -584,32 +345,28 @@
   </div>
 </section>
 
-<!-- ── SPECS ── -->
 <section class="specs-section" id="specs">
   <div class="section-tag">Technical Data</div>
   <h2 class="section-title">SPECIFICATIONS</h2>
   <div class="specs-grid">
     <div class="spec-item"><span class="spec-name">Material</span><span class="spec-value">Aircraft-Grade Aluminum</span></div>
-    <div class="spec-item"><span class="spec-name">Finish</span><span class="spec-value">Matte Black/Khaki Anodize</span></div>
+    <div class="spec-item"><span class="spec-name">Available Finishes</span><span class="spec-value">Black / Khaki Anodize</span></div>
     <div class="spec-item"><span class="spec-name">Interface Types</span><span class="spec-value">Dovetail (DY) / Bayonet (BN)</span></div>
-    <div class="spec-item"><span class="spec-name">Compatibility</span><span class="spec-value">Standard J-Arm, Rhino Mount</span></div>
-    <div class="spec-item"><span class="spec-name">Device Compatibility</span><span class="spec-value">MUM-14 & Compatible NODs</span></div>
+    <div class="spec-item"><span class="spec-name">Helmet Compatibility</span><span class="spec-value">PASGT, ACH, MICH</span></div>
     <div class="spec-item"><span class="spec-name">Standard</span><span class="spec-value">Mil-Spec</span></div>
     <div class="spec-item"><span class="spec-name">Country of Origin</span><span class="spec-value">United States of America</span></div>
-    <div class="spec-item"><span class="spec-name">Warranty</span><span class="spec-value">Limited 5-year</span></div>
+    <div class="spec-item"><span class="spec-name">Warranty</span><span class="spec-value">Limited Lifetime</span></div>
   </div>
 </section>
 
-<!-- ── CTA ── -->
 <div class="cta-banner">
   <div>
-    <h2>QUESTIONS ABOUT THE MUM-14 ADAPTER?</h2>
+    <h2>QUESTIONS ABOUT THE RHINO MOUNT?</h2>
     <p>Our product specialists are available Monday–Friday, 8AM–6PM MST.</p>
   </div>
   <a href="/ursusarmament/contact/" class="btn-dark">Contact Support</a>
 </div>
 
-<!-- ── FOOTER ── -->
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
@@ -649,7 +406,6 @@
   </div>
 </footer>
 
-<!-- ── CART ENGINE ── -->
 <script>
 const CART_KEY = 'ursus_cart';
 
@@ -699,18 +455,21 @@ window.addToCart = function(item, btnEl) {
 };
 updateCartBadge();
 
-const MUM_IMAGES = [
-  '/ursusarmament/images/mum14A.png',   // Black
-  '/ursusarmament/images/mum14-2.png',  // Khaki
+// ── STYLE CHIPS ──
+const RHINO_IMAGES = [
+  '/ursusarmament/images/mainDTBlack.png',  // DT Black
+  '/ursusarmament/images/mainDTKhaki.png',  // DT Khaki
+  '/ursusarmament/images/mainBNBlack.png',  // BN Black
+  '/ursusarmament/images/mainBNKhaki.png',  // BN Khaki
 ];
-const MUM_LABELS = ['Black', 'Khaki'];
+const RHINO_LABELS = ['DOVETAIL Black', 'DOVETAIL Khaki', 'BAYONET Black', 'BAYONET Khaki'];
 
-window.selectMUMStyle = function(index) {
+window.selectRhinoStyle = function(index) {
   document.querySelectorAll('.style-chip-btn').forEach((c, i) => {
     c.classList.toggle('active', i === index);
   });
-  document.getElementById('selectedStyleLabel').textContent = MUM_LABELS[index];
-  document.getElementById('main-image').src = MUM_IMAGES[index];
+  document.getElementById('selectedStyleLabel').textContent = RHINO_LABELS[index];
+  document.getElementById('main-image').src = RHINO_IMAGES[index];
   document.querySelectorAll('.thumb').forEach((t, i) => {
     t.classList.toggle('active', i === index);
   });
@@ -718,27 +477,20 @@ window.selectMUMStyle = function(index) {
 
 window.swapImage = function(el) {
   const index = Array.from(document.querySelectorAll('.thumb')).indexOf(el);
-  if (index <= 1) {
-    selectMUMStyle(index);
-  } else {
-    document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
-    el.classList.add('active');
-    document.getElementById('main-image').src = el.getAttribute('data-src');
-  }
+  selectRhinoStyle(index);
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  selectMUMStyle(0);
+  selectRhinoStyle(0);
 });
 </script>
 
-<!-- ── FIREBASE ── -->
 <script src="/ursusarmament/access-check.js"></script>
 
 <script type="module">
 import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getFirestore, doc, getDoc }   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey:            "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
@@ -760,82 +512,109 @@ onAuthStateChanged(auth, user => {
     : `<a href="/ursusarmament/login/">Login</a>`;
 });
 
-let mountData = {};
-let priceData = 0;
-let configQty = 1;
-let selection = { mount: null, color: null };
+let mountsData = {};  // mounts map: { dovetail: { black: 1, khaki: 0 }, bayonet: { black: 1, khaki: 0 } }
+let priceData  = {};  // price map:  { dovetail: 120, bayonet: 80 }
+let configQty  = 1;
+let selection  = { interface: null, color: null };
 
 async function loadData() {
   try {
-    const snap = await getDoc(doc(db, "ursus-units", "MUM-14 Adapter"));
+    const snap = await getDoc(doc(db, "ursus-units", "rhino-mounts"));
     if (!snap.exists()) { showLoadError(); return; }
-    mountData = snap.data().mount || {};
-    priceData = snap.data().price || 0;
-    buildStep('mount', Object.keys(mountData), getMountQty);
-    activateStep('mount');
+    mountsData = snap.data().mounts || {};
+    priceData  = snap.data().price  || {};
+    buildInterfaceStep();
+    activateStep('interface');
   } catch(err) {
     console.error(err);
     showLoadError();
   }
 }
 
-function getMountQty(mountKey) {
-  const colors = mountData[mountKey] || {};
+function getInterfaceQty(iface) {
+  const colors = mountsData[iface] || {};
   return Object.values(colors).reduce((s, q) => s + (typeof q === 'number' ? q : 0), 0);
 }
 
-function getColorQty(mountKey, colorKey) {
-  return (mountData[mountKey] || {})[colorKey] || 0;
+function getColorQty(iface, color) {
+  return (mountsData[iface] || {})[color] || 0;
 }
 
-function buildStep(stepKey, keys, qtyFn) {
-  const container = document.getElementById('options-' + stepKey);
+function buildInterfaceStep() {
+  const container = document.getElementById('options-interface');
   container.innerHTML = '';
-  keys.forEach(key => {
-    const qty = qtyFn(key);
+  Object.keys(mountsData).forEach(iface => {
+    const qty = getInterfaceQty(iface);
     const btn = document.createElement('button');
     btn.className   = 'config-opt';
     btn.disabled    = qty === 0;
-    btn.dataset.val = key;
-    btn.innerHTML   = `${formatLabel(key)} <span class="opt-qty">${qty > 0 ? qty + ' avail' : 'unavailable'}</span>`;
-    btn.addEventListener('click', () => onSelect(stepKey, key));
+    btn.dataset.val = iface;
+    btn.innerHTML   = `${formatLabel(iface)} <span class="opt-qty">${qty > 0 ? qty + ' avail' : 'unavailable'}</span>`;
+    btn.addEventListener('click', () => onSelectInterface(iface));
     container.appendChild(btn);
   });
 }
 
-function formatLabel(key) {
-  return key.charAt(0).toUpperCase() + key.slice(1);
+function buildColorStep(iface) {
+  const container = document.getElementById('options-color');
+  container.innerHTML = '';
+  const colors = mountsData[iface] || {};
+  Object.keys(colors).forEach(color => {
+    const qty = getColorQty(iface, color);
+    const btn = document.createElement('button');
+    btn.className   = 'config-opt';
+    btn.disabled    = qty === 0;
+    btn.dataset.val = color;
+    btn.innerHTML   = `${formatLabel(color)} <span class="opt-qty">${qty > 0 ? qty + ' avail' : 'unavailable'}</span>`;
+    btn.addEventListener('click', () => onSelectColor(color));
+    container.appendChild(btn);
+  });
 }
 
-function onSelect(stepKey, val) {
-  selection[stepKey] = val;
-  document.querySelectorAll(`#options-${stepKey} .config-opt`).forEach(b => {
-    b.classList.toggle('selected', b.dataset.val === val);
+function onSelectInterface(iface) {
+  selection.interface = iface;
+  selection.color     = null;
+  document.querySelectorAll('#options-interface .config-opt').forEach(b => {
+    b.classList.toggle('selected', b.dataset.val === iface);
   });
+  hideSummary();
+  buildColorStep(iface);
+  activateStep('color');
+  doneStep('interface');
+}
 
-  if (stepKey === 'mount') {
-    selection.color = null;
-    hideSummary();
-    const colors = Object.keys(mountData[val] || {});
-    buildStep('color', colors, k => getColorQty(val, k));
-    activateStep('color');
-    doneStep('mount');
+function onSelectColor(color) {
+  selection.color = color;
+  document.querySelectorAll('#options-color .config-opt').forEach(b => {
+    b.classList.toggle('selected', b.dataset.val === color);
+  });
+  doneStep('color');
+  showSummary();
+}
 
-    // sync style chip to first available color
-    const firstAvailable = colors.find(c => getColorQty(val, c) > 0);
-    if (firstAvailable) {
-      const chipIndex = firstAvailable === 'black' ? 0 : 1;
-      selectMUMStyle(chipIndex);
-    }
-  }
+function showSummary() {
+  const { interface: iface, color } = selection;
+  const qty = getColorQty(iface, color);
+  configQty = 1;
+  document.getElementById('config-qty-display').textContent = 1;
+  window._configMax = qty;
 
-  if (stepKey === 'color') {
-    doneStep('color');
-    // sync style chip
-    const chipIndex = val === 'black' ? 0 : 1;
-    selectMUMStyle(chipIndex);
-    showSummary();
-  }
+  document.getElementById('summary-config').textContent =
+    `${formatLabel(iface)} / ${formatLabel(color)}`;
+  document.getElementById('summary-qty').textContent = qty + ' unit' + (qty === 1 ? '' : 's');
+  const price = priceData[iface];
+  document.getElementById('summary-price').textContent =
+    price ? '$' + Number(price).toLocaleString() + ' per unit' : '—';
+  document.getElementById('btn-add-config').disabled = qty === 0;
+  document.getElementById('config-summary').classList.add('ready');
+}
+
+function hideSummary() {
+  document.getElementById('config-summary').classList.remove('ready');
+  document.getElementById('summary-config').textContent = '—';
+  document.getElementById('summary-price').textContent  = '—';
+  document.getElementById('summary-qty').textContent    = '—';
+  document.getElementById('config-qty-display').textContent = '1';
 }
 
 function activateStep(key) {
@@ -848,33 +627,9 @@ function doneStep(key) {
   el.classList.remove('locked', 'active');
   el.classList.add('done');
 }
-function lockStep(key) {
-  const el = document.getElementById('step-' + key);
-  el.classList.remove('active', 'done');
-  el.classList.add('locked');
-}
 
-function showSummary() {
-  const { mount, color } = selection;
-  const qty = getColorQty(mount, color);
-  configQty = 1;
-  document.getElementById('config-qty-display').textContent = 1;
-  window._configMax = qty;
-
-  document.getElementById('summary-config').textContent =
-    `${formatLabel(mount)} / ${formatLabel(color)}`;
-  document.getElementById('summary-qty').textContent = qty + ' unit' + (qty === 1 ? '' : 's');
-  document.getElementById('summary-price').textContent = priceData ? '$' + Number(priceData).toLocaleString() + ' per unit' : '—';
-  document.getElementById('btn-add-config').disabled = qty === 0;
-  document.getElementById('config-summary').classList.add('ready');
-}
-
-function hideSummary() {
-  document.getElementById('config-summary').classList.remove('ready');
-  document.getElementById('summary-config').textContent = '—';
-  document.getElementById('summary-price').textContent = '—';
-  document.getElementById('summary-qty').textContent = '—';
-  document.getElementById('config-qty-display').textContent = '1';
+function formatLabel(key) {
+  return key.charAt(0).toUpperCase() + key.slice(1);
 }
 
 window.changeConfigQty = function(delta) {
@@ -884,24 +639,24 @@ window.changeConfigQty = function(delta) {
 };
 
 window.addConfigToCart = function() {
-  const { mount, color } = selection;
-  const qty = getColorQty(mount, color);
+  const { interface: iface, color } = selection;
+  const qty = getColorQty(iface, color);
   if (qty === 0) return;
   const btn = document.getElementById('btn-add-config');
   window.addToCart({
-    id:       `MUM-14-Adapter-${mount}-${color}`,
-    product:  'MUM-14 Adapter',
-    tier:     `${formatLabel(mount)} / ${formatLabel(color)}`,
-    price:    String(priceData || 0),
+    id:       `rhino-mount-${iface}-${color}`,
+    product:  'Rhino Mount',
+    tier:     `${formatLabel(iface)} / ${formatLabel(color)}`,
+    price:    String(priceData[iface] || 0),
     quantity: configQty,
     maxQty:   qty,
   }, btn);
 };
 
 function showLoadError() {
-  ['step-mount','step-color'].forEach(id => {
+  ['step-interface', 'step-color'].forEach(id => {
     const el = document.getElementById(id);
-    if (el) el.innerHTML += '<p style="color:var(--muted);font-size:0.85rem;">Unable to load availability.</p>';
+    if (el) el.innerHTML += '<p style="color:var(--muted);font-size:0.85rem;margin-top:0.5rem;">Unable to load availability.</p>';
   });
 }
 
