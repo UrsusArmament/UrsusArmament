@@ -80,23 +80,6 @@
   .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5vw, 4.2rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 3rem; }
 
   .variants-section { background: var(--black); padding: 6rem 3rem; }
-  .variants-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
-  .variant-card { background: var(--dark); padding: 2.5rem; display: flex; flex-direction: column; gap: 1.5rem; transition: background 0.2s; position: relative; border: 2px solid transparent; }
-  .variant-card:hover { background: var(--surface); }
-  .variant-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
-  .variant-name { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.04em; color: var(--text); line-height: 1; }
-  .variant-sku { font-family: 'Barlow Condensed', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); background: var(--surface2); padding: 0.25rem 0.6rem; border: 1px solid var(--border); white-space: nowrap; }
-  .variant-details { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
-  .variant-detail-row { display: flex; justify-content: space-between; align-items: baseline; background: var(--surface2); padding: 0.75rem 1rem; }
-  .variant-detail-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
-  .variant-detail-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
-  .variant-price { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; letter-spacing: 0.04em; color: var(--accent); line-height: 1; }
-  .variant-price-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 0.2rem; }
-  .variant-status { display: flex; align-items: center; gap: 0.5rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
-  .variant-status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--muted); flex-shrink: 0; }
-  .variant-status-dot.available { background: var(--green); }
-  .variant-status.available { color: var(--green); }
-  .variant-footer { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
 
   .btn-primary { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; border: none; cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.15s; text-align: center; white-space: nowrap; }
   .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
@@ -111,19 +94,6 @@
   .spec-item:hover { background: var(--surface); }
   .spec-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
   .spec-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); text-align: right; }
-
-  .features-section { background: var(--black); padding: 6rem 3rem; }
-  .features-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-  .features-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
-  .feature-item { background: var(--surface); padding: 2rem; position: relative; overflow: hidden; transition: background 0.2s; }
-  .feature-item:hover { background: var(--surface2); }
-  .feature-item::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
-  .feature-item:hover::before { opacity: 1; }
-  .feature-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(200,146,42,0.12); line-height: 1; position: absolute; top: 1rem; right: 1.5rem; }
-  .feature-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
-  .feature-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
-  .features-aside { position: sticky; top: 110px; }
-  .features-aside p { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
 
   .cta-banner { background: var(--accent); padding: 4rem 3rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
   .cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.06em; color: var(--black); line-height: 1; }
@@ -151,23 +121,57 @@
   .qty-btn:hover { border-color: var(--accent); background: var(--surface); }
   .qty-display { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; color: var(--text); min-width: 2rem; text-align: center; }
 
-  .color-btn { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.4rem 0.9rem; border: 1px solid var(--border2); background: var(--surface2); color: var(--muted); cursor: pointer; transition: all 0.2s; white-space: nowrap; }
-  .color-btn:hover { border-color: var(--accent); color: var(--text); }
-  .color-btn.selected { border-color: var(--accent); background: rgba(200,146,42,0.12); color: var(--accent); }
-  .color-btn:disabled { opacity: 0.35; cursor: not-allowed; border-color: var(--border); }
-  .color-btn-qty { font-size: 0.58rem; opacity: 0.7; margin-left: 0.3rem; }
+  /* ── CONFIGURATOR (identical to PVS-14) ── */
+  .configurator { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+
+  .config-step { background: var(--dark); padding: 2rem 2.5rem; transition: background 0.2s; }
+  .config-step.locked { opacity: 0.4; pointer-events: none; }
+  .config-step.active { background: var(--surface); opacity: 1; pointer-events: all; }
+  .config-step.done { background: var(--dark); opacity: 1; pointer-events: all; }
+
+  .config-step-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
+  .config-step-num { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: rgba(200,146,42,0.25); line-height: 1; }
+  .config-step.active .config-step-num, .config-step.done .config-step-num { color: var(--accent); }
+  .config-step-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
+  .config-step.active .config-step-label, .config-step.done .config-step-label { color: var(--text); }
+
+  .config-options { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
+  .config-opt { font-family: 'Barlow Condensed', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.75rem 1.5rem; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); cursor: pointer; transition: border-color 0.2s, background 0.2s, color 0.2s; display: flex; align-items: center; gap: 0.5rem; }
+  .config-opt:hover:not(:disabled) { border-color: var(--accent); background: rgba(200,146,42,0.06); }
+  .config-opt.selected { border-color: var(--accent); background: rgba(200,146,42,0.12); color: var(--accent); }
+  .config-opt:disabled { opacity: 0.25; cursor: not-allowed; }
+  .config-opt .opt-qty { font-size: 0.65rem; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; }
+  .config-opt.selected .opt-qty { color: var(--accent); opacity: 0.7; }
+
+  .config-summary { background: var(--surface); border-top: 1px solid var(--border); opacity: 0.4; pointer-events: none; transition: opacity 0.3s; }
+  .config-summary.ready { opacity: 1; pointer-events: all; }
+  .config-summary-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 2rem 2.5rem; flex-wrap: wrap; }
+  .config-summary-details { display: flex; flex-direction: column; gap: 0.5rem; }
+  .config-summary-row { display: flex; gap: 1.5rem; align-items: baseline; }
+  .config-summary-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); min-width: 90px; }
+  .config-summary-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
+  .config-actions { display: flex; align-items: center; gap: 1rem; }
+
+  /* ── STYLE CHIPS (identical to PVS-14) ── */
+  .selector-block { margin-bottom: 1.75rem; }
+  .selector-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.65rem; display: flex; align-items: center; justify-content: space-between; }
+  .selector-label-selected { color: var(--text); font-weight: 600; }
+  .style-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+  .style-chip-btn { width: 36px; height: 36px; border: 2px solid var(--border2); cursor: pointer; opacity: 0.75; position: relative; transition: opacity 0.2s, border-color 0.2s, transform 0.15s; overflow: hidden; background: none; padding: 0; }
+  .style-chip-btn:hover { opacity: 1; border-color: rgba(200,146,42,0.6); transform: translateY(-2px); }
+  .style-chip-btn.active { opacity: 1; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .style-chip-btn::after { content: attr(data-label); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--surface2); color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; padding: 0.25rem 0.5rem; border: 1px solid var(--border2); pointer-events: none; opacity: 0; transition: opacity 0.18s; z-index: 10; }
+  .style-chip-btn:hover::after { opacity: 1; }
 
   @media (max-width: 900px) {
     .product-hero { grid-template-columns: 1fr; }
     .product-visual-main { min-height: 50vw; }
     .product-info { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--border); }
-    .variants-grid { grid-template-columns: 1fr; }
     .specs-grid { grid-template-columns: 1fr; }
-    .features-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-    .features-aside { position: static; }
     .footer-grid { grid-template-columns: 1fr 1fr; }
     .cta-banner { flex-direction: column; text-align: center; }
-    .breadcrumb, .variants-section, .specs-section, .features-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .breadcrumb, .variants-section, .specs-section { padding-left: 1.5rem; padding-right: 1.5rem; }
     .nav-top, .nav-ribbon { padding-left: 1.5rem; padding-right: 1.5rem; }
   }
 </style>
@@ -208,17 +212,20 @@
   <div class="product-visual">
     <div class="product-visual-main">
       <div class="product-visual-bg-label">RHINO</div>
-      <img id="main-image" src="/ursusarmament/images/rhinomount.png" alt="Rhino Mount">
+      <img id="main-image" src="/ursusarmament/images/rhinomountdovetail.png" alt="Rhino Mount">
     </div>
     <div class="product-thumbs">
-      <div class="thumb active" onclick="swapImage(this)" data-src="/ursusarmament/images/rhinomount.png">
-        <img src="/ursusarmament/images/rhinomount.png" alt="Rhino Mount">
+      <div class="thumb active" onclick="swapImage(this)" data-src="/ursusarmament/images/rhinomountdovetail.png">
+        <img src="/ursusarmament/images/rhinomountdovetail.png" alt="DT Black">
       </div>
-      <div class="thumb" onclick="swapImage(this)" data-src="/ursusarmament/images/rhinomountbayonet.png">
-        <img src="/ursusarmament/images/rhinomountbayonet.png" alt="Rhino Mount angle 2">
+      <div class="thumb" onclick="swapImage(this)" data-src="/ursusarmament/images/rhinoDTtan.png">
+        <img src="/ursusarmament/images/rhinoDTtan.png" alt="DT Khaki">
       </div>
-      <div class="thumb" onclick="swapImage(this)" data-src="/ursusarmament/images/rhinomountdovetail.png">
-        <img src="/ursusarmament/images/rhinomountdovetail.png" alt="Rhino Mount angle 3">
+      <div class="thumb" onclick="swapImage(this)" data-src="/ursusarmament/images/rhinomount.png">
+        <img src="/ursusarmament/images/rhinomount.png" alt="BN Black">
+      </div>
+      <div class="thumb" onclick="swapImage(this)" data-src="/ursusarmament/images/rhinoBNtan.png">
+        <img src="/ursusarmament/images/rhinoBNtan.png" alt="BN Khaki">
       </div>
     </div>
   </div>
@@ -227,7 +234,50 @@
     <div class="product-tag">NVG Mount</div>
     <h1 class="product-name">RHINO<br>MOUNT</h1>
     <div class="product-subtitle">Mil-Spec Helmet Mount System</div>
-    <p class="product-desc">Mil-spec rhino mount system engineered for secure, reliable NOD attachment to PASGT, ACH, and MICH helmet platforms. Available in Dovetail and Bayonet interface configurations in Black and Sand anodize.</p>
+    <p class="product-desc">Mil-spec rhino mount system engineered for secure, reliable NOD attachment to PASGT, ACH, and MICH helmet platforms. Available in Dovetail and Bayonet interface configurations in Black and Khaki anodize.</p>
+
+    <div class="selector-block" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+      <span class="selector-label">
+        Style
+        <span class="selector-label-selected" id="selectedStyleLabel"></span>
+      </span>
+      <div class="style-chips">
+
+        <!-- DT Black -->
+        <button class="style-chip-btn active" id="style-chip-0" data-label="DT Black" onclick="selectRhinoStyle(0)">
+          <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+            <rect width="52" height="52" fill="#c8922a"/>
+            <polygon points="26,38 10,14 42,14" fill="#0a0a08"/>
+          </svg>
+        </button>
+
+        <!-- DT Khaki -->
+        <button class="style-chip-btn" id="style-chip-1" data-label="DT Khaki" onclick="selectRhinoStyle(1)">
+          <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+            <rect width="52" height="52" fill="#0a0a08"/>
+            <polygon points="26,38 10,14 42,14" fill="#c4a46a"/>
+          </svg>
+        </button>
+
+        <!-- BN Black -->
+        <button class="style-chip-btn" id="style-chip-2" data-label="BN Black" onclick="selectRhinoStyle(2)">
+          <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+            <rect width="52" height="52" fill="#c8922a"/>
+            <rect x="20" y="8" width="12" height="36" fill="#0a0a08"/>
+          </svg>
+        </button>
+
+        <!-- BN Khaki -->
+        <button class="style-chip-btn" id="style-chip-3" data-label="BN Khaki" onclick="selectRhinoStyle(3)">
+          <svg viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
+            <rect width="52" height="52" fill="#0a0a08"/>
+            <rect x="20" y="8" width="12" height="36" fill="#c4a46a"/>
+          </svg>
+        </button>
+
+      </div>
+    </div>
+
     <div style="display:flex; gap: 1rem; flex-wrap: wrap;">
       <a href="#variants" class="btn-primary">Select Variant</a>
       <a href="#specs" class="btn-ghost">Specifications</a>
@@ -243,98 +293,51 @@
 <section class="variants-section" id="variants">
   <div class="section-tag">Choose Your Configuration</div>
   <h2 class="section-title">SELECT VARIANT</h2>
-  <div class="variants-grid">
 
-    <!-- DOVETAIL -->
-    <div class="variant-card" id="card-dovetail">
-      <div class="variant-header">
-        <div class="variant-name">DOVETAIL</div>
-        <div class="variant-sku" id="sku-dovetail">Loading...</div>
+  <div class="configurator">
+
+    <!-- STEP 1: Interface -->
+    <div class="config-step" id="step-interface">
+      <div class="config-step-header">
+        <span class="config-step-num">01</span>
+        <span class="config-step-label">Interface</span>
       </div>
-      <div class="variant-details">
-        <div class="variant-detail-row">
-          <span class="variant-detail-label">Interface</span>
-          <span class="variant-detail-value">Dovetail (DY)</span>
-        </div>
-        <div class="variant-detail-row">
-          <span class="variant-detail-label">Finish</span>
-          <span class="variant-detail-value">Black / Sand</span>
-        </div>
-        <div class="variant-detail-row">
-          <span class="variant-detail-label">Product</span>
-          <span class="variant-detail-value" id="product-dovetail">Loading...</span>
-        </div>
-        <div class="variant-detail-row">
-          <span class="variant-detail-label">Qty Available</span>
-          <span class="variant-detail-value" id="qty-dovetail">Loading...</span>
-        </div>
-      </div>
-      <div class="variant-footer">
-        <div>
-          <div class="variant-price" id="price-dovetail">—</div>
-          <div class="variant-price-label">Free Shipping on Orders $250+</div>
-        </div>
-        <div style="display:flex; flex-direction:column; gap: 0.75rem; align-items: flex-end;">
-          <div class="variant-status" id="status-dovetail">
-            <span class="variant-status-dot" id="dot-dovetail"></span>
-            <span id="status-text-dovetail">Checking...</span>
-          </div>
-          <div id="color-btns-dovetail" style="display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:flex-end;"></div>
-          <div class="qty-row">
-            <button class="qty-btn" onclick="changeQty('dovetail', -1)">−</button>
-            <span class="qty-display" id="qty-input-dovetail">1</span>
-            <button class="qty-btn" onclick="changeQty('dovetail', 1)">+</button>
-          </div>
-          <button class="btn-primary" id="btn-dovetail" onclick="addVariantToCart('dovetail')" disabled>
-            Add to Cart
-          </button>
-        </div>
-      </div>
+      <div class="config-options" id="options-interface"></div>
     </div>
 
-    <!-- BAYONET -->
-    <div class="variant-card" id="card-bayonet">
-      <div class="variant-header">
-        <div class="variant-name">BAYONET</div>
-        <div class="variant-sku" id="sku-bayonet">Loading...</div>
+    <!-- STEP 2: Color -->
+    <div class="config-step locked" id="step-color">
+      <div class="config-step-header">
+        <span class="config-step-num">02</span>
+        <span class="config-step-label">Color</span>
       </div>
-      <div class="variant-details">
-        <div class="variant-detail-row">
-          <span class="variant-detail-label">Interface</span>
-          <span class="variant-detail-value">Bayonet (BN)</span>
-        </div>
-        <div class="variant-detail-row">
-          <span class="variant-detail-label">Finish</span>
-          <span class="variant-detail-value">Black / Sand</span>
-        </div>
-        <div class="variant-detail-row">
-          <span class="variant-detail-label">Product</span>
-          <span class="variant-detail-value" id="product-bayonet">Loading...</span>
-        </div>
-        <div class="variant-detail-row">
-          <span class="variant-detail-label">Qty Available</span>
-          <span class="variant-detail-value" id="qty-bayonet">Loading...</span>
-        </div>
-      </div>
-      <div class="variant-footer">
-        <div>
-          <div class="variant-price" id="price-bayonet">—</div>
-          <div class="variant-price-label">Free Shipping on Orders $250+</div>
-        </div>
-        <div style="display:flex; flex-direction:column; gap: 0.75rem; align-items: flex-end;">
-          <div class="variant-status" id="status-bayonet">
-            <span class="variant-status-dot" id="dot-bayonet"></span>
-            <span id="status-text-bayonet">Checking...</span>
+      <div class="config-options" id="options-color"></div>
+    </div>
+
+    <!-- Summary + Add to Cart -->
+    <div class="config-summary" id="config-summary">
+      <div class="config-summary-inner">
+        <div class="config-summary-details">
+          <div class="config-summary-row">
+            <span class="config-summary-label">Configuration</span>
+            <span class="config-summary-value" id="summary-config">—</span>
           </div>
-          <div id="color-btns-bayonet" style="display:flex; gap:0.5rem; flex-wrap:wrap; justify-content:flex-end;"></div>
+          <div class="config-summary-row">
+            <span class="config-summary-label">Price</span>
+            <span class="config-summary-value" id="summary-price">—</span>
+          </div>
+          <div class="config-summary-row">
+            <span class="config-summary-label">Available</span>
+            <span class="config-summary-value" id="summary-qty">—</span>
+          </div>
+        </div>
+        <div class="config-actions">
           <div class="qty-row">
-            <button class="qty-btn" onclick="changeQty('bayonet', -1)">−</button>
-            <span class="qty-display" id="qty-input-bayonet">1</span>
-            <button class="qty-btn" onclick="changeQty('bayonet', 1)">+</button>
+            <button class="qty-btn" onclick="changeConfigQty(-1)">−</button>
+            <span class="qty-display" id="config-qty-display">1</span>
+            <button class="qty-btn" onclick="changeConfigQty(1)">+</button>
           </div>
-          <button class="btn-primary" id="btn-bayonet" onclick="addVariantToCart('bayonet')" disabled>
-            Add to Cart
-          </button>
+          <button class="btn-primary" id="btn-add-config" onclick="addConfigToCart()">Add to Cart</button>
         </div>
       </div>
     </div>
@@ -347,7 +350,7 @@
   <h2 class="section-title">SPECIFICATIONS</h2>
   <div class="specs-grid">
     <div class="spec-item"><span class="spec-name">Material</span><span class="spec-value">Aircraft-Grade Aluminum</span></div>
-    <div class="spec-item"><span class="spec-name">Available Finishes</span><span class="spec-value">Black / Sand Anodize</span></div>
+    <div class="spec-item"><span class="spec-name">Available Finishes</span><span class="spec-value">Black / Khaki Anodize</span></div>
     <div class="spec-item"><span class="spec-name">Interface Types</span><span class="spec-value">Dovetail (DY) / Bayonet (BN)</span></div>
     <div class="spec-item"><span class="spec-name">Helmet Compatibility</span><span class="spec-value">PASGT, ACH, MICH</span></div>
     <div class="spec-item"><span class="spec-name">Standard</span><span class="spec-value">Mil-Spec</span></div>
@@ -410,12 +413,10 @@ function getCart() {
   try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
   catch { return []; }
 }
-
 function saveCart(cart) {
   localStorage.setItem(CART_KEY, JSON.stringify(cart));
   updateCartBadge();
 }
-
 function updateCartBadge() {
   const cart  = getCart();
   const count = cart.reduce((sum, i) => sum + (i.quantity || 1), 0);
@@ -424,7 +425,6 @@ function updateCartBadge() {
   if (count > 0) { badge.textContent = count > 99 ? '99+' : count; badge.classList.add('visible'); }
   else { badge.classList.remove('visible'); }
 }
-
 function showToast(msg) {
   const toast = document.getElementById('cartToast');
   if (!toast) return;
@@ -433,17 +433,13 @@ function showToast(msg) {
   clearTimeout(toast._t);
   toast._t = setTimeout(() => toast.classList.remove('show'), 3000);
 }
-
 window.addToCart = function(item, btnEl) {
   const cart = getCart();
   const existing = cart.find(c => c.id === item.id);
   if (existing) {
     const max = item.maxQty || Infinity;
     const newQty = (existing.quantity || 1) + (item.quantity || 1);
-    if (newQty > max) {
-      showToast(`Only ${max} available for this item.`);
-      return;
-    }
+    if (newQty > max) { showToast(`Only ${max} available for this item.`); return; }
     existing.quantity = newQty;
   } else {
     cart.push({ ...item });
@@ -457,25 +453,36 @@ window.addToCart = function(item, btnEl) {
     setTimeout(() => { btnEl.textContent = orig; btnEl.classList.remove('added'); }, 2000);
   }
 };
-
 updateCartBadge();
 
-window._qty = { dovetail: 1, bayonet: 1 };
-window._selectedColor = {};
-window._variantData   = {};
-window._variantMax    = {};
+// ── STYLE CHIPS ──
+const RHINO_IMAGES = [
+  '/ursusarmament/images/rhinomountdovetail.png',  // DT Black
+  '/ursusarmament/images/rhinoDTtan.png',  // DT Khaki
+  '/ursusarmament/images/rhinomount.png',  // BN Black
+  '/ursusarmament/images/rhinoBNtan.png',  // BN Khaki
+];
+const RHINO_LABELS = ['DOVETAIL Black', 'DOVETAIL Khaki', 'BAYONET Black', 'BAYONET Khaki'];
 
-window.changeQty = function(variant, delta) {
-  const maxQty = window._variantMax?.[variant] || 1;
-  window._qty[variant] = Math.max(1, Math.min(maxQty, (window._qty[variant] || 1) + delta));
-  document.getElementById('qty-input-' + variant).textContent = window._qty[variant];
+window.selectRhinoStyle = function(index) {
+  document.querySelectorAll('.style-chip-btn').forEach((c, i) => {
+    c.classList.toggle('active', i === index);
+  });
+  document.getElementById('selectedStyleLabel').textContent = RHINO_LABELS[index];
+  document.getElementById('main-image').src = RHINO_IMAGES[index];
+  document.querySelectorAll('.thumb').forEach((t, i) => {
+    t.classList.toggle('active', i === index);
+  });
 };
 
 window.swapImage = function(el) {
-  document.querySelectorAll('.thumb').forEach(t => { t.classList.remove('active'); });
-  el.classList.add('active');
-  document.getElementById('main-image').src = el.getAttribute('data-src');
+  const index = Array.from(document.querySelectorAll('.thumb')).indexOf(el);
+  selectRhinoStyle(index);
 };
+
+document.addEventListener('DOMContentLoaded', () => {
+  selectRhinoStyle(0);
+});
 </script>
 
 <script src="/ursusarmament/access-check.js"></script>
@@ -498,137 +505,162 @@ const app  = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db   = getFirestore(app);
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, user => {
   const navAuth = document.getElementById("navAuth");
-  if (user) {
-    navAuth.innerHTML = `<a href="/ursusarmament/settings/">${user.email.split("@")[0]}</a>`;
-  } else {
-    navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
-  }
+  navAuth.innerHTML = user
+    ? `<a href="/ursusarmament/settings/">${user.email.split("@")[0]}</a>`
+    : `<a href="/ursusarmament/login/">Login</a>`;
 });
 
-function setText(id, val) {
-  const el = document.getElementById(id);
-  if (el) el.textContent = val;
-}
+let mountsData = {};  // mounts map: { dovetail: { black: 1, khaki: 0 }, bayonet: { black: 1, khaki: 0 } }
+let priceData  = {};  // price map:  { dovetail: 120, bayonet: 80 }
+let configQty  = 1;
+let selection  = { interface: null, color: null };
 
-function setVariantUnavailable(key) {
-  setText('sku-'     + key, '—');
-  setText('product-' + key, '—');
-  setText('qty-'     + key, '0');
-  const priceEl = document.getElementById('price-' + key);
-  if (priceEl) priceEl.textContent = '—';
-  const statusTxt = document.getElementById('status-text-' + key);
-  if (statusTxt) statusTxt.textContent = 'Currently Unavailable';
-  const btn = document.getElementById('btn-' + key);
-  if (btn) btn.disabled = true;
-}
-
-async function loadVariant(key, blackDocId, sandDocId) {
+async function loadData() {
   try {
-    const [blackSnap, sandSnap] = await Promise.all([
-      getDoc(doc(db, "ursus-units", blackDocId)),
-      getDoc(doc(db, "ursus-units", sandDocId)),
-    ]);
-
-    const blackData = blackSnap.exists() ? blackSnap.data() : null;
-    const sandData  = sandSnap.exists()  ? sandSnap.data()  : null;
-
-    if (!blackData && !sandData) { setVariantUnavailable(key); return; }
-
-    const primary  = blackData || sandData;
-    const blackQty = blackData ? (blackData['quantity-available'] || 0) : 0;
-    const sandQty  = sandData  ? (sandData['quantity-available']  || 0) : 0;
-    const totalQty = blackQty + sandQty;
-
-    setText('product-' + key, primary.product || '—');
-    setText('sku-'     + key, primary.sku     || '—');
-    setText('qty-'     + key, totalQty);
-
-    const priceEl = document.getElementById('price-' + key);
-    if (priceEl) priceEl.textContent = primary.price ? '$' + Number(primary.price).toLocaleString() : '—';
-
-    const dot       = document.getElementById('dot-'         + key);
-    const statusEl  = document.getElementById('status-'      + key);
-    const statusTxt = document.getElementById('status-text-' + key);
-    const btn       = document.getElementById('btn-'         + key);
-
-    if (totalQty > 0) {
-      dot.classList.add('available');
-      statusEl.classList.add('available');
-      statusTxt.textContent = 'In Stock';
-    } else {
-      statusTxt.textContent = 'Currently Unavailable';
-    }
-
-    const colorContainer = document.getElementById('color-btns-' + key);
-    colorContainer.innerHTML = '';
-
-    const colors = [];
-    if (blackData) colors.push({ name: 'Black', qty: blackQty, docId: blackDocId, data: blackData });
-    if (sandData)  colors.push({ name: 'Sand',  qty: sandQty,  docId: sandDocId,  data: sandData  });
-
-    colors.forEach(c => {
-      const b = document.createElement('button');
-      b.className = 'color-btn';
-      b.innerHTML = `${c.name} <span class="color-btn-qty">(${c.qty} Available)</span>`;
-      b.disabled = c.qty === 0;
-      b.addEventListener('click', () => {
-        document.querySelectorAll(`#color-btns-${key} .color-btn`).forEach(x => x.classList.remove('selected'));
-        b.classList.add('selected');
-        window._selectedColor[key] = c.name.toLowerCase();
-        window._variantMax[key]    = c.qty;
-        window._variantData[key]   = { ...c.data, _docId: c.docId };
-        window._qty[key] = 1;
-        document.getElementById('qty-input-' + key).textContent = 1;
-        btn.disabled = c.qty === 0;
-      });
-      colorContainer.appendChild(b);
-    });
-
-    // Auto-select Black if available, else Sand, else nothing
-    const blackOption = colors.find(c => c.name === 'Black' && c.qty > 0);
-    const sandOption  = colors.find(c => c.name === 'Sand'  && c.qty > 0);
-    const autoSelect  = blackOption || sandOption || null;
-
-    if (autoSelect) {
-      const autoBtn = colorContainer.querySelector(`button:nth-child(${colors.indexOf(autoSelect) + 1})`);
-      if (autoBtn) autoBtn.click();
-    } else {
-      btn.disabled = true;
-    }
-
-  } catch (err) {
-    console.error('Error loading variant ' + key, err);
-    setVariantUnavailable(key);
+    const snap = await getDoc(doc(db, "ursus-units", "rhino-mounts"));
+    if (!snap.exists()) { showLoadError(); return; }
+    mountsData = snap.data().mounts || {};
+    priceData  = snap.data().price  || {};
+    buildInterfaceStep();
+    activateStep('interface');
+  } catch(err) {
+    console.error(err);
+    showLoadError();
   }
 }
 
-window.addVariantToCart = function(key) {
-  const d   = window._variantData[key];
-  const btn = document.getElementById('btn-' + key);
-  const qty = window._qty[key] || 1;
-  if (!d) return;
+function getInterfaceQty(iface) {
+  const colors = mountsData[iface] || {};
+  return Object.values(colors).reduce((s, q) => s + (typeof q === 'number' ? q : 0), 0);
+}
 
-  if (!window._selectedColor[key]) {
-    showToast('Please select a color before adding to cart.');
-    return;
-  }
+function getColorQty(iface, color) {
+  return (mountsData[iface] || {})[color] || 0;
+}
 
+function buildInterfaceStep() {
+  const container = document.getElementById('options-interface');
+  container.innerHTML = '';
+  Object.keys(mountsData).forEach(iface => {
+    const qty = getInterfaceQty(iface);
+    const btn = document.createElement('button');
+    btn.className   = 'config-opt';
+    btn.disabled    = qty === 0;
+    btn.dataset.val = iface;
+    btn.innerHTML   = `${formatLabel(iface)} <span class="opt-qty">${qty > 0 ? qty + ' avail' : 'unavailable'}</span>`;
+    btn.addEventListener('click', () => onSelectInterface(iface));
+    container.appendChild(btn);
+  });
+}
+
+function buildColorStep(iface) {
+  const container = document.getElementById('options-color');
+  container.innerHTML = '';
+  const colors = mountsData[iface] || {};
+  Object.keys(colors).forEach(color => {
+    const qty = getColorQty(iface, color);
+    const btn = document.createElement('button');
+    btn.className   = 'config-opt';
+    btn.disabled    = qty === 0;
+    btn.dataset.val = color;
+    btn.innerHTML   = `${formatLabel(color)} <span class="opt-qty">${qty > 0 ? qty + ' avail' : 'unavailable'}</span>`;
+    btn.addEventListener('click', () => onSelectColor(color));
+    container.appendChild(btn);
+  });
+}
+
+function onSelectInterface(iface) {
+  selection.interface = iface;
+  selection.color     = null;
+  document.querySelectorAll('#options-interface .config-opt').forEach(b => {
+    b.classList.toggle('selected', b.dataset.val === iface);
+  });
+  hideSummary();
+  buildColorStep(iface);
+  activateStep('color');
+  doneStep('interface');
+}
+
+function onSelectColor(color) {
+  selection.color = color;
+  document.querySelectorAll('#options-color .config-opt').forEach(b => {
+    b.classList.toggle('selected', b.dataset.val === color);
+  });
+  doneStep('color');
+  showSummary();
+}
+
+function showSummary() {
+  const { interface: iface, color } = selection;
+  const qty = getColorQty(iface, color);
+  configQty = 1;
+  document.getElementById('config-qty-display').textContent = 1;
+  window._configMax = qty;
+
+  document.getElementById('summary-config').textContent =
+    `${formatLabel(iface)} / ${formatLabel(color)}`;
+  document.getElementById('summary-qty').textContent = qty + ' unit' + (qty === 1 ? '' : 's');
+  const price = priceData[iface];
+  document.getElementById('summary-price').textContent =
+    price ? '$' + Number(price).toLocaleString() + ' per unit' : '—';
+  document.getElementById('btn-add-config').disabled = qty === 0;
+  document.getElementById('config-summary').classList.add('ready');
+}
+
+function hideSummary() {
+  document.getElementById('config-summary').classList.remove('ready');
+  document.getElementById('summary-config').textContent = '—';
+  document.getElementById('summary-price').textContent  = '—';
+  document.getElementById('summary-qty').textContent    = '—';
+  document.getElementById('config-qty-display').textContent = '1';
+}
+
+function activateStep(key) {
+  const el = document.getElementById('step-' + key);
+  el.classList.remove('locked', 'done');
+  el.classList.add('active');
+}
+function doneStep(key) {
+  const el = document.getElementById('step-' + key);
+  el.classList.remove('locked', 'active');
+  el.classList.add('done');
+}
+
+function formatLabel(key) {
+  return key.charAt(0).toUpperCase() + key.slice(1);
+}
+
+window.changeConfigQty = function(delta) {
+  const max = window._configMax || 1;
+  configQty = Math.max(1, Math.min(max, configQty + delta));
+  document.getElementById('config-qty-display').textContent = configQty;
+};
+
+window.addConfigToCart = function() {
+  const { interface: iface, color } = selection;
+  const qty = getColorQty(iface, color);
+  if (qty === 0) return;
+  const btn = document.getElementById('btn-add-config');
   window.addToCart({
-    id:      d._docId,
-    product: d.product || ('Rhino Mount — ' + (key === 'dovetail' ? 'Dovetail' : 'Bayonet')),
-    price:   String(d.price || '0'),
-    sku:     d.sku    || null,
-    finish:  d.finish || null,
-    color:   window._selectedColor[key] || null,
-    quantity: qty,
-    maxQty:  window._variantMax[key] || 1,
+    id:       `rhino-mount-${iface}-${color}`,
+    product:  'Rhino Mount',
+    tier:     `${formatLabel(iface)} / ${formatLabel(color)}`,
+    price:    String(priceData[iface] || 0),
+    quantity: configQty,
+    maxQty:   qty,
   }, btn);
 };
 
-loadVariant('dovetail', 'rhino_mount_dovetail_black', 'rhino_mount_dovetail_sand');
-loadVariant('bayonet',  'rhino_mount_bayonet_black',  'rhino_mount_bayonet_sand');
+function showLoadError() {
+  ['step-interface', 'step-color'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.innerHTML += '<p style="color:var(--muted);font-size:0.85rem;margin-top:0.5rem;">Unable to load availability.</p>';
+  });
+}
+
+loadData();
 </script>
 
 </body>
