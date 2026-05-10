@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partner Network | Ursus Armament</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --surface2: #222220;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+    --accent2: #e8a830;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,8,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-slogan {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .nav-ribbon {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3rem;
+    height: 38px;
+    background: var(--surface);
+  }
+
+  .nav-ribbon a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0 1.6rem;
+    height: 100%;
+    display: flex; align-items: center;
+    border-right: 1px solid var(--border);
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
+  .nav-ribbon a:hover { color: var(--accent); background: rgba(200,146,42,0.06); }
+  .nav-ribbon a.active { color: var(--accent); }
+
+  .nav-auth {
+    display: flex;
+    align-items: center;
+  }
+  .nav-auth a, .nav-auth button {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--accent);
+    background: transparent;
+    border: 1px solid var(--accent);
+    padding: 0.4rem 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .nav-auth a:hover, .nav-auth button:hover {
+    background: rgba(200,146,42,0.08);
+  }
+
+  .nav-cart-btn {
+    position: relative;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--text);
+    width: 38px; height: 38px;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color 0.2s, background 0.2s;
+    flex-shrink: 0;
+  }
+  .nav-cart-btn:hover { border-color: var(--accent); background: rgba(200,146,42,0.06); }
+  .nav-cart-btn svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
+  .nav-cart-btn:hover svg { stroke: var(--accent); }
+  .cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
+  .cart-count.visible { display: flex; }
+
+  /* ── HERO ── */
+  .page-hero {
+    padding: 10rem 3rem 5rem;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page-hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 70% 80% at 100% 50%, rgba(200,146,42,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .hero-label::before {
+    content: '';
+    display: inline-block;
+    width: 28px; height: 1px;
+    background: var(--accent);
+    vertical-align: middle;
+    margin-right: 0.75rem;
+  }
+
+  .page-hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    line-height: 0.95;
+    letter-spacing: 0.02em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
+
+  .page-hero p {
+    max-width: 560px;
+    color: var(--muted);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  /* ── SECTION DIVIDER ── */
+  .section-divider {
+    display: flex; align-items: center; gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .section-divider h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid rgba(200,146,42,0.35);
+    padding: 0.25rem 0.7rem;
+    white-space: nowrap;
+  }
+
+  /* ── CONTENT SECTIONS ── */
+  .partner-section {
+    padding: 5rem 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .partner-section:last-of-type { border-bottom: none; }
+
+  /* ── DEALER GRID ── */
+  .dealer-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .dealer-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    position: relative;
+    transition: border-color 0.25s, background 0.25s;
+  }
+
+  .dealer-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+
+  .dealer-card:hover { border-color: rgba(200,146,42,0.3); }
+  .dealer-card:hover::before { opacity: 1; }
+
+  .dealer-card .dealer-type {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .dealer-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 0.4rem;
+  }
+
+  .dealer-card .dealer-location {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+  }
+
+  .dealer-card .dealer-contact {
+    font-size: 0.85rem;
+    color: var(--muted);
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .dealer-card .dealer-contact a {
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .dealer-card .dealer-contact a:hover { color: var(--accent); }
+
+  /* ── BECOME A DEALER CTA ── */
+  .partner-cta {
+    margin-top: 3rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2.5rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .partner-cta h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.05em;
+    color: var(--text);
+  }
+
+  .partner-cta p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-top: 0.3rem;
+    max-width: 480px;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--accent);
+    padding: 0.9rem 2.2rem;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover {
+    background: #d9a040;
+    transform: translateY(-1px);
+  }
+
+  .btn-outline {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 0.9rem 2.2rem;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  /* ── MEDIA / AFFILIATE GRID ── */
+  .media-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .media-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    position: relative;
+    transition: border-color 0.25s;
+  }
+
+  .media-card:hover { border-color: rgba(200,146,42,0.3); }
+
+  .media-badge {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border: 1px solid;
+    width: fit-content;
+  }
+
+  .media-badge.affiliate {
+    color: #6ea8d0;
+    border-color: rgba(110,168,208,0.35);
+  }
+
+  .media-badge.media {
+    color: #a8c07e;
+    border-color: rgba(168,192,126,0.35);
+  }
+
+  .media-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text);
+  }
+
+  .media-card p {
+    font-size: 0.875rem;
+    color: var(--muted);
+    line-height: 1.55;
+    flex: 1;
+  }
+
+  .media-card a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: gap 0.2s;
+  }
+
+  .media-card a::after { content: '→'; }
+  .media-card a:hover { gap: 0.7rem; }
+
+  /* ── ENQUIRY BOX ── */
+  .enquiry-box {
+    margin-top: 3rem;
+    border: 1px solid rgba(200,146,42,0.2);
+    background: rgba(200,146,42,0.04);
+    padding: 2.5rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .enquiry-box h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.05em;
+  }
+
+  .enquiry-box p {
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-top: 0.3rem;
+    max-width: 480px;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    padding: 4rem 3rem 2rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .footer-brand p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-top: 1rem;
+  }
+
+  .footer-col h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+  }
+
+  .footer-col ul { display: flex; flex-direction: column; gap: 0.65rem; }
+  .footer-col a {
+    font-size: 0.9rem;
+    color: var(--text);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .footer-col a:hover { opacity: 1; color: var(--accent); }
+
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    opacity: 0.5;
+  }
+  .footer-logo span { color: var(--accent); opacity: 1; }
+
+  .footer-legal {
+    font-size: 0.78rem;
+    color: var(--muted);
+    opacity: 0.5;
+  }
+
+  /* ── EMPTY STATE ── */
+  .empty-state {
+    border: 1px dashed rgba(255,255,255,0.12);
+    padding: 4rem 3rem;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+
+  .empty-icon {
+    font-size: 2rem;
+    color: var(--accent);
+    opacity: 0.4;
+    margin-bottom: 1.25rem;
+  }
+
+  .empty-heading {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .empty-body {
+    font-size: 0.9rem;
+    color: var(--muted);
+    max-width: 460px;
+    margin: 0 auto;
+    line-height: 1.65;
+    opacity: 0.75;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .nav-top { padding: 0.6rem 1.5rem; }
+    .nav-ribbon { padding: 0 1rem; gap: 1.5rem; }
+    .page-hero { padding: 8rem 1.5rem 4rem; }
+    .partner-section { padding: 4rem 1.5rem; }
+    .partner-cta,
+    .enquiry-box { padding: 2rem 1.5rem; flex-direction: column; align-items: flex-start; }
+    footer { padding: 3rem 1.5rem 2rem; overflow: hidden; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .dealer-grid,
+    .media-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-top">
+    <div class="nav-brand">
+      <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
+      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    </div>
+    <div class="nav-right" style="display:flex; align-items:center; gap:0.75rem;">
+      <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/>
+        </svg>
+        <span class="cart-count" id="cartCount"></span>
+      </a>
+      <div class="nav-auth" id="navAuth"></div>
+    </div>
+  </div>
+  <div class="nav-ribbon">
+    <a href="/ursusarmament/products">Products</a>
+    <a href="/ursusarmament#mission">Our Mission</a>
+    <a href="/ursusarmament#process">Learn</a>
+  </div>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="page-hero">
+  <p class="hero-label">Ursus Armament</p>
+  <h1>Partner<br>Network</h1>
+  <p>We work with a vetted network of dealers, affiliates, and media partners who share our commitment to quality, integrity, and the American warfighter. Find a partner near you or apply to join the network.</p>
+</section>
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 1 — AUTHORIZED DEALERS        -->
+<!-- ══════════════════════════════════════ -->
+<section class="partner-section" id="authorized-dealers">
+
+  <div class="section-divider">
+    <span class="section-tag">Section 01</span>
+    <h2>Authorized Dealers</h2>
+  </div>
+
+  <div class="empty-state">
+    <p class="empty-icon">◈</p>
+    <p class="empty-heading">No Authorized Dealers Yet</p>
+    <p class="empty-body">We are actively building our dealer network. Authorized dealers will be listed here once partnerships are established. If you are a qualified retailer, apply below.</p>
+  </div>
+
+  <div class="partner-cta">
+    <div>
+      <h3>Become an Authorized Dealer</h3>
+      <p>Qualified gun shops and tactical retailers can apply to carry Ursus Armament products. We're looking for partners who represent our brand with the same integrity we build into every product.</p>
+    </div>
+    <a href="/contact.html?inquiry=dealer" class="btn-primary">Apply Now</a>
+  </div>
+
+</section>
+
+
+<!-- ══════════════════════════════════════ -->
+<!-- SECTION 2 — AFFILIATES & MEDIA        -->
+<!-- ══════════════════════════════════════ -->
+<section class="partner-section" id="affiliates-media">
+
+  <div class="section-divider">
+    <span class="section-tag">Section 02</span>
+    <h2>Affiliates &amp; Media Partners</h2>
+  </div>
+
+  <div class="empty-state">
+    <p class="empty-icon">◈</p>
+    <p class="empty-heading">No Partners Listed Yet</p>
+    <p class="empty-body">Affiliate and media partnerships are currently being established. Partners will be listed here as they are brought on. Interested in joining? Reach out below.</p>
+  </div>
+
+  <div class="enquiry-box">
+    <div>
+      <h3>Media &amp; Affiliate Inquiries</h3>
+      <p>Content creators, publications, and affiliate networks interested in partnering with Ursus Armament can reach out directly. We collaborate with creators and outlets who represent our values.</p>
+    </div>
+    <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+      <a href="/contact.html?inquiry=media" class="btn-primary">Media Inquiry</a>
+      <a href="/contact.html?inquiry=affiliate" class="btn-outline">Affiliate Program</a>
+    </div>
+  </div>
+
+</section>
+
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">URSUS <span style="color: var(--accent);">ARMAMENT</span></div>
+      <p>Developing next-generation tactical gear for the American people. Manufactured, tested, and deployed with pride in the USA.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="https://ursusworks.com/ursusarmament/products/ROTS">R.O.T.S.</a></li>
+        <li><a href="https://ursusworks.com/ursusarmament/products/URSIX">URSIX</a></li>
+        <li><a href="https://ursusworks.com/ursusarmament/products">View All</a></li>
+        <li><a href="https://ursusworks.com/ursusarmament/customerreviews">Customer Reviews</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="https://ursusworks.com/ursusarmament/aboutus/">About Us</a></li>
+        <li><a href="https://ursusworks.com/ursusarmament/testingstandards/">Testing Standards</a></li>
+        <li><a href="https://ursusworks.com/ursusarmament/careers/">Careers</a></li>
+        <li><a href="https://www.youtube.com/@UrsusWorks/" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="https://ursusworks.com/ursusarmament/contact/">Contact</a></li>
+        <li><a href="https://ursusworks.com/ursusarmament/warranty/">Warranty</a></li>
+        <li><a href="https://ursusworks.com/ursusarmament/ITAR/">ITAR Compliance</a></li>
+        <li><a href="/ursusarmament/partner-network/">Partner Network</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-logo">URSUS <span>ARMAMENT</span></div>
+    <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
+  </div>
+</footer>
+
+<script src="/ursusarmament/access-check.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
+  authDomain: "ursus-armament.firebaseapp.com",
+  projectId: "ursus-armament",
+  storageBucket: "ursus-armament.firebasestorage.app",
+  messagingSenderId: "430731167862",
+  appId: "1:430731167862:web:a5447de86db180edad3757"
+};
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+  const navAuth = document.getElementById("navAuth");
+  if (user) {
+    const emailPrefix = user.email.split("@")[0];
+    navAuth.innerHTML = `<a href="https://ursusworks.com/ursusarmament/settings">${emailPrefix}</a>`;
+  } else {
+    navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
+  }
+});
+</script>
+<script>
+function updateCartBadge() {
+  try {
+    const cart  = JSON.parse(localStorage.getItem('ursus_cart')) || [];
+    const count = cart.reduce((sum, i) => sum + (i.quantity || 1), 0);
+    const badge = document.getElementById('cartCount');
+    if (!badge) return;
+    if (count > 0) { badge.textContent = count > 99 ? '99+' : count; badge.classList.add('visible'); }
+    else { badge.classList.remove('visible'); }
+  } catch {}
+}
+updateCartBadge();
+</script>
+</body>
+</html>
