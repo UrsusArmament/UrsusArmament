@@ -426,6 +426,10 @@
         </select>
       </div>
       <div class="field">
+        <label>Body Style</label>
+        <input type="text" id="f_bodyStyle" placeholder="e.g. Monocular">
+      </div>
+      <div class="field">
         <label>Price ($)</label>
         <input type="number" id="f_price" placeholder="e.g. 2350">
       </div>
@@ -446,6 +450,10 @@
   <div class="form-section">
     <div class="form-section-title">Tube Specifications</div>
     <div class="form-grid">
+      <div class="field">
+        <label>IIT Manufacturer</label>
+        <input type="text" id="f_iitManufacturer" placeholder="e.g. L3Harris">
+      </div>
       <div class="field">
         <label>Generation</label>
         <select id="f_generation">
@@ -593,7 +601,7 @@ onAuthStateChanged(auth, (user) => {
   if (user && user.email === ADMIN_EMAIL) {
     showPanel();
   } else {
-    if (user) signOut(auth); // sign out non-admin users silently
+    if (user) signOut(auth);
     showLogin();
   }
 });
@@ -638,7 +646,6 @@ window.adminLogin = async () => {
 
   try {
     await signInWithEmailAndPassword(auth, email, password);
-    // onAuthStateChanged will handle the rest
   } catch (err) {
     msg.className = "msg error";
     msg.textContent = err.code === "auth/invalid-credential"
@@ -696,10 +703,10 @@ window.generateSpecSheet = async () => {
     const PW  = pdf.internal.pageSize.getWidth();
     const ML  = 50, MR = 50;
     const TW  = PW - ML - MR;
-    const LW  = TW * 0.33;  // label col
-    const VW  = TW * 0.67;  // value col
-    const HVW = TW * 0.40;  // half-value for stamp rows
-    const SBW = TW * 0.27;  // stamp box
+    const LW  = TW * 0.33;
+    const VW  = TW * 0.67;
+    const HVW = TW * 0.40;
+    const SBW = TW * 0.27;
 
     // ── Header ──
     pdf.setFont("helvetica", "bold");
@@ -707,16 +714,17 @@ window.generateSpecSheet = async () => {
     pdf.text("URSUS ARMAMENT — UNIT SPEC SHEET", ML, 50);
     pdf.setFont("helvetica", "normal");
     pdf.setFontSize(9);
-    pdf.text(`Serial: ${d.serial || "—"}   |   Product: ${d.product || "—"}   |   Tier: ${d.tier || "—"}`, ML, 66);
+    pdf.text(
+      `Serial: ${d.serial || "—"}   |   Product: ${d.product || "—"}   |   Tier: ${d.tier || "—"}   |   Body Style: ${d.bodyStyle || "—"}`,
+      ML, 66
+    );
 
     const val = v => (v !== undefined && v !== null && v !== "") ? String(v) : "—";
 
-    // Helper: section header row (spans full width)
     const hdr = label => ([
       { content: label.toUpperCase(), colSpan: 2, styles: { fontStyle: "bold", fillColor: [255,255,255], textColor: [0,0,0] } }
     ]);
 
-    // Helper: normal label/value row
     const row = (label, value) => ([
       { content: label, styles: { fontStyle: "bold", fillColor: [255,255,255], textColor: [0,0,0] } },
       { content: val(value), styles: { fillColor: [255,255,255], textColor: [0,0,0] } }
@@ -728,11 +736,13 @@ window.generateSpecSheet = async () => {
       row("Product",         d.product),
       row("Serial Number",   d.serial),
       row("Tier",            d.tier),
+      row("Body Style",      d.bodyStyle),
       ...(!isUrsix ? [
         row("Price",         d.price ? `$${Number(d.price).toLocaleString()}` : ""),
         row("Available",     d.available ? "Yes" : "No"),
       ] : []),
       hdr("Tube Specifications"),
+      row("IIT Manufacturer", d.iitManufacturer),
       row("Generation",      d.generation),
       row("Phosphor",        d.phosphor),
       row("Figure of Merit", d.fom),
@@ -776,7 +786,6 @@ window.generateSpecSheet = async () => {
         overflow: "linebreak",
       },
       didParseCell: (data) => {
-        // Section header rows: bold, no left/right inner line
         if (data.row.raw[0] && data.row.raw[0].colSpan === 2) {
           data.cell.styles.fontStyle = "bold";
         }
@@ -803,20 +812,16 @@ window.generateSpecSheet = async () => {
     const vw     = HVW;
     const sw     = SBW;
 
-    // Draw stamp box (merged tall cell)
     pdf.setDrawColor(0);
     pdf.setLineWidth(0.5);
     pdf.rect(sx, afterY, sw, totalH);
 
-    // Draw each of the 3 stamp rows
     for (let i = 0; i < 3; i++) {
       const y = afterY + i * rowH;
-      // Label cell
       pdf.rect(lx, y, lw, rowH);
       pdf.setFont("helvetica", "bold");
       pdf.setFontSize(9);
       pdf.text(stampLabels[i], lx + 4, y + 13);
-      // Value cell (half width)
       pdf.rect(vx, y, vw, rowH);
       pdf.setFont("helvetica", "normal");
       pdf.text(stampValues[i], vx + 4, y + 13);
@@ -851,7 +856,6 @@ function loadPdfLibs() {
     loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js")
       .then(() => loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"))
       .then(() => {
-        // AutoTable attaches itself to jsPDF prototype; expose as standalone helper
         window.jspdfAutotable = (doc, opts) => doc.autoTable(opts);
         resolve();
       })
@@ -867,7 +871,6 @@ window.submitUnit = async () => {
   const serial  = document.getElementById("f_serial").value.trim().toUpperCase();
   const product = document.getElementById("f_product").value;
 
-  // Required field validation
   if (!product) { showResult("error", "Please select a product."); return; }
   if (!serial)  { showResult("error", "Serial number is required."); return; }
   if (!document.getElementById("f_tier").value) { showResult("error", "Please select a tier."); return; }
@@ -884,8 +887,10 @@ window.submitUnit = async () => {
     product:                            product,
     serial:                             serial,
     tier:                               document.getElementById("f_tier").value,
+    bodyStyle:                          document.getElementById("f_bodyStyle").value.trim(),
     price:                              Number(document.getElementById("f_price").value) || 0,
     available:                          document.getElementById("f_available").checked,
+    iitManufacturer:                    document.getElementById("f_iitManufacturer").value.trim(),
     generation:                         document.getElementById("f_generation").value,
     phosphor:                           document.getElementById("f_phosphor").value,
     fom:                                document.getElementById("f_fom").value.trim(),
@@ -927,10 +932,10 @@ function showResult(type, message) {
 
 function clearForm() {
   const ids = [
-    "f_product","f_serial","f_tier","f_price","f_generation","f_phosphor",
-    "f_fom","f_snr","f_resolution","f_luminousGain","f_pcLum","f_pcFilter",
-    "f_pcRad","f_objectiveLens","f_batteryLife","f_ipRating","f_finish",
-    "f_proofDate","f_batchId","f_notes"
+    "f_product","f_serial","f_tier","f_bodyStyle","f_price","f_iitManufacturer",
+    "f_generation","f_phosphor","f_fom","f_snr","f_resolution","f_luminousGain",
+    "f_pcLum","f_pcFilter","f_pcRad","f_objectiveLens","f_batteryLife","f_ipRating",
+    "f_finish","f_proofDate","f_batchId","f_notes"
   ];
   ids.forEach(id => {
     const el = document.getElementById(id);
@@ -948,7 +953,6 @@ document.addEventListener("keydown", e => {
   }
 });
 </script>
-
 
 </body>
 </html>
