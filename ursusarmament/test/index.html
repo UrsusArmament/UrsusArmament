@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Products — Ursus Armament</title>
-<link rel="canonical" href="https://ursusworks.com/ursusarmament/products" />
+<title>Admin Entry | Ursus Armament</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -15,1679 +13,945 @@
     --black: #0a0a08;
     --dark: #111110;
     --surface: #1a1a17;
-    --surface2: #222220;
     --border: rgba(255,255,255,0.08);
     --border2: rgba(255,255,255,0.15);
     --text: #e8e4d9;
     --muted: #8a8678;
     --accent: #c8922a;
     --accent2: #e8a830;
+    --green: #4a9a6a;
+    --red: #9a4a4a;
   }
 
-  html { scroll-behavior: smooth; }
-
   body {
+    margin: 0;
     background: var(--black);
     color: var(--text);
     font-family: 'Barlow', sans-serif;
-    font-size: 16px;
-    line-height: 1.6;
-    overflow-x: hidden;
+    min-height: 100vh;
   }
 
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(10,10,8,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-
-  .nav-top {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0.6rem 3rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
-
-  .nav-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem;
-    letter-spacing: 0.12em;
-    color: var(--text);
-    text-decoration: none;
-    line-height: 1;
-  }
-  .nav-logo span { color: var(--accent); }
-
-  .nav-slogan {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.65rem;
-    font-weight: 400;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .nav-ribbon {
-    display: flex; align-items: center; justify-content: center;
-    padding: 0 3rem;
-    height: 38px;
-    background: var(--surface);
-  }
-
-  .nav-ribbon a {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    text-decoration: none;
-    padding: 0 1.6rem;
-    height: 100%;
-    display: flex; align-items: center;
-    border-right: 1px solid var(--border);
-    transition: color 0.2s, background 0.2s;
-  }
-  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
-  .nav-ribbon a:hover { color: var(--accent); background: rgba(200,146,42,0.06); }
-  .nav-ribbon a.active { color: var(--accent); }
-
-  .nav-auth {
+  /* ── LOGIN SCREEN ── */
+  #loginScreen {
     display: flex;
     align-items: center;
-  }
-  .nav-auth a, .nav-auth button {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.78rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    text-decoration: none;
-    color: var(--accent);
-    background: transparent;
-    border: 1px solid var(--accent);
-    padding: 0.4rem 1rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-  .nav-auth a:hover, .nav-auth button:hover {
-    background: rgba(200,146,42,0.08);
+    justify-content: center;
+    min-height: 100vh;
   }
 
-  .nav-cart-btn {
-    position: relative;
-    background: transparent;
+  .login-box {
+    width: min(380px, 92%);
+    background: linear-gradient(180deg, var(--surface), var(--dark));
     border: 1px solid var(--border2);
-    color: var(--text);
-    width: 38px; height: 38px;
-    display: flex; align-items: center; justify-content: center;
-    cursor: pointer;
-    text-decoration: none;
-    transition: border-color 0.2s, background 0.2s;
-    flex-shrink: 0;
-  }
-  .nav-cart-btn:hover { border-color: var(--accent); background: rgba(200,146,42,0.06); }
-  .nav-cart-btn svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
-  .nav-cart-btn:hover svg { stroke: var(--accent); }
-  .cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
-  .cart-count.visible { display: flex; }
-
-  /* ── PAGE HEADER ── */
-  .page-header {
-    padding: 7.5rem 3rem 3rem;
-    background: var(--dark);
-    border-bottom: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
+    padding: 2.5rem;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6);
   }
 
-  .page-header::before {
-    content: 'ARSENAL';
-    position: absolute;
-    right: 2rem;
-    bottom: -1rem;
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 12rem;
-    color: rgba(255,255,255,0.03);
-    letter-spacing: 0.1em;
-    pointer-events: none;
-    user-select: none;
-  }
-
-  .section-tag {
+  .login-tag {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.3em;
-    text-transform: uppercase;
     color: var(--accent);
-    margin-bottom: 0.75rem;
-    display: flex; align-items: center; gap: 0.6rem;
-  }
-  .section-tag::before {
-    content: '';
-    display: block; width: 20px; height: 1px;
-    background: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
   }
 
-  .page-header h1 {
+  .login-box h1 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3rem, 7vw, 5rem);
-    letter-spacing: 0.04em;
-    line-height: 1;
-    color: var(--text);
-  }
-
-  .breadcrumb {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 1.5rem;
-    display: flex; align-items: center; gap: 0.5rem;
-  }
-  .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
-  .breadcrumb a:hover { color: var(--accent); }
-  .breadcrumb span { color: var(--accent); }
-
-  /* ── PRODUCTS SECTION ── */
-  .products-section {
-    padding: 0 3rem 6rem;
-    background: var(--black);
-  }
-
-  /* ── CATEGORY NAV ── */
-  .cat-nav-wrapper {
-    position: sticky;
-    top: 101px;
-    z-index: 50;
-    background: var(--black);
-    border-bottom: 1px solid var(--border);
-    padding: 0 3rem;
-    margin: 0 -3rem;
-  }
-
-  .cat-nav {
-    display: flex;
-    align-items: stretch;
-    gap: 0;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-  .cat-nav::-webkit-scrollbar { display: none; }
-
-  .cat-btn {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.76rem;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--muted);
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid transparent;
-    padding: 1rem 1.5rem;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: color 0.2s, border-color 0.2s;
-    position: relative;
-  }
-
-  .cat-btn:hover { color: var(--text); }
-  .cat-btn.active {
-    color: var(--accent);
-    border-bottom-color: var(--accent);
-  }
-
-  /* subcategory row */
-  .subcat-nav-wrapper {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 0 3rem;
-    margin: 0 -3rem;
-    display: none;
-  }
-  .subcat-nav-wrapper.visible { display: block; }
-
-  .subcat-nav {
-    display: flex; align-items: stretch; gap: 0;
-    overflow-x: auto; scrollbar-width: none;
-  }
-  .subcat-nav::-webkit-scrollbar { display: none; }
-
-  .subcat-btn {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 600;
+    font-size: 2rem;
     letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid transparent;
-    padding: 0.65rem 1.2rem;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: color 0.2s, border-color 0.2s;
+    margin-bottom: 1.5rem;
   }
-  .subcat-btn:hover { color: var(--text); }
-  .subcat-btn.active { color: var(--accent2); border-bottom-color: var(--accent2); }
 
-  /* ── GRID HEADER ── */
-  .grid-header {
+  /* ── ADMIN PANEL ── */
+  #adminPanel {
+    display: none;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+  }
+
+  .admin-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 2rem 0 1.25rem;
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border);
   }
 
-  .grid-header-left {
-    display: flex; align-items: baseline; gap: 0.75rem;
-  }
-
-  .grid-label {
+  .admin-tag {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.72rem;
     font-weight: 700;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  .grid-count {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.3em;
     color: var(--accent);
-    background: rgba(200,146,42,0.1);
-    padding: 0.15rem 0.5rem;
-    border: 1px solid rgba(200,146,42,0.25);
-  }
-
-  /* ── FLAGSHIP CAROUSEL ── */
-  .flagship-carousel-section {
-    margin-bottom: 0;
-  }
-
-  .flagship-row-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.75rem 0 1rem;
-  }
-
-  .flagship-row-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-  .flagship-row-label::before {
-    content: '';
-    display: block;
-    width: 14px;
-    height: 1px;
-    background: var(--accent);
+    margin-bottom: 0.3rem;
   }
 
-  .carousel-controls {
+  .admin-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.5rem;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── SPEC SHEET GENERATOR ── */
+  .spec-generator {
     display: flex;
     align-items: center;
     gap: 0.5rem;
   }
 
-  .carousel-arrow {
-    width: 34px;
-    height: 34px;
-    background: var(--surface);
+  .spec-input {
+    padding: 0.4rem 0.75rem;
+    background: var(--dark);
     border: 1px solid var(--border2);
-    color: var(--muted);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: border-color 0.2s, color 0.2s, background 0.2s;
-    flex-shrink: 0;
-    font-size: 0;
-    padding: 0;
-  }
-  .carousel-arrow:hover:not(:disabled) {
-    border-color: var(--accent);
-    color: var(--accent);
-    background: rgba(200,146,42,0.07);
-  }
-  .carousel-arrow:disabled {
-    opacity: 0.25;
-    cursor: default;
-  }
-  .carousel-arrow svg {
-    width: 14px;
-    height: 14px;
-    stroke: currentColor;
-    fill: none;
-    stroke-width: 2;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    pointer-events: none;
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 0.8rem;
+    width: 200px;
+    transition: border-color 0.2s;
   }
 
-  .carousel-dots {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    padding: 0 0.25rem;
-  }
-
-  .carousel-dot {
-    width: 5px;
-    height: 5px;
-    background: var(--border2);
-    border-radius: 0;
-    transition: background 0.2s, width 0.25s;
-    flex-shrink: 0;
-  }
-  .carousel-dot.active {
-    background: var(--accent);
-    width: 18px;
-  }
-
-  .carousel-viewport {
-    position: relative;
-    overflow: hidden;
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 2%, black 92%, transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0%, black 2%, black 92%, transparent 100%);
-  }
-
-  .carousel-track {
-    display: flex;
-    gap: 1px;
-    transition: transform 0.38s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    will-change: transform;
-  }
-
-  /* ── FLAGSHIP CARD (carousel) ── */
-  .flagship-card {
-    flex: 0 0 calc(25% - 1px);
-    min-width: 0;
-    background: var(--dark);
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    text-decoration: none;
-    color: inherit;
-    transition: background 0.2s;
-    aspect-ratio: 3/4;
-    border: 1px solid transparent;
-  }
-
-  .flagship-card:hover {
-    background: var(--surface);
-    border-color: var(--accent);
+  .spec-input:focus {
     outline: none;
-  }
-  .flagship-card:hover .card-arrow { opacity: 1; transform: translate(2px, -2px); }
-  .flagship-card:hover .card-image img { transform: scale(1.05); }
-
-  /* ── STANDARD PRODUCT GRID ── */
-  .product-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 1px;
-    background: var(--border);
+    border-color: var(--accent);
   }
 
-  .product-card {
-    background: var(--dark);
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+  .spec-input::placeholder {
+    color: var(--muted);
+    font-size: 0.75rem;
+  }
+
+  .btn-generate {
+    border: 1px solid var(--border2);
+    background: transparent;
+    color: var(--muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
     cursor: pointer;
-    text-decoration: none;
-    color: inherit;
-    transition: background 0.2s;
-    aspect-ratio: 3/4;
-  }
-
-  .product-card:hover {
-    background: var(--surface);
-    outline: 2px solid var(--accent);
-  }
-  .product-card:hover .card-arrow { opacity: 1; transform: translate(2px, -2px); }
-  .product-card:hover .card-image img { transform: scale(1.05); }
-
-  /* shared card internals */
-  .card-image {
-    flex: 1;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--surface2);
-    min-height: 120px;
-  }
-
-  .card-image img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    object-position: center;
-    transition: transform 0.4s;
-  }
-
-  .card-bg-label {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 4.5rem;
-    color: rgba(255,255,255,0.06);
-    letter-spacing: 0.08em;
-    user-select: none;
-    line-height: 1;
-  }
-
-  .card-body {
-    padding: 1rem 1.1rem 1.1rem;
-    border-top: 1px solid var(--border);
-    position: relative;
-  }
-
-  .card-cat {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.25rem;
-  }
-
-  .card-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem;
-    letter-spacing: 0.05em;
-    color: var(--text);
-    line-height: 1;
-    margin-bottom: 0.4rem;
-  }
-
-  .card-desc {
-    font-size: 0.78rem;
-    font-weight: 300;
-    color: var(--muted);
-    line-height: 1.5;
-    margin-bottom: 0.75rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-  }
-
-  .card-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .card-status {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-    display: flex; align-items: center; gap: 0.4rem;
-  }
-  .card-status::before {
-    content: '';
-    display: block;
-    width: 5px; height: 5px;
-    border-radius: 50%;
-    background: var(--muted);
-    flex-shrink: 0;
-  }
-  .card-status.available::before { background: #2a9c5c; }
-  .card-status.available { color: #2a9c5c; }
-  .card-status.no-dot::before { display: none; }
-  #mum14-status::before { display: none; }
-
-  .card-price {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.88rem;
-    font-weight: 700;
-    color: var(--text);
-    letter-spacing: 0.05em;
-  }
-
-  .card-arrow {
-    position: absolute;
-    top: 0.8rem; right: 0.9rem;
-    font-size: 0.7rem;
-    color: var(--accent);
-    opacity: 0;
-    transition: opacity 0.2s, transform 0.2s;
-    line-height: 1;
-  }
-
-  .flagship-badge {
-    position: absolute;
-    top: 0.65rem;
-    left: 0.75rem;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.58rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--black);
-    background: var(--accent);
-    padding: 0.2rem 0.5rem;
-    z-index: 2;
-  }
-
-  /* section divider (accessories) */
-  .grid-divider {
-    grid-column: 1 / -1;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    padding: 1.5rem 0 0.25rem;
-    background: var(--black);
-    border: none;
-  }
-  .grid-divider span {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--muted);
+    padding: 0.4rem 0.9rem;
+    transition: all 0.2s;
     white-space: nowrap;
   }
-  .grid-divider::before, .grid-divider::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-  .grid-divider::before { display: none; }
 
-  /* ── NOTIFY BANNER ── */
-  .notify-banner {
-    background: var(--accent);
-    padding: 4rem 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-  }
+  .btn-generate:hover { border-color: var(--accent); color: var(--accent); }
+  .btn-generate:disabled { opacity: 0.4; cursor: not-allowed; }
 
-  .notify-banner h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2rem, 4vw, 3rem);
-    letter-spacing: 0.06em;
-    color: var(--black);
-    line-height: 1;
-  }
-
-  .notify-banner p {
-    font-size: 1rem;
-    color: rgba(10,10,8,0.65);
-    margin-top: 0.4rem;
-  }
-
-  .btn-dark {
-    background: var(--black);
-    color: var(--accent);
+  .spec-msg {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.9rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 0.9rem 2.5rem;
-    border: none;
-    cursor: pointer;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
     white-space: nowrap;
-    text-decoration: none;
-    display: inline-block;
-    transition: background 0.2s;
   }
-  .btn-dark:hover { background: #1a1a17; }
+  .spec-msg.error  { color: var(--red); }
+  .spec-msg.ok     { color: var(--green); }
 
-  /* ── FOOTER ── */
-  footer {
-    background: var(--dark);
-    border-top: 1px solid var(--border);
-    padding: 4rem 3rem 2rem;
-  }
-
-  .footer-grid {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr;
-    gap: 3rem;
-    margin-bottom: 3rem;
-    padding-bottom: 3rem;
-    border-bottom: 1px solid var(--border);
+  /* ── FORM ── */
+  .form-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: linear-gradient(180deg, var(--surface), var(--dark));
+    border: 1px solid var(--border);
   }
 
-  .footer-brand p {
-    font-size: 0.88rem;
-    color: var(--muted);
-    line-height: 1.7;
-    margin-top: 1rem;
-  }
-
-  .footer-col h4 {
+  .form-section-title {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 1.2rem;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
-  .footer-col a {
-    font-size: 0.9rem;
-    color: var(--text);
-    text-decoration: none;
-    opacity: 0.7;
-    transition: opacity 0.2s, color 0.2s;
-  }
-  .footer-col a:hover { opacity: 1; color: var(--accent); }
-
-  .footer-bottom {
-    display: flex; justify-content: space-between; align-items: center;
+  .form-section-title::before {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 1px;
+    background: var(--accent);
   }
 
-  .footer-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.4rem;
-    letter-spacing: 0.12em;
-    color: var(--text);
-    opacity: 0.5;
-  }
-  .footer-logo span { color: var(--accent); opacity: 1; }
-
-  .footer-legal {
-    font-size: 0.78rem;
-    color: var(--muted);
-    opacity: 0.5;
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
   }
 
-  /* ── EMPTY STATE ── */
-  .empty-state {
-    grid-column: 1 / -1;
-    padding: 5rem 2rem;
-    text-align: center;
-    color: var(--muted);
+  .form-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+  .form-grid.full  { grid-template-columns: 1fr; }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .field label {
     font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .field input,
+  .field select,
+  .field textarea {
+    padding: 0.75rem;
+    background: var(--dark);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
     font-size: 0.9rem;
+    width: 100%;
+    transition: border-color 0.2s;
+  }
+
+  .field input:focus,
+  .field select:focus,
+  .field textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+
+  .field textarea { resize: vertical; min-height: 80px; }
+
+  /* toggle */
+  .toggle-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .toggle-switch {
+    position: relative;
+    width: 48px;
+    height: 26px;
+    flex-shrink: 0;
+  }
+
+  .toggle-switch input { opacity: 0; width: 0; height: 0; }
+
+  .toggle-slider {
+    position: absolute;
+    inset: 0;
+    background: var(--dark);
+    border: 1px solid var(--border2);
+    cursor: pointer;
+    transition: 0.2s;
+  }
+
+  .toggle-slider:before {
+    content: '';
+    position: absolute;
+    height: 18px; width: 18px;
+    left: 3px; bottom: 3px;
+    background: var(--muted);
+    transition: 0.2s;
+  }
+
+  .toggle-switch input:checked + .toggle-slider { background: rgba(74,154,106,0.2); border-color: var(--green); }
+  .toggle-switch input:checked + .toggle-slider:before { transform: translateX(22px); background: var(--green); }
+
+  .toggle-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    border: 1px dashed var(--border);
+    color: var(--muted);
   }
 
-  /* ── RESPONSIVE ── */
-  @media (max-width: 1100px) {
-    .product-grid { grid-template-columns: repeat(3, 1fr); }
-    .flagship-card { flex: 0 0 calc(33.333% - 1px); }
+  /* ── BUTTONS ── */
+  input[type="password"], input[type="email"] {
+    width: 100%;
+    padding: 0.8rem;
+    margin-bottom: 0.75rem;
+    background: var(--dark);
+    border: 1px solid var(--border2);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
   }
 
-  @media (max-width: 768px) {
-    .nav-top { padding: 0.6rem 1.5rem; }
-    .nav-ribbon { padding: 0 1rem; }
-    .page-header { padding: 7.5rem 1.5rem 2.5rem; }
-    .products-section { padding: 0 1.5rem 4rem; }
-    .cat-nav-wrapper { padding: 0 1.5rem; margin: 0 -1.5rem; }
-    .subcat-nav-wrapper { padding: 0 1.5rem; margin: 0 -1.5rem; }
-    .product-grid { grid-template-columns: repeat(2, 1fr); }
-    .flagship-card { flex: 0 0 calc(50% - 1px); }
-    .notify-banner { flex-direction: column; text-align: center; padding: 3rem 1.5rem; }
-    footer { padding: 3rem 1.5rem 2rem; }
-    .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .btn {
+    width: 100%;
+    padding: 0.85rem;
+    border: 1px solid var(--accent);
+    background: transparent;
+    color: var(--accent);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
   }
 
-  @media (max-width: 480px) {
-    .product-grid { grid-template-columns: 1fr; }
-    .flagship-card { flex: 0 0 85%; }
+  .btn:hover { background: rgba(200,146,42,0.08); }
+  .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .btn-submit {
+    background: var(--accent);
+    color: var(--black);
+    border-color: var(--accent);
+    font-size: 0.95rem;
+    padding: 1rem;
+    margin-top: 0.5rem;
   }
 
-  /* modal */
-  #sib-container {
-    background-color: var(--surface) !important;
-    border-color: var(--border2) !important;
-    max-width: 100% !important;
+  .btn-submit:hover { background: var(--accent2); border-color: var(--accent2); }
+
+  .btn-signout {
+    border-color: var(--border2);
+    color: var(--muted);
+    width: auto;
+    padding: 0.4rem 1rem;
+    font-size: 0.75rem;
   }
-  #sib-container .entry__label,
-  #sib-container .sib-form-block p,
-  #sib-container .entry__specification { color: var(--muted) !important; }
-  #sib-container input {
-    background-color: var(--dark) !important;
-    color: var(--text) !important;
-    border-color: var(--border2) !important;
+
+  .btn-signout:hover { border-color: var(--red); color: var(--red); }
+
+  /* ── MESSAGES ── */
+  .msg {
+    font-size: 0.85rem;
+    margin-top: 0.5rem;
+    min-height: 1.2em;
+    text-align: center;
   }
-  .sib-form { background-color: transparent !important; }
+  .msg.success { color: var(--green); }
+  .msg.error   { color: var(--red); }
+
+  .submit-result {
+    margin-top: 1rem;
+    padding: 1rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    display: none;
+  }
+
+  .submit-result.success {
+    display: block;
+    background: rgba(74,154,106,0.08);
+    border: 1px solid var(--green);
+    color: var(--green);
+  }
+
+  .submit-result.error {
+    display: block;
+    background: rgba(154,74,74,0.08);
+    border: 1px solid var(--red);
+    color: var(--red);
+  }
+
+  @media (max-width: 600px) {
+    .form-grid, .form-grid.three { grid-template-columns: 1fr; }
+    #adminPanel { padding: 2rem 1rem 4rem; }
+    .spec-generator { flex-wrap: wrap; }
+    .spec-input { width: 100%; }
+  }
 </style>
 </head>
 <body>
 
-<!-- ── NAV ── -->
-<nav>
-  <div class="nav-top">
-    <div class="nav-brand">
-      <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
-      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
-    </div>
-    <div class="nav-right" style="display:flex; align-items:center; gap:0.75rem;">
-      <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
-        <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>
-        <span class="cart-count" id="cartCount"></span>
-      </a>
-      <div class="nav-auth" id="navAuth"></div>
-    </div>
-  </div>
-  <div class="nav-ribbon">
-    <a href="/ursusarmament/products" class="active">Products</a>
-    <a href="/ursusarmament#mission">Our Mission</a>
-    <a href="/ursusarmament#process">Learn</a>
-  </div>
-</nav>
-
-<!-- ── PAGE HEADER ── -->
-<div class="page-header">
-  <div class="breadcrumb">
-    <a href="/ursusarmament">Ursus Armament</a>
-    <span>›</span>
-    <span>Products</span>
-  </div>
-  <div class="section-tag">Arsenal</div>
-  <h1>OUR PRODUCTS</h1>
-</div>
-
-<!-- ── PRODUCTS ── -->
-<section class="products-section">
-
-  <!-- category nav -->
-  <div class="cat-nav-wrapper">
-    <div class="cat-nav">
-      <button class="cat-btn active" data-cat="all">All Products</button>
-      <button class="cat-btn" data-cat="flagship">Flagship Products</button>
-      <button class="cat-btn" data-cat="nvg">NVG</button>
-      <button class="cat-btn" data-cat="thermal">Thermal</button>
-      <button class="cat-btn" data-cat="comms">Comms</button>
-      <button class="cat-btn" data-cat="systems">Systems</button>
-      <button class="cat-btn" data-cat="loadout">Loadout</button>
-    </div>
-  </div>
-
-  <!-- subcategory nav -->
-  <div class="subcat-nav-wrapper" id="subcatWrapper">
-    <div class="subcat-nav" id="subcatNav"></div>
-  </div>
-
-  <!-- grid header -->
-  <div class="grid-header">
-    <div class="grid-header-left">
-      <span class="grid-label" id="gridLabel">All Products</span>
-      <span class="grid-count" id="gridCount">0</span>
-    </div>
-  </div>
-
-  <!-- flagship carousel -->
-  <div class="flagship-carousel-section" id="flagshipCarouselSection" style="display:none;">
-    <div class="flagship-row-header">
-      <span class="flagship-row-label">Flagship Products</span>
-      <div style="display:flex; align-items:center; gap:1rem;">
-        <div class="carousel-dots" id="flagshipDots"></div>
-        <div class="carousel-controls">
-          <button class="carousel-arrow" id="flagshipPrev" aria-label="Previous flagship products">
-            <svg viewBox="0 0 16 16"><polyline points="10,3 5,8 10,13"/></svg>
-          </button>
-          <button class="carousel-arrow" id="flagshipNext" aria-label="Next flagship products">
-            <svg viewBox="0 0 16 16"><polyline points="6,3 11,8 6,13"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="carousel-viewport" id="flagshipViewport">
-      <div class="carousel-track" id="flagshipTrack"></div>
-    </div>
-  </div>
-
-  <!-- accessories carousel -->
-  <div class="flagship-carousel-section" id="accessoriesCarouselSection" style="display:none;">
-    <div class="flagship-row-header">
-      <span class="flagship-row-label">Accessories &amp; Components</span>
-      <div style="display:flex; align-items:center; gap:1rem;">
-        <div class="carousel-dots" id="accessoriesDots"></div>
-        <div class="carousel-controls">
-          <button class="carousel-arrow" id="accessoriesPrev" aria-label="Previous accessories">
-            <svg viewBox="0 0 16 16"><polyline points="10,3 5,8 10,13"/></svg>
-          </button>
-          <button class="carousel-arrow" id="accessoriesNext" aria-label="Next accessories">
-            <svg viewBox="0 0 16 16"><polyline points="6,3 11,8 6,13"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="carousel-viewport" id="accessoriesViewport">
-      <div class="carousel-track" id="accessoriesTrack"></div>
-    </div>
-  </div>
-
-  <!-- loadout carousel -->
-  <div class="flagship-carousel-section" id="loadoutCarouselSection" style="display:none;">
-    <div class="flagship-row-header">
-      <span class="flagship-row-label">Loadout</span>
-      <div style="display:flex; align-items:center; gap:1rem;">
-        <div class="carousel-dots" id="loadoutDots"></div>
-        <div class="carousel-controls">
-          <button class="carousel-arrow" id="loadoutPrev" aria-label="Previous loadout products">
-            <svg viewBox="0 0 16 16"><polyline points="10,3 5,8 10,13"/></svg>
-          </button>
-          <button class="carousel-arrow" id="loadoutNext" aria-label="Next loadout products">
-            <svg viewBox="0 0 16 16"><polyline points="6,3 11,8 6,13"/></svg>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="carousel-viewport" id="loadoutViewport">
-      <div class="carousel-track" id="loadoutTrack"></div>
-    </div>
-  </div>
-
-  <!-- product grid (category-filtered views only) -->
-  <div class="product-grid" id="productGrid"></div>
-
-</section>
-
-<!-- ── NOTIFY BANNER ── -->
-<div class="notify-banner" id="support">
-  <div>
-    <h2>GET NOTIFIED AT LAUNCH</h2>
-    <p>Be the first to know when our products become available for order.</p>
-  </div>
-  <a href="#" class="btn-dark" onclick="openModal(); return false;">Join the List</a>
-</div>
-
-<!-- ── FOOTER ── -->
-<footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="nav-logo">URSUS <span style="color: var(--accent);">ARMAMENT</span></div>
-      <p>Developing next-generation tactical gear for the American people. Manufactured, tested, and deployed with pride in the USA.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Products</h4>
-      <ul>
-        <li><a href="/ursusarmament/products/ROTS">R.O.T.S.</a></li>
-        <li><a href="/ursusarmament/products/URSIX">URSIX</a></li>
-        <li><a href="/ursusarmament/products">View All</a></li>
-        <li><a href="/ursusarmament/customerreviews">Customer Reviews</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Company</h4>
-      <ul>
-        <li><a href="/ursusarmament/aboutus/">About Us</a></li>
-        <li><a href="/ursusarmament/testingstandards/">Testing Standards</a></li>
-        <li><a href="/ursusarmament/careers/">Careers</a></li>
-        <li><a href="https://www.youtube.com/@UrsusWorks/" target="_blank" rel="noopener noreferrer">YouTube</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Support</h4>
-      <ul>
-        <li><a href="/ursusarmament/contact/">Contact</a></li>
-        <li><a href="/ursusarmament/warranty/">Warranty</a></li>
-        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div class="footer-logo">URSUS <span>ARMAMENT</span></div>
-    <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
-  </div>
-</footer>
-
-<!-- ── NEWSLETTER MODAL ── -->
-<div id="newsletterModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:9999; justify-content:center; align-items:center;">
-  <div style="position:relative; max-width:600px; width:90%;">
-    <button onclick="closeModal()" style="position:absolute; top:-40px; right:0; background:none; border:none; color:white; font-size:24px; cursor:pointer;">✕</button>
-    <div class="sib-form" style="text-align:center; background-color:#EFF2F7;">
-      <div id="sib-form-container" class="sib-form-container">
-        <div id="sib-container" class="sib-container--large sib-container--vertical" style="text-align:center; background-color:rgba(255,255,255,1); max-width:540px; border-radius:3px; border-width:1px; border-color:#C0CCD9; border-style:solid;">
-          <form id="sib-form" method="POST" action="https://1ba63958.sibforms.com/serve/MUIFAAud21KrkC2NyS5mihBbHJcIJiloM4Y2UWi_gvGGsankrosXI7QdJjLqH10HnZAUODWt5KnMAYBrJA66jV2EksrLm8d-bYMPCXyzOTftZGonwKJ09PDWHZGfUfXLNqL4HtprAKtBhmYag-q8dO3r5-qX6-IBRDlS88ndnwgJ2nuvhTV9O2nsNXgxXIlMN9b1YCgokzGi0c2AqA==">
-            <div style="padding:8px 0;"><div class="sib-form-block" style="font-size:32px; text-align:left; font-weight:700; font-family:Helvetica,sans-serif; color:#0e0f0e;"><p>Newsletter</p></div></div>
-            <div style="padding:8px 0;"><div class="sib-form-block" style="font-size:16px; text-align:left; font-family:Helvetica,sans-serif; color:#3C4858;"><div class="sib-text-form-block"><p>Subscribe to our newsletter and stay updated.</p></div></div></div>
-            <div style="padding:8px 0;">
-              <div class="sib-input sib-form-block">
-                <div class="form__entry entry_block">
-                  <div class="form__label-row">
-                    <label class="entry__label" style="font-weight:700; text-align:left; font-size:16px; font-family:Helvetica,sans-serif; color:#3c4858;" for="EMAIL" data-required="*">Enter your email address to subscribe</label>
-                    <div class="entry__field"><input class="input" type="text" id="EMAIL" name="EMAIL" autocomplete="off" placeholder="EMAIL" data-required="true" required /></div>
-                  </div>
-                  <label class="entry__error entry__error--primary" style="font-size:16px; text-align:left; font-family:Helvetica,sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;"></label>
-                  <label class="entry__specification" style="font-size:12px; text-align:left; font-family:Helvetica,sans-serif; color:#8390A4;">Provide your email address to subscribe. For e.g abc@xyz.com</label>
-                </div>
-              </div>
-            </div>
-            <div style="padding:8px 0;">
-              <div class="sib-form-block" style="text-align:left;">
-                <button class="sib-form-block__button sib-form-block__button-with-loader" style="font-size:16px; text-align:left; font-weight:700; font-family:Helvetica,sans-serif; color:#FFFFFF; background-color:#111112; border-radius:3px; border-width:0px;" form="sib-form" type="submit">
-                  SUBSCRIBE
-                </button>
-              </div>
-            </div>
-            <input type="text" name="email_address_check" value="" class="input--hidden">
-            <input type="hidden" name="locale" value="en">
-            <input type="hidden" name="html_type" value="simple">
-          </form>
-        </div>
-      </div>
-    </div>
+<!-- ══════════════ LOGIN SCREEN ══════════════ -->
+<div id="loginScreen">
+  <div class="login-box">
+    <div class="login-tag">Ursus Armament</div>
+    <h1>ADMIN ACCESS</h1>
+    <input type="email" id="adminEmail" placeholder="Admin Email">
+    <input type="password" id="adminPassword" placeholder="Password">
+    <button class="btn" id="loginBtn" onclick="adminLogin()">Authenticate</button>
+    <div class="msg" id="loginMsg"></div>
   </div>
 </div>
 
-<script>
-// ── PRODUCT DATA ──────────────────────────────────────────────────────────────
-const PRODUCTS = [
-  {
-    id: 'rots',
-    name: 'R.O.T.S.',
-    cat: 'systems',
-    subcats: [],
-    flagship: true,
-    url: '/ursusarmament/products/ROTS',
-    bgLabel: 'R.O.T.S.',
-    desc: 'We are currently evaluating the regulatory and legal considerations surrounding the distribution and sale of this item. At present, the system is intended exclusively for law enforcement and military sales; however, we are actively exploring avenues that may allow broader availability to the American public in the future.',
-    status: 'unavailable',
-    displayCat: 'Tactical System',
-  },
-  {
-    id: 'ursix',
-    name: 'URSIX',
-    cat: 'nvg',
-    subcats: ['monoculars'],
-    flagship: true,
-    url: '/ursusarmament/products/URSIX',
-    image: '/ursusarmament/images/pvs14TC.png',
-    bgLabel: 'URSIX',
-    desc: 'Compact PVS14-style white phosphor / autogating monocular built for tactical operators and law enforcement.',
-    status: 'checking',
-    statusId: 'ursix-status',
-    displayCat: 'Night Vision Monocular',
-  },
-  {
-    id: 'calidus',
-    name: 'CALIDUS',
-    cat: 'thermal',
-    subcats: ['monoculars'],
-    flagship: true,
-    url: '/ursusarmament/products/CALIDUS',
-    bgLabel: 'CL-DS',
-    desc: 'Compact LWIR monocular built for reliable vision in total darkness, smoke, and obscurants.',
-    status: 'unavailable',
-    displayCat: 'Thermal Monocular',
-  },
-  {
-    id: 'nexis',
-    name: 'NEXIS',
-    cat: 'comms',
-    subcats: [],
-    flagship: true,
-    url: '/ursusarmament/products/NEXIS',
-    image: '/ursusarmament/images/nexis_product_card_square.svg?v=2',
-    bgLabel: 'NX-SYS',
-    desc: 'Secure, high-reliability communications platform unifying sensors, optics, and weapon systems into one operational ecosystem.',
-    status: 'unavailable',
-    displayCat: 'Tactical Network',
-  },
-  {
-    id: 'axion',
-    name: 'AXION',
-    cat: 'nvg',
-    subcats: ['monoculars'],
-    flagship: true,
-    url: '/ursusarmament/products/AXION',
-    bgLabel: 'AXION',
-    desc: 'Next-generation dual-tube binocular night vision system engineered for extended operations. Featuring fused sensor architecture and wide field-of-view optics.',
-    status: 'unavailable',
-    displayCat: 'Binocular Night Vision',
-  },
-  // ── accessories / components ──
-  {
-    id: 'mum14-adapter',
-    name: 'MUM-14 Adapters',
-    cat: 'nvg',
-    subcats: ['adapters'],
-    flagship: false,
-    url: '/ursusarmament/products/MUM14-Adapter',
-    image: '/ursusarmament/images/mum14ATC.png',
-    bgLabel: 'MUM14',
-    desc: 'Mil-spec MUM-14 helmet mount adapter (Dovetail or Bayonet Interface). Compatible with standard rhino mount systems.',
-    status: 'unavailable',
-    statusId: 'mum14-status',
-    displayCat: 'NVG Adapter',
-  },
-  {
-    id: 'pvs14-adapter',
-    name: 'PVS-14 Adapters',
-    cat: 'nvg',
-    subcats: ['adapters'],
-    flagship: false,
-    url: '/ursusarmament/products/PVS14-Adapter',
-    image: '/ursusarmament/images/pvs14jarmTC.png',
-    bgLabel: 'PVS14',
-    desc: 'Drop-in PVS-14 interface adapter. Fits all standard AN/PVS-14 compatible mounts.',
-    status: 'checking',
-    statusId: 'pvs14-status',
-    displayCat: 'NVG Adapter',
-  },
-  {
-    id: 'rhino-mount',
-    name: 'Rhino Mounts',
-    cat: 'nvg',
-    subcats: ['adapters'],
-    flagship: false,
-    url: '/ursusarmament/products/rhinomounts',
-    image: '/ursusarmament/images/rhinomountTC.png',
-    bgLabel: 'RHINO',
-    desc: 'Mil-spec rhino mount system for PASGT, ACH, and MICH helmet platforms. Available in Black and Sand anodize.',
-    status: 'checking',
-    statusId: 'rhino-status',
-    displayCat: 'NVG Mount',
-  },
-  {
-    id: 'mum14-bridge',
-    name: 'MUM-14/28 Bridges',
-    cat: 'nvg',
-    subcats: ['adapters'],
-    flagship: false,
-    url: '/ursusarmament/products/MUM14-Bridge',
-    image: '/ursusarmament/images/mum14BTC.png',
-    bgLabel: 'MUM14',
-    desc: 'Dovetail interface MUM-14/28 bridge designed for helmet-mounted binocular night vision configurations compatible with standard Rhino mount systems.',
-    status: 'unavailable',
-    statusId: 'mum14-bridge-status',
-    displayCat: 'NVG Adapter',
-  },
-  
-  // ── loadout ──
-  {
-    id: 'combat-top',
-    name: 'Combat Tops',
-    cat: 'loadout',
-    subcats: ['apparel'],
-    flagship: false,
-    url: '/ursusarmament/products/combat-tops',
-    image: '/ursusarmament/images/combat-topTC2.png',
-    bgLabel: 'CMBT',
-    desc: 'Durable combat shirt engineered for prolonged field use. Moisture-wicking construction, reinforced elbows, and integrated loop fields for patches and insignia.',
-    status: 'checking',
-    statusId: 'combat-top-status',
-    displayCat: 'Apparel',
-  },
-  {
-    id: 'helmet',
-    name: 'Helmets',
-    cat: 'loadout',
-    subcats: ['protection'],
-    flagship: false,
-    url: '/ursusarmament/products/helmets',
-    bgLabel: 'HLMT',
-    desc: 'NIJ LVL IIIA Ballistic helmet platform designed for compatibility with NVG mounts, communication systems, and accessory rails.',
-    status: 'unavailable',
-    displayCat: 'Head Protection',
-  },
-  {
-    id: 'NIJ LVL III Armor Plates',
-    name: 'NIJ LVL III Armor Plates',
-    cat: 'loadout',
-    subcats: ['protection'],
-    flagship: false,
-    url: '/ursusarmament/products/lvlIII',
-    bgLabel: 'lvlIII',
-    desc: 'NIJ LVL III Ballistic plates.',
-    status: 'unavailable',
-    displayCat: 'Body Armor',
-  },
-  {
-    id: 'NIJ LVL IV Armor Plates',
-    name: 'NIJ LVL IV Armor Plates',
-    cat: 'loadout',
-    subcats: ['protection'],
-    flagship: false,
-    url: '/ursusarmament/products/lvlIV',
-    bgLabel: 'lvlIV',
-    desc: 'NIJ LVL IV Ballistic plates.',
-    status: 'unavailable',
-    displayCat: 'Body Armor',
-  },
-];
+<!-- ══════════════ ADMIN PANEL ══════════════ -->
+<div id="adminPanel">
 
-// ── CATEGORY / SUBCATEGORY DEFINITIONS ───────────────────────────────────────
-const CATEGORIES = {
-  all:      { label: 'All Products' },
-  flagship: { label: 'Flagship Products' },
-  nvg:      { label: 'NVG', subcats: { all: 'All NVG', monoculars: 'Monoculars', adapters: 'Adapters' } },
-  thermal:  { label: 'Thermal', subcats: { all: 'All Thermal', monoculars: 'Monoculars' } },
-  comms:    { label: 'Comms' },
-  systems:  { label: 'Systems' },
-  loadout:  { label: 'Loadout', subcats: { all: 'All Loadout', protection: 'Protection', apparel: 'Apparel' } },
-};
+  <div class="admin-header">
+    <div>
+      <div class="admin-tag">Ursus Armament — Restricted</div>
+      <div class="admin-title">INVENTORY ENTRY</div>
+    </div>
+    <div style="display: flex; align-items: center; gap: 0.75rem;">
+      <div class="spec-generator">
+        <input type="text" class="spec-input" id="specSerialInput" placeholder="S/N to generate spec sheet">
+        <button class="btn-generate" id="generateBtn" onclick="generateSpecSheet()">Generate</button>
+        <span class="spec-msg" id="specMsg"></span>
+      </div>
+      <button class="btn btn-signout" onclick="adminSignOut()">Sign Out</button>
+    </div>
+  </div>
 
-let activeCat    = 'all';
-let activeSubcat = 'all';
-
-// ── CARD HTML BUILDER ─────────────────────────────────────────────────────────
-function buildCardHTML(p, showBadge) {
-  const statusClass = p.status === 'available' ? 'available' : '';
-  const statusText  = p.status === 'checking' ? 'Checking...' : p.status === 'available' ? 'Available' : 'Currently Unavailable';
-  const priceHTML   = p.price ? `<span class="card-price">${p.price}</span>` : '';
-  const imageHTML   = p.image
-    ? `<img src="${p.image}" alt="${p.name}" loading="lazy">`
-    : `<span class="card-bg-label">${p.bgLabel}</span>`;
-  const badgeHTML   = showBadge ? '<span class="flagship-badge">Flagship</span>' : '';
-  return `
-    <div class="card-image">${badgeHTML}${imageHTML}</div>
-    <div class="card-body">
-      <span class="card-arrow">↗</span>
-      <div class="card-cat">${p.displayCat}</div>
-      <div class="card-name">${p.name}</div>
-      <div class="card-desc">${p.desc}</div>
-      <div class="card-footer">
-        <span class="card-status ${statusClass}" ${p.statusId ? `id="${p.statusId}"` : ''}>${statusText}</span>
-        ${priceHTML}
+  <!-- IDENTIFICATION -->
+  <div class="form-section">
+    <div class="form-section-title">Unit Identification</div>
+    <div class="form-grid">
+      <div class="field">
+        <label>Product</label>
+        <select id="f_product">
+          <option value="">Select Product</option>
+          <option value="URSIX">URSIX</option>
+          <option value="ROTS">R.O.T.S.</option>
+          <option value="CALIDUS">CALIDUS</option>
+          <option value="NEXIS">NEXIS</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Serial Number</label>
+        <input type="text" id="f_serial" placeholder="e.g. UW-6003">
+      </div>
+      <div class="field">
+        <label>Tier</label>
+        <select id="f_tier">
+          <option value="">Select Tier</option>
+          <option value="BASE">BASE</option>
+          <option value="PLUS">PLUS</option>
+          <option value="PRO">PRO</option>
+          <option value="ULTRA">ULTRA</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Body Style</label>
+        <input type="text" id="f_bodyStyle" placeholder="e.g. Monocular">
+      </div>
+      <div class="field">
+        <label>Price ($)</label>
+        <input type="number" id="f_price" placeholder="e.g. 2350">
       </div>
     </div>
-  `;
-}
+    <div style="margin-top: 0.75rem;">
+      <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted); display:block; margin-bottom:0.5rem;">Available for Sale</label>
+      <div class="toggle-row">
+        <label class="toggle-switch">
+          <input type="checkbox" id="f_available" checked>
+          <span class="toggle-slider"></span>
+        </label>
+        <span class="toggle-label" id="availableLabel">Available</span>
+      </div>
+    </div>
+  </div>
 
-// ── GENERIC CAROUSEL ──────────────────────────────────────────────────────────
-function createCarousel({ trackId, prevId, nextId, dotsId, viewportId, sectionId }) {
-  let index   = 0;
-  let items   = [];
+  <!-- TUBE SPECS -->
+  <div class="form-section">
+    <div class="form-section-title">Tube Specifications</div>
+    <div class="form-grid">
+      <div class="field">
+        <label>IIT Manufacturer</label>
+        <input type="text" id="f_iitManufacturer" placeholder="e.g. L3Harris">
+      </div>
+      <div class="field">
+        <label>Generation</label>
+        <select id="f_generation">
+          <option value="">Select Generation</option>
+          <option value="Gen 2+">Gen 2+</option>
+          <option value="Gen 3">Gen 3</option>
+          <option value="Gen 3 Filmless">Gen 3 Filmless</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Phosphor</label>
+        <select id="f_phosphor">
+          <option value="">Select Phosphor</option>
+          <option value="White Phosphor (P45)">White Phosphor (P45)</option>
+          <option value="Green Phosphor (P43)">Green Phosphor (P43)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Figure of Merit (FOM)</label>
+        <input type="text" id="f_fom" placeholder="e.g. 1417.1">
+      </div>
+      <div class="field">
+        <label>Signal-to-Noise Ratio (SNR)</label>
+        <input type="text" id="f_snr" placeholder="e.g. 20.24">
+      </div>
+      <div class="field">
+        <label>Resolution (lp/mm)</label>
+        <input type="text" id="f_resolution" placeholder="e.g. 70 lp/mm">
+      </div>
+      <div class="field">
+        <label>Luminous Gain</label>
+        <input type="text" id="f_luminousGain" placeholder="e.g. 32100">
+      </div>
+    </div>
+  </div>
 
-  function getVisible() {
-    const vw = window.innerWidth;
-    if (vw <= 480)  return 1;
-    if (vw <= 768)  return 2;
-    if (vw <= 1100) return 3;
-    return 4;
-  }
+  <!-- PHOTOCATHODE -->
+  <div class="form-section">
+    <div class="form-section-title">Photocathode Data</div>
+    <div class="form-grid three">
+      <div class="field">
+        <label>Luminous Sensitivity (µA/lm)</label>
+        <input type="text" id="f_pcLum" placeholder="e.g. 700">
+      </div>
+      <div class="field">
+        <label>Sensitivity w/ Filter (µA/lm)</label>
+        <input type="text" id="f_pcFilter" placeholder="e.g. 410">
+      </div>
+      <div class="field">
+        <label>Radiant Sensitivity (mA/W)</label>
+        <input type="text" id="f_pcRad" placeholder="e.g. 90">
+      </div>
+    </div>
+  </div>
 
-  function getCardW() {
-    const track = document.getElementById(trackId);
-    if (!track) return 0;
-    const first = track.querySelector('.flagship-card');
-    if (!first) return 0;
-    return first.getBoundingClientRect().width + 1;
-  }
+  <!-- HARDWARE -->
+  <div class="form-section">
+    <div class="form-section-title">Hardware & Build</div>
+    <div class="form-grid">
+      <div class="field">
+        <label>Objective Lens</label>
+        <select id="f_objectiveLens">
+          <option value="">Select Lens</option>
+          <option value="25mm f/1.2">25mm f/1.2</option>
+          <option value="35mm f/1.0">35mm f/1.0</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Battery Life</label>
+        <input type="text" id="f_batteryLife" placeholder="e.g. 20-40 hrs (CR123A)">
+      </div>
+      <div class="field">
+        <label>IP Rating</label>
+        <select id="f_ipRating">
+          <option value="">Select Rating</option>
+          <option value="IP67">IP67</option>
+          <option value="IP68">IP68</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Finish</label>
+        <input type="text" id="f_finish" placeholder="e.g. Matte Black Hard Anodize">
+      </div>
+    </div>
+  </div>
 
-  function update() {
-    const track  = document.getElementById(trackId);
-    const prev   = document.getElementById(prevId);
-    const next   = document.getElementById(nextId);
-    const dots   = document.getElementById(dotsId);
-    if (!track) return;
+  <!-- QC & RECORDS -->
+  <div class="form-section">
+    <div class="form-section-title">QC & Records</div>
+    <div class="form-grid">
+      <div class="field">
+        <label>Proof Date</label>
+        <input type="date" id="f_proofDate">
+      </div>
+      <div class="field">
+        <label>Batch ID</label>
+        <input type="text" id="f_batchId" placeholder="e.g. GEN2P-LOT-01">
+      </div>
+      <div class="field">
+        <label>QC Result</label>
+        <select id="f_qcResult">
+          <option value="PASS">PASS</option>
+          <option value="FAIL">FAIL</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-grid full" style="margin-top: 0.75rem;">
+      <div class="field">
+        <label>Manufacturing Notes</label>
+        <textarea id="f_notes" placeholder="Any notes about this unit..."></textarea>
+      </div>
+    </div>
+  </div>
 
-    const visible  = getVisible();
-    const maxIndex = Math.max(0, items.length - visible);
-    index = Math.min(index, maxIndex);
+  <button class="btn btn-submit" id="submitBtn" onclick="submitUnit()">Add Unit to Inventory</button>
+  <div class="submit-result" id="submitResult"></div>
 
-    track.style.transform = `translateX(-${index * getCardW()}px)`;
-    if (prev) prev.disabled = index === 0;
-    if (next) next.disabled = index >= maxIndex;
+</div>
 
-    if (dots) {
-      dots.innerHTML = '';
-      for (let i = 0; i <= maxIndex; i++) {
-        const d = document.createElement('div');
-        d.className = 'carousel-dot' + (i === index ? ' active' : '');
-        dots.appendChild(d);
-      }
-      dots.style.display = maxIndex < 1 ? 'none' : 'flex';
-    }
-  }
-
-  function step(dir) {
-    const maxIndex = Math.max(0, items.length - getVisible());
-    index = Math.max(0, Math.min(maxIndex, index + dir));
-    update();
-  }
-
-  function load(products, showBadge) {
-    const section = document.getElementById(sectionId);
-    const track   = document.getElementById(trackId);
-    if (!section || !track) return;
-
-    items = products;
-    index = 0;
-    track.innerHTML = '';
-
-    products.forEach(p => {
-      const card = document.createElement('a');
-      card.href      = p.url;
-      card.className = 'flagship-card';
-      card.innerHTML = buildCardHTML(p, showBadge);
-      track.appendChild(card);
-    });
-
-    section.style.display = products.length > 0 ? 'block' : 'none';
-    requestAnimationFrame(() => requestAnimationFrame(update));
-  }
-
-  function hide() {
-    const section = document.getElementById(sectionId);
-    if (section) section.style.display = 'none';
-  }
-
-  // swipe
-  const vp = document.getElementById(viewportId);
-  if (vp) {
-    let startX = 0;
-    vp.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
-    vp.addEventListener('touchend',   e => {
-      const dx = startX - e.changedTouches[0].clientX;
-      if (Math.abs(dx) > 40) step(dx > 0 ? 1 : -1);
-    }, { passive: true });
-  }
-
-  document.getElementById(prevId)?.addEventListener('click', () => step(-1));
-  document.getElementById(nextId)?.addEventListener('click', () => step(1));
-
-  return { load, hide, update };
-}
-
-const flagshipCarousel    = createCarousel({ trackId: 'flagshipTrack',    prevId: 'flagshipPrev',    nextId: 'flagshipNext',    dotsId: 'flagshipDots',    viewportId: 'flagshipViewport',    sectionId: 'flagshipCarouselSection' });
-const accessoriesCarousel = createCarousel({ trackId: 'accessoriesTrack', prevId: 'accessoriesPrev', nextId: 'accessoriesNext', dotsId: 'accessoriesDots', viewportId: 'accessoriesViewport', sectionId: 'accessoriesCarouselSection' });
-const loadoutCarousel     = createCarousel({ trackId: 'loadoutTrack',     prevId: 'loadoutPrev',     nextId: 'loadoutNext',     dotsId: 'loadoutDots',     viewportId: 'loadoutViewport',     sectionId: 'loadoutCarouselSection' });
-
-// ── RENDER ────────────────────────────────────────────────────────────────────
-function renderGrid() {
-  const grid  = document.getElementById('productGrid');
-  const label = document.getElementById('gridLabel');
-  const count = document.getElementById('gridCount');
-  grid.innerHTML = '';
-  flagshipCarousel.hide();
-  accessoriesCarousel.hide();
-  loadoutCarousel.hide();
-
-  label.textContent = CATEGORIES[activeCat]?.label || 'Products';
-
-  if (activeCat === 'all' || activeCat === 'flagship') {
-    const flagships   = PRODUCTS.filter(p => p.flagship);
-    const accessories = activeCat === 'all' ? PRODUCTS.filter(p => !p.flagship && p.cat !== 'loadout') : [];
-    const loadout     = activeCat === 'all' ? PRODUCTS.filter(p => p.cat === 'loadout') : [];
-
-    count.textContent = flagships.length + accessories.length + loadout.length;
-    flagshipCarousel.load(flagships, true);
-    if (accessories.length > 0) accessoriesCarousel.load(accessories, false);
-    if (loadout.length > 0)     loadoutCarousel.load(loadout, false);
-
-  } else {
-    let catItems = PRODUCTS.filter(p => {
-      if (p.cat !== activeCat) return false;
-      if (activeSubcat !== 'all') return p.subcats.includes(activeSubcat);
-      return true;
-    });
-
-    const flagships   = catItems.filter(p => p.flagship);
-    const nonFlagship = catItems.filter(p => !p.flagship);
-
-    count.textContent = catItems.length;
-
-    if (catItems.length === 0) {
-      grid.innerHTML = '<div class="empty-state">No products in this category yet — check back soon.</div>';
-    } else {
-      if (flagships.length > 0)   flagshipCarousel.load(flagships, true);
-      if (nonFlagship.length > 0) accessoriesCarousel.load(nonFlagship, false);
-    }
-  }
-
-  setTimeout(() => { if (window.applyAvailability) window.applyAvailability(); }, 200);
-}
-
-// ── RENDER SUBCATS ────────────────────────────────────────────────────────────
-function renderSubcats() {
-  const wrapper = document.getElementById('subcatWrapper');
-  const nav     = document.getElementById('subcatNav');
-  const catDef  = CATEGORIES[activeCat];
-
-  if (!catDef?.subcats) {
-    wrapper.classList.remove('visible');
-    nav.innerHTML = '';
-    return;
-  }
-
-  nav.innerHTML = '';
-  Object.entries(catDef.subcats).forEach(([key, lbl]) => {
-    const btn = document.createElement('button');
-    btn.className = 'subcat-btn' + (activeSubcat === key ? ' active' : '');
-    btn.textContent = lbl;
-    btn.addEventListener('click', () => {
-      activeSubcat = key;
-      document.querySelectorAll('.subcat-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderGrid();
-    });
-    nav.appendChild(btn);
-  });
-
-  wrapper.classList.add('visible');
-}
-
-// ── CAT NAV LISTENERS ─────────────────────────────────────────────────────────
-document.querySelectorAll('.cat-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    activeCat    = btn.dataset.cat;
-    activeSubcat = 'all';
-    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    renderSubcats();
-    renderGrid();
-  });
-});
-
-window.addEventListener('resize', () => {
-  flagshipCarousel.update();
-  accessoriesCarousel.update();
-  loadoutCarousel.update();
-});
-
-// initial render
-renderSubcats();
-renderGrid();
-</script>
-
-<script>
-function openModal()  { document.getElementById('newsletterModal').style.display = 'flex'; }
-function closeModal() { document.getElementById('newsletterModal').style.display = 'none'; }
-</script>
-
-<script src="/ursusarmament/access-check.js"></script>
-
+<!-- ══════════════ FIREBASE ══════════════ -->
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { initializeApp }   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+                           from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc }
+                           from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const ADMIN_EMAIL = "contact@ursusworks.com";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
-  authDomain: "ursus-armament.firebaseapp.com",
-  projectId: "ursus-armament",
-  storageBucket: "ursus-armament.firebasestorage.app",
+  apiKey:            "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
+  authDomain:        "ursus-armament.firebaseapp.com",
+  projectId:         "ursus-armament",
+  storageBucket:     "ursus-armament.firebasestorage.app",
   messagingSenderId: "430731167862",
-  appId: "1:430731167862:web:a5447de86db180edad3757"
+  appId:             "1:430731167862:web:a5447de86db180edad3757"
 };
 
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+const db   = getFirestore(app);
 
+/* ── Always force login screen first — sign out any existing session ── */
 onAuthStateChanged(auth, (user) => {
-  const navAuth = document.getElementById("navAuth");
-  if (user) {
-    const emailPrefix = user.email.split("@")[0];
-    navAuth.innerHTML = `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
+  if (user && user.email === ADMIN_EMAIL) {
+    showPanel();
   } else {
-    navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
+    if (user) signOut(auth);
+    showLogin();
   }
 });
-</script>
 
-<script type="module">
-import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getFirestore, doc, getDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+function showLogin() {
+  document.getElementById("loginScreen").style.display = "flex";
+  document.getElementById("adminPanel").style.display  = "none";
+}
 
-const firebaseConfig = {
-  apiKey: "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
-  authDomain: "ursus-armament.firebaseapp.com",
-  projectId: "ursus-armament",
-  storageBucket: "ursus-armament.firebasestorage.app",
-  messagingSenderId: "430731167862",
-  appId: "1:430731167862:web:a5447de86db180edad3757"
+function showPanel() {
+  document.getElementById("loginScreen").style.display = "none";
+  document.getElementById("adminPanel").style.display  = "block";
+}
+
+/* ── Available toggle label ── */
+document.getElementById("f_available").addEventListener("change", function() {
+  document.getElementById("availableLabel").textContent = this.checked ? "Available" : "Not Available";
+});
+
+/* ── Admin login ── */
+window.adminLogin = async () => {
+  const email    = document.getElementById("adminEmail").value.trim();
+  const password = document.getElementById("adminPassword").value;
+  const msg      = document.getElementById("loginMsg");
+  const btn      = document.getElementById("loginBtn");
+
+  if (!email || !password) {
+    msg.className = "msg error";
+    msg.textContent = "Please enter email and password.";
+    return;
+  }
+
+  if (email !== ADMIN_EMAIL) {
+    msg.className = "msg error";
+    msg.textContent = "Access denied.";
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = "Authenticating...";
+  msg.textContent = "";
+
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+  } catch (err) {
+    msg.className = "msg error";
+    msg.textContent = err.code === "auth/invalid-credential"
+      ? "Invalid email or password."
+      : "Authentication failed. Please try again.";
+    btn.disabled = false;
+    btn.textContent = "Authenticate";
+  }
 };
 
-const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
-const db  = getFirestore(app);
+/* ── Admin sign out ── */
+window.adminSignOut = async () => {
+  await signOut(auth);
+};
 
-let availabilityCache = null;
+/* ── Generate spec sheet ── */
+window.generateSpecSheet = async () => {
+  const serial = document.getElementById("specSerialInput").value.trim().toUpperCase();
+  const msg    = document.getElementById("specMsg");
+  const btn    = document.getElementById("generateBtn");
 
-async function fetchAvailability() {
-  if (availabilityCache) return availabilityCache;
+  msg.textContent = "";
+  msg.className   = "spec-msg";
 
-  let ursixCount = 0;
-  let ursixAccessDenied = false;
+  if (!serial) {
+    msg.className   = "spec-msg error";
+    msg.textContent = "Enter a serial number.";
+    return;
+  }
+
+  btn.disabled    = true;
+  btn.textContent = "Looking up...";
+
   try {
-    const ursixSnap = await getDocs(query(collection(db, "ursus-units"), where("product", "==", "URSIX"), where("available", "==", true)));
-    ursixCount = ursixSnap.size;
-  } catch(e) {
-    ursixAccessDenied = true;
+    const snap = await getDoc(doc(db, "ursus-units", serial));
+
+    if (!snap.exists()) {
+      msg.className   = "spec-msg error";
+      msg.textContent = "No Match";
+      btn.disabled    = false;
+      btn.textContent = "Generate";
+      return;
+    }
+
+    const d = snap.data();
+    btn.textContent = "Building...";
+
+    await loadPdfLibs();
+
+    const { jsPDF }    = window.jspdf;
+    const autoTable    = window.jspdfAutotable;
+    const isUrsix      = d.product === "URSIX";
+
+    const pdf = new jsPDF({ unit: "pt", format: "letter" });
+    const PW  = pdf.internal.pageSize.getWidth();
+    const ML  = 50, MR = 50;
+    const TW  = PW - ML - MR;
+    const LW  = TW * 0.33;
+    const VW  = TW * 0.67;
+    const HVW = TW * 0.40;
+    const SBW = TW * 0.27;
+
+    // ── Header ──
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(16);
+    pdf.text("URSUS ARMAMENT — UNIT SPEC SHEET", ML, 50);
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(9);
+    pdf.text(
+      `Serial: ${d.serial || "—"}   |   Product: ${d.product || "—"}   |   Tier: ${d.tier || "—"}   |   Body Style: ${d.bodyStyle || "—"}`,
+      ML, 66
+    );
+
+    const val = v => (v !== undefined && v !== null && v !== "") ? String(v) : "—";
+
+    const hdr = label => ([
+      { content: label.toUpperCase(), colSpan: 2, styles: { fontStyle: "bold", fillColor: [255,255,255], textColor: [0,0,0] } }
+    ]);
+
+    const row = (label, value) => ([
+      { content: label, styles: { fontStyle: "bold", fillColor: [255,255,255], textColor: [0,0,0] } },
+      { content: val(value), styles: { fillColor: [255,255,255], textColor: [0,0,0] } }
+    ]);
+
+    // ── Build main table rows ──
+    const rows = [
+      hdr("Unit Identification"),
+      row("Product",         d.product),
+      row("Serial Number",   d.serial),
+      row("Tier",            d.tier),
+      row("Body Style",      d.bodyStyle),
+      ...(!isUrsix ? [
+        row("Price",         d.price ? `$${Number(d.price).toLocaleString()}` : ""),
+        row("Available",     d.available ? "Yes" : "No"),
+      ] : []),
+      hdr("Tube Specifications"),
+      row("IIT Manufacturer", d.iitManufacturer),
+      row("Generation",      d.generation),
+      row("Phosphor",        d.phosphor),
+      row("Figure of Merit", d.fom),
+      row("SNR",             d.snr),
+      row("Resolution",      d.resolution),
+      row("Luminous Gain",   d.luminousGain),
+      hdr("Photocathode Data"),
+      row("Luminous Sensitivity",      d.photocathodeLuminousSensitivity),
+      row("Sensitivity w/ Filter",     d.photocathodeSensitivityWithFilter),
+      row("Radiant Sensitivity",       d.photocathodeRadiantSensitivity),
+      hdr("Hardware & Build"),
+      row("Objective Lens",  d.objectiveLens),
+      row("Battery Life",    d.batteryLife),
+      row("IP Rating",       d.ipRating),
+      row("Finish",          d.finish),
+      hdr("QC & Records"),
+      row("Notes",           d.notes),
+      ...(!isUrsix ? [
+        row("Entered At",    d.enteredAt ? new Date(d.enteredAt).toLocaleString() : ""),
+      ] : []),
+    ];
+
+    // ── Draw main table ──
+    autoTable(pdf, {
+      startY: 80,
+      margin: { left: ML, right: MR },
+      tableWidth: TW,
+      columnStyles: {
+        0: { cellWidth: LW },
+        1: { cellWidth: VW },
+      },
+      body: rows,
+      theme: "plain",
+      styles: {
+        fontSize: 9,
+        cellPadding: 4,
+        lineWidth: 0.5,
+        lineColor: [0, 0, 0],
+        textColor: [0, 0, 0],
+        fillColor: [255, 255, 255],
+        overflow: "linebreak",
+      },
+      didParseCell: (data) => {
+        if (data.row.raw[0] && data.row.raw[0].colSpan === 2) {
+          data.cell.styles.fontStyle = "bold";
+        }
+      },
+    });
+
+    // ── Draw stamp rows below main table ──
+    const afterY = pdf.lastAutoTable.finalY;
+
+    const stampLabels = ["Proof Date", "Batch ID", "QC Result"];
+    const stampValues = [
+      val(d.proofDate),
+      val(d.batchId),
+      val(d.qcResult),
+    ];
+
+    const rowH   = 20;
+    const totalH = rowH * 3;
+    const x0     = ML;
+    const lx     = x0;
+    const vx     = x0 + LW;
+    const sx     = x0 + LW + HVW;
+    const lw     = LW;
+    const vw     = HVW;
+    const sw     = SBW;
+
+    pdf.setDrawColor(0);
+    pdf.setLineWidth(0.5);
+    pdf.rect(sx, afterY, sw, totalH);
+
+    for (let i = 0; i < 3; i++) {
+      const y = afterY + i * rowH;
+      pdf.rect(lx, y, lw, rowH);
+      pdf.setFont("helvetica", "bold");
+      pdf.setFontSize(9);
+      pdf.text(stampLabels[i], lx + 4, y + 13);
+      pdf.rect(vx, y, vw, rowH);
+      pdf.setFont("helvetica", "normal");
+      pdf.text(stampValues[i], vx + 4, y + 13);
+    }
+
+    pdf.save(`SpecSheet_${serial}.pdf`);
+
+    msg.className   = "spec-msg ok";
+    msg.textContent = "Downloaded";
+
+  } catch (err) {
+    console.error("Spec sheet error:", err);
+    msg.className   = "spec-msg error";
+    msg.textContent = "Error generating sheet.";
   }
 
-  const [mum14Snap, bridgeBlackSnap, bridgeSandSnap, pvs14Snap, rhinoSnap, combatTopsSnap] = await Promise.all([
-    getDoc(doc(db, "ursus-units", "MUM-14 Adapter")),
-    getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Black")),
-    getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Sand")),
-    getDoc(doc(db, "ursus-units", "PVS-14 Adapter")),
-    getDoc(doc(db, "ursus-units", "rhino-mounts")),
-    getDoc(doc(db, "ursus-units", "combat-tops")),
-]);
+  btn.disabled    = false;
+  btn.textContent = "Generate";
+};
 
-  let mum14DtAvail = false;
-  let mum14BnAvail = false;
-  if (mum14Snap.exists()) {
-    const mount    = mum14Snap.data()?.mount || {};
-    const dovetail = mount.dovetail || {};
-    const bayonet  = mount.bayonet  || {};
-    mum14DtAvail = Object.values(dovetail).some(qty => typeof qty === 'number' && qty > 0);
-    mum14BnAvail = Object.values(bayonet).some(qty => typeof qty === 'number' && qty > 0);
-  }
-  const bridgeBlackQty  = bridgeBlackSnap.exists()   ? (bridgeBlackSnap.data()?.['quantity-available']  || 0) : 0;
-  const bridgeSandQty   = bridgeSandSnap.exists()    ? (bridgeSandSnap.data()?.['quantity-available']   || 0) : 0;
-  let rhinoDtAvail = false;
-let rhinoBnAvail = false;
-if (rhinoSnap.exists()) {
-    const mounts = rhinoSnap.data()?.mounts || {};
-    const dovetail = mounts.dovetail || {};
-    const bayonet  = mounts.bayonet  || {};
-    rhinoDtAvail = Object.values(dovetail).some(qty => typeof qty === 'number' && qty > 0);
-    rhinoBnAvail = Object.values(bayonet).some(qty => typeof qty === 'number' && qty > 0);
+/* ── Lazy-load jsPDF + AutoTable from CDN ── */
+function loadPdfLibs() {
+  return new Promise((resolve, reject) => {
+    if (window.jspdf && window.jspdfAutotable) { resolve(); return; }
+
+    const loadScript = src => new Promise((res, rej) => {
+      const s = document.createElement("script");
+      s.src = src; s.onload = res; s.onerror = rej;
+      document.head.appendChild(s);
+    });
+
+    loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js")
+      .then(() => loadScript("https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.8.2/jspdf.plugin.autotable.min.js"))
+      .then(() => {
+        window.jspdfAutotable = (doc, opts) => doc.autoTable(opts);
+        resolve();
+      })
+      .catch(reject);
+  });
 }
 
-  let pvs14DtAvail = false;
-  let pvs14BnAvail = false;
-  if (pvs14Snap.exists()) {
-    const mount    = pvs14Snap.data()?.mount || {};
-    const dovetail = mount.dovetail || {};
-    const bayonet  = mount.bayonet  || {};
-    pvs14DtAvail = Object.values(dovetail).some(mat =>
-      typeof mat === 'object' && Object.values(mat).some(qty => typeof qty === 'number' && qty > 0)
-    );
-    pvs14BnAvail = Object.values(bayonet).some(mat =>
-      typeof mat === 'object' && Object.values(mat).some(qty => typeof qty === 'number' && qty > 0)
-    );
-  } 
- 
- // ── Combat Tops: count how many colorway styles have any size qty > 0 ──
-  let combatTopStylesAvailable = 0;
-  if (combatTopsSnap.exists()) {
-    const qtArray = combatTopsSnap.data()?.['quantity-available'];
-    if (Array.isArray(qtArray) && qtArray.length > 0) {
-      const colorwayMap = qtArray[0]; // single map entry containing all colorways
-      for (const colorway of Object.values(colorwayMap)) {
-        if (colorway && typeof colorway === 'object') {
-          const hasStock = Object.values(colorway).some(qty => typeof qty === 'number' && qty > 0);
-          if (hasStock) combatTopStylesAvailable++;
-        }
-      }
-    }
-  }
+/* ── Submit unit ── */
+window.submitUnit = async () => {
+  const result = document.getElementById("submitResult");
+  const btn    = document.getElementById("submitBtn");
 
-  availabilityCache = {
-    ursixCount,
-    ursixAccessDenied,
-    mum14DtAvail,
-    mum14BnAvail,
-    bridgeAvail:   (bridgeBlackQty + bridgeSandQty) > 0,
-    rhinoDtAvail,
-    rhinoBnAvail,
-    combatTopStylesAvailable,
-    pvs14DtAvail,
-    pvs14BnAvail,
+  const serial  = document.getElementById("f_serial").value.trim().toUpperCase();
+  const product = document.getElementById("f_product").value;
+
+  if (!product) { showResult("error", "Please select a product."); return; }
+  if (!serial)  { showResult("error", "Serial number is required."); return; }
+  if (!document.getElementById("f_tier").value) { showResult("error", "Please select a tier."); return; }
+  if (!document.getElementById("f_generation").value) { showResult("error", "Please select a generation."); return; }
+  if (!document.getElementById("f_phosphor").value) { showResult("error", "Please select a phosphor type."); return; }
+  if (!document.getElementById("f_proofDate").value) { showResult("error", "Proof date is required."); return; }
+  if (!document.getElementById("f_qcResult").value) { showResult("error", "QC result is required."); return; }
+
+  btn.disabled = true;
+  btn.textContent = "Saving to Firestore...";
+  result.style.display = "none";
+
+  const unitData = {
+    product:                            product,
+    serial:                             serial,
+    tier:                               document.getElementById("f_tier").value,
+    bodyStyle:                          document.getElementById("f_bodyStyle").value.trim(),
+    price:                              Number(document.getElementById("f_price").value) || 0,
+    available:                          document.getElementById("f_available").checked,
+    iitManufacturer:                    document.getElementById("f_iitManufacturer").value.trim(),
+    generation:                         document.getElementById("f_generation").value,
+    phosphor:                           document.getElementById("f_phosphor").value,
+    fom:                                document.getElementById("f_fom").value.trim(),
+    snr:                                document.getElementById("f_snr").value.trim(),
+    resolution:                         document.getElementById("f_resolution").value.trim(),
+    luminousGain:                       document.getElementById("f_luminousGain").value.trim(),
+    photocathodeLuminousSensitivity:    document.getElementById("f_pcLum").value.trim(),
+    photocathodeSensitivityWithFilter:  document.getElementById("f_pcFilter").value.trim(),
+    photocathodeRadiantSensitivity:     document.getElementById("f_pcRad").value.trim(),
+    objectiveLens:                      document.getElementById("f_objectiveLens").value,
+    batteryLife:                        document.getElementById("f_batteryLife").value.trim(),
+    ipRating:                           document.getElementById("f_ipRating").value,
+    finish:                             document.getElementById("f_finish").value.trim(),
+    proofDate:                          document.getElementById("f_proofDate").value,
+    batchId:                            document.getElementById("f_batchId").value.trim(),
+    qcResult:                           document.getElementById("f_qcResult").value,
+    notes:                              document.getElementById("f_notes").value.trim(),
+    enteredAt:                          new Date().toISOString(),
   };
 
-  return availabilityCache;
-}
-
-async function applyAvailability() {
   try {
-    const data = await fetchAvailability();
-
-    const ursixEl = document.getElementById("ursix-status");
-    if (ursixEl) {
-      if (data.ursixCount > 0) {
-        ursixEl.textContent = data.ursixCount + " Unit" + (data.ursixCount === 1 ? "" : "s") + " Available";
-        ursixEl.classList.add("available");
-      } else if (data.ursixCount === 0 && data.ursixAccessDenied) {
-        ursixEl.innerHTML = `
-          <span style="width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;display:inline-block;"></span>
-          <span style="color:var(--accent);">Full Access Account Required For Availability</span>
-        `;
-        ursixEl.style.display = 'flex';
-        ursixEl.style.alignItems = 'center';
-        ursixEl.style.gap = '0.4rem';
-        ursixEl.classList.add('no-dot');
-      } else {
-        ursixEl.textContent = "Currently Unavailable";
-        ursixEl.classList.remove("available");
-        ursixEl.style.color = '#c0392b';
-      }
-    }
-
-    const mum14El = document.getElementById("mum14-status");
-    if (mum14El) {
-      const dyText = data.mum14DtAvail ? "DT Style Available" : "DT Style Unavailable";
-      const bnText = data.mum14BnAvail ? "BN Style Available" : "BN Style Unavailable";
-      mum14El.style.flexDirection = 'column';
-      mum14El.style.alignItems = 'flex-start';
-      mum14El.innerHTML = `
-        <span style="display:flex;align-items:center;gap:0.4rem;color:${data.mum14DtAvail ? '#2a9c5c' : '#c0392b'};">
-          <span style="width:5px;height:5px;border-radius:50%;background:${data.mum14DtAvail ? '#2a9c5c' : '#c0392b'};flex-shrink:0;display:inline-block;"></span>
-          ${dyText}
-        </span>
-        <span style="display:flex;align-items:center;gap:0.4rem;margin-top:0.2rem;color:${data.mum14BnAvail ? '#2a9c5c' : '#c0392b'};">
-          <span style="width:5px;height:5px;border-radius:50%;background:${data.mum14BnAvail ? '#2a9c5c' : '#c0392b'};flex-shrink:0;display:inline-block;"></span>
-          ${bnText}
-        </span>
-      `;
-    }
-
-    const bridgeEl = document.getElementById("mum14-bridge-status");
-    if (bridgeEl) {
-      if (data.bridgeAvail) {
-        bridgeEl.textContent = "Available";
-        bridgeEl.classList.add("available");
-      } else {
-        bridgeEl.classList.remove("available");
-        bridgeEl.classList.add("no-dot");
-        bridgeEl.innerHTML = `
-          <span style="display:flex;align-items:center;gap:0.4rem;color:#c0392b;">
-            <span style="width:5px;height:5px;border-radius:50%;background:#c0392b;flex-shrink:0;display:inline-block;"></span>
-            Currently Unavailable
-          </span>`;
-      }
-    }
-
-    const pvs14El = document.getElementById("pvs14-status");
-    if (pvs14El) {
-      const dtText = data.pvs14DtAvail ? "DT Style Available" : "DT Style Unavailable";
-      const bnText = data.pvs14BnAvail ? "BN Style Available" : "BN Style Unavailable";
-      pvs14El.style.flexDirection = 'column';
-      pvs14El.style.alignItems = 'flex-start';
-      pvs14El.classList.add('no-dot');
-      pvs14El.innerHTML = `
-        <span style="display:flex;align-items:center;gap:0.4rem;color:${data.pvs14DtAvail ? '#2a9c5c' : '#c0392b'};">
-          <span style="width:5px;height:5px;border-radius:50%;background:${data.pvs14DtAvail ? '#2a9c5c' : '#c0392b'};flex-shrink:0;display:inline-block;"></span>
-          ${dtText}
-        </span>
-        <span style="display:flex;align-items:center;gap:0.4rem;margin-top:0.2rem;color:${data.pvs14BnAvail ? '#2a9c5c' : '#c0392b'};">
-          <span style="width:5px;height:5px;border-radius:50%;background:${data.pvs14BnAvail ? '#2a9c5c' : '#c0392b'};flex-shrink:0;display:inline-block;"></span>
-          ${bnText}
-        </span>
-      `;
-    }
-
-    const rhinoEl = document.getElementById("rhino-status");
-    if (rhinoEl) {
-      const dtText = data.rhinoDtAvail ? "DT Style Available" : "DT Style Unavailable";
-      const bnText = data.rhinoBnAvail ? "BN Style Available" : "BN Style Unavailable";
-      rhinoEl.style.flexDirection = 'column';
-      rhinoEl.style.alignItems = 'flex-start';
-      rhinoEl.classList.add('no-dot');
-      rhinoEl.innerHTML = `
-          <span style="display:flex;align-items:center;gap:0.4rem;color:${data.rhinoDtAvail ? '#2a9c5c' : '#c0392b'};">
-            <span style="width:5px;height:5px;border-radius:50%;background:${data.rhinoDtAvail ? '#2a9c5c' : '#c0392b'};flex-shrink:0;display:inline-block;"></span>
-            ${dtText}
-          </span>
-          <span style="display:flex;align-items:center;gap:0.4rem;margin-top:0.2rem;color:${data.rhinoBnAvail ? '#2a9c5c' : '#c0392b'};">
-            <span style="width:5px;height:5px;border-radius:50%;background:${data.rhinoBnAvail ? '#2a9c5c' : '#c0392b'};flex-shrink:0;display:inline-block;"></span>
-            ${bnText}
-          </span>
-      `;
+    await setDoc(doc(db, "ursus-units", serial), unitData);
+    showResult("success", `✓ Unit ${serial} added to ursus-units successfully.`);
+    clearForm();
+  } catch (err) {
+    console.error("Firestore write error:", err);
+    showResult("error", "Failed to save unit. Check console for details.");
+  } finally {
+    btn.disabled = false;
+    btn.textContent = "Add Unit to Inventory";
   }
+};
 
-    // ── Combat Tops ──
-    const combatEl = document.getElementById("combat-top-status");
-    if (combatEl) {
-      const n = data.combatTopStylesAvailable;
-      if (n > 0) {
-        combatEl.textContent = n + " Style" + (n === 1 ? "" : "s") + " Available";
-        combatEl.classList.add("available");
-      } else {
-        combatEl.classList.remove("available");
-        combatEl.classList.add("no-dot");
-        combatEl.innerHTML = `
-          <span style="display:flex;align-items:center;gap:0.4rem;color:#c0392b;">
-            <span style="width:5px;height:5px;border-radius:50%;background:#c0392b;flex-shrink:0;display:inline-block;"></span>
-            Out of Stock
-          </span>`;
-      }
-    }
-
-  } catch(err) {
-    console.error(err);
-  }
+function showResult(type, message) {
+  const el = document.getElementById("submitResult");
+  el.className = "submit-result " + type;
+  el.textContent = message;
 }
 
-window.applyAvailability = applyAvailability;
-applyAvailability();
-</script>
-
-<script>
-function updateCartBadge() {
-  try {
-    const cart  = JSON.parse(localStorage.getItem('ursus_cart')) || [];
-    const count = cart.reduce((sum, i) => sum + (i.quantity || 1), 0);
-    const badge = document.getElementById('cartCount');
-    if (!badge) return;
-    if (count > 0) { badge.textContent = count > 99 ? '99+' : count; badge.classList.add('visible'); }
-    else { badge.classList.remove('visible'); }
-  } catch {}
+function clearForm() {
+  const ids = [
+    "f_product","f_serial","f_tier","f_bodyStyle","f_price","f_iitManufacturer",
+    "f_generation","f_phosphor","f_fom","f_snr","f_resolution","f_luminousGain",
+    "f_pcLum","f_pcFilter","f_pcRad","f_objectiveLens","f_batteryLife","f_ipRating",
+    "f_finish","f_proofDate","f_batchId","f_notes"
+  ];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
+  document.getElementById("f_qcResult").value = "PASS";
+  document.getElementById("f_available").checked = true;
+  document.getElementById("availableLabel").textContent = "Available";
 }
-updateCartBadge();
+
+/* Enter key on login */
+document.addEventListener("keydown", e => {
+  if (e.key === "Enter" && document.getElementById("loginScreen").style.display !== "none") {
+    window.adminLogin();
+  }
+});
 </script>
 
 </body>
