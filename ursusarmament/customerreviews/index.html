@@ -606,14 +606,61 @@ onAuthStateChanged(auth, (user) => {
 
 /* ── Timestamp helper ──
    Reviews may have their date stored under either "timestamp" or "timeStamp",
-   and as either a Firestore Timestamp object or a plain string/number.
-   This normalizes all of that to milliseconds for sorting. */
+   and as either a Firestore Timestamp object or a plain string in the
+   Firestore-console export format, e.g. "Apr 1, 2019 at 2:43:00 PM UTC-8"
+   (month may be abbreviated or spelled out). Native Date parsing chokes on
+   the "at" and the bare "UTC-8" offset, so this parses it manually. */
+const MONTH_MAP = {
+  jan: 0, january: 0, feb: 1, february: 1, mar: 2, march: 2,
+  apr: 3, april: 3, may: 4, jun: 5, june: 5, jul: 6, july: 6,
+  aug: 7, august: 7, sep: 8, sept: 8, september: 8,
+  oct: 9, october: 9, nov: 10, november: 10, dec: 11, december: 11
+};
+
+const FIRESTORE_STRING_RE =
+  /^([A-Za-z]+)\.?\s+(\d{1,2}),\s*(\d{4})\s+at\s+(\d{1,2}):(\d{2}):(\d{2})\s*(AM|PM)\s+UTC([+-]\d+(?::?\d{2})?)$/i;
+
+function parseFirestoreTimestampString(str) {
+  const m = FIRESTORE_STRING_RE.exec(str.trim());
+  if (!m) return NaN;
+
+  const [, monthName, day, year, hourStr, minute, second, meridiem, offsetStr] = m;
+  const monthIndex = MONTH_MAP[monthName.toLowerCase()];
+  if (monthIndex === undefined) return NaN;
+
+  let hour = parseInt(hourStr, 10) % 12;
+  if (meridiem.toUpperCase() === "PM") hour += 12;
+
+  // Offset like "-8" or "-08:00" -> hours (with fractional minutes if present)
+  const offsetMatch = /^([+-]\d+)(?::?(\d{2}))?$/.exec(offsetStr);
+  let offsetHours = parseInt(offsetMatch[1], 10);
+  if (offsetMatch[2]) {
+    const offsetMinutes = parseInt(offsetMatch[2], 10) / 60;
+    offsetHours += offsetHours < 0 ? -offsetMinutes : offsetMinutes;
+  }
+
+  // Wall-clock time was recorded at UTC+offsetHours, so true UTC instant
+  // is the wall-clock value minus that offset.
+  const wallClockUtcMs = Date.UTC(
+    parseInt(year, 10), monthIndex, parseInt(day, 10),
+    hour, parseInt(minute, 10), parseInt(second, 10)
+  );
+  return wallClockUtcMs - offsetHours * 3600000;
+}
+
 function getReviewTimeMs(r) {
   const val = r.timestamp ?? r.timeStamp;
   if (!val) return 0;
+
   if (typeof val.toMillis === "function") return val.toMillis(); // Firestore Timestamp object
-  const parsed = new Date(val).getTime(); // string or number
-  return isNaN(parsed) ? 0 : parsed;
+
+  if (typeof val === "string") {
+    const parsed = parseFirestoreTimestampString(val);
+    if (!isNaN(parsed)) return parsed;
+  }
+
+  const fallback = new Date(val).getTime(); // last-resort generic parse
+  return isNaN(fallback) ? 0 : fallback;
 }
 
 /* ── All approved reviews ── */
