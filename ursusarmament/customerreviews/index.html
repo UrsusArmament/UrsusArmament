@@ -649,7 +649,7 @@ function parseFirestoreTimestampString(str) {
 }
 
 function getReviewTimeMs(r) {
-  const val = r.timestamp ?? r.timeStamp;
+  const val = r.timestamp ?? r.timeStamp ?? r.TimeStamp;
   if (!val) return 0;
 
   if (typeof val.toMillis === "function") return val.toMillis(); // Firestore Timestamp object
