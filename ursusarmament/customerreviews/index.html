@@ -618,7 +618,7 @@ const MONTH_MAP = {
 };
 
 const FIRESTORE_STRING_RE =
-  /^([A-Za-z]+)\.?\s+(\d{1,2}),\s*(\d{4})\s+at\s+(\d{1,2}):(\d{2}):(\d{2})\s*(AM|PM)\s+UTC([+-]\d+(?::?\d{2})?)$/i;
+  /^([A-Za-z]+)\.?\s+(\d{1,2}),?\s*(\d{4}),?\s+(?:at\s+)?(\d{1,2}):(\d{2}):(\d{2})\s*(AM|PM)\s+UTC([+-]\d+(?::?\d{2})?)$/i;
 
 function parseFirestoreTimestampString(str) {
   const m = FIRESTORE_STRING_RE.exec(str.trim());
