@@ -696,9 +696,9 @@ async function loadAllReviews() {
 
 function renderReviews() {
   const container = document.getElementById("reviewsContainer");
-  const filtered  = _activeFilter === 'ALL'
+  const filtered = _activeFilter === 'ALL'
     ? _allReviews
-    : _allReviews.filter(r => r.productType === _activeFilter);
+    : _allReviews.filter(r => (r.productType || '').toLowerCase().includes(_activeFilter.toLowerCase()));
 
   if (filtered.length === 0) {
     container.innerHTML = '<div class="reviews-empty">No reviews found for this product.</div>';
