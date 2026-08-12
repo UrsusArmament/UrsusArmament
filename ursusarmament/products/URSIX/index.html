@@ -1147,11 +1147,12 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 });
 
 /* ── Load URSIX reviews ── */
-async function loadNEXISReviews() {
+async function loadURSIXReviews() {
   const container = document.getElementById('reviewsContainer');
   try {
     const q    = query(
       collection(db, "ursus-reviews"),
+      where("productType",    "==", "URSIX"),
       where("reviewApproval", "==", true)
     );
     const snap = await getDocs(q);
@@ -1159,18 +1160,11 @@ async function loadNEXISReviews() {
       container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
       return;
     }
-    const reviews = snap.docs
-      .map(d => d.data())
-      .filter(r => (r.productType || '').toLowerCase().includes('nexis'))
-      .sort((a, b) => {
-        const ta = a.timestamp?.toMillis?.() ?? 0;
-        const tb = b.timestamp?.toMillis?.() ?? 0;
-        return tb - ta;
-      });
-    if (reviews.length === 0) {
-      container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
-      return;
-    }
+    const reviews = snap.docs.map(d => d.data()).sort((a, b) => {
+      const ta = a.timestamp?.toMillis?.() ?? 0;
+      const tb = b.timestamp?.toMillis?.() ?? 0;
+      return tb - ta;
+    });
     container.innerHTML = '';
     reviews.forEach(r => {
       const stars = '★'.repeat(r.starRating || 0) + '☆'.repeat(5 - (r.starRating || 0));
