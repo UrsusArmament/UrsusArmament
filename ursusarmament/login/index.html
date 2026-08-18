@@ -90,6 +90,16 @@
   <button id="loginBtn">Login</button>
   <button id="signupBtn" class="secondary-btn">Create Account</button>
   <a href="/ursusarmament/resetpassword/" class="forgot">Forgot Password?</a>
+  <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 1.25rem 0;">
+
+  <button id="trackToggleBtn" class="secondary-btn">Track My Order</button>
+
+  <div id="trackBox" style="display: none; margin-top: 1rem;">
+    <input type="text" id="trackOrderNumber" placeholder="Order Number (e.g. UA-00558)">
+    <input type="email" id="trackEmail" placeholder="Email used at checkout">
+    <button id="trackBtn">Track Order</button>
+    <div class="msg" id="trackMsg"></div>
+  </div>
   <div class="msg" id="msg"></div>
 </div>
 <script type="module">
@@ -123,6 +133,47 @@ document.getElementById("loginBtn").addEventListener("click", async () => {
 
 document.getElementById("signupBtn").addEventListener("click", () => {
   window.location.href = "/ursusarmament/signup/";
+});
+  const trackToggleBtn = document.getElementById("trackToggleBtn");
+const trackBox = document.getElementById("trackBox");
+const trackMsg = document.getElementById("trackMsg");
+
+trackToggleBtn.addEventListener("click", () => {
+  trackBox.style.display = trackBox.style.display === "none" ? "block" : "none";
+});
+
+document.getElementById("trackBtn").addEventListener("click", async () => {
+  const orderNumber = document.getElementById("trackOrderNumber").value.trim().toUpperCase();
+  const email = document.getElementById("trackEmail").value.trim();
+
+  if (!orderNumber || !email) {
+    trackMsg.textContent = "Enter both order number and email.";
+    return;
+  }
+
+  trackMsg.textContent = "Looking up order...";
+
+  try {
+    const res = await fetch("https://raspy-credit-ce5f.ursus-generalcontracting.workers.dev/track-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ orderNumber, email }),
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      trackMsg.textContent = data.error || "Order not found.";
+      return;
+    }
+
+    trackMsg.innerHTML = `
+      <strong>${data.order_number}</strong><br>
+      Status: ${data.shipped ? "Shipped" : "Processing"}<br>
+      ${data.shipped ? `Tracking: ${data.tracking_number}` : ""}
+    `;
+  } catch (err) {
+    trackMsg.textContent = "Something went wrong. Try again.";
+  }
 });
 </script>
 </body>
