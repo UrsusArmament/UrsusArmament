@@ -1204,6 +1204,21 @@ const CATEGORIES = {
 
 let activeCat    = 'all';
 let activeSubcat = 'all';
+window.productScores = {};
+
+function sortForDisplay(products) {
+  return [...products].sort((a, b) => {
+    const aUntracked = a.status === 'unavailable' && !a.statusId;
+    const bUntracked = b.status === 'unavailable' && !b.statusId;
+    if (aUntracked && !bUntracked) return 1;
+    if (!aUntracked && bUntracked) return -1;
+    if (aUntracked && bUntracked) return 0;
+    const scores = window.productScores || {};
+    const aScore = scores[a.id] ?? 0;
+    const bScore = scores[b.id] ?? 0;
+    return bScore - aScore;
+  });
+}
 
 // ── CARD HTML BUILDER ─────────────────────────────────────────────────────────
 function buildCardHTML(p, showBadge) {
@@ -1341,10 +1356,10 @@ function renderGrid() {
 
   label.textContent = CATEGORIES[activeCat]?.label || 'Products';
 
-  if (activeCat === 'all' || activeCat === 'flagship') {
-    const flagships   = PRODUCTS.filter(p => p.flagship);
-    const accessories = activeCat === 'all' ? PRODUCTS.filter(p => !p.flagship && p.cat !== 'loadout') : [];
-    const loadout     = activeCat === 'all' ? PRODUCTS.filter(p => p.cat === 'loadout') : [];
+   if (activeCat === 'all' || activeCat === 'flagship') {
+    const flagships   = sortForDisplay(PRODUCTS.filter(p => p.flagship));
+    const accessories = activeCat === 'all' ? sortForDisplay(PRODUCTS.filter(p => !p.flagship && p.cat !== 'loadout')) : [];
+    const loadout     = activeCat === 'all' ? sortForDisplay(PRODUCTS.filter(p => p.cat === 'loadout')) : [];
 
     count.textContent = flagships.length + accessories.length + loadout.length;
     flagshipCarousel.load(flagships, true);
@@ -1358,8 +1373,8 @@ function renderGrid() {
       return true;
     });
 
-    const flagships   = catItems.filter(p => p.flagship);
-    const nonFlagship = catItems.filter(p => !p.flagship);
+    const flagships   = sortForDisplay(catItems.filter(p => p.flagship));
+    const nonFlagship = sortForDisplay(catItems.filter(p => !p.flagship));
 
     count.textContent = catItems.length;
 
@@ -1421,6 +1436,8 @@ window.addEventListener('resize', () => {
   loadoutCarousel.update();
 });
 
+window.renderGrid = renderGrid;
+
 // initial render
 renderSubcats();
 renderGrid();
@@ -1477,26 +1494,31 @@ const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 const db  = getFirestore(app);
 
 let availabilityCache = null;
+let _hasSorted         = false;
 
 async function fetchAvailability() {
   if (availabilityCache) return availabilityCache;
 
-  let ursixCount = 0;
+    let ursixCount = 0;
+  let ursixTierCount = 0;
   let ursixAccessDenied = false;
   try {
     const ursixSnap = await getDocs(query(collection(db, "ursus-units"), where("product", "==", "URSIX"), where("available", "==", true)));
     ursixCount = ursixSnap.size;
+    const tiersInStock = new Set(ursixSnap.docs.map(d => d.data()?.tier).filter(Boolean));
+    ursixTierCount = tiersInStock.size;
   } catch(e) {
     ursixAccessDenied = true;
   }
 
-  const [mum14Snap, bridgeBlackSnap, bridgeSandSnap, pvs14Snap, rhinoSnap, combatTopsSnap] = await Promise.all([
+  const [mum14Snap, bridgeBlackSnap, bridgeSandSnap, pvs14Snap, rhinoSnap, combatTopsSnap, compassSnap] = await Promise.all([
     getDoc(doc(db, "ursus-units", "MUM-14 Adapter")),
     getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Black")),
     getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Sand")),
     getDoc(doc(db, "ursus-units", "PVS-14 Adapter")),
     getDoc(doc(db, "ursus-units", "rhino-mounts")),
     getDoc(doc(db, "ursus-units", "combat-tops")),
+    getDoc(doc(db, "ursus-units", "cammenga-3h-compass")),
 ]);
 
   let mum14DtAvail = false;
@@ -1510,6 +1532,7 @@ async function fetchAvailability() {
   }
   const bridgeBlackQty  = bridgeBlackSnap.exists()   ? (bridgeBlackSnap.data()?.['quantity-available']  || 0) : 0;
   const bridgeSandQty   = bridgeSandSnap.exists()    ? (bridgeSandSnap.data()?.['quantity-available']   || 0) : 0;
+  const compassQty      = compassSnap.exists()       ? (compassSnap.data()?.['quantity-available']      || 0) : 0;
   let rhinoDtAvail = false;
 let rhinoBnAvail = false;
 if (rhinoSnap.exists()) {
@@ -1549,17 +1572,21 @@ if (rhinoSnap.exists()) {
     }
   }
 
-  availabilityCache = {
+    availabilityCache = {
     ursixCount,
+    ursixTierCount,
     ursixAccessDenied,
     mum14DtAvail,
     mum14BnAvail,
-    bridgeAvail:   (bridgeBlackQty + bridgeSandQty) > 0,
+    bridgeAvail:      (bridgeBlackQty + bridgeSandQty) > 0,
+    bridgeBlackAvail: bridgeBlackQty > 0,
+    bridgeSandAvail:  bridgeSandQty > 0,
     rhinoDtAvail,
     rhinoBnAvail,
     combatTopStylesAvailable,
     pvs14DtAvail,
     pvs14BnAvail,
+    compassQty,
   };
 
   return availabilityCache;
@@ -1662,7 +1689,7 @@ async function applyAvailability() {
       `;
   }
 
-    // ── Combat Tops ──
+        // ── Combat Tops ──
     const combatEl = document.getElementById("combat-top-status");
     if (combatEl) {
       const n = data.combatTopStylesAvailable;
@@ -1678,6 +1705,38 @@ async function applyAvailability() {
             Out of Stock
           </span>`;
       }
+    }
+
+    // ── Cammenga 3H Compass ──
+    const compassEl = document.getElementById("cammenga-3h-status");
+    if (compassEl) {
+      if (data.compassQty > 0) {
+        compassEl.textContent = data.compassQty + " In Stock";
+        compassEl.classList.add("available");
+      } else {
+        compassEl.classList.remove("available");
+        compassEl.classList.add("no-dot");
+        compassEl.innerHTML = `
+          <span style="display:flex;align-items:center;gap:0.4rem;color:#c0392b;">
+            <span style="width:5px;height:5px;border-radius:50%;background:#c0392b;flex-shrink:0;display:inline-block;"></span>
+            Out of Stock
+          </span>`;
+      }
+    }
+
+    // ── Compute stock scores and re-sort once data is available ──
+    if (!_hasSorted) {
+      _hasSorted = true;
+      window.productScores = {
+        'ursix':               data.ursixTierCount || 0,
+        'mum14-adapter':       (data.mum14DtAvail ? 1 : 0) + (data.mum14BnAvail ? 1 : 0),
+        'pvs14-adapter':       (data.pvs14DtAvail ? 1 : 0) + (data.pvs14BnAvail ? 1 : 0),
+        'rhino-mount':         (data.rhinoDtAvail ? 1 : 0) + (data.rhinoBnAvail ? 1 : 0),
+        'mum14-bridge':        (data.bridgeBlackAvail ? 1 : 0) + (data.bridgeSandAvail ? 1 : 0),
+        'combat-top':          data.combatTopStylesAvailable || 0,
+        'cammenga-3h-compass': data.compassQty > 0 ? 1 : 0,
+      };
+      if (window.renderGrid) window.renderGrid();
     }
 
   } catch(err) {
