@@ -173,11 +173,24 @@ document.getElementById("trackBtn").addEventListener("click", async () => {
       statusLine = data.usps_status;
     }
 
+        let eventsHtml = "";
+    if (data.usps_events && data.usps_events.length > 0) {
+      eventsHtml = `<div style="margin-top: 0.75rem; text-align: left;">` +
+        data.usps_events.map(e => `
+          <div style="padding: 0.5rem 0; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.85rem;">
+            <strong>${e.date} ${e.time}</strong><br>
+            ${e.description}${e.city ? ` — ${e.city}, ${e.state}` : ""}
+          </div>
+        `).join("") +
+      `</div>`;
+    }
+
     trackMsg.innerHTML = `
       <strong>${data.order_number}</strong><br>
       Status: ${statusLine}<br>
       ${data.shipped ? `Tracking: ${data.tracking_number}` : ""}
       ${data.usps_expected_delivery ? `<br>Expected delivery: ${data.usps_expected_delivery}` : ""}
+      ${eventsHtml}
     `;
   } catch (err) {
     trackMsg.textContent = "Something went wrong. Try again.";
