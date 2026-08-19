@@ -1208,6 +1208,8 @@ window.productScores = {};
 
 function sortForDisplay(products) {
   return [...products].sort((a, b) => {
+    if (a.id === 'ursix' && b.id !== 'ursix') return -1;
+    if (b.id === 'ursix' && a.id !== 'ursix') return 1;
     const aUntracked = a.status === 'unavailable' && !a.statusId;
     const bUntracked = b.status === 'unavailable' && !b.statusId;
     if (aUntracked && !bUntracked) return 1;
