@@ -166,10 +166,18 @@ document.getElementById("trackBtn").addEventListener("click", async () => {
       return;
     }
 
+        let statusLine = data.shipped ? "Shipped" : "Processing";
+    if (data.usps_status_summary) {
+      statusLine = data.usps_status_summary;
+    } else if (data.usps_status) {
+      statusLine = data.usps_status;
+    }
+
     trackMsg.innerHTML = `
       <strong>${data.order_number}</strong><br>
-      Status: ${data.shipped ? "Shipped" : "Processing"}<br>
+      Status: ${statusLine}<br>
       ${data.shipped ? `Tracking: ${data.tracking_number}` : ""}
+      ${data.usps_expected_delivery ? `<br>Expected delivery: ${data.usps_expected_delivery}` : ""}
     `;
   } catch (err) {
     trackMsg.textContent = "Something went wrong. Try again.";
