@@ -562,6 +562,53 @@ const storage = getStorage(app);
 const PRODUCT_DOC_ID = 'cammenga-3h-compass';
 let _qtyAvailable = 0;
 
+/* ── Timestamp helper — mirrors the logic on the site-wide reviews page ──
+   Reviews may have their date stored under "timestamp" or "timeStamp",
+   and as either a Firestore Timestamp object or a plain string in the
+   Firestore-console export format, e.g. "Apr 1, 2019 at 2:43:00 PM UTC-8". */
+const MONTH_MAP = {
+  jan: 0, january: 0, feb: 1, february: 1, mar: 2, march: 2,
+  apr: 3, april: 3, may: 4, jun: 5, june: 5, jul: 6, july: 6,
+  aug: 7, august: 7, sep: 8, sept: 8, september: 8,
+  oct: 9, october: 9, nov: 10, november: 10, dec: 11, december: 11
+};
+
+const FIRESTORE_STRING_RE =
+  /^([A-Za-z]+)\.?\s+(\d{1,2}),?\s*(\d{4}),?\s+(?:at\s+)?(\d{1,2}):(\d{2}):(\d{2})\s*(AM|PM)\s+UTC([+-]\d+(?::?\d{2})?)$/i;
+
+function parseFirestoreTimestampString(str) {
+  const m = FIRESTORE_STRING_RE.exec(str.trim());
+  if (!m) return NaN;
+  const [, monthName, day, year, hourStr, minute, second, meridiem, offsetStr] = m;
+  const monthIndex = MONTH_MAP[monthName.toLowerCase()];
+  if (monthIndex === undefined) return NaN;
+  let hour = parseInt(hourStr, 10) % 12;
+  if (meridiem.toUpperCase() === "PM") hour += 12;
+  const offsetMatch = /^([+-]\d+)(?::?(\d{2}))?$/.exec(offsetStr);
+  let offsetHours = parseInt(offsetMatch[1], 10);
+  if (offsetMatch[2]) {
+    const offsetMinutes = parseInt(offsetMatch[2], 10) / 60;
+    offsetHours += offsetHours < 0 ? -offsetMinutes : offsetMinutes;
+  }
+  const wallClockUtcMs = Date.UTC(
+    parseInt(year, 10), monthIndex, parseInt(day, 10),
+    hour, parseInt(minute, 10), parseInt(second, 10)
+  );
+  return wallClockUtcMs - offsetHours * 3600000;
+}
+
+function getReviewTimeMs(r) {
+  const val = r.timestamp ?? r.timeStamp ?? r.TimeStamp;
+  if (!val) return 0;
+  if (typeof val.toMillis === "function") return val.toMillis();
+  if (typeof val === "string") {
+    const parsed = parseFirestoreTimestampString(val);
+    if (!isNaN(parsed)) return parsed;
+  }
+  const fallback = new Date(val).getTime();
+  return isNaN(fallback) ? 0 : fallback;
+}
+
 /* ── Nav auth ── */
 onAuthStateChanged(auth, (user) => {
   const navAuth = document.getElementById("navAuth");
@@ -626,11 +673,7 @@ async function loadReviews() {
       container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
       return;
     }
-    const reviews = matched.sort((a, b) => {
-      const ta = a.timestamp?.toMillis?.() ?? 0;
-      const tb = b.timestamp?.toMillis?.() ?? 0;
-      return tb - ta;
-    });
+    const reviews = matched.sort((a, b) => getReviewTimeMs(b) - getReviewTimeMs(a));
     container.innerHTML = '';
     reviews.forEach(r => {
       const stars = '★'.repeat(r.starRating || 0) + '☆'.repeat(5 - (r.starRating || 0));
