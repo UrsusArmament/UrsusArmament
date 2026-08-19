@@ -991,7 +991,7 @@
 <script>
   const CART_KEY = 'ursus_cart';
   const WORKER_URL = 'https://raspy-credit-ce5f.ursus-generalcontracting.workers.dev/checkout';
-  const FREE_SHIP_THRESHOLD = 250;
+  const FREE_SHIP_THRESHOLD = 200;
 
   function getCart() {
     try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
@@ -1097,8 +1097,8 @@
     } else {
       notice.innerHTML = `◈ Add <strong>${formatDollar(remaining)}</strong> more for free shipping`;
       notice.classList.remove('earned');
-      document.getElementById('summaryShipping').textContent = '$20.00';
-      document.getElementById('summaryTotal').textContent = formatDollar(subtotal + 20);
+      document.getElementById('summaryShipping').textContent = '$12.50';
+      document.getElementById('summaryTotal').textContent = formatDollar(subtotal + 12.50);
     }
   }
 
