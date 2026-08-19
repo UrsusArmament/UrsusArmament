@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>URSIX — Ursus Armament</title>
+<title>Cammenga Model 3H Compass — Ursus Armament</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -70,64 +69,23 @@
   .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
   .nav-ribbon a:hover, .nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
 
-  /* NAV RIGHT: cart icon + auth */
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
+  .nav-right { display: flex; align-items: center; gap: 0.75rem; }
 
-  /* CART ICON BUTTON */
   .nav-cart-btn {
-    position: relative;
-    background: transparent;
-    border: 1px solid var(--border2);
-    color: var(--text);
-    width: 38px;
-    height: 38px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    text-decoration: none;
-    transition: border-color 0.2s, background 0.2s;
-    flex-shrink: 0;
+    position: relative; background: transparent; border: 1px solid var(--border2);
+    color: var(--text); width: 38px; height: 38px; display: flex;
+    align-items: center; justify-content: center; cursor: pointer; text-decoration: none;
+    transition: border-color 0.2s, background 0.2s; flex-shrink: 0;
   }
-  .nav-cart-btn:hover {
-    border-color: var(--accent);
-    background: rgba(200,146,42,0.06);
-  }
-  .nav-cart-btn svg {
-    width: 18px;
-    height: 18px;
-    stroke: var(--text);
-    fill: none;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    transition: stroke 0.2s;
-  }
+  .nav-cart-btn:hover { border-color: var(--accent); background: rgba(200,146,42,0.06); }
+  .nav-cart-btn svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
   .nav-cart-btn:hover svg { stroke: var(--accent); }
 
-  /* Cart count badge */
   .cart-count {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    background: var(--accent);
-    color: var(--black);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.6rem;
-    font-weight: 700;
-    min-width: 16px;
-    height: 16px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 3px;
-    line-height: 1;
-    display: none; /* hidden when 0 */
+    position: absolute; top: -6px; right: -6px; background: var(--accent);
+    color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem;
+    font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px;
+    align-items: center; justify-content: center; padding: 0 3px; line-height: 1; display: none;
   }
   .cart-count.visible { display: flex; }
 
@@ -150,16 +108,20 @@
   .breadcrumb a:hover { color: var(--accent); }
   .breadcrumb span { color: var(--accent); }
 
-  .product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; background: var(--dark); }
+  .product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 70vh; background: var(--dark); }
   .product-visual {
     position: relative; background: var(--surface); overflow: hidden;
     display: flex; align-items: center; justify-content: center;
   }
-  .product-badge {
-    position: absolute; top: 2rem; left: 2rem; background: var(--accent);
-    color: var(--black); font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em;
-    text-transform: uppercase; padding: 0.35rem 0.85rem; z-index: 2;
+  .product-visual-bg {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(200,146,42,0.015) 30px, rgba(200,146,42,0.015) 31px);
+    pointer-events: none;
+  }
+  .product-visual-label {
+    position: relative; z-index: 1;
+    font-family: 'Bebas Neue', sans-serif; font-size: 6rem; letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.08); user-select: none; text-align: center;
   }
   .product-info { padding: 4rem; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--border); }
   .product-tag {
@@ -168,27 +130,44 @@
     margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem;
   }
   .product-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
-  .product-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 7vw, 6.5rem); line-height: 0.9; letter-spacing: 0.04em; margin-bottom: 0.5rem; color: var(--text); }
+  .product-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 6vw, 5rem); line-height: 0.95; letter-spacing: 0.04em; margin-bottom: 0.5rem; color: var(--text); }
   .product-subtitle { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 2rem; }
-  .product-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; max-width: 480px; }
+  .product-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; max-width: 480px; }
+
+  .disclaimer-box {
+    max-width: 480px; padding: 1rem 1.25rem; margin-bottom: 2rem;
+    background: rgba(200,146,42,0.06); border: 1px solid rgba(200,146,42,0.25);
+    border-left: 3px solid var(--accent);
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 0.02em;
+    color: var(--muted); line-height: 1.6;
+  }
+  .disclaimer-box strong { color: var(--accent); }
+
   .product-price-row { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
   .product-price { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: 0.04em; color: var(--text); }
   .product-price-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
-  .product-actions { display: flex; gap: 1rem; margin-bottom: 2rem; }
+
+  .product-actions { display: flex; gap: 1rem; margin-bottom: 2rem; align-items: center; }
   .btn-primary {
     background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
     padding: 0.9rem 2.5rem; border: none; cursor: pointer; text-decoration: none;
-    display: inline-block; transition: background 0.2s, transform 0.15s; flex: 1; text-align: center;
+    display: inline-block; transition: background 0.2s, transform 0.15s; text-align: center;
   }
   .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
-  .btn-ghost {
-    background: transparent; color: var(--text); font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
-    padding: 0.9rem 2rem; border: 1px solid var(--border2); cursor: pointer;
-    text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s;
+  .btn-primary:disabled { background: var(--border2); color: var(--muted); cursor: not-allowed; transform: none; }
+  .btn-primary.added { background: var(--green); color: #fff; }
+
+  .stock-status {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase; display: flex; align-items: center; gap: 0.4rem;
   }
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+  .stock-status::before { content: ''; display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }
+  .stock-status.in-stock { color: var(--green); }
+  .stock-status.in-stock::before { background: var(--green); }
+  .stock-status.out-of-stock { color: var(--red); }
+  .stock-status.out-of-stock::before { background: var(--red); }
+
   .product-trust { display: flex; gap: 2rem; }
   .trust-item { display: flex; flex-direction: column; gap: 0.2rem; }
   .trust-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
@@ -207,76 +186,7 @@
   .spec-item { background: var(--dark); padding: 1.75rem 2rem; display: flex; justify-content: space-between; align-items: baseline; transition: background 0.2s; }
   .spec-item:hover { background: var(--surface); }
   .spec-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
-  .spec-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); }
-
-  .serial-section { background: var(--dark); padding: 6rem 3rem; position: relative; }
-  .serial-inner { max-width: 780px; }
-  .serial-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 560px; }
-  .serial-input-row { display: flex; margin-bottom: 2rem; }
-  .serial-input {
-    flex: 1; background: var(--surface); border: 1px solid var(--border2);
-    border-right: none; color: var(--text); font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
-    padding: 0.9rem 1.5rem; outline: none; transition: border-color 0.2s;
-  }
-  .serial-input::placeholder { color: var(--muted); font-weight: 400; letter-spacing: 0.08em; text-transform: none; }
-  .serial-input:focus { border-color: var(--accent); }
-  .serial-btn {
-    background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.88rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-    padding: 0.9rem 2rem; border: none; cursor: pointer; transition: background 0.2s; white-space: nowrap;
-  }
-  .serial-btn:hover { background: var(--accent2); }
-  .serial-result { display: none; }
-  .serial-result.visible { display: block; }
-  .serial-error {
-    padding: 1.5rem 2rem; background: rgba(192,57,43,0.08);
-    border: 1px solid rgba(192,57,43,0.3); border-left: 3px solid var(--red);
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; letter-spacing: 0.08em; color: #e87060;
-  }
-  .serial-card { background: var(--surface); border: 1px solid var(--border2); border-top: 3px solid var(--accent); }
-  .serial-card-header {
-    padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between;
-    border-bottom: 1px solid var(--border); background: var(--surface2);
-  }
-  .serial-card-id { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.06em; color: var(--accent); }
-  .serial-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 1rem; }
-  .serial-badge.pass { background: rgba(42,156,92,0.15); color: #4cbc7e; border: 1px solid rgba(42,156,92,0.3); }
-  .serial-badge.fail { background: rgba(192,57,43,0.15); color: #e87060; border: 1px solid rgba(192,57,43,0.3); }
-  .serial-card-body { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin: 2px; }
-  .serial-field { background: var(--dark); padding: 1.25rem 1.75rem; display: flex; flex-direction: column; gap: 0.3rem; }
-  .serial-field-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
-  .serial-field-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
-  .serial-field-value.highlight { color: var(--accent); }
-  .serial-card-notes { padding: 1.25rem 1.75rem; margin: 2px; margin-top: 0; background: var(--dark); border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.3rem; }
-  .serial-card-footer { padding: 1rem 2rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border-top: 1px solid var(--border); }
-
-  .features-section { background: var(--black); padding: 6rem 3rem; }
-  .features-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-  .features-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
-  .feature-item { background: var(--surface); padding: 2rem; position: relative; overflow: hidden; transition: background 0.2s; }
-  .feature-item:hover { background: var(--surface2); }
-  .feature-item::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
-  .feature-item:hover::before { opacity: 1; }
-  .feature-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(200,146,42,0.12); line-height: 1; position: absolute; top: 1rem; right: 1.5rem; }
-  .feature-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
-  .feature-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
-  .features-aside { position: sticky; top: 110px; }
-  .features-aside p { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
-
-  .config-section { background: var(--dark); padding: 6rem 3rem; position: relative; }
-  .config-options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--border); margin-bottom: 4rem; }
-  .config-card { background: var(--dark); padding: 2.5rem 2rem; cursor: pointer; transition: background 0.2s; position: relative; border: 2px solid transparent; }
-  .config-card:hover { background: var(--surface); }
-  .config-card.selected { background: var(--surface); border-color: var(--accent); }
-  .config-card.selected::after { content: '✓'; position: absolute; top: 1rem; right: 1rem; width: 1.5rem; height: 1.5rem; background: var(--accent); color: var(--black); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700; }
-  .config-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); margin-bottom: 0.5rem; }
-  .config-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
-  .config-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: var(--accent); margin-top: 1rem; letter-spacing: 0.04em; }
-  .config-add-row { display: flex; align-items: center; justify-content: space-between; padding: 2rem; background: var(--surface); border: 1px solid var(--border2); }
-  .config-total { display: flex; flex-direction: column; gap: 0.2rem; }
-  .config-total-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
-  .config-total-price { font-family: 'Bebas Neue', sans-serif; font-size: 2.5rem; letter-spacing: 0.04em; color: var(--text); }
+  .spec-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); text-align: right; }
 
   .cta-banner { background: var(--accent); padding: 4rem 3rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
   .cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.06em; color: var(--black); line-height: 1; }
@@ -288,10 +198,25 @@
     background: var(--surface); color: var(--text); font-family: 'Barlow Condensed', sans-serif;
     font-size: 1.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
     padding: 1.5rem 3.5rem; border: 2px solid var(--border2); border-radius: 6px;
-    cursor: pointer; transition: all 0.2s ease; box-shadow: 0 0 0 rgba(0,0,0,0);
+    cursor: pointer; transition: all 0.2s ease;
   }
   .review-cta-btn:hover { background: var(--surface2); border-color: var(--accent); color: var(--accent); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.35); }
   .review-cta-btn:active { transform: translateY(0px); box-shadow: 0 5px 12px rgba(0,0,0,0.25); }
+
+  .reviews-section { background: var(--black); padding: 6rem 3rem; }
+  .reviews-container { max-height: 600px; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+  .review-card { background: var(--surface); padding: 2rem 2.5rem; display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; border-left: 3px solid transparent; transition: background 0.2s, border-color 0.2s; width: 100%; }
+  .review-card:hover { background: var(--surface2); border-color: var(--accent); }
+  .review-content { flex: 1; display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
+  .review-header { display: flex; flex-direction: column; gap: 0.3rem; }
+  .review-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); }
+  .review-stars { font-size: 1.2rem; letter-spacing: 0.1em; color: var(--accent); }
+  .review-meta { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-family: 'Barlow Condensed', sans-serif; }
+  .review-text { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-top: 0.25rem; }
+  .reviews-empty { padding: 2rem; text-align: center; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.15em; color: var(--muted); }
+  .review-images { display: flex; flex-direction: column; gap: 0.5rem; flex-shrink: 0; width: 200px; }
+  .review-img { width: 200px; height: 150px; object-fit: cover; cursor: pointer; border: 1px solid var(--border2); transition: opacity 0.2s, border-color 0.2s; display: block; }
+  .review-img:hover { opacity: 0.85; border-color: var(--accent); }
 
   footer { background: var(--dark); border-top: 1px solid var(--border); padding: 4rem 3rem 2rem; }
   .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
@@ -305,132 +230,35 @@
   .footer-logo span { color: var(--accent); opacity: 1; }
   .footer-legal { font-size: 0.78rem; color: var(--muted); opacity: 0.5; }
 
-  /* AVAILABLE UNITS PANEL */
-  .units-panel { overflow: hidden; max-height: 0; transition: max-height 0.4s ease, opacity 0.3s ease; opacity: 0; background: var(--black); border-top: 2px solid var(--accent); }
-  .units-panel.open { max-height: 3000px; opacity: 1; }
-  .units-panel-inner { padding: 2rem 3rem 3rem; }
-  .units-panel-title { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.6rem; }
-  .units-panel-title::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
-  .units-no-stock { padding: 1.5rem 2rem; background: rgba(200,146,42,0.06); border: 1px solid rgba(200,146,42,0.25); border-left: 3px solid var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; letter-spacing: 0.06em; color: var(--muted); line-height: 1.7; }
-  .units-no-stock strong { color: var(--accent); }
-  .unit-row { border-bottom: 1px solid var(--border); background: var(--dark); transition: background 0.2s; }
-  .unit-row:last-child { border-bottom: none; }
-  .unit-row-main { display: flex; align-items: center; justify-content: space-between; padding: 1.25rem 2rem; cursor: pointer; transition: background 0.2s; }
-  .unit-row-main:hover { background: var(--surface); }
-  .unit-row-left { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
-  .unit-row-serial { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; color: var(--accent); min-width: 90px; }
-  .unit-row-tier { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.25rem 0.7rem; background: rgba(200,146,42,0.1); border: 1px solid rgba(200,146,42,0.25); color: var(--accent); }
-  .unit-row-stats { display: flex; gap: 1.75rem; flex-wrap: wrap; }
-  .unit-row-stat { display: flex; flex-direction: column; gap: 0.1rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.92rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
-  .unit-row-stat-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); display: block; }
-  .unit-row-right { display: flex; align-items: center; gap: 1.5rem; flex-shrink: 0; margin-left: 1rem; }
-  .unit-row-price { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.04em; color: var(--text); }
-  .unit-row-arrow { color: var(--muted); font-size: 0.75rem; transition: transform 0.25s ease; display: inline-block; }
-  .unit-expand { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, opacity 0.25s ease; opacity: 0; border-top: 1px solid transparent; }
-  .unit-expand.open { max-height: 800px; opacity: 1; border-top: 1px solid var(--border); }
-  .unit-expand-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); margin: 2px 2px 0; }
-  .unit-expand-field { background: var(--surface); padding: 1rem 1.5rem; display: flex; flex-direction: column; gap: 0.2rem; }
-  .unit-expand-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
-  .unit-expand-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
-  .unit-expand-value.highlight { color: var(--accent); }
-  .unit-expand-notes { background: var(--surface); margin: 2px; margin-top: 0; padding: 1rem 1.5rem; display: flex; flex-direction: column; gap: 0.2rem; border-top: 1px solid var(--border); font-size: 0.85rem; color: var(--muted); line-height: 1.6; }
-
-  /* ADD TO CART BUTTON — matches existing site style */
-  .unit-add-btn {
-    background: var(--accent);
-    color: var(--black);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 0.6rem 1.25rem;
-    border: none;
-    cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
-    white-space: nowrap;
-  }
-  .unit-add-btn:hover { background: var(--accent2); transform: translateY(-1px); }
-  .unit-add-btn:active { transform: translateY(0); }
-  .unit-add-btn.added {
-    background: var(--green);
-    color: #fff;
-  }
-
-  /* FEATURE LOCK OVERLAY */
-  .feature-lock-overlay {
-    position: absolute; inset: 0;
-    background: rgba(10,10,8,0.88);
-    backdrop-filter: blur(8px);
-    display: none;
-    align-items: center; justify-content: center;
-    z-index: 50;
-  }
-  .feature-lock-overlay.active { display: flex; }
-  .feature-lock-box { text-align: center; padding: 2rem; max-width: 380px; }
-  .feature-lock-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.15em; color: var(--text); margin-bottom: 0.75rem; }
-  .feature-lock-text { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
-  .feature-lock-btn { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.6rem 1.5rem; text-decoration: none; transition: background 0.2s; }
-  .feature-lock-btn:hover { background: rgba(200,146,42,0.08); }
-
-  /* REVIEWS */
-  .reviews-section { background: var(--black); padding: 6rem 3rem; }
-  .reviews-container { max-height: 600px; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; background: var(--border); }
-  .review-card { background: var(--surface); padding: 2rem 2.5rem; display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; border-left: 3px solid transparent; transition: background 0.2s, border-color 0.2s; width: 100%; }
-  .review-card:hover { background: var(--surface2); border-color: var(--accent); }
-  .review-content { flex: 1; display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
-  .review-header { display: flex; flex-direction: column; gap: 0.3rem; }
-  .review-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); }
-  .review-meta { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.12em; }
-  .review-type { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
-  .review-stars { font-size: 1.2rem; letter-spacing: 0.1em; color: var(--accent); }
-  .review-meta { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-family: 'Barlow Condensed', sans-serif; }
-  .review-text { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-top: 0.25rem; }
-  .reviews-empty { padding: 2rem; text-align: center; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.15em; color: var(--muted); }
-  .review-images { display: flex; flex-direction: column; gap: 0.5rem; flex-shrink: 0; width: 200px; }
-  .review-img { width: 200px; height: 150px; object-fit: cover; cursor: pointer; border: 1px solid var(--border2); transition: opacity 0.2s, border-color 0.2s; display: block; }
-  .review-img:hover { opacity: 0.85; border-color: var(--accent); }
-
-  /* TOAST */
   .cart-toast {
     position: fixed; bottom: 2rem; right: 2rem;
     background: var(--surface2); border: 1px solid var(--accent);
     color: var(--text); padding: 1rem 1.5rem;
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.9rem; letter-spacing: 0.05em;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em;
     z-index: 999; transform: translateY(100px); opacity: 0;
-    transition: transform 0.3s, opacity 0.3s;
-    max-width: 320px;
-    pointer-events: none;
+    transition: transform 0.3s, opacity 0.3s; max-width: 320px; pointer-events: none;
   }
   .cart-toast.show { transform: translateY(0); opacity: 1; }
 
+  @media (max-width: 900px) {
+    .product-hero { grid-template-columns: 1fr; }
+    .product-visual { min-height: 40vw; }
+    .product-info { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--border); }
+    .specs-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .cta-banner { flex-direction: column; text-align: center; }
+    .breadcrumb, .specs-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .nav-top, .nav-ribbon { padding-left: 1.5rem; padding-right: 1.5rem; }
+  }
   @media (max-width: 600px) {
     .review-card { flex-direction: column; gap: 1.25rem; padding: 1.5rem; }
     .review-images { flex-direction: row; width: 100%; }
     .review-img { width: calc(50% - 0.25rem); height: 120px; }
   }
-
-  @media (max-width: 900px) {
-    .product-hero { grid-template-columns: 1fr; }
-    .product-visual { min-height: 50vw; }
-    .product-info { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--border); }
-    .specs-grid, .serial-card-body { grid-template-columns: 1fr; }
-    .features-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-    .features-aside { position: static; }
-    .config-options { grid-template-columns: 1fr; }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
-    .cta-banner { flex-direction: column; text-align: center; }
-    .breadcrumb, .specs-section, .serial-section, .features-section, .config-section { padding-left: 1.5rem; padding-right: 1.5rem; }
-    .nav-top, .nav-ribbon { padding-left: 1.5rem; padding-right: 1.5rem; }
-    .serial-input-row { flex-direction: column; }
-    .serial-input { border-right: 1px solid var(--border2); border-bottom: none; }
-  }
 </style>
 </head>
 <body>
 
-<!-- CART TOAST -->
 <div class="cart-toast" id="cartToast"></div>
 
 <nav>
@@ -439,21 +267,15 @@
       <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
       <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
     </div>
-
-    <!-- NAV RIGHT: cart icon + auth -->
     <div class="nav-right">
-
-      <!-- Cart icon button -->
       <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="9" cy="21" r="1"/>
-          <circle cx="20" cy="21" r="1"/>
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
           <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/>
         </svg>
         <span class="cart-count" id="cartCount"></span>
       </a>
-
-      <div class="nav-auth" id="navAuth"><!-- populated by JS --></div>
+      <div class="nav-auth" id="navAuth"></div>
     </div>
   </div>
   <div class="nav-ribbon">
@@ -466,51 +288,35 @@
 <div class="breadcrumb">
   <a href="/ursusarmament">Home</a><span>›</span>
   <a href="/ursusarmament/products">Products</a><span>›</span>
-  <span>URSIX</span>
+  <span>Cammenga Model 3H Compass</span>
 </div>
 
 <!-- PRODUCT HERO -->
 <section class="product-hero">
-  <div class="product-visual" style="flex-direction:column; justify-content:flex-start; padding:0; gap:0;">
-    <div class="product-badge">GEN 2+/3</div>
-    <div style="width:100%; flex:1; display:flex; align-items:center; justify-content:center; background:var(--surface); min-height:0; position:relative; overflow:hidden;">
-      <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(200,146,42,0.015) 30px,rgba(200,146,42,0.015) 31px);pointer-events:none;"></div>
-      <div style="position:absolute;font-family:'Bebas Neue',sans-serif;font-size:14rem;letter-spacing:-0.02em;color:rgba(255,255,255,0.025);user-select:none;pointer-events:none;">URSIX</div>
-      <img id="ursix-main" src="/ursusarmament/images/pvs14dark.png" style="width:100%;height:100%;object-fit:contain;position:relative;z-index:1;"/>
-    </div>
-    <div style="width:100%;background:var(--dark);border-top:1px solid var(--border);padding:1rem;display:flex;gap:0.75rem;justify-content:center;">
-      <div class="ursix-thumb active" onclick="ursixSwap(this)" data-src="/ursusarmament/images/pvs14dark.png" style="width:80px;height:80px;cursor:pointer;border:2px solid #c8701a;box-sizing:border-box;flex-shrink:0;overflow:hidden;">
-        <img src="/ursusarmament/images/pvs14dark.png" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;"/>
-      </div>
-      <div class="ursix-thumb" onclick="ursixSwap(this)" data-src="/ursusarmament/images/mum14dark.png" style="width:80px;height:80px;cursor:pointer;opacity:0.6;border:1px solid #444;box-sizing:border-box;flex-shrink:0;overflow:hidden;">
-        <img src="/ursusarmament/images/mum14dark.png" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;"/>
-      </div>
-      <div class="ursix-thumb" onclick="ursixSwap(this)" data-src="/ursusarmament/images/whitephos.png" style="width:80px;height:80px;cursor:pointer;opacity:0.6;border:1px solid #444;box-sizing:border-box;flex-shrink:0;overflow:hidden;">
-        <img src="/ursusarmament/images/whitephos.png" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;"/>
-      </div>
-      <div class="ursix-thumb" onclick="ursixSwap(this)" data-src="/ursusarmament/images/greenphos.png" style="width:80px;height:80px;cursor:pointer;opacity:0.6;border:1px solid #444;box-sizing:border-box;flex-shrink:0;overflow:hidden;">
-        <img src="/ursusarmament/images/greenphos.png" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;"/>
-      </div>
-    </div>
+  <div class="product-visual">
+    <div class="product-visual-bg"></div>
+    <div class="product-visual-label">3H</div>
   </div>
-
   <div class="product-info">
-    <div class="product-tag">Night Vision Monocular</div>
-    <h1 class="product-name">URSIX</h1>
-    <div class="product-subtitle">Gen 2+/3 — NV Platform</div>
-    <p class="product-desc">The URSIX is Ursus Armament's night vision monocular, built around hand-selected, individually documented Gen 2+/Gen 3 image intensifier tubes. Each unit is serialized, tested, and recorded as a distinct system rather than a pooled specification. While units are organized into four general performance categories, every device is ultimately sold based on its exact measured performance characteristics, allowing customers to select either a tier or a specific unit. Ruggedized for all-weather operation, compatible with multiple mounting configurations, and backed by a limited 5-year warranty on all units shipped.</p>
+    <div class="product-tag">Navigation</div>
+    <h1 class="product-name">CAMMENGA MODEL 3H</h1>
+    <div class="product-subtitle">Military Tritium Compass</div>
+    <p class="product-desc">Cammenga Model 3H military compass featuring tritium illumination for low-light navigation. Rugged metal construction, suitable for navigation, field use, collecting, or military surplus applications.</p>
+    <div class="disclaimer-box">
+      <strong>Tritium Notice:</strong> Tritium is radioactive and naturally decays over time. The 120 mCi marking represents the original specified activity and does not indicate the compass's current tritium activity or brightness.
+    </div>
     <div class="product-price-row">
-      <div class="product-price">$2,350-$4,500</div>
-      <div class="product-price-label">Price Range<br>Free Shipping</div>
+      <div class="product-price">$45</div>
+      <div class="product-price-label">Per Unit<br>Free Shipping</div>
     </div>
     <div class="product-actions">
-      <a href="#configure" class="btn-primary">View Available Units</a>
-      <a href="#specs" class="btn-ghost">Full Specs</a>
+      <button class="btn-primary" id="addToCartBtn" onclick="handleAddToCart()">Add to Cart</button>
+      <span class="stock-status" id="stockStatus">Checking availability...</span>
     </div>
     <div class="product-trust">
-      <div class="trust-item"><span class="trust-label">Warranty</span><span class="trust-value">Limited 5-year</span></div>
+      <div class="trust-item"><span class="trust-label">Model</span><span class="trust-value">3H</span></div>
       <div class="trust-item"><span class="trust-label">Ships In</span><span class="trust-value">3–5 Business Days</span></div>
-      <div class="trust-item"><span class="trust-label">Made In</span><span class="trust-value">USA</span></div>
+      <div class="trust-item"><span class="trust-label">Construction</span><span class="trust-value">Metal</span></div>
     </div>
   </div>
 </section>
@@ -520,131 +326,19 @@
   <div class="section-tag">Technical Data</div>
   <h2 class="section-title">SPECIFICATIONS</h2>
   <div class="specs-grid">
-    <div class="spec-item"><span class="spec-name">Image Tube</span><span class="spec-value">Gen 2+/Gen 3 (HPT/MPI Tested)</span></div>
-    <div class="spec-item"><span class="spec-name">Figure of Merit (FOM)</span><span class="spec-value">1400+ BASE / 1600+ PLUS / 1800+ PRO / 2000+ ULTRA</span></div>
-    <div class="spec-item"><span class="spec-name">Objective Lens</span><span class="spec-value">25mm f/1.2 or 35mm f/1.0</span></div>
-    <div class="spec-item"><span class="spec-name">Magnification</span><span class="spec-value">1x</span></div>
-    <div class="spec-item"><span class="spec-name">Field of View</span><span class="spec-value">40° (25mm) / 30° (35mm)</span></div>
-    <div class="spec-item"><span class="spec-name">Resolution</span><span class="spec-value">65–76 lp/mm (tube-dependent)</span></div>
-    <div class="spec-item"><span class="spec-name">Signal-to-Noise Ratio</span><span class="spec-value">20.0–32.0 (tube-dependent)</span></div>
-    <div class="spec-item"><span class="spec-name">IR Illuminator</span><span class="spec-value">850nm / 940nm covert</span></div>
-    <div class="spec-item"><span class="spec-name">Battery</span><span class="spec-value">1x CR123A — 20–40 hrs runtime</span></div>
-    <div class="spec-item"><span class="spec-name">IP Rating</span><span class="spec-value">IP67</span></div>
-    <div class="spec-item"><span class="spec-name">Operating Temp</span><span class="spec-value">-40°F to +120°F</span></div>
-    <div class="spec-item"><span class="spec-name">Country of Origin</span><span class="spec-value">United States of America</span></div>
-  </div>
-</section>
-
-<!-- SERIAL LOOKUP -->
-<section class="serial-section" id="serial">
-  <div class="feature-lock-overlay" id="serialLock">
-    <div class="feature-lock-box">
-      <div class="feature-lock-title">FULL ACCESS REQUIRED</div>
-      <div class="feature-lock-text">Serial number lookup is available to verified Full Access account holders only. (ITAR/EAR Compliance)</div>
-      <a href="/ursusarmament/settings/" class="feature-lock-btn">Upgrade Account</a>
-    </div>
-  </div>
-  <div class="serial-inner">
-    <div class="section-tag">Unit Verification</div>
-    <h2 class="section-title" style="margin-bottom: 1rem;">SERIAL NUMBER LOOKUP</h2>
-    <p class="serial-desc">Every URSIX unit ships with a documented tube profile — SNR, resolution, FOM, proof date, etc. — recorded at time of manufacture. Enter your serial number below to retrieve the specifications for your specific unit.</p>
-    <div class="serial-input-row">
-      <input class="serial-input" id="serialInput" type="text" placeholder="e.g. UW-XXXX" maxlength="20" autocomplete="off" spellcheck="false"/>
-      <button class="serial-btn" onclick="lookupSerial()">Look Up Unit</button>
-    </div>
-    <div class="serial-result" id="serialError">
-      <div class="serial-error" id="serialErrorMsg">No unit found for that serial number.</div>
-    </div>
-    <div class="serial-result" id="serialSuccess">
-      <div class="serial-card">
-        <div class="serial-card-header">
-          <div class="serial-card-id" id="resultSerial">—</div>
-          <span class="serial-badge pass" id="resultQcBadge">QC PASS</span>
-        </div>
-        <div class="serial-card-body">
-          <div class="serial-field"><span class="serial-field-label">Objective Lens</span><span class="serial-field-value" id="resultLens">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Generation</span><span class="serial-field-value" id="resultGen">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Phosphor</span><span class="serial-field-value highlight" id="resultPhosphor">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Figure of Merit (FOM)</span><span class="serial-field-value highlight" id="resultFom">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Signal-to-Noise Ratio</span><span class="serial-field-value highlight" id="resultSnr">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Resolution</span><span class="serial-field-value highlight" id="resultRes">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Photocathode Luminous Sensitivity</span><span class="serial-field-value" id="resultPcLum">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">PC Sensitivity (w/ Filter)</span><span class="serial-field-value" id="resultPcFilter">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Photocathode Radiant Sensitivity</span><span class="serial-field-value" id="resultPcRad">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Luminous Gain</span><span class="serial-field-value" id="resultGain">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Battery Life</span><span class="serial-field-value" id="resultBattery">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">IP Rating</span><span class="serial-field-value" id="resultIp">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Finish</span><span class="serial-field-value" id="resultFinish">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Proof Date</span><span class="serial-field-value" id="resultDate">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Batch ID</span><span class="serial-field-value" id="resultBatch">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">QC Result</span><span class="serial-field-value" id="resultQc">—</span></div>
-        </div>
-        <div class="serial-card-notes">
-          <span class="serial-field-label">Manufacturing Notes</span>
-          <span class="serial-field-value" id="resultNotes" style="font-weight:400; color: var(--muted); font-size:0.88rem;">—</span>
-        </div>
-        <div class="serial-card-footer">Ursus Armament LLC &nbsp;·&nbsp; All specifications recorded at time of manufacture</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section class="features-section" id="features">
-  <div class="features-layout">
-    <div class="features-list">
-      <div class="feature-item"><div class="feature-num">01</div><div class="feature-title">Hand-Selected Gen 2+/3 Tubes</div><p class="feature-desc">Every URSIX tube is individually tested and documented. We publish SNR, resolution, and FOM for each unit — you know exactly what you're getting before it ships.</p></div>
-      <div class="feature-item"><div class="feature-num">02</div><div class="feature-title">IP67</div><p class="feature-desc">Standard and Precision configs are rated IP67.</p></div>
-      <div class="feature-item"><div class="feature-num">03</div><div class="feature-title">20-40 Hour Battery Life</div><p class="feature-desc">A single CR123A battery powers up to 40 hours of continuous operation. Runs on lithium CR123A in cold weather without performance loss.</p></div>
-    </div>
-    <div class="features-aside">
-      <div class="section-tag">Why URSIX</div>
-      <h2 class="section-title" style="margin-bottom: 1.5rem;">EVERY TUBE IS DOCUMENTED</h2>
-      <p>Most manufacturers ship night vision units with a tube that meets a minimum spec. We ship units with a tube whose exact SNR, resolution, and FOM are recorded at the time of manufacture — and retrievable by serial number for the life of the unit.</p>
-      <p>If your unit ever needs service, we pull that record. If you resell it, the new owner can verify exactly what they're buying. Full chain of custody, no guesswork.</p>
-      <p>That's the standard we hold ourselves to. Not because we have to — because our customers deserve it.</p>
-    </div>
-  </div>
-</section>
-
-<!-- CONFIGURE / AVAILABLE UNITS -->
-<section class="config-section" id="configure">
-  <div class="feature-lock-overlay" id="unitsLock">
-    <div class="feature-lock-box">
-      <div class="feature-lock-title">FULL ACCESS REQUIRED</div>
-      <div class="feature-lock-text">Available unit listings are restricted to verified Full Access account holders only. (ITAR/EAR Compliance)</div>
-      <a href="/ursusarmament/settings/" class="feature-lock-btn">Upgrade Account</a>
-    </div>
-  </div>
-  <div class="section-tag">Choose Your URSIX</div>
-  <h2 class="section-title">SELECT TIER</h2>
-  <div class="config-options">
-    <div class="config-card selected" onclick="selectConfig(this, 2350, 'BASE')"><div class="config-name">BASE</div><p class="config-desc">25mm f/1.2 objective, 850nm IR, IP67, matte black anodize. FOM 1400+.</p><div class="config-price">~$2,350</div></div>
-    <div class="config-card" onclick="selectConfig(this, 2700, 'PLUS')"><div class="config-name">PLUS</div><p class="config-desc">25mm f/1.2 objective, 850nm IR, IP67, matte black anodize. FOM 1600+.</p><div class="config-price">~$2,700</div></div>
-    <div class="config-card" onclick="selectConfig(this, 3450, 'PRO')"><div class="config-name">PRO</div><p class="config-desc">25mm f/1.2 objective, 850nm IR, IP67, matte black anodize. FOM 1800+.</p><div class="config-price">~$3,450</div></div>
-    <div class="config-card" onclick="selectConfig(this, 4100, 'ULTRA')"><div class="config-name">ULTRA</div><p class="config-desc">35mm f/1.0 objective, dual 850/940nm IR, IP68, matte black anodize, top-bin tube. FOM 2100+. Zero compromises.</p><div class="config-price">~$4,100</div></div>
-  </div>
-  <div class="config-add-row">
-    <div class="config-total">
-      <span class="config-total-label">Configuration Total</span>
-      <span class="config-total-price" id="totalPrice">~$2,350</span>
-    </div>
-    <div style="display:flex; gap: 1rem; align-items: center;">
-      <span style="font-family:'Barlow Condensed',sans-serif;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);">Free shipping · Limited warranty</span>
-      <a href="#" class="btn-primary" style="flex:none;" onclick="event.preventDefault(); toggleUnitsPanel(_currentTier);">Available Units</a>
-    </div>
-  </div>
-  <div class="units-panel" id="unitsPanel">
-    <div class="units-panel-inner">
-      <div class="units-panel-title" id="unitsPanelTitle">Available Units — BASE Tier</div>
-      <div id="unitsPanelBody"></div>
-    </div>
+    <div class="spec-item"><span class="spec-name">Model</span><span class="spec-value">3H</span></div>
+    <div class="spec-item"><span class="spec-name">NSN</span><span class="spec-value">6605-01-196-6971</span></div>
+    <div class="spec-item"><span class="spec-name">Tritium Marking</span><span class="spec-value">120 mCi ³H</span></div>
+    <div class="spec-item"><span class="spec-name">Type</span><span class="spec-value">Military-Style Lensatic Compass</span></div>
+    <div class="spec-item"><span class="spec-name">Illumination</span><span class="spec-value">Tritium, Low-Light Use</span></div>
+    <div class="spec-item"><span class="spec-name">Construction</span><span class="spec-value">Rugged Metal</span></div>
+    <div class="spec-item"><span class="spec-name">Applications</span><span class="spec-value">Navigation, Field Use, Collecting, Surplus</span></div>
   </div>
 </section>
 
 <div class="cta-banner">
   <div>
-    <h2>QUESTIONS ABOUT THE URSIX?</h2>
+    <h2>QUESTIONS ABOUT THE 3H?</h2>
     <p>Our product specialists are available Monday–Friday, 8AM–6PM MST.</p>
   </div>
   <a href="https://ursusworks.com/ursusarmament/contact" target="_blank" rel="noopener noreferrer" class="btn-dark">Contact Support</a>
@@ -713,6 +407,7 @@
           <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Product</label>
           <select id="rv_product" required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);">
             <option value="">Select Product</option>
+            <option value="Cammenga3H" selected>Cammenga Model 3H Compass</option>
             <option value="URSIX">URSIX</option>
             <option value="ROTS">R.O.T.S.</option>
             <option value="CALIDUS">CALIDUS</option>
@@ -764,11 +459,7 @@
   </div>
 </div>
 
-<!-- ============================================================
-     CART ENGINE
-     Reads/writes localStorage key "ursus_cart"
-     Cart item shape: { id, product, price, tier, serial, quantity }
-============================================================ -->
+<!-- CART ENGINE -->
 <script>
 const CART_KEY = 'ursus_cart';
 
@@ -795,32 +486,17 @@ function updateCartBadge() {
   }
 }
 
-// ── addToCart — called from unit buttons ──
 window.addToCart = function(item, btnEl) {
-  const cart         = getCart();
-  const isSerialized = !!item.serial;
-
-  if (isSerialized) {
-    // Each serial is unique — only 1 per cart
-    const already = cart.find(c => c.id === item.id && c.serial === item.serial);
-    if (already) {
-      showToast(`${item.product} (S/N: ${item.serial}) is already in your cart.`);
-      return;
-    }
-    cart.push({ ...item, quantity: 1 });
+  const cart     = getCart();
+  const existing = cart.find(c => c.id === item.id);
+  if (existing) {
+    existing.quantity += 1;
   } else {
-    const existing = cart.find(c => c.id === item.id);
-    if (existing) {
-      existing.quantity += 1;
-    } else {
-      cart.push({ ...item, quantity: 1 });
-    }
+    cart.push({ ...item, quantity: 1 });
   }
-
   saveCart(cart);
-  showToast(`${item.product}${item.serial ? ' (S/N: ' + item.serial + ')' : ''} added to cart!`);
+  showToast(`${item.product} added to cart!`);
 
-  // Visual feedback on the button
   if (btnEl) {
     const orig = btnEl.textContent;
     btnEl.textContent = '✓ Added';
@@ -832,7 +508,6 @@ window.addToCart = function(item, btnEl) {
   }
 };
 
-// ── Toast ──
 function showToast(msg) {
   const toast = document.getElementById('cartToast');
   if (!toast) return;
@@ -842,11 +517,9 @@ function showToast(msg) {
   toast._t = setTimeout(() => toast.classList.remove('show'), 3000);
 }
 
-// Run badge on page load
 updateCartBadge();
 </script>
 
-<!-- GATE SCRIPT -->
 <script src="/ursusarmament/access-check.js"></script>
 <script>
 function openReviewModal()  { document.getElementById("reviewModal").style.display = "flex"; }
@@ -864,11 +537,10 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
-<!-- FIREBASE + AUTH + FIRESTORE -->
+<!-- FIREBASE -->
 <script type="module">
 import { initializeApp }     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getAuth, onAuthStateChanged }
-                             from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 import { getFirestore, doc, getDoc, addDoc, collection, query, where, getDocs, updateDoc }
                              from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL }
@@ -888,272 +560,63 @@ const auth    = getAuth(app);
 const db      = getFirestore(app);
 const storage = getStorage(app);
 
-let _isFullApproved = false;
-let _allUnits       = null;
-let _panelOpen      = false;
-window._currentTier = 'BASE';
-let _currentTier    = window._currentTier;
+const PRODUCT_DOC_ID = 'cammenga-3h-compass';
+let _qtyAvailable = 0;
 
-/* ── Auth & access ── */
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    // Not logged in — show login link in nav, keep locks active
-    document.getElementById("navAuth").innerHTML =
-      `<a href="/ursusarmament/login/">Login</a>`;
-    document.getElementById("serialLock").classList.add("active");
-    document.getElementById("unitsLock").classList.add("active");
-    return;
-  }
-
-  const emailPrefix = user.email.split("@")[0];
-  document.getElementById("navAuth").innerHTML =
-    `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
-
-  try {
-    const snap = await getDoc(doc(db, "users", emailPrefix));
-    const data = snap.data();
-    _isFullApproved =
-      data &&
-      data.d_type               === "full" &&
-      data.e_approved           === true   &&
-      data.f_status             === "approved" &&
-      data.g_verified_us_person === true;
-  } catch (err) {
-    console.error("User data error:", err);
-    _isFullApproved = false;
-  }
-
-  if (_isFullApproved) {
-    document.getElementById("serialLock").classList.remove("active");
-    document.getElementById("unitsLock").classList.remove("active");
+/* ── Nav auth ── */
+onAuthStateChanged(auth, (user) => {
+  const navAuth = document.getElementById("navAuth");
+  if (user) {
+    const emailPrefix = user.email.split("@")[0];
+    navAuth.innerHTML = `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
   } else {
-    document.getElementById("serialLock").classList.add("active");
-    document.getElementById("unitsLock").classList.add("active");
+    navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
   }
 });
 
-/* ── Serial lookup ── */
-window.lookupSerial = async function() {
-  if (!_isFullApproved) return;
-  const raw   = document.getElementById('serialInput').value.trim().toUpperCase();
-  const errEl = document.getElementById('serialError');
-  const okEl  = document.getElementById('serialSuccess');
-  errEl.classList.remove('visible');
-  okEl.classList.remove('visible');
-  if (!raw) return;
+/* ── Stock check ── */
+async function checkStock() {
+  const statusEl = document.getElementById('stockStatus');
+  const btnEl    = document.getElementById('addToCartBtn');
   try {
-    const snap = await getDoc(doc(db, "ursus-units", raw));
-    if (!snap.exists()) {
-      document.getElementById('serialErrorMsg').textContent =
-        'No unit found for "' + raw + '". Double-check the format (UW-XXXX) or contact support.';
-      errEl.classList.add('visible');
-      return;
-    }
-    const unit = snap.data();
-    const set  = (id, val) => { document.getElementById(id).textContent = val ?? '—'; };
-    set('resultSerial',   raw);
-    set('resultLens',     unit.objectiveLens);
-    set('resultGen',      unit.generation);
-    set('resultPhosphor', unit.phosphor);
-    set('resultFom',      unit.fom        ? unit.fom        + ' FOM' : null);
-    set('resultSnr',      unit.snr        ? unit.snr        + ' dB'  : null);
-    set('resultRes',      unit.resolution);
-    set('resultPcLum',    unit.photocathodeLuminousSensitivity   ? unit.photocathodeLuminousSensitivity   + ' µA/lm' : null);
-    set('resultPcFilter', unit.photocathodeSensitivityWithFilter ? unit.photocathodeSensitivityWithFilter + ' µA/lm' : null);
-    set('resultPcRad',    unit.photocathodeRadiantSensitivity    ? unit.photocathodeRadiantSensitivity    + ' mA/W'  : null);
-    set('resultGain',     unit.luminousGain ? Number(unit.luminousGain).toLocaleString() : null);
-    set('resultBattery',  unit.batteryLife);
-    set('resultIp',       unit.ipRating);
-    set('resultFinish',   unit.finish);
-    set('resultDate',     unit.proofDate);
-    set('resultBatch',    unit.batchId);
-    set('resultQc',       unit.qcResult);
-    set('resultNotes',    unit.notes || 'No notes recorded.');
-    const badge = document.getElementById('resultQcBadge');
-    badge.textContent = 'QC ' + (unit.qcResult ?? 'UNKNOWN');
-    badge.className   = 'serial-badge ' + (unit.qcResult === 'PASS' ? 'pass' : 'fail');
-    okEl.classList.add('visible');
-    okEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    const snap = await getDoc(doc(db, "ursus-units", PRODUCT_DOC_ID));
+    _qtyAvailable = snap.exists() ? (snap.data()['quantity-available'] || 0) : 0;
   } catch (err) {
-    console.error("Serial lookup error:", err);
-    document.getElementById('serialErrorMsg').textContent = 'Error retrieving data. Please try again.';
-    errEl.classList.add('visible');
+    console.error("Stock check error:", err);
+    _qtyAvailable = 0;
   }
-};
 
-document.getElementById('serialInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') window.lookupSerial();
-});
-
-/* ── Fetch available units ── */
-async function fetchUnits() {
-  if (_allUnits) return _allUnits;
-  try {
-    const q    = query(
-      collection(db, "ursus-units"),
-      where("product",   "==", "URSIX"),
-      where("available", "==", true)
-    );
-    const snap = await getDocs(q);
-    // Store both the data AND the Firestore document ID
-    _allUnits  = snap.docs.map(d => ({ ...d.data(), _docId: d.id }));
-  } catch (err) {
-    console.error("Units fetch error:", err);
-    _allUnits = [];
+  if (_qtyAvailable > 0) {
+    statusEl.textContent = _qtyAvailable + ' In Stock';
+    statusEl.className   = 'stock-status in-stock';
+    btnEl.disabled        = false;
+  } else {
+    statusEl.textContent = 'Out of Stock';
+    statusEl.className   = 'stock-status out-of-stock';
+    btnEl.disabled        = true;
   }
-  return _allUnits;
 }
+checkStock();
 
-function tiersWithStock(units) {
-  return ['BASE','PLUS','PRO','ULTRA'].filter(t => units.some(u => u.tier === t));
-}
-
-/* ── Render units panel ── */
-function renderUnitsPanel(units, tier) {
-  const body      = document.getElementById('unitsPanelBody');
-  const title     = document.getElementById('unitsPanelTitle');
-  title.textContent = 'Available Units — ' + tier + ' Tier';
-  const tierUnits = units.filter(u => u.tier === tier);
-
-  if (units.length === 0) {
-    body.innerHTML = '<div class="units-no-stock">Sorry, there are no available units at this time.</div>';
-    return;
-  }
-  if (tierUnits.length === 0) {
-    const available = tiersWithStock(units);
-    const tierList  = available.length ? available.map(t => '<strong>' + t + '</strong>').join(', ') : null;
-    body.innerHTML  = tierList
-      ? '<div class="units-no-stock">Sorry, there are currently no available units in this tier. We have available units for the ' + tierList + ' tiers.</div>'
-      : '<div class="units-no-stock">Sorry, there are no available units at this time.</div>';
-    return;
-  }
-
-  body.innerHTML = tierUnits.map((u, i) => `
-    <div class="unit-row" id="unit-row-${i}">
-      <div class="unit-row-main" onclick="toggleUnitExpand(${i})">
-        <div class="unit-row-left">
-          <span class="unit-row-serial">${u.serial ?? '—'}</span>
-          <span class="unit-row-tier">${u.tier}</span>
-          <div class="unit-row-stats">
-            <span class="unit-row-stat"><span class="unit-row-stat-label">Phosphor</span>${u.phosphor ?? '—'}</span>
-            <span class="unit-row-stat"><span class="unit-row-stat-label">FOM</span>${u.fom ?? '—'}</span>
-            <span class="unit-row-stat"><span class="unit-row-stat-label">SNR</span>${u.snr ? u.snr + ' dB' : '—'}</span>
-            <span class="unit-row-stat"><span class="unit-row-stat-label">Resolution</span>${u.resolution ?? '—'}</span>
-          </div>
-        </div>
-        <div class="unit-row-right">
-          <button
-            class="unit-add-btn"
-            id="add-btn-${i}"
-            onclick="event.stopPropagation(); handleAddToCart(${i})"
-          >Add to Cart</button>
-          <span class="unit-row-price">$${Number(u.price || 0).toLocaleString()}</span>
-          <span class="unit-row-arrow" id="unit-arrow-${i}">▼</span>
-        </div>
-      </div>
-      <div class="unit-expand" id="unit-expand-${i}">
-        <div class="unit-expand-grid">
-          <div class="unit-expand-field"><span class="unit-expand-label">Generation</span><span class="unit-expand-value">${u.generation ?? '—'}</span></div>
-          <div class="unit-expand-field"><span class="unit-expand-label">Phosphor</span><span class="unit-expand-value">${u.phosphor ?? '—'}</span></div>
-          <div class="unit-expand-field"><span class="unit-expand-label">Figure of Merit</span><span class="unit-expand-value highlight">${u.fom ?? '—'}</span></div>
-          <div class="unit-expand-field"><span class="unit-expand-label">Signal-to-Noise Ratio</span><span class="unit-expand-value highlight">${u.snr ? u.snr + ' dB' : '—'}</span></div>
-          <div class="unit-expand-field"><span class="unit-expand-label">Resolution</span><span class="unit-expand-value highlight">${u.resolution ?? '—'}</span></div>
-          <div class="unit-expand-field"><span class="unit-expand-label">PC Luminous Sensitivity</span><span class="unit-expand-value">${u.photocathodeLuminousSensitivity ? u.photocathodeLuminousSensitivity + ' µA/lm' : '—'}</span></div>
-          <div class="unit-expand-field"><span class="unit-expand-label">PC Sensitivity w/ Filter</span><span class="unit-expand-value">${u.photocathodeSensitivityWithFilter ? u.photocathodeSensitivityWithFilter + ' µA/lm' : '—'}</span></div>
-          <div class="unit-expand-field"><span class="unit-expand-label">PC Radiant Sensitivity</span><span class="unit-expand-value">${u.photocathodeRadiantSensitivity ? u.photocathodeRadiantSensitivity + ' mA/W' : '—'}</span></div>
-          <div class="unit-expand-field"><span class="unit-expand-label">Luminous Gain</span><span class="unit-expand-value">${u.luminousGain ? Number(u.luminousGain).toLocaleString() : '—'}</span></div>
-          <div class="unit-expand-field"><span class="unit-expand-label">Battery Life</span><span class="unit-expand-value">${u.batteryLife ?? '—'}</span></div>
-          <div class="unit-expand-field"><span class="unit-expand-label">IP Rating</span><span class="unit-expand-value">${u.ipRating ?? '—'}</span></div>
-          <div class="unit-expand-field"><span class="unit-expand-label">Finish</span><span class="unit-expand-value">${u.finish ?? '—'}</span></div>
-          <div class="unit-expand-field"><span class="unit-expand-label">Proof Date</span><span class="unit-expand-value">${u.proofDate ?? '—'}</span></div>
-          <div class="unit-expand-field"><span class="unit-expand-label">Batch ID</span><span class="unit-expand-value">${u.batchId ?? '—'}</span></div>
-          <div class="unit-expand-field"><span class="unit-expand-label">QC Result</span><span class="unit-expand-value">${u.qcResult ?? '—'}</span></div>
-        </div>
-        ${u.notes ? `<div class="unit-expand-notes"><span class="unit-expand-label">Notes</span><span>${u.notes}</span></div>` : ''}
-      </div>
-    </div>
-  `).join('');
-
-  // Store the current tier units so handleAddToCart can access them
-  window._renderedTierUnits = tierUnits;
-}
-
-/* ── Add to cart from units panel ── */
-window.handleAddToCart = function(i) {
-  const units = window._renderedTierUnits;
-  if (!units || !units[i]) return;
-  const u   = units[i];
-  const btn = document.getElementById('add-btn-' + i);
-
+window.handleAddToCart = function() {
+  if (_qtyAvailable <= 0) return;
+  const btn = document.getElementById('addToCartBtn');
   window.addToCart({
-    id:      u._docId,       // Firestore document ID
-    product: u.product || 'URSIX',
-    price:   String(u.price || '0'),
-    tier:    u.tier || null,
-    serial:  u.serial || null   // null if field doesn't exist
+    id:      PRODUCT_DOC_ID,
+    product: 'Cammenga Model 3H Compass',
+    price:   '45',
+    tier:    null,
+    serial:  null
   }, btn);
 };
 
-window.toggleUnitExpand = function(i) {
-  const expand = document.getElementById('unit-expand-' + i);
-  const arrow  = document.getElementById('unit-arrow-' + i);
-  const open   = expand.classList.toggle('open');
-  arrow.style.transform = open ? 'rotate(180deg)' : 'rotate(0deg)';
-};
-
-window.toggleUnitsPanel = async function(tier) {
-  if (!_isFullApproved) return;
-  const panel = document.getElementById('unitsPanel');
-  const units = await fetchUnits();
-  if (_panelOpen && tier === _currentTier) {
-    panel.classList.remove('open');
-    _panelOpen = false;
-    return;
-  }
-  renderUnitsPanel(units, tier);
-  panel.classList.add('open');
-  _panelOpen   = true;
-  _currentTier = tier;
-  setTimeout(() => panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 50);
-};
-
-window.selectConfig = function(card, price, tier) {
-  document.querySelectorAll('.config-card').forEach(c => c.classList.remove('selected'));
-  card.classList.add('selected');
-  _currentTier        = tier;
-  window._currentTier = tier;
-  document.getElementById('totalPrice').textContent = '~$' + price.toLocaleString();
-  if (_panelOpen) fetchUnits().then(units => renderUnitsPanel(units, tier));
-};
-
-window.ursixSwap = function(el) {
-  document.querySelectorAll('.ursix-thumb').forEach(function(t) {
-    t.classList.remove('active');
-    t.style.border  = '1px solid #444';
-    t.style.opacity = '0.6';
-  });
-  el.classList.add('active');
-  el.style.border  = '2px solid #c8701a';
-  el.style.opacity = '1';
-  document.getElementById('ursix-main').src = el.getAttribute('data-src');
-};
-
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const href = a.getAttribute('href');
-    if (href === '#') return;
-    const t = document.querySelector(href);
-    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
-  });
-});
-
-/* ── Load URSIX reviews ── */
-async function loadURSIXReviews() {
+/* ── Reviews ── */
+async function loadReviews() {
   const container = document.getElementById('reviewsContainer');
   try {
     const q    = query(
       collection(db, "ursus-reviews"),
-      where("productType",    "==", "URSIX"),
+      where("productType",    "==", "Cammenga3H"),
       where("reviewApproval", "==", true)
     );
     const snap = await getDocs(q);
@@ -1184,7 +647,7 @@ async function loadURSIXReviews() {
             <div class="review-name">${r.firstName || '—'} (${r.state || ''})</div>
             <div class="review-stars">${stars}</div>
           </div>
-          <div class="review-meta">${r.productType || 'URSIX'} &nbsp;·&nbsp; ${r.feedbackType || ''}</div>
+          <div class="review-meta">Cammenga Model 3H &nbsp;·&nbsp; ${r.feedbackType || ''}</div>
           <div class="review-text">${r.reviewText || ''}</div>
         </div>
         ${imgHtml}
@@ -1196,9 +659,8 @@ async function loadURSIXReviews() {
     container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
   }
 }
-loadURSIXReviews();
+loadReviews();
 
-/* ── Submit review ── */
 function uploadReviewImage(file, path) {
   return new Promise((resolve, reject) => {
     const ref  = storageRef(storage, path);
