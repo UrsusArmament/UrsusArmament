@@ -1164,7 +1164,7 @@ const PRODUCTS = [
     status: 'unavailable',
     displayCat: 'Body Armor',
   },
-  {
+    {
     id: 'NIJ LVL IV Armor Plates',
     name: 'NIJ LVL IV Armor Plates',
     cat: 'loadout',
@@ -1176,6 +1176,19 @@ const PRODUCTS = [
     status: 'unavailable',
     displayCat: 'Body Armor',
   },
+  {
+    id: 'cammenga-3h-compass',
+    name: 'Cammenga Model 3H Compass',
+    cat: 'loadout',
+    subcats: ['navigation'],
+    flagship: false,
+    url: '/ursusarmament/products/cammenga-3h',
+    bgLabel: '3H',
+    desc: 'Cammenga Model 3H military compass featuring tritium illumination for low-light navigation. NSN: 6605-01-196-6971. Rugged metal construction, suitable for navigation, field use, collecting, or military surplus applications.',
+    status: 'unavailable',
+    statusId: 'cammenga-3h-status',
+    displayCat: 'Navigation',
+  },
 ];
 
 // ── CATEGORY / SUBCATEGORY DEFINITIONS ───────────────────────────────────────
@@ -1186,7 +1199,7 @@ const CATEGORIES = {
   thermal:  { label: 'Thermal', subcats: { all: 'All Thermal', monoculars: 'Monoculars' } },
   comms:    { label: 'Comms' },
   systems:  { label: 'Systems' },
-  loadout:  { label: 'Loadout', subcats: { all: 'All Loadout', protection: 'Protection', apparel: 'Apparel' } },
+  loadout:  { label: 'Loadout', subcats: { all: 'All Loadout', protection: 'Protection', apparel: 'Apparel', navigation: 'Navigation' } },
 };
 
 let activeCat    = 'all';
