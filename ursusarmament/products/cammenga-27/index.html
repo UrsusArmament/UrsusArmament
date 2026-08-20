@@ -694,10 +694,7 @@ window.handleAddToCart = function() {
   }, btn);
 };
 
-/* ── Reviews ──
-   Matches on the exact productType value ("Cammenga27") set by the review
-   submission form below, rather than a loose substring match — keeps 27
-   and 3H reviews from bleeding onto each other's pages. */
+/* ── Reviews ── */
 async function loadReviews() {
   const container = document.getElementById('reviewsContainer');
   try {
@@ -708,7 +705,7 @@ async function loadReviews() {
     const snap = await getDocs(q);
     const matched = snap.docs
       .map(d => d.data())
-      .filter(r => (r.productType || "") === "Cammenga27");
+      .filter(r => (r.productType || "").toLowerCase().includes("cammenga"));
 
     if (matched.length === 0) {
       container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
