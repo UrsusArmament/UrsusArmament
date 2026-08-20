@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cammenga Model 27 Compass — Ursus Armament</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --surface2: #222220;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+    --accent2: #e8a830;
+    --green: #2a9c5c;
+    --red: #c0392b;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,8,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 3rem; border-bottom: 1px solid var(--border);
+  }
+  .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
+    letter-spacing: 0.12em; color: var(--text); text-decoration: none; line-height: 1;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-slogan {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem;
+    font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
+  }
+  .nav-ribbon {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3rem; height: 38px; background: var(--surface);
+  }
+  .nav-ribbon a {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem;
+    font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; padding: 0 1.6rem; height: 100%;
+    display: flex; align-items: center; border-right: 1px solid var(--border);
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
+  .nav-ribbon a:hover, .nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
+
+  .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+
+  .nav-cart-btn {
+    position: relative; background: transparent; border: 1px solid var(--border2);
+    color: var(--text); width: 38px; height: 38px; display: flex;
+    align-items: center; justify-content: center; cursor: pointer; text-decoration: none;
+    transition: border-color 0.2s, background 0.2s; flex-shrink: 0;
+  }
+  .nav-cart-btn:hover { border-color: var(--accent); background: rgba(200,146,42,0.06); }
+  .nav-cart-btn svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
+  .nav-cart-btn:hover svg { stroke: var(--accent); }
+
+  .cart-count {
+    position: absolute; top: -6px; right: -6px; background: var(--accent);
+    color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem;
+    font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px;
+    align-items: center; justify-content: center; padding: 0 3px; line-height: 1; display: none;
+  }
+  .cart-count.visible { display: flex; }
+
+  .nav-auth { display: flex; align-items: center; }
+  .nav-auth a, .nav-auth button {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none;
+    color: var(--accent); background: transparent; border: 1px solid var(--accent);
+    padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s ease;
+  }
+  .nav-auth a:hover, .nav-auth button:hover { background: rgba(200,146,42,0.08); }
+
+  .breadcrumb {
+    padding: 1rem 3rem; background: var(--dark); border-bottom: 1px solid var(--border);
+    margin-top: 86px; display: flex; align-items: center; gap: 0.5rem;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+  }
+  .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb span { color: var(--accent); }
+
+  .product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 70vh; background: var(--dark); }
+  .product-visual {
+    position: relative; background: var(--surface); overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .product-visual-bg {
+    position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(200,146,42,0.015) 30px, rgba(200,146,42,0.015) 31px);
+    pointer-events: none;
+  }
+  .product-visual-label {
+    position: relative; z-index: 1;
+    font-family: 'Bebas Neue', sans-serif; font-size: 6rem; letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.08); user-select: none; text-align: center;
+  }
+  .product-info { padding: 4rem; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--border); }
+  .product-tag {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem;
+  }
+  .product-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+  .product-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 6vw, 5rem); line-height: 0.95; letter-spacing: 0.04em; margin-bottom: 0.5rem; color: var(--text); }
+  .product-subtitle { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 2rem; }
+  .product-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; max-width: 480px; }
+
+  .disclaimer-box {
+    max-width: 480px; padding: 1rem 1.25rem; margin-bottom: 2rem;
+    background: rgba(200,146,42,0.06); border: 1px solid rgba(200,146,42,0.25);
+    border-left: 3px solid var(--accent);
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; letter-spacing: 0.02em;
+    color: var(--muted); line-height: 1.6;
+  }
+  .disclaimer-box strong { color: var(--accent); }
+
+  .product-price-row { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+  .product-price { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; letter-spacing: 0.04em; color: var(--text); }
+  .product-price-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+
+  .product-actions { display: flex; gap: 1rem; margin-bottom: 2rem; align-items: center; }
+  .btn-primary {
+    background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 0.9rem 2.5rem; border: none; cursor: pointer; text-decoration: none;
+    display: inline-block; transition: background 0.2s, transform 0.15s; text-align: center;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .btn-primary:disabled { background: var(--border2); color: var(--muted); cursor: not-allowed; transform: none; }
+  .btn-primary.added { background: var(--green); color: #fff; }
+
+  .stock-status {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.12em; text-transform: uppercase; display: flex; align-items: center; gap: 0.4rem;
+  }
+  .stock-status::before { content: ''; display: block; width: 6px; height: 6px; border-radius: 50%; background: var(--muted); }
+  .stock-status.in-stock { color: var(--green); }
+  .stock-status.in-stock::before { background: var(--green); }
+  .stock-status.out-of-stock { color: var(--red); }
+  .stock-status.out-of-stock::before { background: var(--red); }
+
+  .product-trust { display: flex; gap: 2rem; }
+  .trust-item { display: flex; flex-direction: column; gap: 0.2rem; }
+  .trust-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+  .trust-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text); }
+
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5vw, 4.2rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 3.5rem; }
+
+  .specs-section { background: var(--black); padding: 6rem 3rem; }
+  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-bottom: 2px; }
+  .spec-item { background: var(--dark); padding: 1.75rem 2rem; display: flex; justify-content: space-between; align-items: baseline; transition: background 0.2s; }
+  .spec-item:hover { background: var(--surface); }
+  .spec-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+  .spec-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); text-align: right; }
+
+  .cta-banner { background: var(--accent); padding: 4rem 3rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+  .cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.06em; color: var(--black); line-height: 1; }
+  .cta-banner p { font-size: 1rem; color: rgba(10,10,8,0.65); margin-top: 0.5rem; }
+  .btn-dark { background: var(--black); color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: none; cursor: pointer; white-space: nowrap; text-decoration: none; display: inline-block; transition: background 0.2s; }
+  .btn-dark:hover { background: #1a1a17; }
+
+  .review-cta-btn {
+    background: var(--surface); color: var(--text); font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 1.5rem 3.5rem; border: 2px solid var(--border2); border-radius: 6px;
+    cursor: pointer; transition: all 0.2s ease;
+  }
+  .review-cta-btn:hover { background: var(--surface2); border-color: var(--accent); color: var(--accent); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.35); }
+  .review-cta-btn:active { transform: translateY(0px); box-shadow: 0 5px 12px rgba(0,0,0,0.25); }
+
+  .reviews-section { background: var(--black); padding: 6rem 3rem; }
+  .reviews-container { max-height: 600px; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+  .review-card { background: var(--surface); padding: 2rem 2.5rem; display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; border-left: 3px solid transparent; transition: background 0.2s, border-color 0.2s; width: 100%; }
+  .review-card:hover { background: var(--surface2); border-color: var(--accent); }
+  .review-content { flex: 1; display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
+  .review-header { display: flex; flex-direction: column; gap: 0.3rem; }
+  .review-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); }
+  .review-stars { font-size: 1.2rem; letter-spacing: 0.1em; color: var(--accent); }
+  .review-meta { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-family: 'Barlow Condensed', sans-serif; }
+  .review-text { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-top: 0.25rem; }
+  .reviews-empty { padding: 2rem; text-align: center; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.15em; color: var(--muted); }
+  .review-images { display: flex; flex-direction: column; gap: 0.5rem; flex-shrink: 0; width: 200px; }
+  .review-img { width: 200px; height: 150px; object-fit: cover; cursor: pointer; border: 1px solid var(--border2); transition: opacity 0.2s, border-color 0.2s; display: block; }
+  .review-img:hover { opacity: 0.85; border-color: var(--accent); }
+
+  footer { background: var(--dark); border-top: 1px solid var(--border); padding: 4rem 3rem 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
+  .footer-brand p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-top: 1rem; }
+  .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+  .footer-col a { font-size: 0.9rem; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
+  .footer-col a:hover { opacity: 1; color: var(--accent); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.12em; color: var(--text); opacity: 0.5; }
+  .footer-logo span { color: var(--accent); opacity: 1; }
+  .footer-legal { font-size: 0.78rem; color: var(--muted); opacity: 0.5; }
+
+    .review-reply {
+    margin-top: 1rem;
+    margin-left: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface2);
+    border-left: 2px solid var(--accent);
+  }
+
+  .review-reply-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .review-reply-logo {
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: 3px;
+  }
+
+  .review-reply-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .review-reply-text {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  .cart-toast {
+    position: fixed; bottom: 2rem; right: 2rem;
+    background: var(--surface2); border: 1px solid var(--accent);
+    color: var(--text); padding: 1rem 1.5rem;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; letter-spacing: 0.05em;
+    z-index: 999; transform: translateY(100px); opacity: 0;
+    transition: transform 0.3s, opacity 0.3s; max-width: 320px; pointer-events: none;
+  }
+  .cart-toast.show { transform: translateY(0); opacity: 1; }
+
+  @media (max-width: 900px) {
+    .product-hero { grid-template-columns: 1fr; }
+    .product-visual { min-height: 40vw; }
+    .product-info { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--border); }
+    .specs-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .cta-banner { flex-direction: column; text-align: center; }
+    .breadcrumb, .specs-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .nav-top, .nav-ribbon { padding-left: 1.5rem; padding-right: 1.5rem; }
+  }
+  @media (max-width: 600px) {
+    .review-card { flex-direction: column; gap: 1.25rem; padding: 1.5rem; }
+    .review-images { flex-direction: row; width: 100%; }
+    .review-img { width: calc(50% - 0.25rem); height: 120px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cart-toast" id="cartToast"></div>
+
+<nav>
+  <div class="nav-top">
+    <div class="nav-brand">
+      <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
+      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    </div>
+    <div class="nav-right">
+      <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/>
+        </svg>
+        <span class="cart-count" id="cartCount"></span>
+      </a>
+      <div class="nav-auth" id="navAuth"></div>
+    </div>
+  </div>
+  <div class="nav-ribbon">
+    <a href="/ursusarmament/products" class="active">Products</a>
+    <a href="/ursusarmament#mission">Our Mission</a>
+    <a href="/ursusarmament#process">Learn</a>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="/ursusarmament">Home</a><span>›</span>
+  <a href="/ursusarmament/products">Products</a><span>›</span>
+  <span>Cammenga Model 27 Compass</span>
+</div>
+
+<!-- PRODUCT HERO -->
+<section class="product-hero">
+  <div class="product-visual">
+    <img src="/ursusarmament/images/cammenga-27-primary.png" alt="Cammenga Model 27 Compass" style="width:100%; height:100%; object-fit:contain; position:relative; z-index:1;">
+  </div>
+  <div class="product-info">
+    <div class="product-tag">Navigation</div>
+    <h1 class="product-name">CAMMENGA MODEL 27</h1>
+    <div class="product-subtitle">Phosphorescent Lensatic Compass</div>
+    <p class="product-desc">Cammenga Model 27 lensatic compass featuring phosphorescent illumination for low-light navigation. Aluminum construction, suitable for navigation, field use, collecting, or military surplus applications.</p>
+    <div class="disclaimer-box">
+      <strong>Illumination Note:</strong> The Model 27 uses phosphorescent (glow-in-the-dark) illumination rather than tritium. It must be "charged" by light exposure to glow and does not contain a radioactive source, so there is no long-term decay curve to account for.
+    </div>
+    <div class="product-price-row">
+      <div class="product-price">$37</div>
+      <div class="product-price-label">Per Unit<br>Free Shipping</div>
+    </div>
+    <div class="product-actions">
+      <button class="btn-primary" id="addToCartBtn" onclick="handleAddToCart()">Add to Cart</button>
+      <span class="stock-status" id="stockStatus">Checking availability...</span>
+    </div>
+    <div class="product-trust">
+      <div class="trust-item"><span class="trust-label">Model</span><span class="trust-value">27</span></div>
+      <div class="trust-item"><span class="trust-label">Ships In</span><span class="trust-value">3–5 Business Days</span></div>
+      <div class="trust-item"><span class="trust-label">Construction</span><span class="trust-value">Aluminum</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SPECS -->
+<section class="specs-section" id="specs">
+  <div class="section-tag">Technical Data</div>
+  <h2 class="section-title">SPECIFICATIONS</h2>
+  <div class="specs-grid">
+    <div class="spec-item"><span class="spec-name">Model</span><span class="spec-value">27</span></div>
+    <div class="spec-item"><span class="spec-name">NSN</span><span class="spec-value">6605-01-196-6971</span></div>
+    <div class="spec-item"><span class="spec-name">Type</span><span class="spec-value">Military-Style Lensatic Compass</span></div>
+    <div class="spec-item"><span class="spec-name">Illumination</span><span class="spec-value">Phosphorescent, Low-Light Use</span></div>
+    <div class="spec-item"><span class="spec-name">Construction</span><span class="spec-value">Aluminum</span></div>
+    <div class="spec-item"><span class="spec-name">Applications</span><span class="spec-value">Navigation, Field Use, Collecting, Surplus</span></div>
+  </div>
+</section>
+
+<div class="cta-banner">
+  <div>
+    <h2>QUESTIONS ABOUT THE 27?</h2>
+    <p>Our product specialists are available Monday–Friday, 8AM–6PM MST.</p>
+  </div>
+  <a href="https://ursusworks.com/ursusarmament/contact" target="_blank" rel="noopener noreferrer" class="btn-dark">Contact Support</a>
+</div>
+
+<div style="display:flex; justify-content:center; padding: 3rem; background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <button class="review-cta-btn" onclick="openReviewModal()">Leave a Product Review</button>
+</div>
+
+<!-- REVIEWS -->
+<section class="reviews-section">
+  <div class="section-tag">Customer Feedback</div>
+  <h2 class="section-title">REVIEWS</h2>
+  <div class="reviews-container" id="reviewsContainer">
+    <div class="reviews-empty">Loading reviews...</div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">URSUS <span style="color: var(--accent);">ARMAMENT</span></div>
+      <p>Developing next-generation tactical gear for the American people. Manufactured, tested, and deployed with pride in the USA.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="/ursusarmament/products/ROTS">R.O.T.S.</a></li>
+        <li><a href="/ursusarmament/products/CALIDUS">CALIDUS</a></li>
+        <li><a href="/ursusarmament/products">View All</a></li>
+        <li><a href="/ursusarmament/customerreviews">Customer Reviews</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/ursusarmament/aboutus/">About Us</a></li>
+        <li><a href="/ursusarmament/testingstandards/">Testing Standards</a></li>
+        <li><a href="/ursusarmament/careers/">Careers</a></li>
+        <li><a href="https://www.youtube.com/@UrsusWorks/" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="/ursusarmament/contact/">Contact</a></li>
+        <li><a href="/ursusarmament/warranty/">Warranty</a></li>
+        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-logo">URSUS <span>ARMAMENT</span></div>
+    <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
+  </div>
+</footer>
+
+<!-- REVIEW MODAL -->
+<div id="reviewModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:99999; justify-content:center; align-items:center; overflow-y:auto; padding: 2rem 0;">
+  <div style="background: var(--dark); padding: 2rem; width: 90%; max-width: 600px; border: 1px solid var(--border); position: relative; margin: auto;">
+    <button onclick="closeReviewModal()" style="position:absolute; top:10px; right:15px; background:none; border:none; color:white; font-size:20px; cursor:pointer;">✕</button>
+    <div id="reviewFormContainer">
+      <h2 style="font-family:'Bebas Neue'; letter-spacing:0.06em; margin-bottom:1rem;">Leave a Review</h2>
+      <div style="display:flex; flex-direction:column; gap:1rem;">
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Product</label>
+          <select id="rv_product" required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);">
+            <option value="">Select Product</option>
+            <option value="Cammenga27" selected>Cammenga Model 27 Compass</option>
+            <option value="Cammenga3H">Cammenga Model 3H Compass</option>
+            <option value="URSIX">URSIX</option>
+            <option value="ROTS">R.O.T.S.</option>
+            <option value="CALIDUS">CALIDUS</option>
+            <option value="NEXIS">NEXIS</option>
+          </select>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Feedback Type</label>
+          <select id="rv_feedbackType" required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);">
+            <option value="">Select Type</option>
+            <option value="Customer Purchase">Customer Purchase</option>
+            <option value="Field Review">Field Review</option>
+          </select>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Star Rating</label>
+          <div id="starRating" style="display:flex; gap:0.4rem; font-size:1.8rem; cursor:pointer;">
+            <span data-value="1">☆</span><span data-value="2">☆</span><span data-value="3">☆</span><span data-value="4">☆</span><span data-value="5">☆</span>
+          </div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">First Name</label>
+          <input id="rv_firstName" type="text" placeholder="Your First Name" required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);" />
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">State</label>
+          <select id="rv_state" required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);">
+            <option value="">Select State</option>
+            <option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option>
+          </select>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Review</label>
+          <textarea id="rv_reviewText" rows="5" placeholder="Write your review here..." required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border); font-family:'Barlow',sans-serif; resize:vertical;"></textarea>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Photos (Optional — Max 2)</label>
+          <input id="rv_img1" type="file" accept="image/png,image/jpeg,image/webp" style="padding:0.5rem; background:var(--surface); border:1px solid var(--border); color:var(--muted);">
+          <input id="rv_img2" type="file" accept="image/png,image/jpeg,image/webp" style="padding:0.5rem; background:var(--surface); border:1px solid var(--border); color:var(--muted);">
+        </div>
+        <div id="rv_msg" style="font-size:0.82rem; min-height:1.2em;"></div>
+        <button id="rv_submitBtn" onclick="submitReview()" class="btn-dark" style="margin-top:0.5rem;">Submit Review</button>
+      </div>
+    </div>
+    <div id="reviewThankYou" style="display:none; text-align:center; padding: 2rem 0;">
+      <h2 style="font-family:'Bebas Neue'; letter-spacing:0.06em; margin-bottom:0.75rem;">Thank You!</h2>
+      <p style="color:var(--muted);">Your review has been submitted and is pending approval. We appreciate your feedback.</p>
+    </div>
+  </div>
+</div>
+
+<!-- CART ENGINE -->
+<script>
+const CART_KEY = 'ursus_cart';
+
+function getCart() {
+  try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
+  catch { return []; }
+}
+
+function saveCart(cart) {
+  localStorage.setItem(CART_KEY, JSON.stringify(cart));
+  updateCartBadge();
+}
+
+function updateCartBadge() {
+  const cart  = getCart();
+  const count = cart.reduce((sum, i) => sum + (i.quantity || 1), 0);
+  const badge = document.getElementById('cartCount');
+  if (!badge) return;
+  if (count > 0) {
+    badge.textContent = count > 99 ? '99+' : count;
+    badge.classList.add('visible');
+  } else {
+    badge.classList.remove('visible');
+  }
+}
+
+window.addToCart = function(item, btnEl) {
+  const cart     = getCart();
+  const existing = cart.find(c => c.id === item.id);
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({ ...item, quantity: 1 });
+  }
+  saveCart(cart);
+  showToast(`${item.product} added to cart!`);
+
+  if (btnEl) {
+    const orig = btnEl.textContent;
+    btnEl.textContent = '✓ Added';
+    btnEl.classList.add('added');
+    setTimeout(() => {
+      btnEl.textContent = orig;
+      btnEl.classList.remove('added');
+    }, 2000);
+  }
+};
+
+function showToast(msg) {
+  const toast = document.getElementById('cartToast');
+  if (!toast) return;
+  toast.textContent = msg;
+  toast.classList.add('show');
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => toast.classList.remove('show'), 3000);
+}
+
+updateCartBadge();
+</script>
+
+<script src="/ursusarmament/access-check.js"></script>
+<script>
+function openReviewModal()  { document.getElementById("reviewModal").style.display = "flex"; }
+function closeReviewModal() { document.getElementById("reviewModal").style.display = "none"; }
+
+let _starRating = 0;
+document.addEventListener("DOMContentLoaded", function () {
+  const stars = document.querySelectorAll("#starRating span");
+  stars.forEach(star => {
+    star.addEventListener("click", () => {
+      _starRating = parseInt(star.dataset.value);
+      stars.forEach(s => { s.textContent = parseInt(s.dataset.value) <= _starRating ? "★" : "☆"; });
+    });
+  });
+});
+</script>
+
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp }     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, addDoc, collection, query, where, getDocs, updateDoc }
+                             from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL }
+                             from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
+const firebaseConfig = {
+  apiKey:            "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
+  authDomain:        "ursus-armament.firebaseapp.com",
+  projectId:         "ursus-armament",
+  storageBucket:     "ursus-armament.firebasestorage.app",
+  messagingSenderId: "430731167862",
+  appId:             "1:430731167862:web:a5447de86db180edad3757"
+};
+
+const app     = initializeApp(firebaseConfig);
+const auth    = getAuth(app);
+const db      = getFirestore(app);
+const storage = getStorage(app);
+
+const PRODUCT_DOC_ID = 'cammenga-27-compass';
+let _qtyAvailable = 0;
+
+/* ── Timestamp helper — mirrors the logic on the site-wide reviews page ──
+   Reviews may have their date stored under "timestamp" or "timeStamp",
+   and as either a Firestore Timestamp object or a plain string in the
+   Firestore-console export format, e.g. "Apr 1, 2019 at 2:43:00 PM UTC-8". */
+const MONTH_MAP = {
+  jan: 0, january: 0, feb: 1, february: 1, mar: 2, march: 2,
+  apr: 3, april: 3, may: 4, jun: 5, june: 5, jul: 6, july: 6,
+  aug: 7, august: 7, sep: 8, sept: 8, september: 8,
+  oct: 9, october: 9, nov: 10, november: 10, dec: 11, december: 11
+};
+
+const FIRESTORE_STRING_RE =
+  /^([A-Za-z]+)\.?\s+(\d{1,2}),?\s*(\d{4}),?\s+(?:at\s+)?(\d{1,2}):(\d{2}):(\d{2})\s*(AM|PM)\s+UTC([+-]\d+(?::?\d{2})?)$/i;
+
+function parseFirestoreTimestampString(str) {
+  const m = FIRESTORE_STRING_RE.exec(str.trim());
+  if (!m) return NaN;
+  const [, monthName, day, year, hourStr, minute, second, meridiem, offsetStr] = m;
+  const monthIndex = MONTH_MAP[monthName.toLowerCase()];
+  if (monthIndex === undefined) return NaN;
+  let hour = parseInt(hourStr, 10) % 12;
+  if (meridiem.toUpperCase() === "PM") hour += 12;
+  const offsetMatch = /^([+-]\d+)(?::?(\d{2}))?$/.exec(offsetStr);
+  let offsetHours = parseInt(offsetMatch[1], 10);
+  if (offsetMatch[2]) {
+    const offsetMinutes = parseInt(offsetMatch[2], 10) / 60;
+    offsetHours += offsetHours < 0 ? -offsetMinutes : offsetMinutes;
+  }
+  const wallClockUtcMs = Date.UTC(
+    parseInt(year, 10), monthIndex, parseInt(day, 10),
+    hour, parseInt(minute, 10), parseInt(second, 10)
+  );
+  return wallClockUtcMs - offsetHours * 3600000;
+}
+
+function getReviewTimeMs(r) {
+  const val = r.timestamp ?? r.timeStamp ?? r.TimeStamp;
+  if (!val) return 0;
+  if (typeof val.toMillis === "function") return val.toMillis();
+  if (typeof val === "string") {
+    const parsed = parseFirestoreTimestampString(val);
+    if (!isNaN(parsed)) return parsed;
+  }
+  const fallback = new Date(val).getTime();
+  return isNaN(fallback) ? 0 : fallback;
+}
+
+/* ── Nav auth ── */
+onAuthStateChanged(auth, (user) => {
+  const navAuth = document.getElementById("navAuth");
+  if (user) {
+    const emailPrefix = user.email.split("@")[0];
+    navAuth.innerHTML = `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
+  } else {
+    navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
+  }
+});
+
+/* ── Stock check ── */
+async function checkStock() {
+  const statusEl = document.getElementById('stockStatus');
+  const btnEl    = document.getElementById('addToCartBtn');
+  try {
+    const snap = await getDoc(doc(db, "ursus-units", PRODUCT_DOC_ID));
+    _qtyAvailable = snap.exists() ? (snap.data()['quantity-available'] || 0) : 0;
+  } catch (err) {
+    console.error("Stock check error:", err);
+    _qtyAvailable = 0;
+  }
+
+  if (_qtyAvailable > 0) {
+    statusEl.textContent = _qtyAvailable + ' In Stock';
+    statusEl.className   = 'stock-status in-stock';
+    btnEl.disabled        = false;
+  } else {
+    statusEl.textContent = 'Out of Stock';
+    statusEl.className   = 'stock-status out-of-stock';
+    btnEl.disabled        = true;
+  }
+}
+checkStock();
+
+window.handleAddToCart = function() {
+  if (_qtyAvailable <= 0) return;
+  const btn = document.getElementById('addToCartBtn');
+  window.addToCart({
+    id:      PRODUCT_DOC_ID,
+    product: 'Cammenga Model 27 Compass',
+    price:   '37',
+    tier:    null,
+    serial:  null
+  }, btn);
+};
+
+/* ── Reviews ──
+   Matches on the exact productType value ("Cammenga27") set by the review
+   submission form below, rather than a loose substring match — keeps 27
+   and 3H reviews from bleeding onto each other's pages. */
+async function loadReviews() {
+  const container = document.getElementById('reviewsContainer');
+  try {
+    const q    = query(
+      collection(db, "ursus-reviews"),
+      where("reviewApproval", "==", true)
+    );
+    const snap = await getDocs(q);
+    const matched = snap.docs
+      .map(d => d.data())
+      .filter(r => (r.productType || "") === "Cammenga27");
+
+    if (matched.length === 0) {
+      container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
+      return;
+    }
+    const reviews = matched.sort((a, b) => getReviewTimeMs(b) - getReviewTimeMs(a));
+        container.innerHTML = '';
+    reviews.forEach(r => {
+      const stars = '★'.repeat(r.starRating || 0) + '☆'.repeat(5 - (r.starRating || 0));
+      const div   = document.createElement('div');
+      div.className = 'review-card';
+      let imgHtml = '';
+      if (r.img1_url || r.img2_url) {
+        imgHtml = '<div class="review-images">';
+        if (r.img1_url) imgHtml += `<img src="${r.img1_url}" class="review-img" onclick="openReviewImage('${r.img1_url}')" alt="Review photo">`;
+        if (r.img2_url) imgHtml += `<img src="${r.img2_url}" class="review-img" onclick="openReviewImage('${r.img2_url}')" alt="Review photo">`;
+        imgHtml += '</div>';
+      }
+      let replyHtml = '';
+      if (r.ursusReply) {
+        replyHtml = `
+          <div class="review-reply">
+            <div class="review-reply-header">
+              <img src="/ursusarmament/images/ursusLogoBlackAndOrange.png" class="review-reply-logo" alt="Ursus Works">
+              <span class="review-reply-name">Ursus Works</span>
+            </div>
+            <div class="review-reply-text">${r.ursusReply}</div>
+          </div>
+        `;
+      }
+      div.innerHTML = `
+        <div class="review-content">
+          <div class="review-header">
+            <div class="review-name">${r.firstName || '—'} (${r.state || ''})</div>
+            <div class="review-stars">${stars}</div>
+          </div>
+          <div class="review-meta">Cammenga Model 27 &nbsp;·&nbsp; ${r.feedbackType || ''}</div>
+          <div class="review-text">${r.reviewText || ''}</div>
+          ${replyHtml}
+        </div>
+        ${imgHtml}
+      `;
+      container.appendChild(div);
+    });
+  } catch (err) {
+    console.error("Reviews load error:", err);
+    container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
+  }
+}
+loadReviews();
+
+function uploadReviewImage(file, path) {
+  return new Promise((resolve, reject) => {
+    const ref  = storageRef(storage, path);
+    const task = uploadBytesResumable(ref, file);
+    task.on("state_changed", null,
+      err  => reject(err),
+      async () => resolve(await getDownloadURL(task.snapshot.ref))
+    );
+  });
+}
+
+window.submitReview = async function() {
+  const msg    = document.getElementById("rv_msg");
+  const btn    = document.getElementById("rv_submitBtn");
+  const productType  = document.getElementById("rv_product").value;
+  const feedbackType = document.getElementById("rv_feedbackType").value;
+  const firstName    = document.getElementById("rv_firstName").value.trim();
+  const state        = document.getElementById("rv_state").value;
+  const reviewText   = document.getElementById("rv_reviewText").value.trim();
+  const img1File     = document.getElementById("rv_img1").files[0];
+  const img2File     = document.getElementById("rv_img2").files[0];
+
+  if (!productType)       { msg.style.color = "#c0392b"; msg.textContent = "Please select a product."; return; }
+  if (!feedbackType)      { msg.style.color = "#c0392b"; msg.textContent = "Please select a feedback type."; return; }
+  if (_starRating === 0)  { msg.style.color = "#c0392b"; msg.textContent = "Please select a star rating."; return; }
+  if (!firstName)         { msg.style.color = "#c0392b"; msg.textContent = "Please enter your first name."; return; }
+  if (!state)             { msg.style.color = "#c0392b"; msg.textContent = "Please select your state."; return; }
+  if (!reviewText)        { msg.style.color = "#c0392b"; msg.textContent = "Please write your review."; return; }
+
+  btn.disabled    = true;
+  btn.textContent = "Submitting...";
+  msg.textContent = "";
+
+  try {
+    const reviewRef = await addDoc(collection(db, "ursus-reviews"), {
+      productType, feedbackType, starRating: _starRating,
+      firstName, state, reviewText,
+      reviewApproval: false, img1_url: "", img2_url: "",
+      timestamp: new Date(),
+    });
+    const docId = reviewRef.id;
+    let img1_url = "", img2_url = "";
+    if (img1File) {
+      btn.textContent = "Uploading photos...";
+      img1_url = await uploadReviewImage(img1File, `ursus-reviews/${docId}/img1.${img1File.name.split('.').pop()}`);
+    }
+    if (img2File) {
+      img2_url = await uploadReviewImage(img2File, `ursus-reviews/${docId}/img2.${img2File.name.split('.').pop()}`);
+    }
+    if (img1_url || img2_url) {
+      await updateDoc(reviewRef, { img1_url, img2_url });
+    }
+    document.getElementById("reviewFormContainer").style.display = "none";
+    document.getElementById("reviewThankYou").style.display      = "block";
+  } catch (err) {
+    console.error("Review submit error:", err);
+    msg.style.color = "#c0392b";
+    msg.textContent = "Submission failed. Please try again.";
+    btn.disabled    = false;
+    btn.textContent = "Submit Review";
+  }
+};
+
+window.openReviewImage = function(url) {
+  const lb = document.createElement("div");
+  lb.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:999999;display:flex;align-items:center;justify-content:center;cursor:pointer;";
+  lb.innerHTML = `<img src="${url}" style="max-width:90vw;max-height:90vh;object-fit:contain;">`;
+  lb.onclick = () => document.body.removeChild(lb);
+  document.body.appendChild(lb);
+};
+</script>
+
+</body>
+</html>
