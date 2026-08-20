@@ -742,7 +742,7 @@ async function loadReviews() {
             <div class="review-name">${r.firstName || '—'} (${r.state || ''})</div>
             <div class="review-stars">${stars}</div>
           </div>
-          <div class="review-meta">${r.productType === 'Cammenga27' ? 'Cammenga Model 27' : 'Cammenga Model 3H'} &nbsp;·&nbsp; ${r.feedbackType || ''}</div>
+          <div class="review-meta">${(r.productType || '').toLowerCase().includes('27') ? 'Cammenga Model 27' : 'Cammenga Model 3H'} &nbsp;·&nbsp; ${r.feedbackType || ''}</div>
           <div class="review-text">${r.reviewText || ''}</div>
           ${replyHtml}
         </div>
