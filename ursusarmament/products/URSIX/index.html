@@ -372,6 +372,163 @@
   .feature-lock-btn { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.6rem 1.5rem; text-decoration: none; transition: background 0.2s; }
   .feature-lock-btn:hover { background: rgba(200,146,42,0.08); }
 
+  /* NIGHT VISION INFO BUTTON */
+  .nv-info-btn {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(200,146,42,0.14);
+    border: 1px solid var(--accent);
+    color: var(--accent2);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.1rem;
+    cursor: pointer;
+    overflow: hidden;
+    animation: nvPulse 2s ease-in-out infinite;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nv-info-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.45), transparent);
+    transform: translateX(-160%) skewX(-15deg);
+    animation: nvShimmer 2.6s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .nv-info-btn:hover {
+    background: var(--accent);
+    color: var(--black);
+    animation-play-state: paused;
+  }
+  .nv-info-arrow {
+    display: inline-block;
+    font-size: 0.95rem;
+    transition: transform 0.2s;
+  }
+  .nv-info-btn:hover .nv-info-arrow {
+    transform: translate(2px, -2px);
+  }
+  @keyframes nvPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(200,146,42,0.5); transform: scale(1); }
+    50%      { box-shadow: 0 0 0 10px rgba(200,146,42,0); transform: scale(1.045); }
+  }
+  @keyframes nvShimmer {
+    0%   { transform: translateX(-160%) skewX(-15deg); }
+    45%  { transform: translateX(260%) skewX(-15deg); }
+    100% { transform: translateX(260%) skewX(-15deg); }
+  }
+
+  /* NIGHT VISION MODAL */
+  .nv-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 99999;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+  }
+  .nv-modal-overlay.open { display: flex; }
+  .nv-modal-box {
+    background: var(--dark);
+    border: 1px solid var(--border2);
+    width: 92%;
+    max-width: 900px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .nv-modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1.4rem;
+    cursor: pointer;
+    z-index: 2;
+  }
+  .nv-modal-header {
+    padding: 1.75rem 2.25rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .nv-modal-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.9rem;
+    letter-spacing: 0.06em;
+    color: var(--text);
+  }
+  .nv-modal-body {
+    overflow-y: auto;
+    padding: 1.75rem 2.25rem 2.5rem;
+  }
+  .nv-tldr {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-left: 3px solid var(--accent);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 2rem;
+  }
+  .nv-tldr-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .nv-tldr ul { padding-left: 1.2rem; }
+  .nv-tldr li { color: var(--muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 0.75rem; }
+  .nv-tldr li strong { color: var(--text); }
+
+  .nv-jump-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 2.5rem;
+  }
+  .nv-jump-nav a {
+    color: #5b9bd5;
+    text-decoration: underline;
+    font-size: 0.95rem;
+    cursor: pointer;
+    width: fit-content;
+  }
+  .nv-jump-nav a:hover { color: #7fb4e6; }
+
+  .nv-section { margin-bottom: 2.5rem; scroll-margin-top: 1rem; }
+  .nv-section h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .nv-section p, .nv-section li { color: var(--muted); font-size: 0.92rem; line-height: 1.75; }
+  .nv-section ul, .nv-section ol { padding-left: 1.2rem; margin-top: 0.5rem; }
+  .nv-section li { margin-bottom: 0.9rem; }
+  .nv-section ol li { margin-bottom: 1rem; }
+  .nv-section li strong { color: var(--text); }
+
   /* REVIEWS */
   .reviews-section { background: var(--black); padding: 6rem 3rem; }
   .reviews-container { max-height: 600px; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; background: var(--border); }
@@ -408,6 +565,9 @@
     .review-card { flex-direction: column; gap: 1.25rem; padding: 1.5rem; }
     .review-images { flex-direction: row; width: 100%; }
     .review-img { width: calc(50% - 0.25rem); height: 120px; }
+    .nv-modal-box { width: 96%; max-height: 90vh; }
+    .nv-modal-header, .nv-modal-body { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .nv-info-btn { top: 1rem; right: 1rem; font-size: 0.68rem; padding: 0.45rem 0.85rem; }
   }
 
   @media (max-width: 900px) {
@@ -472,6 +632,9 @@
 <section class="product-hero">
   <div class="product-visual" style="flex-direction:column; justify-content:flex-start; padding:0; gap:0;">
     <div class="product-badge">GEN 2+/3</div>
+    <button class="nv-info-btn" onclick="openNVModal()">
+      Questions About Night Vision? <span class="nv-info-arrow">&#8599;</span>
+    </button>
     <div style="width:100%; flex:1; display:flex; align-items:center; justify-content:center; background:var(--surface); min-height:0; position:relative; overflow:hidden;">
       <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(200,146,42,0.015) 30px,rgba(200,146,42,0.015) 31px);pointer-events:none;"></div>
       <div style="position:absolute;font-family:'Bebas Neue',sans-serif;font-size:14rem;letter-spacing:-0.02em;color:rgba(255,255,255,0.025);user-select:none;pointer-events:none;">URSIX</div>
@@ -763,6 +926,93 @@
   </div>
 </div>
 
+<!-- NIGHT VISION INFO MODAL -->
+<div class="nv-modal-overlay" id="nvModal">
+  <div class="nv-modal-box">
+    <button class="nv-modal-close" onclick="closeNVModal()">&#10005;</button>
+    <div class="nv-modal-header">
+      <h2>NIGHT VISION TECHNOLOGY</h2>
+    </div>
+    <div class="nv-modal-body" id="nvModalBody">
+
+      <div class="nv-tldr">
+        <div class="nv-tldr-label">TL;DR</div>
+        <ul>
+          <li><strong>How Night Vision Works:</strong> Photons of invisible infrared and low-level ambient light pass through the objective lens and strike a photocathode, converting them into photoelectrons. These electrons are multiplied via a microchannel plate (MCP) and accelerated onto a phosphor screen, converting them back into visible photons to create the intensified green or white image you see.</li>
+          <li><strong>FOM, Resolution, and SNR:</strong> Figure of Merit (FOM) is a commonly used combined performance metric calculated by multiplying resolution by Signal-to-Noise Ratio (SNR). Resolution (measured in lp/mm) determines the ability to resolve fine image detail, while SNR measures the ratio of useful image signal to noise within the intensifier output. Higher resolution and SNR generally contribute to a cleaner, more detailed image.</li>
+          <li><strong>Autogating and Manual Gain:</strong> Autogating dynamically modulates photocathode voltage in response to changing light levels, helping control tube operation, reduce saturation and blooming, and maintain image quality when moving between dark environments and bright light. Manual gain allows the operator to actively adjust image brightness to optimize viewing comfort and image appearance for changing ambient conditions.</li>
+        </ul>
+      </div>
+
+      <div class="nv-jump-nav">
+        <a onclick="nvScrollTo('nv-history')">History and Generations of Night Vision</a>
+        <a onclick="nvScrollTo('nv-deepdive')">Deep Dive: How Image Intensification Works</a>
+        <a onclick="nvScrollTo('nv-specs')">Detailed Breakdown of Specification Sheet Values</a>
+        <a onclick="nvScrollTo('nv-phosphor')">Phosphor Screen Variations: Green, White, and Legacy Compounds</a>
+        <a onclick="nvScrollTo('nv-durability')">Environmental Durability and Housing Specifications</a>
+      </div>
+
+      <div class="nv-section" id="nv-history">
+        <h3>History and Generations of Night Vision</h3>
+        <p>Night vision technology evolved through distinct technological leaps, traditionally categorized into generations that describe major changes in tube architecture, photocathode technology, and overall performance.</p>
+        <ul>
+          <li><strong>Gen 0 (1940s&ndash;1950s):</strong> Gen 0 systems represented the earliest practical generation of electronic night vision. These systems used image-converter tubes with photocathodes sensitive to near-infrared light and generally relied on active infrared illumination to provide usable images. They did not use the microchannel plate found in later Gen 2 and Gen 3 systems, resulting in comparatively limited sensitivity and image quality. Gen 0 technology established the fundamental electronic image-conversion principles that later generations would refine.</li>
+          <li><strong>Gen 1 (1960s):</strong> Gen 1 systems represented the transition toward practical electronic night vision capable of operating with available ambient light such as starlight and moonlight, although active IR illumination remained common. These systems used glass-window vacuum tubes that offered basic light amplification but suffered from heavy peripheral distortion, image lag, and high sensitivity to blooming when exposed to bright light sources such as streetlights.</li>
+          <li><strong>Gen 2 (Late 1960s to 1970s):</strong> The introduction of the Microchannel Plate (MCP) was the defining technological advancement of Gen 2 night vision. Placed between the photocathode and phosphor screen, the MCP multiplies electrons through a cascading secondary-emission process, providing substantially greater electron amplification and image brightness. Gen 2 systems generally offered significantly improved resolution, reduced distortion, and better low-light performance compared with Gen 1 systems.</li>
+          <li><strong>Gen 2+ (Industry/Marketing Designation):</strong> Gen 2+ is not a formally standardized generation in the same way that the traditional Gen 1, Gen 2, and Gen 3 classifications are commonly used. Instead, Gen 2+ is an industry and marketing designation generally used to describe improved Gen 2-based image intensifier tubes that incorporate advancements beyond earlier Gen 2 designs without using the gallium arsenide (GaAs) photocathode characteristic of Gen 3. These improvements may include enhanced photocathode performance, improved signal-to-noise ratio, higher resolution, reduced halo, improved manufacturing consistency, and other refinements to the tube's electrical or optical performance. Gen 2+ tubes generally do not qualify as Gen 3 because they retain Gen 2 photocathode technology rather than using a GaAs photocathode. Performance specifications can overlap between high-performance Gen 2+ and lower-spec Gen 3 tubes, so the generation designation alone does not necessarily indicate the actual performance of a particular tube. Because there is no single universal specification defining Gen 2+, the specific tube's datasheet specifications &mdash; particularly resolution, SNR, gain, photocathode sensitivity, and other available metrics &mdash; are more meaningful than the Gen 2+ label alone.</li>
+          <li><strong>Gen 3 (1980s to Present):</strong> Developed primarily in the United States, Gen 3 introduced gallium arsenide (GaAs) photocathodes, providing substantially higher quantum efficiency, particularly in the near-infrared spectrum where night-sky illumination is prominent. Gen 3 tubes incorporated an ion-barrier film to protect the photocathode from ion damage and extend tube life, though modern unfilmed variants remove this barrier for higher light transmission and improved sensitivity and signal-to-noise performance.</li>
+          <li><strong>Unfilmed Gen 3:</strong> Within modern Generation 3 technology, tube construction branches into filmed and unfilmed variants. Traditional thin-filmed tubes retain a microscopic ion-barrier layer that protects the gallium arsenide photocathode from ion damage during operation, enhancing longevity at the expense of some light transmission. Unfilmed Gen 3 tubes remove this barrier entirely, reducing electron scattering and increasing electron transmission to improve sensitivity, signal-to-noise ratio, and edge-to-edge clarity in ultra-low-light environments.</li>
+        </ul>
+      </div>
+
+      <div class="nv-section" id="nv-deepdive">
+        <h3>Deep Dive: How Image Intensification Works</h3>
+        <p>At a microscopic level, an image intensification tube is a sophisticated vacuum chamber designed to convert invisible photons into visible light through a multi-step quantum and electronic process:</p>
+        <ol>
+          <li><strong>Photocathode Conversion:</strong> Photons from low-level ambient light enter the device through the objective lens and strike the photocathode &mdash; a thin, specialized semiconductor layer bonded to the input window. When a photon hits the photocathode, it excites an electron, causing it to be released into the vacuum of the tube as a photoelectron via the photoelectric effect.</li>
+          <li><strong>Electron Acceleration:</strong> Once released, these photoelectrons are accelerated across the vacuum gap toward the microchannel plate by a high electrical voltage (typically several thousand volts) applied between the photocathode and the input of the MCP.</li>
+          <li><strong>Multiplication via the Microchannel Plate (MCP):</strong> The accelerated electrons enter the MCP, which is a tiny glass disk containing millions of microscopic, parallel hollow channels tilted at a small angle. As an electron enters a channel, it strikes the walls, knocking loose secondary electrons. These secondary electrons bounce down the channel in a cascading avalanche effect, multiplying the single original electron into thousands of electrons while preserving the spatial information of the original image.</li>
+          <li><strong>Phosphor Screen Illumination:</strong> The amplified electron population exits the MCP and is accelerated across another high-voltage gap toward the phosphor screen. When the high-energy electrons strike the phosphor coating, the screen releases photons, creating a bright, detailed visual representation of the original scene.</li>
+          <li><strong>Output Window Construction:</strong> Depending on the specific tube design and optical layout, the resulting optical image exits through the output window, which may incorporate a fiber-optic element designed to transfer the image cleanly to the eyepiece assembly.</li>
+        </ol>
+      </div>
+
+      <div class="nv-section" id="nv-specs">
+        <h3>Detailed Breakdown of Specification Sheet Values</h3>
+        <p>When evaluating night vision performance, specification sheets provide standardized metrics that indicate how well a tube will perform in various environments:</p>
+        <ul>
+          <li><strong>Signal-to-Noise Ratio (SNR):</strong> SNR measures the ratio of useful image signal to noise within the intensifier output. A higher SNR generally produces a cleaner, more usable image, particularly under very low-light conditions, where noise and scintillation become more prominent.</li>
+          <li><strong>Resolution (lp/mm):</strong> Measured in line pairs per millimeter, resolution is determined using a specialized target chart viewed through the optical assembly. It indicates the tube's ability to resolve fine details. Actual system resolution depends on both the intensifier tube's native capability and the optical performance and alignment of the matched objective and eyepiece assemblies.</li>
+          <li><strong>Figure of Merit (FOM):</strong> Calculated as Resolution &times; SNR = FOM. While used in various regulatory and export contexts as a shorthand benchmark of tube capability, FOM is fundamentally a combined performance metric and does not capture every variable of image quality, such as contrast, halo, or EBI.</li>
+          <li><strong>Halo:</strong> The bright ring or distortion that appears around high-intensity light sources within the field of view. Measured in millimeters, a smaller halo generally indicates less image-area obscuration around bright light sources when transitioning through urban or mixed-light environments.</li>
+          <li><strong>Cathode Sensitivity:</strong> Measures how effectively the photocathode converts incident light into photoelectrons, quantified in microamperes per lumen (&micro;A/lm). Higher sensitivity means the tube can extract more usable signal from very dim starlight or overcast night skies.</li>
+        </ul>
+      </div>
+
+      <div class="nv-section" id="nv-phosphor">
+        <h3>Phosphor Screen Variations: Green, White, and Legacy Compounds</h3>
+        <p>The phosphor screen is the final stage of an image intensifier tube, coating the interior surface of the output window to convert accelerated electrons back into visible photons. Over the decades, tube manufacturers have experimented with various chemical formulations to optimize image contrast, decay time, and human visual response.</p>
+        <ul>
+          <li><strong>Legacy Phosphor Compounds (P1, P20, and Early Variants):</strong> Early generation systems utilized phosphors such as P1 and P20 (often described as mustard or yellow-green), which featured noticeable persistence and decay characteristics that influenced image lag in early night vision systems.</li>
+          <li><strong>P43 Green Phosphor:</strong> P43 became a widely used standard green phosphor for military and tactical night vision systems. It emits a narrow green wavelength spectrum (~545 nm) that aligns closely with the peak sensitivity of the human eye.</li>
+          <li><strong>White Phosphor (P45 and Proprietary Blends):</strong> Modern tactical systems frequently utilize white-phosphor screens, including P45 and other proprietary phosphor formulations. Rather than producing a predominantly green image, white phosphor produces a grayscale or near-grayscale image. Many operators prefer white phosphor because the grayscale output can provide subjectively improved contrast and edge-detail perception during extended use.</li>
+        </ul>
+      </div>
+
+      <div class="nv-section" id="nv-durability">
+        <h3>Environmental Durability and Housing Specifications</h3>
+        <p>Beyond the internal optical intensifier tube, practical night vision performance relies heavily on physical housing integrity and ruggedization to survive harsh field conditions:</p>
+        <ul>
+          <li><strong>Nitrogen Purging:</strong> Many tactical housings are purged with dry inert gas such as nitrogen or argon and sealed to reduce internal moisture and condensation caused by environmental temperature changes.</li>
+          <li><strong>Waterproofing Standards:</strong> Water resistance is model-specific; manufacturers test and specify exact IP ratings or maximum immersion depths rather than assuming universal compliance across all tactical systems.</li>
+          <li><strong>Material Construction and Drop Resistance:</strong> Housings may be constructed from reinforced polymers, aluminum alloys, or other lightweight structural materials designed to protect the internal optics and image intensifier from impact and environmental stresses in the field.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- ============================================================
      CART ENGINE
      Reads/writes localStorage key "ursus_cart"
@@ -859,6 +1109,24 @@ document.addEventListener("DOMContentLoaded", function () {
       _starRating = parseInt(star.dataset.value);
       stars.forEach(s => { s.textContent = parseInt(s.dataset.value) <= _starRating ? "★" : "☆"; });
     });
+  });
+});
+
+/* ── Night vision info modal ── */
+function openNVModal() {
+  document.getElementById('nvModal').classList.add('open');
+}
+function closeNVModal() {
+  document.getElementById('nvModal').classList.remove('open');
+}
+function nvScrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+document.addEventListener("DOMContentLoaded", function () {
+  const nvOverlay = document.getElementById('nvModal');
+  nvOverlay.addEventListener('click', function (e) {
+    if (e.target === nvOverlay) closeNVModal();
   });
 });
 </script>
