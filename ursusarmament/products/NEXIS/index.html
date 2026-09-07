@@ -166,6 +166,171 @@
   .feature-lock-btn { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.6rem 1.5rem; text-decoration: none; transition: background 0.2s; }
   .feature-lock-btn:hover { background: rgba(200,146,42,0.08); }
 
+  /* NIGHT VISION / THERMAL / MESH INFO BUTTON */
+  .nv-info-btn {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(200,146,42,0.14);
+    border: 1px solid var(--accent);
+    color: var(--accent2);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.1rem;
+    cursor: pointer;
+    overflow: hidden;
+    animation: nvPulse 2s ease-in-out infinite;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nv-info-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.45), transparent);
+    transform: translateX(-160%) skewX(-15deg);
+    animation: nvShimmer 2.6s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .nv-info-btn:hover {
+    background: var(--accent);
+    color: var(--black);
+    animation-play-state: paused;
+  }
+  .nv-info-arrow {
+    display: inline-block;
+    font-size: 0.95rem;
+    transition: transform 0.2s;
+  }
+  .nv-info-btn:hover .nv-info-arrow {
+    transform: translate(2px, -2px);
+  }
+  @keyframes nvPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(200,146,42,0.5); transform: scale(1); }
+    50%      { box-shadow: 0 0 0 10px rgba(200,146,42,0); transform: scale(1.045); }
+  }
+  @keyframes nvShimmer {
+    0%   { transform: translateX(-160%) skewX(-15deg); }
+    45%  { transform: translateX(260%) skewX(-15deg); }
+    100% { transform: translateX(260%) skewX(-15deg); }
+  }
+
+  /* NIGHT VISION / THERMAL / MESH INFO MODAL */
+  .nv-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 99999;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+  }
+  .nv-modal-overlay.open { display: flex; }
+  .nv-modal-box {
+    background: var(--dark);
+    border: 1px solid var(--border2);
+    width: 92%;
+    max-width: 900px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .nv-modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1.4rem;
+    cursor: pointer;
+    z-index: 2;
+  }
+  .nv-modal-header {
+    padding: 1.75rem 2.25rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .nv-modal-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.9rem;
+    letter-spacing: 0.06em;
+    color: var(--text);
+  }
+  .nv-modal-body {
+    overflow-y: auto;
+    padding: 1.75rem 2.25rem 2.5rem;
+  }
+  .nv-tldr {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-left: 3px solid var(--accent);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 2rem;
+  }
+  .nv-tldr-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .nv-tldr ul { padding-left: 1.2rem; }
+  .nv-tldr li { color: var(--muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 0.75rem; }
+  .nv-tldr li strong { color: var(--text); }
+
+  .nv-jump-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 2.5rem;
+  }
+  .nv-jump-nav a {
+    color: #5b9bd5;
+    text-decoration: underline;
+    font-size: 0.95rem;
+    cursor: pointer;
+    width: fit-content;
+  }
+  .nv-jump-nav a:hover { color: #7fb4e6; }
+
+  .nv-section { margin-bottom: 2.5rem; scroll-margin-top: 1rem; }
+  .nv-section h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .nv-section p, .nv-section li { color: var(--muted); font-size: 0.92rem; line-height: 1.75; }
+  .nv-section p { margin-bottom: 1rem; }
+  .nv-section ul, .nv-section ol { padding-left: 1.2rem; margin-top: 0.5rem; }
+  .nv-section li { margin-bottom: 0.9rem; }
+  .nv-section ol li { margin-bottom: 1rem; }
+  .nv-section li strong { color: var(--text); }
+  .nv-section li ul { margin-top: 0.6rem; }
+
+  @media (max-width: 600px) {
+    .nv-modal-box { width: 96%; max-height: 90vh; }
+    .nv-modal-header, .nv-modal-body { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .nv-info-btn { top: 1rem; right: 1rem; font-size: 0.68rem; padding: 0.45rem 0.85rem; }
+  }
+
   /* ECOSYSTEM */
   .ecosystem-section { background: var(--dark); padding: 6rem 3rem; }
   .ecosystem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); margin-bottom: 4rem; }
@@ -395,6 +560,9 @@
 <section class="product-hero">
   <div class="product-visual">
     <div class="product-badge">IN DEVELOPMENT</div>
+    <button class="nv-info-btn" onclick="openNVModal()">
+      Questions About Mesh Networks? <span class="nv-info-arrow">&#8599;</span>
+    </button>
     <div class="visual-main">
       <div class="visual-watermark">NEXIS</div>
       <svg viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:900px;position:relative;z-index:1;">
@@ -872,7 +1040,8 @@
       <ul>
         <li><a href="/ursusarmament/contact/">Contact</a></li>
         <li><a href="/ursusarmament/warranty/">Warranty</a></li>
-        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>  
+        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>
+        <li><a href="/ursusarmament/learnmore/">Learn More</a></li>
       </ul>
     </div>
   </div>
@@ -944,12 +1113,110 @@
   </div>
 </div>
 
+<!-- NIGHT VISION / THERMAL / MESH INFO MODAL -->
+<div class="nv-modal-overlay" id="nvModal">
+  <div class="nv-modal-box">
+    <button class="nv-modal-close" onclick="closeNVModal()">&#10005;</button>
+    <div class="nv-modal-header"><h2>DECENTRALIZED MESH NETWORKS &amp; ISM BANDS</h2></div>
+    <div class="nv-modal-body" id="nvModalBody">
+
+      <div class="nv-tldr">
+        <div class="nv-tldr-label">TL;DR</div>
+        <ul>
+          <li><strong>How Mesh Networking Works:</strong> Instead of every device routing through one central tower or router, each node can relay traffic for other nodes, hopping messages across the network until they reach their destination. This lets the network keep working &mdash; and keep extending its range &mdash; even without cell towers, satellites, or internet infrastructure, and even if individual nodes drop out.</li>
+          <li><strong>The Core Tradeoff &mdash; Range vs. Speed:</strong> Sub-GHz bands (433/868/915 MHz) travel farther and penetrate obstacles better at lower power, while 2.4 GHz moves more data but loses range faster. Within LoRa specifically, spreading factor controls the same tradeoff at the modulation level &mdash; higher SF means more range and sensitivity but slower transmission and more airtime.</li>
+          <li><strong>Meshtastic as a Real-World Example:</strong> Open-source firmware paired with LoRa radios (commonly on ESP32 or nRF52840 hardware) turns inexpensive nodes into a self-forming mesh. Phones connect over Bluetooth to send messages, share location, and monitor the network &mdash; no cell service or internet required at any point.</li>
+        </ul>
+      </div>
+
+      <div class="nv-jump-nav">
+        <a onclick="nvScrollTo('mesh-principles')">Principles of Mesh Networking</a>
+        <a onclick="nvScrollTo('mesh-ism')">ISM Bands and Radio Frequency Fundamentals</a>
+        <a onclick="nvScrollTo('mesh-lora')">Long-Range Modulation: LoRa and Chirp Spread Spectrum</a>
+        <a onclick="nvScrollTo('mesh-meshtastic')">Protocol Implementation: Meshtastic and Open Ecosystems</a>
+      </div>
+
+      <div class="nv-section" id="mesh-principles">
+        <h3>Principles of Mesh Networking</h3>
+        <p>Unlike traditional hub-and-spoke networks, where devices generally communicate through a central router, access point, or base station, a decentralized mesh network allows individual nodes to participate in forwarding traffic for other nodes. Depending on the protocol, the resulting network can be self-forming and capable of adapting to changes in node availability and topology.</p>
+        <ul>
+          <li><strong>Node Roles:</strong> Individual nodes may function as end-user devices, routers, repeaters, or combinations of these roles depending on the network architecture. A user device may originate and receive messages while also forwarding traffic for other nodes, while dedicated router nodes may be positioned specifically to extend network coverage.</li>
+          <li><strong>Multi-Hop Routing:</strong> A mesh network can forward a message through multiple intermediate nodes when the destination is outside the direct communication range of the originating device. This allows the effective communication distance to exceed the range of an individual radio link.</li>
+          <li><strong>Dynamic Routing and Topology Changes:</strong> Depending on the protocol, nodes can maintain information about neighboring devices and available routes. If a node becomes unavailable, moves out of range, or an established path becomes obstructed, the network may select an alternative route through other available nodes.</li>
+          <li><strong>Store-and-Forward and Flooding:</strong> Different mesh protocols use different methods for distributing messages. Flooding-based systems may propagate packets through multiple neighboring nodes, while routed systems attempt to direct traffic along selected multi-hop paths. Store-and-forward mechanisms can also allow messages or data to be retained temporarily for later delivery when a direct path is unavailable.</li>
+        </ul>
+        <p>The resulting architecture can provide useful resilience in environments where centralized communication infrastructure is unavailable, damaged, congested, or intentionally avoided. However, mesh networking does not eliminate the limitations of radio propagation; network coverage ultimately depends on node placement, antenna performance, terrain, interference, power availability, and the characteristics of the underlying radio technology.</p>
+      </div>
+
+      <div class="nv-section" id="mesh-ism">
+        <h3>ISM Bands and Radio Frequency Fundamentals</h3>
+        <p>Many off-grid mesh systems operate using radio frequencies that are available for unlicensed or license-exempt operation under applicable national regulations. The Industrial, Scientific and Medical (ISM) bands are internationally recognized frequency allocations intended primarily for industrial, scientific, medical, and related applications. Consumer and communications technologies also make extensive use of portions of these bands.</p>
+        <p>Operation without an individual radio license does <strong>not</strong> mean that the spectrum is unrestricted. Devices must comply with the applicable regulatory requirements for their operating frequency, transmit power, occupied bandwidth, duty cycle, antenna configuration, and emissions. In the United States, many low-power unlicensed devices operate under FCC Part 15, while other regions use their own regulatory frameworks, such as applicable ETSI standards in Europe.</p>
+        <p>Common frequencies used by off-grid communication systems include sub-GHz bands such as 433 MHz, 868 MHz, and 915 MHz, as well as the 2.4 GHz ISM band. The specific frequencies, power limits, channel arrangements, and operating requirements vary by country and device class.</p>
+        <ul>
+          <li><strong>Sub-GHz Propagation Characteristics:</strong> Frequencies below 1 GHz generally experience lower free-space path loss than higher frequencies at the same distance and can exhibit favorable diffraction and penetration characteristics around obstacles and through some vegetation and building materials. These characteristics can make sub-GHz frequencies particularly useful for long-range, low-power communications. Actual performance depends heavily on antenna characteristics, terrain, vegetation, building construction, interference, transmit power, receiver sensitivity, and link geometry.</li>
+          <li><strong>2.4 GHz Band Characteristics:</strong> The 2.4 GHz ISM band is widely used by technologies capable of substantially higher data rates than many long-range sub-GHz systems. Its shorter wavelength and availability of wider-bandwidth PHY technologies can support faster transmission of data, but propagation losses are generally higher than at sub-GHz frequencies over the same distance. As a result, 2.4 GHz systems typically require more favorable link conditions, higher antenna performance, or greater power to achieve equivalent range.</li>
+        </ul>
+        <p>The choice between sub-GHz and 2.4 GHz therefore represents a tradeoff between range, data rate, antenna characteristics, power consumption, network capacity, and environmental propagation.</p>
+      </div>
+
+      <div class="nv-section" id="mesh-lora">
+        <h3>Long-Range Modulation: LoRa and Chirp Spread Spectrum</h3>
+        <p>LoRa (Long Range) is a proprietary physical-layer modulation technology developed for low-power, long-range wireless communication. It is based on Chirp Spread Spectrum (CSS) modulation and is widely used in low-data-rate sensor networks, telemetry systems, and off-grid communication platforms.</p>
+        <ul>
+          <li><strong>Chirp Modulation Mechanics:</strong> LoRa encodes information using frequency-modulated chirps that sweep across a defined bandwidth. These chirps can be processed by a compatible receiver to recover data even when the received signal is extremely weak.</li>
+          <li><strong>Link Budget and Receiver Sensitivity:</strong> One of LoRa's primary advantages is its combination of low transmit power and high receiver sensitivity. Its spread-spectrum modulation and processing gain allow compatible receivers to recover signals at very low received power levels. This can produce exceptionally large link budgets and enable long-distance communication when favorable antennas, terrain, and propagation conditions are present. Actual range can vary from hundreds of meters in difficult environments to many kilometers under favorable line-of-sight conditions.</li>
+          <li><strong>Key Configuration Parameters:</strong> LoRa performance is primarily influenced by bandwidth (BW), spreading factor (SF), and coding rate (CR):
+            <ul>
+              <li><strong>Bandwidth (BW):</strong> Defines the spectral width occupied by the LoRa signal. Common configurations include 125 kHz, 250 kHz, and 500 kHz, although available settings depend on the particular transceiver and regional configuration. Wider bandwidth generally increases data rate and reduces airtime, while narrower bandwidth generally improves receiver sensitivity at the expense of data rate.</li>
+              <li><strong>Spreading Factor (SF):</strong> Controls the spreading ratio used by the modulation and affects symbol duration, processing gain, data rate, and receiver sensitivity. Higher spreading factors increase processing gain and sensitivity and allow operation over weaker links, but substantially increase time-on-air and reduce effective data throughput. Lower spreading factors provide higher data rates and shorter airtime but require stronger received signals.</li>
+              <li><strong>Coding Rate (CR):</strong> Controls the amount of forward error-correction redundancy incorporated into the transmitted data. Increasing coding redundancy can improve resistance to certain types of interference and corrupted data, but increases the amount of airtime required to transmit the same payload.</li>
+            </ul>
+          </li>
+        </ul>
+        <p>These parameters create a fundamental tradeoff between range, sensitivity, throughput, and airtime. A configuration optimized for maximum range is generally not the same configuration optimized for high-speed data transmission.</p>
+      </div>
+
+      <div class="nv-section" id="mesh-meshtastic">
+        <h3>Protocol Implementation: Meshtastic and Open Ecosystems</h3>
+        <p>Projects such as Meshtastic combine LoRa-compatible radio hardware with open-source firmware and mesh-networking software to create practical infrastructure-independent communication nodes. These systems commonly use energy-efficient microcontrollers such as the nRF52840 or ESP32, paired with compatible LoRa transceivers. Some hardware configurations also incorporate GPS/GNSS receivers for position reporting and location-based features.</p>
+        <ul>
+          <li><strong>App Integration and Local Control:</strong> Nodes can interface with smartphones, computers, or dedicated terminals using technologies such as Bluetooth Low Energy (BLE), USB, or Wi-Fi, depending on the hardware and configuration. This allows users to send text messages, exchange position information, monitor network status, and visualize participating nodes without requiring cellular service or internet access.</li>
+          <li><strong>Decentralized Communication:</strong> Messages can be forwarded between nodes across multiple radio hops, allowing users who cannot directly reach one another to communicate through intermediate nodes. The effective coverage area therefore depends not only on the radio's individual range but also on the number, placement, and availability of intermediate nodes.</li>
+          <li><strong>Power Efficiency:</strong> Many mesh nodes are designed around low-power microcontrollers and radios suitable for battery-powered operation. Power consumption varies substantially according to hardware, radio settings, node role, display usage, GPS operation, Bluetooth/Wi-Fi activity, and transmit frequency. Systems intended for long-term field deployment may therefore combine low-power operating modes with larger batteries, external power sources, or solar charging.</li>
+          <li><strong>Network Independence:</strong> Because the basic mesh can operate directly between participating radio nodes, communication can continue without cellular service, Wi-Fi infrastructure, or an internet connection. External connectivity can still be added when available, allowing a mesh network to bridge into conventional networks without making those networks a prerequisite for local communication.</li>
+        </ul>
+        <p>The combination of decentralized routing, low-power radio hardware, long-range modulation, and unlicensed spectrum makes mesh networking particularly useful for remote operations, emergency communications, outdoor activities, disaster response, and other environments where conventional communications infrastructure may be unavailable or unreliable.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- GATE + NOTIFY SCRIPT -->
 <script src="/ursusarmament/access-check.js"></script>
 <script>
 
 function openReviewModal()  { document.getElementById("reviewModal").style.display = "flex"; }
 function closeReviewModal() { document.getElementById("reviewModal").style.display = "none"; }
+
+/* ── Mesh info modal ── */
+function openNVModal() {
+  document.getElementById('nvModal').classList.add('open');
+}
+function closeNVModal() {
+  document.getElementById('nvModal').classList.remove('open');
+}
+function nvScrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+document.addEventListener("DOMContentLoaded", function () {
+  const nvOverlay = document.getElementById('nvModal');
+  nvOverlay.addEventListener('click', function (e) {
+    if (e.target === nvOverlay) closeNVModal();
+  });
+});
 
 function submitNotify() {
   const input = document.getElementById('notifyInput');
