@@ -270,7 +270,7 @@
   <div class="nav-ribbon">
     <a href="/ursusarmament/products">Products</a>
     <a href="/ursusarmament#mission">Our Mission</a>
-    <a href="/ursusarmament/learnmore/">Learn More</a>
+    <a href="/ursusarmament/learnmore/" class="active">Learn More</a>
   </div>
 </nav>
 
@@ -289,12 +289,71 @@
       <div class="concept-num">01</div>
       <div class="concept-title">Research</div>
       <p class="concept-desc">We embed with operators and end-users to understand what breaks in the field — then we design to fix it.</p>
+      <button class="concept-toggle" id="researchToggleBtn" onclick="toggleConceptExpand('researchExpand')">
+        Approach <span class="concept-toggle-arrow">▼</span>
+      </button>
+      <div class="concept-expand" id="researchExpand">
+        <div class="concept-expand-inner">
+          <div class="concept-expand-label">Approach</div>
+          <div class="concept-expand-title">Pooled User Evaluation</div>
+          <p>Rather than relying on a single test group, we pool feedback across the full range of people who actually depend on this equipment — from prepared civilians to active duty and special operations community servicemembers. Each group evaluates competitor equipment alongside our own, in the environments they actually operate in, so feedback reflects real-world use rather than a controlled lab setting.</p>
+          <div class="concept-expand-label">Evaluation Groups</div>
+          <div class="concept-method">
+            <div class="concept-method-name">Prepared Civilians</div>
+            <div class="concept-method-desc">Everyday users relying on this equipment for personal preparedness, hunting, and recreational use — surfacing usability and durability issues under typical, sustained use.</div>
+          </div>
+          <div class="concept-method">
+            <div class="concept-method-name">Active Duty Service Members</div>
+            <div class="concept-method-desc">Personnel currently serving, evaluating equipment against the standards and demands of active military operations and training.</div>
+          </div>
+          <div class="concept-method" style="margin-bottom: 0;">
+            <div class="concept-method-name">Special Operations &amp; Combat-Experienced Personnel</div>
+            <div class="concept-method-desc">Special operations community servicemembers with direct combat experience, evaluating equipment under the highest-stress operational conditions.</div>
+          </div>
+          <div class="concept-expand-label" style="margin-top: 1.25rem;">What We're Looking For</div>
+          <div class="concept-method">
+            <div class="concept-method-name">Competitive Gaps</div>
+            <div class="concept-method-desc">Where competitor equipment outperforms ours, and why — so we know exactly what we're building against.</div>
+          </div>
+          <div class="concept-method" style="margin-bottom: 0;">
+            <div class="concept-method-name">Product Improvements</div>
+            <div class="concept-method-desc">Where our own equipment falls short of what operators need in the field, feeding directly back into the Engineer stage.</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="concept-card">
       <div class="concept-num">02</div>
       <div class="concept-title">Engineer</div>
       <p class="concept-desc">Our engineers iterate through CAD, prototyping, and materials science to build the optimal solution.</p>
+      <button class="concept-toggle" id="engineerToggleBtn" onclick="toggleConceptExpand('engineerExpand')">
+        Approach <span class="concept-toggle-arrow">▼</span>
+      </button>
+      <div class="concept-expand" id="engineerExpand">
+        <div class="concept-expand-inner">
+          <div class="concept-expand-label">Approach</div>
+          <div class="concept-expand-title">CAD to Field-Ready</div>
+          <p>Every design starts in CAD, then moves through rapid-iteration prototyping — 3D printing for early form and fit testing, CNC machining for functional, load-bearing prototypes — before advancing to the materials and manufacturing methods used in the finished product.</p>
+          <div class="concept-expand-label">Disciplines</div>
+          <div class="concept-method">
+            <div class="concept-method-name">Mechanical Design (CAD)</div>
+            <div class="concept-method-desc">3D modeling, tolerancing, and structural analysis before a single part is cut.</div>
+          </div>
+          <div class="concept-method">
+            <div class="concept-method-name">Rapid Prototyping</div>
+            <div class="concept-method-desc">3D printing for fast form and fit iteration, CNC machining for functional prototypes that need to hold up under real load.</div>
+          </div>
+          <div class="concept-method">
+            <div class="concept-method-name">In-House Electronics (KiCad)</div>
+            <div class="concept-method-desc">PCBs designed and iterated in-house using KiCad, from schematic through layout to testable hardware.</div>
+          </div>
+          <div class="concept-method" style="margin-bottom: 0;">
+            <div class="concept-method-name">Material Selection</div>
+            <div class="concept-method-desc">Materials chosen for the specific environment and stress a product will actually face in the field — not the cheapest option that clears a spec sheet.</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="concept-card">
@@ -341,7 +400,34 @@
     <div class="concept-card">
       <div class="concept-num">04</div>
       <div class="concept-title">Deliver</div>
-      <p class="concept-desc">Fast, discreet shipping. Limited Lifetime warranty. Ongoing product support — we stand behind every unit.</p>
+      <p class="concept-desc">Fast, discreet shipping and warranty coverage on every product we ship — plus lifetime record verification on serialized items and repair support when you need it.</p>
+      <button class="concept-toggle" id="deliverToggleBtn" onclick="toggleConceptExpand('deliverExpand')">
+        Approach <span class="concept-toggle-arrow">▼</span>
+      </button>
+      <div class="concept-expand" id="deliverExpand">
+        <div class="concept-expand-inner">
+          <div class="concept-expand-label">Approach</div>
+          <div class="concept-expand-title">Support That Follows the Product</div>
+          <p>Coverage doesn't end at checkout. Every product ships with the warranty terms specific to that product, and every serialized unit stays verifiable and supportable for as long as you own it — whether that's next month or ten years from now.</p>
+          <div class="concept-expand-label">What's Included</div>
+          <div class="concept-method">
+            <div class="concept-method-name">Shipping Timelines</div>
+            <div class="concept-method-desc">Orders ship within 3&ndash;5 business days unless otherwise stated at checkout &mdash; preorders, backorders, and made-to-order items will show their own timeline.</div>
+          </div>
+          <div class="concept-method">
+            <div class="concept-method-name">Permanent Records &amp; Verification</div>
+            <div class="concept-method-desc">Full Access accounts can look up and verify any serialized product by serial number, at any time. Useful for replacing lost paperwork, including proof of specs with a product you're reselling, or verifying authenticity as a secondhand buyer.</div>
+          </div>
+          <div class="concept-method">
+            <div class="concept-method-name">Warranty Support</div>
+            <div class="concept-method-desc">We fully back the warranty terms specific to each product for its stated coverage period &mdash; no runaround, no fine-print surprises.</div>
+          </div>
+          <div class="concept-method" style="margin-bottom: 0;">
+            <div class="concept-method-name">Post-Warranty Repair</div>
+            <div class="concept-method-desc">Once a product's warranty has expired, we offer repair services where possible, so a lapsed warranty doesn't mean the end of support.</div>
+          </div>
+        </div>
+      </div>
     </div>
 
   </div>
