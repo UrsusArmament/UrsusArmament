@@ -188,6 +188,170 @@
   .feature-lock-btn { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.6rem 1.5rem; text-decoration: none; transition: background 0.2s; }
   .feature-lock-btn:hover { background: rgba(200,146,42,0.08); }
 
+  /* NIGHT VISION / THERMAL INFO BUTTON */
+  .nv-info-btn {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(200,146,42,0.14);
+    border: 1px solid var(--accent);
+    color: var(--accent2);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.55rem 1.1rem;
+    cursor: pointer;
+    overflow: hidden;
+    animation: nvPulse 2s ease-in-out infinite;
+    transition: background 0.2s, color 0.2s;
+  }
+  .nv-info-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.45), transparent);
+    transform: translateX(-160%) skewX(-15deg);
+    animation: nvShimmer 2.6s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .nv-info-btn:hover {
+    background: var(--accent);
+    color: var(--black);
+    animation-play-state: paused;
+  }
+  .nv-info-arrow {
+    display: inline-block;
+    font-size: 0.95rem;
+    transition: transform 0.2s;
+  }
+  .nv-info-btn:hover .nv-info-arrow {
+    transform: translate(2px, -2px);
+  }
+  @keyframes nvPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(200,146,42,0.5); transform: scale(1); }
+    50%      { box-shadow: 0 0 0 10px rgba(200,146,42,0); transform: scale(1.045); }
+  }
+  @keyframes nvShimmer {
+    0%   { transform: translateX(-160%) skewX(-15deg); }
+    45%  { transform: translateX(260%) skewX(-15deg); }
+    100% { transform: translateX(260%) skewX(-15deg); }
+  }
+
+  /* NIGHT VISION / THERMAL INFO MODAL */
+  .nv-modal-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 99999;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem 0;
+  }
+  .nv-modal-overlay.open { display: flex; }
+  .nv-modal-box {
+    background: var(--dark);
+    border: 1px solid var(--border2);
+    width: 92%;
+    max-width: 900px;
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+  .nv-modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1.4rem;
+    cursor: pointer;
+    z-index: 2;
+  }
+  .nv-modal-header {
+    padding: 1.75rem 2.25rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .nv-modal-header h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.9rem;
+    letter-spacing: 0.06em;
+    color: var(--text);
+  }
+  .nv-modal-body {
+    overflow-y: auto;
+    padding: 1.75rem 2.25rem 2.5rem;
+  }
+  .nv-tldr {
+    background: var(--surface);
+    border: 1px solid var(--border2);
+    border-left: 3px solid var(--accent);
+    padding: 1.5rem 1.75rem;
+    margin-bottom: 2rem;
+  }
+  .nv-tldr-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  .nv-tldr ul { padding-left: 1.2rem; }
+  .nv-tldr li { color: var(--muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 0.75rem; }
+  .nv-tldr li strong { color: var(--text); }
+
+  .nv-jump-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 2.5rem;
+  }
+  .nv-jump-nav a {
+    color: #5b9bd5;
+    text-decoration: underline;
+    font-size: 0.95rem;
+    cursor: pointer;
+    width: fit-content;
+  }
+  .nv-jump-nav a:hover { color: #7fb4e6; }
+
+  .nv-section { margin-bottom: 2.5rem; scroll-margin-top: 1rem; }
+  .nv-section h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .nv-section p, .nv-section li { color: var(--muted); font-size: 0.92rem; line-height: 1.75; }
+  .nv-section p { margin-bottom: 1rem; }
+  .nv-section ul, .nv-section ol { padding-left: 1.2rem; margin-top: 0.5rem; }
+  .nv-section li { margin-bottom: 0.9rem; }
+  .nv-section ol li { margin-bottom: 1rem; }
+  .nv-section li strong { color: var(--text); }
+
+  @media (max-width: 600px) {
+    .nv-modal-box { width: 96%; max-height: 90vh; }
+    .nv-modal-header, .nv-modal-body { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .nv-info-btn { top: 1rem; right: 1rem; font-size: 0.68rem; padding: 0.45rem 0.85rem; }
+  }
+
   /* FEATURES */
   .features-section { background: var(--dark); padding: 6rem 3rem; }
   .features-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
@@ -362,6 +526,9 @@
 <section class="product-hero">
   <div class="product-visual">
     <div class="product-badge">IN DEVELOPMENT</div>
+    <button class="nv-info-btn" onclick="openNVModal()">
+      Questions About Thermal Imaging? <span class="nv-info-arrow">&#8599;</span>
+    </button>
     <div class="visual-main">
       <div class="visual-watermark">CALIDUS</div>
       <svg id="calidus-main" viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg" style="width:85%;max-width:520px;position:relative;z-index:1;">
@@ -627,7 +794,8 @@
       <ul>
         <li><a href="/ursusarmament/contact/">Contact</a></li>
         <li><a href="/ursusarmament/warranty/">Warranty</a></li>
-        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>    
+        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>
+        <li><a href="/ursusarmament/learnmore/">Learn More</a></li>
       </ul>
     </div>
   </div>
@@ -699,12 +867,120 @@
   </div>
 </div>
 
+<!-- NIGHT VISION / THERMAL INFO MODAL -->
+<div class="nv-modal-overlay" id="nvModal">
+  <div class="nv-modal-box">
+    <button class="nv-modal-close" onclick="closeNVModal()">&#10005;</button>
+    <div class="nv-modal-header"><h2>THERMAL IMAGING</h2></div>
+    <div class="nv-modal-body" id="nvModalBody">
+
+      <div class="nv-tldr">
+        <div class="nv-tldr-label">TL;DR</div>
+        <ul>
+          <li><strong>How Thermal Imaging Works:</strong> Thermal sensors detect infrared radiation that objects emit based on their own temperature, rather than relying on reflected visible or near-infrared light. This means thermal can produce a usable image with zero ambient light, though heavy fog, rain, smoke, and dense vegetation can still degrade performance.</li>
+          <li><strong>Resolution, Refresh Rate, and NETD:</strong> Sensor resolution (from 160&times;120 up to 1024&times;768+) determines image detail and identification range. Refresh rate (9Hz vs. 30&ndash;60Hz) determines how smooth motion looks during tracking or movement. NETD (measured in mK) determines how small a temperature difference the sensor can actually distinguish &mdash; lower NETD means more usable contrast between a target and its background.</li>
+          <li><strong>Form Factor Drives the Rest:</strong> Handheld, weapon-mounted, and helmet-mounted thermal systems are built around different priorities &mdash; a helmet system favors a wide field of view near unity magnification for natural movement, while a weapon-mounted system is built to survive recoil and hold zero, and a handheld unit trades some of both for portability.</li>
+        </ul>
+      </div>
+
+      <div class="nv-jump-nav">
+        <a onclick="nvScrollTo('th-history')">History and Evolution of Thermal Imaging</a>
+        <a onclick="nvScrollTo('th-formfactors')">Thermal Form Factors</a>
+        <a onclick="nvScrollTo('th-resolution')">Sensor Resolution and Pixel Pitch</a>
+        <a onclick="nvScrollTo('th-lens')">Lens Focal Length, Field of View, and Magnification</a>
+        <a onclick="nvScrollTo('th-refresh')">Refresh Rates and Motion Handling</a>
+        <a onclick="nvScrollTo('th-netd')">Thermal Sensitivity (NETD)</a>
+      </div>
+
+      <div class="nv-section" id="th-history">
+        <h3>History and Evolution of Thermal Imaging</h3>
+        <p>Thermal imaging technology originated primarily in military and industrial applications before expanding into commercial, automotive, and consumer markets. Its development progressed from active infrared systems and mechanically scanned detectors to cooled focal-plane arrays and, eventually, compact uncooled microbolometers.</p>
+        <ul>
+          <li><strong>Early Military Origins (1930s&ndash;1950s):</strong> Early military night-vision systems developed during World War II and the early Cold War included active near-infrared devices such as the American M3 Sniperscope. These systems used an infrared illuminator to project invisible IR light onto a scene and an image-converter tube to detect the reflected illumination. Although important to the history of night vision, these systems were not thermal imagers because they detected reflected near-infrared light rather than thermal radiation emitted by objects. Passive thermal imaging began emerging as detector and infrared-optics technology advanced during the 1950s and 1960s.</li>
+          <li><strong>Early Thermal Scanners (1950s&ndash;1970s):</strong> Early thermal imaging systems commonly used small numbers of infrared detector elements, including materials such as mercury cadmium telluride (HgCdTe), to detect long-wave infrared radiation. Many high-performance detectors required cryogenic cooling to reduce thermal noise and achieve useful sensitivity. Mechanical scanning systems used mirrors, prisms, or other moving optical components to sweep the scene across the detector. These systems were generally bulky, power-hungry, and expensive, restricting their use primarily to military vehicles, aircraft, ships, and fixed surveillance installations.</li>
+          <li><strong>Staring Arrays and Second-Generation Systems (1980s&ndash;1990s):</strong> The transition from mechanically scanned systems to solid-state staring focal-plane arrays (FPAs) represented a major advancement in thermal imaging. Instead of mechanically sweeping a single detector across the scene, an FPA uses an array of detector elements that simultaneously observe different portions of the image. Cooled semiconductor FPAs continued to provide exceptional sensitivity for demanding military applications, while uncooled detector technologies &mdash; including pyroelectric devices and emerging microbolometers &mdash; began enabling smaller and less complex systems.</li>
+          <li><strong>The Microbolometer Revolution (Late 1990s&ndash;2000s):</strong> The commercial maturation of uncooled microbolometer technology transformed thermal imaging. Microbolometers detect infrared radiation by measuring temperature-dependent changes in the electrical properties of microscopic detector elements. Because they operate without cryogenic cooling, they can be manufactured into compact, relatively low-power sensor modules. This development enabled widespread adoption of thermal imaging in handheld cameras, weapon sights, surveillance systems, industrial diagnostic equipment, and other portable applications.</li>
+          <li><strong>Miniaturization and Commercial Expansion (2010s&ndash;Present):</strong> Continued advances in semiconductor manufacturing, detector fabrication, signal processing, and optical design have steadily reduced pixel pitch while increasing sensor resolution and reducing overall system size and power consumption. Common modern thermal sensor formats range from compact 160&times;120 and 256&times;192 arrays through 320&times;240, 384&times;288, 640&times;512, and higher-resolution formats such as 1024&times;768. Modern thermal cores can be compact and rugged enough for integration into handheld devices, weapon sights, helmet-mounted systems, vehicles, industrial equipment, and consumer electronics.</li>
+        </ul>
+      </div>
+
+      <div class="nv-section" id="th-formfactors">
+        <h3>Thermal Form Factors</h3>
+        <p>Thermal systems are commonly configured into several primary form factors:</p>
+        <ul>
+          <li><strong>Handheld Monoculars:</strong> Designed for scouting, tracking, observation, and surveillance, prioritizing portability while balancing field of view, detection range, battery life, and image quality.</li>
+          <li><strong>Firearm-Mounted Systems:</strong> Designed to withstand recoil and maintain optical alignment. These include dedicated thermal weapon sights as well as clip-on thermal devices positioned in front of a conventional day optic.</li>
+          <li><strong>Helmet-Mounted Systems:</strong> Designed for hands-free navigation, observation, and situational awareness. Depending on their optical configuration, these systems may use dedicated wide-field thermal optics or modular thermal devices adapted for helmet mounting.</li>
+          <li><strong>Hybrid / Interchangeable-Mount Systems:</strong> Designed so that the same thermal optic or imaging module can be readily transferred between helmet-mounted and firearm-mounted configurations using compatible mounting interfaces. This approach allows a single thermal imaging system to serve multiple roles without requiring a separate thermal device for each application. The practicality of a hybrid system depends on the optic's optical configuration, mounting interface, weight, recoil resistance, controls, and whether the system provides an appropriate field of view and magnification for each intended use.</li>
+        </ul>
+      </div>
+
+      <div class="nv-section" id="th-resolution">
+        <h3>Sensor Resolution and Pixel Pitch</h3>
+        <p>The core of a thermal imaging device is its focal-plane array (FPA), which contains the individual detector elements used to capture infrared radiation. The number of pixels determines the native image dimensions, while pixel pitch describes the physical spacing between adjacent detector elements. Common commercial and tactical sensor resolutions include:</p>
+        <ul>
+          <li><strong>160&times;120 and 256&times;192:</strong> Common in compact, entry-level, and cost-sensitive thermal devices. These lower-resolution arrays can provide useful detection and observation capabilities but generally provide less fine detail and shorter identification ranges than higher-resolution sensors when other factors are equal.</li>
+          <li><strong>320&times;240 / 384&times;288:</strong> Widely used mid-range formats that provide a balance between image detail, processing requirements, power consumption, and system cost.</li>
+          <li><strong>640&times;512:</strong> A widely used high-resolution format in professional and tactical thermal systems, providing substantially more image detail than lower-resolution arrays and allowing greater flexibility in optical design and digital magnification.</li>
+          <li><strong>1024&times;768 and Higher:</strong> High-resolution thermal formats used in higher-end systems where increased spatial detail, wider fields of view, or longer-range identification capability justify the additional cost and system requirements. These higher-resolution sensors generally come at the expense of increased per-unit cost, greater processing requirements, and potentially increased system weight and power consumption. The additional pixel count can also require more powerful image processing and higher-bandwidth electronics to maintain comparable refresh rates and image quality.</li>
+        </ul>
+        <p>Sensor performance is also influenced by pixel pitch, which is the distance between the centers of adjacent detector elements. Common modern microbolometer pixel pitches include 12 &micro;m and 17 &micro;m, with smaller pitches also available. A smaller pixel pitch allows more detector elements to fit within a given physical sensor area or allows a smaller sensor for a given pixel count. Pixel pitch also interacts with lens focal length, detector format, and optical design to determine field of view, angular resolution, and system size.</p>
+      </div>
+
+      <div class="nv-section" id="th-lens">
+        <h3>Lens Focal Length, Field of View (FOV), and Magnification</h3>
+        <p>The objective lens determines how much of the scene is projected onto the thermal sensor. Its focal length, combined with the physical dimensions of the sensor, determines the system's field of view and base optical magnification.</p>
+        <ul>
+          <li><strong>Wide-Angle Lenses (Shorter Focal Lengths):</strong> Lenses in the approximately 9mm to 19mm range are commonly used where a wide field of view is desirable, such as helmet-mounted observation, close-range scanning, navigation, and situational awareness. The exact field of view depends on both the lens focal length and the physical dimensions of the sensor.</li>
+          <li><strong>Narrow-Angle Lenses (Longer Focal Lengths):</strong> Lenses in the approximately 35mm to 75mm or greater range provide a narrower field of view and greater optical magnification. These configurations are generally better suited to longer-range observation and target identification, although the resulting narrow field of view can make close-range scanning more difficult.</li>
+        </ul>
+        <p>For helmet-mounted thermal usage, optical magnification and field of view are particularly important because the thermal image is presented on a display rather than directly through an image-intensifier output. A wide field of view and an appropriate display-to-optical configuration help provide a natural visual relationship between the displayed thermal scene and the user's surroundings. Systems intended to provide approximately 1&times; or unity magnification are generally easier to integrate with natural head movement and navigation, while magnified systems can make walking, driving, and close-range spatial awareness more difficult.</p>
+        <p>True unity magnification is determined by the complete optical system rather than by the sensor alone. The sensor format, pixel pitch, objective focal length, display size, display optics, and eyepiece design all contribute to the final angular magnification and field of view perceived by the operator.</p>
+      </div>
+
+      <div class="nv-section" id="th-refresh">
+        <h3>Refresh Rates and Motion Handling</h3>
+        <p>Thermal refresh rate describes how frequently the system updates the displayed image and is measured in Hertz (Hz). A higher refresh rate generally provides smoother perceived motion, although actual motion performance is also influenced by sensor integration time, image processing, display latency, and other system characteristics.</p>
+        <ul>
+          <li><strong>9 Hz:</strong> Low-refresh-rate thermal systems update the image relatively slowly, which can make rapid movement appear noticeably less fluid. Low-refresh-rate configurations have historically been common in some commercial thermal products because of regulatory, export, cost, or product-design considerations, although the availability of specific refresh rates varies by manufacturer and market.</li>
+          <li><strong>30 Hz to 60 Hz:</strong> These refresh rates are common in modern tactical and high-performance thermal systems. Higher refresh rates provide smoother motion during head movement, vehicle operation, and tracking of moving subjects, while also reducing the apparent stutter associated with lower-refresh-rate systems.</li>
+        </ul>
+      </div>
+
+      <div class="nv-section" id="th-netd">
+        <h3>Thermal Sensitivity (NETD)</h3>
+        <p>Noise Equivalent Temperature Difference (NETD) is a measure of a thermal sensor's ability to distinguish small differences in apparent temperature from the sensor's own noise. It is typically expressed in millikelvin (mK). Lower NETD values generally indicate that the sensor can detect smaller temperature differences under the specified test conditions.</p>
+        <p>Modern thermal sensors may be specified with NETD values such as sub-40 mK or sub-25 mK. Lower NETD can be particularly advantageous when a target and its background have only a small thermal contrast. However, NETD is not a complete measure of thermal-image quality or real-world performance. Lens transmission, sensor resolution, pixel pitch, atmospheric conditions, image processing, calibration, optical quality, and the thermal contrast of the scene all affect how well a system performs in practical conditions.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
 <!-- GATE + NOTIFY SCRIPT -->
 <script src="/ursusarmament/access-check.js"></script>
 <script>
 
 function openReviewModal()  { document.getElementById("reviewModal").style.display = "flex"; }
 function closeReviewModal() { document.getElementById("reviewModal").style.display = "none"; }
+
+/* ── Thermal info modal ── */
+function openNVModal() {
+  document.getElementById('nvModal').classList.add('open');
+}
+function closeNVModal() {
+  document.getElementById('nvModal').classList.remove('open');
+}
+function nvScrollTo(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+document.addEventListener("DOMContentLoaded", function () {
+  const nvOverlay = document.getElementById('nvModal');
+  nvOverlay.addEventListener('click', function (e) {
+    if (e.target === nvOverlay) closeNVModal();
+  });
+});
 
 function submitNotify() {
   const input = document.getElementById('notifyInput');
