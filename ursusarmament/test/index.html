@@ -1,1 +1,807 @@
-test.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learn More — Ursus Armament</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --surface2: #222220;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+    --accent2: #e8a830;
+    --green: #2a9c5c;
+    --red: #c0392b;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,8,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 3rem; border-bottom: 1px solid var(--border);
+  }
+  .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
+    letter-spacing: 0.12em; color: var(--text); text-decoration: none; line-height: 1;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-slogan {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem;
+    font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
+  }
+  .nav-ribbon {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3rem; height: 38px; background: var(--surface);
+  }
+  .nav-ribbon a {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem;
+    font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; padding: 0 1.6rem; height: 100%;
+    display: flex; align-items: center; border-right: 1px solid var(--border);
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
+  .nav-ribbon a:hover, .nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
+
+  .nav-right { display: flex; align-items: center; gap: 0.75rem; }
+  .nav-cart-btn {
+    position: relative; background: transparent; border: 1px solid var(--border2);
+    color: var(--text); width: 38px; height: 38px; display: flex; align-items: center;
+    justify-content: center; cursor: pointer; text-decoration: none;
+    transition: border-color 0.2s, background 0.2s; flex-shrink: 0;
+  }
+  .nav-cart-btn:hover { border-color: var(--accent); background: rgba(200,146,42,0.06); }
+  .nav-cart-btn svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
+  .nav-cart-btn:hover svg { stroke: var(--accent); }
+  .cart-count {
+    position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700;
+    min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center;
+    justify-content: center; padding: 0 3px; line-height: 1;
+  }
+  .cart-count.visible { display: flex; }
+  .nav-auth { display: flex; align-items: center; }
+  .nav-auth a, .nav-auth button {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none;
+    color: var(--accent); background: transparent; border: 1px solid var(--accent);
+    padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s ease;
+  }
+  .nav-auth a:hover, .nav-auth button:hover { background: rgba(200,146,42,0.08); }
+
+  .breadcrumb {
+    padding: 0.75rem 3rem; background: var(--dark); border-bottom: 1px solid var(--border);
+    margin-top: 86px; display: flex; align-items: center; gap: 0.5rem;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+  }
+  .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .breadcrumb a:hover { color: var(--accent); }
+  .breadcrumb span { color: var(--accent); }
+
+  /* PAGE HEADER */
+  .page-header { background: var(--dark); padding: 5rem 3rem 4rem; border-bottom: 1px solid var(--border); }
+  .page-header-tag {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem;
+  }
+  .page-header-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+  .page-header h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 6vw, 5rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 1rem; }
+  .page-header p { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; max-width: 620px; }
+
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent);
+    margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.8rem, 3.5vw, 2.8rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 1.5rem; }
+
+  /* CONCEPT TO FIELD */
+  .concept-section { background: var(--black); padding: 2rem 3rem 1.5rem; }
+  .concept-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--border); }
+  .concept-card { background: var(--surface); padding: 1.25rem 1.5rem; position: relative; }
+  .concept-num { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--accent); line-height: 1; margin-bottom: 0.5rem; }
+  .concept-title { font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); margin-bottom: 0.4rem; }
+  .concept-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.55; }
+  .concept-toggle {
+    display: flex; align-items: center; gap: 0.4rem; margin-top: 0.75rem;
+    background: none; border: none; padding: 0; cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent);
+  }
+  .concept-toggle-arrow { display: inline-block; font-size: 0.7rem; transition: transform 0.25s ease; }
+  .concept-toggle.open .concept-toggle-arrow { transform: rotate(180deg); }
+  .concept-expand { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, opacity 0.3s ease; opacity: 0; }
+  .concept-expand.open { max-height: 2000px; opacity: 1; }
+  .concept-expand-inner { padding-top: 1.5rem; margin-top: 1.5rem; border-top: 1px solid var(--border); }
+  .concept-expand-label {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.6rem;
+  }
+  .concept-expand-title { font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 700; letter-spacing: 0.06em; color: var(--text); margin-bottom: 0.6rem; }
+  .concept-expand-inner p { font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.25rem; }
+  .concept-method { margin-bottom: 0.9rem; }
+  .concept-method-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; color: var(--text); margin-bottom: 0.2rem; }
+  .concept-method-desc { font-size: 0.82rem; color: var(--muted); line-height: 1.6; }
+
+  /* TOPIC CARDS (deep dives) */
+  .topics-section { background: var(--dark); padding: 1rem 3rem 3rem; }
+  .topics-layout { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+  .topic-card {
+    background: var(--surface); padding: 1.25rem 2rem; position: relative; overflow: hidden;
+    cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+    transition: background 0.2s;
+  }
+  .topic-card:hover { background: var(--surface2); }
+  .topic-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
+  .topic-card:hover::before { opacity: 1; }
+  .topic-card-left { display: flex; align-items: baseline; gap: 1.75rem; }
+  .topic-num { font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem; color: rgba(200,146,42,0.25); line-height: 1; flex-shrink: 0; }
+  .topic-text-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); margin-bottom: 0.4rem; }
+  .topic-text-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.6; max-width: 520px; }
+  .topic-card-cta {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent);
+    white-space: nowrap; flex-shrink: 0; display: flex; align-items: center; gap: 0.4rem;
+    transition: gap 0.2s;
+  }
+  .topic-card:hover .topic-card-cta { gap: 0.65rem; }
+
+  @media (max-width: 900px) {
+    .concept-grid { grid-template-columns: 1fr 1fr; }
+    .topic-card { flex-direction: column; align-items: flex-start; gap: 1rem; }
+    .topic-card-left { flex-direction: column; gap: 0.5rem; }
+    .breadcrumb, .page-header, .concept-section, .topics-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .nav-top, .nav-ribbon { padding-left: 1.5rem; padding-right: 1.5rem; }
+  }
+  @media (max-width: 600px) {
+    .concept-grid { grid-template-columns: 1fr; }
+  }
+
+  /* MODALS — reused pattern from URSIX product page */
+  .nv-modal-overlay {
+    display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+    z-index: 99999; justify-content: center; align-items: center; padding: 2rem 0;
+  }
+  .nv-modal-overlay.open { display: flex; }
+  .nv-modal-box {
+    background: var(--dark); border: 1px solid var(--border2); width: 92%; max-width: 900px;
+    max-height: 85vh; display: flex; flex-direction: column; position: relative;
+  }
+  .nv-modal-close {
+    position: absolute; top: 0.75rem; right: 1rem; background: none; border: none;
+    color: var(--text); font-size: 1.4rem; cursor: pointer; z-index: 2;
+  }
+  .nv-modal-header { padding: 1.75rem 2.25rem 1.25rem; border-bottom: 1px solid var(--border); }
+  .nv-modal-header h2 { font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem; letter-spacing: 0.06em; color: var(--text); }
+  .nv-modal-body { overflow-y: auto; padding: 1.75rem 2.25rem 2.5rem; }
+  .nv-tldr { background: var(--surface); border: 1px solid var(--border2); border-left: 3px solid var(--accent); padding: 1.5rem 1.75rem; margin-bottom: 2rem; }
+  .nv-tldr-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; }
+  .nv-tldr ul { padding-left: 1.2rem; }
+  .nv-tldr li { color: var(--muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 0.75rem; }
+  .nv-tldr li strong { color: var(--text); }
+  .nv-jump-nav { display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 2.5rem; }
+  .nv-jump-nav a { color: #5b9bd5; text-decoration: underline; font-size: 0.95rem; cursor: pointer; width: fit-content; }
+  .nv-jump-nav a:hover { color: #7fb4e6; }
+  .nv-section { margin-bottom: 2.5rem; scroll-margin-top: 1rem; }
+  .nv-section h3 {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 1.25rem; font-weight: 700;
+    letter-spacing: 0.08em; color: var(--accent); margin-bottom: 1rem; padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .nv-section p, .nv-section li { color: var(--muted); font-size: 0.92rem; line-height: 1.75; }
+  .nv-section p { margin-bottom: 1rem; }
+  .nv-section ul, .nv-section ol { padding-left: 1.2rem; margin-top: 0.5rem; }
+  .nv-section li { margin-bottom: 0.9rem; }
+  .nv-section ol li { margin-bottom: 1rem; }
+  .nv-section li strong { color: var(--text); }
+  .nv-section li ul { margin-top: 0.6rem; }
+
+  @media (max-width: 600px) {
+    .nv-modal-box { width: 96%; max-height: 90vh; }
+    .nv-modal-header, .nv-modal-body { padding-left: 1.25rem; padding-right: 1.25rem; }
+  }
+
+  footer { background: var(--dark); border-top: 1px solid var(--border); padding: 4rem 3rem 2rem; }
+  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
+  .footer-brand p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-top: 1rem; }
+  .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+  .footer-col a { font-size: 0.9rem; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
+  .footer-col a:hover { opacity: 1; color: var(--accent); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.12em; color: var(--text); opacity: 0.5; }
+  .footer-logo span { color: var(--accent); opacity: 1; }
+  .footer-legal { font-size: 0.78rem; color: var(--muted); opacity: 0.5; }
+
+  @media (max-width: 900px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-top">
+    <div class="nav-brand">
+      <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
+      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    </div>
+    <div class="nav-right">
+      <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="9" cy="21" r="1"/>
+          <circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/>
+        </svg>
+        <span class="cart-count" id="cartCount"></span>
+      </a>
+      <div class="nav-auth" id="navAuth"><a href="/ursusarmament/login/">Login</a></div>
+    </div>
+  </div>
+  <div class="nav-ribbon">
+    <a href="/ursusarmament/products">Products</a>
+    <a href="/ursusarmament#mission">Our Mission</a>
+    <a href="/ursusarmament/learnmore/" class="active">Learn More</a>
+  </div>
+</nav>
+
+<div class="breadcrumb">
+  <a href="/ursusarmament">Home</a><span>›</span>
+  <span>Learn More</span>
+</div>
+
+<!-- CONCEPT TO FIELD -->
+<section class="concept-section">
+  <div class="section-tag">How We Work</div>
+  <h2 class="section-title">FROM CONCEPT TO FIELD</h2>
+  <div class="concept-grid">
+
+    <div class="concept-card">
+      <div class="concept-num">01</div>
+      <div class="concept-title">Research</div>
+      <p class="concept-desc">We embed with operators and end-users to understand what breaks in the field — then we design to fix it.</p>
+      <button class="concept-toggle" id="researchToggleBtn" onclick="toggleConceptExpand('researchExpand')">
+        Approach <span class="concept-toggle-arrow">▼</span>
+      </button>
+      <div class="concept-expand" id="researchExpand">
+        <div class="concept-expand-inner">
+          <div class="concept-expand-label">Approach</div>
+          <div class="concept-expand-title">Pooled User Evaluation</div>
+          <p>Rather than relying on a single test group, we pool feedback across the full range of people who actually depend on this equipment — from prepared civilians to active duty and special operations community servicemembers. Each group evaluates competitor equipment alongside our own, in the environments they actually operate in, so feedback reflects real-world use rather than a controlled lab setting.</p>
+          <div class="concept-expand-label">Evaluation Groups</div>
+          <div class="concept-method">
+            <div class="concept-method-name">Prepared Civilians</div>
+            <div class="concept-method-desc">Everyday users relying on this equipment for personal preparedness, hunting, and recreational use — surfacing usability and durability issues under typical, sustained use.</div>
+          </div>
+          <div class="concept-method">
+            <div class="concept-method-name">Active Duty Service Members</div>
+            <div class="concept-method-desc">Personnel currently serving, evaluating equipment against the standards and demands of active military operations and training.</div>
+          </div>
+          <div class="concept-method" style="margin-bottom: 0;">
+            <div class="concept-method-name">Special Operations &amp; Combat-Experienced Personnel</div>
+            <div class="concept-method-desc">Special operations community servicemembers with direct combat experience, evaluating equipment under the highest-stress operational conditions.</div>
+          </div>
+          <div class="concept-expand-label" style="margin-top: 1.25rem;">What We're Looking For</div>
+          <div class="concept-method">
+            <div class="concept-method-name">Competitive Gaps</div>
+            <div class="concept-method-desc">Where competitor equipment outperforms ours, and why — so we know exactly what we're building against.</div>
+          </div>
+          <div class="concept-method" style="margin-bottom: 0;">
+            <div class="concept-method-name">Product Improvements</div>
+            <div class="concept-method-desc">Where our own equipment falls short of what operators need in the field, feeding directly back into the Engineer stage.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-num">02</div>
+      <div class="concept-title">Engineer</div>
+      <p class="concept-desc">Our engineers iterate through CAD, prototyping, and materials science to build the optimal solution.</p>
+      <button class="concept-toggle" id="engineerToggleBtn" onclick="toggleConceptExpand('engineerExpand')">
+        Approach <span class="concept-toggle-arrow">▼</span>
+      </button>
+      <div class="concept-expand" id="engineerExpand">
+        <div class="concept-expand-inner">
+          <div class="concept-expand-label">Approach</div>
+          <div class="concept-expand-title">CAD to Field-Ready</div>
+          <p>Every design starts in CAD, then moves through rapid-iteration prototyping — 3D printing for early form and fit testing, CNC machining for functional, load-bearing prototypes — before advancing to the materials and manufacturing methods used in the finished product.</p>
+          <div class="concept-expand-label">Disciplines</div>
+          <div class="concept-method">
+            <div class="concept-method-name">Mechanical Design (CAD)</div>
+            <div class="concept-method-desc">3D modeling, tolerancing, and structural analysis before a single part is cut.</div>
+          </div>
+          <div class="concept-method">
+            <div class="concept-method-name">Rapid Prototyping</div>
+            <div class="concept-method-desc">3D printing for fast form and fit iteration, CNC machining for functional prototypes that need to hold up under real load.</div>
+          </div>
+          <div class="concept-method">
+            <div class="concept-method-name">In-House Electronics (KiCad)</div>
+            <div class="concept-method-desc">PCBs designed and iterated in-house using KiCad, from schematic through layout to testable hardware.</div>
+          </div>
+          <div class="concept-method" style="margin-bottom: 0;">
+            <div class="concept-method-name">Material Selection</div>
+            <div class="concept-method-desc">Materials chosen for the specific environment and stress a product will actually face in the field — not the cheapest option that clears a spec sheet.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-num">03</div>
+      <div class="concept-title">Test</div>
+      <p class="concept-desc">500+ hours of environmental, load, and stress testing per product line. Nothing ships without passing.</p>
+      <button class="concept-toggle" id="testToggleBtn" onclick="toggleConceptExpand('testExpand')">
+        Framework <span class="concept-toggle-arrow">▼</span>
+      </button>
+      <div class="concept-expand" id="testExpand">
+        <div class="concept-expand-inner">
+          <div class="concept-expand-label">Framework</div>
+          <div class="concept-expand-title">MIL-STD-810H Approach</div>
+          <p>MIL-STD-810H is not a single test, but a framework of environmental methods designed to replicate operational stress conditions. We apply these methods selectively based on realistic use cases rather than treating the standard as a checklist.</p>
+          <div class="concept-expand-label">Environmental Methods</div>
+          <div class="concept-method">
+            <div class="concept-method-name">Temperature Extremes</div>
+            <div class="concept-method-desc">High and low temperature exposure to evaluate material stability and function.</div>
+          </div>
+          <div class="concept-method">
+            <div class="concept-method-name">Thermal Shock</div>
+            <div class="concept-method-desc">Rapid temperature transitions to test structural integrity and sealing.</div>
+          </div>
+          <div class="concept-method">
+            <div class="concept-method-name">Water / Rain</div>
+            <div class="concept-method-desc">Simulated precipitation and exposure to evaluate ingress protection.</div>
+          </div>
+          <div class="concept-method">
+            <div class="concept-method-name">Dust & Sand</div>
+            <div class="concept-method-desc">Fine particulate intrusion testing for harsh environments.</div>
+          </div>
+          <div class="concept-method">
+            <div class="concept-method-name">Vibration</div>
+            <div class="concept-method-desc">Transport and operational vibration across multiple platforms.</div>
+          </div>
+          <div class="concept-method" style="margin-bottom: 0;">
+            <div class="concept-method-name">Shock / Drop</div>
+            <div class="concept-method-desc">Impact resistance from handling, drops, and sudden force.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="concept-card">
+      <div class="concept-num">04</div>
+      <div class="concept-title">Deliver</div>
+      <p class="concept-desc">Fast, discreet shipping and warranty coverage on every product we ship — plus lifetime record verification on serialized items and repair support when you need it.</p>
+      <button class="concept-toggle" id="deliverToggleBtn" onclick="toggleConceptExpand('deliverExpand')">
+        Approach <span class="concept-toggle-arrow">▼</span>
+      </button>
+      <div class="concept-expand" id="deliverExpand">
+        <div class="concept-expand-inner">
+          <div class="concept-expand-label">Approach</div>
+          <div class="concept-expand-title">Support That Follows the Product</div>
+          <p>Coverage doesn't end at checkout. Every product ships with the warranty terms specific to that product, and every serialized unit stays verifiable and supportable for as long as you own it — whether that's next month or ten years from now.</p>
+          <div class="concept-expand-label">What's Included</div>
+          <div class="concept-method">
+            <div class="concept-method-name">Shipping Timelines</div>
+            <div class="concept-method-desc">Orders ship within 3&ndash;5 business days unless otherwise stated at checkout &mdash; preorders, backorders, and made-to-order items will show their own timeline.</div>
+          </div>
+          <div class="concept-method">
+            <div class="concept-method-name">Permanent Records &amp; Verification</div>
+            <div class="concept-method-desc">Full Access accounts can look up and verify any serialized product by serial number, at any time. Useful for replacing lost paperwork, including proof of specs with a product you're reselling, or verifying authenticity as a secondhand buyer.</div>
+          </div>
+          <div class="concept-method">
+            <div class="concept-method-name">Warranty Support</div>
+            <div class="concept-method-desc">We fully back the warranty terms specific to each product for its stated coverage period &mdash; no runaround, no fine-print surprises.</div>
+          </div>
+          <div class="concept-method" style="margin-bottom: 0;">
+            <div class="concept-method-name">Post-Warranty Repair</div>
+            <div class="concept-method-desc">Once a product's warranty has expired, we offer repair services where possible, so a lapsed warranty doesn't mean the end of support.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TECHNOLOGY DEEP DIVES -->
+<section class="topics-section">
+  <div class="section-tag">Technology</div>
+  <h2 class="section-title">DEEP DIVES</h2>
+  <div class="topics-layout">
+
+    <div class="topic-card" onclick="openModal('modalNightVision')">
+      <div class="topic-card-left">
+        <div class="topic-num">01</div>
+        <div>
+          <div class="topic-text-title">Night Vision</div>
+          <div class="topic-text-desc">Image intensification, tube generations, phosphor types, and how gain and FOM actually work.</div>
+        </div>
+      </div>
+      <div class="topic-card-cta">Read More &#8594;</div>
+    </div>
+
+    <div class="topic-card" onclick="openModal('modalThermal')">
+      <div class="topic-card-left">
+        <div class="topic-num">02</div>
+        <div>
+          <div class="topic-text-title">Thermal Imaging</div>
+          <div class="topic-text-desc">Infrared detection, sensor resolution, refresh rate, form factors, and NETD explained.</div>
+        </div>
+      </div>
+      <div class="topic-card-cta">Read More &#8594;</div>
+    </div>
+
+    <div class="topic-card" onclick="openModal('modalMesh')">
+      <div class="topic-card-left">
+        <div class="topic-num">03</div>
+        <div>
+          <div class="topic-text-title">Mesh Networks</div>
+          <div class="topic-text-desc">Decentralized radio networks, ISM bands, LoRa, and off-grid communication.</div>
+        </div>
+      </div>
+      <div class="topic-card-cta">Read More &#8594;</div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">URSUS <span style="color: var(--accent);">ARMAMENT</span></div>
+      <p>Developing next-generation tactical gear for the American people. Manufactured, tested, and deployed with pride in the USA.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="/ursusarmament/products/ROTS">R.O.T.S.</a></li>
+        <li><a href="/ursusarmament/products/CALIDUS">CALIDUS</a></li>
+        <li><a href="/ursusarmament/products">View All</a></li>
+        <li><a href="/ursusarmament/customerreviews">Customer Reviews</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/ursusarmament/aboutus/">About Us</a></li>
+        <li><a href="/ursusarmament/testingstandards/">Testing Standards</a></li>
+        <li><a href="/ursusarmament/careers/">Careers</a></li>
+        <li><a href="https://www.youtube.com/@UrsusWorks/" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="/ursusarmament/contact/">Contact</a></li>
+        <li><a href="/ursusarmament/warranty/">Warranty</a></li>
+        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>
+        <li><a href="/ursusarmament/learnmore/">Learn More</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-logo">URSUS <span>ARMAMENT</span></div>
+    <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     MODAL: NIGHT VISION
+============================================================ -->
+<div class="nv-modal-overlay" id="modalNightVision">
+  <div class="nv-modal-box">
+    <button class="nv-modal-close" onclick="closeModal('modalNightVision')">&#10005;</button>
+    <div class="nv-modal-header"><h2>NIGHT VISION TECHNOLOGY</h2></div>
+    <div class="nv-modal-body">
+
+      <div class="nv-tldr">
+        <div class="nv-tldr-label">TL;DR</div>
+        <ul>
+          <li><strong>How Night Vision Works:</strong> Photons of invisible infrared and low-level ambient light pass through the objective lens and strike a photocathode, converting them into photoelectrons. These electrons are multiplied via a microchannel plate (MCP) and accelerated onto a phosphor screen, converting them back into visible photons to create the intensified green or white image you see.</li>
+          <li><strong>FOM, Resolution, and SNR:</strong> Figure of Merit (FOM) is a commonly used combined performance metric calculated by multiplying resolution by Signal-to-Noise Ratio (SNR). Resolution (measured in lp/mm) determines the ability to resolve fine image detail, while SNR measures the ratio of useful image signal to noise within the intensifier output. Higher resolution and SNR generally contribute to a cleaner, more detailed image.</li>
+          <li><strong>Autogating and Manual Gain:</strong> Autogating dynamically modulates photocathode voltage in response to changing light levels, helping control tube operation, reduce saturation and blooming, and maintain image quality when moving between dark environments and bright light. Manual gain allows the operator to actively adjust image brightness to optimize viewing comfort and image appearance for changing ambient conditions.</li>
+        </ul>
+      </div>
+
+      <div class="nv-jump-nav">
+        <a onclick="scrollToSection('nv-history')">History and Generations of Night Vision</a>
+        <a onclick="scrollToSection('nv-deepdive')">Deep Dive: How Image Intensification Works</a>
+        <a onclick="scrollToSection('nv-specs')">Detailed Breakdown of Specification Sheet Values</a>
+        <a onclick="scrollToSection('nv-phosphor')">Phosphor Screen Variations: Green, White, and Legacy Compounds</a>
+        <a onclick="scrollToSection('nv-durability')">Environmental Durability and Housing Specifications</a>
+      </div>
+
+      <div class="nv-section" id="nv-history">
+        <h3>History and Generations of Night Vision</h3>
+        <p>Night vision technology evolved through distinct technological leaps, traditionally categorized into generations that describe major changes in tube architecture, photocathode technology, and overall performance.</p>
+        <ul>
+          <li><strong>Gen 0 (1940s&ndash;1950s):</strong> Gen 0 systems represented the earliest practical generation of electronic night vision. These systems used image-converter tubes with photocathodes sensitive to near-infrared light and generally relied on active infrared illumination to provide usable images. They did not use the microchannel plate found in later Gen 2 and Gen 3 systems, resulting in comparatively limited sensitivity and image quality. Gen 0 technology established the fundamental electronic image-conversion principles that later generations would refine.</li>
+          <li><strong>Gen 1 (1960s):</strong> Gen 1 systems represented the transition toward practical electronic night vision capable of operating with available ambient light such as starlight and moonlight, although active IR illumination remained common. These systems used glass-window vacuum tubes that offered basic light amplification but suffered from heavy peripheral distortion, image lag, and high sensitivity to blooming when exposed to bright light sources such as streetlights.</li>
+          <li><strong>Gen 2 (Late 1960s to 1970s):</strong> The introduction of the Microchannel Plate (MCP) was the defining technological advancement of Gen 2 night vision. Placed between the photocathode and phosphor screen, the MCP multiplies electrons through a cascading secondary-emission process, providing substantially greater electron amplification and image brightness. Gen 2 systems generally offered significantly improved resolution, reduced distortion, and better low-light performance compared with Gen 1 systems.</li>
+          <li><strong>Gen 2+ (Industry/Marketing Designation):</strong> Gen 2+ is not a formally standardized generation in the same way that the traditional Gen 1, Gen 2, and Gen 3 classifications are commonly used. Instead, Gen 2+ is an industry and marketing designation generally used to describe improved Gen 2-based image intensifier tubes that incorporate advancements beyond earlier Gen 2 designs without using the gallium arsenide (GaAs) photocathode characteristic of Gen 3. These improvements may include enhanced photocathode performance, improved signal-to-noise ratio, higher resolution, reduced halo, improved manufacturing consistency, and other refinements to the tube's electrical or optical performance. Gen 2+ tubes generally do not qualify as Gen 3 because they retain Gen 2 photocathode technology rather than using a GaAs photocathode. Performance specifications can overlap between high-performance Gen 2+ and lower-spec Gen 3 tubes, so the generation designation alone does not necessarily indicate the actual performance of a particular tube. Because there is no single universal specification defining Gen 2+, the specific tube's datasheet specifications &mdash; particularly resolution, SNR, gain, photocathode sensitivity, and other available metrics &mdash; are more meaningful than the Gen 2+ label alone.</li>
+          <li><strong>Gen 3 (1980s to Present):</strong> Developed primarily in the United States, Gen 3 introduced gallium arsenide (GaAs) photocathodes, providing substantially higher quantum efficiency, particularly in the near-infrared spectrum where night-sky illumination is prominent. Gen 3 tubes incorporated an ion-barrier film to protect the photocathode from ion damage and extend tube life, though modern unfilmed variants remove this barrier for higher light transmission and improved sensitivity and signal-to-noise performance.</li>
+          <li><strong>Unfilmed Gen 3:</strong> Within modern Generation 3 technology, tube construction branches into filmed and unfilmed variants. Traditional thin-filmed tubes retain a microscopic ion-barrier layer that protects the gallium arsenide photocathode from ion damage during operation, enhancing longevity at the expense of some light transmission. Unfilmed Gen 3 tubes remove this barrier entirely, reducing electron scattering and increasing electron transmission to improve sensitivity, signal-to-noise ratio, and edge-to-edge clarity in ultra-low-light environments.</li>
+        </ul>
+      </div>
+
+      <div class="nv-section" id="nv-deepdive">
+        <h3>Deep Dive: How Image Intensification Works</h3>
+        <p>At a microscopic level, an image intensification tube is a sophisticated vacuum chamber designed to convert invisible photons into visible light through a multi-step quantum and electronic process:</p>
+        <ol>
+          <li><strong>Photocathode Conversion:</strong> Photons from low-level ambient light enter the device through the objective lens and strike the photocathode &mdash; a thin, specialized semiconductor layer bonded to the input window. When a photon hits the photocathode, it excites an electron, causing it to be released into the vacuum of the tube as a photoelectron via the photoelectric effect.</li>
+          <li><strong>Electron Acceleration:</strong> Once released, these photoelectrons are accelerated across the vacuum gap toward the microchannel plate by a high electrical voltage (typically several thousand volts) applied between the photocathode and the input of the MCP.</li>
+          <li><strong>Multiplication via the Microchannel Plate (MCP):</strong> The accelerated electrons enter the MCP, which is a tiny glass disk containing millions of microscopic, parallel hollow channels tilted at a small angle. As an electron enters a channel, it strikes the walls, knocking loose secondary electrons. These secondary electrons bounce down the channel in a cascading avalanche effect, multiplying the single original electron into thousands of electrons while preserving the spatial information of the original image.</li>
+          <li><strong>Phosphor Screen Illumination:</strong> The amplified electron population exits the MCP and is accelerated across another high-voltage gap toward the phosphor screen. When the high-energy electrons strike the phosphor coating, the screen releases photons, creating a bright, detailed visual representation of the original scene.</li>
+          <li><strong>Output Window Construction:</strong> Depending on the specific tube design and optical layout, the resulting optical image exits through the output window, which may incorporate a fiber-optic element designed to transfer the image cleanly to the eyepiece assembly.</li>
+        </ol>
+      </div>
+
+      <div class="nv-section" id="nv-specs">
+        <h3>Detailed Breakdown of Specification Sheet Values</h3>
+        <p>When evaluating night vision performance, specification sheets provide standardized metrics that indicate how well a tube will perform in various environments:</p>
+        <ul>
+          <li><strong>Signal-to-Noise Ratio (SNR):</strong> SNR measures the ratio of useful image signal to noise within the intensifier output. A higher SNR generally produces a cleaner, more usable image, particularly under very low-light conditions, where noise and scintillation become more prominent.</li>
+          <li><strong>Resolution (lp/mm):</strong> Measured in line pairs per millimeter, resolution is determined using a specialized target chart viewed through the optical assembly. It indicates the tube's ability to resolve fine details. Actual system resolution depends on both the intensifier tube's native capability and the optical performance and alignment of the matched objective and eyepiece assemblies.</li>
+          <li><strong>Figure of Merit (FOM):</strong> Calculated as Resolution &times; SNR = FOM. While used in various regulatory and export contexts as a shorthand benchmark of tube capability, FOM is fundamentally a combined performance metric and does not capture every variable of image quality, such as contrast, halo, or EBI.</li>
+          <li><strong>Halo:</strong> The bright ring or distortion that appears around high-intensity light sources within the field of view. Measured in millimeters, a smaller halo generally indicates less image-area obscuration around bright light sources when transitioning through urban or mixed-light environments.</li>
+          <li><strong>Cathode Sensitivity:</strong> Measures how effectively the photocathode converts incident light into photoelectrons, quantified in microamperes per lumen (&micro;A/lm). Higher sensitivity means the tube can extract more usable signal from very dim starlight or overcast night skies.</li>
+        </ul>
+      </div>
+
+      <div class="nv-section" id="nv-phosphor">
+        <h3>Phosphor Screen Variations: Green, White, and Legacy Compounds</h3>
+        <p>The phosphor screen is the final stage of an image intensifier tube, coating the interior surface of the output window to convert accelerated electrons back into visible photons. Over the decades, tube manufacturers have experimented with various chemical formulations to optimize image contrast, decay time, and human visual response.</p>
+        <ul>
+          <li><strong>Legacy Phosphor Compounds (P1, P20, and Early Variants):</strong> Early generation systems utilized phosphors such as P1 and P20 (often described as mustard or yellow-green), which featured noticeable persistence and decay characteristics that influenced image lag in early night vision systems.</li>
+          <li><strong>P43 Green Phosphor:</strong> P43 became a widely used standard green phosphor for military and tactical night vision systems. It emits a narrow green wavelength spectrum (~545 nm) that aligns closely with the peak sensitivity of the human eye.</li>
+          <li><strong>White Phosphor (P45 and Proprietary Blends):</strong> Modern tactical systems frequently utilize white-phosphor screens, including P45 and other proprietary phosphor formulations. Rather than producing a predominantly green image, white phosphor produces a grayscale or near-grayscale image. Many operators prefer white phosphor because the grayscale output can provide subjectively improved contrast and edge-detail perception during extended use.</li>
+        </ul>
+      </div>
+
+      <div class="nv-section" id="nv-durability">
+        <h3>Environmental Durability and Housing Specifications</h3>
+        <p>Beyond the internal optical intensifier tube, practical night vision performance relies heavily on physical housing integrity and ruggedization to survive harsh field conditions:</p>
+        <ul>
+          <li><strong>Nitrogen Purging:</strong> Many tactical housings are purged with dry inert gas such as nitrogen or argon and sealed to reduce internal moisture and condensation caused by environmental temperature changes.</li>
+          <li><strong>Waterproofing Standards:</strong> Water resistance is model-specific; manufacturers test and specify exact IP ratings or maximum immersion depths rather than assuming universal compliance across all tactical systems.</li>
+          <li><strong>Material Construction and Drop Resistance:</strong> Housings may be constructed from reinforced polymers, aluminum alloys, or other lightweight structural materials designed to protect the internal optics and image intensifier from impact and environmental stresses in the field.</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: THERMAL IMAGING
+============================================================ -->
+<div class="nv-modal-overlay" id="modalThermal">
+  <div class="nv-modal-box">
+    <button class="nv-modal-close" onclick="closeModal('modalThermal')">&#10005;</button>
+    <div class="nv-modal-header"><h2>THERMAL IMAGING</h2></div>
+    <div class="nv-modal-body">
+
+      <div class="nv-tldr">
+        <div class="nv-tldr-label">TL;DR</div>
+        <ul>
+          <li><strong>How Thermal Imaging Works:</strong> Thermal sensors detect infrared radiation that objects emit based on their own temperature, rather than relying on reflected visible or near-infrared light. This means thermal can produce a usable image with zero ambient light, though heavy fog, rain, smoke, and dense vegetation can still degrade performance.</li>
+          <li><strong>Resolution, Refresh Rate, and NETD:</strong> Sensor resolution (from 160&times;120 up to 1024&times;768+) determines image detail and identification range. Refresh rate (9Hz vs. 30&ndash;60Hz) determines how smooth motion looks during tracking or movement. NETD (measured in mK) determines how small a temperature difference the sensor can actually distinguish &mdash; lower NETD means more usable contrast between a target and its background.</li>
+          <li><strong>Form Factor Drives the Rest:</strong> Handheld, weapon-mounted, and helmet-mounted thermal systems are built around different priorities &mdash; a helmet system favors a wide field of view near unity magnification for natural movement, while a weapon-mounted system is built to survive recoil and hold zero, and a handheld unit trades some of both for portability.</li>
+        </ul>
+      </div>
+
+      <div class="nv-jump-nav">
+        <a onclick="scrollToSection('th-history')">History and Evolution of Thermal Imaging</a>
+        <a onclick="scrollToSection('th-formfactors')">Thermal Form Factors</a>
+        <a onclick="scrollToSection('th-resolution')">Sensor Resolution and Pixel Pitch</a>
+        <a onclick="scrollToSection('th-lens')">Lens Focal Length, Field of View, and Magnification</a>
+        <a onclick="scrollToSection('th-refresh')">Refresh Rates and Motion Handling</a>
+        <a onclick="scrollToSection('th-netd')">Thermal Sensitivity (NETD)</a>
+      </div>
+
+      <div class="nv-section" id="th-history">
+        <h3>History and Evolution of Thermal Imaging</h3>
+        <p>Thermal imaging technology originated primarily in military and industrial applications before expanding into commercial, automotive, and consumer markets. Its development progressed from active infrared systems and mechanically scanned detectors to cooled focal-plane arrays and, eventually, compact uncooled microbolometers.</p>
+        <ul>
+          <li><strong>Early Military Origins (1930s&ndash;1950s):</strong> Early military night-vision systems developed during World War II and the early Cold War included active near-infrared devices such as the American M3 Sniperscope. These systems used an infrared illuminator to project invisible IR light onto a scene and an image-converter tube to detect the reflected illumination. Although important to the history of night vision, these systems were not thermal imagers because they detected reflected near-infrared light rather than thermal radiation emitted by objects. Passive thermal imaging began emerging as detector and infrared-optics technology advanced during the 1950s and 1960s.</li>
+          <li><strong>Early Thermal Scanners (1950s&ndash;1970s):</strong> Early thermal imaging systems commonly used small numbers of infrared detector elements, including materials such as mercury cadmium telluride (HgCdTe), to detect long-wave infrared radiation. Many high-performance detectors required cryogenic cooling to reduce thermal noise and achieve useful sensitivity. Mechanical scanning systems used mirrors, prisms, or other moving optical components to sweep the scene across the detector. These systems were generally bulky, power-hungry, and expensive, restricting their use primarily to military vehicles, aircraft, ships, and fixed surveillance installations.</li>
+          <li><strong>Staring Arrays and Second-Generation Systems (1980s&ndash;1990s):</strong> The transition from mechanically scanned systems to solid-state staring focal-plane arrays (FPAs) represented a major advancement in thermal imaging. Instead of mechanically sweeping a single detector across the scene, an FPA uses an array of detector elements that simultaneously observe different portions of the image. Cooled semiconductor FPAs continued to provide exceptional sensitivity for demanding military applications, while uncooled detector technologies &mdash; including pyroelectric devices and emerging microbolometers &mdash; began enabling smaller and less complex systems.</li>
+          <li><strong>The Microbolometer Revolution (Late 1990s&ndash;2000s):</strong> The commercial maturation of uncooled microbolometer technology transformed thermal imaging. Microbolometers detect infrared radiation by measuring temperature-dependent changes in the electrical properties of microscopic detector elements. Because they operate without cryogenic cooling, they can be manufactured into compact, relatively low-power sensor modules. This development enabled widespread adoption of thermal imaging in handheld cameras, weapon sights, surveillance systems, industrial diagnostic equipment, and other portable applications.</li>
+          <li><strong>Miniaturization and Commercial Expansion (2010s&ndash;Present):</strong> Continued advances in semiconductor manufacturing, detector fabrication, signal processing, and optical design have steadily reduced pixel pitch while increasing sensor resolution and reducing overall system size and power consumption. Common modern thermal sensor formats range from compact 160&times;120 and 256&times;192 arrays through 320&times;240, 384&times;288, 640&times;512, and higher-resolution formats such as 1024&times;768. Modern thermal cores can be compact and rugged enough for integration into handheld devices, weapon sights, helmet-mounted systems, vehicles, industrial equipment, and consumer electronics.</li>
+        </ul>
+      </div>
+
+      <div class="nv-section" id="th-formfactors">
+        <h3>Thermal Form Factors</h3>
+        <p>Thermal systems are commonly configured into several primary form factors:</p>
+        <ul>
+          <li><strong>Handheld Monoculars:</strong> Designed for scouting, tracking, observation, and surveillance, prioritizing portability while balancing field of view, detection range, battery life, and image quality.</li>
+          <li><strong>Firearm-Mounted Systems:</strong> Designed to withstand recoil and maintain optical alignment. These include dedicated thermal weapon sights as well as clip-on thermal devices positioned in front of a conventional day optic.</li>
+          <li><strong>Helmet-Mounted Systems:</strong> Designed for hands-free navigation, observation, and situational awareness. Depending on their optical configuration, these systems may use dedicated wide-field thermal optics or modular thermal devices adapted for helmet mounting.</li>
+          <li><strong>Hybrid / Interchangeable-Mount Systems:</strong> Designed so that the same thermal optic or imaging module can be readily transferred between helmet-mounted and firearm-mounted configurations using compatible mounting interfaces. This approach allows a single thermal imaging system to serve multiple roles without requiring a separate thermal device for each application. The practicality of a hybrid system depends on the optic's optical configuration, mounting interface, weight, recoil resistance, controls, and whether the system provides an appropriate field of view and magnification for each intended use.</li>
+        </ul>
+      </div>
+
+      <div class="nv-section" id="th-resolution">
+        <h3>Sensor Resolution and Pixel Pitch</h3>
+        <p>The core of a thermal imaging device is its focal-plane array (FPA), which contains the individual detector elements used to capture infrared radiation. The number of pixels determines the native image dimensions, while pixel pitch describes the physical spacing between adjacent detector elements. Common commercial and tactical sensor resolutions include:</p>
+        <ul>
+          <li><strong>160&times;120 and 256&times;192:</strong> Common in compact, entry-level, and cost-sensitive thermal devices. These lower-resolution arrays can provide useful detection and observation capabilities but generally provide less fine detail and shorter identification ranges than higher-resolution sensors when other factors are equal.</li>
+          <li><strong>320&times;240 / 384&times;288:</strong> Widely used mid-range formats that provide a balance between image detail, processing requirements, power consumption, and system cost.</li>
+          <li><strong>640&times;512:</strong> A widely used high-resolution format in professional and tactical thermal systems, providing substantially more image detail than lower-resolution arrays and allowing greater flexibility in optical design and digital magnification.</li>
+          <li><strong>1024&times;768 and Higher:</strong> High-resolution thermal formats used in higher-end systems where increased spatial detail, wider fields of view, or longer-range identification capability justify the additional cost and system requirements. These higher-resolution sensors generally come at the expense of increased per-unit cost, greater processing requirements, and potentially increased system weight and power consumption. The additional pixel count can also require more powerful image processing and higher-bandwidth electronics to maintain comparable refresh rates and image quality.</li>
+        </ul>
+        <p>Sensor performance is also influenced by pixel pitch, which is the distance between the centers of adjacent detector elements. Common modern microbolometer pixel pitches include 12 &micro;m and 17 &micro;m, with smaller pitches also available. A smaller pixel pitch allows more detector elements to fit within a given physical sensor area or allows a smaller sensor for a given pixel count. Pixel pitch also interacts with lens focal length, detector format, and optical design to determine field of view, angular resolution, and system size.</p>
+      </div>
+
+      <div class="nv-section" id="th-lens">
+        <h3>Lens Focal Length, Field of View (FOV), and Magnification</h3>
+        <p>The objective lens determines how much of the scene is projected onto the thermal sensor. Its focal length, combined with the physical dimensions of the sensor, determines the system's field of view and base optical magnification.</p>
+        <ul>
+          <li><strong>Wide-Angle Lenses (Shorter Focal Lengths):</strong> Lenses in the approximately 9mm to 19mm range are commonly used where a wide field of view is desirable, such as helmet-mounted observation, close-range scanning, navigation, and situational awareness. The exact field of view depends on both the lens focal length and the physical dimensions of the sensor.</li>
+          <li><strong>Narrow-Angle Lenses (Longer Focal Lengths):</strong> Lenses in the approximately 35mm to 75mm or greater range provide a narrower field of view and greater optical magnification. These configurations are generally better suited to longer-range observation and target identification, although the resulting narrow field of view can make close-range scanning more difficult.</li>
+        </ul>
+        <p>For helmet-mounted thermal usage, optical magnification and field of view are particularly important because the thermal image is presented on a display rather than directly through an image-intensifier output. A wide field of view and an appropriate display-to-optical configuration help provide a natural visual relationship between the displayed thermal scene and the user's surroundings. Systems intended to provide approximately 1&times; or unity magnification are generally easier to integrate with natural head movement and navigation, while magnified systems can make walking, driving, and close-range spatial awareness more difficult.</p>
+        <p>True unity magnification is determined by the complete optical system rather than by the sensor alone. The sensor format, pixel pitch, objective focal length, display size, display optics, and eyepiece design all contribute to the final angular magnification and field of view perceived by the operator.</p>
+      </div>
+
+      <div class="nv-section" id="th-refresh">
+        <h3>Refresh Rates and Motion Handling</h3>
+        <p>Thermal refresh rate describes how frequently the system updates the displayed image and is measured in Hertz (Hz). A higher refresh rate generally provides smoother perceived motion, although actual motion performance is also influenced by sensor integration time, image processing, display latency, and other system characteristics.</p>
+        <ul>
+          <li><strong>9 Hz:</strong> Low-refresh-rate thermal systems update the image relatively slowly, which can make rapid movement appear noticeably less fluid. Low-refresh-rate configurations have historically been common in some commercial thermal products because of regulatory, export, cost, or product-design considerations, although the availability of specific refresh rates varies by manufacturer and market.</li>
+          <li><strong>30 Hz to 60 Hz:</strong> These refresh rates are common in modern tactical and high-performance thermal systems. Higher refresh rates provide smoother motion during head movement, vehicle operation, and tracking of moving subjects, while also reducing the apparent stutter associated with lower-refresh-rate systems.</li>
+        </ul>
+      </div>
+
+      <div class="nv-section" id="th-netd">
+        <h3>Thermal Sensitivity (NETD)</h3>
+        <p>Noise Equivalent Temperature Difference (NETD) is a measure of a thermal sensor's ability to distinguish small differences in apparent temperature from the sensor's own noise. It is typically expressed in millikelvin (mK). Lower NETD values generally indicate that the sensor can detect smaller temperature differences under the specified test conditions.</p>
+        <p>Modern thermal sensors may be specified with NETD values such as sub-40 mK or sub-25 mK. Lower NETD can be particularly advantageous when a target and its background have only a small thermal contrast. However, NETD is not a complete measure of thermal-image quality or real-world performance. Lens transmission, sensor resolution, pixel pitch, atmospheric conditions, image processing, calibration, optical quality, and the thermal contrast of the scene all affect how well a system performs in practical conditions.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: MESH NETWORKS
+============================================================ -->
+<div class="nv-modal-overlay" id="modalMesh">
+  <div class="nv-modal-box">
+    <button class="nv-modal-close" onclick="closeModal('modalMesh')">&#10005;</button>
+    <div class="nv-modal-header"><h2>DECENTRALIZED MESH NETWORKS &amp; ISM BANDS</h2></div>
+    <div class="nv-modal-body">
+
+      <div class="nv-tldr">
+        <div class="nv-tldr-label">TL;DR</div>
+        <ul>
+          <li><strong>How Mesh Networking Works:</strong> Instead of every device routing through one central tower or router, each node can relay traffic for other nodes, hopping messages across the network until they reach their destination. This lets the network keep working &mdash; and keep extending its range &mdash; even without cell towers, satellites, or internet infrastructure, and even if individual nodes drop out.</li>
+          <li><strong>The Core Tradeoff &mdash; Range vs. Speed:</strong> Sub-GHz bands (433/868/915 MHz) travel farther and penetrate obstacles better at lower power, while 2.4 GHz moves more data but loses range faster. Within LoRa specifically, spreading factor controls the same tradeoff at the modulation level &mdash; higher SF means more range and sensitivity but slower transmission and more airtime.</li>
+          <li><strong>Meshtastic as a Real-World Example:</strong> Open-source firmware paired with LoRa radios (commonly on ESP32 or nRF52840 hardware) turns inexpensive nodes into a self-forming mesh. Phones connect over Bluetooth to send messages, share location, and monitor the network &mdash; no cell service or internet required at any point.</li>
+        </ul>
+      </div>
+
+      <div class="nv-jump-nav">
+        <a onclick="scrollToSection('mesh-principles')">Principles of Mesh Networking</a>
+        <a onclick="scrollToSection('mesh-ism')">ISM Bands and Radio Frequency Fundamentals</a>
+        <a onclick="scrollToSection('mesh-lora')">Long-Range Modulation: LoRa and Chirp Spread Spectrum</a>
+        <a onclick="scrollToSection('mesh-meshtastic')">Protocol Implementation: Meshtastic and Open Ecosystems</a>
+      </div>
+
+      <div class="nv-section" id="mesh-principles">
+        <h3>Principles of Mesh Networking</h3>
+        <p>Unlike traditional hub-and-spoke networks, where devices generally communicate through a central router, access point, or base station, a decentralized mesh network allows individual nodes to participate in forwarding traffic for other nodes. Depending on the protocol, the resulting network can be self-forming and capable of adapting to changes in node availability and topology.</p>
+        <ul>
+          <li><strong>Node Roles:</strong> Individual nodes may function as end-user devices, routers, repeaters, or combinations of these roles depending on the network architecture. A user device may originate and receive messages while also forwarding traffic for other nodes, while dedicated router nodes may be positioned specifically to extend network coverage.</li>
+          <li><strong>Multi-Hop Routing:</strong> A mesh network can forward a message through multiple intermediate nodes when the destination is outside the direct communication range of the originating device. This allows the effective communication distance to exceed the range of an individual radio link.</li>
+          <li><strong>Dynamic Routing and Topology Changes:</strong> Depending on the protocol, nodes can maintain information about neighboring devices and available routes. If a node becomes unavailable, moves out of range, or an established path becomes obstructed, the network may select an alternative route through other available nodes.</li>
+          <li><strong>Store-and-Forward and Flooding:</strong> Different mesh protocols use different methods for distributing messages. Flooding-based systems may propagate packets through multiple neighboring nodes, while routed systems attempt to direct traffic along selected multi-hop paths. Store-and-forward mechanisms can also allow messages or data to be retained temporarily for later delivery when a direct path is unavailable.</li>
+        </ul>
+        <p>The resulting architecture can provide useful resilience in environments where centralized communication infrastructure is unavailable, damaged, congested, or intentionally avoided. However, mesh networking does not eliminate the limitations of radio propagation; network coverage ultimately depends on node placement, antenna performance, terrain, interference, power availability, and the characteristics of the underlying radio technology.</p>
+      </div>
+
+      <div class="nv-section" id="mesh-ism">
+        <h3>ISM Bands and Radio Frequency Fundamentals</h3>
+        <p>Many off-grid mesh systems operate using radio frequencies that are available for unlicensed or license-exempt operation under applicable national regulations. The Industrial, Scientific and Medical (ISM) bands are internationally recognized frequency allocations intended primarily for industrial, scientific, medical, and related applications. Consumer and communications technologies also make extensive use of portions of these bands.</p>
+        <p>Operation without an individual radio license does <strong>not</strong> mean that the spectrum is unrestricted. Devices must comply with the applicable regulatory requirements for their operating frequency, transmit power, occupied bandwidth, duty cycle, antenna configuration, and emissions. In the United States, many low-power unlicensed devices operate under FCC Part 15, while other regions use their own regulatory frameworks, such as applicable ETSI standards in Europe.</p>
+        <p>Common frequencies used by off-grid communication systems include sub-GHz bands such as 433 MHz, 868 MHz, and 915 MHz, as well as the 2.4 GHz ISM band. The specific frequencies, power limits, channel arrangements, and operating requirements vary by country and device class.</p>
+        <ul>
+          <li><strong>Sub-GHz Propagation Characteristics:</strong> Frequencies below 1 GHz generally experience lower free-space path loss than higher frequencies at the same distance and can exhibit favorable diffraction and penetration characteristics around obstacles and through some vegetation and building materials. These characteristics can make sub-GHz frequencies particularly useful for long-range, low-power communications. Actual performance depends heavily on antenna characteristics, terrain, vegetation, building construction, interference, transmit power, receiver sensitivity, and link geometry.</li>
+          <li><strong>2.4 GHz Band Characteristics:</strong> The 2.4 GHz ISM band is widely used by technologies capable of substantially higher data rates than many long-range sub-GHz systems. Its shorter wavelength and availability of wider-bandwidth PHY technologies can support faster transmission of data, but propagation losses are generally higher than at sub-GHz frequencies over the same distance. As a result, 2.4 GHz systems typically require more favorable link conditions, higher antenna performance, or greater power to achieve equivalent range.</li>
+        </ul>
+        <p>The choice between sub-GHz and 2.4 GHz therefore represents a tradeoff between range, data rate, antenna characteristics, power consumption, network capacity, and environmental propagation.</p>
+      </div>
+
+      <div class="nv-section" id="mesh-lora">
+        <h3>Long-Range Modulation: LoRa and Chirp Spread Spectrum</h3>
+        <p>LoRa (Long Range) is a proprietary physical-layer modulation technology developed for low-power, long-range wireless communication. It is based on Chirp Spread Spectrum (CSS) modulation and is widely used in low-data-rate sensor networks, telemetry systems, and off-grid communication platforms.</p>
+        <ul>
+          <li><strong>Chirp Modulation Mechanics:</strong> LoRa encodes information using frequency-modulated chirps that sweep across a defined bandwidth. These chirps can be processed by a compatible receiver to recover data even when the received signal is extremely weak.</li>
+          <li><strong>Link Budget and Receiver Sensitivity:</strong> One of LoRa's primary advantages is its combination of low transmit power and high receiver sensitivity. Its spread-spectrum modulation and processing gain allow compatible receivers to recover signals at very low received power levels. This can produce exceptionally large link budgets and enable long-distance communication when favorable antennas, terrain, and propagation conditions are present. Actual range can vary from hundreds of meters in difficult environments to many kilometers under favorable line-of-sight conditions.</li>
+          <li><strong>Key Configuration Parameters:</strong> LoRa performance is primarily influenced by bandwidth (BW), spreading factor (SF), and coding rate (CR):
+            <ul>
+              <li><strong>Bandwidth (BW):</strong> Defines the spectral width occupied by the LoRa signal. Common configurations include 125 kHz, 250 kHz, and 500 kHz, although available settings depend on the particular transceiver and regional configuration. Wider bandwidth generally increases data rate and reduces airtime, while narrower bandwidth generally improves receiver sensitivity at the expense of data rate.</li>
+              <li><strong>Spreading Factor (SF):</strong> Controls the spreading ratio used by the modulation and affects symbol duration, processing gain, data rate, and receiver sensitivity. Higher spreading factors increase processing gain and sensitivity and allow operation over weaker links, but substantially increase time-on-air and reduce effective data throughput. Lower spreading factors provide higher data rates and shorter airtime but require stronger received signals.</li>
+              <li><strong>Coding Rate (CR):</strong> Controls the amount of forward error-correction redundancy incorporated into the transmitted data. Increasing coding redundancy can improve resistance to certain types of interference and corrupted data, but increases the amount of airtime required to transmit the same payload.</li>
+            </ul>
+          </li>
+        </ul>
+        <p>These parameters create a fundamental tradeoff between range, sensitivity, throughput, and airtime. A configuration optimized for maximum range is generally not the same configuration optimized for high-speed data transmission.</p>
+      </div>
+
+      <div class="nv-section" id="mesh-meshtastic">
+        <h3>Protocol Implementation: Meshtastic and Open Ecosystems</h3>
+        <p>Projects such as Meshtastic combine LoRa-compatible radio hardware with open-source firmware and mesh-networking software to create practical infrastructure-independent communication nodes. These systems commonly use energy-efficient microcontrollers such as the nRF52840 or ESP32, paired with compatible LoRa transceivers. Some hardware configurations also incorporate GPS/GNSS receivers for position reporting and location-based features.</p>
+        <ul>
+          <li><strong>App Integration and Local Control:</strong> Nodes can interface with smartphones, computers, or dedicated terminals using technologies such as Bluetooth Low Energy (BLE), USB, or Wi-Fi, depending on the hardware and configuration. This allows users to send text messages, exchange position information, monitor network status, and visualize participating nodes without requiring cellular service or internet access.</li>
+          <li><strong>Decentralized Communication:</strong> Messages can be forwarded between nodes across multiple radio hops, allowing users who cannot directly reach one another to communicate through intermediate nodes. The effective coverage area therefore depends not only on the radio's individual range but also on the number, placement, and availability of intermediate nodes.</li>
+          <li><strong>Power Efficiency:</strong> Many mesh nodes are designed around low-power microcontrollers and radios suitable for battery-powered operation. Power consumption varies substantially according to hardware, radio settings, node role, display usage, GPS operation, Bluetooth/Wi-Fi activity, and transmit frequency. Systems intended for long-term field deployment may therefore combine low-power operating modes with larger batteries, external power sources, or solar charging.</li>
+          <li><strong>Network Independence:</strong> Because the basic mesh can operate directly between participating radio nodes, communication can continue without cellular service, Wi-Fi infrastructure, or an internet connection. External connectivity can still be added when available, allowing a mesh network to bridge into conventional networks without making those networks a prerequisite for local communication.</li>
+        </ul>
+        <p>The combination of decentralized routing, low-power radio hardware, long-range modulation, and unlicensed spectrum makes mesh networking particularly useful for remote operations, emergency communications, outdoor activities, disaster response, and other environments where conventional communications infrastructure may be unavailable or unreliable.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script>
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+function scrollToSection(id) {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.nv-modal-overlay').forEach(function (overlay) {
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) overlay.classList.remove('open');
+    });
+  });
+});
+
+function toggleConceptExpand(id) {
+  const expand = document.getElementById(id);
+  const open   = expand.classList.toggle('open');
+  const btn    = document.getElementById(id.replace('Expand', 'ToggleBtn'));
+  if (btn) btn.classList.toggle('open', open);
+}
+</script>
+
+</body>
+</html>
