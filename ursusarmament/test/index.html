@@ -381,9 +381,9 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(200,146,42,0.1);
+    background: rgba(200,146,42,0.14);
     border: 1px solid var(--accent);
-    color: var(--accent);
+    color: var(--accent2);
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.78rem;
     font-weight: 700;
@@ -391,12 +391,26 @@
     text-transform: uppercase;
     padding: 0.55rem 1.1rem;
     cursor: pointer;
-    animation: nvPulse 2.4s ease-in-out infinite;
+    overflow: hidden;
+    animation: nvPulse 2s ease-in-out infinite;
     transition: background 0.2s, color 0.2s;
+  }
+  .nv-info-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 45%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.45), transparent);
+    transform: translateX(-160%) skewX(-15deg);
+    animation: nvShimmer 2.6s ease-in-out infinite;
+    pointer-events: none;
   }
   .nv-info-btn:hover {
     background: var(--accent);
     color: var(--black);
+    animation-play-state: paused;
   }
   .nv-info-arrow {
     display: inline-block;
@@ -407,8 +421,13 @@
     transform: translate(2px, -2px);
   }
   @keyframes nvPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(200,146,42,0.35); }
-    50%      { box-shadow: 0 0 0 8px rgba(200,146,42,0); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(200,146,42,0.5); transform: scale(1); }
+    50%      { box-shadow: 0 0 0 10px rgba(200,146,42,0); transform: scale(1.045); }
+  }
+  @keyframes nvShimmer {
+    0%   { transform: translateX(-160%) skewX(-15deg); }
+    45%  { transform: translateX(260%) skewX(-15deg); }
+    100% { transform: translateX(260%) skewX(-15deg); }
   }
 
   /* NIGHT VISION MODAL */
@@ -614,7 +633,7 @@
   <div class="product-visual" style="flex-direction:column; justify-content:flex-start; padding:0; gap:0;">
     <div class="product-badge">GEN 2+/3</div>
     <button class="nv-info-btn" onclick="openNVModal()">
-      What Is Night Vision? <span class="nv-info-arrow">&#8599;</span>
+      Questions About Night Vision? <span class="nv-info-arrow">&#8599;</span>
     </button>
     <div style="width:100%; flex:1; display:flex; align-items:center; justify-content:center; background:var(--surface); min-height:0; position:relative; overflow:hidden;">
       <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(200,146,42,0.015) 30px,rgba(200,146,42,0.015) 31px);pointer-events:none;"></div>
