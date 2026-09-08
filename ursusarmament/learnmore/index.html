@@ -483,6 +483,17 @@
       <div class="topic-card-cta">Read More &#8594;</div>
     </div>
 
+    <div class="topic-card" onclick="openModal('modalLandNav')">
+      <div class="topic-card-left">
+        <div class="topic-num">05</div>
+        <div>
+          <div class="topic-text-title">Navigation &amp; Land Nav</div>
+          <div class="topic-text-desc">True/magnetic/grid north, dead reckoning, terrain association, and GPS-denied navigation.</div>
+        </div>
+      </div>
+      <div class="topic-card-cta">Read More &#8594;</div>
+    </div>
+
   </div>
 </section>
 
@@ -837,6 +848,74 @@
         <p>Acceptance criteria are established by the equipment's applicable program, contract, specification, or design requirements rather than by a universal pass/fail threshold contained in MIL-STD-810H itself. Testing may be performed by the manufacturer, a contractor, a government facility, or an independent laboratory. Third-party testing can provide additional credibility and independent verification, but independent laboratory testing is not inherently required by the standard.</p>
         <p>Passing one or more MIL-STD-810H test methods does not imply resistance to every environmental condition covered by the standard. A product tested for shock and vibration, for example, has not necessarily been tested for humidity, immersion, salt fog, extreme temperatures, or other environmental stresses.</p>
         <p>The value of a MIL-STD-810H test claim therefore depends heavily on how closely the selected methods, procedures, severities, and durations correspond to the product's actual intended environment. A specific statement identifying the tests performed is substantially more informative than a blanket claim that a product is simply &ldquo;MIL-STD-810H compliant&rdquo; or &ldquo;MIL-STD-810H certified.&rdquo;</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: NAVIGATION & LAND NAV
+============================================================ -->
+<div class="nv-modal-overlay" id="modalLandNav">
+  <div class="nv-modal-box">
+    <button class="nv-modal-close" onclick="closeModal('modalLandNav')">&#10005;</button>
+    <div class="nv-modal-header"><h2>NAVIGATION &amp; LAND NAV</h2></div>
+    <div class="nv-modal-body">
+
+      <div class="nv-tldr">
+        <div class="nv-tldr-label">TL;DR</div>
+        <ul>
+          <li><strong>True, Magnetic, and Grid North:</strong> A map's grid lines point toward grid north, a compass needle points toward magnetic north, and true north points toward the geographic North Pole. Magnetic declination is the angular difference between true north and magnetic north; grid convergence is the angular difference between true north and grid north. Both vary geographically and, in the case of declination, over time &mdash; and both must be accounted for when converting between map and compass bearings.</li>
+          <li><strong>Dead Reckoning vs. Terrain Association:</strong> Dead reckoning uses a known azimuth and pace count to estimate position by direction and distance traveled; terrain association cross-checks that estimate against visible features such as ridgelines, streams, valleys, and saddles. Used together, each helps compensate for the limitations of the other.</li>
+          <li><strong>GPS Is a Convenience, Not a Dependency:</strong> Map-and-compass navigation does not depend on satellite reception, electronic hardware, battery power, or cellular/internet connectivity, making it a valuable independent capability when electronic positioning is degraded, unavailable, or deliberately denied.</li>
+        </ul>
+      </div>
+
+      <div class="nv-jump-nav">
+        <a onclick="scrollToSection('nav-norths')">Three Norths and Magnetic Declination</a>
+        <a onclick="scrollToSection('nav-grid')">Grid Systems and Topographic Maps</a>
+        <a onclick="scrollToSection('nav-deadreckoning')">Dead Reckoning: Azimuth and Pace Count</a>
+        <a onclick="scrollToSection('nav-terrain')">Terrain Association and Resection</a>
+        <a onclick="scrollToSection('nav-gpsdenied')">GPS-Denied Navigation as a Standing Skill</a>
+      </div>
+
+      <div class="nv-section" id="nav-norths">
+        <h3>Three Norths and Magnetic Declination</h3>
+        <p>A topographic map references three distinct norths. True north points toward the geographic North Pole. Grid north is the direction indicated by the north-south lines of the map's coordinate grid and can differ slightly from true north because of the map projection. Magnetic north is the direction toward which a magnetic compass aligns in response to Earth's magnetic field, and it varies both geographically and over time as Earth's magnetic field changes.</p>
+        <p>The angular difference between true north and magnetic north at a given location is magnetic declination, expressed in degrees east or west. The difference between true north and grid north is grid convergence (or meridian convergence). Both relationships may be represented in the map's north-reference diagram, commonly printed in the map margin.</p>
+        <p>When converting a bearing between a map's grid reference and a magnetic compass bearing, the applicable declination and grid-convergence relationships must be accounted for; the exact arithmetic depends on the bearing convention and the direction of conversion. Failing to account for the appropriate angular difference can introduce a significant azimuth error, which becomes increasingly consequential as distance traveled increases.</p>
+      </div>
+
+      <div class="nv-section" id="nav-grid">
+        <h3>Grid Systems and Topographic Maps</h3>
+        <p>Modern military and topographic navigation commonly uses the Universal Transverse Mercator (UTM) coordinate system, which divides much of the Earth's surface into numbered longitudinal zones and provides a rectangular coordinate grid within each zone.</p>
+        <p>The Military Grid Reference System (MGRS) builds on UTM and related coordinate systems to provide a compact alphanumeric method of specifying geographic positions. MGRS divides areas into progressively smaller grid designations, allowing a position to be expressed with increasing precision. A full MGRS coordinate can represent a location to 1-meter coordinate precision, although the precision of the coordinate notation should not be confused with the actual positional accuracy of the map, survey, or navigation equipment used to determine it.</p>
+        <p>A topographic map encodes elevation through contour lines, with their spacing and patterns indicating slope, ridgelines, valleys, saddles, depressions, and other terrain features. Closely spaced contour lines indicate steeper terrain, while widely spaced lines generally indicate gentler slopes. Understanding contour intervals and patterns allows a navigator to anticipate terrain before physically encountering it rather than reacting to terrain changes in real time.</p>
+      </div>
+
+      <div class="nv-section" id="nav-deadreckoning">
+        <h3>Dead Reckoning: Azimuth and Pace Count</h3>
+        <p>Dead reckoning is the practice of estimating position by tracking direction of travel and distance covered from a known starting point without requiring continuous confirmation from external landmarks. Its two fundamental components are a compass azimuth, representing the intended direction of travel, and a pace count, used to estimate the distance traveled.</p>
+        <p>Pace count is individual and must be calibrated by each navigator over a known distance &mdash; commonly a measured course of approximately 100 to 600 meters &mdash; before being relied upon in the field. Because stride length changes with terrain, slope, footwear, load, fatigue, and movement conditions, a pace count established on flat ground may not accurately represent travel over steep, uneven, or obstructed terrain. Experienced navigators may therefore maintain different pace-count estimates for different terrain and load conditions.</p>
+        <p>Dead reckoning is inherently subject to accumulating error. Small errors in azimuth, pace count, terrain-induced changes in stride, and deviations around obstacles can progressively move the estimated position away from the actual position. For this reason, dead reckoning is most effective when periodically cross-checked against terrain or other known references.</p>
+      </div>
+
+      <div class="nv-section" id="nav-terrain">
+        <h3>Terrain Association and Resection</h3>
+        <p>Terrain association is the practice of continuously comparing visible terrain features &mdash; such as hills, ridgelines, streams, valleys, saddles, and distinctive terrain formations &mdash; against their representation on the map. Rather than relying exclusively on compass direction and distance traveled, the navigator uses the terrain itself to confirm and refine their understanding of their position.</p>
+        <p>Terrain association can also assist in orienting a map without a compass. By identifying recognizable terrain features and aligning their mapped locations with the corresponding features in the real world, a navigator can establish the map's orientation relative to the surrounding terrain.</p>
+        <p>Resection is a technique for determining an unknown position by identifying two or more recognizable features whose locations are known on the map, taking bearings to those features, converting the bearings as necessary, and plotting their corresponding back-azimuths on the map. The intersection of the plotted lines provides an estimate of the navigator's position; a third known feature provides a useful cross-check and can help identify measurement or plotting errors.</p>
+        <p>Resection is particularly useful when the navigator's estimated position has become uncertain after moving through terrain where dead reckoning has accumulated significant error. It provides a means of rebuilding an accurate position estimate from identifiable terrain references rather than continuing to compound the existing error.</p>
+        <p>Used in combination, dead reckoning provides a continuous estimate of position, while terrain association and periodic resection provide opportunities to detect and correct accumulated navigation error.</p>
+      </div>
+
+      <div class="nv-section" id="nav-gpsdenied">
+        <h3>GPS-Denied Navigation as a Standing Skill</h3>
+        <p>Electronic positioning systems provide speed, convenience, and precision that traditional map-and-compass navigation cannot always match under favorable conditions. However, satellite-navigation receivers depend on functioning satellite signals, receiver hardware, battery power, and adequate signal reception &mdash; performance can be degraded by terrain, buildings, vegetation, atmospheric effects, interference, deliberate jamming, spoofing, or other conditions, though partial obstruction alone does not necessarily prevent a fix.</p>
+        <p>Map-and-compass navigation does not depend on satellite signals, electronic hardware, batteries, or cellular and internet connectivity &mdash; a distinction worth making explicit, since GPS itself doesn't require an internet connection either, but is often conflated with online mapping services that do. A printed map and magnetic compass can therefore provide an independent navigation capability when electronic positioning is unavailable or unreliable.</p>
+        <p>For this reason, land navigation is best treated as a standing skill rather than an emergency fallback. Proficiency must be maintained through practice, since pace-count calibration, declination application, map interpretation, and terrain-recognition skills can deteriorate without regular use.</p>
+        <p>A magnetic compass, an accurate topographic map, and the ability to apply both effectively under real-world conditions remain a fundamental layer of navigation that can complement &mdash; rather than depend upon &mdash; modern electronic positioning systems.</p>
       </div>
 
     </div>
