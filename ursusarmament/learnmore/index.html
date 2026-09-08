@@ -494,6 +494,17 @@
       <div class="topic-card-cta">Read More &#8594;</div>
     </div>
 
+    <div class="topic-card" onclick="openModal('modalBatteries')">
+      <div class="topic-card-left">
+        <div class="topic-num">06</div>
+        <div>
+          <div class="topic-text-title">Power &amp; Batteries</div>
+          <div class="topic-text-desc">Cell types and formats, series/parallel configuration, protection circuits, and cold-weather performance.</div>
+        </div>
+      </div>
+      <div class="topic-card-cta">Read More &#8594;</div>
+    </div>
+
   </div>
 </section>
 
@@ -916,6 +927,88 @@
         <p>Map-and-compass navigation does not depend on satellite signals, electronic hardware, batteries, or cellular and internet connectivity &mdash; a distinction worth making explicit, since GPS itself doesn't require an internet connection either, but is often conflated with online mapping services that do. A printed map and magnetic compass can therefore provide an independent navigation capability when electronic positioning is unavailable or unreliable.</p>
         <p>For this reason, land navigation is best treated as a standing skill rather than an emergency fallback. Proficiency must be maintained through practice, since pace-count calibration, declination application, map interpretation, and terrain-recognition skills can deteriorate without regular use.</p>
         <p>A magnetic compass, an accurate topographic map, and the ability to apply both effectively under real-world conditions remain a fundamental layer of navigation that can complement &mdash; rather than depend upon &mdash; modern electronic positioning systems.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: POWER & BATTERIES
+============================================================ -->
+<div class="nv-modal-overlay" id="modalBatteries">
+  <div class="nv-modal-box">
+    <button class="nv-modal-close" onclick="closeModal('modalBatteries')">&#10005;</button>
+    <div class="nv-modal-header"><h2>POWER &amp; BATTERIES</h2></div>
+    <div class="nv-modal-body">
+
+      <div class="nv-tldr">
+        <div class="nv-tldr-label">TL;DR</div>
+        <ul>
+          <li><strong>Cell Type and Format Drive the Tradeoffs:</strong> Cylindrical lithium-ion cells such as 18650 and 21700, primary lithium cells such as CR123A, and lithium-polymer pouch cells each trade off capacity, rechargeability, discharge capability, durability, and physical form factor. The appropriate choice depends on the device's power requirements and packaging constraints, not simply cost or availability.</li>
+          <li><strong>Series and Parallel Do Different Jobs:</strong> Wiring cells in series increases total voltage while capacity in amp-hours remains equal to that of one cell; wiring cells in parallel increases total amp-hour capacity while voltage remains equal to that of one cell. Packs commonly combine both configurations to achieve a desired voltage and energy capacity.</li>
+          <li><strong>Cold Reduces Available Performance:</strong> Lithium-ion cells develop higher internal resistance at low temperatures, producing greater voltage sag under load and reducing the amount of usable capacity available before the device reaches its low-voltage cutoff. Equipment intended for cold-weather use must account for this derating.</li>
+          <li><strong>Energy Is Better Compared in Watt-Hours:</strong> Amp-hours or milliamp-hours describe charge capacity, but watt-hours account for both capacity and voltage. Comparing batteries by mAh alone can be misleading when their nominal voltages differ.</li>
+        </ul>
+      </div>
+
+      <div class="nv-jump-nav">
+        <a onclick="scrollToSection('batt-types')">Cell Types and Formats</a>
+        <a onclick="scrollToSection('batt-config')">Series and Parallel Configuration</a>
+        <a onclick="scrollToSection('batt-protection')">Protection Circuits and Battery Management</a>
+        <a onclick="scrollToSection('batt-runtime')">Runtime, Capacity, and Weight Tradeoffs</a>
+        <a onclick="scrollToSection('batt-cold')">Cold-Weather Performance and Voltage Sag</a>
+        <a onclick="scrollToSection('batt-charging')">Charging Standards</a>
+      </div>
+
+      <div class="nv-section" id="batt-types">
+        <h3>Cell Types and Formats</h3>
+        <p>Several lithium-based cell types and physical formats are common in tactical equipment and portable electronics, with different tradeoffs in energy density, discharge capability, durability, and packaging.</p>
+        <ul>
+          <li><strong>Cylindrical Li-ion (18650 / 21700):</strong> Rechargeable lithium-ion cells built around a wound electrode assembly inside a rigid metal can. The 18650 is approximately 18mm in diameter and 65mm long, while the larger 21700 is approximately 21mm in diameter and 70mm long. Common 18650 cells range from roughly 2,300&ndash;3,600mAh, while 21700 cells commonly provide roughly 4,000&ndash;5,000mAh, although actual specifications vary substantially by cell design. Some cells are optimized for high energy capacity while others prioritize high continuous discharge capability, so a larger capacity rating does not automatically mean a higher-power cell.</li>
+          <li><strong>Lithium Primary (CR123A):</strong> A non-rechargeable lithium cell with a nominal voltage of approximately 3.0V and dimensions of roughly 17mm diameter by 34.5mm long. CR123A cells offer long storage life and relatively good performance across a wide range of conditions, making them common in equipment intended for intermittent or emergency use. Rechargeable cells sold in similar physical formats, such as RCR123A/16340 cells, generally have a higher nominal voltage of approximately 3.6&ndash;3.7V and a higher fully charged voltage. They therefore should not be assumed to be interchangeable with CR123A cells unless the equipment specifically supports them.</li>
+          <li><strong>LiPo Pouch Cells:</strong> Lithium-polymer pouch cells use a flexible laminated foil enclosure rather than a rigid cylindrical metal can. This allows manufacturers to produce cells in a wide variety of shapes and dimensions, making them useful where packaging space is constrained, including many compact electronics and mesh-radio devices. Small LiPo cells are commonly specified around 3.7V nominal and may range from several hundred mAh to several thousand mAh depending on the application. Unlike a rigid cylindrical can, the pouch does not provide substantial mechanical protection. Depending on the specific pack, protection circuitry may be integrated into the battery, incorporated into the host device, or omitted from bare cells intended for controlled-use applications. Pouch cells can be damaged by overcharge, over-discharge, excessive heat, mechanical damage, manufacturing defects, or aging, and degradation can produce swelling.</li>
+        </ul>
+      </div>
+
+      <div class="nv-section" id="batt-config">
+        <h3>Series and Parallel Configuration</h3>
+        <p>Multi-cell battery packs are constructed by wiring individual cells in series, in parallel, or in a combination of both. The configuration determines the pack's voltage and capacity.</p>
+        <p>Wiring cells in series connects the positive terminal of one cell to the negative terminal of the next. Cell voltages add together while the amp-hour capacity remains approximately equal to that of one cell.</p>
+        <p>Wiring cells in parallel connects positive terminals together and negative terminals together. The voltage remains approximately equal to that of one cell while the amp-hour capacities add together.</p>
+        <p>A pack designated 2S2P, for example, contains two series-connected cell groups with two cells in parallel in each group. Using identical cells, the result is approximately twice the single-cell voltage and twice the single-cell amp-hour capacity.</p>
+        <p>Series-connected packs require appropriate cell matching, monitoring, and protection because individual cells can diverge in state of charge and voltage over time.</p>
+      </div>
+
+      <div class="nv-section" id="batt-protection">
+        <h3>Protection Circuits and Battery Management</h3>
+        <p>Rechargeable lithium cells are sensitive to overcharge, over-discharge, excessive current, short circuits, and, depending on the cell and application, excessive temperature. Protection circuitry is therefore commonly incorporated into rechargeable battery packs or the equipment that operates them.</p>
+        <p>A Protection Circuit Module (PCM) typically provides basic protective functions such as disconnecting the battery during overcharge, over-discharge, or over-current/short-circuit conditions. The exact functions vary by design.</p>
+        <p>A Battery Management System (BMS) can provide more extensive monitoring and control, including cell-voltage monitoring, temperature monitoring, state-of-charge estimation, protection functions, and &mdash; in systems designed for it &mdash; cell balancing.</p>
+        <p>Cell balancing is particularly important in series-connected packs because individual cells do not remain perfectly identical over repeated cycles. A pack may use passive balancing, which dissipates excess energy from higher-voltage cells, or active balancing, which transfers energy between cells. Not every BMS includes balancing, so the term should not automatically be interpreted as meaning that every individual cell is actively balanced.</p>
+      </div>
+
+      <div class="nv-section" id="batt-runtime">
+        <h3>Runtime, Capacity, and Weight Tradeoffs</h3>
+        <p>Battery runtime depends primarily on the relationship between the battery's available energy and the device's power consumption.</p>
+        <p>Capacity is commonly expressed in mAh or Ah, but these figures describe electrical charge rather than total energy. Watt-hours (Wh) incorporate voltage: Wh &asymp; Ah &times; nominal voltage. For example, two batteries can both be rated at 5,000mAh while containing substantially different amounts of energy if their nominal voltages differ.</p>
+        <p>Higher-energy batteries generally require greater mass and volume, although cell chemistry and construction strongly influence the relationship. This tradeoff becomes especially important in wearable and helmet-mounted equipment, where additional battery mass and its location relative to the head affect balance and long-duration comfort as well as runtime.</p>
+      </div>
+
+      <div class="nv-section" id="batt-cold">
+        <h3>Cold-Weather Performance and Voltage Sag</h3>
+        <p>Lithium-ion cells become less efficient at low temperatures because their internal resistance increases. Under load, this produces greater voltage sag &mdash; a temporary reduction in terminal voltage caused by current flowing through the cell's internal resistance.</p>
+        <p>Cold temperatures can therefore cause a device to reach its low-voltage cutoff sooner, reducing usable runtime even though the battery may still contain chemically stored energy. The effect varies substantially with cell chemistry, construction, discharge rate, and temperature.</p>
+        <p>Some of the increased resistance and voltage-sag effects recover as the cell warms, so a battery that performs poorly while cold can regain much of its normal electrical performance after returning to a warmer temperature. This should be distinguished from permanent capacity loss caused by aging, damage, or degradation.</p>
+        <p>Cold-weather equipment should therefore be designed or operated with appropriate capacity margin and cell selection. Lithium-ion cells should also not be charged below the manufacturer's specified minimum charging temperature. Charging a cold lithium-ion cell outside its specified limits can cause lithium plating and permanent cell damage.</p>
+      </div>
+
+      <div class="nv-section" id="batt-charging">
+        <h3>Charging Standards</h3>
+        <p>Small electronics increasingly use USB-C as a physical charging interface, sometimes combined with USB Power Delivery (USB PD). USB-C by itself does not imply USB PD; devices may use USB-C with simpler fixed-voltage charging schemes or negotiate power using USB PD.</p>
+        <p>USB PD allows compatible chargers and devices to negotiate an appropriate voltage and current rather than relying on a single fixed charging voltage. This allows one charging system to support a wide range of equipment, provided the device and charger implement compatible standards.</p>
+        <p>Multi-cell lithium battery packs, particularly higher-voltage or higher-capacity packs, commonly use a dedicated charger or charging system matched to the pack's chemistry and cell configuration. Series-connected packs may require cell-level monitoring and balancing during charging to prevent individual cells from exceeding their safe voltage limits.</p>
+        <p>The charger must therefore be matched not only to the battery's nominal voltage, but also to its chemistry, cell configuration, charging limits, and protection architecture.</p>
       </div>
 
     </div>
