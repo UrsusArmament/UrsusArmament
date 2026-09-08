@@ -472,6 +472,17 @@
       <div class="topic-card-cta">Read More &#8594;</div>
     </div>
 
+    <div class="topic-card" onclick="openModal('modalTesting')">
+      <div class="topic-card-left">
+        <div class="topic-num">04</div>
+        <div>
+          <div class="topic-text-title">Testing Standards</div>
+          <div class="topic-text-desc">MIL-STD-810H history, environmental tailoring, and how the test methods actually work.</div>
+        </div>
+      </div>
+      <div class="topic-card-cta">Read More &#8594;</div>
+    </div>
+
   </div>
 </section>
 
@@ -770,6 +781,62 @@
           <li><strong>Network Independence:</strong> Because the basic mesh can operate directly between participating radio nodes, communication can continue without cellular service, Wi-Fi infrastructure, or an internet connection. External connectivity can still be added when available, allowing a mesh network to bridge into conventional networks without making those networks a prerequisite for local communication.</li>
         </ul>
         <p>The combination of decentralized routing, low-power radio hardware, long-range modulation, and unlicensed spectrum makes mesh networking particularly useful for remote operations, emergency communications, outdoor activities, disaster response, and other environments where conventional communications infrastructure may be unavailable or unreliable.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: TESTING STANDARDS
+============================================================ -->
+<div class="nv-modal-overlay" id="modalTesting">
+  <div class="nv-modal-box">
+    <button class="nv-modal-close" onclick="closeModal('modalTesting')">&#10005;</button>
+    <div class="nv-modal-header"><h2>TESTING STANDARDS</h2></div>
+    <div class="nv-modal-body">
+
+      <div class="nv-tldr">
+        <div class="nv-tldr-label">TL;DR</div>
+        <ul>
+          <li><strong>What MIL-STD-810H Is:</strong> A U.S. Department of Defense standard covering environmental engineering and laboratory testing, first published in 1962. It is not a single test but a library of numbered test methods, each targeting a specific environmental stress, selected and tailored to the equipment's intended deployment.</li>
+          <li><strong>Environmental Tailoring:</strong> Rather than requiring every product to pass every possible test, the applicable methods, procedures, severities, and durations are selected based on the environments the equipment is actually expected to encounter &mdash; an arctic ground vehicle component and a hot-dry aircraft component are tested to different standards.</li>
+          <li><strong>Not a Certification Program:</strong> MIL-STD-810H does not define a single mandatory sequence that earns a product a blanket &ldquo;certified&rdquo; label. A meaningful test claim identifies the specific methods, procedures, and severities applied &mdash; not just the standard's name.</li>
+        </ul>
+      </div>
+
+      <div class="nv-jump-nav">
+        <a onclick="scrollToSection('mil-history')">History and Development</a>
+        <a onclick="scrollToSection('mil-methods')">Test Methods</a>
+        <a onclick="scrollToSection('mil-qualification')">Testing, Tailoring, and Qualification</a>
+      </div>
+
+      <div class="nv-section" id="mil-history">
+        <h3>History and Development</h3>
+        <p>MIL-STD-810's lineage traces back to earlier U.S. military environmental testing specifications, including AAF Specification 41065, used by the Army Air Forces during the World War II era. The first edition of MIL-STD-810 was published in 1962, originally providing a relatively broad framework that allowed testers to adapt procedures to real environmental conditions.</p>
+        <p>The standard evolved substantially through later revisions. Revision D marked a notable shift in emphasis &mdash; from generic laboratory benchmarks toward shock and vibration testing built to more closely mirror real-world operating environments. That principle, testing to the environment equipment will actually face rather than an arbitrary laboratory standard, remains central to the document today and is formalized as environmental tailoring. Rather than requiring every product to pass every possible test, the applicable methods, procedures, severities, and durations are selected based on the equipment's intended use and expected environmental exposure.</p>
+        <p>The current major revision, MIL-STD-810H, was published in 2019, with Change 1 issued in 2022. It continued the standard's emphasis on environmental tailoring while updating guidance for contemporary operational environments and technologies, including applications involving unmanned systems and advanced sensors.</p>
+      </div>
+
+      <div class="nv-section" id="mil-methods">
+        <h3>Test Methods</h3>
+        <p>MIL-STD-810H is not a single test &mdash; it is a library of numbered test methods, each addressing a specific environmental stress. A given product is tested only against the methods relevant to its intended deployment rather than automatically undergoing the full set.</p>
+        <ul>
+          <li><strong>501 / 502 &mdash; High / Low Temperature:</strong> Evaluate equipment performance and durability during storage, operation, and transitions across elevated and reduced temperatures. Specific limits depend on the selected procedure and climatic design type. For example, climatic categories such as Hot Dry can involve temperatures reaching approximately 71&deg;C (160&deg;F), while Severe Cold conditions can reach approximately -51&deg;C (-60&deg;F). These values are representative test conditions rather than universal temperature limits for all MIL-STD-810H testing.</li>
+          <li><strong>503 &mdash; Temperature Shock:</strong> Evaluates the effects of rapid transitions between temperature extremes. One defined temperature-shock condition involves a change of approximately 50&deg;F (28&deg;C) or more within one minute, creating rapid thermal expansion and contraction that can stress seals, optical components, solder joints, adhesives, and mechanical assemblies. The specific temperature-shock profile depends on the selected procedure and intended environment.</li>
+          <li><strong>514 &mdash; Vibration:</strong> Evaluates equipment against vibration representative of its intended transportation or operating platform, including environments associated with ground vehicles, aircraft, ships, and other platforms. Vibration testing can reveal structural weaknesses, loose fasteners, connector failures, fatigue damage, and degradation or misalignment of optical and mechanical components.</li>
+          <li><strong>516 &mdash; Shock:</strong> Covers multiple procedures for evaluating mechanical shock, including functional shock, transportation shock, fragility, and transit drop. The transit-drop procedure, for example, can involve repeated drops from heights of up to approximately five feet onto a hard surface, while other procedures use different shock profiles and test conditions.</li>
+          <li><strong>519 &mdash; Gunfire Shock:</strong> Evaluates equipment mounted on or near firearms and weapon platforms against the mechanical shock environment generated by gunfire. This testing addresses the rapid, repeated transient mechanical loads associated with firing and is distinct from the broader transportation and platform vibration addressed by Method 514.</li>
+        </ul>
+        <p>Other methods address environmental stresses including humidity, altitude, rain, sand and dust, salt fog, fungus, solar radiation, icing, freezing rain, explosive atmospheres, and additional conditions. The applicable methods and procedures are selected according to the equipment's intended application and expected environmental exposure.</p>
+      </div>
+
+      <div class="nv-section" id="mil-qualification">
+        <h3>Testing, Tailoring, and Qualification</h3>
+        <p>MIL-STD-810H is not a certification program. It provides test methods and environmental-tailoring guidance rather than a single mandatory test sequence that every product must pass to be labeled &ldquo;MIL-STD-810H certified.&rdquo;</p>
+        <p>Acceptance criteria are established by the equipment's applicable program, contract, specification, or design requirements rather than by a universal pass/fail threshold contained in MIL-STD-810H itself. Testing may be performed by the manufacturer, a contractor, a government facility, or an independent laboratory. Third-party testing can provide additional credibility and independent verification, but independent laboratory testing is not inherently required by the standard.</p>
+        <p>Passing one or more MIL-STD-810H test methods does not imply resistance to every environmental condition covered by the standard. A product tested for shock and vibration, for example, has not necessarily been tested for humidity, immersion, salt fog, extreme temperatures, or other environmental stresses.</p>
+        <p>The value of a MIL-STD-810H test claim therefore depends heavily on how closely the selected methods, procedures, severities, and durations correspond to the product's actual intended environment. A specific statement identifying the tests performed is substantially more informative than a blanket claim that a product is simply &ldquo;MIL-STD-810H compliant&rdquo; or &ldquo;MIL-STD-810H certified.&rdquo;</p>
       </div>
 
     </div>
