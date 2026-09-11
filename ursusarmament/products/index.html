@@ -1514,6 +1514,15 @@ const db  = getFirestore(app);
 let availabilityCache = null;
 let _hasSorted         = false;
 
+async function safeGetDoc(ref, label) {
+  try {
+    return await getDoc(ref);
+  } catch (e) {
+    console.error(`Firestore read denied/failed for ${label}:`, e);
+    return null;
+  }
+}
+
 async function fetchAvailability() {
   if (availabilityCache) return availabilityCache;
 
@@ -1530,32 +1539,32 @@ async function fetchAvailability() {
   }
 
   const [mum14Snap, bridgeBlackSnap, bridgeSandSnap, pvs14Snap, rhinoSnap, combatTopsSnap, compassSnap, compass27Snap] = await Promise.all([
-    getDoc(doc(db, "ursus-units", "MUM-14 Adapter")),
-    getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Black")),
-    getDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Sand")),
-    getDoc(doc(db, "ursus-units", "PVS-14 Adapter")),
-    getDoc(doc(db, "ursus-units", "rhino-mounts")),
-    getDoc(doc(db, "ursus-units", "combat-tops")),
-    getDoc(doc(db, "ursus-units", "cammenga-3h-compass")),
-    getDoc(doc(db, "ursus-units", "cammenga-27-compass")),
+    safeGetDoc(doc(db, "ursus-units", "MUM-14 Adapter"), "MUM-14 Adapter"),
+    safeGetDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Black"), "MUM-14 Bridge Black"),
+    safeGetDoc(doc(db, "ursus-units", "MUM-14_Dovetail_Bridge_Sand"), "MUM-14 Bridge Sand"),
+    safeGetDoc(doc(db, "ursus-units", "PVS-14 Adapter"), "PVS-14 Adapter"),
+    safeGetDoc(doc(db, "ursus-units", "rhino-mounts"), "Rhino Mounts"),
+    safeGetDoc(doc(db, "ursus-units", "combat-tops"), "Combat Tops"),
+    safeGetDoc(doc(db, "ursus-units", "cammenga-3h-compass"), "Cammenga 3H"),
+    safeGetDoc(doc(db, "ursus-units", "cammenga-27-compass"), "Cammenga 27"),
 ]);
 
   let mum14DtAvail = false;
   let mum14BnAvail = false;
-  if (mum14Snap.exists()) {
+  if (mum14Snap?.exists()) {
     const mount    = mum14Snap.data()?.mount || {};
     const dovetail = mount.dovetail || {};
     const bayonet  = mount.bayonet  || {};
     mum14DtAvail = Object.values(dovetail).some(qty => typeof qty === 'number' && qty > 0);
     mum14BnAvail = Object.values(bayonet).some(qty => typeof qty === 'number' && qty > 0);
   }
-  const bridgeBlackQty  = bridgeBlackSnap.exists()   ? (bridgeBlackSnap.data()?.['quantity-available']  || 0) : 0;
-  const bridgeSandQty   = bridgeSandSnap.exists()    ? (bridgeSandSnap.data()?.['quantity-available']   || 0) : 0;
-  const compassQty      = compassSnap.exists()       ? (compassSnap.data()?.['quantity-available']      || 0) : 0;
-  const compass27Qty    = compass27Snap.exists()     ? (compass27Snap.data()?.['quantity-available']    || 0) : 0;
-  let rhinoDtAvail = false;
+  const bridgeBlackQty  = bridgeBlackSnap?.exists()   ? (bridgeBlackSnap.data()?.['quantity-available']  || 0) : 0;
+  const bridgeSandQty   = bridgeSandSnap?.exists()    ? (bridgeSandSnap.data()?.['quantity-available']   || 0) : 0;
+  const compassQty      = compassSnap?.exists()       ? (compassSnap.data()?.['quantity-available']      || 0) : 0;
+  const compass27Qty    = compass27Snap?.exists()     ? (compass27Snap.data()?.['quantity-available']    || 0) : 0;
+let rhinoDtAvail = false;
 let rhinoBnAvail = false;
-if (rhinoSnap.exists()) {
+if (rhinoSnap?.exists()) {
     const mounts = rhinoSnap.data()?.mounts || {};
     const dovetail = mounts.dovetail || {};
     const bayonet  = mounts.bayonet  || {};
@@ -1565,7 +1574,7 @@ if (rhinoSnap.exists()) {
 
   let pvs14DtAvail = false;
   let pvs14BnAvail = false;
-  if (pvs14Snap.exists()) {
+  if (pvs14Snap?.exists()) {
     const mount    = pvs14Snap.data()?.mount || {};
     const dovetail = mount.dovetail || {};
     const bayonet  = mount.bayonet  || {};
@@ -1579,7 +1588,7 @@ if (rhinoSnap.exists()) {
  
  // ── Combat Tops: count how many colorway styles have any size qty > 0 ──
   let combatTopStylesAvailable = 0;
-  if (combatTopsSnap.exists()) {
+  if (combatTopsSnap?.exists()) {
     const qtArray = combatTopsSnap.data()?.['quantity-available'];
     if (Array.isArray(qtArray) && qtArray.length > 0) {
       const colorwayMap = qtArray[0]; // single map entry containing all colorways
