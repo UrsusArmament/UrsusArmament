@@ -1123,9 +1123,10 @@
       <div class="nv-tldr">
         <div class="nv-tldr-label">TL;DR</div>
         <ul>
-          <li><strong>How Mesh Networking Works:</strong> Instead of every device routing through one central tower or router, each node can relay traffic for other nodes, hopping messages across the network until they reach their destination. This lets the network keep working &mdash; and keep extending its range &mdash; even without cell towers, satellites, or internet infrastructure, and even if individual nodes drop out.</li>
-          <li><strong>The Core Tradeoff &mdash; Range vs. Speed:</strong> Sub-GHz bands (433/868/915 MHz) travel farther and penetrate obstacles better at lower power, while 2.4 GHz moves more data but loses range faster. Within LoRa specifically, spreading factor controls the same tradeoff at the modulation level &mdash; higher SF means more range and sensitivity but slower transmission and more airtime.</li>
-          <li><strong>Meshtastic as a Real-World Example:</strong> Open-source firmware paired with LoRa radios (commonly on ESP32 or nRF52840 hardware) turns inexpensive nodes into a self-forming mesh. Phones connect over Bluetooth to send messages, share location, and monitor the network &mdash; no cell service or internet required at any point.</li>
+          <li><strong>How Mesh Networking Works:</strong> Instead of every device routing through one central tower or router, each node can relay traffic for other nodes, hopping messages across the network until they reach their destination. This lets the network remain functional &mdash; and extend effective coverage through additional hops &mdash; even without cell towers, satellites, or internet infrastructure, and even if individual nodes drop out.</li>
+          <li><strong>The Core Tradeoff &mdash; Range vs. Speed:</strong> Sub-GHz frequencies (433/868/915 MHz) generally experience lower path loss and can provide better diffraction and penetration characteristics than 2.4 GHz, making them advantageous for long-range, low-power communication, while 2.4 GHz supports higher data rates at correspondingly shorter range. Within LoRa specifically, spreading factor controls a similar tradeoff at the modulation level &mdash; higher SF improves sensitivity and can extend usable range, but slows transmission and increases airtime.</li>
+          <li><strong>Meshtastic as a Real-World Example:</strong> Open-source mesh firmware built around LoRa-compatible radios (commonly on ESP32 or nRF52840 hardware) turns inexpensive nodes into a decentralized mesh. Phones connect over Bluetooth to send messages, share location, and monitor the network &mdash; no cell service or internet required at any point.</li>
+          <li><strong>Antenna Mount Angle:</strong> Linearly polarized antennas experience increasing polarization loss as their relative alignment diverges from alignment with each other. Fixed nodes can orient an antenna near-vertical when that matches the intended link geometry. Wearable nodes whose orientation changes with body posture may use an intermediate mount angle instead, accepting some loss in the ideal orientation to reduce the worst-case mismatch across different postures.</li>
         </ul>
       </div>
 
@@ -1134,6 +1135,7 @@
         <a onclick="nvScrollTo('mesh-ism')">ISM Bands and Radio Frequency Fundamentals</a>
         <a onclick="nvScrollTo('mesh-lora')">Long-Range Modulation: LoRa and Chirp Spread Spectrum</a>
         <a onclick="nvScrollTo('mesh-meshtastic')">Protocol Implementation: Meshtastic and Open Ecosystems</a>
+        <a onclick="nvScrollTo('mesh-antenna')">Antenna Orientation and Polarization Alignment</a>
       </div>
 
       <div class="nv-section" id="mesh-principles">
@@ -1155,7 +1157,7 @@
         <p>Common frequencies used by off-grid communication systems include sub-GHz bands such as 433 MHz, 868 MHz, and 915 MHz, as well as the 2.4 GHz ISM band. The specific frequencies, power limits, channel arrangements, and operating requirements vary by country and device class.</p>
         <ul>
           <li><strong>Sub-GHz Propagation Characteristics:</strong> Frequencies below 1 GHz generally experience lower free-space path loss than higher frequencies at the same distance and can exhibit favorable diffraction and penetration characteristics around obstacles and through some vegetation and building materials. These characteristics can make sub-GHz frequencies particularly useful for long-range, low-power communications. Actual performance depends heavily on antenna characteristics, terrain, vegetation, building construction, interference, transmit power, receiver sensitivity, and link geometry.</li>
-          <li><strong>2.4 GHz Band Characteristics:</strong> The 2.4 GHz ISM band is widely used by technologies capable of substantially higher data rates than many long-range sub-GHz systems. Its shorter wavelength and availability of wider-bandwidth PHY technologies can support faster transmission of data, but propagation losses are generally higher than at sub-GHz frequencies over the same distance. As a result, 2.4 GHz systems typically require more favorable link conditions, higher antenna performance, or greater power to achieve equivalent range.</li>
+          <li><strong>2.4 GHz Band Characteristics:</strong> The 2.4 GHz ISM band is widely used by technologies capable of substantially higher data rates than many long-range sub-GHz systems. Its shorter wavelength and availability of wider-bandwidth PHY technologies can support faster transmission of data, but propagation losses are generally higher than at sub-GHz frequencies over the same distance. As a result, 2.4 GHz systems typically require more favorable link conditions, higher-gain or better-positioned antennas, or greater power to achieve equivalent range.</li>
         </ul>
         <p>The choice between sub-GHz and 2.4 GHz therefore represents a tradeoff between range, data rate, antenna characteristics, power consumption, network capacity, and environmental propagation.</p>
       </div>
@@ -1164,7 +1166,7 @@
         <h3>Long-Range Modulation: LoRa and Chirp Spread Spectrum</h3>
         <p>LoRa (Long Range) is a proprietary physical-layer modulation technology developed for low-power, long-range wireless communication. It is based on Chirp Spread Spectrum (CSS) modulation and is widely used in low-data-rate sensor networks, telemetry systems, and off-grid communication platforms.</p>
         <ul>
-          <li><strong>Chirp Modulation Mechanics:</strong> LoRa encodes information using frequency-modulated chirps that sweep across a defined bandwidth. These chirps can be processed by a compatible receiver to recover data even when the received signal is extremely weak.</li>
+          <li><strong>Chirp Modulation Mechanics:</strong> LoRa encodes information using frequency-modulated chirps that sweep across a defined bandwidth. These chirps can be processed by a compatible receiver to recover data even when the received signal is very weak.</li>
           <li><strong>Link Budget and Receiver Sensitivity:</strong> One of LoRa's primary advantages is its combination of low transmit power and high receiver sensitivity. Its spread-spectrum modulation and processing gain allow compatible receivers to recover signals at very low received power levels. This can produce exceptionally large link budgets and enable long-distance communication when favorable antennas, terrain, and propagation conditions are present. Actual range can vary from hundreds of meters in difficult environments to many kilometers under favorable line-of-sight conditions.</li>
           <li><strong>Key Configuration Parameters:</strong> LoRa performance is primarily influenced by bandwidth (BW), spreading factor (SF), and coding rate (CR):
             <ul>
@@ -1187,6 +1189,75 @@
           <li><strong>Network Independence:</strong> Because the basic mesh can operate directly between participating radio nodes, communication can continue without cellular service, Wi-Fi infrastructure, or an internet connection. External connectivity can still be added when available, allowing a mesh network to bridge into conventional networks without making those networks a prerequisite for local communication.</li>
         </ul>
         <p>The combination of decentralized routing, low-power radio hardware, long-range modulation, and unlicensed spectrum makes mesh networking particularly useful for remote operations, emergency communications, outdoor activities, disaster response, and other environments where conventional communications infrastructure may be unavailable or unreliable.</p>
+      </div>
+
+      <div class="nv-section" id="mesh-antenna">
+        <h3>Antenna Orientation and Polarization Alignment</h3>
+        <p>Most compact mesh-network antennas are linearly polarized, meaning they radiate and receive most efficiently along a single fixed axis. When two linearly polarized antennas share the same alignment, transfer efficiency is maximized. As the angle between them increases, polarization mismatch introduces increasing loss rather than a hard cutoff. For ideal linearly polarized antennas, this polarization coupling follows a cosine-squared power relationship with angular misalignment; a small misalignment produces a minor, often negligible loss, while alignment approaching 90&deg; (cross-polarization) can theoretically produce severe loss. Real-world performance also depends on antenna pattern, polarization purity, multipath, nearby materials, body loading, and antenna construction, so actual behavior rarely matches the idealized curve exactly.</p>
+        <ul>
+          <li><strong>Fixed-Position Nodes:</strong> A stationary or vehicle-mounted node can be oriented once during installation and maintained in a consistent polarization orientation. For typical vertically polarized terrestrial links, this will often mean mounting the antenna approximately vertical, provided that orientation matches the intended link geometry. Because its orientation does not change, it can be optimized for a single best-case configuration.</li>
+          <li><strong>Wearable and Dynamic Nodes:</strong> A body-worn node's orientation changes continuously with the wearer's posture and movement. A mesh antenna mounted for ideal alignment while standing may be significantly misaligned when the wearer is prone, crouched, or otherwise repositioned &mdash; and the reverse is equally true if optimized for a different posture instead.</li>
+          <li><strong>GNSS Considerations:</strong> Many wearable nodes also integrate a GNSS receiver for position reporting. GNSS patch antennas generally perform best when oriented toward the sky with a relatively unobstructed view of the GNSS satellites, which can place its own constraints on overall housing orientation independent of the mesh antenna's optimal alignment.</li>
+          <li><strong>Intermediate-Angle Design:</strong> Rather than optimize a fixed-mount wearable antenna for a single posture, a design can instead select an intermediate angle positioned between the anticipated extremes. This does not eliminate misalignment, but it reduces the worst-case swing compared to a purely vertical or purely horizontal mount &mdash; trading some peak-case performance for more consistent performance across the full range of expected orientations.</li>
+          <li><strong>Relative Alignment Between Nodes:</strong> Because polarization loss depends on the angle between two antennas rather than either antenna's absolute orientation, nodes with similarly oriented antennas at a given moment can remain well polarization-aligned regardless of whether that common orientation is vertical, horizontal, or an intermediate angle. Mismatch becomes more relevant between nodes in substantially different orientations at the same moment, and multi-hop mesh routing can provide resilience by routing around any single degraded link.</li>
+        </ul>
+        <p>NX-100, a helmet-mounted personnel node, applies this design approach: its current design targets an antenna mount angle of approximately 45&deg;, intended to reduce the maximum polarization mismatch across an assumed range of operator postures, compared with optimizing the antenna for a single fixed orientation. This benefit depends on that assumed posture range reflecting actual field use; the angle is not inherently superior to a vertical or horizontal mount, and it represents a design tradeoff rather than a universal optimum.</p>
+
+        <svg viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:820px;display:block;margin:1.5rem auto 0.5rem;">
+          <rect x="1" y="1" width="898" height="478" fill="#111110" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22"/>
+          <polyline points="1,22 1,1 22,1" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
+          <polyline points="878,1 898,1 898,22" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
+          <polyline points="1,458 1,478 22,478" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
+          <polyline points="878,478 898,478 898,458" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
+
+          <text x="450" y="34" font-family="monospace" font-size="14" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="4">ANTENNA MOUNT COMPARISON</text>
+          <text x="450" y="49" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.35" text-anchor="middle" letter-spacing="1.5">FIXED VERTICAL VS. INTERMEDIATE-ANGLE MOUNT &middot; ILLUSTRATIVE</text>
+
+          <line x1="450" y1="70" x2="450" y2="445" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.12"/>
+
+          <!-- PANEL A: VERTICAL MOUNT -->
+          <text x="225" y="82" font-family="monospace" font-size="9" fill="#c8701a" fill-opacity="0.75" text-anchor="middle" letter-spacing="1.5">VERTICAL MOUNT (0&deg; TARGET)</text>
+          <text x="225" y="94" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">optimized for standing posture only</text>
+
+          <line x1="225" y1="150" x2="225" y2="370" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.22" stroke-dasharray="4,6" class="net-link-slow"/>
+          <text x="234" y="160" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.35">VERTICAL REF</text>
+
+          <line x1="225" y1="260" x2="225" y2="150" stroke="#c8701a" stroke-width="1.6" stroke-opacity="0.8" class="net-link"/>
+          <text x="150" y="145" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.7" text-anchor="middle">STANDING &middot; 0&deg;</text>
+
+          <line x1="225" y1="260" x2="335" y2="260" stroke="#c0392b" stroke-width="1.6" stroke-opacity="0.85" stroke-dasharray="5,4" class="net-link-rev"/>
+          <text x="335" y="248" font-family="monospace" font-size="6.5" fill="#e87060" text-anchor="middle">PRONE (approx.) &middot; ~90&deg;</text>
+
+          <path d="M 225 150 A 110 110 0 0 1 335 260" fill="none" stroke="#c0392b" stroke-width="1" stroke-opacity="0.5"/>
+          <text x="300" y="200" font-family="monospace" font-size="6.5" fill="#e87060" text-anchor="middle">severe mismatch</text>
+          <text x="300" y="211" font-family="monospace" font-size="6.5" fill="#e87060" text-anchor="middle">(near-total loss, worst case)</text>
+
+          <circle cx="225" cy="260" r="6" fill="#c8701a" fill-opacity="0.2" class="node-pulse"/>
+
+          <!-- PANEL B: 45deg TARGET MOUNT -->
+          <text x="675" y="82" font-family="monospace" font-size="9" fill="#c8701a" fill-opacity="0.75" text-anchor="middle" letter-spacing="1.5">~45&deg; TARGET MOUNT (NX-100)</text>
+          <text x="675" y="94" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">balanced across standing &amp; prone</text>
+
+          <line x1="675" y1="150" x2="675" y2="370" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.22" stroke-dasharray="4,6" class="net-link-slow"/>
+          <text x="684" y="160" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.35">VERTICAL REF</text>
+
+          <line x1="675" y1="260" x2="753" y2="182" stroke="#c8701a" stroke-width="1.6" stroke-opacity="0.8" class="net-link"/>
+          <text x="775" y="172" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.7" text-anchor="middle">STANDING &middot; ~45&deg;</text>
+
+          <line x1="675" y1="260" x2="597" y2="182" stroke="#c8701a" stroke-width="1.6" stroke-opacity="0.8" stroke-dasharray="5,4" class="net-link-rev"/>
+          <text x="575" y="172" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.7" text-anchor="middle">PRONE (approx.) &middot; ~45&deg;</text>
+
+          <path d="M 675 150 A 110 110 0 0 1 753 182" fill="none" stroke="#c8701a" stroke-width="1" stroke-opacity="0.5"/>
+          <path d="M 597 182 A 110 110 0 0 1 675 150" fill="none" stroke="#c8701a" stroke-width="1" stroke-opacity="0.5"/>
+          <text x="675" y="205" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.65" text-anchor="middle">moderate, balanced mismatch</text>
+          <text x="675" y="216" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.65" text-anchor="middle">(~-3dB each extreme, approx.)</text>
+
+          <circle cx="675" cy="260" r="6" fill="#c8701a" fill-opacity="0.2" class="node-pulse-b"/>
+
+          <text x="450" y="420" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle" letter-spacing="0.5">Loss values are illustrative approximations for linearly polarized antennas.</text>
+          <text x="450" y="431" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle" letter-spacing="0.5">Actual performance varies with antenna design, body proximity, multipath, and mesh routing. NX-100 angle reflects current design target.</text>
+          <text x="450" y="442" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle" letter-spacing="0.5">Comparison illustrates one assumed posture-range scenario; relative advantage depends on that scenario matching actual deployment conditions.</text>
+        </svg>
       </div>
 
     </div>
