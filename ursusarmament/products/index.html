@@ -1054,6 +1054,7 @@ const PRODUCTS = [
     bgLabel: 'NX-SYS',
     desc: 'Secure, high-reliability communications platform unifying sensors, optics, and weapon systems into one operational ecosystem.',
     status: 'unavailable',
+    statusId: 'nexis-status',
     displayCat: 'Tactical Network',
   },
   {
@@ -1226,6 +1227,8 @@ function sortForDisplay(products) {
   return [...products].sort((a, b) => {
     if (a.id === 'ursix' && b.id !== 'ursix') return -1;
     if (b.id === 'ursix' && a.id !== 'ursix') return 1;
+    if (a.id === 'nexis' && b.id !== 'nexis') return -1;
+    if (b.id === 'nexis' && a.id !== 'nexis') return 1;
     const aUntracked = a.status === 'unavailable' && !a.statusId;
     const bUntracked = b.status === 'unavailable' && !b.statusId;
     if (aUntracked && !bUntracked) return 1;
@@ -1645,6 +1648,18 @@ async function applyAvailability() {
         ursixEl.classList.remove("available");
         ursixEl.style.color = '#c0392b';
       }
+    }
+
+    const nexisEl = document.getElementById("nexis-status");
+    if (nexisEl) {
+      nexisEl.innerHTML = `
+        <span style="width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;display:inline-block;"></span>
+        <span style="color:var(--accent);">Limited Field Testing Program</span>
+      `;
+      nexisEl.style.display = 'flex';
+      nexisEl.style.alignItems = 'center';
+      nexisEl.style.gap = '0.4rem';
+      nexisEl.classList.add('no-dot');
     }
 
     const mum14El = document.getElementById("mum14-status");
