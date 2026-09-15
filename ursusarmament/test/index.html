@@ -367,6 +367,7 @@
   .loadout-line-unchecked { opacity:0.4; }
   .loadout-line-unchecked .loadout-line-price, .loadout-line-unchecked .loadout-line-subtotal { text-decoration:line-through; }
   .loadout-stock-note { color:var(--muted); font-size:0.75rem; }
+  .loadout-stock-low { color:var(--accent2); font-size:0.75rem; font-weight:600; }
   .loadout-stock-warning { color:#e87060; font-size:0.75rem; font-weight:600; }
   .loadout-access-note { color:var(--accent); font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-top:0.3rem; }
   .loadout-line-checkbox:disabled { cursor:not-allowed; }
@@ -1499,9 +1500,15 @@ function updateLoadout() {
     if (priceData) {
       priceDisplay = '$' + priceData.price.toLocaleString();
       subtotalDisplay = '$' + (priceData.price * l.qty).toLocaleString();
-      stockNote = priceData.qty < l.qty
-        ? ' <span class="loadout-stock-warning">&mdash; only ' + priceData.qty + ' in stock</span>'
-        : ' <span class="loadout-stock-note">&mdash; ' + priceData.qty + ' in stock</span>';
+      if (priceData.qty < l.qty) {
+        stockNote = priceData.qty === 0
+          ? ' <span class="loadout-stock-warning">&mdash; 0 in stock</span>'
+          : ' <span class="loadout-stock-warning">&mdash; only ' + priceData.qty + ' in stock</span>';
+      } else if (priceData.qty - l.qty <= 10) {
+        stockNote = ' <span class="loadout-stock-low">&mdash; ' + priceData.qty + ' in stock</span>';
+      } else {
+        stockNote = ' <span class="loadout-stock-note">&mdash; ' + priceData.qty + ' in stock</span>';
+      }
     }
 
     const accessNote = isGated ? '<span class="loadout-access-note">Full Access account required</span>' : '';
