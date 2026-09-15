@@ -325,6 +325,55 @@
   .nv-section li strong { color: var(--text); }
   .nv-section li ul { margin-top: 0.6rem; }
 
+  /* Interactive antenna mount diagram */
+  .antenna-interactive { margin: 1.5rem 0 0.5rem; }
+  .antenna-slider-row { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:0.6rem; flex-wrap:wrap; gap:0.5rem; }
+  .antenna-slider-label { font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); }
+  .antenna-slider-readout { font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; font-weight:600; color:var(--text); }
+  .antenna-slider { -webkit-appearance:none; appearance:none; width:100%; height:4px; background:var(--border2); outline:none; margin-bottom:1.25rem; border-radius:2px; }
+  .antenna-slider::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:18px; height:18px; border-radius:50%; background:var(--accent); cursor:pointer; border:2px solid var(--dark); animation: thumbPulse 2s ease-in-out infinite; }
+  .antenna-slider::-moz-range-thumb { width:18px; height:18px; border-radius:50%; background:var(--accent); cursor:pointer; border:2px solid var(--dark); animation: thumbPulse 2s ease-in-out infinite; }
+  @keyframes thumbPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(200,146,42,0.55), 0 0 0 1px var(--accent); } 50% { box-shadow: 0 0 0 8px rgba(200,146,42,0), 0 0 0 1px var(--accent); } }
+  .antenna-readout-panel { display:flex; flex-direction:column; gap:0.6rem; margin-top:1rem; padding:1rem 1.25rem; background:var(--surface); border:1px solid var(--border2); border-left:3px solid var(--accent); }
+  .antenna-readout-row { display:flex; align-items:center; gap:0.6rem; font-family:'Barlow Condensed',sans-serif; font-size:0.9rem; flex-wrap:wrap; }
+  .antenna-readout-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+  .antenna-readout-label { color:var(--text); font-weight:600; letter-spacing:0.04em; }
+  .antenna-readout-value { color:var(--muted); margin-left:auto; font-family:monospace; }
+  .antenna-readout-value strong { color:var(--text); }
+
+  /* Loadout calculator */
+  .loadout-form { display:flex; flex-direction:column; gap:1.1rem; margin-bottom:1.5rem; }
+  .loadout-field { display:flex; flex-direction:column; gap:0.4rem; }
+  .loadout-field label { font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); }
+  .loadout-field input[type="number"] { background:var(--surface); border:1px solid var(--border2); color:var(--text); padding:0.65rem 0.9rem; font-family:'Barlow Condensed',sans-serif; font-size:1rem; width:140px; }
+  .loadout-field-checkbox { display:flex; align-items:flex-start; gap:0.6rem; }
+  .loadout-field-checkbox input[type="checkbox"] { margin-top:0.2rem; width:16px; height:16px; accent-color:var(--accent); flex-shrink:0; }
+  .loadout-field-checkbox label { font-size:0.88rem; color:var(--text); line-height:1.5; }
+  .loadout-results { background:var(--surface); border:1px solid var(--border2); border-left:3px solid var(--accent); padding:1.25rem 1.5rem; }
+  .loadout-results-empty { color:var(--muted); font-size:0.9rem; font-style:italic; }
+  .loadout-line { display:flex; align-items:flex-start; padding:0.75rem 0; border-bottom:1px solid var(--border); gap:0.85rem; }
+  .loadout-line:last-child { border-bottom:none; }
+  .loadout-line-checkbox { margin-top:0.3rem; width:16px; height:16px; accent-color:var(--accent); cursor:pointer; flex-shrink:0; }
+  .loadout-line-info { flex:1; min-width:0; }
+  .loadout-line-name { font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:0.05em; color:var(--text); }
+  .loadout-line-desc { font-size:0.78rem; color:var(--muted); display:block; margin-top:0.2rem; }
+  .loadout-line-pricing { display:flex; align-items:baseline; gap:0.5rem; flex-shrink:0; white-space:nowrap; }
+  .loadout-line-price { font-family:'Barlow Condensed',sans-serif; font-size:0.92rem; color:var(--text); font-weight:600; }
+  .loadout-line-qty { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--accent); }
+  .loadout-line-equals { font-family:'Barlow Condensed',sans-serif; font-size:0.95rem; color:var(--text); font-weight:600; }
+  .loadout-line-subtotal { font-family:'Barlow Condensed',sans-serif; font-size:0.92rem; color:var(--text); font-weight:700; }
+  .loadout-line-optional { opacity:0.85; }
+  .loadout-badge-optional { font-size:0.6rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); padding:0.12rem 0.45rem; margin-left:0.5rem; }
+  .loadout-line-unchecked { opacity:0.4; }
+  .loadout-line-unchecked .loadout-line-price, .loadout-line-unchecked .loadout-line-subtotal { text-decoration:line-through; }
+  .loadout-stock-note { color:var(--muted); font-size:0.75rem; }
+  .loadout-stock-warning { color:#e87060; font-size:0.75rem; font-weight:600; }
+  .loadout-total-row { display:flex; justify-content:space-between; align-items:center; padding-top:1rem; margin-top:0.5rem; border-top:2px solid var(--border2); }
+  .loadout-total-label { font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); }
+  .loadout-total-value { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:var(--accent); }
+  .loadout-trigger-btn { display:inline-flex; align-items:center; gap:0.5rem; background:rgba(200,146,42,0.08); border:1px solid var(--accent); color:var(--accent); font-family:'Barlow Condensed',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; padding:0.5rem 1rem; cursor:pointer; transition:background 0.2s, color 0.2s; white-space:nowrap; animation: nvPulse 2s ease-in-out infinite; }
+  .loadout-trigger-btn:hover { background:var(--accent); color:var(--black); animation-play-state:paused; }
+
   @media (max-width: 600px) {
     .nv-modal-box { width: 96%; max-height: 90vh; }
     .nv-modal-header, .nv-modal-body { padding-left: 1.25rem; padding-right: 1.25rem; }
@@ -699,6 +748,7 @@
         <div class="unavail-dot" style="width:6px;height:6px;"></div>
         In Development
       </div>
+      <button class="loadout-trigger-btn" onclick="openLoadoutModal()">Calculate Your Loadout Needs</button>
     </div>
     <div class="product-actions">
       <a href="#notify" class="btn-notify">Notify Me at Launch</a>
@@ -790,7 +840,14 @@
       <div class="nx-status">↗ Limited Field Deployment</div>
     </div>
 
-    <div class="nx-card">
+    <div class="nx-card" id="nxCard600" style="position:relative;">
+      <div class="feature-lock-overlay" id="nxLock600">
+        <div class="feature-lock-box">
+          <div class="feature-lock-title">FULL ACCESS REQUIRED</div>
+          <div class="feature-lock-text">NX-600-CMD details are available to verified Full Access account holders only.</div>
+          <a href="/ursusarmament/settings/" class="feature-lock-btn">Upgrade Account</a>
+        </div>
+      </div>
       <div class="nx-model">NX-600</div>
       <div class="nx-code">CMD — Command Terminal</div>
       <div class="nx-name">Centralized Command Interface</div>
@@ -820,7 +877,14 @@
       <div class="nx-status">↗ Limited Field Deployment</div>
     </div>
 
-    <div class="nx-card">
+    <div class="nx-card" id="nxCard800" style="position:relative;">
+      <div class="feature-lock-overlay" id="nxLock800">
+        <div class="feature-lock-box">
+          <div class="feature-lock-title">FULL ACCESS REQUIRED</div>
+          <div class="feature-lock-text">NX-800-VLT details are available to verified Full Access account holders only.</div>
+          <a href="/ursusarmament/settings/" class="feature-lock-btn">Upgrade Account</a>
+        </div>
+      </div>
       <div class="nx-model">NX-800</div>
       <div class="nx-code">VLT — System Vault / Provisioning Layer</div>
       <div class="nx-name">Deployment Initialization & Configuration System</div>
@@ -1203,63 +1267,115 @@
         </ul>
         <p>NX-100, a helmet-mounted personnel node, applies this design approach: its current design targets an antenna mount angle of approximately 45&deg;, intended to reduce the maximum polarization mismatch across an assumed range of operator postures, compared with optimizing the antenna for a single fixed orientation. This benefit depends on that assumed posture range reflecting actual field use; the angle is not inherently superior to a vertical or horizontal mount, and it represents a design tradeoff rather than a universal optimum.</p>
 
-        <svg viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:820px;display:block;margin:1.5rem auto 0.5rem;">
-          <rect x="1" y="1" width="898" height="478" fill="#111110" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22"/>
-          <polyline points="1,22 1,1 22,1" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
-          <polyline points="878,1 898,1 898,22" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
-          <polyline points="1,458 1,478 22,478" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
-          <polyline points="878,478 898,478 898,458" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
+        <div class="antenna-interactive">
+          <div class="antenna-slider-row">
+            <label for="postureSlider" class="antenna-slider-label">Drag to change operator posture</label>
+            <span class="antenna-slider-readout" id="postureReadout">Standing &middot; 0&deg;</span>
+          </div>
+          <input type="range" id="postureSlider" class="antenna-slider" min="0" max="90" step="1" value="0" oninput="updateAntennaDiagram(this.value)">
 
-          <text x="450" y="34" font-family="monospace" font-size="14" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="4">ANTENNA MOUNT COMPARISON</text>
-          <text x="450" y="49" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.35" text-anchor="middle" letter-spacing="1.5">FIXED VERTICAL VS. INTERMEDIATE-ANGLE MOUNT &middot; ILLUSTRATIVE</text>
+          <svg viewBox="0 0 900 460" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:820px;display:block;margin:0 auto;">
+            <rect x="1" y="1" width="898" height="458" fill="#111110" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22"/>
+            <polyline points="1,22 1,1 22,1" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
+            <polyline points="878,1 898,1 898,22" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
+            <polyline points="1,438 1,458 22,458" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
+            <polyline points="878,458 898,458 898,438" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
 
-          <line x1="450" y1="70" x2="450" y2="445" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.12"/>
+            <text x="450" y="38" font-family="monospace" font-size="20" fill="#c8701a" fill-opacity="0.85" text-anchor="middle" letter-spacing="2">LIVE POLARIZATION MISMATCH</text>
+            <text x="450" y="58" font-family="monospace" font-size="12" fill="#c8701a" fill-opacity="0.45" text-anchor="middle">Drag the slider &mdash; watch each mount's link to the stationary reference node</text>
 
-          <!-- PANEL A: VERTICAL MOUNT -->
-          <text x="225" y="82" font-family="monospace" font-size="9" fill="#c8701a" fill-opacity="0.75" text-anchor="middle" letter-spacing="1.5">VERTICAL MOUNT (0&deg; TARGET)</text>
-          <text x="225" y="94" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">optimized for standing posture only</text>
+            <circle cx="130" cy="82" r="6" fill="#5b9bd5"/>
+            <text x="144" y="87" font-family="monospace" font-size="12" fill="#5b9bd5" text-anchor="start">Vertical Mount (0&deg;)</text>
+            <circle cx="420" cy="82" r="6" fill="#c8701a"/>
+            <text x="434" y="87" font-family="monospace" font-size="12" fill="#c8701a" text-anchor="start">~45&deg; Target Mount (NX-100)</text>
+            <circle cx="720" cy="82" r="6" fill="#2a9c5c"/>
+            <text x="734" y="87" font-family="monospace" font-size="12" fill="#2a9c5c" text-anchor="start">Stationary Reference (NX-200)</text>
 
-          <line x1="225" y1="150" x2="225" y2="370" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.22" stroke-dasharray="4,6" class="net-link-slow"/>
-          <text x="234" y="160" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.35">VERTICAL REF</text>
+            <!-- Stationary reference antenna: elevated on a mast, fixed vertical, transmitting -->
+            <path d="M 60 400 Q 150 340 240 400 L 240 420 L 60 420 Z" fill="#1a1a17" stroke="#2a9c5c" stroke-width="1" stroke-opacity="0.3"/>
+            <line x1="150" y1="360" x2="150" y2="220" stroke="#2a9c5c" stroke-width="3" stroke-opacity="0.6"/>
+            <circle cx="150" cy="220" r="4" fill="#2a9c5c" fill-opacity="0.7"/>
+            <line x1="150" y1="220" x2="150" y2="170" stroke="#2a9c5c" stroke-width="3" stroke-opacity="0.9"/>
+            <circle cx="150" cy="170" r="4" fill="#2a9c5c"/>
+            <path d="M 165.5 165.9 A 16 16 0 0 1 154.1 154.5" fill="none" stroke="#2a9c5c" stroke-width="2" class="node-pulse"/>
+            <path d="M 177.0 162.7 A 28 28 0 0 1 157.3 143.0" fill="none" stroke="#2a9c5c" stroke-width="2" class="node-pulse-b"/>
+            <path d="M 188.6 159.6 A 40 40 0 0 1 160.4 131.4" fill="none" stroke="#2a9c5c" stroke-width="2" class="node-pulse-c"/>
+            <text x="150" y="440" font-family="monospace" font-size="11" fill="#2a9c5c" fill-opacity="0.8" text-anchor="middle" letter-spacing="0.5">NX-200 &middot; STATIONARY REFERENCE</text>
+            <text x="150" y="453" font-family="monospace" font-size="9" fill="#2a9c5c" fill-opacity="0.45" text-anchor="middle">elevated mount &middot; fixed vertical (0&deg;)</text>
 
-          <line x1="225" y1="260" x2="225" y2="150" stroke="#c8701a" stroke-width="1.6" stroke-opacity="0.8" class="net-link"/>
-          <text x="150" y="145" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.7" text-anchor="middle">STANDING &middot; 0&deg;</text>
+            <line x1="600" y1="200" x2="600" y2="400" stroke="#c8701a" stroke-width="0.8" stroke-opacity="0.25" stroke-dasharray="4,6"/>
+            <text x="613" y="212" font-family="monospace" font-size="10" fill="#c8701a" fill-opacity="0.4">VERTICAL REF</text>
 
-          <line x1="225" y1="260" x2="335" y2="260" stroke="#c0392b" stroke-width="1.6" stroke-opacity="0.85" stroke-dasharray="5,4" class="net-link-rev"/>
-          <text x="335" y="248" font-family="monospace" font-size="6.5" fill="#e87060" text-anchor="middle">PRONE (approx.) &middot; ~90&deg;</text>
+            <circle cx="600" cy="340" r="6" fill="#c8701a" fill-opacity="0.25"/>
 
-          <path d="M 225 150 A 110 110 0 0 1 335 260" fill="none" stroke="#c0392b" stroke-width="1" stroke-opacity="0.5"/>
-          <text x="300" y="200" font-family="monospace" font-size="6.5" fill="#e87060" text-anchor="middle">severe mismatch</text>
-          <text x="300" y="211" font-family="monospace" font-size="6.5" fill="#e87060" text-anchor="middle">(near-total loss, worst case)</text>
+            <path id="antArcA" d="" fill="none" stroke="#5b9bd5" stroke-width="1.4" stroke-opacity="0.5"/>
+            <path id="antArcB" d="" fill="none" stroke="#c8701a" stroke-width="1.4" stroke-opacity="0.5"/>
+            <line id="antVecA" x1="600" y1="340" x2="600" y2="210" stroke="#5b9bd5" stroke-width="2.4" stroke-opacity="0.9" stroke-dasharray="6,4"/>
+            <line id="antVecB" x1="600" y1="340" x2="508" y2="248" stroke="#c8701a" stroke-width="2.4" stroke-opacity="0.9" stroke-dasharray="6,4"/>
+          </svg>
 
-          <circle cx="225" cy="260" r="6" fill="#c8701a" fill-opacity="0.2" class="node-pulse"/>
-
-          <!-- PANEL B: 45deg TARGET MOUNT -->
-          <text x="675" y="82" font-family="monospace" font-size="9" fill="#c8701a" fill-opacity="0.75" text-anchor="middle" letter-spacing="1.5">~45&deg; TARGET MOUNT (NX-100)</text>
-          <text x="675" y="94" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">balanced across standing &amp; prone</text>
-
-          <line x1="675" y1="150" x2="675" y2="370" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.22" stroke-dasharray="4,6" class="net-link-slow"/>
-          <text x="684" y="160" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.35">VERTICAL REF</text>
-
-          <line x1="675" y1="260" x2="753" y2="182" stroke="#c8701a" stroke-width="1.6" stroke-opacity="0.8" class="net-link"/>
-          <text x="775" y="172" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.7" text-anchor="middle">STANDING &middot; ~45&deg;</text>
-
-          <line x1="675" y1="260" x2="597" y2="182" stroke="#c8701a" stroke-width="1.6" stroke-opacity="0.8" stroke-dasharray="5,4" class="net-link-rev"/>
-          <text x="575" y="172" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.7" text-anchor="middle">PRONE (approx.) &middot; ~45&deg;</text>
-
-          <path d="M 675 150 A 110 110 0 0 1 753 182" fill="none" stroke="#c8701a" stroke-width="1" stroke-opacity="0.5"/>
-          <path d="M 597 182 A 110 110 0 0 1 675 150" fill="none" stroke="#c8701a" stroke-width="1" stroke-opacity="0.5"/>
-          <text x="675" y="205" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.65" text-anchor="middle">moderate, balanced mismatch</text>
-          <text x="675" y="216" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.65" text-anchor="middle">(~-3dB each extreme, approx.)</text>
-
-          <circle cx="675" cy="260" r="6" fill="#c8701a" fill-opacity="0.2" class="node-pulse-b"/>
-
-          <text x="450" y="420" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle" letter-spacing="0.5">Loss values are illustrative approximations for linearly polarized antennas.</text>
-          <text x="450" y="431" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle" letter-spacing="0.5">Actual performance varies with antenna design, body proximity, multipath, and mesh routing. NX-100 angle reflects current design target.</text>
-          <text x="450" y="442" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle" letter-spacing="0.5">Comparison illustrates one assumed posture-range scenario; relative advantage depends on that scenario matching actual deployment conditions.</text>
-        </svg>
+          <div class="antenna-readout-panel">
+            <div class="antenna-readout-row">
+              <span class="antenna-readout-dot" style="background:#5b9bd5;"></span>
+              <span class="antenna-readout-label">Vertical Mount &rarr; NX-200 Link</span>
+              <span class="antenna-readout-value">mismatch <strong id="antMismatchA">0&deg;</strong> &middot; loss <strong id="antLossA">0.0 dB</strong></span>
+            </div>
+            <div class="antenna-readout-row">
+              <span class="antenna-readout-dot" style="background:#c8701a;"></span>
+              <span class="antenna-readout-label">~45&deg; Target Mount &rarr; NX-200 Link</span>
+              <span class="antenna-readout-value">mismatch <strong id="antMismatchB">45&deg;</strong> &middot; loss <strong id="antLossB">-3.0 dB</strong></span>
+            </div>
+          </div>
+          <p style="font-size:0.78rem; color:var(--muted); opacity:0.7; margin-top:0.75rem;">Illustrative model: NX-200 (green) represents an elevated, stationary relay held fixed at true vertical &mdash; the basis both moving mounts are compared against. The slider rotates the wearer's own mount uniformly from standing (0&deg;) to prone (90&deg;). Real-world loss also depends on antenna pattern, multipath, and body loading, as discussed above.</p>
+        </div>
       </div>
 
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================
+     MODAL: NEXIS LOADOUT CALCULATOR
+============================================================ -->
+<div class="nv-modal-overlay" id="loadoutModal">
+  <div class="nv-modal-box">
+    <button class="nv-modal-close" onclick="closeLoadoutModal()">&#10005;</button>
+    <div class="nv-modal-header"><h2>NEXIS LOADOUT CALCULATOR</h2></div>
+    <div class="nv-modal-body">
+      <p style="color:var(--muted); font-size:0.92rem; line-height:1.7; margin-bottom:1.5rem;">Enter your deployment details below for a suggested NX-series configuration. This is a starting-point recommendation &mdash; actual requirements vary by mission, terrain, and existing infrastructure.</p>
+
+      <div class="loadout-form">
+        <div class="loadout-field">
+          <label for="loadoutPersonnel">Number of Personnel</label>
+          <input type="number" id="loadoutPersonnel" min="0" value="0" oninput="updateLoadout()">
+        </div>
+        <div class="loadout-field">
+          <label for="loadoutVehicles">Number of Vehicles</label>
+          <input type="number" id="loadoutVehicles" min="0" value="0" oninput="updateLoadout()">
+        </div>
+        <div class="loadout-field">
+          <label for="loadoutBases">Number of Bases of Operations (fixed / semi-permanent positions)</label>
+          <input type="number" id="loadoutBases" min="0" value="0" oninput="updateLoadout()">
+        </div>
+        <div class="loadout-field-checkbox">
+          <input type="checkbox" id="loadoutTerrain" onchange="updateLoadout()">
+          <label for="loadoutTerrain">Operating in dense forest, mountainous terrain, or dense urban environment (obstructed line-of-sight)</label>
+        </div>
+        <div class="loadout-field-checkbox" id="loadoutLosRow" style="display:none;">
+          <input type="checkbox" id="loadoutLos" onchange="updateLoadout()">
+          <label for="loadoutLos">All Bases of Operations have direct line-of-sight to each other</label>
+        </div>
+        <div class="loadout-field-checkbox">
+          <input type="checkbox" id="loadoutEncryption" onchange="updateLoadout()">
+          <label for="loadoutEncryption">Require custom encryption parameters</label>
+        </div>
+      </div>
+
+      <div class="loadout-results" id="loadoutResults">
+        <div class="loadout-results-empty">Enter your deployment details above to see a suggested configuration.</div>
+      </div>
+
+      <p style="font-size:0.72rem; color:var(--muted); opacity:0.6; margin-top:1.25rem; text-transform:uppercase; letter-spacing:0.1em;">Advisory only &mdash; not connected to cart or checkout. Uncheck any item you don't need; totals will populate once pricing is available. NEXIS is currently In Development / Limited Field Deployment.</p>
     </div>
   </div>
 </div>
@@ -1289,6 +1405,126 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
+/* ── Loadout calculator modal ── */
+function openLoadoutModal() {
+  document.getElementById('loadoutModal').classList.add('open');
+}
+function closeLoadoutModal() {
+  document.getElementById('loadoutModal').classList.remove('open');
+}
+document.addEventListener("DOMContentLoaded", function () {
+  const loadoutOverlay = document.getElementById('loadoutModal');
+  if (loadoutOverlay) {
+    loadoutOverlay.addEventListener('click', function (e) {
+      if (e.target === loadoutOverlay) closeLoadoutModal();
+    });
+  }
+});
+
+function toggleLoadoutItem(code, checked) {
+  if (checked) { loadoutExcluded.delete(code); } else { loadoutExcluded.add(code); }
+  const row = document.querySelector('.loadout-line[data-code="' + code + '"]');
+  if (row) { row.classList.toggle('loadout-line-unchecked', !checked); }
+}
+
+let loadoutExcluded = new Set();
+let nexisPricing = {};          // populated from Firestore, keyed 'NX-100' etc: { price, qty }
+let nexisPricingLoaded = false;
+
+function updateLoadout() {
+  const personnel = Math.max(0, parseInt(document.getElementById('loadoutPersonnel').value) || 0);
+  const vehicles  = Math.max(0, parseInt(document.getElementById('loadoutVehicles').value) || 0);
+  const bases     = Math.max(0, parseInt(document.getElementById('loadoutBases').value) || 0);
+  const terrain   = document.getElementById('loadoutTerrain').checked;
+  const encryption = document.getElementById('loadoutEncryption').checked;
+
+  const losRow = document.getElementById('loadoutLosRow');
+  losRow.style.display = bases >= 2 ? 'flex' : 'none';
+  const hasLos = document.getElementById('loadoutLos').checked;
+
+  const lines = [];
+
+  if (personnel > 0) {
+    lines.push({ code: 'NX-100-NOD', name: 'Dismounted Mesh Node', desc: '1:1 with personnel count', qty: personnel });
+  }
+  if (vehicles > 0) {
+    lines.push({ code: 'NX-400-VEC', name: 'Vehicle Mesh Node', desc: '1:1 with vehicle count', qty: vehicles });
+  }
+  if (bases > 0) {
+    lines.push({ code: 'NX-200-REL', name: 'Stationary Relay Node', desc: '1:1 with Bases of Operations', qty: bases });
+    lines.push({ code: 'NX-600-CMD', name: 'Command Terminal', desc: '1:1 with Bases of Operations', qty: bases });
+  }
+  if (terrain) {
+    lines.push({ code: 'NX-300-LFT', name: 'Rapid Deploy Aerial Relay', desc: 'Recommended for obstructed terrain (forest / mountainous / urban)', qty: 1 });
+  }
+  if (bases >= 2 && !hasLos) {
+    lines.push({ code: 'NX-500-BRG', name: 'RF \u2194 IP Network Bridge', desc: 'Bases without direct line-of-sight to each other (n\u22121)', qty: bases - 1 });
+  }
+  if (personnel >= 8) {
+    lines.push({ code: 'NX-700-IND', name: 'Individual Terminal', desc: 'Optional \u2014 recommended at a 4:1 personnel ratio', qty: Math.floor(personnel / 4), optional: true });
+  }
+  if (encryption) {
+    lines.push({ code: 'NX-800-VLT', name: 'System Vault / Provisioning Layer', desc: 'Required for custom encryption parameter provisioning', qty: 1 });
+  }
+
+  const resultsEl = document.getElementById('loadoutResults');
+  if (lines.length === 0) {
+    resultsEl.innerHTML = '<div class="loadout-results-empty">Enter your deployment details above to see a suggested configuration.</div>';
+    return;
+  }
+
+  lines.sort(function (a, b) {
+    return parseInt(a.code.split('-')[1], 10) - parseInt(b.code.split('-')[1], 10);
+  });
+
+  const rowsHtml = lines.map(function (l) {
+    const isChecked = !loadoutExcluded.has(l.code);
+    const baseCode = l.code.split('-').slice(0, 2).join('-');
+    const priceData = nexisPricing[baseCode];
+
+    let priceDisplay = 'TBD';
+    let subtotalDisplay = 'TBD';
+    let stockNote = '';
+    if (priceData) {
+      priceDisplay = '$' + priceData.price.toLocaleString();
+      subtotalDisplay = '$' + (priceData.price * l.qty).toLocaleString();
+      stockNote = priceData.qty < l.qty
+        ? ' <span class="loadout-stock-warning">&mdash; only ' + priceData.qty + ' in stock</span>'
+        : ' <span class="loadout-stock-note">&mdash; ' + priceData.qty + ' in stock</span>';
+    }
+
+    return '<div class="loadout-line' + (l.optional ? ' loadout-line-optional' : '') + (isChecked ? '' : ' loadout-line-unchecked') + '" data-code="' + l.code + '">' +
+      '<input type="checkbox" class="loadout-line-checkbox" ' + (isChecked ? 'checked' : '') + ' onchange="toggleLoadoutItem(\'' + l.code + '\', this.checked)">' +
+      '<div class="loadout-line-info"><span class="loadout-line-name">' + l.code + ' &middot; ' + l.name + '</span>' +
+      (l.optional ? '<span class="loadout-badge-optional">Optional</span>' : '') +
+      '<span class="loadout-line-desc">' + l.desc + stockNote + '</span></div>' +
+      '<div class="loadout-line-pricing">' +
+      '<span class="loadout-line-price">' + priceDisplay + '</span>' +
+      '<span class="loadout-line-qty">&times;' + l.qty + '</span>' +
+      '<span class="loadout-line-equals">=</span>' +
+      '<span class="loadout-line-subtotal">' + subtotalDisplay + '</span>' +
+      '</div>' +
+      '</div>';
+  }).join('');
+
+  let grandTotal = 0;
+  let allPriced = true;
+  lines.forEach(function (l) {
+    if (loadoutExcluded.has(l.code)) return;
+    const baseCode = l.code.split('-').slice(0, 2).join('-');
+    const priceData = nexisPricing[baseCode];
+    if (priceData) { grandTotal += priceData.price * l.qty; } else { allPriced = false; }
+  });
+  const totalDisplay = allPriced ? ('$' + grandTotal.toLocaleString()) : 'TBD';
+
+  const totalHtml = '<div class="loadout-total-row">' +
+    '<span class="loadout-total-label">Estimated Total</span>' +
+    '<span class="loadout-total-value">' + totalDisplay + '</span>' +
+    '</div>';
+
+  resultsEl.innerHTML = rowsHtml + totalHtml;
+}
+
 function submitNotify() {
   const input = document.getElementById('notifyInput');
   const val = input.value.trim();
@@ -1301,6 +1537,70 @@ function submitNotify() {
 }
 document.getElementById('notifyInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') submitNotify();
+});
+
+/* ── Interactive antenna mount diagram ── */
+function updateAntennaDiagram(postureVal) {
+  const posture = parseFloat(postureVal);
+  const pivotX = 600, pivotY = 340, vecLen = 130, arcRad = 50;
+
+  const angleA = posture;
+  const angleB = posture - 45;
+
+  function endpoint(angleDeg, length) {
+    const rad = angleDeg * Math.PI / 180;
+    return { x: pivotX + length * Math.sin(rad), y: pivotY - length * Math.cos(rad) };
+  }
+  function arcPath(angleDeg) {
+    const top = { x: pivotX, y: pivotY - arcRad };
+    const end = endpoint(angleDeg, arcRad);
+    const sweep = angleDeg >= 0 ? 1 : 0;
+    return 'M ' + top.x + ' ' + top.y + ' A ' + arcRad + ' ' + arcRad + ' 0 0 ' + sweep + ' ' + end.x.toFixed(1) + ' ' + end.y.toFixed(1);
+  }
+  function lossDb(mismatchDeg) {
+    const m = Math.min(Math.abs(mismatchDeg), 89.5);
+    return 20 * Math.log10(Math.cos(m * Math.PI / 180));
+  }
+  function formatLoss(db) {
+    return db < -35 ? 'severe (near-total loss)' : db.toFixed(1) + ' dB';
+  }
+
+  const endA = endpoint(angleA, vecLen);
+  const endB = endpoint(angleB, vecLen);
+  const vecA = document.getElementById('antVecA');
+  const vecB = document.getElementById('antVecB');
+  if (vecA) { vecA.setAttribute('x2', endA.x.toFixed(1)); vecA.setAttribute('y2', endA.y.toFixed(1)); }
+  if (vecB) { vecB.setAttribute('x2', endB.x.toFixed(1)); vecB.setAttribute('y2', endB.y.toFixed(1)); }
+
+  const arcA = document.getElementById('antArcA');
+  const arcB = document.getElementById('antArcB');
+  if (arcA) arcA.setAttribute('d', arcPath(angleA));
+  if (arcB) arcB.setAttribute('d', arcPath(angleB));
+
+  const mismatchA = Math.abs(angleA);
+  const mismatchB = Math.abs(angleB);
+  const dbA = lossDb(mismatchA);
+  const dbB = lossDb(mismatchB);
+
+  const setText = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+  setText('antMismatchA', mismatchA.toFixed(0) + '\u00B0');
+  setText('antMismatchB', mismatchB.toFixed(0) + '\u00B0');
+  setText('antLossA', formatLoss(dbA));
+  setText('antLossB', formatLoss(dbB));
+
+  let postureLabel = 'Standing';
+  if (posture > 15 && posture <= 60) postureLabel = 'Crouched / Transitional';
+  else if (posture > 60) postureLabel = 'Prone';
+  setText('postureReadout', postureLabel + ' \u00B7 ' + posture.toFixed(0) + '\u00B0');
+
+  const colorFor = (db) => db > -6 ? '#4cbc7e' : (db > -15 ? '#e8a830' : '#e87060');
+  const lossAEl = document.getElementById('antLossA');
+  const lossBEl = document.getElementById('antLossB');
+  if (lossAEl) lossAEl.style.color = colorFor(dbA);
+  if (lossBEl) lossBEl.style.color = colorFor(dbB);
+}
+document.addEventListener('DOMContentLoaded', function () {
+  updateAntennaDiagram(0);
 });
 
 document.querySelectorAll('a[href^="#"]').forEach(a => {
@@ -1350,11 +1650,35 @@ const storage = getStorage(app);
 
 let _isFullApproved = false;
 
+/* ── Load NEXIS pricing/stock (ursus-units/NEXIS) ── */
+(async function loadNexisPricing() {
+  const codes = ['NX-100', 'NX-200', 'NX-300', 'NX-400', 'NX-500', 'NX-600', 'NX-700', 'NX-800'];
+  try {
+    const snap = await getDoc(doc(db, "ursus-units", "NEXIS"));
+    if (snap.exists()) {
+      const data = snap.data();
+      codes.forEach(function (code) {
+        const arr = data[code];
+        if (Array.isArray(arr) && arr.length >= 2) {
+          nexisPricing[code] = { price: Number(arr[0]), qty: Number(arr[1]) };
+        }
+      });
+    }
+  } catch (err) {
+    console.error("NEXIS pricing load error:", err);
+  } finally {
+    nexisPricingLoaded = true;
+    if (typeof updateLoadout === 'function') updateLoadout();
+  }
+})();
+
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     document.getElementById("navAuth").innerHTML =
       `<a href="/ursusarmament/login/">Login</a>`;
     document.getElementById("serialLock").classList.add("active");
+    document.getElementById("nxLock600").classList.add("active");
+    document.getElementById("nxLock800").classList.add("active");
     return;
   }
   const emailPrefix = user.email.split("@")[0];
@@ -1374,11 +1698,15 @@ onAuthStateChanged(auth, async (user) => {
     _isFullApproved = false;
   }
 
-  // Only serial lookup is locked — specs and everything else open to all
+  // Serial lookup and NX-600/NX-800 product details are locked to Full Access accounts
   if (_isFullApproved) {
     document.getElementById("serialLock").classList.remove("active");
+    document.getElementById("nxLock600").classList.remove("active");
+    document.getElementById("nxLock800").classList.remove("active");
   } else {
     document.getElementById("serialLock").classList.add("active");
+    document.getElementById("nxLock600").classList.add("active");
+    document.getElementById("nxLock800").classList.add("active");
   }
 });
 
