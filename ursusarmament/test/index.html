@@ -374,6 +374,9 @@
   .loadout-total-row { display:flex; justify-content:space-between; align-items:center; padding-top:1rem; margin-top:0.5rem; border-top:2px solid var(--border2); }
   .loadout-total-label { font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); }
   .loadout-total-value { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:var(--accent); }
+  .loadout-header-total { display:flex; align-items:baseline; gap:0.5rem; }
+  .loadout-header-total-label { font-family:'Barlow Condensed',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); }
+  .loadout-header-total-value { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--accent); }
   .loadout-trigger-btn { display:inline-flex; align-items:center; gap:0.5rem; background:rgba(200,146,42,0.08); border:1px solid var(--accent); color:var(--accent); font-family:'Barlow Condensed',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; padding:0.5rem 1rem; cursor:pointer; transition:background 0.2s, color 0.2s; white-space:nowrap; animation: nvPulse 2s ease-in-out infinite; }
   .loadout-trigger-btn:hover { background:var(--accent); color:var(--black); animation-play-state:paused; }
 
@@ -1351,7 +1354,13 @@
 <div class="nv-modal-overlay" id="loadoutModal">
   <div class="nv-modal-box">
     <button class="nv-modal-close" onclick="closeLoadoutModal()">&#10005;</button>
-    <div class="nv-modal-header"><h2>NEXIS LOADOUT CALCULATOR</h2></div>
+    <div class="nv-modal-header" style="display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
+      <h2>NEXIS LOADOUT CALCULATOR</h2>
+      <div class="loadout-header-total">
+        <span class="loadout-header-total-label">Total</span>
+        <span class="loadout-header-total-value" id="loadoutHeaderTotal">----</span>
+      </div>
+    </div>
     <div class="nv-modal-body">
       <p style="color:var(--muted); font-size:0.92rem; line-height:1.7; margin-bottom:1.5rem;">Enter your deployment details below for a suggested NX-series configuration. This is a starting-point recommendation &mdash; actual requirements vary by mission, terrain, and existing infrastructure.</p>
 
@@ -1434,8 +1443,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function toggleLoadoutItem(code, checked) {
   if (checked) { loadoutExcluded.delete(code); } else { loadoutExcluded.add(code); }
-  const row = document.querySelector('.loadout-line[data-code="' + code + '"]');
-  if (row) { row.classList.toggle('loadout-line-unchecked', !checked); }
+  updateLoadout();
 }
 
 let loadoutExcluded = new Set();
@@ -1479,8 +1487,10 @@ function updateLoadout() {
   }
 
   const resultsEl = document.getElementById('loadoutResults');
+  const headerTotalEl = document.getElementById('loadoutHeaderTotal');
   if (lines.length === 0) {
     resultsEl.innerHTML = '<div class="loadout-results-empty">Enter your deployment details above to see a suggested configuration.</div>';
+    if (headerTotalEl) headerTotalEl.textContent = '----';
     return;
   }
 
@@ -1539,6 +1549,7 @@ function updateLoadout() {
     if (priceData) { grandTotal += priceData.price * l.qty; } else { allPriced = false; }
   });
   const totalDisplay = allPriced ? ('$' + grandTotal.toLocaleString()) : 'TBD';
+  if (headerTotalEl) headerTotalEl.textContent = totalDisplay;
 
   const totalHtml = '<div class="loadout-total-row">' +
     '<span class="loadout-total-label">Estimated Total</span>' +
