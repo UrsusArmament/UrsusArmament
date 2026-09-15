@@ -863,12 +863,14 @@
             <text x="450" y="38" font-family="monospace" font-size="20" fill="#c8701a" fill-opacity="0.85" text-anchor="middle" letter-spacing="2">LIVE POLARIZATION MISMATCH</text>
             <text x="450" y="58" font-family="monospace" font-size="12" fill="#c8701a" fill-opacity="0.45" text-anchor="middle">Drag the slider &mdash; watch each mount's link to the stationary reference node</text>
 
-            <circle cx="130" cy="82" r="6" fill="#5b9bd5"/>
-            <text x="144" y="87" font-family="monospace" font-size="12" fill="#5b9bd5" text-anchor="start">Vertical Mount (0&deg;)</text>
+            <circle cx="130" cy="82" r="6" fill="#2a9c5c"/>
+            <text x="144" y="87" font-family="monospace" font-size="12" fill="#2a9c5c" text-anchor="start">Stationary Node</text>
+            <text x="144" y="99" font-family="monospace" font-size="12" fill="#2a9c5c" text-anchor="start">(NX-200)</text>
             <circle cx="420" cy="82" r="6" fill="#c8701a"/>
-            <text x="434" y="87" font-family="monospace" font-size="12" fill="#c8701a" text-anchor="start">~45&deg; Target Mount (NX-100)</text>
-            <circle cx="720" cy="82" r="6" fill="#2a9c5c"/>
-            <text x="734" y="87" font-family="monospace" font-size="12" fill="#2a9c5c" text-anchor="start">Stationary Reference (NX-200)</text>
+            <text x="434" y="87" font-family="monospace" font-size="12" fill="#c8701a" text-anchor="start">~45&deg; Target Mount</text>
+            <text x="434" y="99" font-family="monospace" font-size="12" fill="#c8701a" text-anchor="start">(NX-100)</text>
+            <circle cx="720" cy="82" r="6" fill="#5b9bd5"/>
+            <text x="734" y="87" font-family="monospace" font-size="12" fill="#5b9bd5" text-anchor="start">Vertical Mount (0&deg;)</text>
 
             <!-- Stationary reference antenna: elevated on a mast, fixed vertical, transmitting -->
             <path d="M 60 400 Q 150 340 240 400 L 240 420 L 60 420 Z" fill="#1a1a17" stroke="#2a9c5c" stroke-width="1" stroke-opacity="0.3"/>
@@ -891,6 +893,12 @@
             <path id="antArcB" d="" fill="none" stroke="#c8701a" stroke-width="1.4" stroke-opacity="0.5"/>
             <line id="antVecA" x1="600" y1="340" x2="600" y2="210" stroke="#5b9bd5" stroke-width="2.4" stroke-opacity="0.9" stroke-dasharray="6,4"/>
             <line id="antVecB" x1="600" y1="340" x2="508" y2="248" stroke="#c8701a" stroke-width="2.4" stroke-opacity="0.9" stroke-dasharray="6,4"/>
+            <path id="antPulseA1" d="M 594.0 199.6 A 12 12 0 0 1 606.0 199.6" fill="none" stroke="#5b9bd5" stroke-width="2" class="node-pulse"/>
+            <path id="antPulseA2" d="M 589.0 191.0 A 22 22 0 0 1 611.0 191.0" fill="none" stroke="#5b9bd5" stroke-width="2" class="node-pulse-b"/>
+            <path id="antPulseA3" d="M 584.0 182.3 A 32 32 0 0 1 616.0 182.3" fill="none" stroke="#5b9bd5" stroke-width="2" class="node-pulse-c"/>
+            <path id="antPulseB1" d="M 496.4 244.9 A 12 12 0 0 1 504.9 236.4" fill="none" stroke="#c8701a" stroke-width="2" class="node-pulse"/>
+            <path id="antPulseB2" d="M 486.8 242.3 A 22 22 0 0 1 502.3 226.8" fill="none" stroke="#c8701a" stroke-width="2" class="node-pulse-b"/>
+            <path id="antPulseB3" d="M 477.1 239.7 A 32 32 0 0 1 499.7 217.1" fill="none" stroke="#c8701a" stroke-width="2" class="node-pulse-c"/>
           </svg>
 
           <div class="antenna-readout-panel">
@@ -1170,6 +1178,15 @@ function updateAntennaDiagram(postureVal) {
   function formatLoss(db) {
     return db < -35 ? 'severe (near-total loss)' : db.toFixed(1) + ' dB';
   }
+  function pointAt(cx, cy, angleDeg, length) {
+    const rad = angleDeg * Math.PI / 180;
+    return { x: cx + length * Math.sin(rad), y: cy - length * Math.cos(rad) };
+  }
+  function pulseArcPath(cx, cy, centerAngle, radius) {
+    const p1 = pointAt(cx, cy, centerAngle - 30, radius);
+    const p2 = pointAt(cx, cy, centerAngle + 30, radius);
+    return 'M ' + p1.x.toFixed(1) + ' ' + p1.y.toFixed(1) + ' A ' + radius + ' ' + radius + ' 0 0 1 ' + p2.x.toFixed(1) + ' ' + p2.y.toFixed(1);
+  }
 
   const endA = endpoint(angleA, vecLen);
   const endB = endpoint(angleB, vecLen);
@@ -1182,6 +1199,15 @@ function updateAntennaDiagram(postureVal) {
   const arcB = document.getElementById('antArcB');
   if (arcA) arcA.setAttribute('d', arcPath(angleA));
   if (arcB) arcB.setAttribute('d', arcPath(angleB));
+
+  ['antPulseA1', 'antPulseA2', 'antPulseA3'].forEach(function (id, i) {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('d', pulseArcPath(endA.x, endA.y, angleA, 12 + i * 10));
+  });
+  ['antPulseB1', 'antPulseB2', 'antPulseB3'].forEach(function (id, i) {
+    const el = document.getElementById(id);
+    if (el) el.setAttribute('d', pulseArcPath(endB.x, endB.y, angleB, 12 + i * 10));
+  });
 
   const mismatchA = Math.abs(angleA);
   const mismatchB = Math.abs(angleB);
