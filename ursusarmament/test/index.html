@@ -1395,7 +1395,10 @@
         <div class="loadout-results-empty">Enter your deployment details above to see a suggested configuration.</div>
       </div>
 
-      <p style="font-size:0.72rem; color:var(--muted); opacity:0.6; margin-top:1.25rem; text-transform:uppercase; letter-spacing:0.1em;">Advisory only &mdash; not connected to cart or checkout. Uncheck any item you don't need; totals will populate once pricing is available. NEXIS is currently In Development / Limited Field Deployment.</p>
+      <button id="loadoutAddToCartBtn" class="btn-primary" style="margin-top:1.25rem; width:100%; text-align:center;" onclick="addLoadoutToCart()">Add Selected Items to Cart</button>
+      <div id="loadoutAddToCartMsg" style="font-size:0.82rem; min-height:1.2em; margin-top:0.6rem;"></div>
+
+      <p style="font-size:0.72rem; color:var(--muted); opacity:0.6; margin-top:1.25rem; text-transform:uppercase; letter-spacing:0.1em;">Uncheck any item you don't need before adding to cart; totals will populate fully once pricing is available for all items. NEXIS is currently In Development / Limited Field Deployment.</p>
     </div>
   </div>
 </div>
@@ -1446,9 +1449,74 @@ function toggleLoadoutItem(code, checked) {
   updateLoadout();
 }
 
+function addLoadoutToCart() {
+  const msgEl = document.getElementById('loadoutAddToCartMsg');
+
+  const itemsToAdd = lastLoadoutLines.filter(function (l) {
+    const baseCode = l.code.split('-').slice(0, 2).join('-');
+    const isGated = (baseCode === 'NX-600' || baseCode === 'NX-800') && !window._isFullApproved;
+    return !isGated && !loadoutExcluded.has(l.code);
+  });
+
+  if (itemsToAdd.length === 0) {
+    if (msgEl) { msgEl.style.color = '#e87060'; msgEl.textContent = 'No items selected \u2014 check at least one recommendation first.'; }
+    return;
+  }
+
+  let cart = [];
+  try { cart = JSON.parse(localStorage.getItem('ursus_cart')) || []; } catch (e) { cart = []; }
+
+  let addedCount = 0;
+  let cappedCount = 0;
+  const skippedUnpriced = [];
+  const skippedOutOfStock = [];
+
+  itemsToAdd.forEach(function (l) {
+    const baseCode = l.code.split('-').slice(0, 2).join('-');
+    const priceData = nexisPricing[baseCode];
+    if (!priceData) { skippedUnpriced.push(l.code); return; }
+
+    const qtyToAdd = Math.min(l.qty, priceData.qty);
+    if (qtyToAdd <= 0) { skippedOutOfStock.push(l.code); return; }
+    if (qtyToAdd < l.qty) cappedCount++;
+
+    const existing = cart.find(function (c) { return c.id === l.code; });
+    if (existing) {
+      existing.quantity = qtyToAdd;
+      existing.price = priceData.price;
+      existing.product = l.code + ' \u2014 ' + l.name;
+      existing.maxQty = priceData.qty;
+    } else {
+      cart.push({
+        id: l.code,
+        product: l.code + ' \u2014 ' + l.name,
+        price: priceData.price,
+        quantity: qtyToAdd,
+        maxQty: priceData.qty
+      });
+    }
+    addedCount++;
+  });
+
+  if (addedCount === 0) {
+    if (msgEl) { msgEl.style.color = '#e87060'; msgEl.textContent = 'Nothing could be added \u2014 selected items are unpriced or out of stock.'; }
+    return;
+  }
+
+  localStorage.setItem('ursus_cart', JSON.stringify(cart));
+  if (typeof updateCartBadge === 'function') updateCartBadge();
+
+  let msg = addedCount + ' item' + (addedCount === 1 ? '' : 's') + ' added to cart.';
+  if (skippedUnpriced.length > 0) msg += ' ' + skippedUnpriced.length + ' skipped (pricing not available).';
+  if (skippedOutOfStock.length > 0) msg += ' ' + skippedOutOfStock.length + ' skipped (out of stock).';
+  if (cappedCount > 0) msg += ' Quantity capped by stock on ' + cappedCount + ' item' + (cappedCount === 1 ? '' : 's') + '.';
+  if (msgEl) { msgEl.style.color = '#4cbc7e'; msgEl.textContent = msg; }
+}
+
 let loadoutExcluded = new Set();
 let nexisPricing = {};          // populated from Firestore, keyed 'NX-100' etc: { price, qty }
 let nexisPricingLoaded = false;
+let lastLoadoutLines = [];      // most recently computed recommendation lines, for Add to Cart
 
 function updateLoadout() {
   const personnel = Math.max(0, parseInt(document.getElementById('loadoutPersonnel').value) || 0);
@@ -1485,6 +1553,8 @@ function updateLoadout() {
   if (encryption) {
     lines.push({ code: 'NX-800-VLT', name: 'System Vault / Provisioning Layer', desc: 'Required for custom encryption parameter provisioning', qty: 1 });
   }
+
+  lastLoadoutLines = lines;
 
   const resultsEl = document.getElementById('loadoutResults');
   const headerTotalEl = document.getElementById('loadoutHeaderTotal');
