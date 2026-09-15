@@ -368,6 +368,8 @@
   .loadout-line-unchecked .loadout-line-price, .loadout-line-unchecked .loadout-line-subtotal { text-decoration:line-through; }
   .loadout-stock-note { color:var(--muted); font-size:0.75rem; }
   .loadout-stock-warning { color:#e87060; font-size:0.75rem; font-weight:600; }
+  .loadout-access-note { color:var(--accent); font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-top:0.3rem; }
+  .loadout-line-checkbox:disabled { cursor:not-allowed; }
   .loadout-total-row { display:flex; justify-content:space-between; align-items:center; padding-top:1rem; margin-top:0.5rem; border-top:2px solid var(--border2); }
   .loadout-total-label { font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); }
   .loadout-total-value { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:var(--accent); }
@@ -1486,8 +1488,9 @@ function updateLoadout() {
   });
 
   const rowsHtml = lines.map(function (l) {
-    const isChecked = !loadoutExcluded.has(l.code);
     const baseCode = l.code.split('-').slice(0, 2).join('-');
+    const isGated = (baseCode === 'NX-600' || baseCode === 'NX-800') && !window._isFullApproved;
+    const isChecked = isGated ? false : !loadoutExcluded.has(l.code);
     const priceData = nexisPricing[baseCode];
 
     let priceDisplay = 'TBD';
@@ -1501,11 +1504,15 @@ function updateLoadout() {
         : ' <span class="loadout-stock-note">&mdash; ' + priceData.qty + ' in stock</span>';
     }
 
+    const accessNote = isGated ? '<span class="loadout-access-note">Full Access account required</span>' : '';
+
     return '<div class="loadout-line' + (l.optional ? ' loadout-line-optional' : '') + (isChecked ? '' : ' loadout-line-unchecked') + '" data-code="' + l.code + '">' +
-      '<input type="checkbox" class="loadout-line-checkbox" ' + (isChecked ? 'checked' : '') + ' onchange="toggleLoadoutItem(\'' + l.code + '\', this.checked)">' +
+      '<input type="checkbox" class="loadout-line-checkbox" ' + (isChecked ? 'checked' : '') + (isGated ? ' disabled' : '') + ' onchange="toggleLoadoutItem(\'' + l.code + '\', this.checked)">' +
       '<div class="loadout-line-info"><span class="loadout-line-name">' + l.code + ' &middot; ' + l.name + '</span>' +
       (l.optional ? '<span class="loadout-badge-optional">Optional</span>' : '') +
-      '<span class="loadout-line-desc">' + l.desc + stockNote + '</span></div>' +
+      '<span class="loadout-line-desc">' + l.desc + stockNote + '</span>' +
+      accessNote +
+      '</div>' +
       '<div class="loadout-line-pricing">' +
       '<span class="loadout-line-price">' + priceDisplay + '</span>' +
       '<span class="loadout-line-qty">&times;' + l.qty + '</span>' +
@@ -1518,8 +1525,9 @@ function updateLoadout() {
   let grandTotal = 0;
   let allPriced = true;
   lines.forEach(function (l) {
-    if (loadoutExcluded.has(l.code)) return;
     const baseCode = l.code.split('-').slice(0, 2).join('-');
+    const isGated = (baseCode === 'NX-600' || baseCode === 'NX-800') && !window._isFullApproved;
+    if (loadoutExcluded.has(l.code) || isGated) return;
     const priceData = nexisPricing[baseCode];
     if (priceData) { grandTotal += priceData.price * l.qty; } else { allPriced = false; }
   });
@@ -1674,7 +1682,7 @@ const auth    = getAuth(app);
 const db      = getFirestore(app);
 const storage = getStorage(app);
 
-let _isFullApproved = false;
+window._isFullApproved = false;
 
 /* ── Load NEXIS pricing/stock (ursus-units/NEXIS) ── */
 (async function loadNexisPricing() {
@@ -1705,6 +1713,7 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById("serialLock").classList.add("active");
     document.getElementById("nxLock600").classList.add("active");
     document.getElementById("nxLock800").classList.add("active");
+    if (typeof updateLoadout === 'function') updateLoadout();
     return;
   }
   const emailPrefix = user.email.split("@")[0];
@@ -1714,18 +1723,18 @@ onAuthStateChanged(auth, async (user) => {
   try {
     const snap = await getDoc(doc(db, "users", emailPrefix));
     const data = snap.data();
-    _isFullApproved =
+    window._isFullApproved =
       data &&
       data.d_type               === "full" &&
       data.e_approved           === true   &&
       data.f_status             === "approved" &&
       data.g_verified_us_person === true;
   } catch (err) {
-    _isFullApproved = false;
+    window._isFullApproved = false;
   }
 
   // Serial lookup and NX-600/NX-800 product details are locked to Full Access accounts
-  if (_isFullApproved) {
+  if (window._isFullApproved) {
     document.getElementById("serialLock").classList.remove("active");
     document.getElementById("nxLock600").classList.remove("active");
     document.getElementById("nxLock800").classList.remove("active");
@@ -1734,6 +1743,7 @@ onAuthStateChanged(auth, async (user) => {
     document.getElementById("nxLock600").classList.add("active");
     document.getElementById("nxLock800").classList.add("active");
   }
+  if (typeof updateLoadout === 'function') updateLoadout();
 });
 
 /* ── Serial lookup ── */
