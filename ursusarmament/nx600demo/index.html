@@ -348,25 +348,46 @@
     // machinery is needed here, just building the static shapes.
     function taperedPolygon(points, baseWidth, tipWidth) {
       var n = points.length;
+
+      function perp(dx, dy) {
+        var len = Math.hypot(dx, dy) || 1;
+        return [-dy / len, dx / len];
+      }
+      function widthAt(i) {
+        var t = i / (n - 1);
+        return (baseWidth + (tipWidth - baseWidth) * t) / 2;
+      }
+
+      // Beveled offset join: at each interior point, compute the
+      // perpendicular using the INCOMING and OUTGOING segment directions
+      // separately (two offset points per side), instead of one averaged
+      // direction. Averaging creates a single miter point that can fold
+      // back on itself at sharp bends, producing a visible crease line
+      // straight through the joint -- exactly the "bamboo segmentation"
+      // artifact. Two points with a straight bevel edge between them
+      // avoids that self-intersection entirely.
       var left = [];
       var right = [];
 
-      for (var i = 0; i < n; i++) {
-        var p = points[i];
-        var prev = points[Math.max(i - 1, 0)];
-        var next = points[Math.min(i + 1, n - 1)];
-        var dx = next.x - prev.x;
-        var dy = next.y - prev.y;
-        var len = Math.hypot(dx, dy) || 1;
-        var nx = -dy / len;
-        var ny = dx / len;
+      var d0 = perp(points[1].x - points[0].x, points[1].y - points[0].y);
+      var w0 = widthAt(0);
+      left.push([points[0].x + d0[0] * w0, points[0].y + d0[1] * w0]);
+      right.push([points[0].x - d0[0] * w0, points[0].y - d0[1] * w0]);
 
-        var t = i / (n - 1);
-        var halfWidth = (baseWidth + (tipWidth - baseWidth) * t) / 2;
-
-        left.push([p.x + nx * halfWidth, p.y + ny * halfWidth]);
-        right.push([p.x - nx * halfWidth, p.y - ny * halfWidth]);
+      for (var i = 1; i < n - 1; i++) {
+        var pin = perp(points[i].x - points[i - 1].x, points[i].y - points[i - 1].y);
+        var pout = perp(points[i + 1].x - points[i].x, points[i + 1].y - points[i].y);
+        var w = widthAt(i);
+        left.push([points[i].x + pin[0] * w, points[i].y + pin[1] * w]);
+        left.push([points[i].x + pout[0] * w, points[i].y + pout[1] * w]);
+        right.push([points[i].x - pin[0] * w, points[i].y - pin[1] * w]);
+        right.push([points[i].x - pout[0] * w, points[i].y - pout[1] * w]);
       }
+
+      var dn = perp(points[n - 1].x - points[n - 2].x, points[n - 1].y - points[n - 2].y);
+      var wn = widthAt(n - 1);
+      left.push([points[n - 1].x + dn[0] * wn, points[n - 1].y + dn[1] * wn]);
+      right.push([points[n - 1].x - dn[0] * wn, points[n - 1].y - dn[1] * wn]);
 
       var d = "M " + left[0][0].toFixed(1) + " " + left[0][1].toFixed(1);
       for (var i = 1; i < left.length; i++) {
