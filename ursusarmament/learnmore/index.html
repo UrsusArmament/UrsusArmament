@@ -844,16 +844,17 @@
           <li><strong>Intermediate-Angle Design:</strong> Rather than optimize a fixed-mount wearable antenna for a single posture, a design can instead select an intermediate angle positioned between the anticipated extremes. This does not eliminate misalignment, but it reduces the worst-case swing compared to a purely vertical or purely horizontal mount &mdash; trading some peak-case performance for more consistent performance across the full range of expected orientations.</li>
           <li><strong>Relative Alignment Between Nodes:</strong> Because polarization loss depends on the angle between two antennas rather than either antenna's absolute orientation, nodes with similarly oriented antennas at a given moment can remain well polarization-aligned regardless of whether that common orientation is vertical, horizontal, or an intermediate angle. Mismatch becomes more relevant between nodes in substantially different orientations at the same moment, and multi-hop mesh routing can provide resilience by routing around any single degraded link.</li>
         </ul>
-        <p>NX-100, a helmet-mounted personnel node, applies this design approach: its current design targets an antenna mount angle of approximately 45&deg;, intended to reduce the maximum polarization mismatch across an assumed range of operator postures, compared with optimizing the antenna for a single fixed orientation. This benefit depends on that assumed posture range reflecting actual field use; the angle is not inherently superior to a vertical or horizontal mount, and it represents a design tradeoff rather than a universal optimum.</p>
+        <p>NX-100, a helmet-mounted personnel node, applies this design approach: its current design targets an antenna mount angle of approximately 15&deg;, intended to reduce the maximum polarization mismatch across an assumed range of operator postures, compared with optimizing the antenna for a single fixed orientation. This benefit depends on that assumed posture range reflecting actual field use; the angle is not inherently superior to a vertical or horizontal mount, and it represents a design tradeoff rather than a universal optimum.</p>
 
         <div class="antenna-interactive">
           <div class="antenna-slider-row">
-            <label for="postureSlider" class="antenna-slider-label">Drag to change operator posture</label>
-            <span class="antenna-slider-readout" id="postureReadout">Standing &middot; 0&deg;</span>
+            <label for="postureSlider" class="antenna-slider-label">Drag to change helmet pitch</label>
+            <span class="antenna-slider-readout" id="postureReadout">Level &middot; 0&deg;</span>
           </div>
-          <input type="range" id="postureSlider" class="antenna-slider" min="0" max="90" step="1" value="0" oninput="updateAntennaDiagram(this.value)">
+          <input type="range" id="postureSlider" class="antenna-slider" min="-30" max="45" step="1" value="0" oninput="updateAntennaDiagram(this.value)">
 
           <svg viewBox="0 0 900 460" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:820px;display:block;margin:0 auto;">
+
             <rect x="1" y="1" width="898" height="458" fill="#111110" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22"/>
             <polyline points="1,22 1,1 22,1" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
             <polyline points="878,1 898,1 898,22" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
@@ -861,13 +862,13 @@
             <polyline points="878,458 898,458 898,438" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
 
             <text x="450" y="38" font-family="monospace" font-size="20" fill="#c8701a" fill-opacity="0.85" text-anchor="middle" letter-spacing="2">LIVE POLARIZATION MISMATCH</text>
-            <text x="450" y="58" font-family="monospace" font-size="12" fill="#c8701a" fill-opacity="0.45" text-anchor="middle">Drag the slider &mdash; watch each mount's link to the stationary reference node</text>
+            <text x="450" y="58" font-family="monospace" font-size="12" fill="#c8701a" fill-opacity="0.45" text-anchor="middle">Drag the slider &mdash; head and antennas pitch together; watch each mount's link to the stationary node</text>
 
             <circle cx="130" cy="82" r="6" fill="#2a9c5c"/>
             <text x="144" y="87" font-family="monospace" font-size="12" fill="#2a9c5c" text-anchor="start">Stationary Node</text>
             <text x="144" y="99" font-family="monospace" font-size="12" fill="#2a9c5c" text-anchor="start">(NX-200)</text>
             <circle cx="420" cy="82" r="6" fill="#c8701a"/>
-            <text x="434" y="87" font-family="monospace" font-size="12" fill="#c8701a" text-anchor="start">~45&deg; Target Mount</text>
+            <text x="434" y="87" font-family="monospace" font-size="12" fill="#c8701a" text-anchor="start">~15&deg; Target Mount</text>
             <text x="434" y="99" font-family="monospace" font-size="12" fill="#c8701a" text-anchor="start">(NX-100)</text>
             <circle cx="720" cy="82" r="6" fill="#5b9bd5"/>
             <text x="734" y="87" font-family="monospace" font-size="12" fill="#5b9bd5" text-anchor="start">Vertical Mount (0&deg;)</text>
@@ -884,21 +885,39 @@
             <text x="150" y="440" font-family="monospace" font-size="11" fill="#2a9c5c" fill-opacity="0.8" text-anchor="middle" letter-spacing="0.5">NX-200 &middot; STATIONARY REFERENCE</text>
             <text x="150" y="453" font-family="monospace" font-size="9" fill="#2a9c5c" fill-opacity="0.45" text-anchor="middle">elevated mount &middot; fixed vertical (0&deg;)</text>
 
-            <line x1="600" y1="200" x2="600" y2="400" stroke="#c8701a" stroke-width="0.8" stroke-opacity="0.25" stroke-dasharray="4,6"/>
-            <text x="613" y="212" font-family="monospace" font-size="10" fill="#c8701a" fill-opacity="0.4">VERTICAL REF</text>
+            <line x1="560" y1="200" x2="560" y2="400" stroke="#c8701a" stroke-width="0.8" stroke-opacity="0.25" stroke-dasharray="4,6"/>
+            <text x="573" y="212" font-family="monospace" font-size="10" fill="#c8701a" fill-opacity="0.4">VERTICAL REF</text>
 
-            <circle cx="600" cy="340" r="6" fill="#c8701a" fill-opacity="0.25"/>
+            <circle cx="560" cy="340" r="6" fill="#c8701a" fill-opacity="0.25"/>
 
             <path id="antArcA" d="" fill="none" stroke="#5b9bd5" stroke-width="1.4" stroke-opacity="0.5"/>
             <path id="antArcB" d="" fill="none" stroke="#c8701a" stroke-width="1.4" stroke-opacity="0.5"/>
-            <line id="antVecA" x1="600" y1="340" x2="600" y2="210" stroke="#5b9bd5" stroke-width="2.4" stroke-opacity="0.9" stroke-dasharray="6,4"/>
-            <line id="antVecB" x1="600" y1="340" x2="508" y2="248" stroke="#c8701a" stroke-width="2.4" stroke-opacity="0.9" stroke-dasharray="6,4"/>
-            <path id="antPulseA1" d="M 594.0 199.6 A 12 12 0 0 1 606.0 199.6" fill="none" stroke="#5b9bd5" stroke-width="2" class="node-pulse"/>
-            <path id="antPulseA2" d="M 589.0 191.0 A 22 22 0 0 1 611.0 191.0" fill="none" stroke="#5b9bd5" stroke-width="2" class="node-pulse-b"/>
-            <path id="antPulseA3" d="M 584.0 182.3 A 32 32 0 0 1 616.0 182.3" fill="none" stroke="#5b9bd5" stroke-width="2" class="node-pulse-c"/>
-            <path id="antPulseB1" d="M 496.4 244.9 A 12 12 0 0 1 504.9 236.4" fill="none" stroke="#c8701a" stroke-width="2" class="node-pulse"/>
-            <path id="antPulseB2" d="M 486.8 242.3 A 22 22 0 0 1 502.3 226.8" fill="none" stroke="#c8701a" stroke-width="2" class="node-pulse-b"/>
-            <path id="antPulseB3" d="M 477.1 239.7 A 32 32 0 0 1 499.7 217.1" fill="none" stroke="#c8701a" stroke-width="2" class="node-pulse-c"/>
+            <line id="antVecA" x1="560" y1="340" x2="560" y2="210" stroke="#5b9bd5" stroke-width="2.4" stroke-opacity="0.9" stroke-dasharray="6,4"/>
+            <line id="antVecB" x1="560" y1="340" x2="526.4" y2="214.4" stroke="#c8701a" stroke-width="2.4" stroke-opacity="0.9" stroke-dasharray="6,4"/>
+            <path id="antPulseA1" d="M 554.0 199.6 A 12 12 0 0 1 566.0 199.6" fill="none" stroke="#5b9bd5" stroke-width="2" class="node-pulse"/>
+            <path id="antPulseA2" d="M 549.0 191.0 A 22 22 0 0 1 571.0 191.0" fill="none" stroke="#5b9bd5" stroke-width="2" class="node-pulse-b"/>
+            <path id="antPulseA3" d="M 544.0 182.3 A 32 32 0 0 1 576.0 182.3" fill="none" stroke="#5b9bd5" stroke-width="2" class="node-pulse-c"/>
+            <path id="antPulseB1" d="M 517.9 205.9 A 12 12 0 0 1 529.5 202.8" fill="none" stroke="#c8701a" stroke-width="2" class="node-pulse"/>
+            <path id="antPulseB2" d="M 510.8 198.8 A 22 22 0 0 1 532.1 193.2" fill="none" stroke="#c8701a" stroke-width="2" class="node-pulse-b"/>
+            <path id="antPulseB3" d="M 503.8 191.8 A 32 32 0 0 1 534.7 183.5" fill="none" stroke="#c8701a" stroke-width="2" class="node-pulse-c"/>
+
+            <!-- Head/shoulder silhouette traced from reference image (facing right). Body is fixed; head pivots on the neck at (770,340). -->
+            <g id="hudBody" transform="translate(770 340)" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M -77.2 67.0 L 64.0 66.6 L 63.2 63.2 L 61.0 63.0 L 60.6 62.4 L 60.4 56.2 L 63.4 55.0 L 61.2 47.8 L 55.0 47.2 L 55.0 51.8 L 54.6 52.6 L 53.8 52.6 L 47.2 39.2 L 39.4 35.8 L 32.8 35.4 L 17.6 23.4 L 18.4 20.6 L 24.0 13.4 L -22.8 13.4 L -23.0 0.6 L -23.6 0.6 L -24.4 3.6 L -31.8 2.8 L -35.6 3.8 L -35.6 16.2 L -36.2 18.6 L -45.4 23.2 L -54.0 31.2 L -54.2 32.6 L -62.8 46.0 L -73.0 59.0 Z" fill="#1c1c19" stroke="none"/>
+              <path d="M -24.0 3.0 L -25.4 3.6 L -31.8 2.8 L -35.6 3.8 L -35.6 16.2 L -36.2 18.6 L -45.4 23.2 L -54.0 31.2 L -54.2 32.6 L -60.0 41.8 L -71.8 57.2 M 63.0 63.0 L 61.0 63.0 L 60.6 62.4 L 60.4 56.2 L 63.4 55.0 L 62.0 51.8 L 61.4 48.0 L 60.4 47.4 L 55.0 47.2 L 55.0 51.8 L 54.6 52.6 L 53.8 52.6 L 47.2 39.2 L 39.4 35.8 L 32.8 35.4 L 17.6 23.4 L 18.4 20.6 L 23.2 14.8" fill="none" stroke="#a8a390" stroke-opacity="0.85" stroke-width="1.5"/>
+            </g>
+            <g id="hudHead" transform="translate(770 340) rotate(0)" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M 54.8 -87.6 L 50.0 -90.6 L 45.6 -91.6 L 44.8 -90.6 L 47.2 -87.6 L 47.2 -86.8 L 46.2 -86.6 L 39.2 -92.0 L 31.8 -95.6 L 20.4 -98.6 L 10.4 -99.4 L 6.8 -100.4 L -6.8 -98.6 L -15.0 -96.2 L -20.6 -93.6 L -22.4 -93.6 L -32.6 -84.4 L -37.0 -78.8 L -40.8 -71.2 L -43.4 -61.6 L -44.8 -49.4 L -45.4 -48.2 L -46.6 -47.8 L -47.0 -40.0 L -46.2 -39.0 L -46.8 -30.2 L -45.4 -28.2 L -43.6 -27.2 L -35.2 -25.4 L -34.8 -23.4 L -32.6 -21.2 L -24.6 -16.2 L -23.0 -8.4 L -23.6 0.4 L -22.8 0.6 L -22.8 22.8 L 17.6 22.8 L 18.4 20.6 L 23.2 14.8 L 26.2 9.6 L 28.2 9.0 L 30.4 12.4 L 35.6 12.0 L 37.6 11.4 L 38.0 9.8 L 45.0 8.4 L 47.0 7.4 L 48.8 5.0 L 51.4 4.6 L 51.6 -1.4 L 47.4 -2.8 L 47.4 -5.6 L 50.6 -8.2 L 50.4 -10.0 L 49.4 -11.2 L 50.6 -14.8 L 49.2 -17.0 L 49.2 -18.6 L 51.0 -20.0 L 54.6 -21.0 L 56.0 -22.8 L 56.0 -24.4 L 51.2 -30.2 L 46.4 -37.8 L 46.0 -40.0 L 47.4 -42.6 L 47.4 -45.0 L 56.8 -47.4 L 60.0 -49.4 L 60.0 -53.8 L 60.8 -55.0 L 60.2 -57.4 L 64.0 -64.4 L 61.6 -66.8 L 55.0 -82.4 L 52.8 -84.2 L 52.8 -85.0 L 54.2 -85.6 Z" fill="#1c1c19" stroke="none"/>
+              <path d="M 26.2 9.6 L 28.2 9.0 L 30.4 12.4 L 35.6 12.0 L 37.6 11.4 L 38.0 9.8 L 45.0 8.4 L 47.0 7.4 L 48.8 5.0 L 51.4 4.6 L 51.6 -1.4 L 47.4 -2.8 L 47.4 -5.6 L 50.6 -8.2 L 50.4 -10.0 L 49.4 -11.2 L 50.6 -14.8 L 49.2 -17.0 L 49.2 -18.6 L 51.0 -20.0 L 54.6 -21.0 L 56.0 -22.8 L 56.0 -24.4 L 51.2 -30.2 L 46.4 -37.8 L 46.0 -40.0 L 47.4 -42.6 L 47.4 -45.0 L 56.8 -47.4 L 60.0 -49.4 L 60.0 -53.8 L 60.8 -55.0 L 60.2 -57.4 L 64.0 -64.8 L 61.6 -66.8 L 55.0 -82.4 L 52.8 -84.2 L 52.8 -85.0 L 54.2 -85.6 L 55.0 -87.4 L 50.0 -90.6 L 46.2 -91.6 L 44.8 -90.8 L 47.2 -87.6 L 47.2 -86.8 L 46.2 -86.6 L 38.2 -92.6 L 27.6 -97.0 L 7.0 -100.4 L -2.8 -99.4 L -11.4 -97.4 L -20.6 -93.6 L -22.4 -93.6 L -32.6 -84.4 L -37.0 -78.8 L -40.8 -71.2 L -43.4 -61.6 L -44.8 -49.4 L -45.4 -48.2 L -46.6 -47.8 L -47.0 -40.0 L -46.2 -39.0 L -46.8 -30.2 L -45.4 -28.2 L -43.6 -27.2 L -35.2 -25.4 L -34.8 -23.4 L -32.6 -21.2 L -24.6 -16.2 L -23.0 -8.4" fill="none" stroke="#a8a390" stroke-opacity="0.85" stroke-width="1.5"/>
+            
+              <!-- NX-100 node on the helmet side (where an ARC rail sits) + 15° rearward antenna -->
+              <rect x="-0.5" y="-58" width="17" height="8" rx="2" ry="2" fill="#1c1c19" stroke="#a8a390" stroke-opacity="0.85" stroke-width="1.3"/>
+              <line x1="13.1" y1="-52.7" x2="8.83" y2="-68.58" stroke="#e07a1a" stroke-width="4.5" stroke-dasharray="1.6 1.2" stroke-linecap="butt"/>
+              <path d="M 5.65 -71.76 A 4.5 4.5 0 0 1 10.0 -72.93" fill="none" stroke="#e07a1a" stroke-width="1.3" class="node-pulse"/>
+              <path d="M 3.17 -74.24 A 8 8 0 0 1 10.9 -76.31" fill="none" stroke="#e07a1a" stroke-width="1.3" class="node-pulse-b"/>
+              <path d="M 0.7 -76.71 A 11.5 11.5 0 0 1 11.81 -79.69" fill="none" stroke="#e07a1a" stroke-width="1.3" class="node-pulse-c"/>
+            </g>
+            <text id="hudPitchLabel" x="770" y="452" font-family="monospace" font-size="11" fill="#a8a390" fill-opacity="0.8" text-anchor="middle" letter-spacing="0.5">HEAD PITCH &middot; 0&deg; LEVEL</text>
           </svg>
 
           <div class="antenna-readout-panel">
@@ -909,11 +928,11 @@
             </div>
             <div class="antenna-readout-row">
               <span class="antenna-readout-dot" style="background:#c8701a;"></span>
-              <span class="antenna-readout-label">~45&deg; Target Mount &rarr; NX-200 Link</span>
-              <span class="antenna-readout-value">mismatch <strong id="antMismatchB">45&deg;</strong> &middot; loss <strong id="antLossB">-3.0 dB</strong></span>
+              <span class="antenna-readout-label">~15&deg; Target Mount &rarr; NX-200 Link</span>
+              <span class="antenna-readout-value">mismatch <strong id="antMismatchB">15&deg;</strong> &middot; loss <strong id="antLossB">-0.3 dB</strong></span>
             </div>
           </div>
-          <p style="font-size:0.78rem; color:var(--muted); opacity:0.7; margin-top:0.75rem;">Illustrative model: NX-200 (green) represents an elevated, stationary relay held fixed at true vertical &mdash; the basis both moving mounts are compared against. The slider rotates the wearer's own mount uniformly from standing (0&deg;) to prone (90&deg;). Real-world loss also depends on antenna pattern, multipath, and body loading, as discussed above.</p>
+          <p style="font-size:0.78rem; color:var(--muted); opacity:0.7; margin-top:0.75rem;">Illustrative model: NX-200 (green) represents an elevated, stationary relay held fixed at true vertical &mdash; the basis both moving mounts are compared against. The slider pitches the wearer's helmet from looking up (negative) to looking down (positive), within a human neck range. The HUD head and both antenna mounts use the same angle, so they move together. Real-world loss also depends on antenna pattern, multipath, and body loading, as discussed above.</p>
         </div>
       </div>
 
@@ -1156,10 +1175,12 @@ function toggleConceptExpand(id) {
 /* ── Interactive antenna mount diagram ── */
 function updateAntennaDiagram(postureVal) {
   const posture = parseFloat(postureVal);
-  const pivotX = 600, pivotY = 340, vecLen = 130, arcRad = 50;
+  const pivotX = 560, pivotY = 340, vecLen = 130, arcRad = 50;
+  const TARGET_TILT = 15;               // NX-100 mount angle from vertical (degrees)
+  const HEAD_X = 770, HEAD_Y = 340;     // neck pivot of the HUD head
 
   const angleA = posture;
-  const angleB = posture - 45;
+  const angleB = posture - TARGET_TILT;
 
   function endpoint(angleDeg, length) {
     const rad = angleDeg * Math.PI / 180;
@@ -1220,10 +1241,16 @@ function updateAntennaDiagram(postureVal) {
   setText('antLossA', formatLoss(dbA));
   setText('antLossB', formatLoss(dbB));
 
-  let postureLabel = 'Standing';
-  if (posture > 15 && posture <= 60) postureLabel = 'Crouched / Transitional';
-  else if (posture > 60) postureLabel = 'Prone';
+  let postureLabel = 'Level';
+  if (posture < -5) postureLabel = 'Looking up';
+  else if (posture > 5) postureLabel = 'Looking down';
   setText('postureReadout', postureLabel + ' \u00B7 ' + posture.toFixed(0) + '\u00B0');
+
+  /* HUD head pivots on the fixed neck by the same angle as the antennas. Positive = clockwise = looking down. */
+  const head = document.getElementById('hudHead');
+  if (head) head.setAttribute('transform', 'translate(' + HEAD_X + ' ' + HEAD_Y + ') rotate(' + posture + ')');
+  const dir = posture > 0.5 ? 'DOWN' : (posture < -0.5 ? 'UP' : 'LEVEL');
+  setText('hudPitchLabel', 'HEAD PITCH \u00B7 ' + Math.abs(posture).toFixed(0) + '\u00B0 ' + dir);
 
   const colorFor = (db) => db > -6 ? '#4cbc7e' : (db > -15 ? '#e8a830' : '#e87060');
   const lossAEl = document.getElementById('antLossA');
@@ -1232,7 +1259,7 @@ function updateAntennaDiagram(postureVal) {
   if (lossBEl) lossBEl.style.color = colorFor(dbB);
 }
 document.addEventListener('DOMContentLoaded', function () {
-  updateAntennaDiagram(0);
+  updateAntennaDiagram(document.getElementById('postureSlider').value);
 });
 </script>
 
