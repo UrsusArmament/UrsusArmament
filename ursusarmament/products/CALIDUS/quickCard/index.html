@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calidus Quick Card — Ursus Armament</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --surface2: #222220;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+    --accent2: #e8a830;
+    --red: #c0392b;
+  }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 15px;
+    line-height: 1.45;
+  }
+
+  .sheet { max-width: 8.5in; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+
+  /* ── HEADER ── */
+  .head {
+    display: flex; align-items: flex-end; justify-content: space-between;
+    gap: 1rem; padding-bottom: 0.7rem; border-bottom: 2px solid var(--accent);
+  }
+  .head h1 {
+    font-family: 'Bebas Neue', sans-serif; font-weight: 400;
+    font-size: 3.2rem; letter-spacing: 0.06em; line-height: 0.9;
+  }
+  .head .sub { color: var(--muted); font-size: 1rem; margin-top: 0.25rem; }
+  .head .brand {
+    font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.12em;
+    font-size: 1.25rem; color: var(--muted); text-align: right; white-space: nowrap;
+  }
+
+  h2 {
+    font-family: 'Bebas Neue', sans-serif; font-weight: 400;
+    font-size: 1.45rem; letter-spacing: 0.08em; line-height: 1.1;
+    margin: 1rem 0 0.4rem;
+    border-left: 3px solid var(--accent); padding-left: 0.55rem;
+  }
+  p { margin-bottom: 0.4rem; }
+  ul { margin: 0 0 0.3rem 1.1rem; }
+  li { margin-bottom: 0.15rem; }
+  strong { font-weight: 600; }
+
+  /* ── MODE SWITCH MAP ── */
+  .stops { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-top: 0.6rem; }
+  .stop {
+    background: var(--surface); border: 1px solid var(--border);
+    border-top: 3px solid var(--accent); padding: 0.55rem 0.65rem 0.65rem;
+  }
+  .stop.off { border-top-color: var(--muted); }
+  .stop .pos {
+    font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; line-height: 1; color: var(--accent);
+  }
+  .stop.off .pos { color: var(--muted); }
+  .stop h3 {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    font-size: 0.95rem; letter-spacing: 0.08em; text-transform: uppercase;
+    margin: 0.1rem 0 0.4rem;
+  }
+  .stop dl { display: grid; grid-template-columns: 1.4rem 1fr; gap: 0.25rem 0.35rem; font-size: 0.88rem; line-height: 1.25; }
+  .stop dt {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    color: var(--black); background: var(--accent); text-align: center;
+    height: 1.25rem; line-height: 1.25rem; font-size: 0.8rem;
+  }
+  .stop dd { margin: 0; }
+  .stop .both { margin-top: 0.4rem; font-size: 0.85rem; color: var(--muted); }
+  .stop .off-text { color: var(--muted); font-size: 0.88rem; }
+  .dir { margin: 0.5rem 0 0; color: var(--text); font-size: 0.9rem; }
+
+  /* ── TWO COLUMNS ── */
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.5rem; }
+
+  .warn {
+    background: var(--surface); border-left: 3px solid var(--red);
+    padding: 0.5rem 0.75rem; margin: 0.4rem 0 0.5rem;
+  }
+  .warn p:last-child { margin-bottom: 0; }
+
+  /* ── TROUBLESHOOTING ── */
+  table { width: 100%; border-collapse: collapse; margin-top: 0.3rem; }
+  th {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+    letter-spacing: 0.14em; text-transform: uppercase; font-size: 0.75rem;
+    color: var(--muted); text-align: left;
+    padding: 0.3rem 0.6rem; border-bottom: 1px solid var(--border2);
+  }
+  td { padding: 0.3rem 0.6rem; border-bottom: 1px solid var(--border); vertical-align: top; font-size: 0.9rem; }
+  td:first-child { font-weight: 600; width: 34%; }
+
+  .foot { margin-top: 0.9rem; color: var(--muted); font-size: 0.8rem; }
+
+  @media (max-width: 700px) {
+    .stops { grid-template-columns: repeat(2, 1fr); }
+    .cols { grid-template-columns: 1fr; }
+    .head .brand { display: none; }
+  }
+
+  /* ── PRINT: one US Letter page ── */
+  @page { size: letter; margin: 0.5in; }
+  @media print {
+    :root {
+      --black: #ffffff; --dark: #ffffff; --surface: #ffffff; --surface2: #f2f2f2;
+      --border: #cfcfcf; --border2: #8a8a8a;
+      --text: #111111; --muted: #4a4a4a;
+      --accent: #8a5a00; --accent2: #8a5a00; --red: #a01818;
+    }
+    body { background: #fff; color: #111; font-size: 9.5pt; line-height: 1.35; }
+    .sheet { max-width: none; padding: 0; }
+    .head h1 { font-size: 32pt; }
+    h2 { font-size: 1.25rem; margin: 0.7rem 0 0.3rem; }
+    p, li { margin-bottom: 0.1rem; }
+    .stop { padding: 0.4rem 0.55rem 0.5rem; }
+    .stop .pos { font-size: 2rem; }
+    .stop h3 { margin-bottom: 0.25rem; }
+    .stop dt { color: #fff; }
+    th, td { padding-top: 0.2rem; padding-bottom: 0.2rem; }
+    td { font-size: 9pt; }
+    .foot { margin-top: 0.5rem; }
+    .stop, .warn, tr, .cols > div { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="sheet">
+
+  <header class="head">
+    <div>
+      <h1>Calidus</h1>
+      <div class="sub">Quick card. Thermal monocular.</div>
+    </div>
+    <div class="brand">URSUS ARMAMENT</div>
+  </header>
+
+  <h2>Mode switch</h2>
+  <div class="stops">
+    <div class="stop off">
+      <div class="pos">1</div>
+      <h3>Off</h3>
+      <p class="off-text">No power.</p>
+    </div>
+    <div class="stop">
+      <div class="pos">2</div>
+      <h3>Palette, contrast</h3>
+      <dl>
+        <dt>A</dt><dd>Next palette</dd>
+        <dt>B</dt><dd>Next contrast step</dd>
+      </dl>
+    </div>
+    <div class="stop">
+      <div class="pos">3</div>
+      <h3>Zoom</h3>
+      <dl>
+        <dt>A</dt><dd>Zoom in</dd>
+        <dt>B</dt><dd>Zoom out</dd>
+      </dl>
+      <p class="both">1×, 2×, 3×, 4×, 8×</p>
+    </div>
+    <div class="stop">
+      <div class="pos">4</div>
+      <h3>Brightness</h3>
+      <dl>
+        <dt>A</dt><dd>Brighter</dd>
+        <dt>B</dt><dd>Dimmer</dd>
+      </dl>
+      <p class="both">A and B together: calibrate</p>
+    </div>
+  </div>
+
+  <p class="dir">Positions run clockwise from 1 to 4. Turn counterclockwise to go back toward 1.</p>
+
+  <div class="cols">
+    <div>
+      <h2>Power</h2>
+      <ul>
+        <li>Turn the switch clockwise from 1 to 2, 3 or 4 to power on.</li>
+        <li>Wait about 10 seconds. The buttons do not respond until then.</li>
+        <li>Turn the switch counterclockwise to 1 to power off.</li>
+        <li>Settings reset to defaults at every power-up: White Hot, brightness 50, contrast 50, 1× zoom.</li>
+      </ul>
+
+      <h2>Buttons</h2>
+      <ul>
+        <li>The buttons latch. Press once to latch it, press again to release it. Each press or release is one click.</li>
+        <li>Position 4: a latched button keeps adjusting until you release it.</li>
+        <li>Both together: position 4 calibrates. In positions 2 and 3, repeated presses start advanced functions, including a permanent dead-pixel correction (see the manual), so avoid them. Release both before the next input.</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>Calibrate</h2>
+      <ul>
+        <li>Automatic: shortly after power-on, then about every 5 minutes. The image freezes briefly. This is normal.</li>
+        <li>Manual: switch to 4, press A and B together, then release both. Use it when the image looks uneven or ghosted.</li>
+      </ul>
+
+      <h2>Battery</h2>
+      <ul>
+        <li>One unprotected 18350 lithium-ion cell. It has no built-in protection, so never short its terminals.</li>
+        <li>Charge it outside the unit in a single-cell lithium-ion charger (4.2 V). Never charge it inside the unit.</li>
+        <li>Do not use a dented, swollen, leaking, hot or torn-wrap cell.</li>
+      </ul>
+
+      <div class="warn">
+        <p><strong>Never aim the lens at the sun</strong> or other intense heat. It can damage the sensor.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>If something is wrong</h2>
+  <table>
+    <thead><tr><th>Problem</th><th>What to do</th></tr></thead>
+    <tbody>
+      <tr><td>No image</td><td>Check the cell is charged and installed the right way round. The switch must be in 2, 3 or 4. Wait about 10 seconds.</td></tr>
+      <tr><td>A button seems dead</td><td>Release both buttons. If it was just after power-up, wait about 10 seconds.</td></tr>
+      <tr><td>Brightness will not change</td><td>The button was latched before you turned to 4. Release it, then latch it again.</td></tr>
+      <tr><td>Image uneven or ghosted</td><td>Run a manual calibration: position 4, press A and B together.</td></tr>
+      <tr><td>Image freezes for a moment</td><td>This is calibration. It is normal.</td></tr>
+    </tbody>
+  </table>
+
+  <p class="foot">Clean the lens only with a soft, lint-free cloth.</p>
+
+  <!-- VERSION LINE: change the two numbers here when the document or the firmware changes.
+       The same line is at the bottom of calidus-manual.html. -->
+  <p class="foot">Document revision 4.0. Applies to firmware 4.0.</p>
+
+</div>
+</body>
+</html>
