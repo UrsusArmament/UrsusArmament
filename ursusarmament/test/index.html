@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NEXIS — Ursus Armament</title>
+<title>CALIDUS — Ursus Armament</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -21,7 +21,7 @@
     --accent: #c8922a;
     --accent2: #e8a830;
     --green: #2a9c5c;
-    --node: rgba(200,146,42,0.9);
+    --red: #c0392b;
   }
 
   html { scroll-behavior: smooth; }
@@ -46,43 +46,79 @@
     padding: 0.6rem 3rem; border-bottom: 1px solid var(--border);
   }
   .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
-  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.12em; color: var(--text); text-decoration: none; line-height: 1; }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
+    letter-spacing: 0.12em; color: var(--text); text-decoration: none; line-height: 1;
+  }
   .nav-logo span { color: var(--accent); }
-  .nav-slogan { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
-  .nav-ribbon { display: flex; align-items: center; justify-content: center; padding: 0 3rem; height: 38px; background: var(--surface); }
-  .nav-ribbon a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0 1.6rem; height: 100%; display: flex; align-items: center; border-right: 1px solid var(--border); transition: color 0.2s, background 0.2s; }
+  .nav-slogan {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem;
+    font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
+  }
+  .nav-ribbon {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3rem; height: 38px; background: var(--surface);
+  }
+  .nav-ribbon a {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem;
+    font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted); text-decoration: none; padding: 0 1.6rem; height: 100%;
+    display: flex; align-items: center; border-right: 1px solid var(--border);
+    transition: color 0.2s, background 0.2s;
+  }
   .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
   .nav-ribbon a:hover, .nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
+
   .nav-auth { display: flex; align-items: center; }
-  .nav-auth a, .nav-auth button { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: var(--accent); background: transparent; border: 1px solid var(--accent); padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s ease; }
+  .nav-auth a, .nav-auth button {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none;
+    color: var(--accent); background: transparent; border: 1px solid var(--accent);
+    padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s ease;
+  }
   .nav-auth a:hover, .nav-auth button:hover { background: rgba(200,146,42,0.08); }
 
-  .breadcrumb { padding: 1rem 3rem; background: var(--dark); border-bottom: 1px solid var(--border); margin-top: 86px; display: flex; align-items: center; gap: 0.5rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+  .breadcrumb {
+    padding: 1rem 3rem; background: var(--dark); border-bottom: 1px solid var(--border);
+    margin-top: 86px; display: flex; align-items: center; gap: 0.5rem;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem;
+    letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+  }
   .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
   .breadcrumb a:hover { color: var(--accent); }
   .breadcrumb span { color: var(--accent); }
 
-  .unavail-banner { background: rgba(10,10,8,0.97); border-bottom: 1px solid rgba(200,146,42,0.3); padding: 0.75rem 3rem; display: flex; align-items: center; justify-content: center; gap: 1.2rem; }
-  .unavail-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; flex-shrink: 0; }
-  @keyframes pulse { 0%,100%{opacity:0.4;transform:scale(1)} 50%{opacity:1;transform:scale(1.3)} }
+  /* UNAVAILABLE BANNER */
+  .unavail-banner {
+    background: rgba(10,10,8,0.97);
+    border-bottom: 1px solid rgba(200,146,42,0.3);
+    padding: 0.75rem 3rem;
+    display: flex; align-items: center; justify-content: center; gap: 1.2rem;
+  }
+  .unavail-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--accent); opacity: 0.7;
+    animation: pulse 2s ease-in-out infinite; flex-shrink: 0;
+  }
+  @keyframes pulse { 0%,100%{opacity:0.4;transform:scale(1)} 50%{opacity:1;transform:scale(1.25)} }
   .unavail-banner p { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
   .unavail-banner span { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; color: var(--muted); font-weight: 400; text-transform: uppercase; }
 
   /* HERO */
   .product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; background: var(--dark); }
-  .product-visual { position: relative; background: var(--surface); overflow: hidden; display: flex; flex-direction: column; align-items: stretch; min-height: 500px; }
+  .product-visual { position: relative; background: var(--surface); overflow: hidden; display: flex; flex-direction: column; align-items: stretch; }
   .product-badge { position: absolute; top: 2rem; left: 2rem; background: var(--surface2); color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 0.85rem; z-index: 2; border: 1px solid rgba(200,146,42,0.35); }
-  .visual-main { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; min-height: 90vh; height: 90vh; }
-  .visual-main::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(200,146,42,0.012) 30px, rgba(200,146,42,0.012) 31px); pointer-events: none; }
-  .visual-watermark { position: absolute; font-family: 'Bebas Neue', sans-serif; font-size: 14rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.02); user-select: none; pointer-events: none; white-space: nowrap; }
-  .visual-thumb-bar { width: 100%; background: var(--dark); border-top: 1px solid var(--border); padding: 1rem 2rem; display: flex; align-items: center; }
-  .thumb-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); opacity: 0.5; }
+  .visual-main { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; min-height: 0; }
+  .visual-main::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(200,146,42,0.015) 30px, rgba(200,146,42,0.015) 31px); pointer-events: none; }
+  .visual-watermark { position: absolute; font-family: 'Bebas Neue', sans-serif; font-size: 12rem; letter-spacing: 0.04em; color: rgba(255,255,255,0.022); user-select: none; pointer-events: none; white-space: nowrap; }
+  .visual-thumb-bar { width: 100%; background: var(--dark); border-top: 1px solid var(--border); padding: 1rem 2rem; display: flex; gap: 0.75rem; }
+  .thumb-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); opacity: 0.5; align-self: center; white-space: nowrap; }
 
   .product-info { padding: 4rem; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--border); }
   .product-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
   .product-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
-  .product-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4.5rem, 8vw, 7rem); line-height: 0.88; letter-spacing: 0.04em; margin-bottom: 0.4rem; color: var(--text); }
-  .product-tagline { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+  .product-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 7vw, 6.5rem); line-height: 0.9; letter-spacing: 0.04em; margin-bottom: 0.4rem; color: var(--text); }
+  .product-tagline { font-family: 'Barlow Condensed', sans-serif; font-size: 1.15rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
   .product-subtitle { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 2rem; }
   .product-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; max-width: 480px; }
   .product-price-row { display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
@@ -91,7 +127,7 @@
   .unavail-price-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.6; }
   .unavail-pill { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(200,146,42,0.08); border: 1px solid rgba(200,146,42,0.25); padding: 0.5rem 1rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
   .product-actions { display: flex; gap: 1rem; margin-bottom: 2rem; }
-  .btn-notify { background: transparent; color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: 1px solid var(--accent); cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s; flex: 1; text-align: center; }
+  .btn-notify { background: transparent; color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: 1px solid var(--accent); cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s, color 0.2s; flex: 1; text-align: center; }
   .btn-notify:hover { background: rgba(200,146,42,0.1); }
   .btn-ghost { background: transparent; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; border: 1px solid var(--border2); cursor: pointer; text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s; }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
@@ -101,38 +137,23 @@
   .trust-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text); }
   .trust-value.tbd { color: var(--muted); font-style: italic; }
 
+  /* SHARED */
   .section-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
   .section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
   .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5vw, 4.2rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 3.5rem; }
 
-  /* NX PRODUCT LINE */
-  .nx-section { background: var(--black); padding: 6rem 3rem; }
-  .nx-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2px; background: var(--border); margin-bottom: 2rem; }
-  .nx-card { background: var(--dark); padding: 2rem; display: flex; flex-direction: column; gap: 0.75rem; position: relative; overflow: hidden; transition: background 0.2s; }
-  .nx-card:hover { background: var(--surface); }
-  .nx-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); opacity: 0.4; transition: opacity 0.2s; }
-  .nx-card:hover::before { opacity: 1; }
-  .nx-model { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.1em; color: var(--accent); line-height: 1; }
-  .nx-code { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem; }
-  .nx-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); }
-  .nx-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
-  .nx-features { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.25rem; }
-  .nx-features li { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted); display: flex; align-items: baseline; gap: 0.5rem; }
-  .nx-features li::before { content: '—'; color: var(--accent); opacity: 0.6; flex-shrink: 0; }
-  .nx-status { margin-top: auto; font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); opacity: 0.65; padding-top: 0.75rem; border-top: 1px solid var(--border); }
-
   /* SPECS */
-  .specs-section { background: var(--dark); padding: 6rem 3rem; }
+  .specs-section { background: var(--black); padding: 6rem 3rem; }
   .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-bottom: 2px; }
-  .spec-item { background: var(--surface); padding: 1.75rem 2rem; display: flex; justify-content: space-between; align-items: baseline; transition: background 0.2s; }
-  .spec-item:hover { background: var(--surface2); }
+  .spec-item { background: var(--dark); padding: 1.75rem 2rem; display: flex; justify-content: space-between; align-items: baseline; transition: background 0.2s; }
+  .spec-item:hover { background: var(--surface); }
   .spec-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
-  .spec-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); text-align: right; max-width: 55%; }
+  .spec-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); }
   .spec-value.tbd { color: var(--muted); font-style: italic; font-size: 0.88rem; }
-  .spec-note { margin-top: 2rem; padding: 1.25rem 1.75rem; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid rgba(200,146,42,0.4); font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); line-height: 1.6; }
+  .spec-note { margin-top: 2rem; padding: 1.25rem 1.75rem; background: var(--dark); border: 1px solid var(--border); border-left: 3px solid rgba(200,146,42,0.4); font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); line-height: 1.6; }
 
   /* SERIAL LOOKUP */
-  .serial-section { background: var(--black); padding: 6rem 3rem; position: relative; }
+  .serial-section { background: var(--dark); padding: 6rem 3rem; position: relative; }
   .serial-inner { max-width: 780px; }
   .serial-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 560px; }
   .serial-input-row { display: flex; margin-bottom: 2rem; }
@@ -143,7 +164,7 @@
   .serial-btn:hover { background: var(--accent2); }
   .serial-result { display: none; }
   .serial-result.visible { display: block; }
-  .serial-error { padding: 1.5rem 2rem; background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.3); border-left: 3px solid #c0392b; font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; letter-spacing: 0.08em; color: #e87060; }
+  .serial-error { padding: 1.5rem 2rem; background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.3); border-left: 3px solid var(--red); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; letter-spacing: 0.08em; color: #e87060; }
   .serial-card { background: var(--surface); border: 1px solid var(--border2); border-top: 3px solid var(--accent); }
   .serial-card-header { padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); background: var(--surface2); }
   .serial-card-id { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.06em; color: var(--accent); }
@@ -154,6 +175,7 @@
   .serial-field { background: var(--dark); padding: 1.25rem 1.75rem; display: flex; flex-direction: column; gap: 0.3rem; }
   .serial-field-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
   .serial-field-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
+  .serial-field-value.highlight { color: var(--accent); }
   .serial-card-notes { padding: 1.25rem 1.75rem; margin: 2px; margin-top: 0; background: var(--dark); border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.3rem; }
   .serial-card-footer { padding: 1rem 2rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border-top: 1px solid var(--border); }
 
@@ -166,7 +188,7 @@
   .feature-lock-btn { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.6rem 1.5rem; text-decoration: none; transition: background 0.2s; }
   .feature-lock-btn:hover { background: rgba(200,146,42,0.08); }
 
-  /* NIGHT VISION / THERMAL / MESH INFO BUTTON */
+  /* NIGHT VISION / THERMAL INFO BUTTON */
   .nv-info-btn {
     position: absolute;
     top: 2rem;
@@ -224,7 +246,7 @@
     100% { transform: translateX(260%) skewX(-15deg); }
   }
 
-  /* NIGHT VISION / THERMAL / MESH INFO MODAL */
+  /* NIGHT VISION / THERMAL INFO MODAL */
   .nv-modal-overlay {
     display: none;
     position: fixed;
@@ -323,62 +345,6 @@
   .nv-section li { margin-bottom: 0.9rem; }
   .nv-section ol li { margin-bottom: 1rem; }
   .nv-section li strong { color: var(--text); }
-  .nv-section li ul { margin-top: 0.6rem; }
-
-  /* Interactive antenna mount diagram */
-  .antenna-interactive { margin: 1.5rem 0 0.5rem; }
-  .antenna-slider-row { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:0.6rem; flex-wrap:wrap; gap:0.5rem; }
-  .antenna-slider-label { font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); }
-  .antenna-slider-readout { font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; font-weight:600; color:var(--text); }
-  .antenna-slider { -webkit-appearance:none; appearance:none; width:100%; height:4px; background:var(--border2); outline:none; margin-bottom:1.25rem; border-radius:2px; }
-  .antenna-slider::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:18px; height:18px; border-radius:50%; background:var(--accent); cursor:pointer; border:2px solid var(--dark); animation: thumbPulse 2s ease-in-out infinite; }
-  .antenna-slider::-moz-range-thumb { width:18px; height:18px; border-radius:50%; background:var(--accent); cursor:pointer; border:2px solid var(--dark); animation: thumbPulse 2s ease-in-out infinite; }
-  @keyframes thumbPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(200,146,42,0.55), 0 0 0 1px var(--accent); } 50% { box-shadow: 0 0 0 8px rgba(200,146,42,0), 0 0 0 1px var(--accent); } }
-  .antenna-readout-panel { display:flex; flex-direction:column; gap:0.6rem; margin-top:1rem; padding:1rem 1.25rem; background:var(--surface); border:1px solid var(--border2); border-left:3px solid var(--accent); }
-  .antenna-readout-row { display:flex; align-items:center; gap:0.6rem; font-family:'Barlow Condensed',sans-serif; font-size:0.9rem; flex-wrap:wrap; }
-  .antenna-readout-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
-  .antenna-readout-label { color:var(--text); font-weight:600; letter-spacing:0.04em; }
-  .antenna-readout-value { color:var(--muted); margin-left:auto; font-family:monospace; }
-  .antenna-readout-value strong { color:var(--text); }
-
-  /* Loadout calculator */
-  .loadout-form { display:flex; flex-direction:column; gap:1.1rem; margin-bottom:1.5rem; }
-  .loadout-field { display:flex; flex-direction:column; gap:0.4rem; }
-  .loadout-field label { font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); }
-  .loadout-field input[type="number"] { background:var(--surface); border:1px solid var(--border2); color:var(--text); padding:0.65rem 0.9rem; font-family:'Barlow Condensed',sans-serif; font-size:1rem; width:140px; }
-  .loadout-field-checkbox { display:flex; align-items:flex-start; gap:0.6rem; }
-  .loadout-field-checkbox input[type="checkbox"] { margin-top:0.2rem; width:16px; height:16px; accent-color:var(--accent); flex-shrink:0; }
-  .loadout-field-checkbox label { font-size:0.88rem; color:var(--text); line-height:1.5; }
-  .loadout-results { background:var(--surface); border:1px solid var(--border2); border-left:3px solid var(--accent); padding:1.25rem 1.5rem; }
-  .loadout-results-empty { color:var(--muted); font-size:0.9rem; font-style:italic; }
-  .loadout-line { display:flex; align-items:flex-start; padding:0.75rem 0; border-bottom:1px solid var(--border); gap:0.85rem; }
-  .loadout-line:last-child { border-bottom:none; }
-  .loadout-line-checkbox { margin-top:0.3rem; width:16px; height:16px; accent-color:var(--accent); cursor:pointer; flex-shrink:0; }
-  .loadout-line-info { flex:1; min-width:0; }
-  .loadout-line-name { font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:0.05em; color:var(--text); }
-  .loadout-line-desc { font-size:0.78rem; color:var(--muted); display:block; margin-top:0.2rem; }
-  .loadout-line-pricing { display:flex; align-items:baseline; gap:0.5rem; flex-shrink:0; white-space:nowrap; }
-  .loadout-line-price { font-family:'Barlow Condensed',sans-serif; font-size:0.92rem; color:var(--text); font-weight:600; }
-  .loadout-line-qty { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--accent); }
-  .loadout-line-equals { font-family:'Barlow Condensed',sans-serif; font-size:0.95rem; color:var(--text); font-weight:600; }
-  .loadout-line-subtotal { font-family:'Barlow Condensed',sans-serif; font-size:0.92rem; color:var(--text); font-weight:700; }
-  .loadout-line-optional { opacity:0.85; }
-  .loadout-badge-optional { font-size:0.6rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); padding:0.12rem 0.45rem; margin-left:0.5rem; }
-  .loadout-line-unchecked { opacity:0.4; }
-  .loadout-line-unchecked .loadout-line-price, .loadout-line-unchecked .loadout-line-subtotal { text-decoration:line-through; }
-  .loadout-stock-note { color:var(--muted); font-size:0.75rem; }
-  .loadout-stock-low { color:var(--accent2); font-size:0.75rem; font-weight:600; }
-  .loadout-stock-warning { color:#e87060; font-size:0.75rem; font-weight:600; }
-  .loadout-access-note { color:var(--accent); font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-top:0.3rem; }
-  .loadout-line-checkbox:disabled { cursor:not-allowed; }
-  .loadout-total-row { display:flex; justify-content:space-between; align-items:center; padding-top:1rem; margin-top:0.5rem; border-top:2px solid var(--border2); }
-  .loadout-total-label { font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); }
-  .loadout-total-value { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:var(--accent); }
-  .loadout-header-total { display:flex; align-items:baseline; gap:0.5rem; }
-  .loadout-header-total-label { font-family:'Barlow Condensed',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); }
-  .loadout-header-total-value { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--accent); }
-  .loadout-trigger-btn { display:inline-flex; align-items:center; gap:0.5rem; background:rgba(200,146,42,0.08); border:1px solid var(--accent); color:var(--accent); font-family:'Barlow Condensed',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; padding:0.5rem 1rem; cursor:pointer; transition:background 0.2s, color 0.2s; white-space:nowrap; animation: nvPulse 2s ease-in-out infinite; }
-  .loadout-trigger-btn:hover { background:var(--accent); color:var(--black); animation-play-state:paused; }
 
   @media (max-width: 600px) {
     .nv-modal-box { width: 96%; max-height: 90vh; }
@@ -386,19 +352,8 @@
     .nv-info-btn { top: 1rem; right: 1rem; font-size: 0.68rem; padding: 0.45rem 0.85rem; }
   }
 
-  /* ECOSYSTEM */
-  .ecosystem-section { background: var(--dark); padding: 6rem 3rem; }
-  .ecosystem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); margin-bottom: 4rem; }
-  .ecosystem-card { background: var(--surface); padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 0.75rem; position: relative; overflow: hidden; transition: background 0.2s; }
-  .ecosystem-card:hover { background: var(--surface2); }
-  .ecosystem-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); opacity: 0.35; }
-  .eco-icon { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.06em; color: var(--accent); line-height: 1; }
-  .eco-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); }
-  .eco-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
-  .eco-status { margin-top: auto; font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); opacity: 0.7; }
-
   /* FEATURES */
-  .features-section { background: var(--black); padding: 6rem 3rem; }
+  .features-section { background: var(--dark); padding: 6rem 3rem; }
   .features-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
   .features-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
   .feature-item { background: var(--surface); padding: 2rem; position: relative; overflow: hidden; transition: background 0.2s; }
@@ -416,7 +371,7 @@
   .cert-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; color: var(--accent); }
 
   /* NOTIFY */
-  .notify-section { background: var(--dark); padding: 6rem 3rem; }
+  .notify-section { background: var(--black); padding: 6rem 3rem; }
   .notify-inner { max-width: 780px; }
   .notify-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 560px; }
   .notify-input-row { display: flex; margin-bottom: 1.5rem; }
@@ -455,51 +410,21 @@
   .review-stars { font-size: 1.2rem; letter-spacing: 0.1em; color: var(--accent); }
   .review-meta { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-family: 'Barlow Condensed', sans-serif; }
   .review-text { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-top: 0.25rem; }
-  .review-reply {
-    margin-top: 1rem;
-    margin-left: 1.5rem;
-    padding: 1rem 1.25rem;
-    background: var(--surface2);
-    border-left: 2px solid var(--accent);
-  }
-
-  .review-reply-header {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin-bottom: 0.4rem;
-  }
-
-  .review-reply-logo {
-    width: 2rem;
-    height: 2rem;
-    object-fit: contain;
-    flex-shrink: 0;
-    border-radius: 3px;
-  }
-
-  .review-reply-name {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--accent);
-  }
-
-  .review-reply-text {
-    font-size: 0.92rem;
-    color: var(--muted);
-    line-height: 1.7;
-  }
   .review-images { display: flex; flex-direction: column; gap: 0.5rem; flex-shrink: 0; width: 200px; }
   .review-img { width: 200px; height: 150px; object-fit: cover; cursor: pointer; border: 1px solid var(--border2); transition: opacity 0.2s, border-color 0.2s; display: block; }
   .review-img:hover { opacity: 0.85; border-color: var(--accent); }
   .reviews-empty { padding: 2rem; text-align: center; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.15em; color: var(--muted); background: var(--surface); }
 
-  .review-cta-btn { background: var(--surface); color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 1.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 1.5rem 3.5rem; border: 2px solid var(--border2); border-radius: 6px; cursor: pointer; transition: all 0.2s ease; }
+  /* REVIEW CTA */
+  .review-cta-btn {
+    background: var(--surface); color: var(--text); font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 1.5rem 3.5rem; border: 2px solid var(--border2); border-radius: 6px;
+    cursor: pointer; transition: all 0.2s ease;
+  }
   .review-cta-btn:hover { background: var(--surface2); border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
 
+  /* CTA BANNER */
   .cta-banner { background: var(--surface); padding: 4rem 3rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
   .cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.06em; color: var(--text); line-height: 1; }
   .cta-banner p { font-size: 1rem; color: var(--muted); margin-top: 0.5rem; }
@@ -518,28 +443,15 @@
   .footer-logo span { color: var(--accent); opacity: 1; }
   .footer-legal { font-size: 0.78rem; color: var(--muted); opacity: 0.5; }
 
-  /* SVG ANIMATIONS */
-  .net-link { stroke-dasharray: 6 4; animation: dash 3s linear infinite; }
-  .net-link-slow { stroke-dasharray: 6 4; animation: dash 5s linear infinite; }
-  .net-link-rev { stroke-dasharray: 6 4; animation: dash-rev 4s linear infinite; }
-  @keyframes dash { to { stroke-dashoffset: -60; } }
-  @keyframes dash-rev { to { stroke-dashoffset: 60; } }
-  .node-pulse { animation: node-glow 2.4s ease-in-out infinite; }
-  .node-pulse-b { animation: node-glow 2.4s ease-in-out infinite; animation-delay: 0.8s; }
-  .node-pulse-c { animation: node-glow 2.4s ease-in-out infinite; animation-delay: 1.6s; }
-  @keyframes node-glow { 0%,100%{opacity:0.5;r:7} 50%{opacity:1;r:9} }
-
   @media (max-width: 900px) {
     .product-hero { grid-template-columns: 1fr; }
     .product-info { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--border); }
     .specs-grid, .serial-card-body { grid-template-columns: 1fr; }
-    .nx-grid { grid-template-columns: 1fr; }
-    .ecosystem-grid { grid-template-columns: 1fr; }
     .features-layout { grid-template-columns: 1fr; gap: 2.5rem; }
     .features-aside { position: static; }
     .footer-grid { grid-template-columns: 1fr 1fr; }
     .cta-banner { flex-direction: column; text-align: center; }
-    .breadcrumb, .nx-section, .specs-section, .serial-section, .ecosystem-section, .features-section, .notify-section, .reviews-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+    .breadcrumb, .specs-section, .serial-section, .notify-section, .features-section, .reviews-section { padding-left: 1.5rem; padding-right: 1.5rem; }
     .nav-top, .nav-ribbon { padding-left: 1.5rem; padding-right: 1.5rem; }
     .notify-input-row, .serial-input-row { flex-direction: column; }
     .notify-input, .serial-input { border-right: 1px solid var(--border2); border-bottom: none; }
@@ -548,7 +460,6 @@
     .review-card { flex-direction: column; gap: 1.25rem; padding: 1.5rem; }
     .review-images { flex-direction: row; width: 100%; }
     .review-img { width: calc(50% - 0.25rem); height: 120px; }
-    .ecosystem-card svg { display: none; }
   }
 .nav-cart-btn {
   position: relative;
@@ -570,6 +481,25 @@
 .nav-cart-btn:hover svg { stroke: var(--accent); }
 .cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
 .cart-count.visible { display: flex; }
+
+/* OWNER RESOURCES */
+.resources-section { background: var(--black); padding: 6rem 3rem; }
+.resources-inner { max-width: 780px; }
+.resources-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 560px; }
+.resources-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
+.resource-card { background: var(--surface); padding: 2rem 2rem 4rem; display: block; text-decoration: none; position: relative; overflow: hidden; transition: background 0.2s; }
+.resource-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
+.resource-card:hover { background: var(--surface2); }
+.resource-card:hover::before { opacity: 1; }
+.resource-card:focus-visible { outline: 2px solid var(--accent2); outline-offset: -2px; }
+.resource-title { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+.resource-desc { display: block; font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+.resource-meta { position: absolute; left: 2rem; right: 2rem; bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+.resource-open { color: var(--accent); }
+@media (max-width: 900px) {
+  .resources-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .resources-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -602,7 +532,7 @@
 <div class="breadcrumb">
   <a href="/ursusarmament">Home</a><span>›</span>
   <a href="/ursusarmament/products">Products</a><span>›</span>
-  <span>NEXIS</span>
+  <span>CALIDUS</span>
 </div>
 
 <div class="unavail-banner">
@@ -611,150 +541,90 @@
   <span>&nbsp;·&nbsp; Notify me when available</span>
 </div>
 
-<!-- HERO -->
+<!-- PRODUCT HERO -->
 <section class="product-hero">
   <div class="product-visual">
     <div class="product-badge">IN DEVELOPMENT</div>
     <button class="nv-info-btn" onclick="openNVModal()">
-      Questions About Mesh Networks? <span class="nv-info-arrow">&#8599;</span>
+      Questions About Thermal Imaging? <span class="nv-info-arrow">&#8599;</span>
     </button>
     <div class="visual-main">
-      <div class="visual-watermark">NEXIS</div>
-      <svg viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:900px;position:relative;z-index:1;">
-
-        <!-- Frame -->
-        <rect x="1" y="1" width="558" height="418" fill="none" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22"/>
-        <polyline points="1,22 1,1 22,1" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
-        <polyline points="538,1 558,1 558,22" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
-        <polyline points="1,396 1,418 22,418" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
-        <polyline points="538,418 558,418 558,396" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
-
-        <!-- Faint grid -->
-        <line x1="280" y1="0" x2="280" y2="420" stroke="#c8701a" stroke-width="0.4" stroke-opacity="0.06"/>
-        <line x1="0" y1="210" x2="560" y2="210" stroke="#c8701a" stroke-width="0.4" stroke-opacity="0.06"/>
-
-        <!-- Network links -->
-        <line x1="280" y1="210" x2="156" y2="118" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35" class="net-link"/>
-        <line x1="280" y1="210" x2="404" y2="118" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35" class="net-link-slow"/>
-        <line x1="280" y1="210" x2="404" y2="302" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35" class="net-link-rev"/>
-        <line x1="280" y1="210" x2="156" y2="302" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35" class="net-link"/>
-        <line x1="280" y1="210" x2="280" y2="72" stroke="#c8701a" stroke-width="1" stroke-opacity="0.28" class="net-link-slow"/>
-        <line x1="280" y1="210" x2="280" y2="348" stroke="#c8701a" stroke-width="1" stroke-opacity="0.28" class="net-link-rev"/>
-        <line x1="280" y1="210" x2="72" y2="210" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22" class="net-link"/>
-        <line x1="280" y1="210" x2="488" y2="210" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22" class="net-link-slow"/>
-
-        <!-- Cross links -->
-        <line x1="156" y1="118" x2="404" y2="118" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.18" class="net-link-slow" stroke-dasharray="4,6"/>
-        <line x1="156" y1="302" x2="404" y2="302" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.18" class="net-link-rev" stroke-dasharray="4,6"/>
-        <line x1="156" y1="118" x2="156" y2="302" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.15" class="net-link" stroke-dasharray="4,6"/>
-        <line x1="404" y1="118" x2="404" y2="302" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.15" class="net-link-slow" stroke-dasharray="4,6"/>
-
-        <!-- ASI Module connections to centers of 4 device nodes -->
-        <!-- North ASI → NX-100 NOD center -->
-        <line x1="280" y1="76" x2="156" y2="118" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link-slow" stroke-dasharray="4,6"/>
-        <!-- North ASI → NX-200 REL center -->
-        <line x1="280" y1="76" x2="404" y2="118" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link-rev" stroke-dasharray="4,6"/>
-        <!-- South ASI → NX-400 VEC center -->
-        <line x1="280" y1="344" x2="156" y2="302" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link" stroke-dasharray="4,6"/>
-        <!-- South ASI → NX-300 LFT center -->
-        <line x1="280" y1="344" x2="404" y2="302" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link-slow" stroke-dasharray="4,6"/>
-        <!-- West ASI → NX-100 NOD center -->
-        <line x1="76" y1="210" x2="156" y2="118" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link-rev" stroke-dasharray="4,6"/>
-        <!-- West ASI → NX-400 VEC center -->
-        <line x1="76" y1="210" x2="156" y2="302" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link" stroke-dasharray="4,6"/>
-        <!-- East ASI → NX-200 REL center -->
-        <line x1="484" y1="210" x2="404" y2="118" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link-slow" stroke-dasharray="4,6"/>
-        <!-- East ASI → NX-300 LFT center -->
-        <line x1="484" y1="210" x2="404" y2="302" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link-rev" stroke-dasharray="4,6"/>
-
-        <!-- Central Hub -->
-        <circle cx="280" cy="210" r="32" fill="#111110" stroke="#c8701a" stroke-width="1.8" stroke-opacity="0.7"/>
-        <circle cx="280" cy="210" r="24" fill="none" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/>
-        <circle cx="280" cy="210" r="14" fill="none" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.2"/>
-        <circle cx="280" cy="210" r="5" fill="#c8701a" fill-opacity="0.25" class="node-pulse"/>
-        <text x="280" y="252" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.55" text-anchor="middle" letter-spacing="1">NEXIS HUB</text>
-        <text x="280" y="263" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.35" text-anchor="middle" letter-spacing="0.5">NX-600 CMD</text>
-
-        <!-- NX-100 NOD — top left -->
-        <rect x="108" y="88" width="96" height="60" rx="4" fill="#111110" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
-        <circle cx="156" cy="118" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse"/>
-        <text x="156" y="106" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">DISMOUNTED</text>
-        <text x="156" y="117" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">NODE</text>
-        <text x="156" y="128" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">PAX Tracking</text>
-        <text x="156" y="140" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">NX-100 NOD</text>
-
-        <!-- NX-200 REL — top right -->
-        <rect x="356" y="88" width="96" height="60" rx="4" fill="#111110" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
-        <circle cx="404" cy="118" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse-b"/>
-        <text x="404" y="106" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">STATIONARY</text>
-        <text x="404" y="117" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">RELAY NODE</text>
-        <text x="404" y="128" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">Persistent Coverage</text>
-        <text x="404" y="140" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">NX-200 REL</text>
-
-        <!-- NX-300 LFT — bottom right -->
-        <rect x="356" y="272" width="96" height="60" rx="4" fill="#111110" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
-        <circle cx="404" cy="302" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse-c"/>
-        <text x="404" y="290" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">AERIAL</text>
-        <text x="404" y="301" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">RELAY NODE</text>
-        <text x="404" y="312" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">Rapid Deploy</text>
-        <text x="404" y="324" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">NX-300 LFT</text>
-
-        <!-- NX-400 VEC — bottom left -->
-        <rect x="108" y="272" width="96" height="60" rx="4" fill="#111110" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
-        <circle cx="156" cy="302" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse"/>
-        <text x="156" y="290" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">VEHICLE</text>
-        <text x="156" y="301" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">MESH NODE</text>
-        <text x="156" y="312" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">Mobile Coverage</text>
-        <text x="156" y="324" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">NX-400 VEC</text>
-
-        <!-- ASI Modules -->
-        <circle cx="280" cy="62" r="14" fill="#0e0e0c" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
-        <text x="280" y="58" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">ASI</text>
-        <text x="280" y="69" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">MODULE</text>
-
-        <circle cx="280" cy="358" r="14" fill="#0e0e0c" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
-        <text x="280" y="354" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">ASI</text>
-        <text x="280" y="365" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">MODULE</text>
-
-        <circle cx="62" cy="210" r="14" fill="#0e0e0c" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
-        <text x="62" y="206" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">ASI</text>
-        <text x="62" y="217" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">MODULE</text>
-
-        <circle cx="498" cy="210" r="14" fill="#0e0e0c" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
-        <text x="498" y="206" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">ASI</text>
-        <text x="498" y="217" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">MODULE</text>
-
-        <!-- Title -->
-        <text x="280" y="28" font-family="monospace" font-size="18" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="6">NEXIS</text>
-        <text x="280" y="42" font-family="monospace" font-size="7.5" fill="#c8701a" fill-opacity="0.35" text-anchor="middle" letter-spacing="2">TACTICAL NETWORK TOPOLOGY  ·  PRE-PRODUCTION</text>
-
-        <!-- Faint diagonals -->
-        <line x1="0" y1="0" x2="560" y2="420" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.03"/>
-        <line x1="560" y1="0" x2="0" y2="420" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.03"/>
-
+      <div class="visual-watermark">CALIDUS</div>
+      <svg id="calidus-main" viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg" style="width:85%;max-width:520px;position:relative;z-index:1;">
+        <rect x="1" y="1" width="558" height="418" fill="none" stroke="#c8701a" stroke-width="1" stroke-opacity="0.25"/>
+        <polyline points="1,22 1,1 22,1" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.55"/>
+        <polyline points="538,1 558,1 558,22" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.55"/>
+        <polyline points="1,396 1,418 22,418" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.55"/>
+        <polyline points="538,418 558,418 558,396" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.55"/>
+        <line x1="280" y1="0" x2="280" y2="420" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.07"/>
+        <line x1="0" y1="210" x2="560" y2="210" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.07"/>
+        <rect x="130" y="130" width="300" height="160" rx="16" fill="#131310" stroke="#c8701a" stroke-width="1.6" stroke-opacity="0.6"/>
+        <rect x="170" y="124" width="180" height="12" rx="2" fill="#1a1a17" stroke="#c8701a" stroke-width="1" stroke-opacity="0.4"/>
+        <line x1="185" y1="124" x2="185" y2="136" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/><line x1="200" y1="124" x2="200" y2="136" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/><line x1="215" y1="124" x2="215" y2="136" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/><line x1="230" y1="124" x2="230" y2="136" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/><line x1="245" y1="124" x2="245" y2="136" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/><line x1="260" y1="124" x2="260" y2="136" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/><line x1="275" y1="124" x2="275" y2="136" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/><line x1="290" y1="124" x2="290" y2="136" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/><line x1="305" y1="124" x2="305" y2="136" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/><line x1="320" y1="124" x2="320" y2="136" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/><line x1="335" y1="124" x2="335" y2="136" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/>
+        <circle cx="178" cy="210" r="44" fill="#0e0e0c" stroke="#c8701a" stroke-width="1.5" stroke-opacity="0.55"/>
+        <circle cx="178" cy="210" r="36" fill="none" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/>
+        <circle cx="178" cy="210" r="26" fill="none" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.25"/>
+        <circle cx="178" cy="210" r="14" fill="none" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35"/>
+        <circle cx="178" cy="210" r="5" fill="#c8701a" fill-opacity="0.12"/>
+        <line x1="162" y1="194" x2="168" y2="200" stroke="#c8701a" stroke-width="1" stroke-opacity="0.25"/>
+        <text x="178" y="270" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.45" text-anchor="middle" letter-spacing="1">OBJECTIVE</text>
+        <text x="178" y="280" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.35" text-anchor="middle" letter-spacing="1">f/1.0 LWIR</text>
+        <rect x="235" y="162" width="80" height="96" rx="4" fill="#111110" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
+        <text x="275" y="205" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.5" text-anchor="middle" letter-spacing="1">THERMAL</text>
+        <text x="275" y="216" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">CORE</text>
+        <line x1="242" y1="178" x2="308" y2="178" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.2"/>
+        <line x1="242" y1="232" x2="308" y2="232" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.2"/>
+        <rect x="395" y="182" width="38" height="56" rx="18" fill="#0e0e0c" stroke="#c8701a" stroke-width="1.4" stroke-opacity="0.55"/>
+        <rect x="401" y="189" width="26" height="42" rx="12" fill="none" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/>
+        <circle cx="414" cy="210" r="8" fill="none" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.25"/>
+        <text x="414" y="252" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">EYEPC</text>
+        <rect x="430" y="196" width="12" height="28" rx="3" fill="#1a1a17" stroke="#c8701a" stroke-width="1" stroke-opacity="0.4"/>
+        <line x1="433" y1="203" x2="439" y2="203" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/><line x1="433" y1="210" x2="439" y2="210" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/><line x1="433" y1="217" x2="439" y2="217" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/>
+        <text x="436" y="238" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">DPT</text>
+        <circle cx="360" cy="148" r="10" fill="#111110" stroke="#c8701a" stroke-width="1" stroke-opacity="0.5"/>
+        <text x="360" y="152" font-family="monospace" font-size="8" fill="#c8701a" fill-opacity="0.6" text-anchor="middle">⏻</text>
+        <text x="360" y="140" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">PWR</text>
+        <circle cx="330" cy="148" r="8" fill="#111110" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.4"/>
+        <text x="330" y="140" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.3" text-anchor="middle">PAL</text>
+        <rect x="340" y="278" width="50" height="16" rx="4" fill="#111110" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.4"/>
+        <line x1="365" y1="278" x2="365" y2="294" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/>
+        <text x="352" y="289" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">−</text>
+        <text x="378" y="289" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">+</text>
+        <text x="365" y="308" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.3" text-anchor="middle">ZOOM</text>
+        <rect x="148" y="280" width="56" height="14" rx="2" fill="#111110" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.35"/>
+        <text x="176" y="290" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">BATT</text>
+        <text x="176" y="306" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">1× CR123A</text>
+        <line x1="178" y1="167" x2="178" y2="110" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.2" stroke-dasharray="3,3"/>
+        <text x="178" y="105" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="1">LENS</text>
+        <line x1="424" y1="182" x2="440" y2="150" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.2" stroke-dasharray="3,3"/>
+        <text x="448" y="147" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.38" text-anchor="start" letter-spacing="0.5">OCULAR</text>
+        <text x="280" y="65" font-family="monospace" font-size="24" fill="#c8701a" fill-opacity="0.82" text-anchor="middle" letter-spacing="5">CALIDUS</text>
+        <text x="280" y="86" font-family="monospace" font-size="9.5" fill="#c8701a" fill-opacity="0.42" text-anchor="middle" letter-spacing="2">THERMAL MONOCULAR</text>
+        <text x="280" y="102" font-family="monospace" font-size="7.5" fill="#c8701a" fill-opacity="0.2" text-anchor="middle" letter-spacing="1">PROFILE VIEW  ·  PRE-PRODUCTION SCHEMATIC</text>
+        <line x1="0" y1="0" x2="560" y2="420" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.035"/>
+        <line x1="560" y1="0" x2="0" y2="420" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.035"/>
       </svg>
     </div>
     <div class="visual-thumb-bar">
-      <span class="thumb-tag">Network topology diagram · Pre-production · Subject to change</span>
+      <span class="thumb-tag">Pre-production · Views subject to change</span>
     </div>
   </div>
 
   <div class="product-info">
-    <div class="product-tag">Tactical Communications Network</div>
-    <h1 class="product-name">NEXIS</h1>
-    <div class="product-tagline">Connected. Secure. In Control.</div>
-    <div class="product-subtitle">Secure-Healing Mesh · Collective Intelligence · Distributed Coordination</div>
-    <p class="product-desc">NEXIS is a modular, self-healing mesh network that connects individuals, teams, and assets into a shared operational picture for dynamic, infrastructure-limited environments, enabling real-time communication, positioning, and coordinated movement. Each node contributes to continuous information flow that supports maneuvering, search and rescue, and distributed coordination. NEXIS is not a weapon system, but a foundation layer for moving information, integrating with ASI (Autonomous Systems Interface) modules and coordinating with systems such as R.O.T.S. through the STRIX™ Fire Control Layer.</p>
+    <div class="product-tag">Thermal Monocular</div>
+    <h1 class="product-name">CALIDUS</h1>
+    <div class="product-tagline">See Heat. Own the Night.</div>
+    <div class="product-subtitle">Compact Thermal Monocular</div>
+    <p class="product-desc">The CALIDUS is a compact, high-performance thermal monocular built for tactical operators and law enforcement who need reliable vision in total darkness. Engineered around a long-wave infrared core with multi-palette display, digital zoom, and a rugged all-weather housing — in a form factor light enough to carry anywhere.</p>
     <div class="product-price-row">
       <div class="unavail-price-block">
-        <div class="unavail-price-tag">PRICE TBD</div>
-        <div class="unavail-price-sub">Limited Field Deployment</div>
+        <div class="unavail-price-tag">$3499</div>
+        <div class="unavail-price-sub">Not yet available for order</div>
       </div>
       <div class="unavail-pill">
         <div class="unavail-dot" style="width:6px;height:6px;"></div>
         In Development
       </div>
-      <button class="loadout-trigger-btn" onclick="openLoadoutModal()">Calculate Your Loadout Needs</button>
     </div>
     <div class="product-actions">
       <a href="#notify" class="btn-notify">Notify Me at Launch</a>
@@ -767,168 +637,34 @@
   </div>
 </section>
 
-<!-- NX PRODUCT LINE -->
-<section class="nx-section" id="lineup">
-  <div class="section-tag">NX-Series</div>
-  <h2 class="section-title">NEXIS PRODUCT LINE</h2>
-  <div class="nx-grid">
-
-    <div class="nx-card">
-      <div class="nx-model">NX-100</div>
-      <div class="nx-code">NOD — Dismounted Mesh Node</div>
-      <div class="nx-name">Personnel & Asset Tracking Node</div>
-      <p class="nx-desc">Compact, low-power node designed for dismounted personnel and equipment tracking in active mesh networks.</p>
-      <ul class="nx-features">
-        <li>LoRa / ISM mesh connectivity</li>
-        <li>Integrated GNSS positioning</li>
-        <li>Personnel & asset tracking</li>
-        <li>Helmet-mountable (ARC rail compatible)</li>
-        <li>Adapter support: Picatinny / carabiner swivel</li>
-        <li>Wearable, field-ready form factor</li>
-      </ul>
-      <div class="nx-status">↗ Limited Field Deployment</div>
-    </div>
-
-    <div class="nx-card">
-      <div class="nx-model">NX-200</div>
-      <div class="nx-code">REL — Stationary Relay Node</div>
-      <div class="nx-name">Extended-Duration Relay</div>
-      <p class="nx-desc">Fixed or semi-permanent relay node engineered for persistent mesh coverage over long-duration field deployments.</p>
-      <ul class="nx-features">
-        <li>Persistent mesh repeater</li>
-        <li>Tuned high-efficiency antennas</li>
-        <li>Extended battery capacity</li>
-        <li>Integrated solar charging capability</li>
-        <li>Designed for long-duration field operation</li>
-      </ul>
-      <div class="nx-status">↗ Limited Field Deployment</div>
-    </div>
-
-    <div class="nx-card">
-      <div class="nx-model">NX-300</div>
-      <div class="nx-code">LFT — Rapid Deploy Aerial Relay</div>
-      <div class="nx-name">On-Demand Elevated Relay</div>
-      <p class="nx-desc">Airborne relay node providing rapid line-of-sight extension over terrain for temporary or mission-specific coverage expansion.</p>
-      <ul class="nx-features">
-        <li>Drone or balloon deployment</li>
-        <li>Line-of-sight extension over terrain</li>
-        <li>Temporary or mission-specific use</li>
-        <li>Lightweight, quick-deploy configuration</li>
-      </ul>
-      <div class="nx-status">↗ In Development</div>
-    </div>
-
-    <div class="nx-card">
-      <div class="nx-model">NX-400</div>
-      <div class="nx-code">VEC — Vehicle Mesh Node</div>
-      <div class="nx-name">High-Power Mobile Node</div>
-      <p class="nx-desc">Vehicle-integrated mesh node providing high-power mobile relay capability for convoy and vehicle-based networking.</p>
-      <ul class="nx-features">
-        <li>Mobile mesh relay / node</li>
-        <li>Vehicle power integration</li>
-        <li>External antenna support</li>
-        <li>Extends network coverage while in motion</li>
-      </ul>
-      <div class="nx-status">↗ In Development</div>
-    </div>
-
-    <div class="nx-card">
-      <div class="nx-model">NX-500</div>
-      <div class="nx-code">BRG — RF ↔ IP Network Bridge</div>
-      <div class="nx-name">Digital Infrastructure Gateway</div>
-      <p class="nx-desc">Gateway node connecting the NEXIS mesh to external digital infrastructure — bridging RF and IP networks for long-distance reach.</p>
-      <ul class="nx-features">
-        <li>RF to IP bridging (mesh ↔ LAN / WAN)</li>
-        <li>Long-distance communication via ISP or local network</li>
-        <li>ATAK / command system integration</li>
-        <li>Functions as a digital repeater across networks</li>
-      </ul>
-      <div class="nx-status">↗ Limited Field Deployment</div>
-    </div>
-
-    <div class="nx-card" id="nxCard600" style="position:relative;">
-      <div class="feature-lock-overlay" id="nxLock600">
-        <div class="feature-lock-box">
-          <div class="feature-lock-title">FULL ACCESS REQUIRED</div>
-          <div class="feature-lock-text">NX-600-CMD details are available to verified Full Access account holders only.</div>
-          <a href="/ursusarmament/settings/" class="feature-lock-btn">Upgrade Account</a>
-        </div>
-      </div>
-      <div class="nx-model">NX-600</div>
-      <div class="nx-code">CMD — Command Terminal</div>
-      <div class="nx-name">Centralized Command Interface</div>
-      <p class="nx-desc">Full-featured command and control terminal providing ATAK visualization, mesh management, and overwatch capability.</p>
-      <ul class="nx-features">
-        <li>Large integrated display</li>
-        <li>ATAK visualization and message management</li>
-        <li>Full mesh network participation</li>
-        <li>GNSS reporting to network</li>
-        <li>Designed for command / overwatch roles</li>
-      </ul>
-      <div class="nx-status">↗ Limited Field Deployment</div>
-    </div>
-
-    <div class="nx-card">
-      <div class="nx-model">NX-700</div>
-      <div class="nx-code">IND — Individual Terminal</div>
-      <div class="nx-name">Field Operator Interface</div>
-      <p class="nx-desc">Compact individual terminal for field operators — lightweight, portable, and purpose-built for direct mesh interaction.</p>
-      <ul class="nx-features">
-        <li>Small integrated display</li>
-        <li>Basic messaging capability</li>
-        <li>ATAK viewing functionality</li>
-        <li>Lightweight, portable design</li>
-        <li>Direct interaction with NEXIS mesh</li>
-      </ul>
-      <div class="nx-status">↗ Limited Field Deployment</div>
-    </div>
-
-    <div class="nx-card" id="nxCard800" style="position:relative;">
-      <div class="feature-lock-overlay" id="nxLock800">
-        <div class="feature-lock-box">
-          <div class="feature-lock-title">FULL ACCESS REQUIRED</div>
-          <div class="feature-lock-text">NX-800-VLT details are available to verified Full Access account holders only.</div>
-          <a href="/ursusarmament/settings/" class="feature-lock-btn">Upgrade Account</a>
-        </div>
-      </div>
-      <div class="nx-model">NX-800</div>
-      <div class="nx-code">VLT — System Vault / Provisioning Layer</div>
-      <div class="nx-name">Deployment Initialization & Configuration System</div>
-      <p class="nx-desc">Secure provisioning platform for NX-series devices, used to load firmware, encryption material, and operational configurations prior to field deployment.</p>
-      <ul class="nx-features">
-        <li>Secure firmware injection and updates</li>
-        <li>Encryption key and credential provisioning</li>
-        <li>Device configuration profile management</li>
-        <li>Pre-deployment system initialization</li>
-        <li>Controlled environment deployment interface</li>
-      </ul>
-      <div class="nx-status">↗ Limited Field Deployment</div>
-    </div>
-
-  </div>
-</section>
-
 <!-- SPECS -->
-<section class="specs-section" id="specs">
+<section class="specs-section" id="specs" style="position:relative;">
+  <div class="feature-lock-overlay" id="specsLock">
+    <div class="feature-lock-box">
+      <div class="feature-lock-title">FULL ACCESS REQUIRED</div>
+      <div class="feature-lock-text">Technical specifications are available to verified Full Access account holders only (ITAR/EAR Compliance).</div>
+      <a href="/ursusarmament/settings/" class="feature-lock-btn">Upgrade Account</a>
+    </div>
+  </div>
   <div class="section-tag">Technical Data</div>
-  <h2 class="section-title">SYSTEM SPECIFICATIONS</h2>
+  <h2 class="section-title">SPECIFICATIONS</h2>
   <div class="specs-grid">
-    <div class="spec-item"><span class="spec-name">Network Architecture</span><span class="spec-value">Encrypted mesh — self-healing topology</span></div>
-    <div class="spec-item"><span class="spec-name">Encryption</span><span class="spec-value">AES-256 end-to-end (target)</span></div>
-    <div class="spec-item"><span class="spec-name">Frequency Band</span><span class="spec-value">UHF / ISM</span></div>
-    <div class="spec-item"><span class="spec-name">Max Nodes per Network</span><span class="spec-value">72</span></div>
-    <div class="spec-item"><span class="spec-name">Latency</span><span class="spec-value">100-300ms node-to-node</span></div>
-    <div class="spec-item"><span class="spec-name">Range (Node-to-Node)</span><span class="spec-value">LOS</span></div>
-    <div class="spec-item"><span class="spec-name">Data Types</span><span class="spec-value">Telemetry, command, sensor feeds</span></div>
-    <div class="spec-item"><span class="spec-name">Native Integrations</span><span class="spec-value">R.O.T.S.</span></div>
-    <div class="spec-item"><span class="spec-name">Command Interface</span><span class="spec-value">NX-600 CMD / NX-700 IND terminals</span></div>
-    <div class="spec-item"><span class="spec-name">Anti-Jamming</span><span class="spec-value">Frequency-hopping spread spectrum (target)</span></div>
-    <div class="spec-item"><span class="spec-name">Power</span><span class="spec-value">DC Battery / Solar-Assist / AC-Grid</span></div>
-    <div class="spec-item"><span class="spec-name">Environmental Rating</span><span class="spec-value">IP67 all nodes (target)</span></div>
-    <div class="spec-item"><span class="spec-name">Operating Temp</span><span class="spec-value">-40°F to +90°F (target)</span></div>
+    <div class="spec-item"><span class="spec-name">Sensor Type</span><span class="spec-value">LWIR Uncooled Microbolometer</span></div>
+    <div class="spec-item"><span class="spec-name">Resolution</span><span class="spec-value">640x512</span></div>
+    <div class="spec-item"><span class="spec-name">Objective Lens</span><span class="spec-value">f/1.0 LWIR — 13mm</span></div>
+    <div class="spec-item"><span class="spec-name">Digital Zoom</span><span class="spec-value">1× – 8×</span></div>
+    <div class="spec-item"><span class="spec-name">Display</span><span class="spec-value">High-contrast OLED eyepiece</span></div>
+    <div class="spec-item"><span class="spec-name">Thermal Palettes</span><span class="spec-value">White Hot / Black Hot / Multi-color</span></div>
+    <div class="spec-item"><span class="spec-name">Detection Range</span><span class="spec-value">1100m-1200m</span></div>
+    <div class="spec-item"><span class="spec-name">Recognition Range</span><span class="spec-value">300m-400m (human)</span></div>
+    <div class="spec-item"><span class="spec-name">Battery</span><span class="spec-value">1× CR123A 3-5hrs / LEMO 4xPack 18-22hrs</span></div>
+    <div class="spec-item"><span class="spec-name">IP Rating</span><span class="spec-value">IP67 (target)</span></div>
+    <div class="spec-item"><span class="spec-name">Operating Temp</span><span class="spec-value">-4°F to +140°F</span></div>
+    <div class="spec-item"><span class="spec-name">Mount Interface</span><span class="spec-value">AN/PVS-14 J-arm assembly / helmet compatible</span></div>
+    <div class="spec-item"><span class="spec-name">Weight</span><span class="spec-value">TBD — target sub-400g</span></div>
     <div class="spec-item"><span class="spec-name">Country of Origin</span><span class="spec-value">United States of America</span></div>
   </div>
-  <div class="spec-note">⚠ &nbsp;Specifications are preliminary design targets and subject to revision. Final performance figures will be published at product launch. Export control classification pending — certain configurations may require licensing.</div>
+  <div class="spec-note">⚠ &nbsp;Specifications are preliminary design targets and subject to revision. Final performance figures will be published at product launch.</div>
 </section>
 
 <!-- SERIAL LOOKUP -->
@@ -936,16 +672,16 @@
   <div class="feature-lock-overlay" id="serialLock">
     <div class="feature-lock-box">
       <div class="feature-lock-title">FULL ACCESS REQUIRED</div>
-      <div class="feature-lock-text">Serial number lookup is available to verified Full Access account holders only.</div>
+      <div class="feature-lock-text">Serial number lookup is available to verified Full Access account holders only (ITAR/EAR Compliance).</div>
       <a href="/ursusarmament/settings/" class="feature-lock-btn">Upgrade Account</a>
     </div>
   </div>
   <div class="serial-inner">
     <div class="section-tag">Unit Verification</div>
     <h2 class="section-title" style="margin-bottom: 1rem;">SERIAL NUMBER LOOKUP</h2>
-    <p class="serial-desc">Every NEXIS unit ships with a documented profile recorded at time of manufacture. Enter your serial number below to retrieve the record for your specific unit.</p>
+    <p class="serial-desc">Every CALIDUS unit ships with a documented profile recorded at time of manufacture. Enter your serial number below to retrieve the specifications for your specific unit.</p>
     <div class="serial-input-row">
-      <input class="serial-input" id="serialInput" type="text" placeholder="e.g. NX-XXXX" maxlength="20" autocomplete="off" spellcheck="false"/>
+      <input class="serial-input" id="serialInput" type="text" placeholder="e.g. CA-XXXX" maxlength="20" autocomplete="off" spellcheck="false"/>
       <button class="serial-btn" onclick="lookupSerial()">Look Up Unit</button>
     </div>
     <div class="serial-result" id="serialError">
@@ -959,7 +695,8 @@
         </div>
         <div class="serial-card-body">
           <div class="serial-field"><span class="serial-field-label">Product</span><span class="serial-field-value" id="resultProduct">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Model</span><span class="serial-field-value" id="resultTier">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">Tier</span><span class="serial-field-value" id="resultTier">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">Generation</span><span class="serial-field-value" id="resultGen">—</span></div>
           <div class="serial-field"><span class="serial-field-label">Proof Date</span><span class="serial-field-value" id="resultDate">—</span></div>
           <div class="serial-field"><span class="serial-field-label">Batch ID</span><span class="serial-field-value" id="resultBatch">—</span></div>
           <div class="serial-field"><span class="serial-field-label">QC Result</span><span class="serial-field-value" id="resultQc">—</span></div>
@@ -974,36 +711,23 @@
   </div>
 </section>
 
-<!-- ECOSYSTEM -->
-<section class="ecosystem-section" id="ecosystem">
-  <div class="section-tag">Platform Integration</div>
-  <h2 class="section-title">THE URSUS ECOSYSTEM</h2>
-  <div class="ecosystem-grid">
-    <div class="ecosystem-card">
-      <div class="eco-icon">ASI (Autonomous Systems Interface) Module</div>
-      <div class="eco-name">Systems Link</div>
-      <p class="eco-desc">NEXIS' capabilities are extended to ASI Modules for communication with mission critical systems.  This increases efficiency for those systems, while adding layers of additional knowledge and safety for PAKs in the area of operation.</p>
-      <span class="eco-status">↗ Integration Planned</span>
-    </div>
-    <div class="ecosystem-card" style="position:relative;overflow:visible;">
-      <svg style="position:absolute;left:-27px;top:50%;transform:translateY(-50%);z-index:10;overflow:visible;" viewBox="0 0 24 40" width="48" height="80">
-        <polygon points="6,17 18,17 18,13 24,20 18,27 18,23 6,23 6,27 0,20 6,13" fill="#c8922a"/>
-        <polygon points="18,17 6,17 6,13 0,20 6,27 6,23 18,23 18,27 24,20 18,13" fill="#c8922a"/>
-      </svg>
-      <div class="eco-icon">STRIX Control Layer</div>
-      <div class="eco-name">Software and Network Driven Capability</div>
-      <p class="eco-desc">STRIX transforms distributed observations into actionable information—bridging the gap between detection and engagement.  This 2 way data link is responsible for connecting the computer elements to the human elements in our ecosystem.</p>
-      <span class="eco-status">↗ Integration Planned</span>
-    </div>
-    <div class="ecosystem-card" style="position:relative;overflow:visible;">
-      <svg style="position:absolute;left:-27px;top:50%;transform:translateY(-50%);z-index:10;overflow:visible;" viewBox="0 0 24 40" width="48" height="80">
-        <polygon points="6,17 18,17 18,13 24,20 18,27 18,23 6,23 6,27 0,20 6,13" fill="#c8922a"/>
-        <polygon points="18,17 6,17 6,13 0,20 6,27 6,23 18,23 18,27 24,20 18,13" fill="#c8922a"/>
-      </svg>
-      <div class="eco-icon">NEXIS</div>
-      <div class="eco-name">Self-Healing Mesh Network</div>
-      <p class="eco-desc">NEXIS is the human layer of the ecosystem—connecting individuals, teams, and assets through a self-healing mesh network. It maintains shared situational awareness and reliable communication as conditions change, enabling coordinated movement and informed decisions without reliance on fixed infrastructure.</p>
-      <span class="eco-status">↗ Integration Planned</span>
+<!-- OWNER RESOURCES -->
+<section class="resources-section" id="resources">
+  <div class="resources-inner">
+    <div class="section-tag">Owner Resources</div>
+    <h2 class="section-title" style="margin-bottom: 1rem;">DOCUMENTATION</h2>
+    <p class="resources-desc">Everything you need to operate and look after your CALIDUS. If you have lost your manual, the quick card puts the essentials on a single page you can print.</p>
+    <div class="resources-grid">
+      <a class="resource-card" href="/ursusarmament/products/CALIDUS/manual/">
+        <span class="resource-title">Operator's Manual</span>
+        <span class="resource-desc">Setup, controls, image settings, calibration, battery care and troubleshooting.</span>
+        <span class="resource-meta">Full guide <span class="resource-open">Open &#8599;</span></span>
+      </a>
+      <a class="resource-card" href="/ursusarmament/products/CALIDUS/quickCard/">
+        <span class="resource-title">Quick Card</span>
+        <span class="resource-desc">One page: the switch map, buttons, calibration, battery and a troubleshooting table. Prints on US Letter.</span>
+        <span class="resource-meta">One page <span class="resource-open">Open &#8599;</span></span>
+      </a>
     </div>
   </div>
 </section>
@@ -1012,23 +736,23 @@
 <section class="features-section" id="features">
   <div class="features-layout">
     <div class="features-list">
-      <div class="feature-item"><div class="feature-num">01</div><div class="feature-title">Self-Healing Mesh Architecture</div><p class="feature-desc">Nodes automatically reroute traffic when a link is lost or jammed. No single point of failure. The network degrades gracefully and reconstitutes without operator intervention.</p></div>
-      <div class="feature-item"><div class="feature-num">02</div><div class="feature-title">AES-256 End-to-End Encryption</div><p class="feature-desc">Every packet on the NEXIS network is encrypted at the source and decrypted only at the authorized destination. No plaintext ever transits the air.</p></div>
-      <div class="feature-item"><div class="feature-num">03</div><div class="feature-title">Anti-Jamming — FHSS</div><p class="feature-desc">Frequency-hopping spread spectrum transmission makes NEXIS links resistant to broadband jamming and direction-finding. Designed from the ground up for contested RF environments.</p></div>
-      <div class="feature-item"><div class="feature-num">04</div><div class="feature-title">Integration Architecture</div><p class="feature-desc">NEXIS functions as a defined node-based mesh, interfacing with ASI (Autonomous Systems Interface) modules to facilitate communication and coordination through the STRIX™ Fire Control Layer.</p></div>
-
+      <div class="feature-item"><div class="feature-num">01</div><div class="feature-title">LWIR Thermal Core</div><p class="feature-desc">Built around a long-wave infrared uncooled microbolometer — detecting heat signatures through total darkness, smoke, and obscurants that defeat conventional night vision entirely.</p></div>
+      <div class="feature-item"><div class="feature-num">02</div><div class="feature-title">Multi-Palette Display</div><p class="feature-desc">White Hot, Black Hot, and color palette modes switchable on the fly. Dial in the contrast that works for your environment and mission, without diving into menus.</p></div>
+      <div class="feature-item"><div class="feature-num">03</div><div class="feature-title">Continuous Digital Zoom</div><p class="feature-desc">Smooth 1× to 4× digital zoom lets you glass a perimeter or tighten onto a specific target without swapping optics or changing your position.</p></div>
+      <div class="feature-item"><div class="feature-num">04</div><div class="feature-title">Compact, Helmet-Ready Form Factor</div><p class="feature-desc">Designed from the ground up to be carried or mounted. Picatinny rail on top and helmet-compatible mounting interface means the CALIDUS goes wherever you go.</p></div>
+      <div class="feature-item"><div class="feature-num">05</div><div class="feature-title">All-Weather IP67 Housing</div><p class="feature-desc">Target-rated IP67 — rain, dust, and immersion to 1m. Built to the same environmental standard as the URSIX. Because the mission doesn't stop for weather.</p></div>
+      <div class="feature-item"><div class="feature-num">06</div><div class="feature-title">Battery Flexibility</div><p class="feature-desc">Dual power architecture supports either a single CR123A cell for compact operation or an external battery pack via LEMO interface for extended mission runtime.</p></div>
     </div>
     <div class="features-aside">
-      <div class="section-tag">The Bigger Picture</div>
-      <h2 class="section-title" style="margin-bottom: 1.5rem;">Communication is Key</h2>
-      <p>Built as a modular mesh network, NEXIS enables teams to share position, movement, and situational data in real time—supporting informed tactical maneuvering, coordinated search and rescue operations, and distributed team awareness in environments where traditional communications may be limited or unavailable.</p>
-      <p>Each node contributes to a broader operational picture. Personnel, vehicles, and fixed positions become part of a unified network that adapts to the mission—scaling from small, dismounted teams to extended, multi-element deployments across complex terrain.</p>
-      <p>NEXIS is not a weapon system. It is an enabling layer—designed to move information reliably, efficiently, and under constraint. By maintaining connectivity and shared awareness, it allows operators to make faster, more informed decisions in dynamic environments.</p>
-      <P>As part of a larger ecosystem, NEXIS integrates with systems such as R.O.T.S. through the STRIX™ Fire Control Layer, allowing networked data to inform targeting, coordination, and response without compromising its role as a communications backbone.</P>
+      <div class="section-tag">Why Thermal</div>
+      <h2 class="section-title" style="margin-bottom: 1.5rem;">HEAT DOESN'T LIE.</h2>
+      <p>Image intensification amplifies available light. On a moonless night under canopy, there is no light to amplify. Thermal doesn't care — it reads temperature differential and paints a picture regardless of ambient illumination.</p>
+      <p>The CALIDUS is designed for operators who can't afford a gap in their coverage: law enforcement on night operations, search and rescue in zero-vis conditions, and tactical teams where concealment from IR illuminators is a requirement.</p>
+      <p>We're building it the way we build everything — uncompromised specs and documented at the unit level.</p>
       <div class="cert-row">
-        <div class="cert-item"><span class="cert-label">Encryption</span><span class="cert-value">AES-256</span></div>
-        <div class="cert-item"><span class="cert-label">Topology</span><span class="cert-value">MESH</span></div>
-        <div class="cert-item"><span class="cert-label">Latency</span><span class="cert-value">100-300mms</span></div>
+        <div class="cert-item"><span class="cert-label">Sensor</span><span class="cert-value">LWIR</span></div>
+        <div class="cert-item"><span class="cert-label">Aperture</span><span class="cert-value">f/1.0</span></div>
+        <div class="cert-item"><span class="cert-label">Rating</span><span class="cert-value">IP67</span></div>
       </div>
     </div>
   </div>
@@ -1039,19 +763,19 @@
   <div class="notify-inner">
     <div class="section-tag">Availability Notification</div>
     <h2 class="section-title" style="margin-bottom: 1rem;">GET NOTIFIED AT LAUNCH</h2>
-    <p class="notify-desc">NEXIS is currently in development and not yet available for order. Enter your email below to be notified the moment configurations and licensing details are confirmed — before public announcement.</p>
+    <p class="notify-desc">The CALIDUS is currently in development and not yet available for order. Enter your email below to be notified the moment pricing and configurations are confirmed — before public announcement.</p>
     <div class="notify-input-row">
       <input class="notify-input" id="notifyInput" type="email" placeholder="your@email.com" autocomplete="email" spellcheck="false"/>
       <button class="notify-btn" onclick="submitNotify()">Notify Me</button>
     </div>
-    <div class="notify-confirm" id="notifyConfirm">You're on the list. We'll contact you when NEXIS is ready for order.</div>
+    <div class="notify-confirm" id="notifyConfirm">You're on the list. We'll contact you when the CALIDUS is ready for order.</div>
     <p class="notify-caveat">No spam. No third-party sharing. Unsubscribe any time.</p>
     <div class="timeline">
       <div class="timeline-title">Development Status</div>
       <div class="timeline-steps">
-        <div class="timeline-step done"><span class="step-label done">✓ Complete</span><span class="step-name">Architecture Design</span></div>
-        <div class="timeline-step done"><span class="step-label done">✓ Complete</span><span class="step-name">Protocol Development</span></div>
-        <div class="timeline-step done"><span class="step-label done">✓ Complete</span><span class="step-name">Hardware Integration</span></div>
+        <div class="timeline-step done"><span class="step-label done">✓ Complete</span><span class="step-name">Concept &amp; Design</span></div>
+        <div class="timeline-step done"><span class="step-label done">✓ Complete</span><span class="step-name">Core Selection</span></div>
+        <div class="timeline-step done"><span class="step-label done">✓ Complete</span><span class="step-name">Engineering Build</span></div>
         <div class="timeline-step current"><span class="step-label current">▶ Active</span><span class="step-name">Field Validation</span></div>
         <div class="timeline-step"><span class="step-label pending">Pending</span><span class="step-name pending">Launch</span></div>
       </div>
@@ -1061,7 +785,7 @@
 
 <div class="cta-banner">
   <div>
-    <h2>QUESTIONS ABOUT NEXIS?</h2>
+    <h2>QUESTIONS ABOUT THE CALIDUS?</h2>
     <p>Our product specialists are available Monday–Friday, 8AM–6PM MST.</p>
   </div>
   <a href="https://ursusworks.com/ursusarmament/contact" target="_blank" rel="noopener noreferrer" class="btn-primary">Contact Support</a>
@@ -1183,241 +907,92 @@
   </div>
 </div>
 
-<!-- NIGHT VISION / THERMAL / MESH INFO MODAL -->
+<!-- NIGHT VISION / THERMAL INFO MODAL -->
 <div class="nv-modal-overlay" id="nvModal">
   <div class="nv-modal-box">
     <button class="nv-modal-close" onclick="closeNVModal()">&#10005;</button>
-    <div class="nv-modal-header"><h2>DECENTRALIZED MESH NETWORKS &amp; ISM BANDS</h2></div>
+    <div class="nv-modal-header"><h2>THERMAL IMAGING</h2></div>
     <div class="nv-modal-body" id="nvModalBody">
 
       <div class="nv-tldr">
         <div class="nv-tldr-label">TL;DR</div>
         <ul>
-          <li><strong>How Mesh Networking Works:</strong> Instead of every device routing through one central tower or router, each node can relay traffic for other nodes, hopping messages across the network until they reach their destination. This lets the network remain functional &mdash; and extend effective coverage through additional hops &mdash; even without cell towers, satellites, or internet infrastructure, and even if individual nodes drop out.</li>
-          <li><strong>The Core Tradeoff &mdash; Range vs. Speed:</strong> Sub-GHz frequencies (433/868/915 MHz) generally experience lower path loss and can provide better diffraction and penetration characteristics than 2.4 GHz, making them advantageous for long-range, low-power communication, while 2.4 GHz supports higher data rates at correspondingly shorter range. Within LoRa specifically, spreading factor controls a similar tradeoff at the modulation level &mdash; higher SF improves sensitivity and can extend usable range, but slows transmission and increases airtime.</li>
-          <li><strong>Meshtastic as a Real-World Example:</strong> Open-source mesh firmware built around LoRa-compatible radios (commonly on ESP32 or nRF52840 hardware) turns inexpensive nodes into a decentralized mesh. Phones connect over Bluetooth to send messages, share location, and monitor the network &mdash; no cell service or internet required at any point.</li>
-          <li><strong>Antenna Mount Angle:</strong> Linearly polarized antennas experience increasing polarization loss as their relative alignment diverges from alignment with each other. Fixed nodes can orient an antenna near-vertical when that matches the intended link geometry. Wearable nodes whose orientation changes with body posture may use an intermediate mount angle instead, accepting some loss in the ideal orientation to reduce the worst-case mismatch across different postures.</li>
+          <li><strong>How Thermal Imaging Works:</strong> Thermal sensors detect infrared radiation that objects emit based on their own temperature, rather than relying on reflected visible or near-infrared light. This means thermal can produce a usable image with zero ambient light, though heavy fog, rain, smoke, and dense vegetation can still degrade performance.</li>
+          <li><strong>Resolution, Refresh Rate, and NETD:</strong> Sensor resolution (from 160&times;120 up to 1024&times;768+) determines image detail and identification range. Refresh rate (9Hz vs. 30&ndash;60Hz) determines how smooth motion looks during tracking or movement. NETD (measured in mK) determines how small a temperature difference the sensor can actually distinguish &mdash; lower NETD means more usable contrast between a target and its background.</li>
+          <li><strong>Form Factor Drives the Rest:</strong> Handheld, weapon-mounted, and helmet-mounted thermal systems are built around different priorities &mdash; a helmet system favors a wide field of view near unity magnification for natural movement, while a weapon-mounted system is built to survive recoil and hold zero, and a handheld unit trades some of both for portability.</li>
         </ul>
       </div>
 
       <div class="nv-jump-nav">
-        <a onclick="nvScrollTo('mesh-principles')">Principles of Mesh Networking</a>
-        <a onclick="nvScrollTo('mesh-ism')">ISM Bands and Radio Frequency Fundamentals</a>
-        <a onclick="nvScrollTo('mesh-lora')">Long-Range Modulation: LoRa and Chirp Spread Spectrum</a>
-        <a onclick="nvScrollTo('mesh-meshtastic')">Protocol Implementation: Meshtastic and Open Ecosystems</a>
-        <a onclick="nvScrollTo('mesh-antenna')">Antenna Orientation and Polarization Alignment</a>
+        <a onclick="nvScrollTo('th-history')">History and Evolution of Thermal Imaging</a>
+        <a onclick="nvScrollTo('th-formfactors')">Thermal Form Factors</a>
+        <a onclick="nvScrollTo('th-resolution')">Sensor Resolution and Pixel Pitch</a>
+        <a onclick="nvScrollTo('th-lens')">Lens Focal Length, Field of View, and Magnification</a>
+        <a onclick="nvScrollTo('th-refresh')">Refresh Rates and Motion Handling</a>
+        <a onclick="nvScrollTo('th-netd')">Thermal Sensitivity (NETD)</a>
       </div>
 
-      <div class="nv-section" id="mesh-principles">
-        <h3>Principles of Mesh Networking</h3>
-        <p>Unlike traditional hub-and-spoke networks, where devices generally communicate through a central router, access point, or base station, a decentralized mesh network allows individual nodes to participate in forwarding traffic for other nodes. Depending on the protocol, the resulting network can be self-forming and capable of adapting to changes in node availability and topology.</p>
+      <div class="nv-section" id="th-history">
+        <h3>History and Evolution of Thermal Imaging</h3>
+        <p>Thermal imaging technology originated primarily in military and industrial applications before expanding into commercial, automotive, and consumer markets. Its development progressed from active infrared systems and mechanically scanned detectors to cooled focal-plane arrays and, eventually, compact uncooled microbolometers.</p>
         <ul>
-          <li><strong>Node Roles:</strong> Individual nodes may function as end-user devices, routers, repeaters, or combinations of these roles depending on the network architecture. A user device may originate and receive messages while also forwarding traffic for other nodes, while dedicated router nodes may be positioned specifically to extend network coverage.</li>
-          <li><strong>Multi-Hop Routing:</strong> A mesh network can forward a message through multiple intermediate nodes when the destination is outside the direct communication range of the originating device. This allows the effective communication distance to exceed the range of an individual radio link.</li>
-          <li><strong>Dynamic Routing and Topology Changes:</strong> Depending on the protocol, nodes can maintain information about neighboring devices and available routes. If a node becomes unavailable, moves out of range, or an established path becomes obstructed, the network may select an alternative route through other available nodes.</li>
-          <li><strong>Store-and-Forward and Flooding:</strong> Different mesh protocols use different methods for distributing messages. Flooding-based systems may propagate packets through multiple neighboring nodes, while routed systems attempt to direct traffic along selected multi-hop paths. Store-and-forward mechanisms can also allow messages or data to be retained temporarily for later delivery when a direct path is unavailable.</li>
+          <li><strong>Early Military Origins (1930s&ndash;1950s):</strong> Early military night-vision systems developed during World War II and the early Cold War included active near-infrared devices such as the American M3 Sniperscope. These systems used an infrared illuminator to project invisible IR light onto a scene and an image-converter tube to detect the reflected illumination. Although important to the history of night vision, these systems were not thermal imagers because they detected reflected near-infrared light rather than thermal radiation emitted by objects. Passive thermal imaging began emerging as detector and infrared-optics technology advanced during the 1950s and 1960s.</li>
+          <li><strong>Early Thermal Scanners (1950s&ndash;1970s):</strong> Early thermal imaging systems commonly used small numbers of infrared detector elements, including materials such as mercury cadmium telluride (HgCdTe), to detect long-wave infrared radiation. Many high-performance detectors required cryogenic cooling to reduce thermal noise and achieve useful sensitivity. Mechanical scanning systems used mirrors, prisms, or other moving optical components to sweep the scene across the detector. These systems were generally bulky, power-hungry, and expensive, restricting their use primarily to military vehicles, aircraft, ships, and fixed surveillance installations.</li>
+          <li><strong>Staring Arrays and Second-Generation Systems (1980s&ndash;1990s):</strong> The transition from mechanically scanned systems to solid-state staring focal-plane arrays (FPAs) represented a major advancement in thermal imaging. Instead of mechanically sweeping a single detector across the scene, an FPA uses an array of detector elements that simultaneously observe different portions of the image. Cooled semiconductor FPAs continued to provide exceptional sensitivity for demanding military applications, while uncooled detector technologies &mdash; including pyroelectric devices and emerging microbolometers &mdash; began enabling smaller and less complex systems.</li>
+          <li><strong>The Microbolometer Revolution (Late 1990s&ndash;2000s):</strong> The commercial maturation of uncooled microbolometer technology transformed thermal imaging. Microbolometers detect infrared radiation by measuring temperature-dependent changes in the electrical properties of microscopic detector elements. Because they operate without cryogenic cooling, they can be manufactured into compact, relatively low-power sensor modules. This development enabled widespread adoption of thermal imaging in handheld cameras, weapon sights, surveillance systems, industrial diagnostic equipment, and other portable applications.</li>
+          <li><strong>Miniaturization and Commercial Expansion (2010s&ndash;Present):</strong> Continued advances in semiconductor manufacturing, detector fabrication, signal processing, and optical design have steadily reduced pixel pitch while increasing sensor resolution and reducing overall system size and power consumption. Common modern thermal sensor formats range from compact 160&times;120 and 256&times;192 arrays through 320&times;240, 384&times;288, 640&times;512, and higher-resolution formats such as 1024&times;768. Modern thermal cores can be compact and rugged enough for integration into handheld devices, weapon sights, helmet-mounted systems, vehicles, industrial equipment, and consumer electronics.</li>
         </ul>
-        <p>The resulting architecture can provide useful resilience in environments where centralized communication infrastructure is unavailable, damaged, congested, or intentionally avoided. However, mesh networking does not eliminate the limitations of radio propagation; network coverage ultimately depends on node placement, antenna performance, terrain, interference, power availability, and the characteristics of the underlying radio technology.</p>
       </div>
 
-      <div class="nv-section" id="mesh-ism">
-        <h3>ISM Bands and Radio Frequency Fundamentals</h3>
-        <p>Many off-grid mesh systems operate using radio frequencies that are available for unlicensed or license-exempt operation under applicable national regulations. The Industrial, Scientific and Medical (ISM) bands are internationally recognized frequency allocations intended primarily for industrial, scientific, medical, and related applications. Consumer and communications technologies also make extensive use of portions of these bands.</p>
-        <p>Operation without an individual radio license does <strong>not</strong> mean that the spectrum is unrestricted. Devices must comply with the applicable regulatory requirements for their operating frequency, transmit power, occupied bandwidth, duty cycle, antenna configuration, and emissions. In the United States, many low-power unlicensed devices operate under FCC Part 15, while other regions use their own regulatory frameworks, such as applicable ETSI standards in Europe.</p>
-        <p>Common frequencies used by off-grid communication systems include sub-GHz bands such as 433 MHz, 868 MHz, and 915 MHz, as well as the 2.4 GHz ISM band. The specific frequencies, power limits, channel arrangements, and operating requirements vary by country and device class.</p>
+      <div class="nv-section" id="th-formfactors">
+        <h3>Thermal Form Factors</h3>
+        <p>Thermal systems are commonly configured into several primary form factors:</p>
         <ul>
-          <li><strong>Sub-GHz Propagation Characteristics:</strong> Frequencies below 1 GHz generally experience lower free-space path loss than higher frequencies at the same distance and can exhibit favorable diffraction and penetration characteristics around obstacles and through some vegetation and building materials. These characteristics can make sub-GHz frequencies particularly useful for long-range, low-power communications. Actual performance depends heavily on antenna characteristics, terrain, vegetation, building construction, interference, transmit power, receiver sensitivity, and link geometry.</li>
-          <li><strong>2.4 GHz Band Characteristics:</strong> The 2.4 GHz ISM band is widely used by technologies capable of substantially higher data rates than many long-range sub-GHz systems. Its shorter wavelength and availability of wider-bandwidth PHY technologies can support faster transmission of data, but propagation losses are generally higher than at sub-GHz frequencies over the same distance. As a result, 2.4 GHz systems typically require more favorable link conditions, higher-gain or better-positioned antennas, or greater power to achieve equivalent range.</li>
+          <li><strong>Handheld Monoculars:</strong> Designed for scouting, tracking, observation, and surveillance, prioritizing portability while balancing field of view, detection range, battery life, and image quality.</li>
+          <li><strong>Firearm-Mounted Systems:</strong> Designed to withstand recoil and maintain optical alignment. These include dedicated thermal weapon sights as well as clip-on thermal devices positioned in front of a conventional day optic.</li>
+          <li><strong>Helmet-Mounted Systems:</strong> Designed for hands-free navigation, observation, and situational awareness. Depending on their optical configuration, these systems may use dedicated wide-field thermal optics or modular thermal devices adapted for helmet mounting.</li>
+          <li><strong>Hybrid / Interchangeable-Mount Systems:</strong> Designed so that the same thermal optic or imaging module can be readily transferred between helmet-mounted and firearm-mounted configurations using compatible mounting interfaces. This approach allows a single thermal imaging system to serve multiple roles without requiring a separate thermal device for each application. The practicality of a hybrid system depends on the optic's optical configuration, mounting interface, weight, recoil resistance, controls, and whether the system provides an appropriate field of view and magnification for each intended use.</li>
         </ul>
-        <p>The choice between sub-GHz and 2.4 GHz therefore represents a tradeoff between range, data rate, antenna characteristics, power consumption, network capacity, and environmental propagation.</p>
       </div>
 
-      <div class="nv-section" id="mesh-lora">
-        <h3>Long-Range Modulation: LoRa and Chirp Spread Spectrum</h3>
-        <p>LoRa (Long Range) is a proprietary physical-layer modulation technology developed for low-power, long-range wireless communication. It is based on Chirp Spread Spectrum (CSS) modulation and is widely used in low-data-rate sensor networks, telemetry systems, and off-grid communication platforms.</p>
+      <div class="nv-section" id="th-resolution">
+        <h3>Sensor Resolution and Pixel Pitch</h3>
+        <p>The core of a thermal imaging device is its focal-plane array (FPA), which contains the individual detector elements used to capture infrared radiation. The number of pixels determines the native image dimensions, while pixel pitch describes the physical spacing between adjacent detector elements. Common commercial and tactical sensor resolutions include:</p>
         <ul>
-          <li><strong>Chirp Modulation Mechanics:</strong> LoRa encodes information using frequency-modulated chirps that sweep across a defined bandwidth. These chirps can be processed by a compatible receiver to recover data even when the received signal is very weak.</li>
-          <li><strong>Link Budget and Receiver Sensitivity:</strong> One of LoRa's primary advantages is its combination of low transmit power and high receiver sensitivity. Its spread-spectrum modulation and processing gain allow compatible receivers to recover signals at very low received power levels. This can produce exceptionally large link budgets and enable long-distance communication when favorable antennas, terrain, and propagation conditions are present. Actual range can vary from hundreds of meters in difficult environments to many kilometers under favorable line-of-sight conditions.</li>
-          <li><strong>Key Configuration Parameters:</strong> LoRa performance is primarily influenced by bandwidth (BW), spreading factor (SF), and coding rate (CR):
-            <ul>
-              <li><strong>Bandwidth (BW):</strong> Defines the spectral width occupied by the LoRa signal. Common configurations include 125 kHz, 250 kHz, and 500 kHz, although available settings depend on the particular transceiver and regional configuration. Wider bandwidth generally increases data rate and reduces airtime, while narrower bandwidth generally improves receiver sensitivity at the expense of data rate.</li>
-              <li><strong>Spreading Factor (SF):</strong> Controls the spreading ratio used by the modulation and affects symbol duration, processing gain, data rate, and receiver sensitivity. Higher spreading factors increase processing gain and sensitivity and allow operation over weaker links, but substantially increase time-on-air and reduce effective data throughput. Lower spreading factors provide higher data rates and shorter airtime but require stronger received signals.</li>
-              <li><strong>Coding Rate (CR):</strong> Controls the amount of forward error-correction redundancy incorporated into the transmitted data. Increasing coding redundancy can improve resistance to certain types of interference and corrupted data, but increases the amount of airtime required to transmit the same payload.</li>
-            </ul>
-          </li>
+          <li><strong>160&times;120 and 256&times;192:</strong> Common in compact, entry-level, and cost-sensitive thermal devices. These lower-resolution arrays can provide useful detection and observation capabilities but generally provide less fine detail and shorter identification ranges than higher-resolution sensors when other factors are equal.</li>
+          <li><strong>320&times;240 / 384&times;288:</strong> Widely used mid-range formats that provide a balance between image detail, processing requirements, power consumption, and system cost.</li>
+          <li><strong>640&times;512:</strong> A widely used high-resolution format in professional and tactical thermal systems, providing substantially more image detail than lower-resolution arrays and allowing greater flexibility in optical design and digital magnification.</li>
+          <li><strong>1024&times;768 and Higher:</strong> High-resolution thermal formats used in higher-end systems where increased spatial detail, wider fields of view, or longer-range identification capability justify the additional cost and system requirements. These higher-resolution sensors generally come at the expense of increased per-unit cost, greater processing requirements, and potentially increased system weight and power consumption. The additional pixel count can also require more powerful image processing and higher-bandwidth electronics to maintain comparable refresh rates and image quality.</li>
         </ul>
-        <p>These parameters create a fundamental tradeoff between range, sensitivity, throughput, and airtime. A configuration optimized for maximum range is generally not the same configuration optimized for high-speed data transmission.</p>
+        <p>Sensor performance is also influenced by pixel pitch, which is the distance between the centers of adjacent detector elements. Common modern microbolometer pixel pitches include 12 &micro;m and 17 &micro;m, with smaller pitches also available. A smaller pixel pitch allows more detector elements to fit within a given physical sensor area or allows a smaller sensor for a given pixel count. Pixel pitch also interacts with lens focal length, detector format, and optical design to determine field of view, angular resolution, and system size.</p>
       </div>
 
-      <div class="nv-section" id="mesh-meshtastic">
-        <h3>Protocol Implementation: Meshtastic and Open Ecosystems</h3>
-        <p>Projects such as Meshtastic combine LoRa-compatible radio hardware with open-source firmware and mesh-networking software to create practical infrastructure-independent communication nodes. These systems commonly use energy-efficient microcontrollers such as the nRF52840 or ESP32, paired with compatible LoRa transceivers. Some hardware configurations also incorporate GPS/GNSS receivers for position reporting and location-based features.</p>
+      <div class="nv-section" id="th-lens">
+        <h3>Lens Focal Length, Field of View (FOV), and Magnification</h3>
+        <p>The objective lens determines how much of the scene is projected onto the thermal sensor. Its focal length, combined with the physical dimensions of the sensor, determines the system's field of view and base optical magnification.</p>
         <ul>
-          <li><strong>App Integration and Local Control:</strong> Nodes can interface with smartphones, computers, or dedicated terminals using technologies such as Bluetooth Low Energy (BLE), USB, or Wi-Fi, depending on the hardware and configuration. This allows users to send text messages, exchange position information, monitor network status, and visualize participating nodes without requiring cellular service or internet access.</li>
-          <li><strong>Decentralized Communication:</strong> Messages can be forwarded between nodes across multiple radio hops, allowing users who cannot directly reach one another to communicate through intermediate nodes. The effective coverage area therefore depends not only on the radio's individual range but also on the number, placement, and availability of intermediate nodes.</li>
-          <li><strong>Power Efficiency:</strong> Many mesh nodes are designed around low-power microcontrollers and radios suitable for battery-powered operation. Power consumption varies substantially according to hardware, radio settings, node role, display usage, GPS operation, Bluetooth/Wi-Fi activity, and transmit frequency. Systems intended for long-term field deployment may therefore combine low-power operating modes with larger batteries, external power sources, or solar charging.</li>
-          <li><strong>Network Independence:</strong> Because the basic mesh can operate directly between participating radio nodes, communication can continue without cellular service, Wi-Fi infrastructure, or an internet connection. External connectivity can still be added when available, allowing a mesh network to bridge into conventional networks without making those networks a prerequisite for local communication.</li>
+          <li><strong>Wide-Angle Lenses (Shorter Focal Lengths):</strong> Lenses in the approximately 9mm to 19mm range are commonly used where a wide field of view is desirable, such as helmet-mounted observation, close-range scanning, navigation, and situational awareness. The exact field of view depends on both the lens focal length and the physical dimensions of the sensor.</li>
+          <li><strong>Narrow-Angle Lenses (Longer Focal Lengths):</strong> Lenses in the approximately 35mm to 75mm or greater range provide a narrower field of view and greater optical magnification. These configurations are generally better suited to longer-range observation and target identification, although the resulting narrow field of view can make close-range scanning more difficult.</li>
         </ul>
-        <p>The combination of decentralized routing, low-power radio hardware, long-range modulation, and unlicensed spectrum makes mesh networking particularly useful for remote operations, emergency communications, outdoor activities, disaster response, and other environments where conventional communications infrastructure may be unavailable or unreliable.</p>
+        <p>For helmet-mounted thermal usage, optical magnification and field of view are particularly important because the thermal image is presented on a display rather than directly through an image-intensifier output. A wide field of view and an appropriate display-to-optical configuration help provide a natural visual relationship between the displayed thermal scene and the user's surroundings. Systems intended to provide approximately 1&times; or unity magnification are generally easier to integrate with natural head movement and navigation, while magnified systems can make walking, driving, and close-range spatial awareness more difficult.</p>
+        <p>True unity magnification is determined by the complete optical system rather than by the sensor alone. The sensor format, pixel pitch, objective focal length, display size, display optics, and eyepiece design all contribute to the final angular magnification and field of view perceived by the operator.</p>
       </div>
 
-      <div class="nv-section" id="mesh-antenna">
-        <h3>Antenna Orientation and Polarization Alignment</h3>
-        <p>Most compact mesh-network antennas are linearly polarized, meaning they radiate and receive most efficiently along a single fixed axis. When two linearly polarized antennas share the same alignment, transfer efficiency is maximized. As the angle between them increases, polarization mismatch introduces increasing loss rather than a hard cutoff. For ideal linearly polarized antennas, this polarization coupling follows a cosine-squared power relationship with angular misalignment; a small misalignment produces a minor, often negligible loss, while alignment approaching 90&deg; (cross-polarization) can theoretically produce severe loss. Real-world performance also depends on antenna pattern, polarization purity, multipath, nearby materials, body loading, and antenna construction, so actual behavior rarely matches the idealized curve exactly.</p>
+      <div class="nv-section" id="th-refresh">
+        <h3>Refresh Rates and Motion Handling</h3>
+        <p>Thermal refresh rate describes how frequently the system updates the displayed image and is measured in Hertz (Hz). A higher refresh rate generally provides smoother perceived motion, although actual motion performance is also influenced by sensor integration time, image processing, display latency, and other system characteristics.</p>
         <ul>
-          <li><strong>Fixed-Position Nodes:</strong> A stationary or vehicle-mounted node can be oriented once during installation and maintained in a consistent polarization orientation. For typical vertically polarized terrestrial links, this will often mean mounting the antenna approximately vertical, provided that orientation matches the intended link geometry. Because its orientation does not change, it can be optimized for a single best-case configuration.</li>
-          <li><strong>Wearable and Dynamic Nodes:</strong> A body-worn node's orientation changes continuously with the wearer's posture and movement. A mesh antenna mounted for ideal alignment while standing may be significantly misaligned when the wearer is prone, crouched, or otherwise repositioned &mdash; and the reverse is equally true if optimized for a different posture instead.</li>
-          <li><strong>GNSS Considerations:</strong> Many wearable nodes also integrate a GNSS receiver for position reporting. GNSS patch antennas generally perform best when oriented toward the sky with a relatively unobstructed view of the GNSS satellites, which can place its own constraints on overall housing orientation independent of the mesh antenna's optimal alignment.</li>
-          <li><strong>Intermediate-Angle Design:</strong> Rather than optimize a fixed-mount wearable antenna for a single posture, a design can instead select an intermediate angle positioned between the anticipated extremes. This does not eliminate misalignment, but it reduces the worst-case swing compared to a purely vertical or purely horizontal mount &mdash; trading some peak-case performance for more consistent performance across the full range of expected orientations.</li>
-          <li><strong>Relative Alignment Between Nodes:</strong> Because polarization loss depends on the angle between two antennas rather than either antenna's absolute orientation, nodes with similarly oriented antennas at a given moment can remain well polarization-aligned regardless of whether that common orientation is vertical, horizontal, or an intermediate angle. Mismatch becomes more relevant between nodes in substantially different orientations at the same moment, and multi-hop mesh routing can provide resilience by routing around any single degraded link.</li>
+          <li><strong>9 Hz:</strong> Low-refresh-rate thermal systems update the image relatively slowly, which can make rapid movement appear noticeably less fluid. Low-refresh-rate configurations have historically been common in some commercial thermal products because of regulatory, export, cost, or product-design considerations, although the availability of specific refresh rates varies by manufacturer and market.</li>
+          <li><strong>30 Hz to 60 Hz:</strong> These refresh rates are common in modern tactical and high-performance thermal systems. Higher refresh rates provide smoother motion during head movement, vehicle operation, and tracking of moving subjects, while also reducing the apparent stutter associated with lower-refresh-rate systems.</li>
         </ul>
-        <p>NX-100, a helmet-mounted personnel node, applies this design approach: its current design targets an antenna mount angle of approximately 15&deg;, intended to reduce the maximum polarization mismatch across an assumed range of operator postures, compared with optimizing the antenna for a single fixed orientation. This benefit depends on that assumed posture range reflecting actual field use; the angle is not inherently superior to a vertical or horizontal mount, and it represents a design tradeoff rather than a universal optimum.</p>
-
-        <div class="antenna-interactive">
-          <div class="antenna-slider-row">
-            <label for="postureSlider" class="antenna-slider-label">Drag to change helmet pitch</label>
-            <span class="antenna-slider-readout" id="postureReadout">Level &middot; 0&deg;</span>
-          </div>
-          <input type="range" id="postureSlider" class="antenna-slider" min="-30" max="45" step="1" value="0" oninput="updateAntennaDiagram(this.value)">
-
-          <svg viewBox="0 0 900 460" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:820px;display:block;margin:0 auto;">
-
-            <rect x="1" y="1" width="898" height="458" fill="#111110" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22"/>
-            <polyline points="1,22 1,1 22,1" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
-            <polyline points="878,1 898,1 898,22" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
-            <polyline points="1,438 1,458 22,458" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
-            <polyline points="878,458 898,458 898,438" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
-
-            <text x="450" y="38" font-family="monospace" font-size="20" fill="#c8701a" fill-opacity="0.85" text-anchor="middle" letter-spacing="2">LIVE POLARIZATION MISMATCH</text>
-            <text x="450" y="58" font-family="monospace" font-size="12" fill="#c8701a" fill-opacity="0.45" text-anchor="middle">Drag the slider &mdash; head and antennas pitch together; watch each mount's link to the stationary node</text>
-
-            <circle cx="130" cy="82" r="6" fill="#2a9c5c"/>
-            <text x="144" y="87" font-family="monospace" font-size="12" fill="#2a9c5c" text-anchor="start">Stationary Node</text>
-            <text x="144" y="99" font-family="monospace" font-size="12" fill="#2a9c5c" text-anchor="start">(NX-200)</text>
-            <circle cx="420" cy="82" r="6" fill="#c8701a"/>
-            <text x="434" y="87" font-family="monospace" font-size="12" fill="#c8701a" text-anchor="start">~15&deg; Target Mount</text>
-            <text x="434" y="99" font-family="monospace" font-size="12" fill="#c8701a" text-anchor="start">(NX-100)</text>
-            <circle cx="720" cy="82" r="6" fill="#5b9bd5"/>
-            <text x="734" y="87" font-family="monospace" font-size="12" fill="#5b9bd5" text-anchor="start">Vertical Mount (0&deg;)</text>
-
-            <!-- Stationary reference antenna: elevated on a mast, fixed vertical, transmitting -->
-            <path d="M 60 400 Q 150 340 240 400 L 240 420 L 60 420 Z" fill="#1a1a17" stroke="#2a9c5c" stroke-width="1" stroke-opacity="0.3"/>
-            <line x1="150" y1="360" x2="150" y2="220" stroke="#2a9c5c" stroke-width="3" stroke-opacity="0.6"/>
-            <circle cx="150" cy="220" r="4" fill="#2a9c5c" fill-opacity="0.7"/>
-            <line x1="150" y1="220" x2="150" y2="170" stroke="#2a9c5c" stroke-width="3" stroke-opacity="0.9"/>
-            <circle cx="150" cy="170" r="4" fill="#2a9c5c"/>
-            <path d="M 165.5 165.9 A 16 16 0 0 1 154.1 154.5" fill="none" stroke="#2a9c5c" stroke-width="2" class="node-pulse"/>
-            <path d="M 177.0 162.7 A 28 28 0 0 1 157.3 143.0" fill="none" stroke="#2a9c5c" stroke-width="2" class="node-pulse-b"/>
-            <path d="M 188.6 159.6 A 40 40 0 0 1 160.4 131.4" fill="none" stroke="#2a9c5c" stroke-width="2" class="node-pulse-c"/>
-            <text x="150" y="440" font-family="monospace" font-size="11" fill="#2a9c5c" fill-opacity="0.8" text-anchor="middle" letter-spacing="0.5">NX-200 &middot; STATIONARY REFERENCE</text>
-            <text x="150" y="453" font-family="monospace" font-size="9" fill="#2a9c5c" fill-opacity="0.45" text-anchor="middle">elevated mount &middot; fixed vertical (0&deg;)</text>
-
-            <line x1="560" y1="200" x2="560" y2="400" stroke="#c8701a" stroke-width="0.8" stroke-opacity="0.25" stroke-dasharray="4,6"/>
-            <text x="573" y="212" font-family="monospace" font-size="10" fill="#c8701a" fill-opacity="0.4">VERTICAL REF</text>
-
-            <circle cx="560" cy="340" r="6" fill="#c8701a" fill-opacity="0.25"/>
-
-            <path id="antArcA" d="" fill="none" stroke="#5b9bd5" stroke-width="1.4" stroke-opacity="0.5"/>
-            <path id="antArcB" d="" fill="none" stroke="#c8701a" stroke-width="1.4" stroke-opacity="0.5"/>
-            <line id="antVecA" x1="560" y1="340" x2="560" y2="210" stroke="#5b9bd5" stroke-width="2.4" stroke-opacity="0.9" stroke-dasharray="6,4"/>
-            <line id="antVecB" x1="560" y1="340" x2="526.4" y2="214.4" stroke="#c8701a" stroke-width="2.4" stroke-opacity="0.9" stroke-dasharray="6,4"/>
-            <path id="antPulseA1" d="M 554.0 199.6 A 12 12 0 0 1 566.0 199.6" fill="none" stroke="#5b9bd5" stroke-width="2" class="node-pulse"/>
-            <path id="antPulseA2" d="M 549.0 191.0 A 22 22 0 0 1 571.0 191.0" fill="none" stroke="#5b9bd5" stroke-width="2" class="node-pulse-b"/>
-            <path id="antPulseA3" d="M 544.0 182.3 A 32 32 0 0 1 576.0 182.3" fill="none" stroke="#5b9bd5" stroke-width="2" class="node-pulse-c"/>
-            <path id="antPulseB1" d="M 517.9 205.9 A 12 12 0 0 1 529.5 202.8" fill="none" stroke="#c8701a" stroke-width="2" class="node-pulse"/>
-            <path id="antPulseB2" d="M 510.8 198.8 A 22 22 0 0 1 532.1 193.2" fill="none" stroke="#c8701a" stroke-width="2" class="node-pulse-b"/>
-            <path id="antPulseB3" d="M 503.8 191.8 A 32 32 0 0 1 534.7 183.5" fill="none" stroke="#c8701a" stroke-width="2" class="node-pulse-c"/>
-
-            <!-- Head/shoulder silhouette traced from reference image (facing right). Body is fixed; head pivots on the neck at (770,340). -->
-            <g id="hudBody" transform="translate(770 340)" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M -77.2 67.0 L 64.0 66.6 L 63.2 63.2 L 61.0 63.0 L 60.6 62.4 L 60.4 56.2 L 63.4 55.0 L 61.2 47.8 L 55.0 47.2 L 55.0 51.8 L 54.6 52.6 L 53.8 52.6 L 47.2 39.2 L 39.4 35.8 L 32.8 35.4 L 17.6 23.4 L 18.4 20.6 L 24.0 13.4 L -22.8 13.4 L -23.0 0.6 L -23.6 0.6 L -24.4 3.6 L -31.8 2.8 L -35.6 3.8 L -35.6 16.2 L -36.2 18.6 L -45.4 23.2 L -54.0 31.2 L -54.2 32.6 L -62.8 46.0 L -73.0 59.0 Z" fill="#1c1c19" stroke="none"/>
-              <path d="M -24.0 3.0 L -25.4 3.6 L -31.8 2.8 L -35.6 3.8 L -35.6 16.2 L -36.2 18.6 L -45.4 23.2 L -54.0 31.2 L -54.2 32.6 L -60.0 41.8 L -71.8 57.2 M 63.0 63.0 L 61.0 63.0 L 60.6 62.4 L 60.4 56.2 L 63.4 55.0 L 62.0 51.8 L 61.4 48.0 L 60.4 47.4 L 55.0 47.2 L 55.0 51.8 L 54.6 52.6 L 53.8 52.6 L 47.2 39.2 L 39.4 35.8 L 32.8 35.4 L 17.6 23.4 L 18.4 20.6 L 23.2 14.8" fill="none" stroke="#a8a390" stroke-opacity="0.85" stroke-width="1.5"/>
-            </g>
-            <g id="hudHead" transform="translate(770 340) rotate(0)" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M 54.8 -87.6 L 50.0 -90.6 L 45.6 -91.6 L 44.8 -90.6 L 47.2 -87.6 L 47.2 -86.8 L 46.2 -86.6 L 39.2 -92.0 L 31.8 -95.6 L 20.4 -98.6 L 10.4 -99.4 L 6.8 -100.4 L -6.8 -98.6 L -15.0 -96.2 L -20.6 -93.6 L -22.4 -93.6 L -32.6 -84.4 L -37.0 -78.8 L -40.8 -71.2 L -43.4 -61.6 L -44.8 -49.4 L -45.4 -48.2 L -46.6 -47.8 L -47.0 -40.0 L -46.2 -39.0 L -46.8 -30.2 L -45.4 -28.2 L -43.6 -27.2 L -35.2 -25.4 L -34.8 -23.4 L -32.6 -21.2 L -24.6 -16.2 L -23.0 -8.4 L -23.6 0.4 L -22.8 0.6 L -22.8 22.8 L 17.6 22.8 L 18.4 20.6 L 23.2 14.8 L 26.2 9.6 L 28.2 9.0 L 30.4 12.4 L 35.6 12.0 L 37.6 11.4 L 38.0 9.8 L 45.0 8.4 L 47.0 7.4 L 48.8 5.0 L 51.4 4.6 L 51.6 -1.4 L 47.4 -2.8 L 47.4 -5.6 L 50.6 -8.2 L 50.4 -10.0 L 49.4 -11.2 L 50.6 -14.8 L 49.2 -17.0 L 49.2 -18.6 L 51.0 -20.0 L 54.6 -21.0 L 56.0 -22.8 L 56.0 -24.4 L 51.2 -30.2 L 46.4 -37.8 L 46.0 -40.0 L 47.4 -42.6 L 47.4 -45.0 L 56.8 -47.4 L 60.0 -49.4 L 60.0 -53.8 L 60.8 -55.0 L 60.2 -57.4 L 64.0 -64.4 L 61.6 -66.8 L 55.0 -82.4 L 52.8 -84.2 L 52.8 -85.0 L 54.2 -85.6 Z" fill="#1c1c19" stroke="none"/>
-              <path d="M 26.2 9.6 L 28.2 9.0 L 30.4 12.4 L 35.6 12.0 L 37.6 11.4 L 38.0 9.8 L 45.0 8.4 L 47.0 7.4 L 48.8 5.0 L 51.4 4.6 L 51.6 -1.4 L 47.4 -2.8 L 47.4 -5.6 L 50.6 -8.2 L 50.4 -10.0 L 49.4 -11.2 L 50.6 -14.8 L 49.2 -17.0 L 49.2 -18.6 L 51.0 -20.0 L 54.6 -21.0 L 56.0 -22.8 L 56.0 -24.4 L 51.2 -30.2 L 46.4 -37.8 L 46.0 -40.0 L 47.4 -42.6 L 47.4 -45.0 L 56.8 -47.4 L 60.0 -49.4 L 60.0 -53.8 L 60.8 -55.0 L 60.2 -57.4 L 64.0 -64.8 L 61.6 -66.8 L 55.0 -82.4 L 52.8 -84.2 L 52.8 -85.0 L 54.2 -85.6 L 55.0 -87.4 L 50.0 -90.6 L 46.2 -91.6 L 44.8 -90.8 L 47.2 -87.6 L 47.2 -86.8 L 46.2 -86.6 L 38.2 -92.6 L 27.6 -97.0 L 7.0 -100.4 L -2.8 -99.4 L -11.4 -97.4 L -20.6 -93.6 L -22.4 -93.6 L -32.6 -84.4 L -37.0 -78.8 L -40.8 -71.2 L -43.4 -61.6 L -44.8 -49.4 L -45.4 -48.2 L -46.6 -47.8 L -47.0 -40.0 L -46.2 -39.0 L -46.8 -30.2 L -45.4 -28.2 L -43.6 -27.2 L -35.2 -25.4 L -34.8 -23.4 L -32.6 -21.2 L -24.6 -16.2 L -23.0 -8.4" fill="none" stroke="#a8a390" stroke-opacity="0.85" stroke-width="1.5"/>
-            
-              <!-- NX-100 node on the helmet side (where an ARC rail sits) + 15° rearward antenna -->
-              <rect x="-0.5" y="-58" width="17" height="8" rx="2" ry="2" fill="#1c1c19" stroke="#a8a390" stroke-opacity="0.85" stroke-width="1.3"/>
-              <line x1="13.1" y1="-52.7" x2="8.83" y2="-68.58" stroke="#e07a1a" stroke-width="4.5" stroke-dasharray="1.6 1.2" stroke-linecap="butt"/>
-              <path d="M 5.65 -71.76 A 4.5 4.5 0 0 1 10.0 -72.93" fill="none" stroke="#e07a1a" stroke-width="1.3" class="node-pulse"/>
-              <path d="M 3.17 -74.24 A 8 8 0 0 1 10.9 -76.31" fill="none" stroke="#e07a1a" stroke-width="1.3" class="node-pulse-b"/>
-              <path d="M 0.7 -76.71 A 11.5 11.5 0 0 1 11.81 -79.69" fill="none" stroke="#e07a1a" stroke-width="1.3" class="node-pulse-c"/>
-            </g>
-            <text id="hudPitchLabel" x="770" y="452" font-family="monospace" font-size="11" fill="#a8a390" fill-opacity="0.8" text-anchor="middle" letter-spacing="0.5">HEAD PITCH &middot; 0&deg; LEVEL</text>
-          </svg>
-
-          <div class="antenna-readout-panel">
-            <div class="antenna-readout-row">
-              <span class="antenna-readout-dot" style="background:#5b9bd5;"></span>
-              <span class="antenna-readout-label">Vertical Mount &rarr; NX-200 Link</span>
-              <span class="antenna-readout-value">mismatch <strong id="antMismatchA">0&deg;</strong> &middot; loss <strong id="antLossA">0.0 dB</strong></span>
-            </div>
-            <div class="antenna-readout-row">
-              <span class="antenna-readout-dot" style="background:#c8701a;"></span>
-              <span class="antenna-readout-label">~15&deg; Target Mount &rarr; NX-200 Link</span>
-              <span class="antenna-readout-value">mismatch <strong id="antMismatchB">15&deg;</strong> &middot; loss <strong id="antLossB">-0.3 dB</strong></span>
-            </div>
-          </div>
-          <p style="font-size:0.78rem; color:var(--muted); opacity:0.7; margin-top:0.75rem;">Illustrative model: NX-200 (green) represents an elevated, stationary relay held fixed at true vertical &mdash; the basis both moving mounts are compared against. The slider pitches the wearer's helmet from looking up (negative) to looking down (positive), within a human neck range. The HUD head and both antenna mounts use the same angle, so they move together. Real-world loss also depends on antenna pattern, multipath, and body loading, as discussed above.</p>
-        </div>
       </div>
 
-    </div>
-  </div>
-</div>
-
-<!-- ============================================================
-     MODAL: NEXIS LOADOUT CALCULATOR
-============================================================ -->
-<div class="nv-modal-overlay" id="loadoutModal">
-  <div class="nv-modal-box">
-    <button class="nv-modal-close" onclick="closeLoadoutModal()">&#10005;</button>
-    <div class="nv-modal-header" style="display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap;">
-      <h2>NEXIS LOADOUT CALCULATOR</h2>
-      <div class="loadout-header-total">
-        <span class="loadout-header-total-label">Total</span>
-        <span class="loadout-header-total-value" id="loadoutHeaderTotal">----</span>
-      </div>
-    </div>
-    <div class="nv-modal-body">
-      <p style="color:var(--muted); font-size:0.92rem; line-height:1.7; margin-bottom:1.5rem;">Enter your deployment details below for a suggested NX-series configuration. This is a starting-point recommendation &mdash; actual requirements vary by mission, terrain, and existing infrastructure.</p>
-
-      <div class="loadout-form">
-        <div class="loadout-field">
-          <label for="loadoutPersonnel">Number of Personnel</label>
-          <input type="number" id="loadoutPersonnel" min="0" value="0" oninput="updateLoadout()">
-        </div>
-        <div class="loadout-field">
-          <label for="loadoutVehicles">Number of Vehicles</label>
-          <input type="number" id="loadoutVehicles" min="0" value="0" oninput="updateLoadout()">
-        </div>
-        <div class="loadout-field">
-          <label for="loadoutBases">Number of Bases of Operations (fixed / semi-permanent positions)</label>
-          <input type="number" id="loadoutBases" min="0" value="0" oninput="updateLoadout()">
-        </div>
-        <div class="loadout-field-checkbox">
-          <input type="checkbox" id="loadoutTerrain" onchange="updateLoadout()">
-          <label for="loadoutTerrain">Operating in dense forest, mountainous terrain, or dense urban environment (obstructed line-of-sight)</label>
-        </div>
-        <div class="loadout-field-checkbox" id="loadoutLosRow" style="display:none;">
-          <input type="checkbox" id="loadoutLos" onchange="updateLoadout()">
-          <label for="loadoutLos">All Bases of Operations have direct line-of-sight to each other</label>
-        </div>
-        <div class="loadout-field-checkbox">
-          <input type="checkbox" id="loadoutEncryption" onchange="updateLoadout()">
-          <label for="loadoutEncryption">Require custom encryption parameters</label>
-        </div>
+      <div class="nv-section" id="th-netd">
+        <h3>Thermal Sensitivity (NETD)</h3>
+        <p>Noise Equivalent Temperature Difference (NETD) is a measure of a thermal sensor's ability to distinguish small differences in apparent temperature from the sensor's own noise. It is typically expressed in millikelvin (mK). Lower NETD values generally indicate that the sensor can detect smaller temperature differences under the specified test conditions.</p>
+        <p>Modern thermal sensors may be specified with NETD values such as sub-40 mK or sub-25 mK. Lower NETD can be particularly advantageous when a target and its background have only a small thermal contrast. However, NETD is not a complete measure of thermal-image quality or real-world performance. Lens transmission, sensor resolution, pixel pitch, atmospheric conditions, image processing, calibration, optical quality, and the thermal contrast of the scene all affect how well a system performs in practical conditions.</p>
       </div>
 
-      <div class="loadout-results" id="loadoutResults">
-        <div class="loadout-results-empty">Enter your deployment details above to see a suggested configuration.</div>
-      </div>
-
-      <button id="loadoutAddToCartBtn" class="btn-primary" style="margin-top:1.25rem; width:100%; text-align:center;" onclick="addLoadoutToCart()">Add Selected Items to Cart</button>
-      <div id="loadoutAddToCartMsg" style="font-size:0.82rem; min-height:1.2em; margin-top:0.6rem;"></div>
-
-      <p style="font-size:0.72rem; color:var(--muted); opacity:0.6; margin-top:1.25rem; text-transform:uppercase; letter-spacing:0.1em;">Uncheck any item you don't need before adding to cart; totals will populate fully once pricing is available for all items. NEXIS is currently In Development / Limited Field Deployment.</p>
     </div>
   </div>
 </div>
@@ -1429,7 +1004,7 @@
 function openReviewModal()  { document.getElementById("reviewModal").style.display = "flex"; }
 function closeReviewModal() { document.getElementById("reviewModal").style.display = "none"; }
 
-/* ── Mesh info modal ── */
+/* ── Thermal info modal ── */
 function openNVModal() {
   document.getElementById('nvModal').classList.add('open');
 }
@@ -1447,207 +1022,6 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 
-/* ── Loadout calculator modal ── */
-function openLoadoutModal() {
-  document.getElementById('loadoutModal').classList.add('open');
-}
-function closeLoadoutModal() {
-  document.getElementById('loadoutModal').classList.remove('open');
-}
-document.addEventListener("DOMContentLoaded", function () {
-  const loadoutOverlay = document.getElementById('loadoutModal');
-  if (loadoutOverlay) {
-    loadoutOverlay.addEventListener('click', function (e) {
-      if (e.target === loadoutOverlay) closeLoadoutModal();
-    });
-  }
-});
-
-function toggleLoadoutItem(code, checked) {
-  if (checked) { loadoutExcluded.delete(code); } else { loadoutExcluded.add(code); }
-  updateLoadout();
-}
-
-function addLoadoutToCart() {
-  const msgEl = document.getElementById('loadoutAddToCartMsg');
-
-  const itemsToAdd = lastLoadoutLines.filter(function (l) {
-    const baseCode = l.code.split('-').slice(0, 2).join('-');
-    const isGated = (baseCode === 'NX-600' || baseCode === 'NX-800') && !window._isFullApproved;
-    return !isGated && !loadoutExcluded.has(l.code);
-  });
-
-  if (itemsToAdd.length === 0) {
-    if (msgEl) { msgEl.style.color = '#e87060'; msgEl.textContent = 'No items selected \u2014 check at least one recommendation first.'; }
-    return;
-  }
-
-  let cart = [];
-  try { cart = JSON.parse(localStorage.getItem('ursus_cart')) || []; } catch (e) { cart = []; }
-
-  let addedCount = 0;
-  let cappedCount = 0;
-  const skippedUnpriced = [];
-  const skippedOutOfStock = [];
-
-  itemsToAdd.forEach(function (l) {
-    const baseCode = l.code.split('-').slice(0, 2).join('-');
-    const priceData = nexisPricing[baseCode];
-    if (!priceData) { skippedUnpriced.push(l.code); return; }
-
-    const qtyToAdd = Math.min(l.qty, priceData.qty);
-    if (qtyToAdd <= 0) { skippedOutOfStock.push(l.code); return; }
-    if (qtyToAdd < l.qty) cappedCount++;
-
-    const existing = cart.find(function (c) { return c.id === l.code; });
-    if (existing) {
-      existing.quantity = qtyToAdd;
-      existing.price = priceData.price;
-      existing.product = l.code + ' \u2014 ' + l.name;
-      existing.maxQty = priceData.qty;
-    } else {
-      cart.push({
-        id: l.code,
-        product: l.code + ' \u2014 ' + l.name,
-        price: priceData.price,
-        quantity: qtyToAdd,
-        maxQty: priceData.qty
-      });
-    }
-    addedCount++;
-  });
-
-  if (addedCount === 0) {
-    if (msgEl) { msgEl.style.color = '#e87060'; msgEl.textContent = 'Nothing could be added \u2014 selected items are unpriced or out of stock.'; }
-    return;
-  }
-
-  localStorage.setItem('ursus_cart', JSON.stringify(cart));
-  if (typeof updateCartBadge === 'function') updateCartBadge();
-
-  let msg = addedCount + ' item' + (addedCount === 1 ? '' : 's') + ' added to cart.';
-  if (skippedUnpriced.length > 0) msg += ' ' + skippedUnpriced.length + ' skipped (pricing not available).';
-  if (skippedOutOfStock.length > 0) msg += ' ' + skippedOutOfStock.length + ' skipped (out of stock).';
-  if (cappedCount > 0) msg += ' Quantity capped by stock on ' + cappedCount + ' item' + (cappedCount === 1 ? '' : 's') + '.';
-  if (msgEl) { msgEl.style.color = '#4cbc7e'; msgEl.textContent = msg; }
-}
-
-let loadoutExcluded = new Set();
-let nexisPricing = {};          // populated from Firestore, keyed 'NX-100' etc: { price, qty }
-let nexisPricingLoaded = false;
-let lastLoadoutLines = [];      // most recently computed recommendation lines, for Add to Cart
-
-function updateLoadout() {
-  const personnel = Math.max(0, parseInt(document.getElementById('loadoutPersonnel').value) || 0);
-  const vehicles  = Math.max(0, parseInt(document.getElementById('loadoutVehicles').value) || 0);
-  const bases     = Math.max(0, parseInt(document.getElementById('loadoutBases').value) || 0);
-  const terrain   = document.getElementById('loadoutTerrain').checked;
-  const encryption = document.getElementById('loadoutEncryption').checked;
-
-  const losRow = document.getElementById('loadoutLosRow');
-  losRow.style.display = bases >= 2 ? 'flex' : 'none';
-  const hasLos = document.getElementById('loadoutLos').checked;
-
-  const lines = [];
-
-  if (personnel > 0) {
-    lines.push({ code: 'NX-100-NOD', name: 'Dismounted Mesh Node', desc: '1:1 with personnel count', qty: personnel });
-  }
-  if (vehicles > 0) {
-    lines.push({ code: 'NX-400-VEC', name: 'Vehicle Mesh Node', desc: '1:1 with vehicle count', qty: vehicles });
-  }
-  if (bases > 0) {
-    lines.push({ code: 'NX-200-REL', name: 'Stationary Relay Node', desc: '1:1 with Bases of Operations', qty: bases });
-    lines.push({ code: 'NX-600-CMD', name: 'Command Terminal', desc: '1:1 with Bases of Operations', qty: bases });
-  }
-  if (terrain) {
-    lines.push({ code: 'NX-300-LFT', name: 'Rapid Deploy Aerial Relay', desc: 'Recommended for obstructed terrain (forest / mountainous / urban)', qty: 1 });
-  }
-  if (bases >= 2 && !hasLos) {
-    lines.push({ code: 'NX-500-BRG', name: 'RF \u2194 IP Network Bridge', desc: 'Bases without direct line-of-sight to each other (n\u22121)', qty: bases - 1 });
-  }
-  if (personnel >= 8) {
-    lines.push({ code: 'NX-700-IND', name: 'Individual Terminal', desc: 'Optional \u2014 recommended at a 4:1 personnel ratio', qty: Math.floor(personnel / 4), optional: true });
-  }
-  if (encryption) {
-    lines.push({ code: 'NX-800-VLT', name: 'System Vault / Provisioning Layer', desc: 'Required for custom encryption parameter provisioning', qty: 1 });
-  }
-
-  lastLoadoutLines = lines;
-
-  const resultsEl = document.getElementById('loadoutResults');
-  const headerTotalEl = document.getElementById('loadoutHeaderTotal');
-  if (lines.length === 0) {
-    resultsEl.innerHTML = '<div class="loadout-results-empty">Enter your deployment details above to see a suggested configuration.</div>';
-    if (headerTotalEl) headerTotalEl.textContent = '----';
-    return;
-  }
-
-  lines.sort(function (a, b) {
-    return parseInt(a.code.split('-')[1], 10) - parseInt(b.code.split('-')[1], 10);
-  });
-
-  const rowsHtml = lines.map(function (l) {
-    const baseCode = l.code.split('-').slice(0, 2).join('-');
-    const isGated = (baseCode === 'NX-600' || baseCode === 'NX-800') && !window._isFullApproved;
-    const isChecked = isGated ? false : !loadoutExcluded.has(l.code);
-    const priceData = nexisPricing[baseCode];
-
-    let priceDisplay = 'TBD';
-    let subtotalDisplay = 'TBD';
-    let stockNote = '';
-    if (priceData) {
-      priceDisplay = '$' + priceData.price.toLocaleString();
-      subtotalDisplay = '$' + (priceData.price * l.qty).toLocaleString();
-      if (priceData.qty < l.qty) {
-        stockNote = priceData.qty === 0
-          ? ' <span class="loadout-stock-warning">&mdash; 0 in stock</span>'
-          : ' <span class="loadout-stock-warning">&mdash; only ' + priceData.qty + ' in stock</span>';
-      } else if (priceData.qty - l.qty <= 10) {
-        stockNote = ' <span class="loadout-stock-low">&mdash; ' + priceData.qty + ' in stock</span>';
-      } else {
-        stockNote = ' <span class="loadout-stock-note">&mdash; ' + priceData.qty + ' in stock</span>';
-      }
-    }
-
-    const accessNote = isGated ? '<span class="loadout-access-note">Full Access account required</span>' : '';
-
-    return '<div class="loadout-line' + (l.optional ? ' loadout-line-optional' : '') + (isChecked ? '' : ' loadout-line-unchecked') + '" data-code="' + l.code + '">' +
-      '<input type="checkbox" class="loadout-line-checkbox" ' + (isChecked ? 'checked' : '') + (isGated ? ' disabled' : '') + ' onchange="toggleLoadoutItem(\'' + l.code + '\', this.checked)">' +
-      '<div class="loadout-line-info"><span class="loadout-line-name">' + l.code + ' &middot; ' + l.name + '</span>' +
-      (l.optional ? '<span class="loadout-badge-optional">Optional</span>' : '') +
-      '<span class="loadout-line-desc">' + l.desc + stockNote + '</span>' +
-      accessNote +
-      '</div>' +
-      '<div class="loadout-line-pricing">' +
-      '<span class="loadout-line-price">' + priceDisplay + '</span>' +
-      '<span class="loadout-line-qty">&times;' + l.qty + '</span>' +
-      '<span class="loadout-line-equals">=</span>' +
-      '<span class="loadout-line-subtotal">' + subtotalDisplay + '</span>' +
-      '</div>' +
-      '</div>';
-  }).join('');
-
-  let grandTotal = 0;
-  let allPriced = true;
-  lines.forEach(function (l) {
-    const baseCode = l.code.split('-').slice(0, 2).join('-');
-    const isGated = (baseCode === 'NX-600' || baseCode === 'NX-800') && !window._isFullApproved;
-    if (loadoutExcluded.has(l.code) || isGated) return;
-    const priceData = nexisPricing[baseCode];
-    if (priceData) { grandTotal += priceData.price * l.qty; } else { allPriced = false; }
-  });
-  const totalDisplay = allPriced ? ('$' + grandTotal.toLocaleString()) : 'TBD';
-  if (headerTotalEl) headerTotalEl.textContent = totalDisplay;
-
-  const totalHtml = '<div class="loadout-total-row">' +
-    '<span class="loadout-total-label">Estimated Total</span>' +
-    '<span class="loadout-total-value">' + totalDisplay + '</span>' +
-    '</div>';
-
-  resultsEl.innerHTML = rowsHtml + totalHtml;
-}
-
 function submitNotify() {
   const input = document.getElementById('notifyInput');
   const val = input.value.trim();
@@ -1662,96 +1036,6 @@ document.getElementById('notifyInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') submitNotify();
 });
 
-/* ── Interactive antenna mount diagram ── */
-function updateAntennaDiagram(postureVal) {
-  const posture = parseFloat(postureVal);
-  const pivotX = 560, pivotY = 340, vecLen = 130, arcRad = 50;
-  const TARGET_TILT = 15;               // NX-100 mount angle from vertical (degrees)
-  const HEAD_X = 770, HEAD_Y = 340;     // neck pivot of the HUD head
-
-  const angleA = posture;
-  const angleB = posture - TARGET_TILT;
-
-  function endpoint(angleDeg, length) {
-    const rad = angleDeg * Math.PI / 180;
-    return { x: pivotX + length * Math.sin(rad), y: pivotY - length * Math.cos(rad) };
-  }
-  function arcPath(angleDeg) {
-    const top = { x: pivotX, y: pivotY - arcRad };
-    const end = endpoint(angleDeg, arcRad);
-    const sweep = angleDeg >= 0 ? 1 : 0;
-    return 'M ' + top.x + ' ' + top.y + ' A ' + arcRad + ' ' + arcRad + ' 0 0 ' + sweep + ' ' + end.x.toFixed(1) + ' ' + end.y.toFixed(1);
-  }
-  function lossDb(mismatchDeg) {
-    const m = Math.min(Math.abs(mismatchDeg), 89.5);
-    return 20 * Math.log10(Math.cos(m * Math.PI / 180));
-  }
-  function formatLoss(db) {
-    return db < -35 ? 'severe (near-total loss)' : db.toFixed(1) + ' dB';
-  }
-  function pointAt(cx, cy, angleDeg, length) {
-    const rad = angleDeg * Math.PI / 180;
-    return { x: cx + length * Math.sin(rad), y: cy - length * Math.cos(rad) };
-  }
-  function pulseArcPath(cx, cy, centerAngle, radius) {
-    const p1 = pointAt(cx, cy, centerAngle - 30, radius);
-    const p2 = pointAt(cx, cy, centerAngle + 30, radius);
-    return 'M ' + p1.x.toFixed(1) + ' ' + p1.y.toFixed(1) + ' A ' + radius + ' ' + radius + ' 0 0 1 ' + p2.x.toFixed(1) + ' ' + p2.y.toFixed(1);
-  }
-
-  const endA = endpoint(angleA, vecLen);
-  const endB = endpoint(angleB, vecLen);
-  const vecA = document.getElementById('antVecA');
-  const vecB = document.getElementById('antVecB');
-  if (vecA) { vecA.setAttribute('x2', endA.x.toFixed(1)); vecA.setAttribute('y2', endA.y.toFixed(1)); }
-  if (vecB) { vecB.setAttribute('x2', endB.x.toFixed(1)); vecB.setAttribute('y2', endB.y.toFixed(1)); }
-
-  const arcA = document.getElementById('antArcA');
-  const arcB = document.getElementById('antArcB');
-  if (arcA) arcA.setAttribute('d', arcPath(angleA));
-  if (arcB) arcB.setAttribute('d', arcPath(angleB));
-
-  ['antPulseA1', 'antPulseA2', 'antPulseA3'].forEach(function (id, i) {
-    const el = document.getElementById(id);
-    if (el) el.setAttribute('d', pulseArcPath(endA.x, endA.y, angleA, 12 + i * 10));
-  });
-  ['antPulseB1', 'antPulseB2', 'antPulseB3'].forEach(function (id, i) {
-    const el = document.getElementById(id);
-    if (el) el.setAttribute('d', pulseArcPath(endB.x, endB.y, angleB, 12 + i * 10));
-  });
-
-  const mismatchA = Math.abs(angleA);
-  const mismatchB = Math.abs(angleB);
-  const dbA = lossDb(mismatchA);
-  const dbB = lossDb(mismatchB);
-
-  const setText = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
-  setText('antMismatchA', mismatchA.toFixed(0) + '\u00B0');
-  setText('antMismatchB', mismatchB.toFixed(0) + '\u00B0');
-  setText('antLossA', formatLoss(dbA));
-  setText('antLossB', formatLoss(dbB));
-
-  let postureLabel = 'Level';
-  if (posture < -5) postureLabel = 'Looking up';
-  else if (posture > 5) postureLabel = 'Looking down';
-  setText('postureReadout', postureLabel + ' \u00B7 ' + posture.toFixed(0) + '\u00B0');
-
-  /* HUD head pivots on the fixed neck by the same angle as the antennas. Positive = clockwise = looking down. */
-  const head = document.getElementById('hudHead');
-  if (head) head.setAttribute('transform', 'translate(' + HEAD_X + ' ' + HEAD_Y + ') rotate(' + posture + ')');
-  const dir = posture > 0.5 ? 'DOWN' : (posture < -0.5 ? 'UP' : 'LEVEL');
-  setText('hudPitchLabel', 'HEAD PITCH \u00B7 ' + Math.abs(posture).toFixed(0) + '\u00B0 ' + dir);
-
-  const colorFor = (db) => db > -6 ? '#4cbc7e' : (db > -15 ? '#e8a830' : '#e87060');
-  const lossAEl = document.getElementById('antLossA');
-  const lossBEl = document.getElementById('antLossB');
-  if (lossAEl) lossAEl.style.color = colorFor(dbA);
-  if (lossBEl) lossBEl.style.color = colorFor(dbB);
-}
-document.addEventListener('DOMContentLoaded', function () {
-  updateAntennaDiagram(document.getElementById('postureSlider').value);
-});
-
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const href = a.getAttribute('href');
@@ -1761,6 +1045,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
+// Star rating
 let _starRating = 0;
 document.addEventListener("DOMContentLoaded", function () {
   const stars = document.querySelectorAll("#starRating span");
@@ -1773,7 +1058,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
-<!-- FIREBASE -->
+<!-- FIREBASE + AUTH + FIRESTORE -->
 <script type="module">
 import { initializeApp }     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged }
@@ -1797,38 +1082,15 @@ const auth    = getAuth(app);
 const db      = getFirestore(app);
 const storage = getStorage(app);
 
-window._isFullApproved = false;
+let _isFullApproved = false;
 
-/* ── Load NEXIS pricing/stock (ursus-units/NEXIS) ── */
-(async function loadNexisPricing() {
-  const codes = ['NX-100', 'NX-200', 'NX-300', 'NX-400', 'NX-500', 'NX-600', 'NX-700', 'NX-800'];
-  try {
-    const snap = await getDoc(doc(db, "ursus-units", "NEXIS"));
-    if (snap.exists()) {
-      const data = snap.data();
-      codes.forEach(function (code) {
-        const arr = data[code];
-        if (Array.isArray(arr) && arr.length >= 2) {
-          nexisPricing[code] = { price: Number(arr[0]), qty: Number(arr[1]) };
-        }
-      });
-    }
-  } catch (err) {
-    console.error("NEXIS pricing load error:", err);
-  } finally {
-    nexisPricingLoaded = true;
-    if (typeof updateLoadout === 'function') updateLoadout();
-  }
-})();
-
+/* ── Auth & tiered access ── */
 onAuthStateChanged(auth, async (user) => {
   if (!user) {
     document.getElementById("navAuth").innerHTML =
       `<a href="/ursusarmament/login/">Login</a>`;
     document.getElementById("serialLock").classList.add("active");
-    document.getElementById("nxLock600").classList.add("active");
-    document.getElementById("nxLock800").classList.add("active");
-    if (typeof updateLoadout === 'function') updateLoadout();
+    document.getElementById("specsLock").classList.add("active");
     return;
   }
   const emailPrefix = user.email.split("@")[0];
@@ -1838,27 +1100,23 @@ onAuthStateChanged(auth, async (user) => {
   try {
     const snap = await getDoc(doc(db, "users", emailPrefix));
     const data = snap.data();
-    window._isFullApproved =
+    _isFullApproved =
       data &&
       data.d_type               === "full" &&
       data.e_approved           === true   &&
       data.f_status             === "approved" &&
       data.g_verified_us_person === true;
   } catch (err) {
-    window._isFullApproved = false;
+    _isFullApproved = false;
   }
 
-  // Serial lookup and NX-600/NX-800 product details are locked to Full Access accounts
-  if (window._isFullApproved) {
+  if (_isFullApproved) {
     document.getElementById("serialLock").classList.remove("active");
-    document.getElementById("nxLock600").classList.remove("active");
-    document.getElementById("nxLock800").classList.remove("active");
+    document.getElementById("specsLock").classList.remove("active");
   } else {
     document.getElementById("serialLock").classList.add("active");
-    document.getElementById("nxLock600").classList.add("active");
-    document.getElementById("nxLock800").classList.add("active");
+    document.getElementById("specsLock").classList.add("active");
   }
-  if (typeof updateLoadout === 'function') updateLoadout();
 });
 
 /* ── Serial lookup ── */
@@ -1883,6 +1141,7 @@ window.lookupSerial = async function() {
     set('resultSerial',  raw);
     set('resultProduct', unit.product);
     set('resultTier',    unit.tier);
+    set('resultGen',     unit.generation);
     set('resultDate',    unit.proofDate);
     set('resultBatch',   unit.batchId);
     set('resultQc',      unit.qcResult);
@@ -1902,12 +1161,13 @@ document.getElementById('serialInput').addEventListener('keydown', e => {
   if (e.key === 'Enter') window.lookupSerial();
 });
 
-/* ── Load NEXIS reviews ── */
-async function loadNEXISReviews() {
+/* ── Load CALIDUS reviews ── */
+async function loadCALIDUSReviews() {
   const container = document.getElementById('reviewsContainer');
   try {
     const q    = query(
       collection(db, "ursus-reviews"),
+      where("productType",    "==", "CALIDUS"),
       where("reviewApproval", "==", true)
     );
     const snap = await getDocs(q);
@@ -1915,16 +1175,9 @@ async function loadNEXISReviews() {
       container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
       return;
     }
-    const reviews = snap.docs
-      .map(d => d.data())
-      .filter(r => (r.productType || '').toLowerCase().includes('nexis'))
-      .sort((a, b) => {
-        return (b.timestamp?.toMillis?.() ?? 0) - (a.timestamp?.toMillis?.() ?? 0);
-      });
-    if (reviews.length === 0) {
-      container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
-      return;
-    }
+    const reviews = snap.docs.map(d => d.data()).sort((a, b) => {
+      return (b.timestamp?.toMillis?.() ?? 0) - (a.timestamp?.toMillis?.() ?? 0);
+    });
     container.innerHTML = '';
     reviews.forEach(r => {
       const stars = '★'.repeat(r.starRating || 0) + '☆'.repeat(5 - (r.starRating || 0));
@@ -1935,18 +1188,6 @@ async function loadNEXISReviews() {
         if (r.img2_url) imgHtml += `<img src="${r.img2_url}" class="review-img" onclick="openReviewImage('${r.img2_url}')" alt="Review photo">`;
         imgHtml += '</div>';
       }
-      let replyHtml = '';
-      if (r.ursusReply) {
-        replyHtml = `
-          <div class="review-reply">
-            <div class="review-reply-header">
-              <img src="/ursusarmament/images/ursusLogoBlackAndOrange.png" class="review-reply-logo" alt="Ursus Works">
-              <span class="review-reply-name">Ursus Works</span>
-            </div>
-            <div class="review-reply-text">${r.ursusReply}</div>
-          </div>
-        `;
-      }
       const div = document.createElement('div');
       div.className = 'review-card';
       div.innerHTML = `
@@ -1955,9 +1196,8 @@ async function loadNEXISReviews() {
             <div class="review-name">${r.firstName || '—'} (${r.state || ''})</div>
             <div class="review-stars">${stars}</div>
           </div>
-          <div class="review-meta">${r.productType || 'NEXIS'} &nbsp;·&nbsp; ${r.feedbackType || ''}</div>
+          <div class="review-meta">${r.productType || 'CALIDUS'} &nbsp;·&nbsp; ${r.feedbackType || ''}</div>
           <div class="review-text">${r.reviewText || ''}</div>
-          ${replyHtml}
         </div>
         ${imgHtml}
       `;
@@ -1968,7 +1208,7 @@ async function loadNEXISReviews() {
     container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
   }
 }
-loadNEXISReviews();
+loadCALIDUSReviews();
 
 /* ── Image lightbox ── */
 window.openReviewImage = function(url) {
