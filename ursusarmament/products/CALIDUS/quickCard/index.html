@@ -46,7 +46,9 @@
   .head .brand {
     font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.12em;
     font-size: 1.25rem; color: var(--text); text-align: right; white-space: nowrap;
+    text-decoration: none;
   }
+  .head .brand:focus-visible { outline: 2px solid var(--accent2); outline-offset: 3px; }
   .head .brand span { color: var(--accent); }
 
   h2 {
@@ -115,7 +117,8 @@
   @media (max-width: 700px) {
     .stops { grid-template-columns: repeat(2, 1fr); }
     .cols { grid-template-columns: 1fr; }
-    .head .brand { display: none; }
+    .head { flex-wrap: wrap; }
+    .head .brand { text-align: left; font-size: 1.1rem; }
   }
 
   /* ── PRINT: one US Letter page ── */
@@ -154,7 +157,7 @@
       <h1>Calidus</h1>
       <div class="sub">Quick card. Thermal monocular.</div>
     </div>
-    <div class="brand">URSUS <span>ARMAMENT</span></div>
+    <a class="brand" href="https://ursusworks.com/ursusarmament/">URSUS <span>ARMAMENT</span></a>
   </header>
 
   <h2>Mode switch</h2>
