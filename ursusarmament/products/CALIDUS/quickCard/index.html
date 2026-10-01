@@ -27,11 +27,11 @@
     background: var(--black);
     color: var(--text);
     font-family: 'Barlow', sans-serif;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.45;
   }
 
-  .sheet { max-width: 8.5in; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+  .sheet { max-width: 1200px; margin: 0 auto; padding: 2.5rem 2rem 3rem; }
 
   /* ── HEADER ── */
   .head {
@@ -40,13 +40,14 @@
   }
   .head h1 {
     font-family: 'Bebas Neue', sans-serif; font-weight: 400;
-    font-size: 3.2rem; letter-spacing: 0.06em; line-height: 0.9;
+    font-size: 4rem; letter-spacing: 0.06em; line-height: 0.9;
   }
   .head .sub { color: var(--muted); font-size: 1rem; margin-top: 0.25rem; }
   .head .brand {
     font-family: 'Bebas Neue', sans-serif; letter-spacing: 0.12em;
-    font-size: 1.25rem; color: var(--muted); text-align: right; white-space: nowrap;
+    font-size: 1.25rem; color: var(--text); text-align: right; white-space: nowrap;
   }
+  .head .brand span { color: var(--accent); }
 
   h2 {
     font-family: 'Bebas Neue', sans-serif; font-weight: 400;
@@ -63,11 +64,11 @@
   .stops { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-top: 0.6rem; }
   .stop {
     background: var(--surface); border: 1px solid var(--border);
-    border-top: 3px solid var(--accent); padding: 0.55rem 0.65rem 0.65rem;
+    border-top: 3px solid var(--accent); padding: 0.9rem 1.1rem 1rem;
   }
   .stop.off { border-top-color: var(--muted); }
   .stop .pos {
-    font-family: 'Bebas Neue', sans-serif; font-size: 2.4rem; line-height: 1; color: var(--accent);
+    font-family: 'Bebas Neue', sans-serif; font-size: 3rem; line-height: 1; color: var(--accent);
   }
   .stop.off .pos { color: var(--muted); }
   .stop h3 {
@@ -75,7 +76,7 @@
     font-size: 0.95rem; letter-spacing: 0.08em; text-transform: uppercase;
     margin: 0.1rem 0 0.4rem;
   }
-  .stop dl { display: grid; grid-template-columns: 1.4rem 1fr; gap: 0.25rem 0.35rem; font-size: 0.88rem; line-height: 1.25; }
+  .stop dl { display: grid; grid-template-columns: 1.4rem 1fr; gap: 0.25rem 0.35rem; font-size: 0.95rem; line-height: 1.25; }
   .stop dt {
     font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
     color: var(--black); background: var(--accent); text-align: center;
@@ -87,7 +88,7 @@
   .dir { margin: 0.5rem 0 0; color: var(--text); font-size: 0.9rem; }
 
   /* ── TWO COLUMNS ── */
-  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.5rem; }
+  .cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 2rem; }
 
   .warn {
     background: var(--surface); border-left: 3px solid var(--red);
@@ -101,13 +102,16 @@
     font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
     letter-spacing: 0.14em; text-transform: uppercase; font-size: 0.75rem;
     color: var(--muted); text-align: left;
-    padding: 0.3rem 0.6rem; border-bottom: 1px solid var(--border2);
+    padding: 0.4rem 0.8rem; border-bottom: 1px solid var(--border2);
   }
-  td { padding: 0.3rem 0.6rem; border-bottom: 1px solid var(--border); vertical-align: top; font-size: 0.9rem; }
+  td { padding: 0.5rem 0.8rem; border-bottom: 1px solid var(--border); vertical-align: top; font-size: 0.98rem; }
   td:first-child { font-weight: 600; width: 34%; }
 
   .foot { margin-top: 0.9rem; color: var(--muted); font-size: 0.8rem; }
 
+  @media (max-width: 1000px) {
+    .cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
   @media (max-width: 700px) {
     .stops { grid-template-columns: repeat(2, 1fr); }
     .cols { grid-template-columns: 1fr; }
@@ -123,10 +127,10 @@
       --text: #111111; --muted: #4a4a4a;
       --accent: #8a5a00; --accent2: #8a5a00; --red: #a01818;
     }
-    body { background: #fff; color: #111; font-size: 9.5pt; line-height: 1.35; }
+    body { background: #fff; color: #111; font-size: 9pt; line-height: 1.3; }
     .sheet { max-width: none; padding: 0; }
-    .head h1 { font-size: 32pt; }
-    h2 { font-size: 1.25rem; margin: 0.7rem 0 0.3rem; }
+    .head h1 { font-size: 30pt; }
+    h2 { font-size: 1.2rem; margin: 0.55rem 0 0.25rem; }
     p, li { margin-bottom: 0.1rem; }
     .stop { padding: 0.4rem 0.55rem 0.5rem; }
     .stop .pos { font-size: 2rem; }
@@ -135,6 +139,9 @@
     th, td { padding-top: 0.2rem; padding-bottom: 0.2rem; }
     td { font-size: 9pt; }
     .foot { margin-top: 0.5rem; }
+    .cols { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 0.9rem; }
+    .cols h2 { font-size: 1.1rem; }
+    td, th { padding-left: 0.5rem; padding-right: 0.5rem; }
     .stop, .warn, tr, .cols > div { break-inside: avoid; }
   }
 </style>
@@ -147,7 +154,7 @@
       <h1>Calidus</h1>
       <div class="sub">Quick card. Thermal monocular.</div>
     </div>
-    <div class="brand">URSUS ARMAMENT</div>
+    <div class="brand">URSUS <span>ARMAMENT</span></div>
   </header>
 
   <h2>Mode switch</h2>
@@ -196,7 +203,9 @@
         <li>Turn the switch counterclockwise to 1 to power off.</li>
         <li>Settings reset to defaults at every power-up: White Hot, brightness 50, contrast 50, 1× zoom.</li>
       </ul>
+    </div>
 
+    <div>
       <h2>Buttons</h2>
       <ul>
         <li>The buttons latch. Press once to latch it, press again to release it. Each press or release is one click.</li>
@@ -211,18 +220,20 @@
         <li>Automatic: shortly after power-on, then about every 5 minutes. The image freezes briefly. This is normal.</li>
         <li>Manual: switch to 4, press A and B together, then release both. Use it when the image looks uneven or ghosted.</li>
       </ul>
+    </div>
 
+    <div>
       <h2>Battery</h2>
       <ul>
         <li>One unprotected 18350 lithium-ion cell. It has no built-in protection, so never short its terminals.</li>
         <li>Charge it outside the unit in a single-cell lithium-ion charger (4.2 V). Never charge it inside the unit.</li>
         <li>Do not use a dented, swollen, leaking, hot or torn-wrap cell.</li>
       </ul>
-
-      <div class="warn">
-        <p><strong>Never aim the lens at the sun</strong> or other intense heat. It can damage the sensor.</p>
-      </div>
     </div>
+  </div>
+
+  <div class="warn">
+    <p><strong>Never aim the lens at the sun</strong> or other intense heat. It can damage the sensor.</p>
   </div>
 
   <h2>If something is wrong</h2>
