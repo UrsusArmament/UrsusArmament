@@ -29,7 +29,7 @@
     background: var(--black);
     color: var(--text);
     font-family: 'Barlow', sans-serif;
-    font-size: 16px;
+    font-size: 17px;
     line-height: 1.6;
     overflow-x: hidden;
   }
@@ -48,9 +48,9 @@
     border-bottom: 1px solid var(--border);
   }
   .top-inner {
-    max-width: 920px; margin: 0 auto;
+    max-width: 1240px; margin: 0 auto;
     display: flex; align-items: center; justify-content: space-between;
-    gap: 1.5rem; padding: 0.6rem 1.5rem;
+    gap: 1.5rem; padding: 0.6rem 2.5rem;
   }
   .brand {
     font-family: 'Bebas Neue', sans-serif;
@@ -58,6 +58,7 @@
     color: var(--text); text-decoration: none; line-height: 1;
     white-space: nowrap;
   }
+  .brand span { color: var(--accent); }
   .contents { display: flex; flex-wrap: wrap; justify-content: flex-end; }
   .contents a {
     font-family: 'Barlow Condensed', sans-serif;
@@ -68,23 +69,27 @@
   .contents a:hover { color: var(--accent); }
 
   /* ── PAGE ── */
-  main { max-width: 920px; margin: 0 auto; padding: 0 1.5rem 4rem; }
+  main { max-width: 1240px; margin: 0 auto; padding: 0 2.5rem 4rem; }
 
-  .hero { padding: 4rem 0 2.5rem; border-bottom: 1px solid var(--border); }
+  .hero {
+    padding: 4rem 0 2.5rem; border-bottom: 1px solid var(--border);
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1.5rem 3rem; align-items: end;
+  }
   .hero h1 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: clamp(3.6rem, 10vw, 6.4rem);
     letter-spacing: 0.06em; line-height: 0.95; font-weight: 400;
   }
   .hero p {
-    margin-top: 0.9rem; max-width: 56ch;
-    color: var(--muted); font-size: 1.05rem;
+    margin: 0; max-width: 56ch;
+    color: var(--muted); font-size: 1.1rem;
   }
 
   section { padding: 2.75rem 0 0.5rem; }
   h2 {
     font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.1rem; letter-spacing: 0.08em; font-weight: 400;
+    font-size: 2.4rem; letter-spacing: 0.08em; font-weight: 400;
     line-height: 1.1; margin-bottom: 1rem;
     border-left: 3px solid var(--accent); padding-left: 0.75rem;
   }
@@ -166,9 +171,22 @@
   .note strong, .warn strong { font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.04em; font-size: 1.05rem; }
 
   footer {
-    max-width: 920px; margin: 0 auto; padding: 1.5rem;
+    max-width: 1240px; margin: 0 auto; padding: 1.5rem 2.5rem;
     border-top: 1px solid var(--border);
     color: var(--muted); font-size: 0.85rem;
+  }
+
+  /* ── WIDE LAYOUT HELPERS ── */
+  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 3.5rem; align-items: start; }
+  .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 2.5rem; align-items: start; }
+  .flow2 { column-count: 2; column-gap: 3.5rem; }
+  .flow2 > div { break-inside: avoid; }
+  .grid2 > div > h3:first-child, .flow2 > div > h3:first-child { margin-top: 0.4rem; }
+  .grid3 .sub:first-child { margin-top: 0.4rem; }
+  @media (max-width: 960px) {
+    .grid2, .grid3 { grid-template-columns: 1fr; }
+    .flow2 { column-count: 1; }
+    .hero { grid-template-columns: 1fr; }
   }
 
   /* ── SMALL SCREENS ── */
@@ -198,6 +216,8 @@
     .contents { display: none; }
     .stop dt { color: #fff; }
     section, .stop, .note, .warn, tr { break-inside: avoid; }
+    .grid2, .grid3, .hero { display: block; }
+    .flow2 { column-count: 1; }
     .tbl-wrap { overflow: visible; }
     table { min-width: 0; }
     a { color: inherit; text-decoration: none; }
@@ -208,7 +228,7 @@
 
 <header class="top">
   <div class="top-inner">
-    <a class="brand" href="#top">URSUS ARMAMENT</a>
+    <a class="brand" href="#top">URSUS <span>ARMAMENT</span></a>
     <nav class="contents" aria-label="Contents">
       <a href="#start">Quick start</a>
       <a href="#controls">Controls</a>
@@ -231,6 +251,7 @@
 
   <section id="start">
     <h2>Quick start</h2>
+    <div class="grid2">
     <ol class="steps">
       <li><span>Install a charged, unprotected 18350 lithium-ion cell with the correct polarity.</span></li>
       <li><span>Turn the mode switch clockwise from position 1 (off) to position 2, 3 or 4. The unit powers on.</span></li>
@@ -240,6 +261,7 @@
     </ol>
     <div class="note">
       <p><strong>Settings reset at every power-up.</strong> The unit always starts with the White Hot palette, brightness 50, contrast 50 and 1× zoom. It does not remember changes after it is switched off.</p>
+    </div>
     </div>
   </section>
 
@@ -281,13 +303,16 @@
 
     <p class="dir">The positions run clockwise from 1 to 4. Turn clockwise to go from 1 toward 4, and counterclockwise to go back toward 1.</p>
 
+    <div class="grid2">
+      <div>
     <h3>How the buttons work</h3>
     <p>The buttons latch. Press one and it stays down. Press it again and it comes back up. Every press and every release counts as one click.</p>
     <ul>
       <li>In positions 2 and 3, each click makes one change.</li>
       <li>In position 4, a latched button keeps adjusting until you release it.</li>
     </ul>
-
+      </div>
+      <div>
     <h3>Pressing both buttons together</h3>
     <p>Press both buttons within a fifth of a second of each other. What happens depends on the position:</p>
     <div class="tbl-wrap">
@@ -306,11 +331,15 @@
       <p><strong>Release both buttons afterward.</strong> After you press both together, the unit ignores clicks until both buttons are released. If a button seems dead, release both.</p>
       <p>In positions 2 and 3, avoid pressing both buttons together repeatedly by accident.</p>
     </div>
+      </div>
+    </div>
   </section>
 
   <section id="image">
     <h2>Image settings</h2>
 
+    <div class="flow2">
+      <div>
     <h3>Palette (position 2, Button A)</h3>
     <p>Each click moves to the next palette, in this order: <strong>White Hot</strong>, <strong>Black Hot</strong>, <strong>Red Hot</strong>, <strong>Ironbow</strong>, then back to White Hot.</p>
     <ul>
@@ -318,30 +347,39 @@
       <li>Black Hot shows warmer objects darker.</li>
       <li>Red Hot and Ironbow are color palettes that make temperature differences easier to pick out.</li>
     </ul>
-
+      </div>
+      <div>
     <h3>Contrast (position 2, Button B)</h3>
     <p>Contrast runs from 0 to 100 in steps of 10 and starts at 50. Each click moves up one step. After 100 it wraps around to 0.</p>
-
+      </div>
+      <div>
     <h3>Zoom (position 3)</h3>
     <p>Button A zooms in and Button B zooms out. The zoom steps are 1×, 2×, 3×, 4× and 8×. The unit stops at 1× and at 8×.</p>
-
+      </div>
+      <div>
     <h3>Brightness (position 4)</h3>
     <p>Brightness runs from 0 to 100 and starts at 50. Latch Button A to brighten or Button B to dim. It keeps adjusting while the button is latched, so release it when the image looks right. From the default setting, it takes about 5 seconds to reach the maximum.</p>
     <div class="note">
       <p><strong>Latched before you switched?</strong> A button that was already latched when you turned to position 4 does not adjust brightness. Release it, then latch it again.</p>
     </div>
-
+      </div>
+      <div>
     <h3>Reading a thermal image</h3>
     <p>A thermal imager shows heat, not light. It works in total darkness. Glass blocks thermal radiation, so you cannot see through a window or a windshield.</p>
+      </div>
+    </div>
   </section>
 
   <section id="calibration">
     <h2>Calibration</h2>
     <p>The thermal sensor drifts as it warms and cools. Calibration resets it so the picture stays even and clean. While it calibrates, the image freezes briefly.</p>
 
+    <div class="grid2">
+      <div>
     <h3>Automatic</h3>
     <p>The unit calibrates by itself shortly after power-on, again after about a minute, and then about every five minutes. The brief freeze is normal.</p>
-
+      </div>
+      <div>
     <h3>Manual</h3>
     <ol>
       <li>Turn the mode switch to position 4.</li>
@@ -350,12 +388,16 @@
       <li>Release both buttons.</li>
     </ol>
     <p>Calibrate by hand when the image looks uneven, blotchy or ghosted, for example after moving from a warm room into the cold.</p>
+      </div>
+    </div>
   </section>
 
   <section id="advanced">
     <h2>Advanced functions</h2>
     <p>You do not need these for everyday use. Read the steps first, because neither function shows a confirmation on screen.</p>
 
+    <div class="grid2">
+      <div>
     <h3>Switch off automatic calibration (position 2)</h3>
     <p>Use this when you do not want the image to freeze every five minutes.</p>
     <ol>
@@ -364,14 +406,20 @@
       <li>Within 4 seconds, press both buttons together a second time.</li>
     </ol>
     <p>Automatic calibration stays off until you power the unit off and on again. Manual calibration in position 4 still works.</p>
-
+      </div>
+      <div>
     <h3>Dead-pixel correction (position 3)</h3>
     <p>Dead pixels are dots that stay stuck bright or dark in the same place on the image, no matter where you point the unit. This function finds them and corrects them.</p>
 
     <div class="warn">
       <p><strong>Run this only if the unit has dead pixels.</strong> Do not use it to fix noise, blotches, ghosting or an uneven picture. Calibration fixes those. The correction is saved permanently, and the unit's controls cannot undo it. Running it when it is not needed, or without the lens covered, can mark good pixels as dead and leave permanent marks in the image.</p>
     </div>
+      </div>
+    </div>
 
+    <h3>Dead-pixel correction steps</h3>
+    <div class="grid3">
+      <div>
     <p class="sub">Check first</p>
     <ol>
       <li>Power the unit on and let it run for a few minutes.</li>
@@ -379,19 +427,23 @@
       <li>Cover the lens completely with a uniform surface, such as a lens cap or a flat piece of plain, opaque cardboard held tight against the lens. Do not use your hand, or a surface with a pattern or texture.</li>
       <li>Look at the image. If dots stay in the same place on an otherwise even picture, they are dead pixels and you can continue. If you see no dots, stop here. Do not run the correction.</li>
     </ol>
-
+      </div>
+      <div>
     <p class="sub">Run the correction</p>
     <ol>
       <li>Keep the lens covered. Turn the mode switch to position 3 and make sure both buttons are released.</li>
       <li>Press both buttons together, then release both. Do this three times in total, each press within 4 seconds of the one before.</li>
       <li>The unit runs the correction for about 12 seconds, then saves the result. Keep the lens covered. Do not touch the controls, switch the unit off or remove the cell until the unit responds again, about 15 seconds after the third press.</li>
     </ol>
-
+      </div>
+      <div>
     <p class="sub">Afterward</p>
     <ol>
       <li>Remove the cover and run a manual calibration.</li>
       <li>Check the image. Run the correction once only. If dots remain, do not run it again.</li>
     </ol>
+      </div>
+    </div>
   </section>
 
   <section id="battery">
@@ -399,13 +451,16 @@
     <p>The unit runs on one <strong>unprotected 18350 lithium-ion cell</strong>. This is the cell type the unit is designed for. Use a cell from a reputable manufacturer.</p>
     <p>An unprotected cell has no built-in protection against short circuits or over-discharge, so handle it with extra care.</p>
 
+    <div class="grid2">
+      <div>
     <h3>Charging</h3>
     <ul>
       <li>Remove the cell and charge it in an external charger made for single-cell lithium-ion cells, with a 4.2 V end-of-charge voltage.</li>
       <li>Never charge the cell inside the unit.</li>
       <li>Stay nearby while the cell charges. Do not leave it charging unattended.</li>
     </ul>
-
+      </div>
+      <div>
     <div class="warn">
       <p><strong>Lithium-ion safety</strong></p>
       <ul>
@@ -415,18 +470,26 @@
         <li>Recycle a worn-out cell at a battery recycling point. Do not put it in household trash.</li>
       </ul>
     </div>
+      </div>
+    </div>
   </section>
 
   <section id="care">
     <h2>Care</h2>
+    <div class="grid2">
+      <div>
     <div class="warn">
       <p><strong>Do not aim the lens at the sun.</strong> Avoid pointing it at any intense heat source, such as a welding arc or a fire, for long periods. Strong heat can damage the thermal sensor.</p>
     </div>
+      </div>
+      <div>
     <ul>
       <li>Clean the lens with a soft, lint-free cloth. Do not scrub it, and do not use solvents or abrasive materials.</li>
       <li>Keep the unit dry and away from heat sources.</li>
       <li>Remove the cell before long-term storage.</li>
     </ul>
+      </div>
+    </div>
   </section>
 
   <section id="trouble">
