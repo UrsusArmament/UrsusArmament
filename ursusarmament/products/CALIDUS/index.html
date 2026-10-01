@@ -481,6 +481,25 @@
 .nav-cart-btn:hover svg { stroke: var(--accent); }
 .cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
 .cart-count.visible { display: flex; }
+
+/* OWNER RESOURCES */
+.resources-section { background: var(--black); padding: 6rem 3rem; }
+.resources-inner { max-width: 780px; }
+.resources-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 560px; }
+.resources-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
+.resource-card { background: var(--surface); padding: 2rem 2rem 4rem; display: block; text-decoration: none; position: relative; overflow: hidden; transition: background 0.2s; }
+.resource-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
+.resource-card:hover { background: var(--surface2); }
+.resource-card:hover::before { opacity: 1; }
+.resource-card:focus-visible { outline: 2px solid var(--accent2); outline-offset: -2px; }
+.resource-title { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+.resource-desc { display: block; font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+.resource-meta { position: absolute; left: 2rem; right: 2rem; bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+.resource-open { color: var(--accent); }
+@media (max-width: 900px) {
+  .resources-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .resources-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -692,6 +711,27 @@
   </div>
 </section>
 
+<!-- OWNER RESOURCES -->
+<section class="resources-section" id="resources">
+  <div class="resources-inner">
+    <div class="section-tag">Owner Resources</div>
+    <h2 class="section-title" style="margin-bottom: 1rem;">DOCUMENTATION</h2>
+    <p class="resources-desc">Everything you need to operate and look after your CALIDUS. If you have lost your manual, the quick card puts the essentials on a single page you can print.</p>
+    <div class="resources-grid">
+      <a class="resource-card" href="/ursusarmament/products/CALIDUS/manual/">
+        <span class="resource-title">Operator's Manual</span>
+        <span class="resource-desc">Setup, controls, image settings, calibration, battery care and troubleshooting.</span>
+        <span class="resource-meta">Full guide <span class="resource-open">Open &#8599;</span></span>
+      </a>
+      <a class="resource-card" href="/ursusarmament/products/CALIDUS/quickCard/">
+        <span class="resource-title">Quick Card</span>
+        <span class="resource-desc">One page: the switch map, buttons, calibration, battery and a troubleshooting table. Prints on US Letter.</span>
+        <span class="resource-meta">One page <span class="resource-open">Open &#8599;</span></span>
+      </a>
+    </div>
+  </div>
+</section>
+
 <!-- FEATURES -->
 <section class="features-section" id="features">
   <div class="features-layout">
@@ -735,8 +775,8 @@
       <div class="timeline-steps">
         <div class="timeline-step done"><span class="step-label done">✓ Complete</span><span class="step-name">Concept &amp; Design</span></div>
         <div class="timeline-step done"><span class="step-label done">✓ Complete</span><span class="step-name">Core Selection</span></div>
-        <div class="timeline-step current"><span class="step-label current">✓ Complete</span><span class="step-name">Engineering Build</span></div>
-        <div class="timeline-step"><span class="step-label pending">▶ Active</span><span class="step-name pending">Field Validation</span></div>
+        <div class="timeline-step done"><span class="step-label done">✓ Complete</span><span class="step-name">Engineering Build</span></div>
+        <div class="timeline-step current"><span class="step-label current">▶ Active</span><span class="step-name">Field Validation</span></div>
         <div class="timeline-step"><span class="step-label pending">Pending</span><span class="step-name pending">Launch</span></div>
       </div>
     </div>
