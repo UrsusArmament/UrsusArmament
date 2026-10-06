@@ -5,523 +5,552 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Calidus Operator's Manual — Ursus Armament</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
+    /* VERSION LINE: change the two numbers here. They print in the footer of every page.
+       The same two lines are at the top of calidus-quick-card.html. */
+    --doc-rev: "4.0";
+    --fw: "4.0";
+
+    /* site palette (screen chrome) */
     --black: #0a0a08;
-    --dark: #111110;
     --surface: #1a1a17;
-    --surface2: #222220;
     --border: rgba(255,255,255,0.08);
     --border2: rgba(255,255,255,0.15);
     --text: #e8e4d9;
     --muted: #8a8678;
     --accent: #c8922a;
     --accent2: #e8a830;
-    --red: #c0392b;
+
+    /* paper */
+    --ink: #15150f;
+    --ink-muted: #55524a;
+    --rule: #d9d4c7;
+    --gold: #c8922a;
+    --gold-dark: #8a5a00;
+    --gold-tint: #faf4e4;
+    --red: #a01818;
+    --red-tint: #fbeeee;
   }
 
-  html { scroll-behavior: smooth; }
-
+  html { background: var(--black); }
   body {
     background: var(--black);
     color: var(--text);
     font-family: 'Barlow', sans-serif;
-    font-size: 17px;
-    line-height: 1.6;
-    overflow-x: hidden;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent2); outline-offset: 3px; }
 
-  a { color: var(--accent2); }
-  a:focus-visible, button:focus-visible {
-    outline: 2px solid var(--accent2);
-    outline-offset: 3px;
-  }
-
-  /* ── TOP BAR ── */
-  .top {
-    position: sticky; top: 0; z-index: 100;
-    background: rgba(10,10,8,0.92);
+  /* ───────── SCREEN TOOLBAR ───────── */
+  .toolbar {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(10,10,8,0.94);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
-  .top-inner {
-    max-width: 1240px; margin: 0 auto;
+  .toolbar-in {
     display: flex; align-items: center; justify-content: space-between;
-    gap: 1.5rem; padding: 0.6rem 2.5rem;
+    gap: 1.5rem; padding: 0.65rem 2rem;
   }
-  .brand {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.4rem; letter-spacing: 0.12em;
-    color: var(--text); text-decoration: none; line-height: 1;
-    white-space: nowrap;
+  .tb-brand {
+    font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.12em;
+    color: var(--text); text-decoration: none; line-height: 1; white-space: nowrap;
   }
-  .brand span { color: var(--accent); }
-  .contents { display: flex; flex-wrap: wrap; justify-content: flex-end; }
-  .contents a {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.16em;
-    text-transform: uppercase; text-decoration: none;
-    color: var(--muted); padding: 0.35rem 0.8rem;
+  .tb-brand span { color: var(--accent); }
+  .tb-right { display: flex; align-items: center; gap: 1.25rem; }
+  .tb-hint {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted);
   }
-  .contents a:hover { color: var(--accent); }
+  .print-btn {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 700;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--accent); background: transparent; border: 1px solid var(--accent);
+    padding: 0.55rem 1.3rem; cursor: pointer; transition: background 0.2s, color 0.2s;
+  }
+  .print-btn:hover { background: rgba(200,146,42,0.12); }
+  .print-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 
-  /* ── PAGE ── */
-  main { max-width: 1240px; margin: 0 auto; padding: 0 2.5rem 4rem; }
-
-  .hero {
-    padding: 4rem 0 2.5rem; border-bottom: 1px solid var(--border);
-    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 1.5rem 3rem; align-items: end;
-  }
-  .hero h1 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(3.6rem, 10vw, 6.4rem);
-    letter-spacing: 0.06em; line-height: 0.95; font-weight: 400;
-  }
-  .hero p {
-    margin: 0; max-width: 56ch;
-    color: var(--muted); font-size: 1.1rem;
+  /* ───────── PAGES ───────── */
+  .pages { padding: 1.75rem 1rem 3rem; counter-reset: pageno; }
+  .page {
+    counter-increment: pageno;
+    position: relative;
+    width: 8.5in; min-height: 10.95in;
+    margin: 0 auto 1.5rem;
+    padding: 0.55in 0.7in 1in;
+    background: #fff; color: var(--ink);
+    box-shadow: 0 10px 34px rgba(0,0,0,0.6);
+    font-size: 10pt; line-height: 1.5;
   }
 
-  section { padding: 2.75rem 0 0.5rem; }
-  h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 2.4rem; letter-spacing: 0.08em; font-weight: 400;
-    line-height: 1.1; margin-bottom: 1rem;
-    border-left: 3px solid var(--accent); padding-left: 0.75rem;
+  /* running head and foot */
+  .page-head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding-bottom: 0.12in; margin-bottom: 0.3in;
+    border-bottom: 1px solid var(--rule);
   }
+  .page-head .doc { font-family: 'Bebas Neue', sans-serif; font-size: 15pt; letter-spacing: 0.1em; line-height: 1; }
+  .page-head .doc small {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 9pt; letter-spacing: 0.14em;
+    text-transform: uppercase; color: var(--ink-muted); margin-left: 0.6em;
+  }
+  .brand { font-family: 'Bebas Neue', sans-serif; font-size: 13pt; letter-spacing: 0.12em; line-height: 1; color: var(--ink); text-decoration: none; }
+  .brand span { color: var(--gold); }
+  .page-foot {
+    position: absolute; left: 0.7in; right: 0.7in; bottom: 0.4in;
+    display: flex; justify-content: space-between;
+    padding-top: 0.08in; border-top: 1px solid var(--rule);
+    font-size: 8pt; color: var(--ink-muted);
+  }
+  .ver::before { content: "Document revision " var(--doc-rev) ". Applies to firmware " var(--fw) "."; }
+  .pgnum::before { content: "Page " counter(pageno); }
+
+  /* type */
+  h2.sec {
+    font-family: 'Bebas Neue', sans-serif; font-weight: 400; font-size: 26pt;
+    letter-spacing: 0.05em; line-height: 1;
+    padding-bottom: 0.07in; margin: 0 0 0.18in;
+    border-bottom: 2px solid var(--gold);
+    display: flex; align-items: baseline; gap: 0.14in;
+  }
+  h2.sec .n { color: var(--gold); }
   h3 {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.15rem; font-weight: 700; letter-spacing: 0.06em;
-    margin: 1.6rem 0 0.4rem;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 11.5pt;
+    letter-spacing: 0.07em; text-transform: uppercase;
+    margin: 0.24in 0 0.07in;
   }
-  p { max-width: 68ch; margin-bottom: 0.9rem; }
-  ul, ol { margin: 0 0 1rem 1.3rem; max-width: 68ch; }
-  li { margin-bottom: 0.35rem; }
+  h3:first-of-type { margin-top: 0; }
+  h4 {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 10.5pt;
+    letter-spacing: 0.06em; margin: 0.16in 0 0.05in;
+  }
+  p { margin: 0 0 0.1in; }
   strong { font-weight: 600; }
+  ul, ol { margin: 0 0 0.1in 0.2in; }
+  li { margin-bottom: 0.05in; padding-left: 0.04in; }
+  ul li::marker { color: var(--gold); }
+  .page a { color: var(--gold-dark); }
 
-  /* ── QUICK START STEPS ── */
-  .steps { list-style: none; margin: 0 0 1rem; max-width: 68ch; counter-reset: step; }
-  .steps li {
-    counter-increment: step;
-    display: grid; grid-template-columns: 2.4rem 1fr; gap: 0.75rem;
-    padding: 0.75rem 0; border-bottom: 1px solid var(--border);
-    margin: 0;
-  }
-  .steps li::before {
-    content: counter(step);
-    font-family: 'Bebas Neue', sans-serif; font-size: 1.9rem;
-    color: var(--accent); line-height: 1;
-  }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 0 0.35in; align-items: start; }
+  .two > div > h3:first-child { margin-top: 0; }
 
-  /* ── MODE SWITCH MAP ── */
-  .stops {
-    display: grid; grid-template-columns: repeat(4, 1fr);
-    gap: 0.75rem; margin: 1.25rem 0 1.5rem;
+  /* numbered steps */
+  ol.steps { list-style: none; margin: 0 0 0.15in; counter-reset: step; }
+  ol.steps li {
+    counter-increment: step; display: grid; grid-template-columns: 0.4in 1fr; align-items: baseline;
+    padding: 0.08in 0; margin: 0; border-bottom: 1px solid var(--rule);
   }
-  .stop {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-top: 3px solid var(--accent);
-    padding: 0.9rem 0.95rem 1rem;
+  ol.steps li::before { content: counter(step); font-family: 'Bebas Neue', sans-serif; font-size: 20pt; color: var(--gold); line-height: 1; }
+  ol.num { margin-left: 0.22in; }
+  ol.num li::marker { color: var(--gold-dark); font-weight: 600; }
+
+  /* callouts */
+  .callout {
+    border-left: 4px solid var(--gold); background: var(--gold-tint);
+    padding: 0.1in 0.16in; margin: 0.12in 0 0.14in; break-inside: avoid;
   }
-  .stop.off { border-top-color: var(--muted); }
-  .stop .pos {
-    font-family: 'Bebas Neue', sans-serif; font-size: 3rem;
-    line-height: 1; color: var(--accent);
+  .callout.warn { border-left-color: var(--red); background: var(--red-tint); }
+  .callout .lbl {
+    display: block; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 9pt;
+    letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold-dark); margin-bottom: 0.03in;
   }
-  .stop.off .pos { color: var(--muted); }
-  .stop h3 {
-    margin: 0.2rem 0 0.7rem; font-size: 1rem; letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .stop dl { display: grid; grid-template-columns: 1.6rem 1fr; gap: 0.35rem 0.4rem; font-size: 0.93rem; line-height: 1.35; }
+  .callout.warn .lbl { color: var(--red); }
+  .callout p:last-child, .callout ul:last-child { margin-bottom: 0; }
+
+  /* figure: mode switch */
+  figure.fig { margin: 0.1in 0 0.12in; }
+  .stops { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.12in; }
+  .stop { border: 1px solid var(--rule); border-top: 4px solid var(--gold); padding: 0.1in 0.12in 0.12in; background: #fff; }
+  .stop.off { border-top-color: #9a968c; }
+  .stop .pos { font-family: 'Bebas Neue', sans-serif; font-size: 34pt; line-height: 1; color: var(--gold); }
+  .stop.off .pos { color: #9a968c; }
+  .stop h4 { margin: 0.02in 0 0.08in; font-size: 10pt; text-transform: uppercase; letter-spacing: 0.08em; }
+  .stop dl { display: grid; grid-template-columns: 0.22in 1fr; gap: 0.05in 0.07in; font-size: 9pt; line-height: 1.3; }
   .stop dt {
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
-    color: var(--black); background: var(--accent);
-    text-align: center; height: 1.35rem; line-height: 1.35rem; font-size: 0.85rem;
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 9pt;
+    background: var(--gold); color: #15150f; text-align: center; height: 0.2in; line-height: 0.2in;
   }
   .stop dd { margin: 0; }
-  .stop .off-text { color: var(--muted); font-size: 0.93rem; }
-  .dir { color: var(--text); border-left: 3px solid var(--border2); padding-left: 0.75rem; }
-  .sub { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; letter-spacing: 0.06em; font-size: 1.05rem; margin: 1.1rem 0 0.3rem; }
+  .stop .offtxt { font-size: 9pt; color: var(--ink-muted); margin: 0; }
+  figcaption, caption {
+    font-family: 'Barlow Condensed', sans-serif; font-size: 9.5pt; letter-spacing: 0.04em;
+    color: var(--ink-muted); text-align: left;
+  }
+  figcaption { margin-top: 0.08in; }
+  caption { caption-side: top; padding-bottom: 0.06in; }
+  figcaption strong, caption strong { color: var(--ink); font-weight: 700; }
+  .dir { border-left: 4px solid var(--rule); padding-left: 0.14in; margin: 0.1in 0 0.15in; }
 
-  /* ── TABLES ── */
-  .tbl-wrap { overflow-x: auto; margin: 0.5rem 0 1.25rem; }
-  table { width: 100%; border-collapse: collapse; min-width: 560px; }
-  th {
-    font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
-    letter-spacing: 0.14em; text-transform: uppercase; font-size: 0.8rem;
-    color: var(--muted); text-align: left;
-    padding: 0.6rem 0.9rem; border-bottom: 1px solid var(--border2);
+  /* tables */
+  table.t { width: 100%; border-collapse: collapse; margin: 0 0 0.14in; }
+  table.t th {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 9pt;
+    letter-spacing: 0.14em; text-transform: uppercase; text-align: left; color: var(--ink-muted);
+    padding: 0.05in 0.1in; border-bottom: 2px solid var(--gold);
   }
-  td { padding: 0.7rem 0.9rem; border-bottom: 1px solid var(--border); vertical-align: top; }
-  td:first-child { font-weight: 600; width: 32%; }
+  table.t td { padding: 0.07in 0.1in; border-bottom: 1px solid var(--rule); vertical-align: top; }
+  table.t td:first-child { font-weight: 600; width: 33%; }
+  table.t tr { break-inside: avoid; }
+  table.t.narrow td:first-child { width: 0.8in; text-align: left; }
 
-  /* ── CALLOUTS ── */
-  .note, .warn {
-    background: var(--surface); border-left: 3px solid var(--accent);
-    padding: 0.9rem 1.1rem; margin: 1rem 0 1.25rem; max-width: 68ch;
+  /* ───────── COVER ───────── */
+  .cover { display: flex; flex-direction: column; padding: 0.8in 0.7in 1in 0.9in; }
+  .cover-band { position: absolute; left: 0; top: 0; bottom: 0; width: 0.38in; background: var(--gold); }
+  .cover .brandmark {
+    font-family: 'Bebas Neue', sans-serif; font-size: 20pt; letter-spacing: 0.14em; line-height: 1;
+    color: var(--ink); text-decoration: none;
   }
-  .warn { border-left-color: var(--red); }
-  .note p:last-child, .warn p:last-child { margin-bottom: 0; }
-  .note strong, .warn strong { font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.04em; font-size: 1.05rem; }
+  .cover .brandmark span { color: var(--gold); }
+  .cover-title { margin: 1.15in 0 0; }
+  .cover-title h1 {
+    font-family: 'Bebas Neue', sans-serif; font-weight: 400; font-size: 118pt;
+    letter-spacing: 0.04em; line-height: 0.88; margin: 0;
+  }
+  .cover-title .kind {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 600; font-size: 20pt;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold-dark); margin: 0.12in 0 0;
+  }
+  .cover-title .doc { font-weight: 300; font-size: 22pt; margin: 0.02in 0 0.3in; }
+  .cover-title .lead { max-width: 4.6in; font-size: 11pt; color: var(--ink-muted); }
+  .toc { margin-top: 0.7in; }
+  .toc-h {
+    font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 11pt;
+    letter-spacing: 0.16em; text-transform: uppercase; margin: 0 0 0.08in;
+    padding-bottom: 0.05in; border-bottom: 2px solid var(--gold);
+  }
+  .toc ol { list-style: none; margin: 0; }
+  .toc li { margin: 0; padding: 0; }
+  .toc a { display: flex; align-items: baseline; gap: 0.12in; padding: 0.05in 0; border-bottom: 1px solid var(--rule); color: var(--ink); text-decoration: none; }
+  .toc .n { font-family: 'Bebas Neue', sans-serif; font-size: 14pt; color: var(--gold); width: 0.25in; }
+  .toc .p { margin-left: auto; font-variant-numeric: tabular-nums; color: var(--ink-muted); }
+  .cover .pgnum { visibility: hidden; }
 
-  footer {
-    max-width: 1240px; margin: 0 auto; padding: 1.5rem 2.5rem;
-    border-top: 1px solid var(--border);
-    color: var(--muted); font-size: 0.85rem;
+  /* ───────── SMALL SCREENS ───────── */
+  @media (max-width: 9in) {
+    .toolbar-in { padding: 0.55rem 1rem; }
+    .tb-hint { display: none; }
+    .pages { padding: 1rem 0.5rem 2rem; }
+    .page { width: auto; min-height: 0; padding: 1.1rem 1.1rem 4rem; }
+    .page-foot { left: 1.1rem; right: 1.1rem; }
+    .two, .stops { grid-template-columns: 1fr; }
+    .cover-title h1 { font-size: 72pt; }
+    .toc { margin: 1.5rem 0 0; }
+    .cover { padding: 1.2rem 1.1rem 4rem; }
+    .cover-title { margin-top: 2.5rem; }
+    table.t { display: block; overflow-x: auto; }
   }
 
-  /* ── WIDE LAYOUT HELPERS ── */
-  .grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 3.5rem; align-items: start; }
-  .grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 2.5rem; align-items: start; }
-  .flow2 { column-count: 2; column-gap: 3.5rem; }
-  .flow2 > div { break-inside: avoid; }
-  .grid2 > div > h3:first-child, .flow2 > div > h3:first-child { margin-top: 0.4rem; }
-  .grid3 .sub:first-child { margin-top: 0.4rem; }
-  @media (max-width: 960px) {
-    .grid2, .grid3 { grid-template-columns: 1fr; }
-    .flow2 { column-count: 1; }
-    .hero { grid-template-columns: 1fr; }
-  }
-
-  /* ── SMALL SCREENS ── */
-  @media (max-width: 760px) {
-    .top-inner { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
-    .contents { justify-content: flex-start; margin-left: -0.8rem; }
-    .stops { grid-template-columns: repeat(2, 1fr); }
-  }
-  @media (max-width: 420px) {
-    .stops { grid-template-columns: 1fr; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-  }
-
-  /* ── PRINT ── */
-  @page { size: letter; margin: 0.6in; }
+  /* ───────── PRINT: one sheet per page ───────── */
+  @page { size: letter; margin: 0; }
   @media print {
-    :root {
-      --black: #ffffff; --dark: #ffffff; --surface: #ffffff; --surface2: #f2f2f2;
-      --border: #cfcfcf; --border2: #8a8a8a;
-      --text: #111111; --muted: #4a4a4a;
-      --accent: #8a5a00; --accent2: #8a5a00; --red: #a01818;
-    }
-    body { background: #fff; color: #111; font-size: 10.5pt; }
-    .top { position: static; background: none; backdrop-filter: none; }
-    .contents { display: none; }
-    .stop dt { color: #fff; }
-    section, .stop, .note, .warn, tr { break-inside: avoid; }
-    .grid2, .grid3, .hero { display: block; }
-    .flow2 { column-count: 1; }
-    .tbl-wrap { overflow: visible; }
-    table { min-width: 0; }
-    a { color: inherit; text-decoration: none; }
+    html, body { background: #fff; }
+    .toolbar { display: none !important; }
+    .pages { padding: 0; }
+    .page { margin: 0; box-shadow: none; break-after: page; page-break-after: always; }
+    .page:last-child { break-after: auto; page-break-after: auto; }
+    .page a { color: inherit; text-decoration: none; }
   }
 </style>
 </head>
 <body>
 
-<header class="top">
-  <div class="top-inner">
-    <a class="brand" href="https://ursusworks.com/ursusarmament/">URSUS <span>ARMAMENT</span></a>
-    <nav class="contents" aria-label="Contents">
-      <a href="#start">Quick start</a>
-      <a href="#controls">Controls</a>
-      <a href="#image">Image settings</a>
-      <a href="#calibration">Calibration</a>
-      <a href="#advanced">Advanced</a>
-      <a href="#battery">Battery</a>
-      <a href="#care">Care</a>
-      <a href="#trouble">Troubleshooting</a>
-    </nav>
+<header class="toolbar">
+  <div class="toolbar-in">
+    <a class="tb-brand" href="https://ursusworks.com/ursusarmament/">URSUS <span>ARMAMENT</span></a>
+    <div class="tb-right">
+      <span class="tb-hint">In the print window, choose &ldquo;Save as PDF&rdquo; and turn off headers and footers</span>
+      <button class="print-btn" type="button" onclick="window.print()" aria-label="Save this manual as a PDF or print it">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9V3h12v6"/><path d="M6 18H4a1 1 0 0 1-1-1v-6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v6a1 1 0 0 1-1 1h-2"/><rect x="6" y="14" width="12" height="7"/></svg>
+        Save as PDF / Print
+      </button>
+    </div>
   </div>
 </header>
 
-<main id="top">
+<main class="pages">
 
-  <div class="hero">
+<!-- ═════════ PAGE 1: COVER ═════════ -->
+<section class="page cover" id="top">
+  <div class="cover-band" aria-hidden="true"></div>
+  <a class="brandmark" href="https://ursusworks.com/ursusarmament/">URSUS <span>ARMAMENT</span></a>
+
+  <div class="cover-title">
     <h1>Calidus</h1>
-    <p>Thermal monocular operator's manual. Everything you need to power on, adjust the image, calibrate, and look after the unit and its battery.</p>
+    <p class="kind">Thermal monocular</p>
+    <p class="doc">Operator's manual</p>
+    <p class="lead">Everything you need to power on, adjust the image, calibrate, and look after the unit and its battery.</p>
   </div>
 
-  <section id="start">
-    <h2>Quick start</h2>
-    <div class="grid2">
-    <ol class="steps">
-      <li><span>Install a charged, unprotected 18350 lithium-ion cell with the correct polarity.</span></li>
-      <li><span>Turn the mode switch clockwise from position 1 (off) to position 2, 3 or 4. The unit powers on.</span></li>
-      <li><span>Wait about 10 seconds. The buttons do not respond until then.</span></li>
-      <li><span>Adjust the image with the mode switch and the two buttons. See <a href="#controls">Controls</a>.</span></li>
-      <li><span>To power off, turn the mode switch counterclockwise to position 1.</span></li>
+  <nav class="toc" aria-label="Contents">
+    <h2 class="toc-h">Contents</h2>
+    <ol>
+      <li><a href="#start"><span class="n">1</span><span>Quick start</span><span class="p">2</span></a></li>
+      <li><a href="#controls"><span class="n">2</span><span>Controls</span><span class="p">3</span></a></li>
+      <li><a href="#image"><span class="n">3</span><span>Image settings</span><span class="p">4</span></a></li>
+      <li><a href="#calibration"><span class="n">4</span><span>Calibration</span><span class="p">4</span></a></li>
+      <li><a href="#battery"><span class="n">5</span><span>Battery</span><span class="p">5</span></a></li>
+      <li><a href="#care"><span class="n">6</span><span>Care</span><span class="p">5</span></a></li>
+      <li><a href="#trouble"><span class="n">7</span><span>Troubleshooting</span><span class="p">6</span></a></li>
+      <li><a href="#advanced"><span class="n">8</span><span>Advanced functions</span><span class="p">7</span></a></li>
     </ol>
-    <div class="note">
-      <p><strong>Settings reset at every power-up.</strong> The unit always starts with the White Hot palette, brightness 50, contrast 50 and 1× zoom. It does not remember changes after it is switched off.</p>
-    </div>
-    </div>
-  </section>
+  </nav>
 
-  <section id="controls">
-    <h2>Controls</h2>
-    <p>The mode switch picks what the two buttons do. Button A and Button B behave differently in each position.</p>
+  <footer class="page-foot"><span class="ver"></span><span class="pgnum"></span></footer>
+</section>
 
+<!-- ═════════ PAGE 2: QUICK START ═════════ -->
+<section class="page" id="start">
+  <div class="page-head"><div class="doc">Calidus<small>Operator's manual</small></div><span class="brand">URSUS <span>ARMAMENT</span></span></div>
+
+  <h2 class="sec"><span class="n">1</span> Quick start</h2>
+  <ol class="steps">
+    <li><span>Install a charged, unprotected 18350 lithium-ion cell with the correct polarity.</span></li>
+    <li><span>Turn the mode switch clockwise from position 1 (off) to position 2, 3 or 4. The unit powers on.</span></li>
+    <li><span>Wait about 10 seconds. The buttons do not respond until then.</span></li>
+    <li><span>Adjust the image with the mode switch and the two buttons. See <a href="#controls">section 2</a> and Figure 1.</span></li>
+    <li><span>To power off, turn the mode switch counterclockwise to position 1.</span></li>
+  </ol>
+
+  <div class="callout">
+    <span class="lbl">Note</span>
+    <p><strong>Settings reset at every power-up.</strong> The unit always starts with the White Hot palette, brightness 50, contrast 50 and 1× zoom. It does not remember changes after it is switched off.</p>
+  </div>
+
+  <figure class="fig">
     <div class="stops">
-      <div class="stop off">
-        <div class="pos">1</div>
-        <h3>Off</h3>
-        <p class="off-text">The unit has no power.</p>
-      </div>
-      <div class="stop">
-        <div class="pos">2</div>
-        <h3>Palette and contrast</h3>
-        <dl>
-          <dt>A</dt><dd>Next palette</dd>
-          <dt>B</dt><dd>Next contrast step</dd>
-        </dl>
-      </div>
-      <div class="stop">
-        <div class="pos">3</div>
-        <h3>Zoom</h3>
-        <dl>
-          <dt>A</dt><dd>Zoom in</dd>
-          <dt>B</dt><dd>Zoom out</dd>
-        </dl>
-      </div>
-      <div class="stop">
-        <div class="pos">4</div>
-        <h3>Brightness</h3>
-        <dl>
-          <dt>A</dt><dd>Brighter</dd>
-          <dt>B</dt><dd>Dimmer</dd>
-        </dl>
-      </div>
+      <div class="stop off"><div class="pos">1</div><h4>Off</h4><p class="offtxt">The unit has no power.</p></div>
+      <div class="stop"><div class="pos">2</div><h4>Palette and contrast</h4><dl><dt>A</dt><dd>Next palette</dd><dt>B</dt><dd>Next contrast step</dd></dl></div>
+      <div class="stop"><div class="pos">3</div><h4>Zoom</h4><dl><dt>A</dt><dd>Zoom in</dd><dt>B</dt><dd>Zoom out</dd></dl></div>
+      <div class="stop"><div class="pos">4</div><h4>Brightness</h4><dl><dt>A</dt><dd>Brighter</dd><dt>B</dt><dd>Dimmer</dd></dl></div>
     </div>
+    <figcaption><strong>Figure 1.</strong> The four mode switch positions, and what Button A and Button B do in each.</figcaption>
+  </figure>
+  <p class="dir">The positions run clockwise from 1 to 4. Turn clockwise to go from 1 toward 4, and counterclockwise to go back toward 1.</p>
 
-    <p class="dir">The positions run clockwise from 1 to 4. Turn clockwise to go from 1 toward 4, and counterclockwise to go back toward 1.</p>
+  <footer class="page-foot"><span class="ver"></span><span class="pgnum"></span></footer>
+</section>
 
-    <div class="grid2">
-      <div>
-    <h3>How the buttons work</h3>
-    <p>The buttons latch. Press one and it stays down. Press it again and it comes back up. Every press and every release counts as one click.</p>
-    <ul>
-      <li>In positions 2 and 3, each click makes one change.</li>
-      <li>In position 4, a latched button keeps adjusting until you release it.</li>
-    </ul>
-      </div>
-      <div>
-    <h3>Pressing both buttons together</h3>
-    <p>Press both buttons within a fifth of a second of each other. What happens depends on the position:</p>
-    <div class="tbl-wrap">
-      <table>
-        <thead>
-          <tr><th>Position</th><th>Pressing both buttons together</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>2</td><td>Nothing by itself. Pressed twice within 4 seconds, it switches off automatic calibration until the unit is powered off. See <a href="#advanced">Advanced functions</a>.</td></tr>
-          <tr><td>3</td><td>Nothing by itself. Pressed three times, each within 4 seconds of the one before, it starts dead-pixel correction, which is permanent. Read the warning in <a href="#advanced">Advanced functions</a> first.</td></tr>
-          <tr><td>4</td><td>Runs a manual calibration. See <a href="#calibration">Calibration</a>.</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="note">
-      <p><strong>Release both buttons afterward.</strong> After you press both together, the unit ignores clicks until both buttons are released. If a button seems dead, release both.</p>
-      <p>In positions 2 and 3, avoid pressing both buttons together repeatedly by accident.</p>
-    </div>
-      </div>
-    </div>
-  </section>
+<!-- ═════════ PAGE 3: CONTROLS ═════════ -->
+<section class="page" id="controls">
+  <div class="page-head"><div class="doc">Calidus<small>Operator's manual</small></div><span class="brand">URSUS <span>ARMAMENT</span></span></div>
 
-  <section id="image">
-    <h2>Image settings</h2>
+  <h2 class="sec"><span class="n">2</span> Controls</h2>
+  <p>The mode switch picks what the two buttons do. Button A and Button B behave differently in each position, as shown in Figure 1.</p>
 
-    <div class="flow2">
-      <div>
-    <h3>Palette (position 2, Button A)</h3>
-    <p>Each click moves to the next palette, in this order: <strong>White Hot</strong>, <strong>Black Hot</strong>, <strong>Red Hot</strong>, <strong>Ironbow</strong>, then back to White Hot.</p>
-    <ul>
-      <li>White Hot shows warmer objects lighter. It is the default.</li>
-      <li>Black Hot shows warmer objects darker.</li>
-      <li>Red Hot and Ironbow are color palettes that make temperature differences easier to pick out.</li>
-    </ul>
-      </div>
-      <div>
-    <h3>Contrast (position 2, Button B)</h3>
-    <p>Contrast runs from 0 to 100 in steps of 10 and starts at 50. Each click moves up one step. After 100 it wraps around to 0.</p>
-      </div>
-      <div>
-    <h3>Zoom (position 3)</h3>
-    <p>Button A zooms in and Button B zooms out. The zoom steps are 1×, 2×, 3×, 4× and 8×. The unit stops at 1× and at 8×.</p>
-      </div>
-      <div>
-    <h3>Brightness (position 4)</h3>
-    <p>Brightness runs from 0 to 100 and starts at 50. Latch Button A to brighten or Button B to dim. It keeps adjusting while the button is latched, so release it when the image looks right. From the default setting, it takes about 5 seconds to reach the maximum.</p>
-    <div class="note">
-      <p><strong>Latched before you switched?</strong> A button that was already latched when you turned to position 4 does not adjust brightness. Release it, then latch it again.</p>
-    </div>
-      </div>
-      <div>
-    <h3>Reading a thermal image</h3>
-    <p>A thermal imager shows heat, not light. It works in total darkness. Glass blocks thermal radiation, so you cannot see through a window or a windshield.</p>
-      </div>
-    </div>
-  </section>
+  <h3>How the buttons work</h3>
+  <p>The buttons latch. Press one and it stays down. Press it again and it comes back up. Every press and every release counts as one click.</p>
+  <ul>
+    <li>In positions 2 and 3, each click makes one change.</li>
+    <li>In position 4, a latched button keeps adjusting until you release it.</li>
+  </ul>
 
-  <section id="calibration">
-    <h2>Calibration</h2>
-    <p>The thermal sensor drifts as it warms and cools. Calibration resets it so the picture stays even and clean. While it calibrates, the image freezes briefly.</p>
+  <h3>Pressing both buttons together</h3>
+  <p>Press both buttons within a fifth of a second of each other. What happens depends on the position:</p>
+  <table class="t narrow">
+    <caption><strong>Table 1.</strong> What pressing both buttons together does.</caption>
+    <thead><tr><th>Position</th><th>Pressing both buttons together</th></tr></thead>
+    <tbody>
+      <tr><td>2</td><td>Nothing by itself. Pressed twice within 4 seconds, it switches off automatic calibration until the unit is powered off. See <a href="#advanced">section 8</a>.</td></tr>
+      <tr><td>3</td><td>Nothing by itself. Pressed three times, each within 4 seconds of the one before, it starts dead-pixel correction, which is permanent. Read the warning in <a href="#advanced">section 8</a> first.</td></tr>
+      <tr><td>4</td><td>Runs a manual calibration. See <a href="#calibration">section 4</a>.</td></tr>
+    </tbody>
+  </table>
 
-    <div class="grid2">
-      <div>
-    <h3>Automatic</h3>
-    <p>The unit calibrates by itself shortly after power-on, again after about a minute, and then about every five minutes. The brief freeze is normal.</p>
-      </div>
-      <div>
-    <h3>Manual</h3>
-    <ol>
-      <li>Turn the mode switch to position 4.</li>
-      <li>Press both buttons together.</li>
-      <li>The image freezes briefly while the unit calibrates.</li>
-      <li>Release both buttons.</li>
-    </ol>
-    <p>Calibrate by hand when the image looks uneven, blotchy or ghosted, for example after moving from a warm room into the cold.</p>
-      </div>
-    </div>
-  </section>
+  <div class="callout">
+    <span class="lbl">Note</span>
+    <p><strong>Release both buttons afterward.</strong> After you press both together, the unit ignores clicks until both buttons are released. If a button seems dead, release both.</p>
+    <p>In positions 2 and 3, avoid pressing both buttons together repeatedly by accident.</p>
+  </div>
 
-  <section id="advanced">
-    <h2>Advanced functions</h2>
-    <p>You do not need these for everyday use. Read the steps first, because neither function shows a confirmation on screen.</p>
+  <footer class="page-foot"><span class="ver"></span><span class="pgnum"></span></footer>
+</section>
 
-    <div class="grid2">
-      <div>
-    <h3>Switch off automatic calibration (position 2)</h3>
-    <p>Use this when you do not want the image to freeze every five minutes.</p>
-    <ol>
-      <li>Turn the mode switch to position 2 and make sure both buttons are released.</li>
-      <li>Press both buttons together, then release both.</li>
-      <li>Within 4 seconds, press both buttons together a second time.</li>
-    </ol>
-    <p>Automatic calibration stays off until you power the unit off and on again. Manual calibration in position 4 still works.</p>
-      </div>
-      <div>
-    <h3>Dead-pixel correction (position 3)</h3>
-    <p>Dead pixels are dots that stay stuck bright or dark in the same place on the image, no matter where you point the unit. This function finds them and corrects them.</p>
+<!-- ═════════ PAGE 4: IMAGE SETTINGS + CALIBRATION ═════════ -->
+<section class="page" id="image">
+  <div class="page-head"><div class="doc">Calidus<small>Operator's manual</small></div><span class="brand">URSUS <span>ARMAMENT</span></span></div>
 
-    <div class="warn">
-      <p><strong>Run this only if the unit has dead pixels.</strong> Do not use it to fix noise, blotches, ghosting or an uneven picture. Calibration fixes those. The correction is saved permanently, and the unit's controls cannot undo it. Running it when it is not needed, or without the lens covered, can mark good pixels as dead and leave permanent marks in the image.</p>
-    </div>
-      </div>
-    </div>
-
-    <h3>Dead-pixel correction steps</h3>
-    <div class="grid3">
-      <div>
-    <p class="sub">Check first</p>
-    <ol>
-      <li>Power the unit on and let it run for a few minutes.</li>
-      <li>Run a manual calibration: position 4, press both buttons together, then release both. Many uneven or ghosted pictures clear up at this point.</li>
-      <li>Cover the lens completely with a uniform surface, such as a lens cap or a flat piece of plain, opaque cardboard held tight against the lens. Do not use your hand, or a surface with a pattern or texture.</li>
-      <li>Look at the image. If dots stay in the same place on an otherwise even picture, they are dead pixels and you can continue. If you see no dots, stop here. Do not run the correction.</li>
-    </ol>
-      </div>
-      <div>
-    <p class="sub">Run the correction</p>
-    <ol>
-      <li>Keep the lens covered. Turn the mode switch to position 3 and make sure both buttons are released.</li>
-      <li>Press both buttons together, then release both. Do this three times in total, each press within 4 seconds of the one before.</li>
-      <li>The unit runs the correction for about 12 seconds, then saves the result. Keep the lens covered. Do not touch the controls, switch the unit off or remove the cell until the unit responds again, about 15 seconds after the third press.</li>
-    </ol>
-      </div>
-      <div>
-    <p class="sub">Afterward</p>
-    <ol>
-      <li>Remove the cover and run a manual calibration.</li>
-      <li>Check the image. Run the correction once only. If dots remain, do not run it again.</li>
-    </ol>
-      </div>
-    </div>
-  </section>
-
-  <section id="battery">
-    <h2>Battery</h2>
-    <p>The unit runs on one <strong>unprotected 18350 lithium-ion cell</strong>. This is the cell type the unit is designed for. Use a cell from a reputable manufacturer.</p>
-    <p>An unprotected cell has no built-in protection against short circuits or over-discharge, so handle it with extra care.</p>
-
-    <div class="grid2">
-      <div>
-    <h3>Charging</h3>
-    <ul>
-      <li>Remove the cell and charge it in an external charger made for single-cell lithium-ion cells, with a 4.2 V end-of-charge voltage.</li>
-      <li>Never charge the cell inside the unit.</li>
-      <li>Stay nearby while the cell charges. Do not leave it charging unattended.</li>
-    </ul>
-      </div>
-      <div>
-    <div class="warn">
-      <p><strong>Lithium-ion safety</strong></p>
+  <h2 class="sec"><span class="n">3</span> Image settings</h2>
+  <div class="two">
+    <div>
+      <h3>Palette (position 2, Button A)</h3>
+      <p>Each click moves to the next palette, in this order: <strong>White Hot</strong>, <strong>Black Hot</strong>, <strong>Red Hot</strong>, <strong>Ironbow</strong>, then back to White Hot.</p>
       <ul>
-        <li>Do not use a cell that is dented, swollen, leaking, hot to the touch, or has a torn or damaged wrap. Check the wrap before every use.</li>
-        <li>Never short the cell terminals. Carry spare cells in a non-conductive case, away from keys, coins and other metal objects.</li>
-        <li>Keep the cell away from fire and from heat sources.</li>
-        <li>Recycle a worn-out cell at a battery recycling point. Do not put it in household trash.</li>
+        <li>White Hot shows warmer objects lighter. It is the default.</li>
+        <li>Black Hot shows warmer objects darker.</li>
+        <li>Red Hot and Ironbow are color palettes that make temperature differences easier to pick out.</li>
+      </ul>
+      <h3>Contrast (position 2, Button B)</h3>
+      <p>Contrast runs from 0 to 100 in steps of 10 and starts at 50. Each click moves up one step. After 100 it wraps around to 0.</p>
+    </div>
+    <div>
+      <h3>Zoom (position 3)</h3>
+      <p>Button A zooms in and Button B zooms out. The zoom steps are 1×, 2×, 3×, 4× and 8×. The unit stops at 1× and at 8×.</p>
+      <h3>Brightness (position 4)</h3>
+      <p>Brightness runs from 0 to 100 and starts at 50. Latch Button A to brighten or Button B to dim. It keeps adjusting while the button is latched, so release it when the image looks right. From the default setting, it takes about 5 seconds to reach the maximum.</p>
+      <div class="callout">
+        <span class="lbl">Note</span>
+        <p><strong>Latched before you switched?</strong> A button that was already latched when you turned to position 4 does not adjust brightness. Release it, then latch it again.</p>
+      </div>
+    </div>
+  </div>
+  <h3>Reading a thermal image</h3>
+  <p>A thermal imager shows heat, not light. It works in total darkness. Glass blocks thermal radiation, so you cannot see through a window or a windshield.</p>
+
+  <h2 class="sec" id="calibration" style="margin-top:0.35in"><span class="n">4</span> Calibration</h2>
+  <p>The thermal sensor drifts as it warms and cools. Calibration resets it so the picture stays even and clean. While it calibrates, the image freezes briefly.</p>
+  <div class="two">
+    <div>
+      <h3>Automatic</h3>
+      <p>The unit calibrates by itself shortly after power-on, again after about a minute, and then about every five minutes. The brief freeze is normal.</p>
+    </div>
+    <div>
+      <h3>Manual</h3>
+      <ol class="num">
+        <li>Turn the mode switch to position 4.</li>
+        <li>Press both buttons together.</li>
+        <li>The image freezes briefly while the unit calibrates.</li>
+        <li>Release both buttons.</li>
+      </ol>
+      <p>Calibrate by hand when the image looks uneven, blotchy or ghosted, for example after moving from a warm room into the cold.</p>
+    </div>
+  </div>
+
+  <footer class="page-foot"><span class="ver"></span><span class="pgnum"></span></footer>
+</section>
+
+<!-- ═════════ PAGE 5: BATTERY + CARE ═════════ -->
+<section class="page" id="battery">
+  <div class="page-head"><div class="doc">Calidus<small>Operator's manual</small></div><span class="brand">URSUS <span>ARMAMENT</span></span></div>
+
+  <h2 class="sec"><span class="n">5</span> Battery</h2>
+  <p>The unit runs on one <strong>unprotected 18350 lithium-ion cell</strong>. This is the cell type the unit is designed for. Use a cell from a reputable manufacturer.</p>
+  <p>An unprotected cell has no built-in protection against short circuits or over-discharge, so handle it with extra care.</p>
+  <div class="two">
+    <div>
+      <h3>Charging</h3>
+      <ul>
+        <li>Remove the cell and charge it in an external charger made for single-cell lithium-ion cells, with a 4.2 V end-of-charge voltage.</li>
+        <li>Never charge the cell inside the unit.</li>
+        <li>Stay nearby while the cell charges. Do not leave it charging unattended.</li>
       </ul>
     </div>
+    <div>
+      <div class="callout warn" style="margin-top:0">
+        <span class="lbl">Warning: lithium-ion safety</span>
+        <ul>
+          <li>Do not use a cell that is dented, swollen, leaking, hot to the touch, or has a torn or damaged wrap. Check the wrap before every use.</li>
+          <li>Never short the cell terminals. Carry spare cells in a non-conductive case, away from keys, coins and other metal objects.</li>
+          <li>Keep the cell away from fire and from heat sources.</li>
+          <li>Recycle a worn-out cell at a battery recycling point. Do not put it in household trash.</li>
+        </ul>
       </div>
     </div>
-  </section>
+  </div>
 
-  <section id="care">
-    <h2>Care</h2>
-    <div class="grid2">
-      <div>
-    <div class="warn">
-      <p><strong>Do not aim the lens at the sun.</strong> Avoid pointing it at any intense heat source, such as a welding arc or a fire, for long periods. Strong heat can damage the thermal sensor.</p>
-    </div>
-      </div>
-      <div>
-    <ul>
-      <li>Clean the lens with a soft, lint-free cloth. Do not scrub it, and do not use solvents or abrasive materials.</li>
-      <li>Keep the unit dry and away from heat sources.</li>
-      <li>Remove the cell before long-term storage.</li>
-    </ul>
-      </div>
-    </div>
-  </section>
+  <h2 class="sec" id="care" style="margin-top:0.4in"><span class="n">6</span> Care</h2>
+  <div class="callout warn" style="margin-top:0">
+    <span class="lbl">Warning</span>
+    <p><strong>Do not aim the lens at the sun.</strong> Avoid pointing it at any intense heat source, such as a welding arc or a fire, for long periods. Strong heat can damage the thermal sensor.</p>
+  </div>
+  <ul>
+    <li>Clean the lens with a soft, lint-free cloth. Do not scrub it, and do not use solvents or abrasive materials.</li>
+    <li>Keep the unit dry and away from heat sources.</li>
+    <li>Remove the cell before long-term storage.</li>
+  </ul>
 
-  <section id="trouble">
-    <h2>Troubleshooting</h2>
-    <div class="tbl-wrap">
-      <table>
-        <thead>
-          <tr><th>Problem</th><th>What to do</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>No image after switching on</td><td>Check that the cell is installed the right way round and charged. Make sure the mode switch is in position 2, 3 or 4, not 1. Wait about 10 seconds.</td></tr>
-          <tr><td>Buttons do nothing just after power-up</td><td>The controls become active about 10 seconds after power-on. Wait, then try again.</td></tr>
-          <tr><td>A button seems dead after pressing both</td><td>Release both buttons. The unit ignores clicks until both are released.</td></tr>
-          <tr><td>Brightness does not change in position 4</td><td>The button was latched before you turned to position 4. Release it, then latch it again.</td></tr>
-          <tr><td>The image freezes for a moment</td><td>This is calibration. It happens automatically about every five minutes and whenever you run a manual calibration.</td></tr>
-          <tr><td>The image no longer freezes every five minutes</td><td>Automatic calibration was switched off from position 2. Power the unit off and on to turn it back on.</td></tr>
-          <tr><td>The unit does not respond for about 15 seconds in position 3</td><td>Dead-pixel correction is running. Wait for it to finish, and keep the lens covered.</td></tr>
-          <tr><td>The image looks uneven or ghosted</td><td>Run a manual calibration: position 4, then press both buttons together.</td></tr>
-          <tr><td>The image is too dark, too bright or too flat</td><td>Adjust brightness in position 4 and contrast in position 2.</td></tr>
-          <tr><td>Settings are back to default</td><td>This is normal. The unit resets its settings every time it powers up.</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+  <footer class="page-foot"><span class="ver"></span><span class="pgnum"></span></footer>
+</section>
+
+<!-- ═════════ PAGE 6: TROUBLESHOOTING ═════════ -->
+<section class="page" id="trouble">
+  <div class="page-head"><div class="doc">Calidus<small>Operator's manual</small></div><span class="brand">URSUS <span>ARMAMENT</span></span></div>
+
+  <h2 class="sec"><span class="n">7</span> Troubleshooting</h2>
+  <table class="t">
+    <caption><strong>Table 2.</strong> Common problems and what to do.</caption>
+    <thead><tr><th>Problem</th><th>What to do</th></tr></thead>
+    <tbody>
+      <tr><td>No image after switching on</td><td>Check that the cell is installed the right way round and charged. Make sure the mode switch is in position 2, 3 or 4, not 1. Wait about 10 seconds.</td></tr>
+      <tr><td>Buttons do nothing just after power-up</td><td>The controls become active about 10 seconds after power-on. Wait, then try again.</td></tr>
+      <tr><td>A button seems dead after pressing both</td><td>Release both buttons. The unit ignores clicks until both are released.</td></tr>
+      <tr><td>Brightness does not change in position 4</td><td>The button was latched before you turned to position 4. Release it, then latch it again.</td></tr>
+      <tr><td>The image freezes for a moment</td><td>This is calibration. It happens automatically about every five minutes and whenever you run a manual calibration.</td></tr>
+      <tr><td>The image no longer freezes every five minutes</td><td>Automatic calibration was switched off from position 2. Power the unit off and on to turn it back on.</td></tr>
+      <tr><td>The unit does not respond for about 15 seconds in position 3</td><td>Dead-pixel correction is running. Wait for it to finish, and keep the lens covered.</td></tr>
+      <tr><td>The image looks uneven or ghosted</td><td>Run a manual calibration: position 4, then press both buttons together.</td></tr>
+      <tr><td>The image is too dark, too bright or too flat</td><td>Adjust brightness in position 4 and contrast in position 2.</td></tr>
+      <tr><td>Settings are back to default</td><td>This is normal. The unit resets its settings every time it powers up.</td></tr>
+    </tbody>
+  </table>
+
+  <footer class="page-foot"><span class="ver"></span><span class="pgnum"></span></footer>
+</section>
+
+<!-- ═════════ PAGE 7: ADVANCED FUNCTIONS (1 of 2) ═════════ -->
+<section class="page" id="advanced">
+  <div class="page-head"><div class="doc">Calidus<small>Operator's manual</small></div><span class="brand">URSUS <span>ARMAMENT</span></span></div>
+
+  <h2 class="sec"><span class="n">8</span> Advanced functions</h2>
+  <p>You do not need these for everyday use. Read the steps first, because neither function shows a confirmation on screen.</p>
+
+  <h3>Switch off automatic calibration (position 2)</h3>
+  <p>Use this when you do not want the image to freeze every five minutes.</p>
+  <ol class="num">
+    <li>Turn the mode switch to position 2 and make sure both buttons are released.</li>
+    <li>Press both buttons together, then release both.</li>
+    <li>Within 4 seconds, press both buttons together a second time.</li>
+  </ol>
+  <p>Automatic calibration stays off until you power the unit off and on again. Manual calibration in position 4 still works.</p>
+
+  <h3>Dead-pixel correction (position 3)</h3>
+  <p>Dead pixels are dots that stay stuck bright or dark in the same place on the image, no matter where you point the unit. This function finds them and corrects them.</p>
+  <div class="callout warn">
+    <span class="lbl">Warning</span>
+    <p><strong>Run this only if the unit has dead pixels.</strong> Do not use it to fix noise, blotches, ghosting or an uneven picture. Calibration fixes those. The correction is saved permanently, and the unit's controls cannot undo it. Running it when it is not needed, or without the lens covered, can mark good pixels as dead and leave permanent marks in the image.</p>
+  </div>
+
+  <footer class="page-foot"><span class="ver"></span><span class="pgnum"></span></footer>
+</section>
+
+<!-- ═════════ PAGE 8: ADVANCED FUNCTIONS (2 of 2) ═════════ -->
+<section class="page" id="advanced2">
+  <div class="page-head"><div class="doc">Calidus<small>Operator's manual</small></div><span class="brand">URSUS <span>ARMAMENT</span></span></div>
+
+  <h2 class="sec"><span class="n">8</span> Advanced functions <small style="font-family:'Barlow Condensed',sans-serif;font-size:11pt;letter-spacing:0.14em;color:var(--ink-muted)">CONTINUED</small></h2>
+
+  <h3>Dead-pixel correction: steps</h3>
+  <h4>Check first</h4>
+  <ol class="num">
+    <li>Power the unit on and let it run for a few minutes.</li>
+    <li>Run a manual calibration: position 4, press both buttons together, then release both. Many uneven or ghosted pictures clear up at this point.</li>
+    <li>Cover the lens completely with a uniform surface, such as a lens cap or a flat piece of plain, opaque cardboard held tight against the lens. Do not use your hand, or a surface with a pattern or texture.</li>
+    <li>Look at the image. If dots stay in the same place on an otherwise even picture, they are dead pixels and you can continue. If you see no dots, stop here. Do not run the correction.</li>
+  </ol>
+
+  <h4>Run the correction</h4>
+  <ol class="num">
+    <li>Keep the lens covered. Turn the mode switch to position 3 and make sure both buttons are released.</li>
+    <li>Press both buttons together, then release both. Do this three times in total, each press within 4 seconds of the one before.</li>
+    <li>The unit runs the correction for about 12 seconds, then saves the result. Keep the lens covered. Do not touch the controls, switch the unit off or remove the cell until the unit responds again, about 15 seconds after the third press.</li>
+  </ol>
+
+  <h4>Afterward</h4>
+  <ol class="num">
+    <li>Remove the cover and run a manual calibration.</li>
+    <li>Check the image. Run the correction once only. If dots remain, do not run it again.</li>
+  </ol>
+
+  <footer class="page-foot"><span class="ver"></span><span class="pgnum"></span></footer>
+</section>
 
 </main>
-
-<!-- VERSION LINE: change the two numbers here when the document or the firmware changes.
-     The same line is at the bottom of calidus-quick-card.html. -->
-<footer>
-  Document revision 4.0. Applies to firmware 4.0.
-</footer>
 
 </body>
 </html>
