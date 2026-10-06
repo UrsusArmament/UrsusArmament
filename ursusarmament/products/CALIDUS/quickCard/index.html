@@ -216,7 +216,7 @@
   .card .small { font-size: 8.5pt; color: var(--ink-muted); margin-top: 0.05in; }
 
   /* ───────── SMALL SCREENS ───────── */
-  @media (max-width: 9in) {
+  @media screen and (max-width: 9in) {
     .toolbar-in { padding: 0.55rem 1rem; }
     .tb-hint { display: none; }
     .pages { padding: 1rem 0.5rem 2rem; }
@@ -235,6 +235,10 @@
     .page { margin: 0; box-shadow: none; break-after: page; page-break-after: always; }
     .page:last-child { break-after: auto; page-break-after: auto; }
     .page a { color: inherit; text-decoration: none; }
+    /* lock the sheet geometry so no other rule can change it */
+    .page { width: 8.5in !important; min-height: 10.95in !important; padding: 0.55in 0.7in 0.9in !important; }
+    .two { grid-template-columns: 1fr 1fr !important; }
+    .stops { grid-template-columns: repeat(4, 1fr) !important; }
   }
 </style>
 </head>
