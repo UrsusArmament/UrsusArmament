@@ -546,6 +546,11 @@
   .review-images { display: flex; flex-direction: column; gap: 0.5rem; flex-shrink: 0; width: 200px; }
   .review-img { width: 200px; height: 150px; object-fit: cover; cursor: pointer; border: 1px solid var(--border2); transition: opacity 0.2s, border-color 0.2s; display: block; }
   .review-img:hover { opacity: 0.85; border-color: var(--accent); }
+  .review-reply { margin-top: 1rem; margin-left: 1.5rem; padding: 1rem 1.25rem; background: var(--surface2); border-left: 2px solid var(--accent); }
+  .review-reply-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; }
+  .review-reply-logo { width: 2rem; height: 2rem; object-fit: contain; flex-shrink: 0; border-radius: 3px; }
+  .review-reply-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); }
+  .review-reply-text { font-size: 0.92rem; color: var(--muted); line-height: 1.7; }
 
   /* TOAST */
   .cart-toast {
@@ -1415,25 +1420,86 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
+/* ── Timestamp helper ──
+   Reviews may have their date stored under either "timestamp" or "timeStamp",
+   and as either a Firestore Timestamp object or a plain string in the
+   Firestore-console export format, e.g. "Apr 1, 2019 at 2:43:00 PM UTC-8"
+   (month may be abbreviated or spelled out). Native Date parsing chokes on
+   the "at" and the bare "UTC-8" offset, so this parses it manually. */
+const MONTH_MAP = {
+  jan: 0, january: 0, feb: 1, february: 1, mar: 2, march: 2,
+  apr: 3, april: 3, may: 4, jun: 5, june: 5, jul: 6, july: 6,
+  aug: 7, august: 7, sep: 8, sept: 8, september: 8,
+  oct: 9, october: 9, nov: 10, november: 10, dec: 11, december: 11
+};
+
+const FIRESTORE_STRING_RE =
+  /^([A-Za-z]+)\.?\s+(\d{1,2}),?\s*(\d{4}),?\s+(?:at\s+)?(\d{1,2}):(\d{2}):(\d{2})\s*(AM|PM)\s+UTC([+-]\d+(?::?\d{2})?)$/i;
+
+function parseFirestoreTimestampString(str) {
+  const m = FIRESTORE_STRING_RE.exec(str.trim());
+  if (!m) return NaN;
+
+  const [, monthName, day, year, hourStr, minute, second, meridiem, offsetStr] = m;
+  const monthIndex = MONTH_MAP[monthName.toLowerCase()];
+  if (monthIndex === undefined) return NaN;
+
+  let hour = parseInt(hourStr, 10) % 12;
+  if (meridiem.toUpperCase() === "PM") hour += 12;
+
+  // Offset like "-8" or "-08:00" -> hours (with fractional minutes if present)
+  const offsetMatch = /^([+-]\d+)(?::?(\d{2}))?$/.exec(offsetStr);
+  let offsetHours = parseInt(offsetMatch[1], 10);
+  if (offsetMatch[2]) {
+    const offsetMinutes = parseInt(offsetMatch[2], 10) / 60;
+    offsetHours += offsetHours < 0 ? -offsetMinutes : offsetMinutes;
+  }
+
+  // Wall-clock time was recorded at UTC+offsetHours, so true UTC instant
+  // is the wall-clock value minus that offset.
+  const wallClockUtcMs = Date.UTC(
+    parseInt(year, 10), monthIndex, parseInt(day, 10),
+    hour, parseInt(minute, 10), parseInt(second, 10)
+  );
+  return wallClockUtcMs - offsetHours * 3600000;
+}
+
+function getReviewTimeMs(r) {
+  const val = r.timestamp ?? r.timeStamp ?? r.TimeStamp;
+  if (!val) return 0;
+
+  if (typeof val.toMillis === "function") return val.toMillis(); // Firestore Timestamp object
+
+  if (typeof val === "string") {
+    const parsed = parseFirestoreTimestampString(val);
+    if (!isNaN(parsed)) return parsed;
+  }
+
+  const fallback = new Date(val).getTime(); // last-resort generic parse
+  return isNaN(fallback) ? 0 : fallback;
+}
+
 /* ── Load URSIX reviews ── */
 async function loadURSIXReviews() {
   const container = document.getElementById('reviewsContainer');
   try {
     const q    = query(
       collection(db, "ursus-reviews"),
-      where("productType",    "==", "URSIX"),
       where("reviewApproval", "==", true)
     );
     const snap = await getDocs(q);
-    if (snap.empty) {
+
+    // URSIX only (loose match), newest first
+    const reviews = snap.docs
+      .map(d => d.data())
+      .filter(r => (r.productType || '').toLowerCase().includes('ursix'))
+      .sort((a, b) => getReviewTimeMs(b) - getReviewTimeMs(a));
+
+    if (reviews.length === 0) {
       container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
       return;
     }
-    const reviews = snap.docs.map(d => d.data()).sort((a, b) => {
-      const ta = a.timestamp?.toMillis?.() ?? 0;
-      const tb = b.timestamp?.toMillis?.() ?? 0;
-      return tb - ta;
-    });
+
     container.innerHTML = '';
     reviews.forEach(r => {
       const stars = '★'.repeat(r.starRating || 0) + '☆'.repeat(5 - (r.starRating || 0));
@@ -1446,6 +1512,18 @@ async function loadURSIXReviews() {
         if (r.img2_url) imgHtml += `<img src="${r.img2_url}" class="review-img" onclick="openReviewImage('${r.img2_url}')" alt="Review photo">`;
         imgHtml += '</div>';
       }
+      let replyHtml = '';
+      if (r.ursusReply) {
+        replyHtml = `
+          <div class="review-reply">
+            <div class="review-reply-header">
+              <img src="/ursusarmament/images/ursusLogoBlackAndOrange.png" class="review-reply-logo" alt="Ursus Works">
+              <span class="review-reply-name">Ursus Works</span>
+            </div>
+            <div class="review-reply-text">${r.ursusReply}</div>
+          </div>
+        `;
+      }
       div.innerHTML = `
         <div class="review-content">
           <div class="review-header">
@@ -1454,6 +1532,7 @@ async function loadURSIXReviews() {
           </div>
           <div class="review-meta">${r.productType || 'URSIX'} &nbsp;·&nbsp; ${r.feedbackType || ''}</div>
           <div class="review-text">${r.reviewText || ''}</div>
+          ${replyHtml}
         </div>
         ${imgHtml}
       `;
