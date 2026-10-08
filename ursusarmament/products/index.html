@@ -1042,6 +1042,7 @@ const PRODUCTS = [
     bgLabel: 'CL-DS',
     desc: 'Compact LWIR monocular built for reliable vision in total darkness, smoke, and obscurants.',
     status: 'unavailable',
+    statusId: 'calidus-status',
     displayCat: 'Thermal Monocular',
   },
   {
@@ -1230,6 +1231,10 @@ function sortForDisplay(products) {
     if (b.id === 'ursix' && a.id !== 'ursix') return 1;
     if (a.id === 'nexis' && b.id !== 'nexis') return -1;
     if (b.id === 'nexis' && a.id !== 'nexis') return 1;
+    if (a.id === 'calidus' && b.id !== 'calidus') return -1;
+    if (b.id === 'calidus' && a.id !== 'calidus') return 1;
+    if (a.id === 'rots' && b.id !== 'rots') return -1;
+    if (b.id === 'rots' && a.id !== 'rots') return 1;
     const aUntracked = a.status === 'unavailable' && !a.statusId;
     const bUntracked = b.status === 'unavailable' && !b.statusId;
     if (aUntracked && !bUntracked) return 1;
@@ -1661,6 +1666,18 @@ async function applyAvailability() {
       nexisEl.style.alignItems = 'center';
       nexisEl.style.gap = '0.4rem';
       nexisEl.classList.add('no-dot');
+    }
+
+    const calidusEl = document.getElementById("calidus-status");
+    if (calidusEl) {
+      calidusEl.innerHTML = `
+        <span style="width:5px;height:5px;border-radius:50%;background:var(--accent);flex-shrink:0;display:inline-block;"></span>
+        <span style="color:var(--accent);">Limited Field Testing Program</span>
+      `;
+      calidusEl.style.display = 'flex';
+      calidusEl.style.alignItems = 'center';
+      calidusEl.style.gap = '0.4rem';
+      calidusEl.classList.add('no-dot');
     }
 
     const mum14El = document.getElementById("mum14-status");
