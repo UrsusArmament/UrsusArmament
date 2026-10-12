@@ -621,6 +621,7 @@
   .nav-ribbon a.active { box-shadow: inset 3px 0 0 var(--accent); }
 }
   .review-stars-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .review-product { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); opacity: 0.8; }
   .review-tags { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.4rem; }
   .badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.15rem 0.6rem; border: 1px solid var(--border2); color: var(--muted); }
   .badge-purchase { border-color: rgba(200,146,42,0.55); color: var(--accent); background: rgba(200,146,42,0.07); }
@@ -2186,6 +2187,7 @@ async function loadProductReviews() {
               ${dateStr ? `<div class="review-date">${esc(dateStr)}</div>` : ''}
             </div>
           </div>
+          ${r.productType ? `<div class="review-product">${esc(r.productType)}</div>` : ''}
           ${typeHtml ? `<div class="review-tags">${typeHtml}</div>` : ''}
           <div class="review-text">${esc(r.reviewText || '')}</div>
           ${replyHtml}
