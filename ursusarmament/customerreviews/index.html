@@ -128,6 +128,79 @@
     line-height: 1.8; font-weight: 300;
   }
 
+  /* RATING SUMMARY */
+  .rating-summary {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    padding: 2.5rem 3rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+  }
+
+  .rs-left {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0.35rem; flex-shrink: 0; min-width: 190px; text-align: center;
+  }
+
+  .rs-scope {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .rs-avg {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem; line-height: 1;
+    letter-spacing: 0.03em; color: var(--text);
+  }
+
+  .stars-frac {
+    position: relative; display: inline-block;
+    font-size: 1.5rem; letter-spacing: 0.1em; line-height: 1;
+    color: var(--surface2);
+    -webkit-text-stroke: 1px rgba(200,146,42,0.45);
+  }
+  .stars-frac .stars-fill {
+    position: absolute; top: 0; left: 0;
+    overflow: hidden; white-space: nowrap;
+    color: var(--accent);
+    -webkit-text-stroke: 0;
+  }
+
+  .rs-count {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .rs-bars { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; max-width: 520px; }
+
+  .rs-row { display: flex; align-items: center; gap: 0.8rem; }
+
+  .rs-row-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem; font-weight: 700;
+    letter-spacing: 0.1em; color: var(--muted);
+    width: 2.2rem; flex-shrink: 0; text-align: right;
+  }
+
+  .rs-track { flex: 1; height: 10px; background: var(--surface2); border: 1px solid var(--border); }
+  .rs-fill { height: 100%; background: var(--accent); width: 0; transition: width 0.4s ease; }
+
+  .rs-row-count {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem; font-weight: 600;
+    color: var(--muted); width: 2.2rem; flex-shrink: 0;
+  }
+
+  .rs-empty {
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.15em; color: var(--muted);
+  }
+
   /* FILTER BAR */
   .filter-bar {
     display: flex; align-items: center; gap: 0.5rem;
@@ -156,6 +229,18 @@
   }
   .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
   .filter-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(200,146,42,0.08); }
+
+  .sort-wrap { margin-left: auto; display: flex; align-items: center; gap: 0.5rem; }
+  .sort-select {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 0.4rem 0.8rem;
+    background: var(--surface); color: var(--text);
+    border: 1px solid var(--border2);
+    cursor: pointer;
+  }
+  .sort-select:hover, .sort-select:focus { border-color: var(--accent); outline: none; }
 
   /* REVIEWS */
   .reviews-section { padding: 4rem 3rem 6rem; max-width: 100%; }
@@ -201,7 +286,16 @@
     color: var(--text);
   }
 
+  .review-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem 1.2rem; }
+
   .review-stars { font-size: 1.2rem; letter-spacing: 0.1em; color: var(--accent); }
+
+  .review-date {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted);
+  }
 
   .review-product {
     font-family: 'Barlow Condensed', sans-serif;
@@ -210,18 +304,27 @@
     color: var(--accent); opacity: 0.8;
   }
 
-  .review-type {
+  .review-tags { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+
+  .badge {
+    display: inline-block;
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.72rem; font-weight: 700;
+    font-size: 0.7rem; font-weight: 700;
     letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 0.15rem 0.6rem;
+    border: 1px solid var(--border2);
     color: var(--muted);
   }
+  .badge-purchase { border-color: rgba(200,146,42,0.55); color: var(--accent); background: rgba(200,146,42,0.07); }
+  .badge-field { border-color: rgba(232,228,217,0.3); color: var(--text); background: rgba(232,228,217,0.04); }
 
   .review-text {
     font-size: 1rem;
     color: var(--muted);
     line-height: 1.8;
     margin-top: 0.25rem;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
   }
 
   .review-reply {
@@ -260,6 +363,8 @@
     font-size: 0.92rem;
     color: var(--muted);
     line-height: 1.7;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
   }
 
   .review-images {
@@ -421,6 +526,15 @@ footer {
   footer { padding: 3rem 1.5rem 2rem; }
   .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
 }
+
+@media (max-width: 760px) {
+  .rating-summary { flex-direction: column; align-items: stretch; gap: 1.75rem; padding: 2rem 1.5rem; }
+  .rs-left { min-width: 0; }
+  .rs-bars { max-width: 100%; }
+  .filter-bar { padding: 1.25rem 1.5rem; }
+  .sort-wrap { margin-left: 0; width: 100%; margin-top: 0.5rem; }
+  .reviews-section { padding: 2.5rem 1.5rem 4rem; }
+}
 </style>
 </head>
 <body>
@@ -462,14 +576,28 @@ footer {
   <button class="review-cta-btn" onclick="openReviewModal()">Leave a Product Review</button>
 </div>
 
+<!-- RATING SUMMARY -->
+<section class="rating-summary" id="ratingSummary" aria-live="polite">
+  <div class="rs-empty">Loading ratings...</div>
+</section>
+
 <!-- FILTER BAR -->
 <div class="filter-bar">
   <span class="filter-label">Filter:</span>
-  <button class="filter-btn active" onclick="setFilter('ALL', this)">All</button>
-  <button class="filter-btn" onclick="setFilter('URSIX', this)">URSIX</button>
-  <button class="filter-btn" onclick="setFilter('ROTS', this)">R.O.T.S.</button>
-  <button class="filter-btn" onclick="setFilter('CALIDUS', this)">CALIDUS</button>
-  <button class="filter-btn" onclick="setFilter('NEXIS', this)">NEXIS</button>
+  <button class="filter-btn active" data-product="ALL" data-label="All">All</button>
+  <button class="filter-btn" data-product="URSIX" data-label="URSIX">URSIX</button>
+  <button class="filter-btn" data-product="ROTS" data-label="R.O.T.S.">R.O.T.S.</button>
+  <button class="filter-btn" data-product="CALIDUS" data-label="CALIDUS">CALIDUS</button>
+  <button class="filter-btn" data-product="NEXIS" data-label="NEXIS">NEXIS</button>
+  <div class="sort-wrap">
+    <label class="filter-label" for="sortSelect" style="margin-right:0;">Sort:</label>
+    <select id="sortSelect" class="sort-select">
+      <option value="newest">Newest</option>
+      <option value="oldest">Oldest</option>
+      <option value="highest">Highest Rated</option>
+      <option value="lowest">Lowest Rated</option>
+    </select>
+  </div>
 </div>
 
 <!-- REVIEWS -->
@@ -578,7 +706,7 @@ footer {
       <ul>
         <li><a href="/ursusarmament/contact/">Contact</a></li>
         <li><a href="/ursusarmament/warranty/">Warranty</a></li>
-        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>   
+        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>
         <li><a href="/ursusarmament/learnmore/">Learn More</a></li>
       </ul>
     </div>
@@ -607,7 +735,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 </script>
- 
+
 <!-- FIREBASE + REVIEWS + SUBMIT -->
 <script type="module">
 import { initializeApp }   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
@@ -632,11 +760,27 @@ const auth    = getAuth(app);
 const db      = getFirestore(app);
 const storage = getStorage(app);
 
+/* ── HTML escaping (all review/user-supplied text goes through this) ── */
+function esc(value) {
+  return String(value ?? '').replace(/[&<>"']/g, c => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
+
+/* Only allow http(s) URLs for images; anything else is dropped */
+function safeUrl(u) {
+  if (!u || typeof u !== 'string') return '';
+  try {
+    const parsed = new URL(u, window.location.origin);
+    return (parsed.protocol === 'https:' || parsed.protocol === 'http:') ? parsed.href : '';
+  } catch { return ''; }
+}
+
 /* ── Nav auth ── */
 onAuthStateChanged(auth, (user) => {
   const navAuth = document.getElementById("navAuth");
   if (user) {
-    const emailPrefix = user.email.split("@")[0];
+    const emailPrefix = esc(user.email.split("@")[0]);
     navAuth.innerHTML = `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
   } else {
     navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
@@ -702,10 +846,30 @@ function getReviewTimeMs(r) {
   return isNaN(fallback) ? 0 : fallback;
 }
 
-/* ── All approved reviews ── */
+/* Display date, e.g. "Apr 1, 2019". Returns '' if there is no usable date
+   (ms of 0 means missing/unparseable), so we never show "Jan 1, 1970". */
+function formatReviewDate(ms) {
+  if (!ms || ms < 946684800000) return ''; // before 2000-01-01 = treat as missing
+  return new Date(ms).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+/* ── State ── */
 let _allReviews = [];
 let _activeFilter = 'ALL';
+let _activeSort = 'newest';
 
+const PRODUCT_LABELS = { ALL: 'All Products', URSIX: 'URSIX', ROTS: 'R.O.T.S.', CALIDUS: 'CALIDUS', NEXIS: 'NEXIS' };
+
+function matchesProduct(r, key) {
+  return key === 'ALL' || (r.productType || '').toLowerCase().includes(key.toLowerCase());
+}
+
+function cleanRating(r) {
+  const n = Math.round(Number(r.starRating));
+  return (n >= 1 && n <= 5) ? n : 0;
+}
+
+/* ── Load all approved reviews ── */
 async function loadAllReviews() {
   const container = document.getElementById("reviewsContainer");
   try {
@@ -715,45 +879,130 @@ async function loadAllReviews() {
     );
     const snap = await getDocs(q);
 
-    if (snap.empty) {
-      container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
-      return;
-    }
-
-    // Sort newest first client-side
-    _allReviews = snap.docs.map(d => d.data()).sort((a, b) => {
-      return getReviewTimeMs(b) - getReviewTimeMs(a);
+    // Precompute time once per review
+    _allReviews = snap.docs.map(d => {
+      const data = d.data();
+      data._timeMs = getReviewTimeMs(data);
+      return data;
     });
 
+    updateFilterCounts();
     renderReviews();
 
   } catch (err) {
     console.error("Reviews load error:", err);
+    document.getElementById("ratingSummary").innerHTML = '';
     container.innerHTML = '<div class="reviews-empty">Could not load reviews. Please try again.</div>';
   }
 }
 
+/* ── Filter button counts ── */
+function updateFilterCounts() {
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    const key = btn.dataset.product;
+    const n = _allReviews.filter(r => matchesProduct(r, key)).length;
+    btn.textContent = `${btn.dataset.label} (${n})`;
+  });
+}
+
+/* ── Sorting ── */
+function sortReviews(list) {
+  const byTimeDesc = (a, b) => b._timeMs - a._timeMs;
+  const copy = list.slice();
+  switch (_activeSort) {
+    case 'oldest':
+      // reviews with no date sink to the bottom
+      return copy.sort((a, b) => (a._timeMs || Infinity) - (b._timeMs || Infinity));
+    case 'highest':
+      return copy.sort((a, b) => cleanRating(b) - cleanRating(a) || byTimeDesc(a, b));
+    case 'lowest':
+      return copy.sort((a, b) => {
+        const ra = cleanRating(a) || 6, rb = cleanRating(b) || 6; // unrated last
+        return ra - rb || byTimeDesc(a, b);
+      });
+    case 'newest':
+    default:
+      return copy.sort(byTimeDesc);
+  }
+}
+
+/* ── Rating summary ── */
+function renderSummary(filtered) {
+  const el = document.getElementById("ratingSummary");
+  const scope = PRODUCT_LABELS[_activeFilter] || _activeFilter;
+  const rated = filtered.map(cleanRating).filter(n => n > 0);
+
+  if (rated.length === 0) {
+    el.innerHTML = `<div class="rs-left" style="min-width:0;"><div class="rs-scope">${esc(scope)}</div><div class="rs-empty">No ratings yet</div></div>`;
+    return;
+  }
+
+  const total = rated.length;
+  const avg   = rated.reduce((s, n) => s + n, 0) / total;
+  const dist  = [0, 0, 0, 0, 0, 0];
+  rated.forEach(n => dist[n]++);
+
+  const pct = Math.max(0, Math.min(100, (avg / 5) * 100));
+
+  let rows = '';
+  for (let s = 5; s >= 1; s--) {
+    const w = (dist[s] / total) * 100;
+    rows += `
+      <div class="rs-row">
+        <span class="rs-row-label">${s} ★</span>
+        <div class="rs-track"><div class="rs-fill" style="width:${w.toFixed(1)}%"></div></div>
+        <span class="rs-row-count">${dist[s]}</span>
+      </div>`;
+  }
+
+  el.innerHTML = `
+    <div class="rs-left">
+      <div class="rs-scope">${esc(scope)}</div>
+      <div class="rs-avg">${avg.toFixed(1)}</div>
+      <div class="stars-frac" aria-label="${avg.toFixed(1)} out of 5 stars">
+        ★★★★★<span class="stars-fill" style="width:${pct.toFixed(1)}%">★★★★★</span>
+      </div>
+      <div class="rs-count">Based on ${total} review${total === 1 ? '' : 's'}</div>
+    </div>
+    <div class="rs-bars">${rows}</div>
+  `;
+}
+
+/* ── Render ── */
 function renderReviews() {
   const container = document.getElementById("reviewsContainer");
-  const filtered = _activeFilter === 'ALL'
-    ? _allReviews
-    : _allReviews.filter(r => (r.productType || '').toLowerCase().includes(_activeFilter.toLowerCase()));
+  const filtered  = _allReviews.filter(r => matchesProduct(r, _activeFilter));
+
+  renderSummary(filtered);
+
+  if (_allReviews.length === 0) {
+    container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
+    return;
+  }
 
   if (filtered.length === 0) {
     container.innerHTML = '<div class="reviews-empty">No reviews found for this product.</div>';
     return;
   }
 
+  const sorted = sortReviews(filtered);
   container.innerHTML = '';
-  filtered.forEach(r => {
-    const stars = '★'.repeat(r.starRating || 0) + '☆'.repeat(5 - (r.starRating || 0));
+
+  sorted.forEach(r => {
+    const rating = cleanRating(r);
+    const stars  = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+    const dateStr = formatReviewDate(r._timeMs);
+
     let imgHtml = '';
-    if (r.img1_url || r.img2_url) {
+    const img1 = safeUrl(r.img1_url);
+    const img2 = safeUrl(r.img2_url);
+    if (img1 || img2) {
       imgHtml = '<div class="review-images">';
-      if (r.img1_url) imgHtml += `<img src="${r.img1_url}" class="review-img" onclick="openReviewImage('${r.img1_url}')" alt="Review photo">`;
-      if (r.img2_url) imgHtml += `<img src="${r.img2_url}" class="review-img" onclick="openReviewImage('${r.img2_url}')" alt="Review photo">`;
+      if (img1) imgHtml += `<img src="${esc(img1)}" data-full="${esc(img1)}" class="review-img" alt="Review photo">`;
+      if (img2) imgHtml += `<img src="${esc(img2)}" data-full="${esc(img2)}" class="review-img" alt="Review photo">`;
       imgHtml += '</div>';
     }
+
     let replyHtml = '';
     if (r.ursusReply) {
       replyHtml = `
@@ -762,22 +1011,34 @@ function renderReviews() {
             <img src="/ursusarmament/images/ursusLogoBlackAndOrange.png" class="review-reply-logo" alt="Ursus Works">
             <span class="review-reply-name">Ursus Works</span>
           </div>
-          <div class="review-reply-text">${r.ursusReply}</div>
+          <div class="review-reply-text">${esc(r.ursusReply)}</div>
         </div>
       `;
     }
+
+    let typeHtml = '';
+    if (r.feedbackType) {
+      const t = String(r.feedbackType).toLowerCase();
+      const cls = t.includes('purchase') ? 'badge-purchase' : (t.includes('field') ? 'badge-field' : '');
+      typeHtml = `<span class="badge ${cls}">${esc(r.feedbackType)}</span>`;
+    }
+
+    const stateStr = r.state ? ` (${esc(r.state)})` : '';
 
     const div = document.createElement('div');
     div.className = 'review-card';
     div.innerHTML = `
       <div class="review-content">
         <div class="review-header">
-          <div class="review-name">${r.firstName || '—'} (${r.state || ''})</div>
-          <div class="review-stars">${stars}</div>
+          <div class="review-name">${esc(r.firstName || '—')}${stateStr}</div>
+          <div class="review-meta">
+            <div class="review-stars">${stars}</div>
+            ${dateStr ? `<div class="review-date">${esc(dateStr)}</div>` : ''}
+          </div>
         </div>
-        <div class="review-product">${r.productType || ''}</div>
-        <div class="review-type">${r.feedbackType || ''}</div>
-        <div class="review-text">${r.reviewText || ''}</div>
+        <div class="review-product">${esc(r.productType || '')}</div>
+        <div class="review-tags">${typeHtml}</div>
+        <div class="review-text">${esc(r.reviewText || '')}</div>
         ${replyHtml}
       </div>
       ${imgHtml}
@@ -786,22 +1047,37 @@ function renderReviews() {
   });
 }
 
-/* ── Filter ── */
-window.setFilter = function(product, btn) {
-  _activeFilter = product;
-  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  renderReviews();
-};
+/* ── Filter + sort events ── */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    _activeFilter = btn.dataset.product;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderReviews();
+  });
+});
 
-/* ── Image lightbox ── */
-window.openReviewImage = function(url) {
-  const lb = document.createElement("div");
+document.getElementById('sortSelect').addEventListener('change', e => {
+  _activeSort = e.target.value;
+  renderReviews();
+});
+
+/* ── Image lightbox (delegated; no inline handlers) ── */
+function openReviewImage(url) {
+  const lb  = document.createElement("div");
   lb.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:999999;display:flex;align-items:center;justify-content:center;cursor:pointer;";
-  lb.innerHTML = `<img src="${url}" style="max-width:90vw;max-height:90vh;object-fit:contain;">`;
+  const img = document.createElement("img");
+  img.src = url;
+  img.style.cssText = "max-width:90vw;max-height:90vh;object-fit:contain;";
+  lb.appendChild(img);
   lb.onclick = () => document.body.removeChild(lb);
   document.body.appendChild(lb);
-};
+}
+
+document.getElementById('reviewsContainer').addEventListener('click', e => {
+  const img = e.target.closest('.review-img');
+  if (img && img.dataset.full) openReviewImage(img.dataset.full);
+});
 
 /* ── Upload helper ── */
 function uploadReviewImage(file, path) {
