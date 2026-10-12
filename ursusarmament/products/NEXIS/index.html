@@ -570,6 +570,86 @@
 .nav-cart-btn:hover svg { stroke: var(--accent); }
 .cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
 .cart-count.visible { display: flex; }
+.nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
+
+.nav-burger {
+  display: none;
+  position: relative;
+  width: 38px; height: 38px;
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--border2);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.nav-burger:hover, .nav-burger:focus-visible { border-color: var(--accent); background: rgba(200,146,42,0.06); outline: none; }
+.nav-burger span {
+  position: absolute; left: 9px; right: 9px; height: 2px;
+  background: var(--text);
+  transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease, background 0.2s;
+}
+.nav-burger span:nth-child(1) { top: 11px; }
+.nav-burger span:nth-child(2) { top: 17px; }
+.nav-burger span:nth-child(3) { top: 23px; }
+.nav-burger:hover span { background: var(--accent); }
+.nav-burger.open span:nth-child(1) { top: 17px; transform: rotate(45deg); }
+.nav-burger.open span:nth-child(2) { opacity: 0; }
+.nav-burger.open span:nth-child(3) { top: 17px; transform: rotate(-45deg); }
+
+@media (max-width: 760px) {
+  .nav-burger { display: block; }
+  .nav-ribbon {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    height: auto;
+    padding: 0;
+    max-height: calc(100vh - 62px);
+    overflow-y: auto;
+  }
+  .nav-ribbon.open { display: flex; }
+  .nav-ribbon a {
+    height: auto;
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-ribbon a:first-child { border-left: none; }
+  .nav-ribbon a:last-child { border-bottom: none; }
+  .nav-ribbon a.active { box-shadow: inset 3px 0 0 var(--accent); }
+}
+  .review-stars-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .review-tags { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.4rem; }
+  .badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.15rem 0.6rem; border: 1px solid var(--border2); color: var(--muted); }
+  .badge-purchase { border-color: rgba(200,146,42,0.55); color: var(--accent); background: rgba(200,146,42,0.07); }
+  .badge-field { border-color: rgba(232,228,217,0.3); color: var(--text); background: rgba(232,228,217,0.04); }
+  .review-date { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+
+/* ── Product page: rating summary ── */
+.rating-summary {
+  display: flex; align-items: center; gap: 4rem;
+  padding: 2.5rem 3rem; margin-bottom: 2px;
+  background: var(--surface); border: 1px solid var(--border);
+}
+.rs-left { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; flex-shrink: 0; min-width: 190px; text-align: center; }
+.rs-scope { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
+.rs-avg { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 1; letter-spacing: 0.03em; color: var(--text); }
+.stars-frac { position: relative; display: inline-block; font-size: 1.5rem; letter-spacing: 0.1em; line-height: 1; color: var(--surface2); -webkit-text-stroke: 1px rgba(200,146,42,0.45); }
+.stars-frac .stars-fill { position: absolute; top: 0; left: 0; overflow: hidden; white-space: nowrap; color: var(--accent); -webkit-text-stroke: 0; }
+.rs-count { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+.rs-bars { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; max-width: 520px; }
+.rs-row { display: flex; align-items: center; gap: 0.8rem; }
+.rs-row-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; color: var(--muted); width: 2.2rem; flex-shrink: 0; text-align: right; }
+.rs-track { flex: 1; height: 10px; background: var(--surface2); border: 1px solid var(--border); }
+.rs-fill { height: 100%; background: var(--accent); width: 0; transition: width 0.4s ease; }
+.rs-row-count { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--muted); width: 2.2rem; flex-shrink: 0; }
+@media (max-width: 760px) {
+  .rating-summary { flex-direction: column; align-items: stretch; gap: 1.75rem; padding: 2rem 1.5rem; }
+  .rs-left { min-width: 0; }
+  .rs-bars { max-width: 100%; }
+}
 </style>
 </head>
 <body>
@@ -590,12 +670,17 @@
       <span class="cart-count" id="cartCount"></span>
     </a>
     <div class="nav-auth" id="navAuth"></div>
+    <button type="button" class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="navRibbon">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </div>
-  <div class="nav-ribbon">
-    <a href="/ursusarmament/products" class="active">Products</a>
-    <a href="/ursusarmament#mission">Our Mission</a>
+  <div class="nav-ribbon" id="navRibbon">
+    <a href="/ursusarmament/products" class="active" aria-current="page">Products</a>
+    <a href="/ursusarmament/customerreviews">Reviews</a>
     <a href="/ursusarmament/learnmore/">Learn More</a>
+    <a href="/ursusarmament/aboutus/">About</a>
+    <a href="/ursusarmament/contact/">Contact</a>
   </div>
 </nav>
 
@@ -1073,9 +1158,10 @@
 </div>
 
 <!-- REVIEWS -->
-<section class="reviews-section">
+<section class="reviews-section" id="reviews">
   <div class="section-tag">Customer Feedback</div>
   <h2 class="section-title">REVIEWS</h2>
+  <div class="rating-summary" id="ratingSummary" aria-live="polite" style="display:none;"></div>
   <div class="reviews-container" id="reviewsContainer">
     <div class="reviews-empty">Loading reviews...</div>
   </div>
@@ -1961,8 +2047,77 @@ function getReviewTimeMs(r) {
   return isNaN(fallback) ? 0 : fallback;
 }
 
-/* ── Load NEXIS reviews ── */
-async function loadNEXISReviews() {
+/* Display date, e.g. "Apr 1, 2019". '' if missing/unparseable so we never show 1970. */
+function formatReviewDate(ms) {
+  if (!ms || ms < 946684800000) return '';
+  return new Date(ms).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+/* ── Reviews: product-scoped list + rating summary ──
+   To reuse on another product page, change these two values. */
+const REVIEW_PRODUCT_KEY   = 'nexis';   // matched loosely against each review's productType
+const REVIEW_PRODUCT_LABEL = 'NEXIS';
+
+/* HTML-escape anything user-supplied before it goes into innerHTML */
+function esc(value) {
+  return String(value ?? '').replace(/[&<>"']/g, c => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
+
+/* Only allow http(s) URLs for review photos */
+function safeUrl(u) {
+  if (!u || typeof u !== 'string') return '';
+  try {
+    const p = new URL(u, window.location.origin);
+    return (p.protocol === 'https:' || p.protocol === 'http:') ? p.href : '';
+  } catch { return ''; }
+}
+
+function cleanRating(r) {
+  const n = Math.round(Number(r.starRating));
+  return (n >= 1 && n <= 5) ? n : 0;
+}
+
+/* Average + 5-to-1 distribution, same look as the full Reviews page */
+function renderRatingSummary(reviews) {
+  const el = document.getElementById('ratingSummary');
+  if (!el) return;
+  const rated = reviews.map(cleanRating).filter(n => n > 0);
+  if (rated.length === 0) { el.style.display = 'none'; el.innerHTML = ''; return; }
+
+  const total = rated.length;
+  const avg   = rated.reduce((s, n) => s + n, 0) / total;
+  const dist  = [0, 0, 0, 0, 0, 0];
+  rated.forEach(n => dist[n]++);
+  const pct = Math.max(0, Math.min(100, (avg / 5) * 100));
+
+  let rows = '';
+  for (let s = 5; s >= 1; s--) {
+    const w = (dist[s] / total) * 100;
+    rows += `
+      <div class="rs-row">
+        <span class="rs-row-label">${s} ★</span>
+        <div class="rs-track"><div class="rs-fill" style="width:${w.toFixed(1)}%"></div></div>
+        <span class="rs-row-count">${dist[s]}</span>
+      </div>`;
+  }
+
+  el.innerHTML = `
+    <div class="rs-left">
+      <div class="rs-scope">${esc(REVIEW_PRODUCT_LABEL)}</div>
+      <div class="rs-avg">${avg.toFixed(1)}</div>
+      <div class="stars-frac" aria-label="${avg.toFixed(1)} out of 5 stars">
+        ★★★★★<span class="stars-fill" style="width:${pct.toFixed(1)}%">★★★★★</span>
+      </div>
+      <div class="rs-count">Based on ${total} review${total === 1 ? '' : 's'}</div>
+    </div>
+    <div class="rs-bars">${rows}</div>
+  `;
+  el.style.display = '';
+}
+
+async function loadProductReviews() {
   const container = document.getElementById('reviewsContainer');
   try {
     const q    = query(
@@ -1970,28 +2125,37 @@ async function loadNEXISReviews() {
       where("reviewApproval", "==", true)
     );
     const snap = await getDocs(q);
-    if (snap.empty) {
-      container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
-      return;
-    }
+
+    // This product only (loose match), newest first
     const reviews = snap.docs
       .map(d => d.data())
-      .filter(r => (r.productType || '').toLowerCase().includes('nexis'))
+      .filter(r => (r.productType || '').toLowerCase().includes(REVIEW_PRODUCT_KEY))
       .sort((a, b) => getReviewTimeMs(b) - getReviewTimeMs(a));
+
+    renderRatingSummary(reviews);
+
     if (reviews.length === 0) {
       container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
       return;
     }
+
     container.innerHTML = '';
     reviews.forEach(r => {
-      const stars = '★'.repeat(r.starRating || 0) + '☆'.repeat(5 - (r.starRating || 0));
+      const rating = cleanRating(r);
+      const stars  = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+      const div    = document.createElement('div');
+      div.className = 'review-card';
+
       let imgHtml = '';
-      if (r.img1_url || r.img2_url) {
+      const img1 = safeUrl(r.img1_url);
+      const img2 = safeUrl(r.img2_url);
+      if (img1 || img2) {
         imgHtml = '<div class="review-images">';
-        if (r.img1_url) imgHtml += `<img src="${r.img1_url}" class="review-img" onclick="openReviewImage('${r.img1_url}')" alt="Review photo">`;
-        if (r.img2_url) imgHtml += `<img src="${r.img2_url}" class="review-img" onclick="openReviewImage('${r.img2_url}')" alt="Review photo">`;
+        if (img1) imgHtml += `<img src="${esc(img1)}" data-full="${esc(img1)}" class="review-img" alt="Review photo">`;
+        if (img2) imgHtml += `<img src="${esc(img2)}" data-full="${esc(img2)}" class="review-img" alt="Review photo">`;
         imgHtml += '</div>';
       }
+
       let replyHtml = '';
       if (r.ursusReply) {
         replyHtml = `
@@ -2000,20 +2164,30 @@ async function loadNEXISReviews() {
               <img src="/ursusarmament/images/ursusLogoBlackAndOrange.png" class="review-reply-logo" alt="Ursus Works">
               <span class="review-reply-name">Ursus Works</span>
             </div>
-            <div class="review-reply-text">${r.ursusReply}</div>
+            <div class="review-reply-text">${esc(r.ursusReply)}</div>
           </div>
         `;
       }
-      const div = document.createElement('div');
-      div.className = 'review-card';
+
+      let typeHtml = '';
+      if (r.feedbackType) {
+        const t = String(r.feedbackType).toLowerCase();
+        const cls = t.includes('purchase') ? 'badge-purchase' : (t.includes('field') ? 'badge-field' : '');
+        typeHtml = `<span class="badge ${cls}">${esc(r.feedbackType)}</span>`;
+      }
+      const dateStr = formatReviewDate(getReviewTimeMs(r));
+      const stateStr = r.state ? ` (${esc(r.state)})` : '';
       div.innerHTML = `
         <div class="review-content">
           <div class="review-header">
-            <div class="review-name">${r.firstName || '—'} (${r.state || ''})</div>
-            <div class="review-stars">${stars}</div>
+            <div class="review-name">${esc(r.firstName || '—')}${stateStr}</div>
+            <div class="review-stars-row">
+              <div class="review-stars">${stars}</div>
+              ${dateStr ? `<div class="review-date">${esc(dateStr)}</div>` : ''}
+            </div>
           </div>
-          <div class="review-meta">${r.productType || 'NEXIS'} &nbsp;·&nbsp; ${r.feedbackType || ''}</div>
-          <div class="review-text">${r.reviewText || ''}</div>
+          ${typeHtml ? `<div class="review-tags">${typeHtml}</div>` : ''}
+          <div class="review-text">${esc(r.reviewText || '')}</div>
           ${replyHtml}
         </div>
         ${imgHtml}
@@ -2025,13 +2199,23 @@ async function loadNEXISReviews() {
     container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
   }
 }
-loadNEXISReviews();
+
+/* Photo lightbox via delegation (no inline handlers) */
+document.getElementById('reviewsContainer').addEventListener('click', e => {
+  const img = e.target.closest('.review-img');
+  if (img && img.dataset.full) window.openReviewImage(img.dataset.full);
+});
+
+loadProductReviews();
 
 /* ── Image lightbox ── */
 window.openReviewImage = function(url) {
   const lb = document.createElement("div");
   lb.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:999999;display:flex;align-items:center;justify-content:center;cursor:pointer;";
-  lb.innerHTML = `<img src="${url}" style="max-width:90vw;max-height:90vh;object-fit:contain;">`;
+  const lbImg = document.createElement("img");
+  lbImg.src = url;
+  lbImg.style.cssText = "max-width:90vw;max-height:90vh;object-fit:contain;";
+  lb.appendChild(lbImg);
   lb.onclick = () => document.body.removeChild(lb);
   document.body.appendChild(lb);
 };
@@ -2108,6 +2292,42 @@ function updateCartBadge() {
   } catch {}
 }
 updateCartBadge();
+</script>
+<script>
+/* ── Mobile hamburger menu ── */
+(function () {
+  const burger = document.getElementById('navBurger');
+  const ribbon = document.getElementById('navRibbon');
+  if (!burger || !ribbon) return;
+
+  function setOpen(open) {
+    burger.classList.toggle('open', open);
+    ribbon.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+
+  burger.addEventListener('click', e => {
+    e.stopPropagation();
+    setOpen(!ribbon.classList.contains('open'));
+  });
+
+  ribbon.addEventListener('click', e => {
+    if (e.target.closest('a')) setOpen(false);
+  });
+
+  document.addEventListener('click', e => {
+    if (ribbon.classList.contains('open') && !e.target.closest('nav')) setOpen(false);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && ribbon.classList.contains('open')) { setOpen(false); burger.focus(); }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 760) setOpen(false);
+  });
+})();
 </script>
 </body>
 </html>
