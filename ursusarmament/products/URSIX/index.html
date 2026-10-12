@@ -540,6 +540,12 @@
   .review-meta { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.12em; }
   .review-type { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
   .review-stars { font-size: 1.2rem; letter-spacing: 0.1em; color: var(--accent); }
+  .review-stars-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .review-tags { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.4rem; }
+  .badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.15rem 0.6rem; border: 1px solid var(--border2); color: var(--muted); }
+  .badge-purchase { border-color: rgba(200,146,42,0.55); color: var(--accent); background: rgba(200,146,42,0.07); }
+  .badge-field { border-color: rgba(232,228,217,0.3); color: var(--text); background: rgba(232,228,217,0.04); }
+  .review-date { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
   .review-meta { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-family: 'Barlow Condensed', sans-serif; }
   .review-text { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-top: 0.25rem; }
   .reviews-empty { padding: 2rem; text-align: center; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.15em; color: var(--muted); }
@@ -1544,6 +1550,12 @@ function parseFirestoreTimestampString(str) {
   return wallClockUtcMs - offsetHours * 3600000;
 }
 
+/* Display date, e.g. "Apr 1, 2019". '' if missing/unparseable so we never show 1970. */
+function formatReviewDate(ms) {
+  if (!ms || ms < 946684800000) return '';
+  return new Date(ms).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
 function getReviewTimeMs(r) {
   const val = r.timestamp ?? r.timeStamp ?? r.TimeStamp;
   if (!val) return 0;
@@ -1675,14 +1687,24 @@ async function loadProductReviews() {
         `;
       }
 
+      let typeHtml = '';
+      if (r.feedbackType) {
+        const t = String(r.feedbackType).toLowerCase();
+        const cls = t.includes('purchase') ? 'badge-purchase' : (t.includes('field') ? 'badge-field' : '');
+        typeHtml = `<span class="badge ${cls}">${esc(r.feedbackType)}</span>`;
+      }
+      const dateStr = formatReviewDate(getReviewTimeMs(r));
       const stateStr = r.state ? ` (${esc(r.state)})` : '';
       div.innerHTML = `
         <div class="review-content">
           <div class="review-header">
             <div class="review-name">${esc(r.firstName || '—')}${stateStr}</div>
-            <div class="review-stars">${stars}</div>
+            <div class="review-stars-row">
+              <div class="review-stars">${stars}</div>
+              ${dateStr ? `<div class="review-date">${esc(dateStr)}</div>` : ''}
+            </div>
           </div>
-          <div class="review-meta">${esc(r.productType || REVIEW_PRODUCT_LABEL)} &nbsp;·&nbsp; ${esc(r.feedbackType || '')}</div>
+          ${typeHtml ? `<div class="review-tags">${typeHtml}</div>` : ''}
           <div class="review-text">${esc(r.reviewText || '')}</div>
           ${replyHtml}
         </div>
