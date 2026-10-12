@@ -375,6 +375,56 @@
 .nav-cart-btn:hover svg { stroke: var(--accent); }
 .cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
 .cart-count.visible { display: flex; }
+.nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
+
+.nav-burger {
+  display: none;
+  position: relative;
+  width: 38px; height: 38px;
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--border2);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.nav-burger:hover, .nav-burger:focus-visible { border-color: var(--accent); background: rgba(200,146,42,0.06); outline: none; }
+.nav-burger span {
+  position: absolute; left: 9px; right: 9px; height: 2px;
+  background: var(--text);
+  transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease, background 0.2s;
+}
+.nav-burger span:nth-child(1) { top: 11px; }
+.nav-burger span:nth-child(2) { top: 17px; }
+.nav-burger span:nth-child(3) { top: 23px; }
+.nav-burger:hover span { background: var(--accent); }
+.nav-burger.open span:nth-child(1) { top: 17px; transform: rotate(45deg); }
+.nav-burger.open span:nth-child(2) { opacity: 0; }
+.nav-burger.open span:nth-child(3) { top: 17px; transform: rotate(-45deg); }
+
+@media (max-width: 760px) {
+  .nav-burger { display: block; }
+  .nav-ribbon {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    height: auto;
+    padding: 0;
+    max-height: calc(100vh - 62px);
+    overflow-y: auto;
+  }
+  .nav-ribbon.open { display: flex; }
+  .nav-ribbon a {
+    height: auto;
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-ribbon a:first-child { border-left: none; }
+  .nav-ribbon a:last-child { border-bottom: none; }
+  .nav-ribbon a.active { box-shadow: inset 3px 0 0 var(--accent); }
+}
 </style>
 </head>
 <body>
@@ -394,12 +444,17 @@
       <span class="cart-count" id="cartCount"></span>
     </a>
     <div class="nav-auth" id="navAuth"></div>
+    <button type="button" class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="navRibbon">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </div>
-  <div class="nav-ribbon">
-    <a href="/ursusarmament/products" class="active">Products</a>
-    <a href="/ursusarmament#mission">Our Mission</a>
+  <div class="nav-ribbon" id="navRibbon">
+    <a href="/ursusarmament/products" class="active" aria-current="page">Products</a>
+    <a href="/ursusarmament/customerreviews">Reviews</a>
     <a href="/ursusarmament/learnmore/">Learn More</a>
+    <a href="/ursusarmament/aboutus/">About</a>
+    <a href="/ursusarmament/contact/">Contact</a>
   </div>
 </nav>
 
@@ -817,6 +872,42 @@ function updateCartBadge() {
   } catch {}
 }
 updateCartBadge();
+</script>
+<script>
+/* ── Mobile hamburger menu ── */
+(function () {
+  const burger = document.getElementById('navBurger');
+  const ribbon = document.getElementById('navRibbon');
+  if (!burger || !ribbon) return;
+
+  function setOpen(open) {
+    burger.classList.toggle('open', open);
+    ribbon.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+
+  burger.addEventListener('click', e => {
+    e.stopPropagation();
+    setOpen(!ribbon.classList.contains('open'));
+  });
+
+  ribbon.addEventListener('click', e => {
+    if (e.target.closest('a')) setOpen(false);
+  });
+
+  document.addEventListener('click', e => {
+    if (ribbon.classList.contains('open') && !e.target.closest('nav')) setOpen(false);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && ribbon.classList.contains('open')) { setOpen(false); burger.focus(); }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 760) setOpen(false);
+  });
+})();
 </script>
 </body>
 </html>
