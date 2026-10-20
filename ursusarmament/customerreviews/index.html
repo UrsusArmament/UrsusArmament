@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CALIDUS — Ursus Armament</title>
+<title>Reviews | Ursus Armament</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -20,8 +20,6 @@
     --muted: #8a8678;
     --accent: #c8922a;
     --accent2: #e8a830;
-    --green: #2a9c5c;
-    --red: #c0392b;
   }
 
   html { scroll-behavior: smooth; }
@@ -41,457 +39,405 @@
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
+
   .nav-top {
     display: flex; align-items: center; justify-content: space-between;
-    padding: 0.6rem 3rem; border-bottom: 1px solid var(--border);
+    padding: 0.6rem 3rem;
+    border-bottom: 1px solid var(--border);
   }
+
   .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
+
   .nav-logo {
-    font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
-    letter-spacing: 0.12em; color: var(--text); text-decoration: none; line-height: 1;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    text-decoration: none;
+    line-height: 1;
   }
   .nav-logo span { color: var(--accent); }
+
   .nav-slogan {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem;
-    font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
   }
+
   .nav-ribbon {
     display: flex; align-items: center; justify-content: center;
-    padding: 0 3rem; height: 38px; background: var(--surface);
+    padding: 0 3rem;
+    height: 38px;
+    background: var(--surface);
   }
+
   .nav-ribbon a {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem;
-    font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--muted); text-decoration: none; padding: 0 1.6rem; height: 100%;
-    display: flex; align-items: center; border-right: 1px solid var(--border);
-    transition: color 0.2s, background 0.2s;
-  }
-  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
-  .nav-ribbon a:hover, .nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
-
-  .nav-auth { display: flex; align-items: center; }
-  .nav-auth a, .nav-auth button {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700;
-    letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none;
-    color: var(--accent); background: transparent; border: 1px solid var(--accent);
-    padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s ease;
-  }
-  .nav-auth a:hover, .nav-auth button:hover { background: rgba(200,146,42,0.08); }
-
-  .breadcrumb {
-    padding: 1rem 3rem; background: var(--dark); border-bottom: 1px solid var(--border);
-    margin-top: 86px; display: flex; align-items: center; gap: 0.5rem;
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem;
-    letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
-  }
-  .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
-  .breadcrumb a:hover { color: var(--accent); }
-  .breadcrumb span { color: var(--accent); }
-
-  /* UNAVAILABLE BANNER */
-  .unavail-banner {
-    background: rgba(10,10,8,0.97);
-    border-bottom: 1px solid rgba(200,146,42,0.3);
-    padding: 0.75rem 3rem;
-    display: flex; align-items: center; justify-content: center; gap: 1.2rem;
-  }
-  .unavail-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--accent); opacity: 0.7;
-    animation: pulse 2s ease-in-out infinite; flex-shrink: 0;
-  }
-  @keyframes pulse { 0%,100%{opacity:0.4;transform:scale(1)} 50%{opacity:1;transform:scale(1.25)} }
-  .unavail-banner p { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
-  .unavail-banner.in-stock { border-bottom-color: rgba(42,156,92,0.35); }
-  .unavail-banner.in-stock p { color: var(--green); }
-  .unavail-banner.in-stock .unavail-dot { background: var(--green); }
-  .unavail-banner span { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; color: var(--muted); font-weight: 400; text-transform: uppercase; }
-
-  /* HERO */
-  .product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; background: var(--dark); }
-  .product-visual { position: relative; background: var(--surface); overflow: hidden; display: flex; flex-direction: column; align-items: stretch; }
-  .product-badge { position: absolute; top: 2rem; left: 2rem; background: var(--surface2); color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 0.85rem; z-index: 2; border: 1px solid rgba(200,146,42,0.35); }
-  .visual-main { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; min-height: 0; }
-  .visual-main::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(200,146,42,0.015) 30px, rgba(200,146,42,0.015) 31px); pointer-events: none; }
-  .visual-watermark { position: absolute; font-family: 'Bebas Neue', sans-serif; font-size: 12rem; letter-spacing: 0.04em; color: rgba(255,255,255,0.022); user-select: none; pointer-events: none; white-space: nowrap; }
-  #calidus-main { width: 100%; height: 100%; object-fit: contain; position: relative; z-index: 1; }
-  .visual-thumb-bar { width: 100%; background: var(--dark); border-top: 1px solid var(--border); padding: 1rem; display: flex; gap: 0.75rem; justify-content: center; align-items: center; flex-wrap: wrap; }
-  .calidus-thumb { width: 80px; height: 80px; cursor: pointer; border: 1px solid #444; opacity: 0.6; box-sizing: border-box; flex-shrink: 0; overflow: hidden; transition: opacity 0.2s, border-color 0.2s; }
-  .calidus-thumb:hover { opacity: 1; }
-  .calidus-thumb.active { border: 2px solid #c8701a; opacity: 1; }
-  .calidus-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
-  .thumb-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); opacity: 0.5; align-self: center; white-space: nowrap; width: 100%; text-align: center; margin-top: 0.25rem; }
-
-  .product-info { padding: 4rem; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--border); }
-  .product-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
-  .product-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
-  .product-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 7vw, 6.5rem); line-height: 0.9; letter-spacing: 0.04em; margin-bottom: 0.4rem; color: var(--text); }
-  .product-tagline { font-family: 'Barlow Condensed', sans-serif; font-size: 1.15rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
-  .product-subtitle { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 2rem; }
-  .product-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; max-width: 480px; }
-  .product-price-row { display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
-  .unavail-price-block { display: flex; flex-direction: column; gap: 0.3rem; }
-  .unavail-price-tag { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.08em; color: var(--muted); }
-  .unavail-price-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.6; }
-  .unavail-pill { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(200,146,42,0.08); border: 1px solid rgba(200,146,42,0.25); padding: 0.5rem 1rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
-  .price-display { display: flex; align-items: baseline; gap: 1rem; min-height: 2.2rem; }
-  .price-original { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.08em; color: var(--muted); }
-  .price-original.struck { text-decoration: line-through; text-decoration-thickness: 2px; opacity: 0.5; }
-  .price-sale { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.08em; color: var(--muted); }
-  .product-actions { display: flex; gap: 1rem; margin-bottom: 2rem; align-items: center; flex-wrap: wrap; }
-  .btn-notify { background: transparent; color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: 1px solid var(--accent); cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s, color 0.2s; flex: 1; text-align: center; }
-  .btn-notify:hover { background: rgba(200,146,42,0.1); }
-  .stock-status { font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); min-width: 0; overflow-wrap: anywhere; }
-  @media (max-width: 600px) {
-    .stock-status { flex: 1 1 100%; }
-    .unavail-banner p { text-align: center; letter-spacing: 0.12em; }
-  }
-  .stock-status.reserve { color: var(--accent); }
-  .stock-status:empty { display: none; }
-  .btn-ghost { background: transparent; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; border: 1px solid var(--border2); cursor: pointer; text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s; }
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-  .product-trust { display: flex; gap: 2rem; }
-  .trust-item { display: flex; flex-direction: column; gap: 0.2rem; }
-  .trust-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
-  .trust-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text); }
-  .trust-value.tbd { color: var(--muted); font-style: italic; }
-
-  /* SHARED */
-  .section-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
-  .section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
-  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5vw, 4.2rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 3.5rem; }
-
-  /* SPECS */
-  .specs-section { background: var(--black); padding: 6rem 3rem; }
-  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-bottom: 2px; }
-  .spec-item { background: var(--dark); padding: 1.75rem 2rem; display: flex; justify-content: space-between; align-items: baseline; transition: background 0.2s; }
-  .spec-item:hover { background: var(--surface); }
-  .spec-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
-  .spec-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); }
-  .spec-value.tbd { color: var(--muted); font-style: italic; font-size: 0.88rem; }
-  .spec-note { margin-top: 2rem; padding: 1.25rem 1.75rem; background: var(--dark); border: 1px solid var(--border); border-left: 3px solid rgba(200,146,42,0.4); font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); line-height: 1.6; }
-
-  /* SERIAL LOOKUP */
-  .serial-section { background: var(--dark); padding: 6rem 3rem; position: relative; }
-  .serial-inner { max-width: 780px; }
-  .serial-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 560px; }
-  .serial-input-row { display: flex; margin-bottom: 2rem; }
-  .serial-input { flex: 1; background: var(--surface); border: 1px solid var(--border2); border-right: none; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.9rem 1.5rem; outline: none; transition: border-color 0.2s; }
-  .serial-input::placeholder { color: var(--muted); font-weight: 400; letter-spacing: 0.08em; text-transform: none; }
-  .serial-input:focus { border-color: var(--accent); }
-  .serial-btn { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.9rem 2rem; border: none; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
-  .serial-btn:hover { background: var(--accent2); }
-  .serial-result { display: none; }
-  .serial-result.visible { display: block; }
-  .serial-error { padding: 1.5rem 2rem; background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.3); border-left: 3px solid var(--red); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; letter-spacing: 0.08em; color: #e87060; }
-  .serial-card { background: var(--surface); border: 1px solid var(--border2); border-top: 3px solid var(--accent); }
-  .serial-card-header { padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); background: var(--surface2); }
-  .serial-card-id { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.06em; color: var(--accent); }
-  .serial-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 1rem; }
-  .serial-badge.pass { background: rgba(42,156,92,0.15); color: #4cbc7e; border: 1px solid rgba(42,156,92,0.3); }
-  .serial-badge.fail { background: rgba(192,57,43,0.15); color: #e87060; border: 1px solid rgba(192,57,43,0.3); }
-  .serial-card-body { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin: 2px; }
-  .serial-field { background: var(--dark); padding: 1.25rem 1.75rem; display: flex; flex-direction: column; gap: 0.3rem; }
-  .serial-field-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
-  .serial-field-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
-  .serial-field-value.highlight { color: var(--accent); }
-  .serial-card-notes { padding: 1.25rem 1.75rem; margin: 2px; margin-top: 0; background: var(--dark); border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.3rem; }
-  .serial-card-footer { padding: 1rem 2rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border-top: 1px solid var(--border); }
-
-  /* FEATURE LOCK */
-  .feature-lock-overlay { position: absolute; inset: 0; background: rgba(10,10,8,0.88); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 50; }
-  .feature-lock-overlay.active { display: flex; }
-  .feature-lock-box { text-align: center; padding: 2rem; max-width: 380px; }
-  .feature-lock-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.15em; color: var(--text); margin-bottom: 0.75rem; }
-  .feature-lock-text { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
-  .feature-lock-btn { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.6rem 1.5rem; text-decoration: none; transition: background 0.2s; }
-  .feature-lock-btn:hover { background: rgba(200,146,42,0.08); }
-
-  /* NIGHT VISION / THERMAL INFO BUTTON */
-  .nv-info-btn {
-    position: absolute;
-    top: 2rem;
-    right: 2rem;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    background: rgba(200,146,42,0.14);
-    border: 1px solid var(--accent);
-    color: var(--accent2);
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.78rem;
     font-weight: 700;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
-    padding: 0.55rem 1.1rem;
-    cursor: pointer;
-    overflow: hidden;
-    animation: nvPulse 2s ease-in-out infinite;
-    transition: background 0.2s, color 0.2s;
-  }
-  .nv-info-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 45%;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0 1.6rem;
     height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.45), transparent);
-    transform: translateX(-160%) skewX(-15deg);
-    animation: nvShimmer 2.6s ease-in-out infinite;
-    pointer-events: none;
+    display: flex; align-items: center;
+    border-right: 1px solid var(--border);
+    transition: color 0.2s, background 0.2s;
   }
-  .nv-info-btn:hover {
-    background: var(--accent);
-    color: var(--black);
-    animation-play-state: paused;
+  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
+  .nav-ribbon a:hover { color: var(--accent); background: rgba(200,146,42,0.06); }
+
+  .nav-auth { display: flex; align-items: center; }
+  .nav-auth a, .nav-auth button {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em;
+    text-transform: uppercase; text-decoration: none;
+    color: var(--accent); background: transparent;
+    border: 1px solid var(--accent); padding: 0.4rem 1rem;
+    cursor: pointer; transition: all 0.2s ease;
   }
-  .nv-info-arrow {
-    display: inline-block;
-    font-size: 0.95rem;
-    transition: transform 0.2s;
-  }
-  .nv-info-btn:hover .nv-info-arrow {
-    transform: translate(2px, -2px);
-  }
-  @keyframes nvPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(200,146,42,0.5); transform: scale(1); }
-    50%      { box-shadow: 0 0 0 10px rgba(200,146,42,0); transform: scale(1.045); }
-  }
-  @keyframes nvShimmer {
-    0%   { transform: translateX(-160%) skewX(-15deg); }
-    45%  { transform: translateX(260%) skewX(-15deg); }
-    100% { transform: translateX(260%) skewX(-15deg); }
+  .nav-auth a:hover, .nav-auth button:hover { background: rgba(200,146,42,0.08); }
+
+  /* HERO */
+  .hero {
+    padding: 10rem 3rem 4rem;
+    background: linear-gradient(to bottom, rgba(10,10,8,0.4), var(--black));
   }
 
-  /* NIGHT VISION / THERMAL INFO MODAL */
-  .nv-modal-overlay {
-    display: none;
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.8);
-    z-index: 99999;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem 0;
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 0.6rem;
   }
-  .nv-modal-overlay.open { display: flex; }
-  .nv-modal-box {
+  .section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+
+  h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 6rem);
+    letter-spacing: 0.05em; line-height: 1; margin-bottom: 1rem;
+  }
+
+  p.hero-desc {
+    color: var(--muted); max-width: 600px;
+    line-height: 1.8; font-weight: 300;
+  }
+
+  /* RATING SUMMARY */
+  .rating-summary {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    padding: 2.5rem 3rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+  }
+
+  .rs-left {
+    display: flex; flex-direction: column; align-items: center;
+    gap: 0.35rem; flex-shrink: 0; min-width: 190px; text-align: center;
+  }
+
+  .rs-scope {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .rs-avg {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem; line-height: 1;
+    letter-spacing: 0.03em; color: var(--text);
+  }
+
+  .stars-frac {
+    position: relative; display: inline-block;
+    font-size: 1.5rem; letter-spacing: 0.1em; line-height: 1;
+    color: var(--surface2);
+    -webkit-text-stroke: 1px rgba(200,146,42,0.45);
+  }
+  .stars-frac .stars-fill {
+    position: absolute; top: 0; left: 0;
+    overflow: hidden; white-space: nowrap;
+    color: var(--accent);
+    -webkit-text-stroke: 0;
+  }
+
+  .rs-count {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .rs-bars { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; max-width: 520px; }
+
+  .rs-row { display: flex; align-items: center; gap: 0.8rem; }
+
+  .rs-row-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem; font-weight: 700;
+    letter-spacing: 0.1em; color: var(--muted);
+    width: 2.2rem; flex-shrink: 0; text-align: right;
+  }
+
+  .rs-track { flex: 1; height: 10px; background: var(--surface2); border: 1px solid var(--border); }
+  .rs-fill { height: 100%; background: var(--accent); width: 0; transition: width 0.4s ease; }
+
+  .rs-row-count {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem; font-weight: 600;
+    color: var(--muted); width: 2.2rem; flex-shrink: 0;
+  }
+
+  .rs-empty {
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.15em; color: var(--muted);
+  }
+
+  /* FILTER BAR */
+  .filter-bar {
+    display: flex; align-items: center; gap: 0.5rem;
+    padding: 1.5rem 3rem;
     background: var(--dark);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .filter-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--muted); margin-right: 0.5rem;
+  }
+
+  .filter-btn {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 0.4rem 1rem;
     border: 1px solid var(--border2);
-    width: 92%;
-    max-width: 900px;
-    max-height: 85vh;
+    background: transparent; color: var(--muted);
+    cursor: pointer; transition: all 0.2s;
+  }
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(200,146,42,0.08); }
+
+  .sort-wrap { margin-left: auto; display: flex; align-items: center; gap: 0.5rem; }
+  .sort-select {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 0.4rem 0.8rem;
+    background: var(--surface); color: var(--text);
+    border: 1px solid var(--border2);
+    cursor: pointer;
+  }
+  .sort-select:hover, .sort-select:focus { border-color: var(--accent); outline: none; }
+
+  /* REVIEWS */
+  .reviews-section { padding: 4rem 3rem 6rem; max-width: 100%; }
+
+  .reviews-grid {
     display: flex;
     flex-direction: column;
-    position: relative;
+    gap: 2px;
+    background: var(--border);
   }
-  .nv-modal-close {
-    position: absolute;
-    top: 0.75rem;
-    right: 1rem;
-    background: none;
-    border: none;
-    color: var(--text);
-    font-size: 1.4rem;
-    cursor: pointer;
-    z-index: 2;
-  }
-  .nv-modal-header {
-    padding: 1.75rem 2.25rem 1.25rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .nv-modal-header h2 {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.9rem;
-    letter-spacing: 0.06em;
-    color: var(--text);
-  }
-  .nv-modal-body {
-    overflow-y: auto;
-    padding: 1.75rem 2.25rem 2.5rem;
-  }
-  .nv-tldr {
-    background: var(--surface);
-    border: 1px solid var(--border2);
-    border-left: 3px solid var(--accent);
-    padding: 1.5rem 1.75rem;
-    margin-bottom: 2rem;
-  }
-  .nv-tldr-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 0.75rem;
-  }
-  .nv-tldr ul { padding-left: 1.2rem; }
-  .nv-tldr li { color: var(--muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 0.75rem; }
-  .nv-tldr li strong { color: var(--text); }
 
-  .nv-jump-nav {
+  .review-card {
+    background: var(--surface);
+    padding: 2rem 2.5rem;
+    display: flex;
+    flex-direction: row;
+    gap: 2.5rem;
+    align-items: flex-start;
+    border-left: 3px solid transparent;
+    transition: background 0.2s, border-color 0.2s;
+    width: 100%;
+  }
+  .review-card:hover { background: var(--surface2); border-color: var(--accent); }
+
+  .review-content {
+    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
-    margin-bottom: 2.5rem;
+    min-width: 0;
   }
-  .nv-jump-nav a {
-    color: #5b9bd5;
-    text-decoration: underline;
-    font-size: 0.95rem;
-    cursor: pointer;
-    width: fit-content;
-  }
-  .nv-jump-nav a:hover { color: #7fb4e6; }
 
-  .nv-section { margin-bottom: 2.5rem; scroll-margin-top: 1rem; }
-  .nv-section h3 {
+  .review-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+  }
+
+  .review-name {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    color: var(--accent);
-    margin-bottom: 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .nv-section p, .nv-section li { color: var(--muted); font-size: 0.92rem; line-height: 1.75; }
-  .nv-section p { margin-bottom: 1rem; }
-  .nv-section ul, .nv-section ol { padding-left: 1.2rem; margin-top: 0.5rem; }
-  .nv-section li { margin-bottom: 0.9rem; }
-  .nv-section ol li { margin-bottom: 1rem; }
-  .nv-section li strong { color: var(--text); }
-
-  @media (max-width: 600px) {
-    .nv-modal-box { width: 96%; max-height: 90vh; }
-    .nv-modal-header, .nv-modal-body { padding-left: 1.25rem; padding-right: 1.25rem; }
-    .nv-info-btn { top: 1rem; right: 1rem; font-size: 0.68rem; padding: 0.45rem 0.85rem; }
+    font-size: 1.1rem; font-weight: 700;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--text);
   }
 
-  /* FEATURES */
-  .features-section { background: var(--dark); padding: 6rem 3rem; }
-  .features-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-  .features-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
-  .feature-item { background: var(--surface); padding: 2rem; position: relative; overflow: hidden; transition: background 0.2s; }
-  .feature-item:hover { background: var(--surface2); }
-  .feature-item::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
-  .feature-item:hover::before { opacity: 1; }
-  .feature-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(200,146,42,0.12); line-height: 1; position: absolute; top: 1rem; right: 1.5rem; }
-  .feature-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
-  .feature-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
-  .features-aside { position: sticky; top: 110px; }
-  .features-aside p { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
-  .cert-row { display: flex; gap: 1.5px; background: var(--border); margin-top: 2rem; }
-  .cert-item { flex: 1; background: var(--surface); padding: 1.25rem; text-align: center; }
-  .cert-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.3rem; }
-  .cert-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; color: var(--accent); }
-
-  /* NOTIFY */
-  .notify-section { background: var(--black); padding: 6rem 3rem; }
-  .notify-inner { max-width: 780px; }
-  .notify-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 560px; }
-  .notify-input-row { display: flex; margin-bottom: 1.5rem; }
-  .notify-input { flex: 1; background: var(--surface); border: 1px solid var(--border2); border-right: none; color: var(--text); font-family: 'Barlow', sans-serif; font-size: 0.95rem; padding: 0.9rem 1.5rem; outline: none; transition: border-color 0.2s; }
-  .notify-input::placeholder { color: var(--muted); }
-  .notify-input:focus { border-color: var(--accent); }
-  .notify-btn { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.9rem 2rem; border: none; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
-  .notify-btn:hover { background: var(--accent2); }
-  .notify-confirm { display: none; padding: 1.5rem 2rem; background: rgba(42,156,92,0.08); border: 1px solid rgba(42,156,92,0.3); border-left: 3px solid var(--green); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; letter-spacing: 0.08em; color: #4cbc7e; }
-  .notify-confirm.visible { display: block; }
-  .notify-caveat { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; color: var(--muted); opacity: 0.6; text-transform: uppercase; margin-top: 0.75rem; }
-  .timeline { margin-top: 3rem; }
-  .timeline-title { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
-  .timeline-steps { display: flex; gap: 2px; background: var(--border); }
-  .timeline-step { flex: 1; background: var(--dark); padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 0.4rem; position: relative; overflow: hidden; }
-  .timeline-step.done { background: var(--surface); }
-  .timeline-step.done::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--green); }
-  .timeline-step.current { background: var(--surface); }
-  .timeline-step.current::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); animation: shimmer 2s ease-in-out infinite; }
-  @keyframes shimmer { 0%,100%{opacity:0.5} 50%{opacity:1} }
-  .step-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
-  .step-label.done { color: var(--green); }
-  .step-label.current { color: var(--accent); }
-  .step-label.pending { color: var(--muted); opacity: 0.5; }
-  .step-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); }
-  .step-name.pending { color: var(--muted); opacity: 0.5; }
-
-  /* REVIEWS */
-  .reviews-section { background: var(--black); padding: 6rem 3rem; }
-  .reviews-container { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
-  .review-card { background: var(--surface); padding: 2rem 2.5rem; display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; border-left: 3px solid transparent; transition: background 0.2s, border-color 0.2s; width: 100%; }
-  .review-card:hover { background: var(--surface2); border-color: var(--accent); }
-  .review-content { flex: 1; display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
-  .review-header { display: flex; flex-direction: column; gap: 0.3rem; }
-  .review-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); }
-  .review-stars { font-size: 1.2rem; letter-spacing: 0.1em; color: var(--accent); }
   .review-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem 1.2rem; }
-  .review-product { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); opacity: 0.8; }
-  .review-tags { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.4rem; }
-  .badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.15rem 0.6rem; border: 1px solid var(--border2); color: var(--muted); }
+
+  .review-stars { font-size: 1.2rem; letter-spacing: 0.1em; color: var(--accent); }
+
+  .review-date {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem; font-weight: 600;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .review-product {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); opacity: 0.8;
+  }
+
+  .review-tags { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+
+  .badge {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.7rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    padding: 0.15rem 0.6rem;
+    border: 1px solid var(--border2);
+    color: var(--muted);
+  }
   .badge-purchase { border-color: rgba(200,146,42,0.55); color: var(--accent); background: rgba(200,146,42,0.07); }
   .badge-field { border-color: rgba(232,228,217,0.3); color: var(--text); background: rgba(232,228,217,0.04); }
-  .review-date { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
-  .review-meta { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-family: 'Barlow Condensed', sans-serif; }
-  .review-text { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-top: 0.25rem; white-space: pre-line; overflow-wrap: anywhere; }
-  .review-reply { margin-top: 1rem; margin-left: 1.5rem; padding: 1rem 1.25rem; background: var(--surface2); border-left: 2px solid var(--accent); }
-  .review-reply-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; }
-  .review-reply-logo { width: 2rem; height: 2rem; object-fit: contain; flex-shrink: 0; border-radius: 3px; }
-  .review-reply-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); }
-  .review-reply-text { font-size: 0.92rem; color: var(--muted); line-height: 1.7; white-space: pre-line; overflow-wrap: anywhere; }
-  .review-images { display: flex; flex-direction: column; gap: 0.5rem; flex-shrink: 0; width: 200px; }
-  .review-img { width: 200px; height: 150px; object-fit: cover; cursor: pointer; border: 1px solid var(--border2); transition: opacity 0.2s, border-color 0.2s; display: block; }
-  .review-img:hover { opacity: 0.85; border-color: var(--accent); }
-  .reviews-empty { padding: 2rem; text-align: center; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.15em; color: var(--muted); background: var(--surface); }
 
-  /* REVIEW CTA */
+  .review-text {
+    font-size: 1rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-top: 0.25rem;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+  }
+
+  .review-reply {
+    margin-top: 1rem;
+    margin-left: 1.5rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface2);
+    border-left: 2px solid var(--accent);
+  }
+
+  .review-reply-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .review-reply-logo {
+    width: 2rem;
+    height: 2rem;
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: 3px;
+  }
+
+  .review-reply-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .review-reply-text {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.7;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+  }
+
+  .review-images {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    width: 200px;
+  }
+
+  .review-img {
+    width: 200px;
+    height: 150px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 1px solid var(--border2);
+    transition: opacity 0.2s, border-color 0.2s;
+    display: block;
+  }
+  .review-img:hover { opacity: 0.85; border-color: var(--accent); }
+
+  /* Mobile: stack text on top, images below in a row */
+  @media (max-width: 600px) {
+    .review-card {
+      flex-direction: column;
+      gap: 1.25rem;
+      padding: 1.5rem;
+    }
+    .review-images {
+      flex-direction: row;
+      width: 100%;
+    }
+    .review-img {
+      width: calc(50% - 0.25rem);
+      height: 120px;
+    }
+  }
+
+  .reviews-empty {
+    padding: 4rem 2rem; text-align: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.15em; color: var(--muted);
+    background: var(--surface);
+  }
+
+  .reviews-loading {
+    padding: 4rem 2rem; text-align: center;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.15em; color: var(--muted);
+  }
+
+  /* LEAVE REVIEW CTA */
+  .review-cta {
+    display: flex; justify-content: center;
+    padding: 3rem;
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+  }
+
   .review-cta-btn {
-    background: var(--surface); color: var(--text); font-family: 'Barlow Condensed', sans-serif;
-    font-size: 1.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
-    padding: 1.5rem 3.5rem; border: 2px solid var(--border2); border-radius: 6px;
+    background: var(--surface); color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.4rem; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 1.2rem 3rem;
+    border: 2px solid var(--border2); border-radius: 4px;
     cursor: pointer; transition: all 0.2s ease;
   }
-  .review-cta-btn:hover { background: var(--surface2); border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
-
-  /* CTA BANNER */
-  .cta-banner { background: var(--surface); padding: 4rem 3rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-  .cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.06em; color: var(--text); line-height: 1; }
-  .cta-banner p { font-size: 1rem; color: var(--muted); margin-top: 0.5rem; }
-  .btn-primary { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: none; cursor: pointer; white-space: nowrap; text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.15s; }
-  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
-
-  footer { background: var(--dark); border-top: 1px solid var(--border); padding: 4rem 3rem 2rem; }
-  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
-  .footer-brand p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-top: 1rem; }
-  .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
-  .footer-col a { font-size: 0.9rem; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
-  .footer-col a:hover { opacity: 1; color: var(--accent); }
-  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
-  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.12em; color: var(--text); opacity: 0.5; }
-  .footer-logo span { color: var(--accent); opacity: 1; }
-  .footer-legal { font-size: 0.78rem; color: var(--muted); opacity: 0.5; }
-
-  @media (max-width: 900px) {
-    .product-hero { grid-template-columns: 1fr; }
-    .product-visual { min-height: 50vw; }
-    .product-info { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--border); }
-    .specs-grid, .serial-card-body { grid-template-columns: 1fr; }
-    .features-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-    .features-aside { position: static; }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
-    .cta-banner { flex-direction: column; text-align: center; }
-    .breadcrumb, .specs-section, .serial-section, .notify-section, .features-section, .reviews-section { padding-left: 1.5rem; padding-right: 1.5rem; }
-    .nav-top, .nav-ribbon { padding-left: 1.5rem; padding-right: 1.5rem; }
-    .notify-input-row, .serial-input-row { flex-direction: column; }
-    .notify-input, .serial-input { border-right: 1px solid var(--border2); border-bottom: none; }
-    .timeline-steps { flex-direction: column; }
-    .unavail-banner { padding: 0.75rem 1.5rem; }
-    .review-card { flex-direction: column; gap: 1.25rem; padding: 1.5rem; }
-    .review-images { flex-direction: row; width: 100%; }
-    .review-img { width: calc(50% - 0.25rem); height: 120px; }
+  .review-cta-btn:hover {
+    background: var(--surface2); border-color: var(--accent);
+    color: var(--accent); transform: translateY(-2px);
   }
 .nav-cart-btn {
   position: relative;
@@ -513,25 +459,84 @@
 .nav-cart-btn:hover svg { stroke: var(--accent); }
 .cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
 .cart-count.visible { display: flex; }
-
-/* OWNER RESOURCES */
-.resources-section { background: var(--black); padding: 6rem 3rem; }
-.resources-inner { max-width: 780px; }
-.resources-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 560px; }
-.resources-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
-.resource-card { background: var(--surface); padding: 2rem 2rem 4rem; display: block; text-decoration: none; position: relative; overflow: hidden; transition: background 0.2s; }
-.resource-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
-.resource-card:hover { background: var(--surface2); }
-.resource-card:hover::before { opacity: 1; }
-.resource-card:focus-visible { outline: 2px solid var(--accent2); outline-offset: -2px; }
-.resource-title { display: block; font-family: 'Barlow Condensed', sans-serif; font-size: 1.25rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
-.resource-desc { display: block; font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
-.resource-meta { position: absolute; left: 2rem; right: 2rem; bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
-.resource-open { color: var(--accent); }
-@media (max-width: 900px) {
-  .resources-section { padding-left: 1.5rem; padding-right: 1.5rem; }
-  .resources-grid { grid-template-columns: 1fr; }
+footer {
+  background: var(--dark);
+  border-top: 1px solid var(--border);
+  padding: 4rem 3rem 2rem;
 }
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 3rem;
+  padding-bottom: 3rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.footer-brand p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-top: 1rem;
+}
+
+.footer-col h4 {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 1.2rem;
+}
+
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.footer-col a {
+  font-size: 0.9rem;
+  color: var(--text);
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.2s, color 0.2s;
+}
+.footer-col a:hover { opacity: 1; color: var(--accent); }
+
+.footer-bottom {
+  display: flex; justify-content: space-between; align-items: center;
+}
+
+.footer-logo {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 1.4rem;
+  letter-spacing: 0.12em;
+  color: var(--text);
+  opacity: 0.5;
+}
+.footer-logo span { color: var(--accent); opacity: 1; }
+
+.footer-legal {
+  font-size: 0.78rem;
+  color: var(--muted);
+  opacity: 0.5;
+}
+
+@media (max-width: 900px) {
+  .nav-top { padding: 0.6rem 1.5rem; }
+  .nav-ribbon { padding: 0 1rem; }
+  footer { padding: 3rem 1.5rem 2rem; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+}
+
+@media (max-width: 760px) {
+  .rating-summary { flex-direction: column; align-items: stretch; gap: 1.75rem; padding: 2rem 1.5rem; }
+  .rs-left { min-width: 0; }
+  .rs-bars { max-width: 100%; }
+  .filter-bar { padding: 1.25rem 1.5rem; }
+  .sort-wrap { margin-left: 0; width: 100%; margin-top: 0.5rem; }
+  .reviews-section { padding: 2.5rem 1.5rem 4rem; }
+}
+
+/* ── NAV: current page + hamburger ── */
 .nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
 
 .nav-burger {
@@ -582,30 +587,6 @@
   .nav-ribbon a:last-child { border-bottom: none; }
   .nav-ribbon a.active { box-shadow: inset 3px 0 0 var(--accent); }
 }
-
-/* ── Product page: rating summary ── */
-.rating-summary {
-  display: flex; align-items: center; gap: 4rem;
-  padding: 2.5rem 3rem; margin-bottom: 2px;
-  background: var(--surface); border: 1px solid var(--border);
-}
-.rs-left { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; flex-shrink: 0; min-width: 190px; text-align: center; }
-.rs-scope { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
-.rs-avg { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 1; letter-spacing: 0.03em; color: var(--text); }
-.stars-frac { position: relative; display: inline-block; font-size: 1.5rem; letter-spacing: 0.1em; line-height: 1; color: var(--surface2); -webkit-text-stroke: 1px rgba(200,146,42,0.45); }
-.stars-frac .stars-fill { position: absolute; top: 0; left: 0; overflow: hidden; white-space: nowrap; color: var(--accent); -webkit-text-stroke: 0; }
-.rs-count { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
-.rs-bars { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; max-width: 520px; }
-.rs-row { display: flex; align-items: center; gap: 0.8rem; }
-.rs-row-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; color: var(--muted); width: 2.2rem; flex-shrink: 0; text-align: right; }
-.rs-track { flex: 1; height: 10px; background: var(--surface2); border: 1px solid var(--border); }
-.rs-fill { height: 100%; background: var(--accent); width: 0; transition: width 0.4s ease; }
-.rs-row-count { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--muted); width: 2.2rem; flex-shrink: 0; }
-@media (max-width: 760px) {
-  .rating-summary { flex-direction: column; align-items: stretch; gap: 1.75rem; padding: 2rem 1.5rem; }
-  .rs-left { min-width: 0; }
-  .rs-bars { max-width: 100%; }
-}
 </style>
 </head>
 <body>
@@ -632,220 +613,138 @@
   </div>
 </div>
   <div class="nav-ribbon" id="navRibbon">
-    <a href="/ursusarmament/products" class="active" aria-current="page">Products</a>
-    <a href="/ursusarmament/customerreviews">Reviews</a>
+    <a href="/ursusarmament/products">Products</a>
+    <a href="/ursusarmament/customerreviews" class="active" aria-current="page">Reviews</a>
     <a href="/ursusarmament/learnmore/">Learn More</a>
     <a href="/ursusarmament/aboutus/">About</a>
     <a href="/ursusarmament/contact/">Contact</a>
   </div>
 </nav>
 
-<div class="breadcrumb">
-  <a href="/ursusarmament">Home</a><span>›</span>
-  <a href="/ursusarmament/products">Products</a><span>›</span>
-  <span>CALIDUS</span>
-</div>
-
-<!-- PRODUCT HERO -->
-<section class="product-hero">
-  <div class="product-visual">
-    <button class="nv-info-btn" onclick="openNVModal()">
-      Questions About Thermal Imaging? <span class="nv-info-arrow">&#8599;</span>
-    </button>
-    <div class="visual-main">
-      <div class="visual-watermark">CALIDUS</div>
-      <img id="calidus-main" src="/ursusarmament/images/whiteHot.PNG" alt="CALIDUS thermal view"/>
-    </div>
-    <div class="visual-thumb-bar">
-      <div class="calidus-thumb active" onclick="calidusSwap(this)" data-src="/ursusarmament/images/whiteHot.PNG">
-        <img src="/ursusarmament/images/whiteHot.PNG" alt="White Hot palette"/>
-      </div>
-      <div class="calidus-thumb" onclick="calidusSwap(this)" data-src="/ursusarmament/images/blackHot.PNG">
-        <img src="/ursusarmament/images/blackHot.PNG" alt="Black Hot palette"/>
-      </div>
-      <div class="calidus-thumb" onclick="calidusSwap(this)" data-src="/ursusarmament/images/alternatePalette.PNG">
-        <img src="/ursusarmament/images/alternatePalette.PNG" alt="Alternate palette"/>
-      </div>
-    </div>
-  </div>
-
-  <div class="product-info">
-    <div class="product-tag">Thermal Monocular</div>
-    <h1 class="product-name">CALIDUS</h1>
-    <div class="product-tagline">See Heat. Own the Night.</div>
-    <div class="product-subtitle">Compact Thermal Monocular</div>
-    <p class="product-desc">The CALIDUS is a compact, high-performance thermal monocular built for tactical operators and law enforcement who need reliable vision in total darkness. Engineered around a long-wave infrared core with multi-palette display, digital zoom, and a rugged all-weather housing — in a form factor light enough to carry anywhere.</p>
-    <div class="product-price-row">
-      <div class="unavail-price-block">
-        <div class="price-display" id="priceDisplay"></div>
-      </div>
-    </div>
-    <div class="product-actions">
-      <button type="button" class="btn-notify" id="addToCartBtn">Add to Cart</button>
-      <span class="stock-status" id="stockStatus"></span>
-      <a href="#specs" class="btn-ghost">View Specs</a>
-    </div>
-    <div class="product-trust">
-      <div class="trust-item"><span class="trust-label">Origin</span><span class="trust-value">Designed, Assembled &amp; Programmed in USA</span></div>
-    </div>
-  </div>
+<!-- HERO -->
+<section class="hero">
+  <div class="section-tag">Field Feedback</div>
+  <h1>USER<br><span style="color:var(--accent)">REVIEWS</span></h1>
+  <p class="hero-desc">Collected field feedback and user-submitted evaluations across all Ursus Armament products.</p>
 </section>
-
-<!-- SPECS -->
-<section class="specs-section" id="specs" style="position:relative;">
-  <div class="feature-lock-overlay" id="specsLock">
-    <div class="feature-lock-box">
-      <div class="feature-lock-title">FULL ACCESS REQUIRED</div>
-      <div class="feature-lock-text">Technical specifications are available to verified Full Access account holders only (ITAR/EAR Compliance).</div>
-      <a href="/ursusarmament/settings/" class="feature-lock-btn">Upgrade Account</a>
-    </div>
-  </div>
-  <div class="section-tag">Technical Data</div>
-  <h2 class="section-title">SPECIFICATIONS</h2>
-  <div class="specs-grid">
-    <div class="spec-item"><span class="spec-name">Sensor Type</span><span class="spec-value">LWIR Uncooled Microbolometer</span></div>
-    <div class="spec-item"><span class="spec-name">Resolution</span><span class="spec-value">640x512</span></div>
-    <div class="spec-item"><span class="spec-name">Objective Lens</span><span class="spec-value">f/1.0 LWIR — 13mm</span></div>
-    <div class="spec-item"><span class="spec-name">Digital Zoom</span><span class="spec-value">1×, 2×, 3×, 4×, 8×</span></div>
-    <div class="spec-item"><span class="spec-name">Display</span><span class="spec-value">High-contrast OLED eyepiece</span></div>
-    <div class="spec-item"><span class="spec-name">Thermal Palettes</span><span class="spec-value">White Hot / Black Hot / Multi-color</span></div>
-    <div class="spec-item"><span class="spec-name">Detection Range</span><span class="spec-value">1100m-1200m</span></div>
-    <div class="spec-item"><span class="spec-name">Recognition Range</span><span class="spec-value">300m-400m (human)</span></div>
-    <div class="spec-item"><span class="spec-name">Battery</span><span class="spec-value">1× 18350 Li-ion (unprotected) 3-5hrs</span></div>
-    <div class="spec-item"><span class="spec-name">IP Rating</span><span class="spec-value">IP67 (target)</span></div>
-    <div class="spec-item"><span class="spec-name">Operating Temp</span><span class="spec-value">-4°F to +140°F</span></div>
-    <div class="spec-item"><span class="spec-name">Mount Interface</span><span class="spec-value">AN/PVS-14 J-arm assembly / helmet compatible</span></div>
-    <div class="spec-item"><span class="spec-name">Weight</span><span class="spec-value">TBD — target sub-400g</span></div>
-    <div class="spec-item"><span class="spec-name">Origin</span><span class="spec-value">Designed, Assembled &amp; Programmed in the United States</span></div>
-  </div>
-</section>
-
-<!-- SERIAL LOOKUP -->
-<section class="serial-section" id="serial">
-  <div class="feature-lock-overlay" id="serialLock">
-    <div class="feature-lock-box">
-      <div class="feature-lock-title">FULL ACCESS REQUIRED</div>
-      <div class="feature-lock-text">Serial number lookup is available to verified Full Access account holders only (ITAR/EAR Compliance).</div>
-      <a href="/ursusarmament/settings/" class="feature-lock-btn">Upgrade Account</a>
-    </div>
-  </div>
-  <div class="serial-inner">
-    <div class="section-tag">Unit Verification</div>
-    <h2 class="section-title" style="margin-bottom: 1rem;">SERIAL NUMBER LOOKUP</h2>
-    <p class="serial-desc">Every CALIDUS unit ships with a documented profile recorded at time of manufacture. Enter your serial number below to retrieve the specifications for your specific unit.</p>
-    <div class="serial-input-row">
-      <input class="serial-input" id="serialInput" type="text" placeholder="e.g. UW-XXXX" maxlength="20" autocomplete="off" spellcheck="false"/>
-      <button class="serial-btn" onclick="lookupSerial()">Look Up Unit</button>
-    </div>
-    <div class="serial-result" id="serialError">
-      <div class="serial-error" id="serialErrorMsg">No unit found for that serial number.</div>
-    </div>
-    <div class="serial-result" id="serialSuccess">
-      <div class="serial-card">
-        <div class="serial-card-header">
-          <div class="serial-card-id" id="resultSerial">—</div>
-          <span class="serial-badge pass" id="resultQcBadge">QC PASS</span>
-        </div>
-        <div class="serial-card-body">
-          <div class="serial-field"><span class="serial-field-label">Product</span><span class="serial-field-value" id="resultProduct">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Tier</span><span class="serial-field-value" id="resultTier">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Generation</span><span class="serial-field-value" id="resultGen">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Proof Date</span><span class="serial-field-value" id="resultDate">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">Batch ID</span><span class="serial-field-value" id="resultBatch">—</span></div>
-          <div class="serial-field" style="display:none;"><span class="serial-field-label">Resolution</span><span class="serial-field-value" id="resultRes">—</span></div>
-          <div class="serial-field"><span class="serial-field-label">QC Result</span><span class="serial-field-value" id="resultQc">—</span></div>
-        </div>
-        <div class="serial-card-notes">
-          <span class="serial-field-label">Notes</span>
-          <span class="serial-field-value" id="resultNotes" style="font-weight:400; color:var(--muted); font-size:0.88rem;">—</span>
-        </div>
-        <div class="serial-card-footer">Ursus Armament LLC &nbsp;·&nbsp; All specifications recorded at time of manufacture</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- OWNER RESOURCES -->
-<section class="resources-section" id="resources">
-  <div class="resources-inner">
-    <div class="section-tag">Owner Resources</div>
-    <h2 class="section-title" style="margin-bottom: 1rem;">DOCUMENTATION</h2>
-    <p class="resources-desc">Everything you need to operate and look after your CALIDUS. If you have lost your manual, the quick card puts the essentials on a single page you can print.</p>
-    <div class="resources-grid">
-      <a class="resource-card" href="/ursusarmament/products/CALIDUS/manual/">
-        <span class="resource-title">Operator's Manual</span>
-        <span class="resource-desc">Setup, controls, image settings, calibration, battery care and troubleshooting.</span>
-        <span class="resource-meta">Full guide <span class="resource-open">Open &#8599;</span></span>
-      </a>
-      <a class="resource-card" href="/ursusarmament/products/CALIDUS/quickCard/">
-        <span class="resource-title">Quick Card</span>
-        <span class="resource-desc">One page: the switch map, buttons, calibration, battery and a troubleshooting table. Prints on US Letter.</span>
-        <span class="resource-meta">One page <span class="resource-open">Open &#8599;</span></span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- FEATURES -->
-<section class="features-section" id="features">
-  <div class="features-layout">
-    <div class="features-list">
-      <div class="feature-item"><div class="feature-num">01</div><div class="feature-title">LWIR Thermal Core</div><p class="feature-desc">Built around a long-wave infrared uncooled microbolometer — detecting heat signatures through total darkness, smoke, and obscurants that defeat conventional night vision entirely.</p></div>
-      <div class="feature-item"><div class="feature-num">02</div><div class="feature-title">Multi-Palette Display</div><p class="feature-desc">White Hot, Black Hot, and color palette modes switchable on the fly. Dial in the contrast that works for your environment and mission, without diving into menus.</p></div>
-      <div class="feature-item"><div class="feature-num">03</div><div class="feature-title">Stepped Digital Zoom</div><p class="feature-desc">Stepped 1× to 8× digital zoom lets you glass a perimeter or tighten onto a specific target without swapping optics or changing your position.</p></div>
-      <div class="feature-item"><div class="feature-num">04</div><div class="feature-title">Compact, Helmet-Ready Form Factor</div><p class="feature-desc">Designed from the ground up to be carried or mounted. A PVS-14-style mount and helmet-compatible mounting interface means the CALIDUS goes wherever you go.</p></div>
-      <div class="feature-item"><div class="feature-num">05</div><div class="feature-title">All-Weather IP67 Housing</div><p class="feature-desc">Target-rated IP67 — rain, dust, and immersion to 1m. Built to the same environmental standard as the URSIX. Because the mission doesn't stop for weather.</p></div>
-      <div class="feature-item"><div class="feature-num">06</div><div class="feature-title">Compact Power</div><p class="feature-desc">Runs on a single 18350 lithium-ion cell for compact, lightweight operation.</p></div>
-    </div>
-    <div class="features-aside">
-      <div class="section-tag">Why Thermal</div>
-      <h2 class="section-title" style="margin-bottom: 1.5rem;">HEAT DOESN'T LIE.</h2>
-      <p>Image intensification amplifies available light. On a moonless night under canopy, there is no light to amplify. Thermal doesn't care — it reads temperature differential and paints a picture regardless of ambient illumination.</p>
-      <p>The CALIDUS is designed for operators who can't afford a gap in their coverage: law enforcement on night operations, search and rescue in zero-vis conditions, and tactical teams where concealment from IR illuminators is a requirement.</p>
-      <p>We're building it the way we build everything — uncompromised specs and documented at the unit level.</p>
-      <div class="cert-row">
-        <div class="cert-item"><span class="cert-label">Sensor</span><span class="cert-value">LWIR</span></div>
-        <div class="cert-item"><span class="cert-label">Aperture</span><span class="cert-value">f/1.0</span></div>
-        <div class="cert-item"><span class="cert-label">Rating</span><span class="cert-value">IP67</span></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<div class="cta-banner">
-  <div>
-    <h2>QUESTIONS ABOUT THE CALIDUS?</h2>
-    <p>Our product specialists are available Monday–Friday, 8AM–6PM MST.</p>
-  </div>
-  <a href="https://ursusworks.com/ursusarmament/contact" target="_blank" rel="noopener noreferrer" class="btn-primary">Contact Support</a>
-</div>
 
 <!-- LEAVE REVIEW CTA -->
-<div style="display:flex; justify-content:center; padding: 3rem; background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+<div class="review-cta">
   <button class="review-cta-btn" onclick="openReviewModal()">Leave a Product Review</button>
 </div>
 
-<!-- REVIEWS -->
-<section class="reviews-section" id="reviews">
-  <div class="section-tag">Customer Feedback</div>
-  <h2 class="section-title">REVIEWS</h2>
-  <div class="rating-summary" id="ratingSummary" aria-live="polite" style="display:none;"></div>
-  <div class="reviews-container" id="reviewsContainer">
-    <div class="reviews-empty">Loading reviews...</div>
-  </div>
+<!-- RATING SUMMARY -->
+<section class="rating-summary" id="ratingSummary" aria-live="polite">
+  <div class="rs-empty">Loading ratings...</div>
 </section>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <span class="filter-label">Filter:</span>
+  <button class="filter-btn active" data-product="ALL" data-label="All">All</button>
+  <button class="filter-btn" data-product="URSIX" data-label="URSIX">URSIX</button>
+  <button class="filter-btn" data-product="ROTS" data-label="R.O.T.S.">R.O.T.S.</button>
+  <button class="filter-btn" data-product="CALIDUS" data-label="CALIDUS">CALIDUS</button>
+  <button class="filter-btn" data-product="NEXIS" data-label="NEXIS">NEXIS</button>
+  <div class="sort-wrap">
+    <label class="filter-label" for="sortSelect" style="margin-right:0;">Sort:</label>
+    <select id="sortSelect" class="sort-select">
+      <option value="newest">Newest</option>
+      <option value="oldest">Oldest</option>
+      <option value="highest">Highest Rated</option>
+      <option value="lowest">Lowest Rated</option>
+    </select>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="reviews-section">
+  <div id="reviewsContainer" class="reviews-grid">
+    <div class="reviews-loading">Loading reviews...</div>
+  </div>
+</div>
+
+<!-- REVIEW MODAL -->
+<div id="reviewModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:99999; justify-content:center; align-items:center; overflow-y:auto; padding: 2rem 0;">
+  <div style="background: var(--dark); padding: 2rem; width: 90%; max-width: 600px; border: 1px solid var(--border); position: relative; margin: auto;">
+    <button onclick="closeReviewModal()" style="position:absolute; top:10px; right:15px; background:none; border:none; color:white; font-size:20px; cursor:pointer;">✕</button>
+    <div id="reviewFormContainer">
+      <h2 style="font-family:'Bebas Neue'; letter-spacing:0.06em; margin-bottom:1rem;">Leave a Review</h2>
+      <div style="display:flex; flex-direction:column; gap:1rem;">
+
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Product</label>
+          <select id="rv_product" required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);">
+            <option value="">Select Product</option>
+            <option value="URSIX">URSIX</option>
+            <option value="ROTS">R.O.T.S.</option>
+            <option value="CALIDUS">CALIDUS</option>
+            <option value="NEXIS">NEXIS</option>
+          </select>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Feedback Type</label>
+          <select id="rv_feedbackType" required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);">
+            <option value="">Select Type</option>
+            <option value="Customer Purchase">Customer Purchase</option>
+            <option value="Field Review">Field Review</option>
+          </select>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Star Rating</label>
+          <div id="starRating" style="display:flex; gap:0.4rem; font-size:1.8rem; cursor:pointer;">
+            <span data-value="1">☆</span><span data-value="2">☆</span><span data-value="3">☆</span><span data-value="4">☆</span><span data-value="5">☆</span>
+          </div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">First Name</label>
+          <input id="rv_firstName" type="text" placeholder="Your First Name" required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);" />
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">State</label>
+          <select id="rv_state" required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);">
+            <option value="">Select State</option>
+            <option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option>
+          </select>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Review</label>
+          <textarea id="rv_reviewText" rows="5" placeholder="Write your review here..." required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border); font-family:'Barlow',sans-serif; resize:vertical;"></textarea>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Photos (Optional — Max 2)</label>
+          <input id="rv_img1" type="file" accept="image/png,image/jpeg,image/webp" style="padding:0.5rem; background:var(--surface); border:1px solid var(--border); color:var(--muted);">
+          <input id="rv_img2" type="file" accept="image/png,image/jpeg,image/webp" style="padding:0.5rem; background:var(--surface); border:1px solid var(--border); color:var(--muted);">
+        </div>
+
+        <div id="rv_msg" style="font-size:0.82rem; min-height:1.2em;"></div>
+        <button id="rv_submitBtn" onclick="submitReview()" style="background:var(--accent); color:var(--black); font-family:'Barlow Condensed',sans-serif; font-size:0.9rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; padding:0.9rem; border:none; cursor:pointer; transition:background 0.2s; margin-top:0.5rem;">Submit Review</button>
+      </div>
+    </div>
+    <div id="reviewThankYou" style="display:none; text-align:center; padding: 2rem 0;">
+      <h2 style="font-family:'Bebas Neue'; letter-spacing:0.06em; margin-bottom:0.75rem;">Thank You!</h2>
+      <p style="color:var(--muted);">Your review has been submitted and is pending approval.</p>
+    </div>
+  </div>
+</div>
 
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
       <div class="nav-logo">URSUS <span style="color: var(--accent);">ARMAMENT</span></div>
-      <p>Developing next-generation tactical gear for the American people. Designed, assembled, programmed, tested, and deployed with pride in the USA.</p>
+      <p>Developing next-generation tactical gear for the American people. Manufactured, tested, and deployed with pride in the USA.</p>
     </div>
     <div class="footer-col">
       <h4>Products</h4>
       <ul>
-        <li><a href="/ursusarmament/products/URSIX">URSIX</a></li>
         <li><a href="/ursusarmament/products/ROTS">R.O.T.S.</a></li>
+        <li><a href="/ursusarmament/products/URSIX">URSIX</a></li>
         <li><a href="/ursusarmament/products">View All</a></li>
         <li><a href="/ursusarmament/customerreviews">Customer Reviews</a></li>
       </ul>
@@ -871,206 +770,17 @@
   </div>
   <div class="footer-bottom">
     <div class="footer-logo">URSUS <span>ARMAMENT</span></div>
-    <div class="footer-legal">© 2026 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
+    <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
   </div>
 </footer>
 
-<!-- REVIEW MODAL -->
-<div id="reviewModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:99999; justify-content:center; align-items:center; overflow-y:auto; padding: 2rem 0;">
-  <div style="background: var(--dark); padding: 2rem; width: 90%; max-width: 600px; border: 1px solid var(--border); position: relative; margin: auto;">
-    <button onclick="closeReviewModal()" style="position:absolute; top:10px; right:15px; background:none; border:none; color:white; font-size:20px; cursor:pointer;">✕</button>
-    <div id="reviewFormContainer">
-      <h2 style="font-family:'Bebas Neue'; letter-spacing:0.06em; margin-bottom:1rem;">Leave a Review</h2>
-      <div style="display:flex; flex-direction:column; gap:1rem;">
-        <div style="display:flex; flex-direction:column; gap:0.3rem;">
-          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Product</label>
-          <select id="rv_product" style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);">
-            <option value="">Select Product</option>
-            <option value="URSIX">URSIX</option>
-            <option value="ROTS">R.O.T.S.</option>
-            <option value="CALIDUS">CALIDUS</option>
-            <option value="NEXIS">NEXIS</option>
-          </select>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:0.3rem;">
-          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Feedback Type</label>
-          <select id="rv_feedbackType" style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);">
-            <option value="">Select Type</option>
-            <option value="Customer Purchase">Customer Purchase</option>
-            <option value="Field Review">Field Review</option>
-          </select>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:0.3rem;">
-          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Star Rating</label>
-          <div id="starRating" style="display:flex; gap:0.4rem; font-size:1.8rem; cursor:pointer;">
-            <span data-value="1">☆</span><span data-value="2">☆</span><span data-value="3">☆</span><span data-value="4">☆</span><span data-value="5">☆</span>
-          </div>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:0.3rem;">
-          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">First Name</label>
-          <input id="rv_firstName" type="text" placeholder="Your First Name" style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);" />
-        </div>
-        <div style="display:flex; flex-direction:column; gap:0.3rem;">
-          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">State</label>
-          <select id="rv_state" style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);">
-            <option value="">Select State</option>
-            <option value="AL">Alabama</option><option value="AK">Alaska</option><option value="AZ">Arizona</option><option value="AR">Arkansas</option><option value="CA">California</option><option value="CO">Colorado</option><option value="CT">Connecticut</option><option value="DE">Delaware</option><option value="FL">Florida</option><option value="GA">Georgia</option><option value="HI">Hawaii</option><option value="ID">Idaho</option><option value="IL">Illinois</option><option value="IN">Indiana</option><option value="IA">Iowa</option><option value="KS">Kansas</option><option value="KY">Kentucky</option><option value="LA">Louisiana</option><option value="ME">Maine</option><option value="MD">Maryland</option><option value="MA">Massachusetts</option><option value="MI">Michigan</option><option value="MN">Minnesota</option><option value="MS">Mississippi</option><option value="MO">Missouri</option><option value="MT">Montana</option><option value="NE">Nebraska</option><option value="NV">Nevada</option><option value="NH">New Hampshire</option><option value="NJ">New Jersey</option><option value="NM">New Mexico</option><option value="NY">New York</option><option value="NC">North Carolina</option><option value="ND">North Dakota</option><option value="OH">Ohio</option><option value="OK">Oklahoma</option><option value="OR">Oregon</option><option value="PA">Pennsylvania</option><option value="RI">Rhode Island</option><option value="SC">South Carolina</option><option value="SD">South Dakota</option><option value="TN">Tennessee</option><option value="TX">Texas</option><option value="UT">Utah</option><option value="VT">Vermont</option><option value="VA">Virginia</option><option value="WA">Washington</option><option value="WV">West Virginia</option><option value="WI">Wisconsin</option><option value="WY">Wyoming</option>
-          </select>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:0.3rem;">
-          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Review</label>
-          <textarea id="rv_reviewText" rows="5" placeholder="Write your review here..." style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border); font-family:'Barlow',sans-serif; resize:vertical;"></textarea>
-        </div>
-        <div style="display:flex; flex-direction:column; gap:0.3rem;">
-          <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.68rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Photos (Optional — Max 2)</label>
-          <input id="rv_img1" type="file" accept="image/PNG,image/jpeg,image/webp" style="padding:0.5rem; background:var(--surface); border:1px solid var(--border); color:var(--muted);">
-          <input id="rv_img2" type="file" accept="image/PNG,image/jpeg,image/webp" style="padding:0.5rem; background:var(--surface); border:1px solid var(--border); color:var(--muted);">
-        </div>
-        <div id="rv_msg" style="font-size:0.82rem; min-height:1.2em;"></div>
-        <button id="rv_submitBtn" onclick="submitReview()" style="background:var(--accent); color:var(--black); font-family:'Barlow Condensed',sans-serif; font-size:0.9rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; padding:0.9rem; border:none; cursor:pointer; margin-top:0.5rem;">Submit Review</button>
-      </div>
-    </div>
-    <div id="reviewThankYou" style="display:none; text-align:center; padding: 2rem 0;">
-      <h2 style="font-family:'Bebas Neue'; letter-spacing:0.06em; margin-bottom:0.75rem;">Thank You!</h2>
-      <p style="color:var(--muted);">Your review has been submitted and is pending approval.</p>
-    </div>
-  </div>
-</div>
-
-<!-- NIGHT VISION / THERMAL INFO MODAL -->
-<div class="nv-modal-overlay" id="nvModal">
-  <div class="nv-modal-box">
-    <button class="nv-modal-close" onclick="closeNVModal()">&#10005;</button>
-    <div class="nv-modal-header"><h2>THERMAL IMAGING</h2></div>
-    <div class="nv-modal-body" id="nvModalBody">
-
-      <div class="nv-tldr">
-        <div class="nv-tldr-label">TL;DR</div>
-        <ul>
-          <li><strong>How Thermal Imaging Works:</strong> Thermal sensors detect infrared radiation that objects emit based on their own temperature, rather than relying on reflected visible or near-infrared light. This means thermal can produce a usable image with zero ambient light, though heavy fog, rain, smoke, and dense vegetation can still degrade performance.</li>
-          <li><strong>Resolution, Refresh Rate, and NETD:</strong> Sensor resolution (from 160&times;120 up to 1024&times;768+) determines image detail and identification range. Refresh rate (9Hz vs. 30&ndash;60Hz) determines how smooth motion looks during tracking or movement. NETD (measured in mK) determines how small a temperature difference the sensor can actually distinguish &mdash; lower NETD means more usable contrast between a target and its background.</li>
-          <li><strong>Form Factor Drives the Rest:</strong> Handheld, weapon-mounted, and helmet-mounted thermal systems are built around different priorities &mdash; a helmet system favors a wide field of view near unity magnification for natural movement, while a weapon-mounted system is built to survive recoil and hold zero, and a handheld unit trades some of both for portability.</li>
-        </ul>
-      </div>
-
-      <div class="nv-jump-nav">
-        <a onclick="nvScrollTo('th-history')">History and Evolution of Thermal Imaging</a>
-        <a onclick="nvScrollTo('th-formfactors')">Thermal Form Factors</a>
-        <a onclick="nvScrollTo('th-resolution')">Sensor Resolution and Pixel Pitch</a>
-        <a onclick="nvScrollTo('th-lens')">Lens Focal Length, Field of View, and Magnification</a>
-        <a onclick="nvScrollTo('th-refresh')">Refresh Rates and Motion Handling</a>
-        <a onclick="nvScrollTo('th-netd')">Thermal Sensitivity (NETD)</a>
-      </div>
-
-      <div class="nv-section" id="th-history">
-        <h3>History and Evolution of Thermal Imaging</h3>
-        <p>Thermal imaging technology originated primarily in military and industrial applications before expanding into commercial, automotive, and consumer markets. Its development progressed from active infrared systems and mechanically scanned detectors to cooled focal-plane arrays and, eventually, compact uncooled microbolometers.</p>
-        <ul>
-          <li><strong>Early Military Origins (1930s&ndash;1950s):</strong> Early military night-vision systems developed during World War II and the early Cold War included active near-infrared devices such as the American M3 Sniperscope. These systems used an infrared illuminator to project invisible IR light onto a scene and an image-converter tube to detect the reflected illumination. Although important to the history of night vision, these systems were not thermal imagers because they detected reflected near-infrared light rather than thermal radiation emitted by objects. Passive thermal imaging began emerging as detector and infrared-optics technology advanced during the 1950s and 1960s.</li>
-          <li><strong>Early Thermal Scanners (1950s&ndash;1970s):</strong> Early thermal imaging systems commonly used small numbers of infrared detector elements, including materials such as mercury cadmium telluride (HgCdTe), to detect long-wave infrared radiation. Many high-performance detectors required cryogenic cooling to reduce thermal noise and achieve useful sensitivity. Mechanical scanning systems used mirrors, prisms, or other moving optical components to sweep the scene across the detector. These systems were generally bulky, power-hungry, and expensive, restricting their use primarily to military vehicles, aircraft, ships, and fixed surveillance installations.</li>
-          <li><strong>Staring Arrays and Second-Generation Systems (1980s&ndash;1990s):</strong> The transition from mechanically scanned systems to solid-state staring focal-plane arrays (FPAs) represented a major advancement in thermal imaging. Instead of mechanically sweeping a single detector across the scene, an FPA uses an array of detector elements that simultaneously observe different portions of the image. Cooled semiconductor FPAs continued to provide exceptional sensitivity for demanding military applications, while uncooled detector technologies &mdash; including pyroelectric devices and emerging microbolometers &mdash; began enabling smaller and less complex systems.</li>
-          <li><strong>The Microbolometer Revolution (Late 1990s&ndash;2000s):</strong> The commercial maturation of uncooled microbolometer technology transformed thermal imaging. Microbolometers detect infrared radiation by measuring temperature-dependent changes in the electrical properties of microscopic detector elements. Because they operate without cryogenic cooling, they can be manufactured into compact, relatively low-power sensor modules. This development enabled widespread adoption of thermal imaging in handheld cameras, weapon sights, surveillance systems, industrial diagnostic equipment, and other portable applications.</li>
-          <li><strong>Miniaturization and Commercial Expansion (2010s&ndash;Present):</strong> Continued advances in semiconductor manufacturing, detector fabrication, signal processing, and optical design have steadily reduced pixel pitch while increasing sensor resolution and reducing overall system size and power consumption. Common modern thermal sensor formats range from compact 160&times;120 and 256&times;192 arrays through 320&times;240, 384&times;288, 640&times;512, and higher-resolution formats such as 1024&times;768. Modern thermal cores can be compact and rugged enough for integration into handheld devices, weapon sights, helmet-mounted systems, vehicles, industrial equipment, and consumer electronics.</li>
-        </ul>
-      </div>
-
-      <div class="nv-section" id="th-formfactors">
-        <h3>Thermal Form Factors</h3>
-        <p>Thermal systems are commonly configured into several primary form factors:</p>
-        <ul>
-          <li><strong>Handheld Monoculars:</strong> Designed for scouting, tracking, observation, and surveillance, prioritizing portability while balancing field of view, detection range, battery life, and image quality.</li>
-          <li><strong>Firearm-Mounted Systems:</strong> Designed to withstand recoil and maintain optical alignment. These include dedicated thermal weapon sights as well as clip-on thermal devices positioned in front of a conventional day optic.</li>
-          <li><strong>Helmet-Mounted Systems:</strong> Designed for hands-free navigation, observation, and situational awareness. Depending on their optical configuration, these systems may use dedicated wide-field thermal optics or modular thermal devices adapted for helmet mounting.</li>
-          <li><strong>Hybrid / Interchangeable-Mount Systems:</strong> Designed so that the same thermal optic or imaging module can be readily transferred between helmet-mounted and firearm-mounted configurations using compatible mounting interfaces. This approach allows a single thermal imaging system to serve multiple roles without requiring a separate thermal device for each application. The practicality of a hybrid system depends on the optic's optical configuration, mounting interface, weight, recoil resistance, controls, and whether the system provides an appropriate field of view and magnification for each intended use.</li>
-        </ul>
-      </div>
-
-      <div class="nv-section" id="th-resolution">
-        <h3>Sensor Resolution and Pixel Pitch</h3>
-        <p>The core of a thermal imaging device is its focal-plane array (FPA), which contains the individual detector elements used to capture infrared radiation. The number of pixels determines the native image dimensions, while pixel pitch describes the physical spacing between adjacent detector elements. Common commercial and tactical sensor resolutions include:</p>
-        <ul>
-          <li><strong>160&times;120 and 256&times;192:</strong> Common in compact, entry-level, and cost-sensitive thermal devices. These lower-resolution arrays can provide useful detection and observation capabilities but generally provide less fine detail and shorter identification ranges than higher-resolution sensors when other factors are equal.</li>
-          <li><strong>320&times;240 / 384&times;288:</strong> Widely used mid-range formats that provide a balance between image detail, processing requirements, power consumption, and system cost.</li>
-          <li><strong>640&times;512:</strong> A widely used high-resolution format in professional and tactical thermal systems, providing substantially more image detail than lower-resolution arrays and allowing greater flexibility in optical design and digital magnification.</li>
-          <li><strong>1024&times;768 and Higher:</strong> High-resolution thermal formats used in higher-end systems where increased spatial detail, wider fields of view, or longer-range identification capability justify the additional cost and system requirements. These higher-resolution sensors generally come at the expense of increased per-unit cost, greater processing requirements, and potentially increased system weight and power consumption. The additional pixel count can also require more powerful image processing and higher-bandwidth electronics to maintain comparable refresh rates and image quality.</li>
-        </ul>
-        <p>Sensor performance is also influenced by pixel pitch, which is the distance between the centers of adjacent detector elements. Common modern microbolometer pixel pitches include 12 &micro;m and 17 &micro;m, with smaller pitches also available. A smaller pixel pitch allows more detector elements to fit within a given physical sensor area or allows a smaller sensor for a given pixel count. Pixel pitch also interacts with lens focal length, detector format, and optical design to determine field of view, angular resolution, and system size.</p>
-      </div>
-
-      <div class="nv-section" id="th-lens">
-        <h3>Lens Focal Length, Field of View (FOV), and Magnification</h3>
-        <p>The objective lens determines how much of the scene is projected onto the thermal sensor. Its focal length, combined with the physical dimensions of the sensor, determines the system's field of view and base optical magnification.</p>
-        <ul>
-          <li><strong>Wide-Angle Lenses (Shorter Focal Lengths):</strong> Lenses in the approximately 9mm to 19mm range are commonly used where a wide field of view is desirable, such as helmet-mounted observation, close-range scanning, navigation, and situational awareness. The exact field of view depends on both the lens focal length and the physical dimensions of the sensor.</li>
-          <li><strong>Narrow-Angle Lenses (Longer Focal Lengths):</strong> Lenses in the approximately 35mm to 75mm or greater range provide a narrower field of view and greater optical magnification. These configurations are generally better suited to longer-range observation and target identification, although the resulting narrow field of view can make close-range scanning more difficult.</li>
-        </ul>
-        <p>For helmet-mounted thermal usage, optical magnification and field of view are particularly important because the thermal image is presented on a display rather than directly through an image-intensifier output. A wide field of view and an appropriate display-to-optical configuration help provide a natural visual relationship between the displayed thermal scene and the user's surroundings. Systems intended to provide approximately 1&times; or unity magnification are generally easier to integrate with natural head movement and navigation, while magnified systems can make walking, driving, and close-range spatial awareness more difficult.</p>
-        <p>True unity magnification is determined by the complete optical system rather than by the sensor alone. The sensor format, pixel pitch, objective focal length, display size, display optics, and eyepiece design all contribute to the final angular magnification and field of view perceived by the operator.</p>
-      </div>
-
-      <div class="nv-section" id="th-refresh">
-        <h3>Refresh Rates and Motion Handling</h3>
-        <p>Thermal refresh rate describes how frequently the system updates the displayed image and is measured in Hertz (Hz). A higher refresh rate generally provides smoother perceived motion, although actual motion performance is also influenced by sensor integration time, image processing, display latency, and other system characteristics.</p>
-        <ul>
-          <li><strong>9 Hz:</strong> Low-refresh-rate thermal systems update the image relatively slowly, which can make rapid movement appear noticeably less fluid. Low-refresh-rate configurations have historically been common in some commercial thermal products because of regulatory, export, cost, or product-design considerations, although the availability of specific refresh rates varies by manufacturer and market.</li>
-          <li><strong>30 Hz to 60 Hz:</strong> These refresh rates are common in modern tactical and high-performance thermal systems. Higher refresh rates provide smoother motion during head movement, vehicle operation, and tracking of moving subjects, while also reducing the apparent stutter associated with lower-refresh-rate systems.</li>
-        </ul>
-      </div>
-
-      <div class="nv-section" id="th-netd">
-        <h3>Thermal Sensitivity (NETD)</h3>
-        <p>Noise Equivalent Temperature Difference (NETD) is a measure of a thermal sensor's ability to distinguish small differences in apparent temperature from the sensor's own noise. It is typically expressed in millikelvin (mK). Lower NETD values generally indicate that the sensor can detect smaller temperature differences under the specified test conditions.</p>
-        <p>Modern thermal sensors may be specified with NETD values such as sub-40 mK or sub-25 mK. Lower NETD can be particularly advantageous when a target and its background have only a small thermal contrast. However, NETD is not a complete measure of thermal-image quality or real-world performance. Lens transmission, sensor resolution, pixel pitch, atmospheric conditions, image processing, calibration, optical quality, and the thermal contrast of the scene all affect how well a system performs in practical conditions.</p>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- GATE + NOTIFY SCRIPT -->
+<!-- GATE SCRIPT -->
 <script src="/ursusarmament/access-check.js"></script>
-<script>
 
+<script>
 function openReviewModal()  { document.getElementById("reviewModal").style.display = "flex"; }
 function closeReviewModal() { document.getElementById("reviewModal").style.display = "none"; }
 
-/* ── Product image gallery ── */
-function calidusSwap(el) {
-  document.querySelectorAll('.calidus-thumb').forEach(function (t) {
-    t.classList.remove('active');
-  });
-  el.classList.add('active');
-  document.getElementById('calidus-main').src = el.getAttribute('data-src');
-}
-
-/* ── Thermal info modal ── */
-function openNVModal() {
-  document.getElementById('nvModal').classList.add('open');
-}
-function closeNVModal() {
-  document.getElementById('nvModal').classList.remove('open');
-}
-function nvScrollTo(id) {
-  const el = document.getElementById(id);
-  if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
-document.addEventListener("DOMContentLoaded", function () {
-  const nvOverlay = document.getElementById('nvModal');
-  nvOverlay.addEventListener('click', function (e) {
-    if (e.target === nvOverlay) closeNVModal();
-  });
-});
-
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const href = a.getAttribute('href');
-    if (href === '#') return;
-    const t = document.querySelector(href);
-    if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
-  });
-});
-
-// Star rating
 let _starRating = 0;
 document.addEventListener("DOMContentLoaded", function () {
   const stars = document.querySelectorAll("#starRating span");
@@ -1083,15 +793,15 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 </script>
 
-<!-- FIREBASE + AUTH + FIRESTORE -->
+<!-- FIREBASE + REVIEWS + SUBMIT -->
 <script type="module">
-import { initializeApp }     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { initializeApp }   from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged }
-                             from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, getDoc, addDoc, collection, query, where, getDocs, updateDoc }
-                             from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+                           from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, collection, query, where, getDocs, addDoc, updateDoc }
+                           from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 import { getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL }
-                             from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+                           from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey:            "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
@@ -1107,196 +817,31 @@ const auth    = getAuth(app);
 const db      = getFirestore(app);
 const storage = getStorage(app);
 
-let _isFullApproved = false;
-
-/* ── Product data (price / sale / stock / lead time) from ursus-units/CALIDUS ── */
-let _product = null;
-let cartLabel = 'Add to Cart';
-
-function fmtMoney(n) {
-  return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
+/* ── HTML escaping (all review/user-supplied text goes through this) ── */
+function esc(value) {
+  return String(value ?? '').replace(/[&<>"']/g, c => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
 }
 
-function activePrice() {
-  if (!_product) return 0;
-  const sale = Number(_product.salePrice);
-  return (sale && sale !== 0) ? sale : Number(_product.price) || 0;
+/* Only allow http(s) URLs for images; anything else is dropped */
+function safeUrl(u) {
+  if (!u || typeof u !== 'string') return '';
+  try {
+    const parsed = new URL(u, window.location.origin);
+    return (parsed.protocol === 'https:' || parsed.protocol === 'http:') ? parsed.href : '';
+  } catch { return ''; }
 }
 
-function renderProduct() {
-  const priceEl = document.getElementById('priceDisplay');
-  const stockEl = document.getElementById('stockStatus');
-  if (!_product) return;
-
-  const price = Number(_product.price) || 0;
-  const sale  = Number(_product.salePrice) || 0;
-
-  if (sale !== 0) {
-    priceEl.innerHTML =
-      '<span class="price-original struck">' + fmtMoney(price) + '</span>' +
-      '<span class="price-sale">' + fmtMoney(sale) + '</span>';
+/* ── Nav auth ── */
+onAuthStateChanged(auth, (user) => {
+  const navAuth = document.getElementById("navAuth");
+  if (user) {
+    const emailPrefix = esc(user.email.split("@")[0]);
+    navAuth.innerHTML = `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
   } else {
-    priceEl.innerHTML = '<span class="price-original">' + fmtMoney(price) + '</span>';
+    navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
   }
-
-  const stock = Number(_product.inStock) || 0;
-  if (stock === 0) {
-    stockEl.classList.add('reserve');
-    stockEl.textContent = 'Reserve Your Unit — Next Batch Ships in ' + (_product.leadTime ?? '') + ' weeks.';
-  } else {
-    stockEl.classList.remove('reserve');
-    stockEl.textContent = stock + ' IN STOCK';
-  }
-
-  cartLabel = stock === 0 ? 'Reserve Now' : 'Add to Cart';
-  document.getElementById('addToCartBtn').textContent = cartLabel;
-}
-
-async function loadProductData() {
-  try {
-    const snap = await getDoc(doc(db, "ursus-units", "CALIDUS"));
-    if (!snap.exists()) return;
-    _product = snap.data();
-    renderProduct();
-  } catch (err) {
-    console.error("Product data load error:", err);
-  }
-}
-loadProductData();
-
-/* ── Add to cart ── */
-document.getElementById('addToCartBtn').addEventListener('click', function () {
-  if (!_product) return;
-  try {
-    const cart = JSON.parse(localStorage.getItem('ursus_cart')) || [];
-    const existing = cart.find(i => i.id === 'CALIDUS');
-    if (existing) {
-      existing.quantity = (existing.quantity || 1) + 1;
-      existing.price = activePrice();
-    } else {
-      cart.push({ id: 'CALIDUS', name: 'CALIDUS', price: activePrice(), quantity: 1 });
-    }
-    localStorage.setItem('ursus_cart', JSON.stringify(cart));
-    if (typeof updateCartBadge === 'function') updateCartBadge();
-    const btn = this;
-    btn.textContent = 'Added ✓';
-    setTimeout(() => { btn.textContent = cartLabel; }, 1500);
-  } catch (err) {
-    console.error("Add to cart error:", err);
-  }
-});
-
-/* ── Auth & tiered access ── */
-onAuthStateChanged(auth, async (user) => {
-  if (!user) {
-    document.getElementById("navAuth").innerHTML =
-      `<a href="/ursusarmament/login/">Login</a>`;
-    document.getElementById("serialLock").classList.add("active");
-    document.getElementById("specsLock").classList.add("active");
-    return;
-  }
-  const emailPrefix = user.email.split("@")[0];
-  document.getElementById("navAuth").innerHTML =
-    `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
-
-  try {
-    const snap = await getDoc(doc(db, "users", emailPrefix));
-    const data = snap.data();
-    _isFullApproved =
-      data &&
-      data.d_type               === "full" &&
-      data.e_approved           === true   &&
-      data.f_status             === "approved" &&
-      data.g_verified_us_person === true;
-  } catch (err) {
-    _isFullApproved = false;
-  }
-
-  if (_isFullApproved) {
-    document.getElementById("serialLock").classList.remove("active");
-    document.getElementById("specsLock").classList.remove("active");
-  } else {
-    document.getElementById("serialLock").classList.add("active");
-    document.getElementById("specsLock").classList.add("active");
-  }
-});
-
-/* ── Serial lookup ── */
-const CALIDUS_SERIAL_NOTES = "Production CALIDUS thermal monocular – passed final acceptance testing. Serial number on record.";
-window.lookupSerial = async function() {
-  if (!_isFullApproved) return;
-  const raw   = document.getElementById('serialInput').value.trim().toUpperCase();
-  const errEl = document.getElementById('serialError');
-  const okEl  = document.getElementById('serialSuccess');
-  errEl.classList.remove('visible');
-  okEl.classList.remove('visible');
-  if (!raw) return;
-  try {
-    const snap = await getDoc(doc(db, "ursus-units", raw));
-    const set  = (id, val) => { document.getElementById(id).textContent = val ?? '—'; };
-    /* Standalone CALIDUS results hide Generation / Proof Date / Batch ID and show Resolution instead */
-    const compact = (on) => {
-      ['resultGen', 'resultDate', 'resultBatch'].forEach(id => {
-        document.getElementById(id).parentElement.style.display = on ? 'none' : '';
-      });
-      document.getElementById('resultRes').parentElement.style.display = on ? '' : 'none';
-    };
-    /* Only a doc with a qcResult is a real unit record (product docs like CALIDUS/NEXIS are not) */
-    const isUnit = snap.exists() && snap.data().qcResult !== undefined;
-    if (!isUnit) {
-      /* Not a standalone unit doc: check the CALIDUS document's serialNumbers array */
-      let calidusSerials = [];
-      try {
-        const cSnap = await getDoc(doc(db, "ursus-units", "CALIDUS"));
-        if (cSnap.exists() && Array.isArray(cSnap.data().serialNumbers)) {
-          calidusSerials = cSnap.data().serialNumbers.map(x => String(x).trim().toUpperCase());
-        }
-      } catch (e) { calidusSerials = []; }
-
-      if (/^UW-\d+$/.test(raw) && calidusSerials.includes(raw)) {
-        set('resultSerial',  raw);
-        set('resultProduct', 'CALIDUS');
-        set('resultTier',    /^UW-9/.test(raw) ? 'Standalone' : '—');
-        compact(true);
-        set('resultRes',     '640x512');
-        set('resultQc',      'PASS');
-        set('resultNotes',   CALIDUS_SERIAL_NOTES);
-        const cBadge = document.getElementById('resultQcBadge');
-        cBadge.textContent = 'QC PASS';
-        cBadge.className   = 'serial-badge pass';
-        okEl.classList.add('visible');
-        okEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-        return;
-      }
-
-      document.getElementById('serialErrorMsg').textContent =
-        'No unit found for "' + raw + '". Double-check the format or contact support.';
-      errEl.classList.add('visible');
-      return;
-    }
-    const unit = snap.data();
-    compact(false);
-    set('resultSerial',  raw);
-    set('resultProduct', unit.product);
-    set('resultTier',    unit.tier);
-    set('resultGen',     unit.generation);
-    set('resultDate',    unit.proofDate);
-    set('resultBatch',   unit.batchId);
-    set('resultQc',      unit.qcResult);
-    set('resultNotes',   unit.notes || 'No notes recorded.');
-    const badge = document.getElementById('resultQcBadge');
-    badge.textContent = 'QC ' + (unit.qcResult ?? 'UNKNOWN');
-    badge.className   = 'serial-badge ' + (unit.qcResult === 'PASS' ? 'pass' : 'fail');
-    okEl.classList.add('visible');
-    okEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  } catch (err) {
-    document.getElementById('serialErrorMsg').textContent = 'Error retrieving data. Please try again.';
-    errEl.classList.add('visible');
-  }
-};
-
-document.getElementById('serialInput').addEventListener('keydown', e => {
-  if (e.key === 'Enter') window.lookupSerial();
 });
 
 /* ── Timestamp helper ──
@@ -1313,7 +858,7 @@ const MONTH_MAP = {
 };
 
 const FIRESTORE_STRING_RE =
-  /^([A-Za-z]+)\.?\s+(\d{1,2}),?\s*(\d{4}),?\s+(?:at\s+)?(\d{1,2}):(\d{2}):(\d{2})\s*(AM|PM)\s+UTC([+-]\d+(?::?\d{2})?)$/i;
+  /^([A-Za-z]+)\.?\s+(\d{1,2}),?\s*(\d{4}),?\s+(?:at\s+)?(\d{1,2})\s*:\s*(\d{2})\s*:\s*(\d{2})\s*(AM|PM)\s+UTC([+-]\d+(?::?\d{2})?)$/i;
 
 function parseFirestoreTimestampString(str) {
   const m = FIRESTORE_STRING_RE.exec(str.trim());
@@ -1343,12 +888,6 @@ function parseFirestoreTimestampString(str) {
   return wallClockUtcMs - offsetHours * 3600000;
 }
 
-/* Display date, e.g. "Apr 1, 2019". '' if missing/unparseable so we never show 1970. */
-function formatReviewDate(ms) {
-  if (!ms || ms < 946684800000) return '';
-  return new Date(ms).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
-}
-
 function getReviewTimeMs(r) {
   const val = r.timestamp ?? r.timeStamp ?? r.TimeStamp;
   if (!val) return 0;
@@ -1364,25 +903,22 @@ function getReviewTimeMs(r) {
   return isNaN(fallback) ? 0 : fallback;
 }
 
-/* ── Reviews: product-scoped list + rating summary ──
-   To reuse on another product page, change these two values. */
-const REVIEW_PRODUCT_KEY   = 'calidus';   // matched loosely against each review's productType
-const REVIEW_PRODUCT_LABEL = 'CALIDUS';
-
-/* HTML-escape anything user-supplied before it goes into innerHTML */
-function esc(value) {
-  return String(value ?? '').replace(/[&<>"']/g, c => (
-    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
-  ));
+/* Display date, e.g. "Apr 1, 2019". Returns '' if there is no usable date
+   (ms of 0 means missing/unparseable), so we never show "Jan 1, 1970". */
+function formatReviewDate(ms) {
+  if (!ms || ms < 946684800000) return ''; // before 2000-01-01 = treat as missing
+  return new Date(ms).toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
-/* Only allow http(s) URLs for review photos */
-function safeUrl(u) {
-  if (!u || typeof u !== 'string') return '';
-  try {
-    const p = new URL(u, window.location.origin);
-    return (p.protocol === 'https:' || p.protocol === 'http:') ? p.href : '';
-  } catch { return ''; }
+/* ── State ── */
+let _allReviews = [];
+let _activeFilter = 'ALL';
+let _activeSort = 'newest';
+
+const PRODUCT_LABELS = { ALL: 'All Products', URSIX: 'URSIX', ROTS: 'R.O.T.S.', CALIDUS: 'CALIDUS', NEXIS: 'NEXIS' };
+
+function matchesProduct(r, key) {
+  return key === 'ALL' || (r.productType || '').toLowerCase().includes(key.toLowerCase());
 }
 
 function cleanRating(r) {
@@ -1390,17 +926,79 @@ function cleanRating(r) {
   return (n >= 1 && n <= 5) ? n : 0;
 }
 
-/* Average + 5-to-1 distribution, same look as the full Reviews page */
-function renderRatingSummary(reviews) {
-  const el = document.getElementById('ratingSummary');
-  if (!el) return;
-  const rated = reviews.map(cleanRating).filter(n => n > 0);
-  if (rated.length === 0) { el.style.display = 'none'; el.innerHTML = ''; return; }
+/* ── Load all approved reviews ── */
+async function loadAllReviews() {
+  const container = document.getElementById("reviewsContainer");
+  try {
+    const q    = query(
+      collection(db, "ursus-reviews"),
+      where("reviewApproval", "==", true)
+    );
+    const snap = await getDocs(q);
+
+    // Precompute time once per review
+    _allReviews = snap.docs.map(d => {
+      const data = d.data();
+      data._timeMs = getReviewTimeMs(data);
+      return data;
+    });
+
+    updateFilterCounts();
+    renderReviews();
+
+  } catch (err) {
+    console.error("Reviews load error:", err);
+    document.getElementById("ratingSummary").innerHTML = '';
+    container.innerHTML = '<div class="reviews-empty">Could not load reviews. Please try again.</div>';
+  }
+}
+
+/* ── Filter button counts ── */
+function updateFilterCounts() {
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    const key = btn.dataset.product;
+    const n = _allReviews.filter(r => matchesProduct(r, key)).length;
+    btn.textContent = `${btn.dataset.label} (${n})`;
+  });
+}
+
+/* ── Sorting ── */
+function sortReviews(list) {
+  const byTimeDesc = (a, b) => b._timeMs - a._timeMs;
+  const copy = list.slice();
+  switch (_activeSort) {
+    case 'oldest':
+      // reviews with no date sink to the bottom
+      return copy.sort((a, b) => (a._timeMs || Infinity) - (b._timeMs || Infinity));
+    case 'highest':
+      return copy.sort((a, b) => cleanRating(b) - cleanRating(a) || byTimeDesc(a, b));
+    case 'lowest':
+      return copy.sort((a, b) => {
+        const ra = cleanRating(a) || 6, rb = cleanRating(b) || 6; // unrated last
+        return ra - rb || byTimeDesc(a, b);
+      });
+    case 'newest':
+    default:
+      return copy.sort(byTimeDesc);
+  }
+}
+
+/* ── Rating summary ── */
+function renderSummary(filtered) {
+  const el = document.getElementById("ratingSummary");
+  const scope = PRODUCT_LABELS[_activeFilter] || _activeFilter;
+  const rated = filtered.map(cleanRating).filter(n => n > 0);
+
+  if (rated.length === 0) {
+    el.innerHTML = `<div class="rs-left" style="min-width:0;"><div class="rs-scope">${esc(scope)}</div><div class="rs-empty">No ratings yet</div></div>`;
+    return;
+  }
 
   const total = rated.length;
   const avg   = rated.reduce((s, n) => s + n, 0) / total;
   const dist  = [0, 0, 0, 0, 0, 0];
   rated.forEach(n => dist[n]++);
+
   const pct = Math.max(0, Math.min(100, (avg / 5) * 100));
 
   let rows = '';
@@ -1416,7 +1014,7 @@ function renderRatingSummary(reviews) {
 
   el.innerHTML = `
     <div class="rs-left">
-      <div class="rs-scope">${esc(REVIEW_PRODUCT_LABEL)}</div>
+      <div class="rs-scope">${esc(scope)}</div>
       <div class="rs-avg">${avg.toFixed(1)}</div>
       <div class="stars-frac" aria-label="${avg.toFixed(1)} out of 5 stars">
         ★★★★★<span class="stars-fill" style="width:${pct.toFixed(1)}%">★★★★★</span>
@@ -1425,112 +1023,118 @@ function renderRatingSummary(reviews) {
     </div>
     <div class="rs-bars">${rows}</div>
   `;
-  el.style.display = '';
 }
 
-async function loadProductReviews() {
-  const container = document.getElementById('reviewsContainer');
-  try {
-    const q    = query(
-      collection(db, "ursus-reviews"),
-      where("reviewApproval", "==", true)
-    );
-    const snap = await getDocs(q);
+/* ── Render ── */
+function renderReviews() {
+  const container = document.getElementById("reviewsContainer");
+  const filtered  = _allReviews.filter(r => matchesProduct(r, _activeFilter));
 
-    // This product only (loose match), newest first
-    const reviews = snap.docs
-      .map(d => d.data())
-      .filter(r => String(r.productType || '').trim().toUpperCase() === REVIEW_PRODUCT_LABEL)
-      .sort((a, b) => getReviewTimeMs(b) - getReviewTimeMs(a));
+  renderSummary(filtered);
 
-    renderRatingSummary(reviews);
+  if (_allReviews.length === 0) {
+    container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
+    return;
+  }
 
-    if (reviews.length === 0) {
-      container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
-      return;
+  if (filtered.length === 0) {
+    container.innerHTML = '<div class="reviews-empty">No reviews found for this product.</div>';
+    return;
+  }
+
+  const sorted = sortReviews(filtered);
+  container.innerHTML = '';
+
+  sorted.forEach(r => {
+    const rating = cleanRating(r);
+    const stars  = '★'.repeat(rating) + '☆'.repeat(5 - rating);
+    const dateStr = formatReviewDate(r._timeMs);
+
+    let imgHtml = '';
+    const img1 = safeUrl(r.img1_url);
+    const img2 = safeUrl(r.img2_url);
+    if (img1 || img2) {
+      imgHtml = '<div class="review-images">';
+      if (img1) imgHtml += `<img src="${esc(img1)}" data-full="${esc(img1)}" class="review-img" alt="Review photo">`;
+      if (img2) imgHtml += `<img src="${esc(img2)}" data-full="${esc(img2)}" class="review-img" alt="Review photo">`;
+      imgHtml += '</div>';
     }
 
-    container.innerHTML = '';
-    reviews.forEach(r => {
-      const rating = cleanRating(r);
-      const stars  = '★'.repeat(rating) + '☆'.repeat(5 - rating);
-      const div    = document.createElement('div');
-      div.className = 'review-card';
-
-      let imgHtml = '';
-      const img1 = safeUrl(r.img1_url);
-      const img2 = safeUrl(r.img2_url);
-      if (img1 || img2) {
-        imgHtml = '<div class="review-images">';
-        if (img1) imgHtml += `<img src="${esc(img1)}" data-full="${esc(img1)}" class="review-img" alt="Review photo">`;
-        if (img2) imgHtml += `<img src="${esc(img2)}" data-full="${esc(img2)}" class="review-img" alt="Review photo">`;
-        imgHtml += '</div>';
-      }
-
-      let replyHtml = '';
-      if (r.ursusReply) {
-        replyHtml = `
-          <div class="review-reply">
-            <div class="review-reply-header">
-              <img src="/ursusarmament/images/ursusLogoBlackAndOrange.png" class="review-reply-logo" alt="Ursus Works">
-              <span class="review-reply-name">Ursus Works</span>
-            </div>
-            <div class="review-reply-text">${esc(r.ursusReply)}</div>
+    let replyHtml = '';
+    if (r.ursusReply) {
+      replyHtml = `
+        <div class="review-reply">
+          <div class="review-reply-header">
+            <img src="/ursusarmament/images/ursusLogoBlackAndOrange.png" class="review-reply-logo" alt="Ursus Works">
+            <span class="review-reply-name">Ursus Works</span>
           </div>
-        `;
-      }
-
-      let typeHtml = '';
-      if (r.feedbackType) {
-        const t = String(r.feedbackType).toLowerCase();
-        const cls = t.includes('purchase') ? 'badge-purchase' : (t.includes('field') ? 'badge-field' : '');
-        typeHtml = `<span class="badge ${cls}">${esc(r.feedbackType)}</span>`;
-      }
-      const dateStr = formatReviewDate(getReviewTimeMs(r));
-      const stateStr = r.state ? ` (${esc(r.state)})` : '';
-      div.innerHTML = `
-        <div class="review-content">
-          <div class="review-header">
-            <div class="review-name">${esc(r.firstName || '—')}${stateStr}</div>
-            <div class="review-meta">
-              <div class="review-stars">${stars}</div>
-              ${dateStr ? `<div class="review-date">${esc(dateStr)}</div>` : ''}
-            </div>
-          </div>
-          <div class="review-product">${esc(r.productType || '')}</div>
-          <div class="review-tags">${typeHtml}</div>
-          <div class="review-text">${esc(r.reviewText || '')}</div>
-          ${replyHtml}
+          <div class="review-reply-text">${esc(r.ursusReply)}</div>
         </div>
-        ${imgHtml}
       `;
-      container.appendChild(div);
-    });
-  } catch (err) {
-    console.error("Reviews load error:", err);
-    container.innerHTML = '<div class="reviews-empty">Currently No Reviews</div>';
-  }
+    }
+
+    let typeHtml = '';
+    if (r.feedbackType) {
+      const t = String(r.feedbackType).toLowerCase();
+      const cls = t.includes('purchase') ? 'badge-purchase' : (t.includes('field') ? 'badge-field' : '');
+      typeHtml = `<span class="badge ${cls}">${esc(r.feedbackType)}</span>`;
+    }
+
+    const stateStr = r.state ? ` (${esc(r.state)})` : '';
+
+    const div = document.createElement('div');
+    div.className = 'review-card';
+    div.innerHTML = `
+      <div class="review-content">
+        <div class="review-header">
+          <div class="review-name">${esc(r.firstName || '—')}${stateStr}</div>
+          <div class="review-meta">
+            <div class="review-stars">${stars}</div>
+            ${dateStr ? `<div class="review-date">${esc(dateStr)}</div>` : ''}
+          </div>
+        </div>
+        <div class="review-product">${esc(r.productType || '')}</div>
+        <div class="review-tags">${typeHtml}</div>
+        <div class="review-text">${esc(r.reviewText || '')}</div>
+        ${replyHtml}
+      </div>
+      ${imgHtml}
+    `;
+    container.appendChild(div);
+  });
 }
 
-/* Photo lightbox via delegation (no inline handlers) */
-document.getElementById('reviewsContainer').addEventListener('click', e => {
-  const img = e.target.closest('.review-img');
-  if (img && img.dataset.full) window.openReviewImage(img.dataset.full);
+/* ── Filter + sort events ── */
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    _activeFilter = btn.dataset.product;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderReviews();
+  });
 });
 
-loadProductReviews();
+document.getElementById('sortSelect').addEventListener('change', e => {
+  _activeSort = e.target.value;
+  renderReviews();
+});
 
-/* ── Image lightbox ── */
-window.openReviewImage = function(url) {
-  const lb = document.createElement("div");
+/* ── Image lightbox (delegated; no inline handlers) ── */
+function openReviewImage(url) {
+  const lb  = document.createElement("div");
   lb.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,0.92);z-index:999999;display:flex;align-items:center;justify-content:center;cursor:pointer;";
-  const lbImg = document.createElement("img");
-  lbImg.src = url;
-  lbImg.style.cssText = "max-width:90vw;max-height:90vh;object-fit:contain;";
-  lb.appendChild(lbImg);
+  const img = document.createElement("img");
+  img.src = url;
+  img.style.cssText = "max-width:90vw;max-height:90vh;object-fit:contain;";
+  lb.appendChild(img);
   lb.onclick = () => document.body.removeChild(lb);
   document.body.appendChild(lb);
-};
+}
+
+document.getElementById('reviewsContainer').addEventListener('click', e => {
+  const img = e.target.closest('.review-img');
+  if (img && img.dataset.full) openReviewImage(img.dataset.full);
+});
 
 /* ── Upload helper ── */
 function uploadReviewImage(file, path) {
@@ -1546,8 +1150,9 @@ function uploadReviewImage(file, path) {
 
 /* ── Submit review ── */
 window.submitReview = async function() {
-  const msg  = document.getElementById("rv_msg");
-  const btn  = document.getElementById("rv_submitBtn");
+  const msg    = document.getElementById("rv_msg");
+  const btn    = document.getElementById("rv_submitBtn");
+
   const productType  = document.getElementById("rv_product").value;
   const feedbackType = document.getElementById("rv_feedbackType").value;
   const firstName    = document.getElementById("rv_firstName").value.trim();
@@ -1556,41 +1161,65 @@ window.submitReview = async function() {
   const img1File     = document.getElementById("rv_img1").files[0];
   const img2File     = document.getElementById("rv_img2").files[0];
 
-  if (!productType)      { msg.style.color="#c0392b"; msg.textContent="Please select a product."; return; }
-  if (!feedbackType)     { msg.style.color="#c0392b"; msg.textContent="Please select a feedback type."; return; }
-  if (_starRating === 0) { msg.style.color="#c0392b"; msg.textContent="Please select a star rating."; return; }
-  if (!firstName)        { msg.style.color="#c0392b"; msg.textContent="Please enter your first name."; return; }
-  if (!state)            { msg.style.color="#c0392b"; msg.textContent="Please select your state."; return; }
-  if (!reviewText)       { msg.style.color="#c0392b"; msg.textContent="Please write your review."; return; }
+  if (!productType)       { msg.style.color = "#c0392b"; msg.textContent = "Please select a product."; return; }
+  if (!feedbackType)      { msg.style.color = "#c0392b"; msg.textContent = "Please select a feedback type."; return; }
+  if (_starRating === 0)  { msg.style.color = "#c0392b"; msg.textContent = "Please select a star rating."; return; }
+  if (!firstName)         { msg.style.color = "#c0392b"; msg.textContent = "Please enter your first name."; return; }
+  if (!state)             { msg.style.color = "#c0392b"; msg.textContent = "Please select your state."; return; }
+  if (!reviewText)        { msg.style.color = "#c0392b"; msg.textContent = "Please write your review."; return; }
 
-  btn.disabled = true; btn.textContent = "Submitting..."; msg.textContent = "";
+  btn.disabled    = true;
+  btn.textContent = "Submitting...";
+  msg.textContent = "";
 
   try {
+    // 1. Create Firestore doc
     const reviewRef = await addDoc(collection(db, "ursus-reviews"), {
-      productType, feedbackType, starRating: _starRating,
-      firstName, state, reviewText,
-      reviewApproval: false, img1_url: "", img2_url: "",
-      timestamp: new Date(),
+      productType,
+      feedbackType,
+      starRating:     _starRating,
+      firstName,
+      state,
+      reviewText,
+      reviewApproval: false,
+      img1_url:       "",
+      img2_url:       "",
+      timestamp:      new Date(),
     });
+
     const docId = reviewRef.id;
-    let img1_url = "", img2_url = "";
+    let img1_url = "";
+    let img2_url = "";
+
+    // 2. Upload images if provided
     if (img1File) {
       btn.textContent = "Uploading photos...";
-      img1_url = await uploadReviewImage(img1File, `ursus-reviews/${docId}/img1.${img1File.name.split('.').pop()}`);
+      const ext1 = img1File.name.split(".").pop();
+      img1_url = await uploadReviewImage(img1File, `ursus-reviews/${docId}/img1.${ext1}`);
     }
     if (img2File) {
-      img2_url = await uploadReviewImage(img2File, `ursus-reviews/${docId}/img2.${img2File.name.split('.').pop()}`);
+      const ext2 = img2File.name.split(".").pop();
+      img2_url = await uploadReviewImage(img2File, `ursus-reviews/${docId}/img2.${ext2}`);
     }
-    if (img1_url || img2_url) await updateDoc(reviewRef, { img1_url, img2_url });
+
+    // 3. Update doc with image URLs if any
+    if (img1_url || img2_url) {
+      await updateDoc(reviewRef, { img1_url, img2_url });
+    }
+
     document.getElementById("reviewFormContainer").style.display = "none";
     document.getElementById("reviewThankYou").style.display      = "block";
+
   } catch (err) {
     console.error("Review submit error:", err);
     msg.style.color = "#c0392b";
     msg.textContent = "Submission failed. Please try again.";
-    btn.disabled = false; btn.textContent = "Submit Review";
+    btn.disabled    = false;
+    btn.textContent = "Submit Review";
   }
 };
+
+loadAllReviews();
 </script>
 <script>
 function updateCartBadge() {
