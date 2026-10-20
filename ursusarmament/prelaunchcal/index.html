@@ -139,6 +139,7 @@
   .btn-notify { background: transparent; color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: 1px solid var(--accent); cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s, color 0.2s; flex: 1; text-align: center; }
   .btn-notify:hover { background: rgba(200,146,42,0.1); }
   .stock-status { font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); white-space: nowrap; }
+  .stock-status.reserve { color: var(--accent); }
   .stock-status:empty { display: none; }
   .btn-ghost { background: transparent; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; border: 1px solid var(--border2); cursor: pointer; text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s; }
   .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
@@ -1174,8 +1175,10 @@ function renderProduct() {
 
   const stock = Number(_product.inStock) || 0;
   if (stock === 0) {
-    stockEl.textContent = 'Reserve Your Unit — Next Batch Ships in ' + esc(_product.leadTime ?? '') + ' weeks.';
+    stockEl.classList.add('reserve');
+    stockEl.textContent = 'Reserve Your Unit — Next Batch Ships in ' + (_product.leadTime ?? '') + ' weeks.';
   } else {
+    stockEl.classList.remove('reserve');
     stockEl.textContent = stock + ' IN STOCK';
   }
 }
