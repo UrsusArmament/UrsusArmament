@@ -141,7 +141,11 @@
   .product-actions { display: flex; gap: 1rem; margin-bottom: 2rem; align-items: center; flex-wrap: wrap; }
   .btn-notify { background: transparent; color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: 1px solid var(--accent); cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s, color 0.2s; flex: 1; text-align: center; }
   .btn-notify:hover { background: rgba(200,146,42,0.1); }
-  .stock-status { font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); white-space: nowrap; }
+  .stock-status { font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); min-width: 0; overflow-wrap: anywhere; }
+  @media (max-width: 600px) {
+    .stock-status { flex: 1 1 100%; }
+    .unavail-banner p { text-align: center; letter-spacing: 0.12em; }
+  }
   .stock-status.reserve { color: var(--accent); }
   .stock-status:empty { display: none; }
   .btn-ghost { background: transparent; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; border: 1px solid var(--border2); cursor: pointer; text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s; }
