@@ -102,6 +102,9 @@
   }
   @keyframes pulse { 0%,100%{opacity:0.4;transform:scale(1)} 50%{opacity:1;transform:scale(1.25)} }
   .unavail-banner p { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
+  .unavail-banner.in-stock { border-bottom-color: rgba(42,156,92,0.35); }
+  .unavail-banner.in-stock p { color: var(--green); }
+  .unavail-banner.in-stock .unavail-dot { background: var(--green); }
   .unavail-banner span { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; color: var(--muted); font-weight: 400; text-transform: uppercase; }
 
   /* HERO */
@@ -634,10 +637,9 @@
   <span>CALIDUS</span>
 </div>
 
-<div class="unavail-banner">
+<div class="unavail-banner" id="stockBanner" style="display:none;">
   <div class="unavail-dot"></div>
-  <p>Currently Unavailable</p>
-  <span>&nbsp;·&nbsp; Notify me when available</span>
+  <p id="stockBannerText"></p>
 </div>
 
 <!-- PRODUCT HERO -->
@@ -660,7 +662,6 @@
       <div class="calidus-thumb" onclick="calidusSwap(this)" data-src="/ursusarmament/images/alternatePalette.PNG">
         <img src="/ursusarmament/images/alternatePalette.PNG" alt="Alternate palette"/>
       </div>
-      <span class="thumb-tag">Pre-production · Views subject to change</span>
     </div>
   </div>
 
@@ -681,7 +682,6 @@
       <a href="#specs" class="btn-ghost">View Specs</a>
     </div>
     <div class="product-trust">
-      <div class="trust-item"><span class="trust-label">Availability</span><span class="trust-value tbd">TBD</span></div>
       <div class="trust-item"><span class="trust-label">Made In</span><span class="trust-value">USA</span></div>
     </div>
   </div>
@@ -1141,6 +1141,11 @@ function renderProduct() {
     stockEl.classList.remove('reserve');
     stockEl.textContent = stock + ' IN STOCK';
   }
+
+  const banner = document.getElementById('stockBanner');
+  document.getElementById('stockBannerText').textContent = stockEl.textContent;
+  banner.classList.toggle('in-stock', stock !== 0);
+  banner.style.display = '';
 }
 
 async function loadProductData() {
