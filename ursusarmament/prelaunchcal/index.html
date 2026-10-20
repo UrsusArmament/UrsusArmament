@@ -1218,6 +1218,7 @@ onAuthStateChanged(auth, async (user) => {
 });
 
 /* ── Serial lookup ── */
+const CALIDUS_SERIAL_NOTES = "Production CALIDUS thermal monocular – passed final acceptance testing. Serial number on record.";
 window.lookupSerial = async function() {
   if (!_isFullApproved) return;
   const raw   = document.getElementById('serialInput').value.trim().toUpperCase();
@@ -1228,14 +1229,42 @@ window.lookupSerial = async function() {
   if (!raw) return;
   try {
     const snap = await getDoc(doc(db, "ursus-units", raw));
-    if (!snap.exists()) {
+    const set  = (id, val) => { document.getElementById(id).textContent = val ?? '—'; };
+    /* Only a doc with a qcResult is a real unit record (product docs like CALIDUS/NEXIS are not) */
+    const isUnit = snap.exists() && snap.data().qcResult !== undefined;
+    if (!isUnit) {
+      /* Not a standalone unit doc: check the CALIDUS document's serialNumbers array */
+      let calidusSerials = [];
+      try {
+        const cSnap = await getDoc(doc(db, "ursus-units", "CALIDUS"));
+        if (cSnap.exists() && Array.isArray(cSnap.data().serialNumbers)) {
+          calidusSerials = cSnap.data().serialNumbers.map(x => String(x).trim().toUpperCase());
+        }
+      } catch (e) { calidusSerials = []; }
+
+      if (/^UW-\d+$/.test(raw) && calidusSerials.includes(raw)) {
+        set('resultSerial',  raw);
+        set('resultProduct', 'CALIDUS');
+        set('resultTier',    /^UW-9/.test(raw) ? 'Standalone' : '—');
+        set('resultGen',     '—');
+        set('resultDate',    '—');
+        set('resultBatch',   '—');
+        set('resultQc',      'PASS');
+        set('resultNotes',   CALIDUS_SERIAL_NOTES);
+        const cBadge = document.getElementById('resultQcBadge');
+        cBadge.textContent = 'QC PASS';
+        cBadge.className   = 'serial-badge pass';
+        okEl.classList.add('visible');
+        okEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        return;
+      }
+
       document.getElementById('serialErrorMsg').textContent =
         'No unit found for "' + raw + '". Double-check the format or contact support.';
       errEl.classList.add('visible');
       return;
     }
     const unit = snap.data();
-    const set  = (id, val) => { document.getElementById(id).textContent = val ?? '—'; };
     set('resultSerial',  raw);
     set('resultProduct', unit.product);
     set('resultTier',    unit.tier);
