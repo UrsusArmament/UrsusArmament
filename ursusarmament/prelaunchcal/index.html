@@ -641,11 +641,6 @@
   <span>CALIDUS</span>
 </div>
 
-<div class="unavail-banner" id="stockBanner" style="display:none;">
-  <div class="unavail-dot"></div>
-  <p id="stockBannerText"></p>
-</div>
-
 <!-- PRODUCT HERO -->
 <section class="product-hero">
   <div class="product-visual">
@@ -792,7 +787,7 @@
     <div class="features-list">
       <div class="feature-item"><div class="feature-num">01</div><div class="feature-title">LWIR Thermal Core</div><p class="feature-desc">Built around a long-wave infrared uncooled microbolometer — detecting heat signatures through total darkness, smoke, and obscurants that defeat conventional night vision entirely.</p></div>
       <div class="feature-item"><div class="feature-num">02</div><div class="feature-title">Multi-Palette Display</div><p class="feature-desc">White Hot, Black Hot, and color palette modes switchable on the fly. Dial in the contrast that works for your environment and mission, without diving into menus.</p></div>
-      <div class="feature-item"><div class="feature-num">03</div><div class="feature-title">Continuous Digital Zoom</div><p class="feature-desc">Stepped 1× to 8× digital zoom lets you glass a perimeter or tighten onto a specific target without swapping optics or changing your position.</p></div>
+      <div class="feature-item"><div class="feature-num">03</div><div class="feature-title">Stepped Digital Zoom</div><p class="feature-desc">Stepped 1× to 8× digital zoom lets you glass a perimeter or tighten onto a specific target without swapping optics or changing your position.</p></div>
       <div class="feature-item"><div class="feature-num">04</div><div class="feature-title">Compact, Helmet-Ready Form Factor</div><p class="feature-desc">Designed from the ground up to be carried or mounted. A PVS-14-style mount and helmet-compatible mounting interface means the CALIDUS goes wherever you go.</p></div>
       <div class="feature-item"><div class="feature-num">05</div><div class="feature-title">All-Weather IP67 Housing</div><p class="feature-desc">Target-rated IP67 — rain, dust, and immersion to 1m. Built to the same environmental standard as the URSIX. Because the mission doesn't stop for weather.</p></div>
       <div class="feature-item"><div class="feature-num">06</div><div class="feature-title">Compact Power</div><p class="feature-desc">Runs on a single 18350 lithium-ion cell for compact, lightweight operation.</p></div>
@@ -871,7 +866,7 @@
   </div>
   <div class="footer-bottom">
     <div class="footer-logo">URSUS <span>ARMAMENT</span></div>
-    <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
+    <div class="footer-legal">© 2026 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
   </div>
 </footer>
 
@@ -1111,6 +1106,7 @@ let _isFullApproved = false;
 
 /* ── Product data (price / sale / stock / lead time) from ursus-units/CALIDUS ── */
 let _product = null;
+let cartLabel = 'Add to Cart';
 
 function fmtMoney(n) {
   return '$' + Number(n).toLocaleString('en-US', { minimumFractionDigits: 0, maximumFractionDigits: 2 });
@@ -1147,10 +1143,8 @@ function renderProduct() {
     stockEl.textContent = stock + ' IN STOCK';
   }
 
-  const banner = document.getElementById('stockBanner');
-  document.getElementById('stockBannerText').textContent = stockEl.textContent;
-  banner.classList.toggle('in-stock', stock !== 0);
-  banner.style.display = '';
+  cartLabel = stock === 0 ? 'Reserve' : 'Add to Cart';
+  document.getElementById('addToCartBtn').textContent = cartLabel;
 }
 
 async function loadProductData() {
@@ -1181,7 +1175,7 @@ document.getElementById('addToCartBtn').addEventListener('click', function () {
     if (typeof updateCartBadge === 'function') updateCartBadge();
     const btn = this;
     btn.textContent = 'Added ✓';
-    setTimeout(() => { btn.textContent = 'Add to Cart'; }, 1500);
+    setTimeout(() => { btn.textContent = cartLabel; }, 1500);
   } catch (err) {
     console.error("Add to cart error:", err);
   }
