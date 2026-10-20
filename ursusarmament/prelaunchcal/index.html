@@ -748,6 +748,7 @@
           <div class="serial-field"><span class="serial-field-label">Generation</span><span class="serial-field-value" id="resultGen">—</span></div>
           <div class="serial-field"><span class="serial-field-label">Proof Date</span><span class="serial-field-value" id="resultDate">—</span></div>
           <div class="serial-field"><span class="serial-field-label">Batch ID</span><span class="serial-field-value" id="resultBatch">—</span></div>
+          <div class="serial-field" style="display:none;"><span class="serial-field-label">Resolution</span><span class="serial-field-value" id="resultRes">—</span></div>
           <div class="serial-field"><span class="serial-field-label">QC Result</span><span class="serial-field-value" id="resultQc">—</span></div>
         </div>
         <div class="serial-card-notes">
@@ -1230,6 +1231,13 @@ window.lookupSerial = async function() {
   try {
     const snap = await getDoc(doc(db, "ursus-units", raw));
     const set  = (id, val) => { document.getElementById(id).textContent = val ?? '—'; };
+    /* Standalone CALIDUS results hide Generation / Proof Date / Batch ID and show Resolution instead */
+    const compact = (on) => {
+      ['resultGen', 'resultDate', 'resultBatch'].forEach(id => {
+        document.getElementById(id).parentElement.style.display = on ? 'none' : '';
+      });
+      document.getElementById('resultRes').parentElement.style.display = on ? '' : 'none';
+    };
     /* Only a doc with a qcResult is a real unit record (product docs like CALIDUS/NEXIS are not) */
     const isUnit = snap.exists() && snap.data().qcResult !== undefined;
     if (!isUnit) {
@@ -1246,9 +1254,8 @@ window.lookupSerial = async function() {
         set('resultSerial',  raw);
         set('resultProduct', 'CALIDUS');
         set('resultTier',    /^UW-9/.test(raw) ? 'Standalone' : '—');
-        set('resultGen',     '—');
-        set('resultDate',    '—');
-        set('resultBatch',   '—');
+        compact(true);
+        set('resultRes',     '640x512');
         set('resultQc',      'PASS');
         set('resultNotes',   CALIDUS_SERIAL_NOTES);
         const cBadge = document.getElementById('resultQcBadge');
@@ -1265,6 +1272,7 @@ window.lookupSerial = async function() {
       return;
     }
     const unit = snap.data();
+    compact(false);
     set('resultSerial',  raw);
     set('resultProduct', unit.product);
     set('resultTier',    unit.tier);
