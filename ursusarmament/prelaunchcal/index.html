@@ -427,7 +427,7 @@
   .review-header { display: flex; flex-direction: column; gap: 0.3rem; }
   .review-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); }
   .review-stars { font-size: 1.2rem; letter-spacing: 0.1em; color: var(--accent); }
-  .review-stars-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .review-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5rem 1.2rem; }
   .review-product { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); opacity: 0.8; }
   .review-tags { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.4rem; }
   .badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.15rem 0.6rem; border: 1px solid var(--border2); color: var(--muted); }
@@ -435,7 +435,12 @@
   .badge-field { border-color: rgba(232,228,217,0.3); color: var(--text); background: rgba(232,228,217,0.04); }
   .review-date { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
   .review-meta { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-family: 'Barlow Condensed', sans-serif; }
-  .review-text { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-top: 0.25rem; }
+  .review-text { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-top: 0.25rem; white-space: pre-line; overflow-wrap: anywhere; }
+  .review-reply { margin-top: 1rem; margin-left: 1.5rem; padding: 1rem 1.25rem; background: var(--surface2); border-left: 2px solid var(--accent); }
+  .review-reply-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; }
+  .review-reply-logo { width: 2rem; height: 2rem; object-fit: contain; flex-shrink: 0; border-radius: 3px; }
+  .review-reply-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); }
+  .review-reply-text { font-size: 0.92rem; color: var(--muted); line-height: 1.7; white-space: pre-line; overflow-wrap: anywhere; }
   .review-images { display: flex; flex-direction: column; gap: 0.5rem; flex-shrink: 0; width: 200px; }
   .review-img { width: 200px; height: 150px; object-fit: cover; cursor: pointer; border: 1px solid var(--border2); transition: opacity 0.2s, border-color 0.2s; display: block; }
   .review-img:hover { opacity: 0.85; border-color: var(--accent); }
@@ -1435,7 +1440,7 @@ async function loadProductReviews() {
     // This product only (loose match), newest first
     const reviews = snap.docs
       .map(d => d.data())
-      .filter(r => (r.productType || '').toLowerCase().includes(REVIEW_PRODUCT_KEY))
+      .filter(r => String(r.productType || '').trim().toUpperCase() === REVIEW_PRODUCT_LABEL)
       .sort((a, b) => getReviewTimeMs(b) - getReviewTimeMs(a));
 
     renderRatingSummary(reviews);
@@ -1487,13 +1492,13 @@ async function loadProductReviews() {
         <div class="review-content">
           <div class="review-header">
             <div class="review-name">${esc(r.firstName || '—')}${stateStr}</div>
-            <div class="review-stars-row">
+            <div class="review-meta">
               <div class="review-stars">${stars}</div>
               ${dateStr ? `<div class="review-date">${esc(dateStr)}</div>` : ''}
             </div>
           </div>
-          ${r.productType ? `<div class="review-product">${esc(r.productType)}</div>` : ''}
-          ${typeHtml ? `<div class="review-tags">${typeHtml}</div>` : ''}
+          <div class="review-product">${esc(r.productType || '')}</div>
+          <div class="review-tags">${typeHtml}</div>
           <div class="review-text">${esc(r.reviewText || '')}</div>
           ${replyHtml}
         </div>
