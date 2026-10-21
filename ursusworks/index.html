@@ -73,7 +73,8 @@
     }
 
     .card-live {
-      display: block;
+      display: flex;
+      flex-direction: column;
       text-decoration: none;
       background: var(--surface-live);
       border: 1.5px solid var(--border-live);
@@ -115,7 +116,8 @@
     .icon-wrap img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
+      object-position: center;
       display: block;
     }
 
@@ -168,7 +170,8 @@
     }
 
     .card-cta-row {
-      margin-top: 1.75rem;
+      margin-top: auto;
+      padding-top: 1.75rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
