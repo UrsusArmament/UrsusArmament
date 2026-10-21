@@ -91,6 +91,10 @@
 
     .card-live:active { transform: translateY(0); }
 
+    .card-live { --card-accent: #ffffff; }
+    .card-live.armament    { --card-accent: #c8922a; }
+    .card-live.engineering { --card-accent: #4a90d9; }
+
     .card-placeholder {
       background: var(--surface);
       border: 0.5px dashed var(--border-dashed);
@@ -135,12 +139,13 @@
       margin-bottom: 0.75rem;
       padding-bottom: 0.75rem;
       letter-spacing: 0.01em;
-      border-bottom: 1px solid rgba(255,255,255,0.2);
+      border-bottom: 1px solid color-mix(in srgb, var(--card-accent) 45%, transparent);
     }
 
     .card-title .title-line,
     .card-title .title-sub { display: block; }
     .card-title .title-sub { font-size: 0.9em; }
+    .card-live .card-title .title-sub { color: var(--card-accent); }
 
     .card-live .card-desc {
       font-size: 13px;
@@ -173,7 +178,7 @@
       font-size: 11px;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--text-live);
+      color: var(--card-accent);
       font-weight: 700;
     }
 
@@ -184,7 +189,7 @@
       width: 30px;
       height: 30px;
       border-radius: 50%;
-      background: var(--text-live);
+      background: var(--card-accent);
       color: #111110;
       font-size: 14px;
       font-weight: 700;
@@ -193,7 +198,8 @@
     }
 
     .card-live:hover .card-cta-arrow {
-      background: #ffffff;
+      background: var(--card-accent);
+      filter: brightness(1.15);
       transform: translateX(2px);
     }
 
@@ -228,7 +234,7 @@
 
   <main class="grid">
 
-    <a class="card-live" href="/ursusarmament">
+    <a class="card-live armament" href="/ursusarmament">
       <div class="icon-wrap">
         <img src="/ursusarmament/images/UrsusArmamentLogo.jpg" alt="Ursus Armament logo" />
       </div>
@@ -240,7 +246,7 @@
       </div>
     </a>
 
-    <a class="card-live" href="/ursusengineering">
+    <a class="card-live engineering" href="/ursusengineering">
       <div class="icon-wrap">
         <img src="/ursusarmament/images/logoGrayscale.jpg" alt="Ursus Works Engineering logo" />
       </div>
@@ -262,7 +268,7 @@
   </main>
 
   <footer>
-    <div>© 2025 Ursus Works</div>
+    <div>© 2026 Ursus Works</div>
     <div>contact@ursusworks.com</div>
   </footer>
 
