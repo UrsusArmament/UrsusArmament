@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- IC -->
+  <rect x="120" y="180" width="80" height="80" rx="5" stroke-width="6"/>
+  <circle cx="136" cy="196" r="4.5" fill="#ffffff" stroke="none"/>
+
+  <!-- right bus: stepped fan up-right -->
+  <path d="M200 196 H220 L276 140 V30"/>
+  <path d="M200 212 H228 L292 148 V60"/>
+  <path d="M200 228 H236 L308 156 V90"/>
+  <path d="M200 244 H244 L324 164 V120"/>
+
+  <!-- left bus: stepped fan down-left -->
+  <path d="M120 196 H76 L22 250 V385"/>
+  <path d="M120 212 H84 L38 258 V370"/>
+  <path d="M120 228 H92 L54 266 V350"/>
+  <path d="M120 244 H100 L70 274 V330"/>
+
+  <!-- top -->
+  <path d="M136 180 V150 L106 120 V40"/>
+  <path d="M152 180 V70"/>
+  <path d="M168 180 V100"/>
+  <path d="M184 180 V140 L200 124 H240"/>
+
+  <!-- bottom, through a resistor -->
+  <path d="M152 260 V320 L132 340 V380"/>
+  <path d="M168 260 V380"/>
+  <path d="M184 260 V300 L204 320 H236"/>
+  <rect x="236" y="313" width="28" height="14" rx="2"/>
+  <path d="M264 320 H290 L310 340 V380"/>
+
+  <!-- pads -->
+  <g stroke-width="5">
+    <circle cx="276" cy="30" r="6.5"/>
+    <circle cx="292" cy="60" r="6.5"/>
+    <circle cx="308" cy="90" r="6.5"/>
+    <circle cx="324" cy="120" r="6.5"/>
+    <circle cx="22" cy="385" r="6.5"/>
+    <circle cx="38" cy="370" r="6.5"/>
+    <circle cx="54" cy="350" r="6.5"/>
+    <circle cx="70" cy="330" r="6.5"/>
+    <circle cx="106" cy="40" r="6.5"/>
+    <circle cx="152" cy="70" r="6.5"/>
+    <circle cx="168" cy="100" r="6.5"/>
+    <circle cx="240" cy="124" r="6.5"/>
+    <circle cx="132" cy="380" r="6.5"/>
+    <circle cx="168" cy="380" r="6.5"/>
+    <circle cx="310" cy="380" r="6.5"/>
+  </g>
+</svg>
