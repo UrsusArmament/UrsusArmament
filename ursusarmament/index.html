@@ -182,6 +182,15 @@
     max-width: 900px;
   }
 
+  .hero-row, .hero-row-inner { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
+  .hero-logo-wrap { display: contents; }
+  @media (min-width: 901px) {
+    .hero-row { width: 100%; }
+    .hero-row-inner { width: 100%; flex-wrap: nowrap; }
+    .hero-row-inner h1 { flex: 0 1 auto; }
+    .hero-logo-wrap { display: flex; flex: 1 1 0; justify-content: center; min-width: 0; }
+  }
+
   .hero h1 em {
     font-style: normal;
     color: var(--accent);
@@ -637,10 +646,10 @@
 <!-- HERO -->
 <section class="hero" style="padding-top: 124px;">
   <div class="hero-eyebrow">American Tactical Manufacturing</div>
-  <div style="display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;">
-    <div style="display: flex; align-items: center; gap: 2rem; flex-wrap: wrap;">
+  <div class="hero-row">
+    <div class="hero-row-inner">
     <h1 style="margin-bottom: 0;">Built Here <em>For All</em> Of Us</h1>
-    <img src="/ursusarmament/images/ursusWatermarkGrey.png" alt="Ursus Armament Logo" style="height: clamp(202px, 27.8vw, 380px); width: auto; object-fit: contain; flex-shrink: 0; ">
+    <div class="hero-logo-wrap"><img src="/ursusarmament/images/ursusWatermarkGrey.png" alt="Ursus Armament Logo" style="height: clamp(202px, 27.8vw, 380px); width: auto; object-fit: contain; flex-shrink: 0; "></div>
   </div>
   </div>
   <p class="hero-sub" style="margin-top: 1.5rem;">URSUS WORKS Armament Division develops, tests, and manufactures next-generation tactical gear — engineered for the American people who depend on it most.</p>
