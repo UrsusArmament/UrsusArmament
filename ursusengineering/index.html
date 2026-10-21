@@ -25,53 +25,6 @@
       line-height: 1.6;
     }
 
-    .topbar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 1rem 1.5rem;
-      background: var(--surface);
-      border-bottom: 1px solid var(--line);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.85rem;
-      text-decoration: none;
-      color: var(--ink);
-    }
-
-    .brand img {
-      width: 48px;
-      height: 48px;
-      object-fit: cover;
-      border-radius: 8px;
-      display: block;
-    }
-
-    .brand-text {
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      line-height: 1.25;
-    }
-
-    .brand-text span {
-      color: var(--accent-dark);
-    }
-
-    .back {
-      font-size: 12px;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      font-weight: 600;
-      color: var(--ink-soft);
-      text-decoration: none;
-    }
-    .back:hover { color: var(--accent-dark); }
-
     .hero {
       max-width: 860px;
       margin: 0 auto;
@@ -187,17 +140,141 @@
       text-transform: uppercase;
       color: var(--ink-soft);
     }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(236,238,240,0.96);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-brand { display: flex; align-items: center; gap: 0.85rem; min-width: 0; }
+  .nav-brand-link { display: block; flex-shrink: 0; line-height: 0; }
+  .nav-logo-img { height: 46px; width: 46px; object-fit: contain; border-radius: 8px; display: block; }
+
+  .nav-logo {
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--text);
+    text-decoration: none;
+    line-height: 1.25;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-ribbon {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3rem;
+    height: 38px;
+    background: var(--surface2);
+  }
+
+  .nav-ribbon a {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0 1.6rem;
+    height: 100%;
+    display: flex; align-items: center;
+    border-right: 1px solid var(--border);
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
+  .nav-ribbon a:hover { color: var(--accent); background: rgba(31,78,121,0.07); }
+  .nav-ribbon a.active { color: var(--accent); background: rgba(31,78,121,0.07); }
+
+  .nav-burger {
+    display: none;
+    position: relative;
+    width: 38px; height: 38px;
+    flex-shrink: 0;
+    background: transparent;
+    border: 1px solid var(--border2);
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .nav-burger:hover, .nav-burger:focus-visible { border-color: var(--accent); background: rgba(31,78,121,0.07); outline: none; }
+  .nav-burger span {
+    position: absolute; left: 9px; right: 9px; height: 2px;
+    background: var(--text);
+    transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease, background 0.2s;
+  }
+  .nav-burger span:nth-child(1) { top: 11px; }
+  .nav-burger span:nth-child(2) { top: 17px; }
+  .nav-burger span:nth-child(3) { top: 23px; }
+  .nav-burger:hover span { background: var(--accent); }
+  .nav-burger.open span:nth-child(1) { top: 17px; transform: rotate(45deg); }
+  .nav-burger.open span:nth-child(2) { opacity: 0; }
+  .nav-burger.open span:nth-child(3) { top: 17px; transform: rotate(-45deg); }
+
+  @media (max-width: 760px) {
+    .nav-top { padding: 0.6rem 1rem; }
+    .nav-brand { gap: 0.6rem; }
+    .nav-logo-img { height: 38px; width: 38px; }
+    .nav-brand .nav-logo { font-size: 13px; letter-spacing: 0.1em; }
+    .nav-burger { display: block; }
+    .nav-ribbon {
+      display: none;
+      flex-direction: column;
+      align-items: stretch;
+      justify-content: flex-start;
+      height: auto;
+      padding: 0;
+      max-height: calc(100vh - 62px);
+      overflow-y: auto;
+    }
+    .nav-ribbon.open { display: flex; }
+    .nav-ribbon a {
+      height: auto;
+      padding: 1rem 1.5rem;
+      font-size: 13px;
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-ribbon a:first-child { border-left: none; }
+    .nav-ribbon a:last-child { border-bottom: none; }
+    .nav-ribbon a.active { box-shadow: inset 3px 0 0 var(--accent); }
+  }
+
+  @media (max-width: 420px) {
+    .nav-top { padding: 0.6rem 0.75rem; }
+    .nav-brand { gap: 0.5rem; }
+    .nav-logo-img { height: 32px; width: 32px; border-radius: 6px; }
+    .nav-brand .nav-logo { font-size: 11px; letter-spacing: 0.06em; line-height: 1.2; }
+  }
+  body { padding-top: 105px; }
+  .hero { padding-top: 3.5rem; }
+  @media (max-width: 760px) { body { padding-top: 59px; } .hero { padding-top: 3rem; } }
   </style>
 </head>
 <body>
 
-  <div class="topbar">
-    <a class="brand" href="/ursusengineering">
-      <img src="/ursusarmament/images/ursusLogoBlue.png" alt="Ursus Works logo" />
-      <div class="brand-text">URSUS WORKS - <span>ENGINEERING</span></div>
-    </a>
-    <a class="back" href="/ursusworks/">← Ursus Works</a>
+<nav>
+  <div class="nav-top">
+    <div class="nav-brand">
+      <a href="/ursusengineering" class="nav-brand-link"><img class="nav-logo-img" src="/ursusarmament/images/ursusLogoBlue.png" alt="Ursus Works logo"></a>
+      <a href="/ursusengineering" class="nav-logo">URSUS WORKS - <span>ENGINEERING</span></a>
+    </div>
+    <button type="button" class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="navRibbon">
+      <span></span><span></span><span></span>
+    </button>
   </div>
+  <div class="nav-ribbon" id="navRibbon">
+    <a href="/ursusengineering" class="active" aria-current="page">Overview</a>
+    <a href="/ursusengineering/contact/" >Contact</a>
+    <a href="/ursusworks/">← Ursus Works</a>
+  </div>
+</nav>
 
   <header class="hero">
     <div class="eyebrow">Domestic Production</div>
@@ -221,10 +298,46 @@
   </main>
 
   <section class="contact">
-    <a href="mailto:contact@ursusworks.com">Contact Us</a>
+    <a href="/ursusengineering/contact/">Contact Us</a>
   </section>
 
   <footer>© 2026 Ursus Works</footer>
 
+<script>
+/* ── Mobile hamburger menu ── */
+(function () {
+  const burger = document.getElementById('navBurger');
+  const ribbon = document.getElementById('navRibbon');
+  if (!burger || !ribbon) return;
+
+  function setOpen(open) {
+    burger.classList.toggle('open', open);
+    ribbon.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+
+  burger.addEventListener('click', e => {
+    e.stopPropagation();
+    setOpen(!ribbon.classList.contains('open'));
+  });
+
+  ribbon.addEventListener('click', e => {
+    if (e.target.closest('a')) setOpen(false);
+  });
+
+  document.addEventListener('click', e => {
+    if (ribbon.classList.contains('open') && !e.target.closest('nav')) setOpen(false);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && ribbon.classList.contains('open')) { setOpen(false); burger.focus(); }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 760) setOpen(false);
+  });
+})();
+</script>
 </body>
 </html>
