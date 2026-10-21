@@ -44,7 +44,10 @@
     border-bottom: 1px solid var(--border);
   }
 
-  .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
+  .nav-brand { display: flex; align-items: center; gap: 0.85rem; min-width: 0; }
+  .nav-brand-link { display: block; flex-shrink: 0; line-height: 0; }
+  .nav-brand-text { display: flex; flex-direction: column; gap: 0.05rem; min-width: 0; }
+  .nav-logo-img { height: 46px; width: 46px; object-fit: contain; border-radius: 8px; display: block; }
 
   .nav-logo {
     font-family: 'Bebas Neue', sans-serif;
@@ -290,6 +293,12 @@
 .nav-burger.open span:nth-child(3) { top: 17px; transform: rotate(-45deg); }
 
 @media (max-width: 760px) {
+  .nav-top { padding: 0.6rem 1rem; }
+  .nav-brand { gap: 0.6rem; }
+  .nav-logo-img { height: 38px; width: 38px; }
+  .nav-brand .nav-logo { font-size: 1.05rem; letter-spacing: 0.08em; white-space: nowrap; }
+  .nav-slogan { font-size: 0.55rem; letter-spacing: 0.14em; white-space: nowrap; }
+  .nav-right { gap: 0.4rem !important; flex-shrink: 0; }
   .nav-burger { display: block; }
   .nav-ribbon {
     display: none;
@@ -313,15 +322,32 @@
   .nav-ribbon a:last-child { border-bottom: none; }
   .nav-ribbon a.active { box-shadow: inset 3px 0 0 var(--accent); }
 }
+
+@media (max-width: 420px) {
+  .nav-top { padding: 0.6rem 0.75rem; }
+  .nav-brand { gap: 0.5rem; }
+  .nav-logo-img { height: 32px; width: 32px; border-radius: 6px; }
+  .nav-brand .nav-logo { font-size: 0.95rem; letter-spacing: 0.04em; }
+  .nav-slogan { display: none; }
+}
+
+@media (max-width: 350px) {
+  .nav-brand .nav-logo { font-size: 0.7rem; letter-spacing: 0.02em; }
+  .nav-logo-img { height: 28px; width: 28px; }
+  .nav-brand { gap: 0.4rem; }
+}
 </style>
 </head>
 <body>
 <nav>
   <div class="nav-top">
   <div class="nav-brand">
-    <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
-    <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
-  </div>
+      <a href="/ursusarmament/" class="nav-brand-link"><img class="nav-logo-img" src="/ursusarmament/images/ursusLogoOrange.png" alt="Ursus Armament logo"></a>
+      <div class="nav-brand-text">
+        <a href="/ursusarmament/" class="nav-logo">URSUS WORKS - <span>ARMAMENT</span></a>
+        <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+      </div>
+    </div>
   <div class="nav-right" style="display:flex; align-items:center; gap:0.75rem;">
     <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -343,14 +369,15 @@
     <a href="/ursusarmament/learnmore/">Learn More</a>
     <a href="/ursusarmament/aboutus/">About</a>
     <a href="/ursusarmament/contact/">Contact</a>
+    <a href="/ursusworks/">← Ursus Works</a>
   </div>
 </nav>
 
 <div class="container">
-  <div class="tag">Ursus Armament</div>
+  <div class="tag">Ursus Works</div>
   <h1>CAREERS</h1>
   <p>
-    Ursus Armament is built on precision, accountability, and a commitment to doing things the right way —
+    Ursus Works is built on precision, accountability, and a commitment to doing things the right way —
     not the easy way. We're always interested in connecting with individuals who take pride in their work
     and operate at a high standard.
   </p>
@@ -371,7 +398,7 @@
       these records and may reach out to candidates whose experience aligns with our needs.
     </p>
   </div>
-  <p class="footer-note">Ursus Armament LLC · United States</p>
+  <p class="footer-note">Ursus Works LLC · United States</p>
 </div>
 
 <footer>
@@ -410,7 +437,7 @@
   </div>
   <div class="footer-bottom">
     <div class="footer-logo">URSUS <span>ARMAMENT</span></div>
-    <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
+    <div class="footer-legal">© 2026 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
   </div>
 </footer>
 <script src="/ursusarmament/access-check.js"></script>
