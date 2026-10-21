@@ -95,18 +95,30 @@
     .card-live { --card-accent: #ffffff; position: relative; overflow: hidden; }
     .card-live > * { position: relative; z-index: 1; }
 
-    /* Watermark (Armament only) */
-    .card-live.armament::before {
+    /* Watermarks */
+    .card-live.armament::before,
+    .card-live.engineering::before {
       content: '';
       position: absolute;
       right: -14%;
       top: -2%;
       width: 78%;
-      aspect-ratio: 976 / 1023;
-      background: url('/ursusarmament/images/ursusWatermark.png') no-repeat center / contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
       opacity: 0.07;
       pointer-events: none;
       z-index: 0;
+    }
+    .card-live.armament::before {
+      aspect-ratio: 976 / 1023;
+      background-image: url('/ursusarmament/images/ursusWatermark.png');
+    }
+    .card-live.engineering::before {
+      aspect-ratio: 1 / 1;
+      right: -19%;
+      top: -8%;
+      background-image: url('/ursusarmament/images/ursusPcbWatermark.svg');
     }
     .card-live.armament    { --card-accent: #c8922a; }
     .card-live.engineering { --card-accent: #4a90d9; }
