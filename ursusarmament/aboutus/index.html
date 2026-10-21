@@ -44,7 +44,10 @@
     border-bottom: 1px solid var(--border);
   }
 
-  .nav-brand { display: flex; flex-direction: column; gap: 0.05rem; }
+  .nav-brand { display: flex; align-items: center; gap: 0.85rem; min-width: 0; }
+  .nav-brand-link { display: block; flex-shrink: 0; line-height: 0; }
+  .nav-brand-text { display: flex; flex-direction: column; gap: 0.05rem; min-width: 0; }
+  .nav-logo-img { height: 46px; width: 46px; object-fit: contain; border-radius: 8px; display: block; }
 
   .nav-logo {
     font-family: 'Bebas Neue', sans-serif;
@@ -297,6 +300,12 @@
 .nav-burger.open span:nth-child(3) { top: 17px; transform: rotate(-45deg); }
 
 @media (max-width: 760px) {
+  .nav-top { padding: 0.6rem 1rem; }
+  .nav-brand { gap: 0.6rem; }
+  .nav-logo-img { height: 38px; width: 38px; }
+  .nav-brand .nav-logo { font-size: 1.05rem; letter-spacing: 0.08em; white-space: nowrap; }
+  .nav-slogan { font-size: 0.55rem; letter-spacing: 0.14em; white-space: nowrap; }
+  .nav-right { gap: 0.4rem !important; flex-shrink: 0; }
   .nav-burger { display: block; }
   .nav-ribbon {
     display: none;
@@ -319,6 +328,20 @@
   .nav-ribbon a:first-child { border-left: none; }
   .nav-ribbon a:last-child { border-bottom: none; }
   .nav-ribbon a.active { box-shadow: inset 3px 0 0 var(--accent); }
+}
+
+@media (max-width: 420px) {
+  .nav-top { padding: 0.6rem 0.75rem; }
+  .nav-brand { gap: 0.5rem; }
+  .nav-logo-img { height: 32px; width: 32px; border-radius: 6px; }
+  .nav-brand .nav-logo { font-size: 0.95rem; letter-spacing: 0.04em; }
+  .nav-slogan { display: none; }
+}
+
+@media (max-width: 350px) {
+  .nav-brand .nav-logo { font-size: 0.7rem; letter-spacing: 0.02em; }
+  .nav-logo-img { height: 28px; width: 28px; }
+  .nav-brand { gap: 0.4rem; }
 }
 
   /* Team credentials summary */
@@ -357,9 +380,12 @@
 <nav>
   <div class="nav-top">
   <div class="nav-brand">
-    <a href="/ursusarmament/" class="nav-logo">URSUS <span>ARMAMENT</span></a>
-    <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
-  </div>
+      <a href="/ursusarmament/" class="nav-brand-link"><img class="nav-logo-img" src="/ursusarmament/images/ursusLogoOrange.png" alt="Ursus Armament logo"></a>
+      <div class="nav-brand-text">
+        <a href="/ursusarmament/" class="nav-logo">URSUS WORKS - <span>ARMAMENT</span></a>
+        <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+      </div>
+    </div>
   <div class="nav-right" style="display:flex; align-items:center; gap:0.75rem;">
     <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -381,15 +407,16 @@
     <a href="/ursusarmament/learnmore/">Learn More</a>
     <a href="/ursusarmament/aboutus/" class="active" aria-current="page">About</a>
     <a href="/ursusarmament/contact/">Contact</a>
+    <a href="/ursusworks/">← Ursus Works</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
   <div class="section-tag">Company</div>
-  <h1>ABOUT<br><span style="color:var(--accent)">URSUS ARMAMENT</span></h1>
+  <h1>ABOUT<br><span style="color:var(--accent)">URSUS WORKS</span></h1>
   <p>
-    Ursus Armament is a veteran-owned and operated company that designs and manufactures
+    Ursus Works is a veteran-owned and operated company that designs and manufactures
     advanced equipment for the tactical and defense space, including individual systems
     and team-oriented solutions such as night vision devices, thermal optics, and mesh
     network communications.
@@ -407,7 +434,7 @@
     <div class="section-tag">Mission</div>
     <h2>Purpose Driven</h2>
     <p>
-      Ursus Armament exists to design and produce equipment that supports individual capability
+      Ursus Works exists to design and produce equipment that supports individual capability
       and preparedness. Our focus is on delivering reliable, high-performance systems grounded
       in real-world use rather than theoretical conditions.
     </p>
@@ -473,7 +500,7 @@
     <div class="section-tag">Environment</div>
     <h2>Alaska Origins</h2>
     <p>
-      Founded in Alaska, Ursus Armament reflects the demands of harsh and unpredictable environments.
+      Founded in Alaska, Ursus Works reflects the demands of harsh and unpredictable environments.
       Equipment is designed with temperature extremes, exposure, and sustained use in mind—conditions
       that quickly expose weaknesses in both materials and design.
     </p>
@@ -525,7 +552,7 @@
 
 <!-- SIGNOFF -->
 <div class="brand-signoff">
-  <span style="color:var(--text)">Ursus Armament</span>
+  <span style="color:var(--text)">Ursus Works</span>
   <span style="color:var(--text); opacity:0.5;">-</span>
   <span style="color:var(--accent)">Built Here For All Of Us</span>
 </div>
@@ -567,7 +594,7 @@
   </div>
   <div class="footer-bottom">
     <div class="footer-logo">URSUS <span>ARMAMENT</span></div>
-    <div class="footer-legal">© 2025 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
+    <div class="footer-legal">© 2026 Ursus Armament LLC. All rights reserved. | Privacy Policy | Terms</div>
   </div>
 </footer>
 <script src="/ursusarmament/access-check.js"></script>
