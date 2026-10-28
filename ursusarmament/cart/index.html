@@ -171,6 +171,32 @@
     color: var(--text);
   }
 
+  .page-header-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    flex-wrap: wrap;
+  }
+
+  .security-link {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.5rem 1rem;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .security-link:hover { background: rgba(200,146,42,0.08); }
+  @media (max-width: 520px) {
+    .security-link { white-space: normal; max-width: 100%; text-align: center; letter-spacing: 0.12em; font-size: 0.74rem; }
+  }
+
   /* CART LAYOUT */
   .cart-layout {
     display: grid;
@@ -942,8 +968,13 @@
 
 <div class="page-wrapper">
   <div class="page-header">
-    <div class="page-eyebrow">Checkout</div>
-    <h1 class="page-title">YOUR CART</h1>
+    <div class="page-header-row">
+      <div>
+        <div class="page-eyebrow">Checkout</div>
+        <h1 class="page-title">YOUR CART</h1>
+      </div>
+      <a href="/ursusarmament/aboutus/#privacy-security" target="_blank" rel="noopener" class="security-link">&#128274; View Our Security Methodology</a>
+    </div>
   </div>
 
   <div class="cart-layout">
