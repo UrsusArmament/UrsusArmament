@@ -1219,10 +1219,10 @@ document.getElementById('addToCartBtn').addEventListener('click', function () {
     if (existing) {
       // Limit of one per order
       existing.quantity = 1;
-      existing.product = 'CALIDUS';
+      existing.product = 'CALIDUS (640) Standalone Thermal Monocular';
       existing.price = activePrice();
     } else {
-      cart.push({ id: 'CALIDUS', product: 'CALIDUS', name: 'CALIDUS', price: activePrice(), quantity: 1 });
+      cart.push({ id: 'CALIDUS', product: 'CALIDUS (640) Standalone Thermal Monocular', name: 'CALIDUS', price: activePrice(), quantity: 1 });
     }
     localStorage.setItem('ursus_cart', JSON.stringify(cart));
     if (typeof updateCartBadge === 'function') updateCartBadge();
