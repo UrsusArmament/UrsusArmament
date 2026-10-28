@@ -1307,12 +1307,12 @@
     error.classList.remove('visible');
 
     const payload = cart.map(item => ({ id: item.id, quantity: item.quantity }));
-    console.log("Cart payload:", JSON.stringify(payload));
     try {
+      const idToken = window._getIdToken ? await window._getIdToken() : null;
       const res  = await fetch(WORKER_URL, {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ cart: payload, email: window._currentUserEmail || null })
+        body:    JSON.stringify({ cart: payload, idToken })
       });
       const data = await res.json();
       if (!res.ok || data.error) throw new Error(data.error || 'Something went wrong. Please try again.');
@@ -1386,6 +1386,9 @@ const firebaseConfig = {
 
 const app  = initializeApp(firebaseConfig);
 const auth = getAuth(app);
+
+// Fresh Firebase login token for the checkout worker (null when signed out)
+window._getIdToken = async () => auth.currentUser ? await auth.currentUser.getIdToken() : null;
 
 onAuthStateChanged(auth, (user) => {
   const navAuth = document.getElementById("navAuth");
