@@ -1025,8 +1025,8 @@
     <div class="footer-col">
       <h4>Products</h4>
       <ul>
-        <li><a href="/ursusarmament/products/ROTS">R.O.T.S.<sup class="tm">™</sup></a></li>
-        <li><a href="/ursusarmament/products/URSIX">URSIX<sup class="tm">™</sup></a></li>
+        <li><a href="/ursusarmament/products/ROTS">R.O.T.S.</a></li>
+        <li><a href="/ursusarmament/products/URSIX">URSIX</a></li>
         <li><a href="/ursusarmament/products">View All</a></li>
         <li><a href="/ursusarmament/customerreviews">Customer Reviews</a></li>
       </ul>
@@ -1052,7 +1052,7 @@
   </div>
   <div class="footer-bottom">
     <div class="footer-logo">URSUS <span>ARMAMENT</span><sup class="tm">™</sup></div>
-    <div class="footer-legal">2026 Ursus Armament<sup class="tm">™</sup> LLC. All rights reserved. | Privacy Policy | Terms</div>
+    <div class="footer-legal">2026 Ursus Armament<sup class="tm">™</sup> LLC. All rights reserved. | <a href="/ursusarmament/aboutus/#privacy-security" style="color:inherit; text-decoration:underline;">Privacy Policy</a> | <a href="/ursusarmament/terms/" style="color:inherit; text-decoration:underline;">Terms</a></div>
   </div>
 </footer>
 
@@ -1340,12 +1340,6 @@ function sortForDisplay(products) {
   });
 }
 
-// ── TM HELPER ─────────────────────────────────────────────────────────────────
-const TM_NAMES = ['R.O.T.S.', 'URSIX', 'CALIDUS', 'NEXIS', 'AXION'];
-function withTM(text) {
-  return TM_NAMES.includes(text) ? text + '<sup class="tm">™</sup>' : text;
-}
-
 // ── CARD HTML BUILDER ─────────────────────────────────────────────────────────
 function buildCardHTML(p, showBadge) {
   const statusClass = p.status === 'available' ? 'available' : '';
@@ -1353,14 +1347,14 @@ function buildCardHTML(p, showBadge) {
   const priceHTML   = p.price ? `<span class="card-price">${p.price}</span>` : '';
   const imageHTML   = p.image
     ? `<img src="${p.image}" alt="${p.name}" loading="lazy">`
-    : `<span class="card-bg-label">${withTM(p.bgLabel)}</span>`;
+    : `<span class="card-bg-label">${p.bgLabel}</span>`;
   const badgeHTML   = showBadge ? '<span class="flagship-badge">Flagship</span>' : '';
   return `
     <div class="card-image">${badgeHTML}${imageHTML}</div>
     <div class="card-body">
       <span class="card-arrow">↗</span>
       <div class="card-cat">${p.displayCat}</div>
-      <div class="card-name">${withTM(p.name)}</div>
+      <div class="card-name">${p.name}</div>
       <div class="card-desc">${p.desc}</div>
       <div class="card-footer">
         <span class="card-status ${statusClass}" ${p.statusId ? `id="${p.statusId}"` : ''}>${statusText}</span>
