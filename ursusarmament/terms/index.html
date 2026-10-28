@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms | Ursus Armament™</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --border: rgba(255,255,255,0.08);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+    --border2: rgba(255,255,255,0.15);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .tm {
+    font-size: 0.55em;
+    vertical-align: super;
+    line-height: 0;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 400;
+    margin-left: 1px;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,8,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-brand { display: flex; align-items: center; gap: 0.85rem; min-width: 0; }
+  .nav-brand-link { display: block; flex-shrink: 0; line-height: 0; }
+  .nav-brand-text { display: flex; flex-direction: column; gap: 0.05rem; min-width: 0; }
+  .nav-logo-img { height: 46px; width: 46px; object-fit: contain; border-radius: 8px; display: block; }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-slogan {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .nav-ribbon {
+    display: flex; align-items: center; justify-content: center;
+    padding: 0 3rem;
+    height: 38px;
+    background: var(--surface);
+  }
+
+  .nav-ribbon a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0 1.6rem;
+    height: 100%;
+    display: flex; align-items: center;
+    border-right: 1px solid var(--border);
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
+  .nav-ribbon a:hover { color: var(--accent); background: rgba(200,146,42,0.06); }
+  .nav-ribbon a.active { color: var(--accent); }
+  .nav-auth {
+  display: flex;
+  align-items: center;
+}
+
+.nav-auth a, .nav-auth button {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--accent);
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-auth a:hover, .nav-auth button:hover {
+  background: rgba(200,146,42,0.08);
+}
+  section { padding: 5rem 3rem; }
+
+  .hero {
+    padding-top: 10rem;
+  }
+
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.3em;
+    color: var(--accent);
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    margin-bottom: 0.5rem;
+  }
+
+  h1, h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    margin: 0 0 1rem 0;
+  }
+
+  h1 { font-size: clamp(3rem, 8vw, 6rem); }
+  h2 { font-size: 2.5rem; }
+
+  p {
+    color: var(--muted);
+    max-width: 600px;
+    line-height: 1.7;
+    margin: 0 0 1.2rem 0;
+  }
+
+  #privacy-security { scroll-margin-top: 120px; }
+  #privacy-security strong { color: var(--text); font-weight: 600; }
+
+  .split {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .split-images {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .split-images img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border: 1px solid var(--border);
+  }
+
+  @media (max-width: 900px) {
+    .nav-top { padding: 0.6rem 1.5rem; }
+    .nav-ribbon { padding: 0 1rem; }
+    .split { grid-template-columns: 1fr; }
+    .split-images { width: 100%; }
+    section { padding: 4rem 1.5rem; }
+    footer { padding: 3rem 1.5rem 2rem; }
+    .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 2rem; }
+  }
+
+  .brand-signoff {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 4rem 3rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+  }
+
+  /* Footer */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    padding: 4rem 3rem 2rem;
+  }
+
+  footer .footer-grid {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .footer-grid {
+    gap: 3rem;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .footer-brand p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-top: 1rem;
+  }
+
+  .footer-col h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+  }
+
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+  .footer-col a {
+    font-size: 0.9rem;
+    color: var(--text);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .footer-col a:hover { opacity: 1; color: var(--accent); }
+
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    opacity: 0.5;
+  }
+  .footer-logo span { color: var(--accent); opacity: 1; }
+
+  .footer-legal {
+    font-size: 0.78rem;
+    color: var(--muted);
+    opacity: 0.5;
+  }
+  .nav-cart-btn {
+  position: relative;
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--text);
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+.nav-cart-btn:hover { border-color: var(--accent); background: rgba(200,146,42,0.06); }
+.nav-cart-btn svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
+.nav-cart-btn:hover svg { stroke: var(--accent); }
+.cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
+.cart-count.visible { display: flex; }
+.nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
+
+.nav-burger {
+  display: none;
+  position: relative;
+  width: 38px; height: 38px;
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--border2);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.nav-burger:hover, .nav-burger:focus-visible { border-color: var(--accent); background: rgba(200,146,42,0.06); outline: none; }
+.nav-burger span {
+  position: absolute; left: 9px; right: 9px; height: 2px;
+  background: var(--text);
+  transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease, background 0.2s;
+}
+.nav-burger span:nth-child(1) { top: 11px; }
+.nav-burger span:nth-child(2) { top: 17px; }
+.nav-burger span:nth-child(3) { top: 23px; }
+.nav-burger:hover span { background: var(--accent); }
+.nav-burger.open span:nth-child(1) { top: 17px; transform: rotate(45deg); }
+.nav-burger.open span:nth-child(2) { opacity: 0; }
+.nav-burger.open span:nth-child(3) { top: 17px; transform: rotate(-45deg); }
+
+@media (max-width: 760px) {
+  .nav-top { padding: 0.6rem 1rem; }
+  .nav-brand { gap: 0.6rem; }
+  .nav-logo-img { height: 38px; width: 38px; }
+  .nav-brand .nav-logo { font-size: 1.05rem; letter-spacing: 0.08em; white-space: nowrap; }
+  .nav-slogan { font-size: 0.55rem; letter-spacing: 0.14em; white-space: nowrap; }
+  .nav-right { gap: 0.4rem !important; flex-shrink: 0; }
+  .nav-burger { display: block; }
+  .nav-ribbon {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    height: auto;
+    padding: 0;
+    max-height: calc(100vh - 62px);
+    overflow-y: auto;
+  }
+  .nav-ribbon.open { display: flex; }
+  .nav-ribbon a {
+    height: auto;
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-ribbon a:first-child { border-left: none; }
+  .nav-ribbon a:last-child { border-bottom: none; }
+  .nav-ribbon a.active { box-shadow: inset 3px 0 0 var(--accent); }
+}
+
+@media (max-width: 420px) {
+  .nav-top { padding: 0.6rem 0.75rem; }
+  .nav-brand { gap: 0.5rem; }
+  .nav-logo-img { height: 32px; width: 32px; border-radius: 6px; }
+  .nav-brand .nav-logo { font-size: 0.95rem; letter-spacing: 0.04em; }
+  .nav-slogan { display: none; }
+}
+
+@media (max-width: 350px) {
+  .nav-brand .nav-logo { font-size: 0.7rem; letter-spacing: 0.02em; }
+  .nav-logo-img { height: 28px; width: 28px; }
+  .nav-brand { gap: 0.4rem; }
+}
+
+  /* Team credentials summary */
+  .cred-summary { background: var(--dark); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .cred-summary-stats {
+    display: flex; flex-wrap: wrap; gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    max-width: 900px;
+    margin: 2rem 0 1.5rem;
+  }
+  .cred-summary-stat { flex: 1 1 160px; background: var(--surface); padding: 1.2rem 1.5rem; }
+  .cred-summary-stat .num { font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem; color: var(--accent); line-height: 1; }
+  .cred-summary-stat .lbl {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem; font-weight: 700;
+    letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
+    margin-top: 0.3rem;
+  }
+  .cred-link {
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem; font-weight: 700;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    text-decoration: none;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.6rem 1.4rem;
+    transition: background 0.2s;
+  }
+  .cred-link:hover { background: rgba(200,146,42,0.08); }
+/* header: keep login/account button from crowding the brand on phones */
+@media (max-width: 760px) {
+  .nav-auth a, .nav-auth button { max-width: 88px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0.4rem 0.6rem; letter-spacing: 0.1em; }
+}
+@media (max-width: 350px) {
+  .nav-auth a, .nav-auth button { max-width: 62px; padding: 0.4rem 0.45rem; }
+}
+
+  /* TERMS PAGE */
+  .terms-hero { padding-bottom: 2rem; }
+  .terms-hero h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); line-height: 1.05; }
+  .terms-updated { font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.18em; text-transform: uppercase; font-size: 0.8rem; color: var(--muted); }
+  .terms-toc { padding: 0 3rem 1rem; }
+  .terms-toc ol { margin: 0; padding-left: 1.4rem; columns: 2; column-gap: 3rem; max-width: 760px; }
+  .terms-toc li { margin-bottom: 0.4rem; color: var(--muted); }
+  .terms-toc a { color: var(--accent); text-decoration: none; }
+  .terms-toc a:hover { text-decoration: underline; }
+  .terms-section { padding: 3rem 3rem; border-top: 1px solid var(--border); scroll-margin-top: 120px; }
+  .terms-section h2 { font-size: 2rem; letter-spacing: 0.03em; }
+  .terms-section p { max-width: 760px; }
+  .terms-section strong { color: var(--text); font-weight: 600; }
+  .terms-section a { color: var(--accent); }
+  @media (max-width: 900px) {
+    .terms-toc { padding: 0 1.5rem 1rem; }
+    .terms-toc ol { columns: 1; }
+    .terms-section { padding: 2.5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+<!-- ACCESS GATE OVERLAY -->
+<nav>
+  <div class="nav-top">
+  <div class="nav-brand">
+      <a href="/ursusarmament/" class="nav-brand-link"><img class="nav-logo-img" src="/ursusarmament/images/ursusLogoOrange.png" alt="Ursus Armament logo"></a>
+      <div class="nav-brand-text">
+        <a href="/ursusarmament/" class="nav-logo">URSUS WORKS<sup class="tm">™</sup> - <span>ARMAMENT</span></a>
+        <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+      </div>
+    </div>
+  <div class="nav-right" style="display:flex; align-items:center; gap:0.75rem;">
+    <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="9" cy="21" r="1"/>
+        <circle cx="20" cy="21" r="1"/>
+        <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/>
+      </svg>
+      <span class="cart-count" id="cartCount"></span>
+    </a>
+    <div class="nav-auth" id="navAuth"></div>
+    <button type="button" class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="navRibbon">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</div>
+  <div class="nav-ribbon" id="navRibbon">
+    <a href="/ursusarmament/products">Products</a>
+    <a href="/ursusarmament/customerreviews">Reviews</a>
+    <a href="/ursusarmament/learnmore/">Learn More</a>
+    <a href="/ursusarmament/aboutus/">About</a>
+    <a href="/ursusarmament/contact/">Contact</a>
+    <a href="/ursusworks/">← Ursus Works<sup class="tm">™</sup></a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero terms-hero">
+  <div class="section-tag">Legal</div>
+  <h1>TERMS<br><span style="color:var(--accent)">&amp; CONDITIONS</span></h1>
+  <p>
+    These Terms govern your use of this site and your purchases from Ursus Armament<sup class="tm">™</sup> LLC.
+    Please read them before creating an account or placing an order.
+  </p>
+  <div class="terms-updated">Last updated: October 28, 2026</div>
+</section>
+
+<div class="terms-toc" role="navigation" aria-label="Terms sections">
+  <ol>
+    <li><a href="#terms-1">Acceptance and Eligibility</a></li>
+    <li><a href="#terms-2">Accounts</a></li>
+    <li><a href="#terms-3">Orders and Payment</a></li>
+    <li><a href="#terms-4">Shipping</a></li>
+    <li><a href="#terms-5">Returns and Refunds</a></li>
+    <li><a href="#terms-6">Export Compliance</a></li>
+    <li><a href="#terms-7">Warranty</a></li>
+    <li><a href="#terms-8">Product Use and Liability</a></li>
+    <li><a href="#terms-9">Reviews</a></li>
+    <li><a href="#terms-10">Intellectual Property, Governing Law and Contact</a></li>
+  </ol>
+</div>
+
+<section class="terms-section" id="terms-1">
+  <div class="section-tag">Section 1</div>
+  <h2>Acceptance and Eligibility</h2>
+  <p><strong>Acceptance.</strong> By visiting this site, creating an account, or placing an order, you agree to these Terms. If you do not agree, do not use the site or place an order. These Terms are between you and Ursus Armament<sup class="tm">™</sup> LLC (&ldquo;Ursus,&rdquo; &ldquo;we,&rdquo; &ldquo;us&rdquo;).</p>
+  <p><strong>Eligibility.</strong> You must be at least 18 years of age and a U.S. person, or represent a qualifying U.S. entity, as defined under 22 CFR &sect; 120.62, and you must be physically located in the United States. Browsing the catalog requires only a Limited Access account. Purchasing controlled items requires an approved Full Access account. See our <a href="/ursusarmament/ITAR/">ITAR Compliance</a> page.</p>
+  <p><strong>Right to refuse service.</strong> We may decline, cancel, or limit any order, or suspend or close any account, at our discretion, including where we cannot verify eligibility.</p>
+</section>
+
+<section class="terms-section" id="terms-2">
+  <div class="section-tag">Section 2</div>
+  <h2>Accounts</h2>
+  <p><strong>Account types.</strong> Limited Access accounts can browse the catalog. Full Access accounts can view technical specifications and purchase controlled items, once approved.</p>
+  <p><strong>Accurate information.</strong> You agree to give accurate, current information when you create or upgrade an account, including your name and a physical address. PO Box addresses are not accepted for Full Access accounts. Providing false information, or documents that are not yours, is grounds for immediate closure and may be reported as the law requires.</p>
+  <p><strong>Verification.</strong> Full Access approval requires identification or business documents. We review them only to confirm eligibility and do not keep them after approval. Approval is at our sole discretion and is not guaranteed, and we may ask for more information at any time.</p>
+  <p><strong>Your login.</strong> Passwords must be at least 12 characters and include an uppercase letter, a lowercase letter, and a special character. You are responsible for keeping your password confidential and for activity under your account. Tell us promptly if you think your account was accessed without permission.</p>
+  <p><strong>Suspension and closure.</strong> We may suspend or close an account that violates these Terms or the ITAR Compliance policy. You may ask us to close your account at any time by emailing <a href="mailto:contact@ursusworks.com">contact@ursusworks.com</a>.</p>
+</section>
+
+<section class="terms-section" id="terms-3">
+  <div class="section-tag">Section 3</div>
+  <h2>Orders and Payment</h2>
+  <p><strong>Placing an order.</strong> Submitting an order is an offer to buy. We may accept it, limit it, or cancel it before it ships. If we cancel an order, you will be refunded in full.</p>
+  <p><strong>Payment.</strong> Payments are made by card in U.S. dollars and processed by Stripe. Ursus Armament<sup class="tm">™</sup> does not see, store, or log your card information. Your bank may require extra verification.</p>
+  <p><strong>Pricing.</strong> Prices are listed in U.S. dollars. The price shown at checkout is the price you pay. Sale prices apply only while listed. If a product is listed at the wrong price, we may cancel the order and refund you in full.</p>
+  <p><strong>Availability.</strong> Items marked as serialized are single physical units, each sold under its own serial number. If a unit sells to another customer while your order is in progress, we will cancel your order and refund you in full.</p>
+  <p><strong>Reserve orders.</strong> Products shown as &ldquo;Reserve Now&rdquo; are built in batches and are paid in full at checkout. The estimated lead time shown on the product page is an estimate, not a guarantee. You may cancel a reserve order before the end of the estimated lead time and receive a refund, less a 15% restocking fee. If we do not ship within the estimated lead time, you may choose to wait out the extended lead time or receive a full refund with no fee.</p>
+</section>
+
+<section class="terms-section" id="terms-4">
+  <div class="section-tag">Section 4</div>
+  <h2>Shipping</h2>
+  <p><strong>Where we ship.</strong> We ship only to physical addresses in the United States. We do not ship outside the United States. An order with a non-U.S. shipping address is cancelled under the ITAR Compliance policy.</p>
+  <p><strong>Shipping rates.</strong> Shipping is a flat $12.50 per order. Orders of $200 or more, before shipping, ship free.</p>
+  <p><strong>Carrier and tracking.</strong> We ship by USPS. Once your order ships, its tracking number appears in your account and in the order tracking tool on the login page.</p>
+  <p><strong>Delivery estimates.</strong> Delivery times are estimates, not guarantees. We are not responsible for carrier delays.</p>
+  <p><strong>Lost or damaged packages.</strong> Tell us as soon as you can if your package arrives damaged or does not arrive, and we will work with you and the carrier to resolve it.</p>
+</section>
+
+<section class="terms-section" id="terms-5">
+  <div class="section-tag">Section 5</div>
+  <h2>Returns and Refunds</h2>
+  <p><strong>Returns.</strong> You may return an unused product within 30 days of delivery for a refund, less a 15% restocking fee. The product must be in its original condition and packaging. Contact us at <a href="mailto:contact@ursusworks.com">contact@ursusworks.com</a> before sending anything back, so we can give you return instructions.</p>
+  <p><strong>Return shipping.</strong> You are responsible for the cost of shipping a product back to us, unless the product is defective or we sent the wrong item.</p>
+  <p><strong>Refunds.</strong> Once we receive and inspect the returned product, we will refund the purchase price, less the restocking fee, to your original payment method. Original shipping charges are not refundable.</p>
+  <p><strong>Defective products.</strong> Products that fail due to a defect in materials or workmanship are covered by our <a href="/ursusarmament/warranty/">Warranty</a> and are not subject to the restocking fee.</p>
+  <p><strong>Cancellations.</strong> Orders cancelled under the ITAR Compliance policy are subject to a 15% cancellation, restocking, and refund fee. Reserve orders may be cancelled as described under Orders and Payment.</p>
+</section>
+
+<section class="terms-section" id="terms-6">
+  <div class="section-tag">Section 6</div>
+  <h2>Export Compliance</h2>
+  <p><strong>Export compliance.</strong> Many Ursus Armament<sup class="tm">™</sup> products are subject to U.S. export control laws, including ITAR and EAR. By ordering, you certify that you will not sell, transport, ship, or transfer any product outside the United States, or to any foreign person, without the proper U.S. Government authorization. Orders that do not meet these requirements are cancelled and subject to a 15% cancellation, restocking, and refund fee, with no exemptions, including for law enforcement or military purchasers. Our full policy is on the <a href="/ursusarmament/ITAR/">ITAR Compliance</a> page.</p>
+  <p><strong>Restricted sales.</strong> Body armor is not sold to residents of Connecticut. An order for armor from a Connecticut resident is cancelled and subject to the same 15% fee.</p>
+  <p><strong>Verification.</strong> We may require proof of eligibility before we approve an account or ship an order, and we may cancel an order if we cannot verify it.</p>
+</section>
+
+<section class="terms-section" id="terms-7">
+  <div class="section-tag">Section 7</div>
+  <h2>Warranty</h2>
+  <p><strong>Warranty.</strong> Ursus Armament<sup class="tm">™</sup> products carry a limited warranty against defects in materials and workmanship under normal use. Coverage runs from one year to limited lifetime, depending on the product, and applies to the original purchaser only. Warranty claims require proof of purchase and, where applicable, the product&rsquo;s serial number. The full terms, including what is not covered and how to submit a claim, are on our <a href="/ursusarmament/warranty/">Warranty</a> page. If a product is defective, the Warranty applies in place of the restocking fee under Returns and Refunds.</p>
+</section>
+
+<section class="terms-section" id="terms-8">
+  <div class="section-tag">Section 8</div>
+  <h2>Product Use and Liability</h2>
+  <p><strong>Use and care.</strong> Use our products according to the instructions and manuals provided with them. Damage caused by improper use is not covered by our Warranty.</p>
+  <p><strong>Protective equipment.</strong> No protective equipment, including body armor and helmets, can guarantee protection from injury or death.</p>
+  <p><strong>Legal compliance.</strong> You are responsible for knowing and following all laws that apply to buying, owning, and using our products where you live.</p>
+  <p><strong>Disclaimer.</strong> Except for the express warranty described on our Warranty page, our products and this site are provided &ldquo;as is.&rdquo; To the fullest extent the law allows, we disclaim all other warranties, express or implied, including any warranty of merchantability or fitness for a particular purpose.</p>
+  <p><strong>Limitation of liability.</strong> To the fullest extent the law allows, Ursus Armament<sup class="tm">™</sup> LLC is not liable for indirect, incidental, special, or consequential damages. Our total liability for any claim connected to an order is limited to the amount you paid for that order. Some states do not allow certain limits, so parts of this paragraph may not apply to you.</p>
+</section>
+
+<section class="terms-section" id="terms-9">
+  <div class="section-tag">Section 9</div>
+  <h2>Reviews</h2>
+  <p><strong>Submitting a review.</strong> Reviews are published only after we approve them. A review should reflect your own honest experience as a customer. We may decline to publish, or later remove, any review or photo that is not from a genuine customer; is unlawful, abusive, or harassing; contains sexually explicit, graphic, or otherwise offensive images or language; is off-topic; is posted by or on behalf of a competitor; or is otherwise malicious or misleading. We may suspend the account that submitted it and may report unlawful content to the authorities.</p>
+  <p><strong>What is shown.</strong> Published reviews display your first name and state. Photos you attach must be your own, and you must have the right to share them.</p>
+  <p><strong>Permission to display.</strong> By submitting a review and any photos, you give Ursus Armament<sup class="tm">™</sup> a non-exclusive, royalty-free license to display them on our site. We may reply to reviews publicly as Ursus Works<sup class="tm">™</sup>.</p>
+  <p><strong>Incentives.</strong> For newly released products, we may offer verified customers site credit or discount codes toward future purchases, so that we can build a product line&rsquo;s reputation. We never require a particular rating, wording, or sentiment, and an offer does not depend on a review being positive. We do not edit the content of reviews. Any such offer will come by email from <a href="mailto:contact@ursusworks.com">contact@ursusworks.com</a> only. Reviewers who received an incentive are asked to say so in their review, and we may label such reviews.</p>
+</section>
+
+<section class="terms-section" id="terms-10">
+  <div class="section-tag">Section 10</div>
+  <h2>Intellectual Property, Governing Law and Contact</h2>
+  <p><strong>Intellectual property.</strong> Ursus Works<sup class="tm">™</sup>, Ursus Armament<sup class="tm">™</sup>, our bear logo, and all site content, including text, images, designs, spec sheets, and firmware, belong to us. You may not copy, reproduce, or use them without our written permission. Content you submit, such as reviews, is covered by the license described under Reviews.</p>
+  <p><strong>Privacy.</strong> How we handle your information is described in the <a href="/ursusarmament/aboutus/#privacy-security">Privacy &amp; Security</a> section of our About page.</p>
+  <p><strong>Changes to these Terms.</strong> We may update these Terms from time to time. The date at the top shows when they were last changed. Using the site after a change means you accept it. An order is governed by the Terms in effect when you placed it.</p>
+  <p><strong>Severability.</strong> If any part of these Terms is found unenforceable, the rest stays in effect.</p>
+  <p><strong>Governing law.</strong> These Terms are governed by the laws of the State of Alaska and the United States. Any dispute will be handled in the state or federal courts located in the State of Alaska.</p>
+  <p><strong>Contact.</strong> Questions about these Terms: <a href="mailto:contact@ursusworks.com">contact@ursusworks.com</a>.</p>
+</section>
+
+<div class="brand-signoff">
+  <span style="color:var(--text)">Ursus Works<sup class="tm">™</sup></span>
+  <span style="color:var(--text); opacity:0.5;">-</span>
+  <span style="color:var(--accent)">Built Here For All Of Us</span>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">URSUS <span style="color: var(--accent);">ARMAMENT</span><sup class="tm">™</sup></div>
+      <p>Developing next-generation tactical gear for the American people. Manufactured, tested, and deployed with pride in the USA.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="/ursusarmament/products/ROTS">R.O.T.S.</a></li>
+        <li><a href="/ursusarmament/products/URSIX">URSIX</a></li>
+        <li><a href="/ursusarmament/products">View All</a></li>
+        <li><a href="/ursusarmament/customerreviews">Customer Reviews</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/ursusarmament/aboutus/">About Us</a></li>
+        <li><a href="/ursusarmament/credentials/">Team Credentials</a></li>
+        <li><a href="/ursusarmament/testingstandards/">Testing Standards</a></li>
+        <li><a href="/ursusarmament/careers/">Careers</a></li>
+        <li><a href="https://www.youtube.com/@UrsusWorks/" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="/ursusarmament/contact/">Contact</a></li>
+        <li><a href="/ursusarmament/warranty/">Warranty</a></li>
+        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>
+        <li><a href="/ursusarmament/learnmore/">Learn More</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-logo">URSUS <span>ARMAMENT</span><sup class="tm">™</sup></div>
+    <div class="footer-legal">2026 Ursus Armament<sup class="tm">™</sup> LLC. All rights reserved. | <a href="/ursusarmament/aboutus/#privacy-security" style="color:inherit; text-decoration:underline;">Privacy Policy</a> | <a href="/ursusarmament/terms/" style="color:inherit; text-decoration:underline;">Terms</a></div>
+  </div>
+</footer>
+<script src="/ursusarmament/access-check.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
+  authDomain: "ursus-armament.firebaseapp.com",
+  projectId: "ursus-armament",
+  storageBucket: "ursus-armament.firebasestorage.app",
+  messagingSenderId: "430731167862",
+  appId: "1:430731167862:web:a5447de86db180edad3757"
+};
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+  const navAuth = document.getElementById("navAuth");
+  if (user) {
+    const emailPrefix = user.email.split("@")[0];
+    navAuth.innerHTML = `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
+  } else {
+    navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
+  }
+});
+</script>
+<script>
+function updateCartBadge() {
+  try {
+    const cart  = JSON.parse(localStorage.getItem('ursus_cart')) || [];
+    const count = cart.reduce((sum, i) => sum + (i.quantity || 1), 0);
+    const badge = document.getElementById('cartCount');
+    if (!badge) return;
+    if (count > 0) { badge.textContent = count > 99 ? '99+' : count; badge.classList.add('visible'); }
+    else { badge.classList.remove('visible'); }
+  } catch {}
+}
+updateCartBadge();
+</script>
+<script>
+/* ── Mobile hamburger menu ── */
+(function () {
+  const burger = document.getElementById('navBurger');
+  const ribbon = document.getElementById('navRibbon');
+  if (!burger || !ribbon) return;
+
+  function setOpen(open) {
+    burger.classList.toggle('open', open);
+    ribbon.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+
+  burger.addEventListener('click', e => {
+    e.stopPropagation();
+    setOpen(!ribbon.classList.contains('open'));
+  });
+
+  ribbon.addEventListener('click', e => {
+    if (e.target.closest('a')) setOpen(false);
+  });
+
+  document.addEventListener('click', e => {
+    if (ribbon.classList.contains('open') && !e.target.closest('nav')) setOpen(false);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && ribbon.classList.contains('open')) { setOpen(false); burger.focus(); }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 760) setOpen(false);
+  });
+})();
+</script>
+</body>
+</html>
