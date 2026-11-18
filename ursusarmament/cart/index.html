@@ -1080,7 +1080,7 @@
           </div>
 
         </div>
-        <p class="compliance-required-note">Both confirmations required to proceed</p>
+        <p class="compliance-required-note" id="complianceNote">Confirmation required to proceed</p>
 
         <button class="btn-checkout" id="checkoutBtn" disabled>
           <span class="spinner"></span>
@@ -1122,6 +1122,11 @@
   const CART_KEY = 'ursus_cart';
   const WORKER_URL = 'https://raspy-credit-ce5f.ursus-generalcontracting.workers.dev/checkout';
   const FREE_SHIP_THRESHOLD = 200;
+  // Export Control Policy confirmation is only required when the cart holds one of these products
+  const EXPORT_CONTROLLED_RE = /\b(ursix|rots|calidus|axion)\b/i;
+  function cartNeedsExportControl(cart) {
+    return cart.some(i => EXPORT_CONTROLLED_RE.test([i.product, i.id, i.tier].filter(Boolean).join(' ')));
+  }
 
   function getCart() {
     try { return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
@@ -1287,8 +1292,19 @@
     const c1   = document.getElementById('check1');
     const c2   = document.getElementById('check2');
     const btn  = document.getElementById('checkoutBtn');
+    const needsExport = cartNeedsExportControl(cart);
+    const cc2  = document.getElementById('cc2');
+    if (cc2) {
+      cc2.style.display = needsExport ? '' : 'none';
+      if (!needsExport) {
+        if (c2) c2.checked = false;
+        cc2.classList.remove('confirmed', 'open');
+      }
+    }
+    const note = document.getElementById('complianceNote');
+    if (note) note.textContent = needsExport ? 'Both confirmations required to proceed' : 'Confirmation required to proceed';
     if (btn) {
-      btn.disabled = !(cart.length > 0 && c1 && c1.checked && c2 && c2.checked);
+      btn.disabled = !(cart.length > 0 && c1 && c1.checked && (!needsExport || (c2 && c2.checked)));
     }
   }
 
