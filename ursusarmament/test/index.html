@@ -1047,7 +1047,7 @@ function saveCart(cart) {
 }
 function cartQtyFor(colorway, size) {
   const cart = getCart();
-  const item = cart.find(i => i.sku === `combat-tops-${colorway}-${size}`);
+  const item = cart.find(i => i.id === `combat-tops-${colorway}-${size}`);
   return item ? (item.quantity || 1) : 0;
 }
 window.updateCartBadge = function() {
@@ -1329,7 +1329,7 @@ window.addToCart = function() {
   const sku       = `combat-tops-${colorKey}-${selectedSize}`;
 
   let cart        = getCart();
-  const existing  = cart.find(i => i.sku === sku);
+  const existing  = cart.find(i => i.id === sku);
   const inCartQty = existing ? (existing.quantity || 1) : 0;
   const avail     = stockQty - inCartQty;
 
@@ -1351,7 +1351,9 @@ window.addToCart = function() {
     cart.push({
       id:       sku,
       product:  'Combat Top',
-      tier:     `${colorKey} / ${selectedSize}`,
+      tier:     `${document.getElementById(`chip-${selectedColorway}`)?.dataset.label || colorKey} / ${selectedSize}`,
+      colorway: colorKey,
+      size:     selectedSize,
       price:    45,
       quantity: adding,
       maxQty:   stockQty
