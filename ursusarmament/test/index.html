@@ -544,7 +544,7 @@
     <!-- PRICE + STOCK -->
     <div class="product-price-row">
       <div class="price-block">
-        <div class="price-tag">$50</div>
+        <div class="price-tag">$45</div>
         <div class="price-sub">All sizes &amp; colorways — uniform pricing</div>
       </div>
       <div id="stockBadge" class="stock-badge loading">
@@ -625,7 +625,7 @@
     <p class="return-policy-note"><strong>Returns:</strong> As this is a wearable item, we only accept returns of unopened, unused items in their original packaging. Items that have been opened, worn, or used will not be refunded. See our <a href="/ursusarmament/terms/#terms-5">Terms</a>.</p>
 
     <div class="product-trust">
-      <div class="trust-item"><span class="trust-label">Price</span><span class="trust-value">$50 / all sizes</span></div>
+      <div class="trust-item"><span class="trust-label">Price</span><span class="trust-value">$45 / all sizes</span></div>
       <div class="trust-item"><span class="trust-label">Made In</span><span class="trust-value">USA</span></div>
       <div class="trust-item"><span class="trust-label">Shipping</span><span class="trust-value tbd">3-5 Days</span></div>
     </div>
@@ -1303,7 +1303,7 @@ function updateAddToCartState() {
     return;
   }
   btn.disabled = false;
-  label.textContent = `Add to Cart — $${50 * quantity}`;
+  label.textContent = `Add to Cart — $${45 * quantity}`;
 
   // Update qty button states while we're here
   document.getElementById('qtyMinus').disabled = quantity <= 1;
@@ -1343,7 +1343,7 @@ window.addToCart = function() {
       id:       sku,
       product:  'Combat Top',
       tier:     `${colorKey} / ${selectedSize}`,
-      price:    50,
+      price:    45,
       quantity: adding,
       maxQty:   stockQty
     });
