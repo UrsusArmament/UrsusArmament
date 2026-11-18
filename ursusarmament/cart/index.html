@@ -746,6 +746,10 @@
   }
 
   .trust-item:last-child { border-right: none; }
+  a.trust-link { text-decoration: none; display: block; transition: background 0.2s; }
+  a.trust-link .trust-label { color: var(--accent); }
+  a.trust-link .trust-icon { color: var(--text); }
+  a.trust-link:hover { background: var(--surface2); }
 
   .trust-icon {
     display: block;
@@ -1098,10 +1102,10 @@
             <span class="trust-icon">🚚</span>
             <span class="trust-label">Fast<br>Shipping</span>
           </div>
-          <div class="trust-item">
+          <a class="trust-item trust-link" href="/ursusarmament/warranty/" target="_blank" rel="noopener">
             <span class="trust-icon">◆</span>
-            <span class="trust-label">Lifetime<br>Warranty</span>
-          </div>
+            <span class="trust-label">Limited<br>Warranty &#8599;</span>
+          </a>
         </div>
 
       </div>
