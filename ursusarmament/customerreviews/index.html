@@ -329,6 +329,7 @@
     color: var(--muted);
   }
   .badge-purchase { border-color: rgba(200,146,42,0.55); color: var(--accent); background: rgba(200,146,42,0.07); }
+  .badge-incentive { border-color: rgba(232,228,217,0.3); color: var(--text); }
   .badge-field { border-color: rgba(232,228,217,0.3); color: var(--text); background: rgba(232,228,217,0.04); }
 
   .review-text {
@@ -784,7 +785,7 @@ footer {
   <div class="footer-grid">
     <div class="footer-brand">
       <div class="nav-logo">URSUS <span style="color: var(--accent);">ARMAMENT</span><sup class="tm">™</sup></div>
-      <p>Developing next-generation tactical gear for the American people. Manufactured, tested, and deployed with pride in the USA.</p>
+      <p>Developing next-generation tactical gear for the American people.</p>
     </div>
     <div class="footer-col">
       <h4>Products</h4>
@@ -1124,6 +1125,10 @@ function renderReviews() {
       const t = String(r.feedbackType).toLowerCase();
       const cls = t.includes('purchase') ? 'badge-purchase' : (t.includes('field') ? 'badge-field' : '');
       typeHtml = `<span class="badge ${cls}">${esc(r.feedbackType)}</span>`;
+    }
+
+    if (r.incentive === true) {
+      typeHtml += `<span class="badge badge-incentive">Incentivized Review</span>`;
     }
 
     const stateStr = r.state ? ` (${esc(r.state)})` : '';
