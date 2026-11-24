@@ -641,6 +641,7 @@
   .proc-section.alt { background: var(--dark); }
   .id-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: var(--border); margin-top: 2rem; }
   .id-card { background: var(--surface); padding: 1.6rem 1.75rem; min-width: 0; }
+  .id-wide { grid-column: span 2; }
   .id-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
   .id-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); overflow-wrap: anywhere; }
   .ph { color: var(--accent); font-style: normal; }
@@ -661,6 +662,7 @@
     .page-head { padding: 110px 1.5rem 2.5rem; }
     .proc-section { padding: 3rem 1.5rem; }
     .id-grid { grid-template-columns: 1fr; }
+    .id-wide { grid-column: auto; }
     .cap-grid { grid-template-columns: 1fr 1fr; }
   }
   @media (max-width: 520px) { .cap-grid { grid-template-columns: 1fr; } }
@@ -729,15 +731,11 @@
       <div class="id-value">2245424</div>
     </div>
     <div class="id-card">
-      <div class="id-label">SBA VetCert</div>
-      <div class="id-value"><em class="ph">[VETCERT STATUS]</em></div>
-      <div class="id-note">Verification pending.</div>
+      <div class="id-label">SBA VetCert Designation</div>
+      <div class="id-value"><em class="ph">[SDVOSB / VOSB]</em></div>
+      <div class="id-note">Certification pending.</div>
     </div>
-    <div class="id-card">
-      <div class="id-label">DDTC / ITAR Registration</div>
-      <div class="id-value"><em class="ph">[DDTC CODE]</em></div>
-    </div>
-    <div class="id-card">
+    <div class="id-card id-wide">
       <div class="id-label">Procurement Contact</div>
       <div class="id-value" style="font-size:1.2rem; letter-spacing:0.04em;"><a href="mailto:contact@ursusworks.com" style="color:inherit; text-decoration:none;">contact@ursusworks.com</a></div>
     </div>
