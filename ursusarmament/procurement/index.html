@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Procurement | Ursus Armament™</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --surface2: #222220;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+    --accent2: #e8a830;
+    --danger: #c0392b;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .tm {
+    font-size: 0.55em;
+    vertical-align: super;
+    line-height: 0;
+    letter-spacing: 0;
+    text-transform: none;
+    font-weight: 400;
+    margin-left: 1px;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(10,10,8,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-top {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.6rem 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-brand { display: flex; align-items: center; gap: 0.85rem; min-width: 0; }
+  .nav-brand-link { display: block; flex-shrink: 0; line-height: 0; }
+  .nav-brand-text { display: flex; flex-direction: column; gap: 0.05rem; min-width: 0; }
+
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .nav-logo span { color: var(--accent); }
+
+  .nav-slogan {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .nav-logo-img {
+    height: 46px;
+    width: 46px;
+    object-fit: contain;
+    border-radius: 8px;
+    display: block;
+  }
+
+  .nav-ribbon {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0;
+    padding: 0 3rem;
+    height: 38px;
+    background: var(--surface);
+  }
+
+  .nav-ribbon a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 0 1.6rem;
+    height: 100%;
+    display: flex; align-items: center;
+    border-right: 1px solid var(--border);
+    transition: color 0.2s, background 0.2s;
+  }
+  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
+  .nav-ribbon a:hover { color: var(--accent); background: rgba(200,146,42,0.06); }
+
+  .nav-auth {
+  display: flex;
+  align-items: center;
+}
+
+.nav-auth a, .nav-auth button {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--accent);
+  background: transparent;
+  border: 1px solid var(--accent);
+  padding: 0.4rem 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.nav-auth a:hover, .nav-auth button:hover {
+  background: rgba(200,146,42,0.08);
+}
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 0 3rem 7rem;
+    position: relative;
+    background:
+      linear-gradient(to bottom, rgba(10,10,8,0.3) 0%, rgba(10,10,8,0.85) 75%, var(--black) 100%),
+      url('https://images.unsplash.com/photo-1608289937436-7e5c2e540e68?w=1600&q=80') center/cover no-repeat;
+    overflow: visible;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    z-index: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+    pointer-events: none;
+  }
+
+  .hero > * { position: relative; z-index: 1; }
+
+  .hero-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block; width: 32px; height: 1px;
+    background: var(--accent);
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    line-height: 0.92;
+    letter-spacing: 0.04em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    max-width: 900px;
+  }
+
+  .hero-row, .hero-row-inner { display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
+  .hero-logo-wrap { display: contents; }
+  @media (min-width: 901px) {
+    .hero-row { width: 100%; }
+    .hero-row-inner { width: 100%; flex-wrap: nowrap; }
+    .hero-row-inner h1 { flex: 0 1 auto; }
+    .hero-logo-wrap { display: flex; flex: 1 1 0; justify-content: center; min-width: 0; }
+  }
+  @media (min-width: 1560px) {
+    .hero-row-inner { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; }
+    .hero-row-inner h1 { grid-column: 1; }
+    .hero-logo-wrap { grid-column: 2; flex: none; }
+  }
+
+  .hero h1 em {
+    font-style: normal;
+    color: var(--accent);
+    display: block;
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: var(--muted);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+  }
+
+  .hero-actions { display: flex; gap: 1rem; align-items: center; }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--black);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.85rem 2.2rem;
+    border: none; cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.85rem 2.2rem;
+    border: 1px solid var(--border2);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+  .hero-actions { display: none; }
+
+  /* SECTION SHARED */
+  section { padding: 6rem 3rem; }
+
+  .section-tag {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 0.6rem;
+  }
+  .section-tag::before {
+    content: '';
+    display: block; width: 20px; height: 1px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.4rem, 5vw, 4.2rem);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+  }
+
+  /* MISSION */
+  .mission {
+    background: var(--dark);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+
+  .mission-text p {
+    color: var(--muted);
+    font-weight: 300;
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+    line-height: 1.8;
+  }
+
+  .mission-pillars {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5px;
+    background: var(--border);
+  }
+
+  .pillar {
+    background: var(--surface);
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+  .pillar:hover { background: var(--surface2); }
+
+  .pillar::before {
+    content: '';
+    position: absolute; top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .pillar:hover::before { opacity: 1; }
+
+  .pillar-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+
+  .pillar h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .pillar p {
+    font-size: 0.85rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* PROCESS */
+  .process { background: var(--black); }
+  .process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    background: var(--border);
+    margin-top: 3.5rem;
+  }
+
+  .step {
+    background: var(--dark);
+    padding: 2.5rem 2rem;
+    position: relative;
+  }
+
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 5rem;
+    color: rgba(200,146,42,0.1);
+    line-height: 1;
+    position: absolute; top: 1rem; right: 1.5rem;
+  }
+
+  .step-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+
+  .step p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+
+  /* CTA BANNER */
+  .cta-banner {
+    background: var(--accent);
+    padding: 4rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  .cta-banner h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    letter-spacing: 0.06em;
+    color: var(--black);
+    line-height: 1;
+  }
+
+  .cta-banner p {
+    font-size: 1rem;
+    color: rgba(10,10,8,0.65);
+    margin-top: 0.5rem;
+  }
+
+  .btn-dark {
+    background: var(--black);
+    color: var(--accent);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.9rem 2.5rem;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+  }
+  .btn-dark:hover { background: #1a1a17; }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    padding: 4rem 3rem 2rem;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.3fr 1fr 1fr 1fr 1fr;
+    gap: 3rem;
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .footer-brand p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-top: 1rem;
+  }
+
+  .footer-col h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 1.2rem;
+  }
+
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+  .footer-col a {
+    font-size: 0.9rem;
+    color: var(--text);
+    text-decoration: none;
+    opacity: 0.7;
+    transition: opacity 0.2s, color 0.2s;
+  }
+  .footer-col a:hover { opacity: 1; color: var(--accent); }
+
+  .footer-bottom {
+    display: flex; justify-content: space-between; align-items: center;
+  }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    letter-spacing: 0.12em;
+    color: var(--text);
+    opacity: 0.5;
+  }
+
+  .footer-logo span { color: var(--accent); opacity: 1; }
+
+  .footer-legal {
+    font-size: 0.78rem;
+    color: var(--muted);
+    opacity: 0.5;
+  }
+
+  /* CART TOAST */
+  .toast {
+    position: fixed; bottom: 2rem; right: 2rem;
+    background: var(--surface2);
+    border: 1px solid var(--accent);
+    color: var(--text);
+    padding: 1rem 1.5rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    z-index: 999;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: transform 0.3s, opacity 0.3s;
+  }
+  .toast.show { transform: translateY(0); opacity: 1; }
+  .toast span { color: var(--accent); font-weight: 700; }
+
+  /* MOBILE */
+  @media (max-width: 900px) {
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 0 1.5rem 4rem; }
+    .hero-stats { right: 1.5rem; gap: 1.5rem; }
+    section { padding: 4rem 1.5rem; }
+    .mission, .tech { grid-template-columns: 1fr; gap: 2.5rem; }
+    .process-steps { grid-template-columns: 1fr 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .cta-banner { flex-direction: column; text-align: center; }
+  }
+
+  /* CART ICON */
+.nav-cart-btn {
+  position: relative;
+  background: transparent;
+  border: 1px solid var(--border2);
+  color: var(--text);
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color 0.2s, background 0.2s;
+  flex-shrink: 0;
+}
+.nav-cart-btn:hover { border-color: var(--accent); background: rgba(200,146,42,0.06); }
+.nav-cart-btn svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
+.nav-cart-btn:hover svg { stroke: var(--accent); }
+.cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
+.cart-count.visible { display: flex; }
+ 
+.nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
+
+.nav-burger {
+  display: none;
+  position: relative;
+  width: 38px; height: 38px;
+  flex-shrink: 0;
+  background: transparent;
+  border: 1px solid var(--border2);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+.nav-burger:hover, .nav-burger:focus-visible { border-color: var(--accent); background: rgba(200,146,42,0.06); outline: none; }
+.nav-burger span {
+  position: absolute; left: 9px; right: 9px; height: 2px;
+  background: var(--text);
+  transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease, background 0.2s;
+}
+.nav-burger span:nth-child(1) { top: 11px; }
+.nav-burger span:nth-child(2) { top: 17px; }
+.nav-burger span:nth-child(3) { top: 23px; }
+.nav-burger:hover span { background: var(--accent); }
+.nav-burger.open span:nth-child(1) { top: 17px; transform: rotate(45deg); }
+.nav-burger.open span:nth-child(2) { opacity: 0; }
+.nav-burger.open span:nth-child(3) { top: 17px; transform: rotate(-45deg); }
+
+@media (max-width: 760px) {
+  .nav-top { padding: 0.6rem 1rem; }
+  .nav-brand { gap: 0.6rem; }
+  .nav-logo-img { height: 38px; width: 38px; }
+  .nav-brand .nav-logo { font-size: 1.05rem; letter-spacing: 0.08em; white-space: nowrap; }
+  .nav-slogan { font-size: 0.55rem; letter-spacing: 0.14em; white-space: nowrap; }
+  .nav-burger { display: block; }
+  .nav-right { gap: 0.4rem !important; flex-shrink: 0; }
+  .nav-ribbon {
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    height: auto;
+    padding: 0;
+    max-height: calc(100vh - 62px);
+    overflow-y: auto;
+  }
+  .nav-ribbon.open { display: flex; }
+  .nav-ribbon a {
+    height: auto;
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-ribbon a:first-child { border-left: none; }
+  .nav-ribbon a:last-child { border-bottom: none; }
+  .nav-ribbon a.active { box-shadow: inset 3px 0 0 var(--accent); }
+}
+
+@media (max-width: 420px) {
+  .nav-top { padding: 0.6rem 0.75rem; }
+  .nav-brand { gap: 0.5rem; }
+  .nav-logo-img { height: 32px; width: 32px; border-radius: 6px; }
+  .nav-brand .nav-logo { font-size: 0.95rem; letter-spacing: 0.04em; }
+  .nav-slogan { display: none; }
+}
+
+@media (max-width: 350px) {
+  .nav-brand .nav-logo { font-size: 0.7rem; letter-spacing: 0.02em; }
+  .nav-logo-img { height: 28px; width: 28px; }
+  .nav-brand { gap: 0.4rem; }
+}
+
+/* header: keep login/account button from crowding the brand on phones */
+@media (max-width: 760px) {
+  .nav-auth a, .nav-auth button { max-width: 88px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0.4rem 0.6rem; letter-spacing: 0.1em; }
+}
+@media (max-width: 350px) {
+  .nav-auth a, .nav-auth button { max-width: 62px; padding: 0.4rem 0.45rem; }
+}
+@media (max-width: 900px) {
+  nav { padding: 0; }
+}
+.process-steps > * { min-width: 0; }
+.step { overflow-wrap: anywhere; }
+
+  /* PROCUREMENT PAGE */
+  .page-head { padding: 124px 3rem 3rem; background: var(--dark); border-bottom: 1px solid var(--border); }
+  .page-head h1 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3rem, 7vw, 5.5rem); letter-spacing: 0.04em; line-height: 0.95; color: var(--text); margin-bottom: 1rem; }
+  .page-head p { color: var(--muted); font-weight: 300; font-size: 1.05rem; max-width: 620px; line-height: 1.7; }
+  .proc-section { padding: 4rem 3rem; }
+  .proc-section.alt { background: var(--dark); }
+  .id-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: var(--border); margin-top: 2rem; }
+  .id-card { background: var(--surface); padding: 1.6rem 1.75rem; min-width: 0; }
+  .id-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+  .id-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1.5rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); overflow-wrap: anywhere; }
+  .ph { color: var(--accent); font-style: normal; }
+  .id-note { font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.5; }
+  .table-wrap { overflow-x: auto; margin-top: 2rem; border: 1px solid var(--border); }
+  .code-table { width: 100%; border-collapse: collapse; background: var(--surface); }
+  .code-table th { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); text-align: left; padding: 0.9rem 1.5rem; border-bottom: 1px solid var(--border2); background: var(--surface2); }
+  .code-table td { padding: 0.9rem 1.5rem; border-bottom: 1px solid var(--border); font-size: 0.95rem; color: var(--text); }
+  .code-table tr:last-child td { border-bottom: none; }
+  .code-table td:first-child { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.1em; color: var(--accent); white-space: nowrap; width: 140px; }
+  .proc-lead { color: var(--muted); font-weight: 300; font-size: 1.05rem; max-width: 640px; line-height: 1.7; }
+  .cap-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5px; background: var(--border); margin-top: 2rem; }
+  .cap-card { background: var(--surface); padding: 1.75rem; }
+  .cap-card h3 { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); margin-bottom: 0.5rem; }
+  .cap-card p { font-size: 0.88rem; color: var(--muted); line-height: 1.6; }
+  .compliance-links { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem; }
+  @media (max-width: 900px) {
+    .page-head { padding: 110px 1.5rem 2.5rem; }
+    .proc-section { padding: 3rem 1.5rem; }
+    .id-grid { grid-template-columns: 1fr; }
+    .cap-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 520px) { .cap-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-top">
+  <div class="nav-brand">
+    <a href="/ursusarmament/" class="nav-brand-link"><img class="nav-logo-img" src="/ursusarmament/images/ursusLogoOrange.png" alt="Ursus Armament logo"></a>
+    <div class="nav-brand-text">
+      <a href="/ursusarmament/" class="nav-logo">URSUS WORKS<sup class="tm">™</sup> - <span>ARMAMENT</span></a>
+      <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
+    </div>
+  </div>
+  <div class="nav-right" style="display:flex; align-items:center; gap:0.75rem;">
+  <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="9" cy="21" r="1"/>
+      <circle cx="20" cy="21" r="1"/>
+      <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/>
+    </svg>
+    <span class="cart-count" id="cartCount"></span>
+  </a>
+  <div class="nav-auth" id="navAuth"></div>
+  <button type="button" class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="navRibbon">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+</div>
+  <div class="nav-ribbon" id="navRibbon">
+    <a href="/ursusarmament/products">Products</a>
+    <a href="/ursusarmament/customerreviews">Reviews</a>
+    <a href="/ursusarmament/learnmore/">Learn More</a>
+    <a href="/ursusarmament/aboutus/">About</a>
+    <a href="/ursusarmament/contact/">Contact</a>
+    <a href="/ursusworks/">← Ursus Works<sup class="tm">™</sup></a>
+  </div>
+</nav>
+
+<!-- PAGE HEAD -->
+<header class="page-head">
+  <div class="hero-eyebrow">Government &amp; Commercial Buyers</div>
+  <h1>PROCUREMENT</h1>
+  <p>Registration details, classification codes, and contact information for contracting officers and purchasing teams.</p>
+</header>
+
+<!-- REGISTRATIONS -->
+<section class="proc-section" id="registrations">
+  <div class="section-tag">Registrations</div>
+  <h2 class="section-title">COMPANY IDENTIFIERS</h2>
+  <div class="id-grid">
+    <div class="id-card">
+      <div class="id-label">UEI (SAM.gov)</div>
+      <div class="id-value">FCXHLT2YVC63</div>
+    </div>
+    <div class="id-card">
+      <div class="id-label">CAGE Code</div>
+      <div class="id-value"><em class="ph">[CAGE CODE]</em></div>
+      <div class="id-note">Assignment pending.</div>
+    </div>
+    <div class="id-card">
+      <div class="id-label">State of Alaska Business License</div>
+      <div class="id-value">2245424</div>
+    </div>
+    <div class="id-card">
+      <div class="id-label">SBA VetCert</div>
+      <div class="id-value"><em class="ph">[VETCERT STATUS]</em></div>
+      <div class="id-note">Verification pending.</div>
+    </div>
+    <div class="id-card">
+      <div class="id-label">DDTC / ITAR Registration</div>
+      <div class="id-value"><em class="ph">[DDTC CODE]</em></div>
+    </div>
+    <div class="id-card">
+      <div class="id-label">Procurement Contact</div>
+      <div class="id-value" style="font-size:1.2rem; letter-spacing:0.04em;"><a href="mailto:contact@ursusworks.com" style="color:inherit; text-decoration:none;">contact@ursusworks.com</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- NAICS -->
+<section class="proc-section alt" id="naics">
+  <div class="section-tag">Classification</div>
+  <h2 class="section-title">NAICS CODES</h2>
+  <div class="table-wrap">
+    <table class="code-table">
+      <thead><tr><th scope="col">NAICS</th><th scope="col">Title</th></tr></thead>
+      <tbody>
+        <tr><td>333310</td><td>Commercial and Service Industry Machinery Manufacturing</td></tr>
+        <tr><td>332510</td><td>Hardware Manufacturing</td></tr>
+        <tr><td>332994</td><td>Small Arms, Ordnance, and Ordnance Accessories Manufacturing</td></tr>
+        <tr><td>334220</td><td>Radio and Television Broadcasting and Wireless Communications Equipment Manufacturing</td></tr>
+        <tr><td>334419</td><td>Other Electronic Component Manufacturing</td></tr>
+        <tr><td>334511</td><td>Search, Detection, Navigation, Guidance, Aeronautical, and Nautical System and Instrument Manufacturing</td></tr>
+        <tr><td>456130</td><td>Optical Goods Retailers</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- PSC -->
+<section class="proc-section" id="psc">
+  <div class="section-tag">Classification</div>
+  <h2 class="section-title">PRODUCT &amp; SERVICE CODES</h2>
+  <div class="table-wrap">
+    <table class="code-table">
+      <thead><tr><th scope="col">PSC</th><th scope="col">Name</th></tr></thead>
+      <tbody>
+        <tr><td>1005</td><td>Guns, Through 30mm</td></tr>
+        <tr><td>1090</td><td>Assemblies Interchangeable Between Weapons in Two or More Classes</td></tr>
+        <tr><td>5825</td><td>Radio Navigation Equipment, Except Airborne</td></tr>
+        <tr><td>5850</td><td>Visible and Invisible Light Communication Equipment</td></tr>
+        <tr><td>5855</td><td>Night Vision Equipment, Emitted and Reflected Radiation</td></tr>
+        <tr><td>5980</td><td>Optoelectronic Devices and Associated Hardware</td></tr>
+        <tr><td>6650</td><td>Optical Instruments, Test Equipment, Components and Accessories</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- CAPABILITIES -->
+<section class="proc-section alt" id="capabilities">
+  <div class="section-tag">Capabilities</div>
+  <h2 class="section-title">HOW WE BUILD</h2>
+  <p class="proc-lead">Design and firmware are developed in-house. Final assembly is performed in the USA, with in-house manufacturing and domestic sourcing wherever possible.</p>
+  <div class="cap-grid">
+    <div class="cap-card"><h3>Design</h3><p>In-house hardware engineering and CAD for every product line.</p></div>
+    <div class="cap-card"><h3>Firmware</h3><p>Firmware and software developed in-house.</p></div>
+    <div class="cap-card"><h3>Assembly</h3><p>Final assembly in the USA, with in-house manufacturing where we can.</p></div>
+    <div class="cap-card"><h3>Testing</h3><p>500+ hours of environmental, load, and stress testing per product line.</p></div>
+  </div>
+</section>
+
+<!-- COMPLIANCE -->
+<section class="proc-section" id="compliance">
+  <div class="section-tag">Compliance</div>
+  <h2 class="section-title">EXPORT &amp; SOURCING</h2>
+  <p class="proc-lead">Export control information is on our ITAR page. Country-of-origin and sourcing questions for a specific product can be sent to our procurement contact.</p>
+  <div class="compliance-links">
+    <a href="/ursusarmament/ITAR/" class="btn-ghost">ITAR Compliance</a>
+    <a href="/ursusarmament/warranty/" class="btn-ghost">Warranty</a>
+    <a href="/ursusarmament/testingstandards/" class="btn-ghost">Testing Standards</a>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<div class="cta-banner" id="contact">
+  <div>
+    <h2>START A PROCUREMENT INQUIRY</h2>
+    <p>Tell us what you need, quantities, and timeline.</p>
+  </div>
+  <a href="/ursusarmament/contact/" class="btn-dark">Contact Us</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="nav-logo">URSUS <span style="color: var(--accent);">ARMAMENT</span><sup class="tm">™</sup></div>
+      <p>Developing next-generation tactical gear for the American people. Designed, assembled, and tested with pride in the USA.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Products</h4>
+      <ul>
+        <li><a href="/ursusarmament/products/ROTS">R.O.T.S.</a></li>
+        <li><a href="/ursusarmament/products/URSIX">URSIX</a></li>
+        <li><a href="/ursusarmament/products">View All</a></li>
+       <li><a href="/ursusarmament/customerreviews">Customer Reviews</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/ursusarmament/aboutus/">About Us</a></li>
+        <li><a href="/ursusarmament/testingstandards/">Testing Standards</a></li>
+        <li><a href="/ursusarmament/careers/">Careers</a></li>
+        <li><a href="https://www.youtube.com/@UrsusWorks/" target="_blank" rel="noopener noreferrer">YouTube</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <ul>
+        <li><a href="/ursusarmament/contact/">Contact</a></li>
+        <li><a href="/ursusarmament/warranty/">Warranty</a></li>
+        <li><a href="/ursusarmament/learnmore/">Learn More</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Government</h4>
+      <ul>
+        <li><a href="/ursusarmament/procurement/">Procurement</a></li>
+        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-logo">URSUS <span>ARMAMENT</span><sup class="tm">™</sup></div>
+    <div class="footer-legal">2026 Ursus Armament<sup class="tm">™</sup> LLC. All rights reserved. | <a href="/ursusarmament/aboutus/#privacy-security" style="color:inherit; text-decoration:underline;">Privacy Policy</a> | <a href="/ursusarmament/terms/" style="color:inherit; text-decoration:underline;">Terms</a></div>
+  </div>
+</footer>
+
+
+ 
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+    });
+  });
+</script>
+
+
+ 
+<script src="/ursusarmament/access-check.js"></script>
+
+<script>
+function updateCartBadge() {
+  try {
+    const cart  = JSON.parse(localStorage.getItem('ursus_cart')) || [];
+    const count = cart.reduce((sum, i) => sum + (i.quantity || 1), 0);
+    const badge = document.getElementById('cartCount');
+    if (!badge) return;
+    if (count > 0) { badge.textContent = count > 99 ? '99+' : count; badge.classList.add('visible'); }
+    else { badge.classList.remove('visible'); }
+  } catch {}
+}
+updateCartBadge();
+</script>
+ 
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+ 
+const firebaseConfig = {
+  apiKey: "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
+  authDomain: "ursus-armament.firebaseapp.com",
+  projectId: "ursus-armament",
+  storageBucket: "ursus-armament.firebasestorage.app",
+  messagingSenderId: "430731167862",
+  appId: "1:430731167862:web:a5447de86db180edad3757"
+};
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, (user) => {
+  const navAuth = document.getElementById("navAuth");
+  if (user) {
+    const emailPrefix = user.email.split("@")[0];
+    navAuth.innerHTML = `<a href="/ursusarmament/settings/">${emailPrefix}</a>`;
+  } else {
+    navAuth.innerHTML = `<a href="/ursusarmament/login/">Login</a>`;
+  }
+});
+</script>
+<script>
+/* ── Mobile hamburger menu ── */
+(function () {
+  const burger = document.getElementById('navBurger');
+  const ribbon = document.getElementById('navRibbon');
+  if (!burger || !ribbon) return;
+
+  function setOpen(open) {
+    burger.classList.toggle('open', open);
+    ribbon.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+
+  burger.addEventListener('click', e => {
+    e.stopPropagation();
+    setOpen(!ribbon.classList.contains('open'));
+  });
+
+  ribbon.addEventListener('click', e => {
+    if (e.target.closest('a')) setOpen(false);
+  });
+
+  document.addEventListener('click', e => {
+    if (ribbon.classList.contains('open') && !e.target.closest('nav')) setOpen(false);
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && ribbon.classList.contains('open')) { setOpen(false); burger.focus(); }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 760) setOpen(false);
+  });
+})();
+</script>
+</body>
+</html>
