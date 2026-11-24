@@ -968,6 +968,16 @@ function matchesProduct(r, key) {
   return key === 'ALL' || (r.productType || '').toLowerCase().includes(key.toLowerCase());
 }
 
+/* Display label for the product tag on each review card */
+function productTagLabel(pt) {
+  const s = String(pt || '');
+  const l = s.toLowerCase();
+  if (l.includes('monocular')) return s;
+  if (l.includes('ursix'))   return 'URSIX NIGHT VISION MONOCULAR';
+  if (l.includes('calidus')) return 'CALIDUS THERMAL MONOCULAR';
+  return s;
+}
+
 function cleanRating(r) {
   const n = Math.round(Number(r.starRating));
   return (n >= 1 && n <= 5) ? n : 0;
@@ -1144,7 +1154,7 @@ function renderReviews() {
             ${dateStr ? `<div class="review-date">${esc(dateStr)}</div>` : ''}
           </div>
         </div>
-        <div class="review-product">${esc(r.productType || '')}</div>
+        <div class="review-product">${esc(productTagLabel(r.productType))}</div>
         <div class="review-tags">${typeHtml}</div>
         <div class="review-text">${esc(r.reviewText || '')}</div>
         ${replyHtml}
