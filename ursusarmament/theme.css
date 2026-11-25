@@ -28,14 +28,14 @@
   --surface2: #dcdcdf;
   --border: rgba(0,0,0,0.12);
   --border2: rgba(0,0,0,0.24);
-  --text: #1a1a1c;
-  --muted: #55555b;
+  --text: #000000;
+  --muted: #1f1f22;
   --accent: #8a5f0f;      /* darkened gold: readable as text on light */
   --accent2: #a06f12;
   --green: #1f7a46;
   --red: #b03226;
   --accent-rgb: 138,95,15;
-  --text-rgb: 26,26,28;
+  --text-rgb: 0,0,0;
   --nav-bg: rgba(242,242,243,0.92);
   --overlay: rgba(242,242,243,0.92);
   --on-accent-soft: rgba(250,250,250,0.8);
