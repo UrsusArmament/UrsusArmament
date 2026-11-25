@@ -6,10 +6,21 @@
 <title>Reset Password | Ursus Armament</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+    --accent2: #e8a830;
+  }
   body {
     margin: 0;
-    background: #0a0a08;
-    color: #e8e4d9;
+    background: var(--black);
+    color: var(--text);
     font-family: 'Barlow', sans-serif;
     display: flex;
     justify-content: center;
@@ -19,8 +30,8 @@
   .box {
     width: 360px;
     padding: 2rem;
-    background: #1a1a17;
-    border: 1px solid rgba(255,255,255,0.08);
+    background: var(--surface);
+    border: 1px solid var(--border);
   }
   h1 {
     font-family: 'Bebas Neue', sans-serif;
@@ -29,7 +40,7 @@
   }
   p.subtitle {
     font-size: 0.85rem;
-    color: #8a8678;
+    color: var(--muted);
     margin-bottom: 1.5rem;
     line-height: 1.5;
   }
@@ -37,17 +48,17 @@
     width: 100%;
     padding: 0.8rem;
     margin-bottom: 1rem;
-    background: #111110;
-    border: 1px solid rgba(255,255,255,0.15);
-    color: #e8e4d9;
+    background: var(--dark);
+    border: 1px solid var(--border2);
+    color: var(--text);
     box-sizing: border-box;
   }
   button {
     width: 100%;
     padding: 0.8rem;
-    background: #c8922a;
+    background: var(--accent);
     border: none;
-    color: #0a0a08;
+    color: var(--black);
     font-weight: bold;
     cursor: pointer;
     font-family: 'Barlow Condensed', sans-serif;
@@ -55,15 +66,15 @@
     text-transform: uppercase;
     transition: background 0.2s;
   }
-  button:hover { background: #e8a830; }
+  button:hover { background: var(--accent2); }
   button:disabled { opacity: 0.5; cursor: not-allowed; }
   .secondary-btn {
     margin-top: 0.75rem;
     width: 100%;
     padding: 0.75rem;
     background: transparent;
-    border: 1px solid rgba(255,255,255,0.15);
-    color: #8a8678;
+    border: 1px solid var(--border2);
+    color: var(--muted);
     font-family: 'Barlow Condensed', sans-serif;
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -71,18 +82,20 @@
     transition: all 0.2s ease;
   }
   .secondary-btn:hover {
-    border-color: #c8922a;
-    color: #c8922a;
-    background: rgba(200,146,42,0.08);
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(var(--accent-rgb),0.08);
   }
   .msg {
     margin-top: 1rem;
     font-size: 0.85rem;
     line-height: 1.5;
   }
-  .msg.success { color: #c8922a; }
-  .msg.error   { color: #c07070; }
+  .msg.success { color: var(--accent); }
+  .msg.error   { color: var(--warn-text); }
 </style>
+<link rel="stylesheet" href="/ursusarmament/theme.css">
+<script src="/ursusarmament/theme.js"></script>
 </head>
 <body>
 <div class="box">
