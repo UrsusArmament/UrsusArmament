@@ -26,6 +26,7 @@
   --band-text: #e8ecf0;
   --band-soft: rgba(232,236,240,0.75);
   --nav-bg: rgba(13,16,20,0.94);
+  --accent-light: #7fb0dd;
   --shadow: 0 6px 24px rgba(0,0,0,0.35);
   --radius: 14px;
 }
@@ -120,7 +121,27 @@ nav {
 :root[data-theme="light"] .nav-theme-btn .i-moon { display: block; }
 
 /* ── FOOTER ── */
-footer { text-align: center; padding: 1.75rem 1rem; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
+footer { background: var(--surface); border-top: 1px solid var(--border); padding: 4rem 3rem 2rem; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
+.footer-grid > * { min-width: 0; }
+.footer-brand p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-top: 1rem; }
+.footer-col h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.footer-col a { font-size: 0.9rem; color: var(--text); text-decoration: none; opacity: 0.75; transition: opacity 0.2s, color 0.2s; }
+.footer-col a:hover { opacity: 1; color: var(--accent); }
+:root[data-theme="light"] .footer-col a { opacity: 1; }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem 1.5rem; }
+.footer-logo { font-size: 1.05rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text); opacity: 0.6; }
+.footer-logo span { color: var(--accent); }
+:root[data-theme="light"] .footer-logo { opacity: 1; }
+.footer-legal { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+@media (max-width: 900px) {
+  .nav-top { padding: 0.6rem 1.5rem; }
+  .nav-ribbon { padding: 0 1rem; }
+  footer { padding: 3rem 1.5rem 2rem; }
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .footer-brand { grid-column: 1 / -1; }
+}
 
 @media (max-width: 760px) {
   body { padding-top: 59px; }
@@ -142,4 +163,6 @@ footer { text-align: center; padding: 1.75rem 1rem; font-size: 11px; font-weight
   .nav-brand { gap: 0.5rem; }
   .nav-logo-img { height: 32px; width: 32px; border-radius: 6px; }
   .nav-brand .nav-logo { font-size: 11px; letter-spacing: 0.06em; line-height: 1.2; }
+  .footer-grid { grid-template-columns: 1fr; }
+  .footer-bottom { flex-direction: column; align-items: flex-start; }
 }
