@@ -45,7 +45,7 @@
   </div>
   <div class="footer-bottom">
     <div class="footer-logo">URSUS <span>ARMAMENT</span><sup class="tm">™</sup></div>
-    <div class="footer-legal">2026 Ursus Armament<sup class="tm">™</sup> LLC. All rights reserved. | <a href="/ursusarmament/aboutus/#privacy-security" style="color:inherit; text-decoration:underline;">Privacy Policy</a> | <a href="/ursusarmament/terms/" style="color:inherit; text-decoration:underline;">Terms</a></div>
+    <div class="footer-legal">2026 Ursus Works<sup class="tm">™</sup>. All rights reserved. | <a href="/ursusarmament/aboutus/#privacy-security" style="color:inherit; text-decoration:underline;">Privacy Policy</a> | <a href="/ursusarmament/terms/" style="color:inherit; text-decoration:underline;">Terms</a></div>
   </div>
 </footer>`;
   document.currentScript.insertAdjacentHTML('beforebegin', html);
