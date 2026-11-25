@@ -79,12 +79,12 @@ html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after {
 :root[data-theme="light"] .nav-theme-btn .i-sun  { display: none; }
 :root[data-theme="light"] .nav-theme-btn .i-moon { display: block; }
 
-/* ── Light mode legibility: heavier weights, no faded text ── */
-:root[data-theme="light"] body { font-weight: 500; }
-:root[data-theme="light"] .product-desc,
-:root[data-theme="light"] .serial-desc,
-:root[data-theme="light"] .features-aside p { font-weight: 500; }
-:root[data-theme="light"] .nav-slogan { font-weight: 600; }
+/* ── Legibility: heavier weights (both themes) ── */
+body { font-weight: 500; }
+.product-desc, .serial-desc, .features-aside p { font-weight: 500; }
+.nav-slogan { font-weight: 600; }
+
+/* Light only: no faded text */
 :root[data-theme="light"] .footer-col a,
 :root[data-theme="light"] .footer-legal,
 :root[data-theme="light"] .footer-logo,
