@@ -14,8 +14,8 @@
     }
   }
 
-  // Default: dark on the Armament site, light on Engineering (until the visitor picks one)
-  var DEFAULT = /^\/ursusengineering(\/|$)/i.test(location.pathname) ? 'light' : 'dark';
+  // Default: dark everywhere (until the visitor picks one)
+  var DEFAULT = 'dark';
   var saved = read();
   apply(saved === 'light' || saved === 'dark' ? saved : DEFAULT);
 
