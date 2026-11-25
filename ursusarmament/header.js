@@ -56,6 +56,11 @@
       a.classList.add('active');
       a.setAttribute('aria-current', 'page');
     }
+    /* Team Credentials lives under the About section */
+    if (href === '/ursusarmament/aboutus' && path.indexOf('/ursusarmament/credentials') === 0) {
+      a.classList.add('active');
+      a.setAttribute('aria-current', 'page');
+    }
   });
 
   /* Mobile hamburger menu */
