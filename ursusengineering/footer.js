@@ -5,7 +5,7 @@
   var html = `<footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <div class="footer-logo" style="opacity:1;">URSUS <span>ENGINEERING</span></div>
+      <div class="footer-logo" style="opacity:1;">URSUS <span>ENGINEERING</span><sup class="tm">™</sup></div>
       <p>Engineering at Ursus Works<sup class="tm">™</sup> is beginning its move to domestic production of parts and circuit boards.</p>
     </div>
     <div class="footer-col">
@@ -26,7 +26,7 @@
     </div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-logo">URSUS <span>ENGINEERING</span></div>
+    <div class="footer-logo">URSUS <span>ENGINEERING</span><sup class="tm">™</sup></div>
     <div class="footer-legal">2026 Ursus Works<sup class="tm">™</sup></div>
   </div>
 </footer>`;
