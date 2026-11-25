@@ -13,6 +13,7 @@
   --on-accent-soft: rgba(10,10,8,0.65);
   --ghost: rgba(255,255,255,0.025);
   --red-text: #e87060;
+  --warn-text: #e57373;
   --green-text: #4cbc7e;
   --link: #5b9bd5;
   --link-hover: #7fb4e6;
@@ -41,6 +42,7 @@
   --on-accent-soft: rgba(250,250,250,0.8);
   --ghost: rgba(0,0,0,0.04);
   --red-text: #a12b20;
+  --warn-text: #a12b20;
   --green-text: #1f7a46;
   --link: #1d5fa3;
   --link-hover: #144a82;
