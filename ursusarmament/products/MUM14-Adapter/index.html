@@ -6,10 +6,11 @@
 <title>MUM-14 Adapter — Ursus Armament™</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/ursusarmament/chrome.css">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
+:root {
     --black: #0a0a08;
     --dark: #111110;
     --surface: #1a1a17;
@@ -24,9 +25,9 @@
     --red: #c0392b;
   }
 
-  html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; }
 
-  body {
+body {
     background: var(--black);
     color: var(--text);
     font-family: 'Barlow', sans-serif;
@@ -35,331 +36,307 @@
     overflow-x: hidden;
   }
 
-  .tm {
-    font-size: 0.55em;
-    vertical-align: super;
-    line-height: 0;
-    letter-spacing: 0;
-    text-transform: none;
-    font-weight: 400;
-    margin-left: 1px;
-  }
-
-  /* ── NAV ── */
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(10,10,8,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-top {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0.6rem 3rem; border-bottom: 1px solid var(--border);
-  }
-  .nav-brand { display: flex; align-items: center; gap: 0.85rem; min-width: 0; }
-  .nav-brand-link { display: block; flex-shrink: 0; line-height: 0; }
-  .nav-brand-text { display: flex; flex-direction: column; gap: 0.05rem; min-width: 0; }
-  .nav-logo-img { height: 46px; width: 46px; object-fit: contain; border-radius: 8px; display: block; }
-  .nav-logo {
-    font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
-    letter-spacing: 0.12em; color: var(--text); text-decoration: none; line-height: 1;
-  }
-  .nav-logo span { color: var(--accent); }
-  .nav-slogan {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem;
-    font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
-  }
-  .nav-ribbon {
-    display: flex; align-items: center; justify-content: center;
-    padding: 0 3rem; height: 38px; background: var(--surface);
-  }
-  .nav-ribbon a {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem;
-    font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--muted); text-decoration: none; padding: 0 1.6rem; height: 100%;
-    display: flex; align-items: center; border-right: 1px solid var(--border);
-    transition: color 0.2s, background 0.2s;
-  }
-  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
-  .nav-ribbon a:hover, .nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
-  .nav-right { display: flex; align-items: center; gap: 0.75rem; }
-  .nav-cart-btn {
-    position: relative; background: transparent; border: 1px solid var(--border2);
-    color: var(--text); width: 38px; height: 38px; display: flex; align-items: center;
-    justify-content: center; cursor: pointer; text-decoration: none;
-    transition: border-color 0.2s, background 0.2s; flex-shrink: 0;
-  }
-  .nav-cart-btn:hover { border-color: var(--accent); background: rgba(200,146,42,0.06); }
-  .nav-cart-btn svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
-  .nav-cart-btn:hover svg { stroke: var(--accent); }
-  .cart-count {
-    position: absolute; top: -6px; right: -6px; background: var(--accent);
-    color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem;
-    font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px;
-    display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1;
-  }
-  .cart-count.visible { display: flex; }
-  .nav-auth { display: flex; align-items: center; }
-  .nav-auth a, .nav-auth button {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700;
-    letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none;
-    color: var(--accent); background: transparent; border: 1px solid var(--accent);
-    padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s ease;
-  }
-  .nav-auth a:hover, .nav-auth button:hover { background: rgba(200,146,42,0.08); }
 
   /* ── BREADCRUMB ── */
-  .breadcrumb {
+.breadcrumb {
     padding: 1rem 3rem; background: var(--dark); border-bottom: 1px solid var(--border);
-    margin-top: 86px; display: flex; align-items: center; gap: 0.5rem;
+    margin-top: 105px; display: flex; align-items: center; gap: 0.5rem;
     font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem;
     letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
   }
-  .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
-  .breadcrumb a:hover { color: var(--accent); }
-  .breadcrumb span { color: var(--accent); }
+
+.breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
+
+.breadcrumb a:hover { color: var(--accent); }
+
+.breadcrumb span { color: var(--accent); }
+
 
   /* ── PRODUCT HERO ── */
-  .product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; background: var(--dark); }
-  .product-visual {
+.product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; background: var(--dark); }
+
+.product-visual {
     position: relative; background: var(--surface); overflow: hidden;
     display: flex; flex-direction: column; align-items: stretch;
   }
-  .product-visual-main {
+
+.product-visual-main {
     flex: 1; display: flex; align-items: center; justify-content: center;
     position: relative; overflow: hidden; min-height: 0;
   }
-  .product-visual-main::before {
+
+.product-visual-main::before {
     content: '';
     position: absolute; inset: 0;
-    background: repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(200,146,42,0.015) 30px,rgba(200,146,42,0.015) 31px);
+    background: repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(var(--accent-rgb),0.015) 30px,rgba(var(--accent-rgb),0.015) 31px);
     pointer-events: none;
   }
-  .product-visual-bg-label {
+
+.product-visual-bg-label {
     position: absolute; font-family: 'Bebas Neue', sans-serif; font-size: 10rem;
     letter-spacing: -0.02em; color: rgba(255,255,255,0.025); user-select: none; pointer-events: none;
   }
-  .product-visual-main img {
+
+.product-visual-main img {
     width: 100%; height: 100%; object-fit: contain; object-position: center; position: relative; z-index: 1;
   }
-  .product-thumbs {
+
+.product-thumbs {
     width: 100%; background: var(--dark); border-top: 1px solid var(--border);
     padding: 1rem; display: flex; gap: 0.75rem; justify-content: center;
   }
-  .thumb {
-    width: 80px; height: 80px; cursor: pointer; border: 1px solid #444;
+
+.thumb {
+    width: 80px; height: 80px; cursor: pointer; border: 1px solid var(--border2);
     box-sizing: border-box; flex-shrink: 0; overflow: hidden; opacity: 0.6;
     transition: opacity 0.2s, border-color 0.2s;
   }
-  .thumb.active { border: 2px solid var(--accent); opacity: 1; }
-  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
 
-  .product-info {
+.thumb.active { border: 2px solid var(--accent); opacity: 1; }
+
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+
+.product-info {
     padding: 4rem; display: flex; flex-direction: column; justify-content: center;
     border-left: 1px solid var(--border);
   }
-  .product-tag {
+
+.product-tag {
     font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
     letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent);
     margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem;
   }
-  .product-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
-  .product-name {
+
+.product-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+
+.product-name {
     font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 6vw, 6rem);
     line-height: 0.9; letter-spacing: 0.04em; margin-bottom: 0.5rem; color: var(--text);
   }
-  .product-subtitle {
+
+.product-subtitle {
     font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600;
     letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 2rem;
   }
-  .product-desc {
+
+.product-desc {
     font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8;
     margin-bottom: 2rem; max-width: 480px;
   }
-  .product-trust { display: flex; gap: 2rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border); }
-  .trust-item { display: flex; flex-direction: column; gap: 0.2rem; }
-  .trust-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
-  .trust-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text); }
+
+.product-trust { display: flex; gap: 2rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+
+.trust-item { display: flex; flex-direction: column; gap: 0.2rem; }
+
+.trust-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+
+.trust-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text); }
+
 
   /* ── SECTION TAGS ── */
-  .section-tag {
+.section-tag {
     font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
     letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent);
     margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem;
   }
-  .section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
-  .section-title {
+
+.section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+
+.section-title {
     font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5vw, 4.2rem);
     letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 3rem;
   }
 
-  /* ── VARIANTS SECTION ── */
-  .variants-section { background: var(--black); padding: 6rem 3rem; }
-  .variants-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
 
-  .variant-card {
+  /* ── VARIANTS SECTION ── */
+.variants-section { background: var(--black); padding: 6rem 3rem; }
+
+.variants-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
+
+.variant-card {
     background: var(--dark); padding: 2.5rem; display: flex; flex-direction: column;
     gap: 1.5rem; transition: background 0.2s; position: relative;
     border: 2px solid transparent;
   }
-  .variant-card:hover { background: var(--surface); }
-  .variant-card.selected { background: var(--surface); border-color: var(--accent); }
-  .variant-card.selected::after {
+
+.variant-card:hover { background: var(--surface); }
+
+.variant-card.selected { background: var(--surface); border-color: var(--accent); }
+
+.variant-card.selected::after {
     content: '✓'; position: absolute; top: 1rem; right: 1rem; width: 1.5rem; height: 1.5rem;
     background: var(--accent); color: var(--black); border-radius: 50%;
     display: flex; align-items: center; justify-content: center; font-size: 0.75rem; font-weight: 700;
   }
 
-  .variant-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
-  .variant-name {
+.variant-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
+
+.variant-name {
     font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.04em;
     color: var(--text); line-height: 1;
   }
-  .variant-sku {
+
+.variant-sku {
     font-family: 'Barlow Condensed', sans-serif; font-size: 0.62rem; font-weight: 700;
     letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted);
     background: var(--surface2); padding: 0.25rem 0.6rem; border: 1px solid var(--border);
     white-space: nowrap;
   }
 
-  .variant-details { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
-  .variant-detail-row {
+.variant-details { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+
+.variant-detail-row {
     display: flex; justify-content: space-between; align-items: baseline;
     background: var(--surface2); padding: 0.75rem 1rem;
   }
-  .variant-detail-label {
+
+.variant-detail-label {
     font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700;
     letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
   }
-  .variant-detail-value {
+
+.variant-detail-value {
     font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600;
     letter-spacing: 0.06em; color: var(--text);
   }
 
-  .variant-price {
+.variant-price {
     font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; letter-spacing: 0.04em;
     color: var(--accent); line-height: 1;
   }
-  .variant-price-label {
+
+.variant-price-label {
     font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700;
     letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-top: 0.2rem;
   }
 
-  .variant-status {
+.variant-status {
     display: flex; align-items: center; gap: 0.5rem;
     font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
     letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
   }
-  .variant-status-dot {
+
+.variant-status-dot {
     width: 7px; height: 7px; border-radius: 50%; background: var(--muted); flex-shrink: 0;
   }
-  .variant-status-dot.available { background: var(--green); }
-  .variant-status.available { color: var(--green); }
 
-  .variant-footer { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.variant-status-dot.available { background: var(--green); }
 
-  .btn-primary {
+.variant-status.available { color: var(--green); }
+
+.variant-footer { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+
+.btn-primary {
     background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
     padding: 0.9rem 2rem; border: none; cursor: pointer; text-decoration: none;
     display: inline-block; transition: background 0.2s, transform 0.15s; text-align: center;
     white-space: nowrap;
   }
-  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
-  .btn-primary:disabled { background: var(--muted); cursor: not-allowed; transform: none; }
-  .btn-primary.added { background: var(--green); color: #fff; }
 
-  .btn-ghost {
+.btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+
+.btn-primary:disabled { background: var(--muted); cursor: not-allowed; transform: none; }
+
+.btn-primary.added { background: var(--green); color: #fff; }
+
+.btn-ghost {
     background: transparent; color: var(--text); font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
     padding: 0.9rem 2rem; border: 1px solid var(--border2); cursor: pointer;
     text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s;
   }
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
 
   /* ── SPECS ── */
-  .specs-section { background: var(--dark); padding: 6rem 3rem; }
-  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
-  .spec-item {
+.specs-section { background: var(--dark); padding: 6rem 3rem; }
+
+.specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); }
+
+.spec-item {
     background: var(--dark); padding: 1.75rem 2rem;
     display: flex; justify-content: space-between; align-items: baseline;
     transition: background 0.2s;
   }
-  .spec-item:hover { background: var(--surface); }
-  .spec-name {
+
+.spec-item:hover { background: var(--surface); }
+
+.spec-name {
     font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700;
     letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted);
   }
-  .spec-value {
+
+.spec-value {
     font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600;
     letter-spacing: 0.08em; color: var(--text); text-align: right;
   }
 
+
   /* ── FEATURES ── */
-  .features-section { background: var(--black); padding: 6rem 3rem; }
-  .features-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-  .features-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
-  .feature-item {
+.features-section { background: var(--black); padding: 6rem 3rem; }
+
+.features-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+
+.features-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+
+.feature-item {
     background: var(--surface); padding: 2rem; position: relative;
     overflow: hidden; transition: background 0.2s;
   }
-  .feature-item:hover { background: var(--surface2); }
-  .feature-item::before {
+
+.feature-item:hover { background: var(--surface2); }
+
+.feature-item::before {
     content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
     background: var(--accent); opacity: 0; transition: opacity 0.2s;
   }
-  .feature-item:hover::before { opacity: 1; }
-  .feature-num {
-    font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(200,146,42,0.12);
+
+.feature-item:hover::before { opacity: 1; }
+
+.feature-num {
+    font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(var(--accent-rgb),0.12);
     line-height: 1; position: absolute; top: 1rem; right: 1.5rem;
   }
-  .feature-title {
+
+.feature-title {
     font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700;
     letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem;
   }
-  .feature-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
-  .features-aside { position: sticky; top: 110px; }
-  .features-aside p { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+
+.feature-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+
+.features-aside { position: sticky; top: 110px; }
+
+.features-aside p { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+
 
   /* ── CTA BANNER ── */
-  .cta-banner {
+.cta-banner {
     background: var(--accent); padding: 4rem 3rem;
     display: flex; align-items: center; justify-content: space-between; gap: 2rem;
   }
-  .cta-banner h2 {
+
+.cta-banner h2 {
     font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem);
     letter-spacing: 0.06em; color: var(--black); line-height: 1;
   }
-  .cta-banner p { font-size: 1rem; color: rgba(10,10,8,0.65); margin-top: 0.5rem; }
-  .btn-dark {
+
+.cta-banner p { font-size: 1rem; color: var(--on-accent-soft); margin-top: 0.5rem; }
+
+.btn-dark {
     background: var(--black); color: var(--accent); font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
     padding: 0.9rem 2.5rem; border: none; cursor: pointer; white-space: nowrap;
     text-decoration: none; display: inline-block; transition: background 0.2s;
   }
-  .btn-dark:hover { background: #1a1a17; }
 
-  /* ── FOOTER ── */
-  footer { background: var(--dark); border-top: 1px solid var(--border); padding: 4rem 3rem 2rem; }
-  .footer-grid {
-    display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem;
-    margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border);
-  }
-  .footer-brand p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-top: 1rem; }
-  .footer-col h4 {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700;
-    letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem;
-  }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
-  .footer-col a { font-size: 0.9rem; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
-  .footer-col a:hover { opacity: 1; color: var(--accent); }
-  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
-  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.12em; color: var(--text); opacity: 0.5; }
-  .footer-logo span { color: var(--accent); opacity: 1; }
-  .footer-legal { font-size: 0.78rem; color: var(--muted); opacity: 0.5; }
+.btn-dark:hover { background: var(--surface); }
+
 
   /* ── TOAST ── */
-  .cart-toast {
+.cart-toast {
     position: fixed; bottom: 2rem; right: 2rem;
     background: var(--surface2); border: 1px solid var(--accent);
     color: var(--text); padding: 1rem 1.5rem;
@@ -367,175 +344,206 @@
     z-index: 999; transform: translateY(100px); opacity: 0;
     transition: transform 0.3s, opacity 0.3s; max-width: 320px; pointer-events: none;
   }
-  .cart-toast.show { transform: translateY(0); opacity: 1; }
+
+.cart-toast.show { transform: translateY(0); opacity: 1; }
+
 
   /* ── QUANTITY SELECTOR ── */
-  .qty-row {
+.qty-row {
     display: flex; align-items: center; gap: 0.75rem;
   }
-  .qty-btn {
+
+.qty-btn {
     width: 32px; height: 32px; background: var(--surface2); border: 1px solid var(--border2);
     color: var(--text); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center;
     justify-content: center; transition: border-color 0.2s, background 0.2s;
     font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
   }
-  .qty-btn:hover { border-color: var(--accent); background: var(--surface); }
-  .qty-display {
+
+.qty-btn:hover { border-color: var(--accent); background: var(--surface); }
+
+.qty-display {
     font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em;
     color: var(--text); min-width: 2rem; text-align: center;
   }
 
+
   /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
-    .product-hero { grid-template-columns: 1fr; }
-    .product-visual-main { min-height: 50vw; }
-    .product-info { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--border); }
-    .variants-grid { grid-template-columns: 1fr; }
-    .specs-grid { grid-template-columns: 1fr; }
-    .features-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-    .features-aside { position: static; }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
-    .cta-banner { flex-direction: column; text-align: center; }
-    .breadcrumb, .variants-section, .specs-section, .features-section { padding-left: 1.5rem; padding-right: 1.5rem; }
-    .nav-top, .nav-ribbon { padding-left: 1.5rem; padding-right: 1.5rem; }
-  }
- .color-btn {
+@media (max-width: 900px) {
+.product-hero { grid-template-columns: 1fr; }
+
+.product-visual-main { min-height: 50vw; }
+
+.product-info { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--border); }
+
+.variants-grid { grid-template-columns: 1fr; }
+
+.specs-grid { grid-template-columns: 1fr; }
+
+.features-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+
+.features-aside { position: static; }
+
+.cta-banner { flex-direction: column; text-align: center; }
+
+.breadcrumb, .variants-section, .specs-section, .features-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+}
+
+.color-btn {
   font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700;
   letter-spacing: 0.15em; text-transform: uppercase;
   padding: 0.4rem 0.9rem; border: 1px solid var(--border2);
   background: var(--surface2); color: var(--muted); cursor: pointer;
   transition: all 0.2s; white-space: nowrap;
 }
+
 .color-btn:hover { border-color: var(--accent); color: var(--text); }
-.color-btn.selected { border-color: var(--accent); background: rgba(200,146,42,0.12); color: var(--accent); }
+
+.color-btn.selected { border-color: var(--accent); background: rgba(var(--accent-rgb),0.12); color: var(--accent); }
+
 .color-btn:disabled { opacity: 0.35; cursor: not-allowed; border-color: var(--border); }
+
 .color-btn-qty { font-size: 0.58rem; opacity: 0.7; margin-left: 0.3rem; }
 
 .configurator { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+
 .config-step { background: var(--dark); padding: 2rem 2.5rem; transition: background 0.2s; }
+
 .config-step.locked { opacity: 0.4; pointer-events: none; }
+
 .config-step.active { background: var(--surface); opacity: 1; pointer-events: all; }
+
 .config-step.done { background: var(--dark); opacity: 1; pointer-events: all; }
+
 .config-step-header { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.25rem; }
-.config-step-num { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: rgba(200,146,42,0.25); line-height: 1; }
+
+.config-step-num { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: rgba(var(--accent-rgb),0.25); line-height: 1; }
+
 .config-step.active .config-step-num, .config-step.done .config-step-num { color: var(--accent); }
+
 .config-step-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
+
 .config-step.active .config-step-label, .config-step.done .config-step-label { color: var(--text); }
+
 .config-options { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+
 .config-opt { font-family: 'Barlow Condensed', sans-serif; font-size: 0.82rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.75rem 1.5rem; background: var(--surface2); border: 1px solid var(--border2); color: var(--text); cursor: pointer; transition: border-color 0.2s, background 0.2s, color 0.2s; display: flex; align-items: center; gap: 0.5rem; }
-.config-opt:hover:not(:disabled) { border-color: var(--accent); background: rgba(200,146,42,0.06); }
-.config-opt.selected { border-color: var(--accent); background: rgba(200,146,42,0.12); color: var(--accent); }
+
+.config-opt:hover:not(:disabled) { border-color: var(--accent); background: rgba(var(--accent-rgb),0.06); }
+
+.config-opt.selected { border-color: var(--accent); background: rgba(var(--accent-rgb),0.12); color: var(--accent); }
+
 .config-opt:disabled { opacity: 0.25; cursor: not-allowed; }
+
 .config-opt .opt-qty { font-size: 0.65rem; color: var(--muted); font-weight: 600; letter-spacing: 0.1em; }
+
 .config-opt.selected .opt-qty { color: var(--accent); opacity: 0.7; }
+
 .config-summary { background: var(--surface); border-top: 1px solid var(--border); opacity: 0.4; pointer-events: none; transition: opacity 0.3s; }
+
 .config-summary.ready { opacity: 1; pointer-events: all; }
+
 .config-summary-inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; padding: 2rem 2.5rem; flex-wrap: wrap; }
+
 .config-summary-details { display: flex; flex-direction: column; gap: 0.5rem; }
+
 .config-summary-row { display: flex; gap: 1.5rem; align-items: baseline; }
+
 .config-summary-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); min-width: 90px; }
+
 .config-summary-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
+
 .config-actions { display: flex; align-items: center; gap: 1rem; }
 
 .selector-block { margin-bottom: 1.75rem; }
+
 .selector-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.65rem; display: flex; align-items: center; justify-content: space-between; }
+
 .selector-label-selected { color: var(--text); font-weight: 600; }
+
 .style-chips { display: flex; gap: 8px; flex-wrap: wrap; }
+
 .style-chip-btn { width: 36px; height: 36px; border: 2px solid var(--border2); cursor: pointer; opacity: 0.75; position: relative; transition: opacity 0.2s, border-color 0.2s, transform 0.15s; overflow: hidden; background: none; padding: 0; }
-.style-chip-btn:hover { opacity: 1; border-color: rgba(200,146,42,0.6); transform: translateY(-2px); }
+
+.style-chip-btn:hover { opacity: 1; border-color: rgba(var(--accent-rgb),0.6); transform: translateY(-2px); }
+
 .style-chip-btn.active { opacity: 1; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+
 .style-chip-btn::after { content: attr(data-label); position: absolute; bottom: calc(100% + 8px); left: 50%; transform: translateX(-50%); background: var(--surface2); color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; padding: 0.25rem 0.5rem; border: 1px solid var(--border2); pointer-events: none; opacity: 0; transition: opacity 0.18s; z-index: 10; }
+
 .style-chip-btn:hover::after { opacity: 1; }
-.nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
 
-.nav-burger {
-  display: none;
-  position: relative;
-  width: 38px; height: 38px;
-  flex-shrink: 0;
-  background: transparent;
-  border: 1px solid var(--border2);
-  cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
-}
-.nav-burger:hover, .nav-burger:focus-visible { border-color: var(--accent); background: rgba(200,146,42,0.06); outline: none; }
-.nav-burger span {
-  position: absolute; left: 9px; right: 9px; height: 2px;
-  background: var(--text);
-  transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease, background 0.2s;
-}
-.nav-burger span:nth-child(1) { top: 11px; }
-.nav-burger span:nth-child(2) { top: 17px; }
-.nav-burger span:nth-child(3) { top: 23px; }
-.nav-burger:hover span { background: var(--accent); }
-.nav-burger.open span:nth-child(1) { top: 17px; transform: rotate(45deg); }
-.nav-burger.open span:nth-child(2) { opacity: 0; }
-.nav-burger.open span:nth-child(3) { top: 17px; transform: rotate(-45deg); }
-
-@media (max-width: 760px) {
-  .nav-burger { display: block; }
-  .nav-ribbon {
-    display: none;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
-    height: auto;
-    padding: 0;
-    max-height: calc(100vh - 62px);
-    overflow-y: auto;
-  }
-  .nav-ribbon.open { display: flex; }
-  .nav-ribbon a {
-    height: auto;
-    padding: 1rem 1.5rem;
-    font-size: 0.9rem;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-ribbon a:first-child { border-left: none; }
-  .nav-ribbon a:last-child { border-bottom: none; }
-  .nav-ribbon a.active { box-shadow: inset 3px 0 0 var(--accent); }
-}
-  .review-cta-btn {
+.review-cta-btn {
     background: var(--surface); color: var(--text); font-family: 'Barlow Condensed', sans-serif;
     font-size: 1.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
     padding: 1.5rem 3.5rem; border: 2px solid var(--border2); border-radius: 6px;
     cursor: pointer; transition: all 0.2s ease; box-shadow: 0 0 0 rgba(0,0,0,0);
   }
-  .review-cta-btn:hover { background: var(--surface2); border-color: var(--accent); color: var(--accent); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.35); }
-  .review-cta-btn:active { transform: translateY(0px); box-shadow: 0 5px 12px rgba(0,0,0,0.25); }
-  .reviews-section { background: var(--black); padding: 6rem 3rem; }
-  .reviews-container { max-height: 600px; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; background: var(--border); }
-  .review-card { background: var(--surface); padding: 2rem 2.5rem; display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; border-left: 3px solid transparent; transition: background 0.2s, border-color 0.2s; width: 100%; }
-  .review-card:hover { background: var(--surface2); border-color: var(--accent); }
-  .review-content { flex: 1; display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
-  .review-header { display: flex; flex-direction: column; gap: 0.3rem; }
-  .review-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); }
-  .review-stars { font-size: 1.2rem; letter-spacing: 0.1em; color: var(--accent); }
-  .review-stars-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-  .review-product { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); opacity: 0.8; }
-  .review-tags { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.4rem; }
-  .badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.15rem 0.6rem; border: 1px solid var(--border2); color: var(--muted); }
-  .badge-purchase { border-color: rgba(200,146,42,0.55); color: var(--accent); background: rgba(200,146,42,0.07); }
-  .badge-field { border-color: rgba(232,228,217,0.3); color: var(--text); background: rgba(232,228,217,0.04); }
-  .review-date { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
-  .review-text { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-top: 0.25rem; }
-  .reviews-empty { padding: 2rem; text-align: center; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.15em; color: var(--muted); }
-  .review-images { display: flex; flex-direction: column; gap: 0.5rem; flex-shrink: 0; width: 200px; }
-  .review-img { width: 200px; height: 150px; object-fit: cover; cursor: pointer; border: 1px solid var(--border2); transition: opacity 0.2s, border-color 0.2s; display: block; }
-  .review-img:hover { opacity: 0.85; border-color: var(--accent); }
-  .review-reply { margin-top: 1rem; margin-left: 1.5rem; padding: 1rem 1.25rem; background: var(--surface2); border-left: 2px solid var(--accent); }
-  .review-reply-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; }
-  .review-reply-logo { width: 2rem; height: 2rem; object-fit: contain; flex-shrink: 0; border-radius: 3px; }
-  .review-reply-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); }
-  .review-reply-text { font-size: 0.92rem; color: var(--muted); line-height: 1.7; }
+
+.review-cta-btn:hover { background: var(--surface2); border-color: var(--accent); color: var(--accent); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.35); }
+
+.review-cta-btn:active { transform: translateY(0px); box-shadow: 0 5px 12px rgba(0,0,0,0.25); }
+
+.reviews-section { background: var(--black); padding: 6rem 3rem; }
+
+.reviews-container { max-height: 600px; overflow-y: auto; display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+
+.review-card { background: var(--surface); padding: 2rem 2.5rem; display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; border-left: 3px solid transparent; transition: background 0.2s, border-color 0.2s; width: 100%; }
+
+.review-card:hover { background: var(--surface2); border-color: var(--accent); }
+
+.review-content { flex: 1; display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
+
+.review-header { display: flex; flex-direction: column; gap: 0.3rem; }
+
+.review-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); }
+
+.review-stars { font-size: 1.2rem; letter-spacing: 0.1em; color: var(--accent); }
+
+.review-stars-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+
+.review-product { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); opacity: 0.8; }
+
+.review-tags { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.4rem; }
+
+.badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.15rem 0.6rem; border: 1px solid var(--border2); color: var(--muted); }
+
+.badge-purchase { border-color: rgba(var(--accent-rgb),0.55); color: var(--accent); background: rgba(var(--accent-rgb),0.07); }
+
+.badge-field { border-color: rgba(var(--text-rgb),0.3); color: var(--text); background: rgba(var(--text-rgb),0.04); }
+
+.review-date { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+
+.review-text { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-top: 0.25rem; }
+
+.reviews-empty { padding: 2rem; text-align: center; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.15em; color: var(--muted); }
+
+.review-images { display: flex; flex-direction: column; gap: 0.5rem; flex-shrink: 0; width: 200px; }
+
+.review-img { width: 200px; height: 150px; object-fit: cover; cursor: pointer; border: 1px solid var(--border2); transition: opacity 0.2s, border-color 0.2s; display: block; }
+
+.review-img:hover { opacity: 0.85; border-color: var(--accent); }
+
+.review-reply { margin-top: 1rem; margin-left: 1.5rem; padding: 1rem 1.25rem; background: var(--surface2); border-left: 2px solid var(--accent); }
+
+.review-reply-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; }
+
+.review-reply-logo { width: 2rem; height: 2rem; object-fit: contain; flex-shrink: 0; border-radius: 3px; }
+
+.review-reply-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); }
+
+.review-reply-text { font-size: 0.92rem; color: var(--muted); line-height: 1.7; }
 
 @media (max-width: 900px) {
-  .reviews-section { padding-left: 1.5rem; padding-right: 1.5rem; }
-  .review-card { flex-direction: column; gap: 1.25rem; padding: 1.5rem; }
-  .review-images { flex-direction: row; width: 100%; }
-  .review-img { width: calc(50% - 0.25rem); height: 120px; }
+.reviews-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+
+.review-card { flex-direction: column; gap: 1.25rem; padding: 1.5rem; }
+
+.review-images { flex-direction: row; width: 100%; }
+
+.review-img { width: calc(50% - 0.25rem); height: 120px; }
 }
+
 
 /* ── Product page: rating summary ── */
 .rating-summary {
@@ -543,62 +551,56 @@
   padding: 2.5rem 3rem; margin-bottom: 2px;
   background: var(--surface); border: 1px solid var(--border);
 }
+
 .rs-left { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; flex-shrink: 0; min-width: 190px; text-align: center; }
+
 .rs-scope { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
+
 .rs-avg { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 1; letter-spacing: 0.03em; color: var(--text); }
-.stars-frac { position: relative; display: inline-block; font-size: 1.5rem; letter-spacing: 0.1em; line-height: 1; color: var(--surface2); -webkit-text-stroke: 1px rgba(200,146,42,0.45); }
+
+.stars-frac { position: relative; display: inline-block; font-size: 1.5rem; letter-spacing: 0.1em; line-height: 1; color: var(--surface2); -webkit-text-stroke: 1px rgba(var(--accent-rgb),0.45); }
+
 .stars-frac .stars-fill { position: absolute; top: 0; left: 0; overflow: hidden; white-space: nowrap; color: var(--accent); -webkit-text-stroke: 0; }
+
 .rs-count { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+
 .rs-bars { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; max-width: 520px; }
+
 .rs-row { display: flex; align-items: center; gap: 0.8rem; }
+
 .rs-row-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; color: var(--muted); width: 2.2rem; flex-shrink: 0; text-align: right; }
+
 .rs-track { flex: 1; height: 10px; background: var(--surface2); border: 1px solid var(--border); }
+
 .rs-fill { height: 100%; background: var(--accent); width: 0; transition: width 0.4s ease; }
+
 .rs-row-count { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--muted); width: 2.2rem; flex-shrink: 0; }
+
 @media (max-width: 760px) {
-  .rating-summary { flex-direction: column; align-items: stretch; gap: 1.75rem; padding: 2rem 1.5rem; }
-  .rs-left { min-width: 0; }
-  .rs-bars { max-width: 100%; }
+.rating-summary { flex-direction: column; align-items: stretch; gap: 1.75rem; padding: 2rem 1.5rem; }
+
+.rs-left { min-width: 0; }
+
+.rs-bars { max-width: 100%; }
 }
 
-/* header: Ursus Works - Armament */
-@media (max-width: 760px) {
-  .nav-top { padding: 0.6rem 1rem; }
-  .nav-brand { gap: 0.6rem; }
-  .nav-logo-img { height: 38px; width: 38px; }
-  .nav-brand .nav-logo { font-size: 1.05rem; letter-spacing: 0.08em; white-space: nowrap; }
-  .nav-slogan { font-size: 0.55rem; letter-spacing: 0.14em; white-space: nowrap; }
-  .nav-right { gap: 0.4rem !important; flex-shrink: 0; }
-}
-@media (max-width: 420px) {
-  .nav-top { padding: 0.6rem 0.75rem; }
-  .nav-brand { gap: 0.5rem; }
-  .nav-logo-img { height: 32px; width: 32px; border-radius: 6px; }
-  .nav-brand .nav-logo { font-size: 0.95rem; letter-spacing: 0.04em; }
-  .nav-slogan { display: none; }
-}
-@media (max-width: 350px) {
-  .nav-brand .nav-logo { font-size: 0.7rem; letter-spacing: 0.02em; }
-  .nav-logo-img { height: 28px; width: 28px; }
-  .nav-brand { gap: 0.4rem; }
-}
-/* header: keep login/account button from crowding the brand on phones */
-@media (max-width: 760px) {
-  .nav-auth a, .nav-auth button { max-width: 88px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0.4rem 0.6rem; letter-spacing: 0.1em; }
-}
-@media (max-width: 350px) {
-  .nav-auth a, .nav-auth button { max-width: 62px; padding: 0.4rem 0.45rem; }
-}
 
 
 /* small-phone overflow fixes */
 @media (max-width: 420px) {
-  .product-thumbs { gap: 0.5rem; padding: 0.75rem; }
-  .thumb { flex: 1 1 0; min-width: 0; max-width: 80px; width: auto; height: auto; aspect-ratio: 1; }
-  .config-actions { flex-wrap: wrap; }
-  .config-actions .btn-primary { flex: 1 1 100%; white-space: normal; }
+.product-thumbs { gap: 0.5rem; padding: 0.75rem; }
+
+.thumb { flex: 1 1 0; min-width: 0; max-width: 80px; width: auto; height: auto; aspect-ratio: 1; }
+
+.config-actions { flex-wrap: wrap; }
+
+.config-actions .btn-primary { flex: 1 1 100%; white-space: normal; }
 }
+
+
 </style>
+<link rel="stylesheet" href="/ursusarmament/theme.css">
+<script src="/ursusarmament/theme.js"></script>
 </head>
 <body>
 
@@ -606,35 +608,7 @@
 <div class="cart-toast" id="cartToast"></div>
 
 <!-- ── NAV ── -->
-<nav>
-  <div class="nav-top">
-    <div class="nav-brand">
-      <a href="/ursusarmament/" class="nav-brand-link"><img class="nav-logo-img" src="/ursusarmament/images/ursusLogoOrange.png" alt="Ursus Armament logo"></a>
-      <div class="nav-brand-text">
-        <a href="/ursusarmament/" class="nav-logo">URSUS WORKS<sup class="tm">™</sup> - <span>ARMAMENT</span></a>
-        <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
-      </div>
-    </div>
-    <div class="nav-right">
-      <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
-        <svg viewBox="0 0 24 24"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/></svg>
-        <span class="cart-count" id="cartCount"></span>
-      </a>
-      <div class="nav-auth" id="navAuth"></div>
-      <button type="button" class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="navRibbon">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </div>
-  <div class="nav-ribbon" id="navRibbon">
-    <a href="/ursusarmament/products" class="active" aria-current="page">Products</a>
-    <a href="/ursusarmament/customerreviews">Reviews</a>
-    <a href="/ursusarmament/learnmore/">Learn More</a>
-    <a href="/ursusarmament/aboutus/">About</a>
-    <a href="/ursusarmament/contact/">Contact</a>
-    <a href="/ursusworks/">← Ursus Works<sup class="tm">™</sup></a>
-  </div>
-</nav>
+<script src="/ursusarmament/header.js"></script>
 
 <!-- ── BREADCRUMB ── -->
 <div class="breadcrumb">
@@ -769,8 +743,8 @@
     <div class="spec-item"><span class="spec-name">Compatibility</span><span class="spec-value">Standard J-Arm, Rhino Mount</span></div>
     <div class="spec-item"><span class="spec-name">Device Compatibility</span><span class="spec-value">MUM-14 & Compatible NODs</span></div>
     <div class="spec-item"><span class="spec-name">Standard</span><span class="spec-value">Mil-Spec</span></div>
-    <div class="spec-item"><span class="spec-name">Country of Origin</span><span class="spec-value">United States of America</span></div>
-    <div class="spec-item"><span class="spec-name">Warranty</span><span class="spec-value">Limited 5-year</span></div>
+    <div class="spec-item"><span class="spec-name">Design &amp; Assembly</span><span class="spec-value">United States of America</span></div>
+    <div class="spec-item"><span class="spec-name">Warranty</span><span class="spec-value">Limited 2-year</span></div>
   </div>
 </section>
 
@@ -798,50 +772,12 @@
 </section>
 
 <!-- ── FOOTER ── -->
-<footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="nav-logo">URSUS <span style="color: var(--accent);">ARMAMENT</span><sup class="tm">™</sup></div>
-      <p>Developing next-generation tactical gear for the American people. Manufactured, tested, and deployed with pride in the USA.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Products</h4>
-      <ul>
-        <li><a href="/ursusarmament/products/ROTS">R.O.T.S.</a></li>
-        <li><a href="/ursusarmament/products/URSIX">URSIX</a></li>
-        <li><a href="/ursusarmament/products">View All</a></li>
-        <li><a href="/ursusarmament/customerreviews">Customer Reviews</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Company</h4>
-      <ul>
-        <li><a href="/ursusarmament/aboutus/">About Us</a></li>
-        <li><a href="/ursusarmament/testingstandards/">Testing Standards</a></li>
-        <li><a href="/ursusarmament/careers/">Careers</a></li>
-        <li><a href="https://www.youtube.com/@UrsusWorks/" target="_blank" rel="noopener noreferrer">YouTube</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Support</h4>
-      <ul>
-        <li><a href="/ursusarmament/contact/">Contact</a></li>
-        <li><a href="/ursusarmament/warranty/">Warranty</a></li>
-        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>
-        <li><a href="/ursusarmament/learnmore/">Learn More</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div class="footer-logo">URSUS <span>ARMAMENT</span><sup class="tm">™</sup></div>
-    <div class="footer-legal">2026 Ursus Armament<sup class="tm">™</sup> LLC. All rights reserved. | <a href="/ursusarmament/aboutus/#privacy-security" style="color:inherit; text-decoration:underline;">Privacy Policy</a> | <a href="/ursusarmament/terms/" style="color:inherit; text-decoration:underline;">Terms</a></div>
-  </div>
-</footer>
+<script src="/ursusarmament/footer.js"></script>
 
 <!-- REVIEW MODAL -->
-<div id="reviewModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:99999; justify-content:center; align-items:center; overflow-y:auto; padding: 2rem 0;">
+<div id="reviewModal" style="display:none; position:fixed; inset:0; background:var(--overlay); z-index:99999; justify-content:center; align-items:center; overflow-y:auto; padding: 2rem 0;">
   <div style="background: var(--dark); padding: 2rem; width: 90%; max-width: 600px; border: 1px solid var(--border); position: relative; margin: auto;">
-    <button onclick="closeReviewModal()" style="position:absolute; top:10px; right:15px; background:none; border:none; color:white; font-size:20px; cursor:pointer;">✕</button>
+    <button onclick="closeReviewModal()" style="position:absolute; top:10px; right:15px; background:none; border:none; color:var(--text); font-size:20px; cursor:pointer;">✕</button>
     <div id="reviewFormContainer">
       <h2 style="font-family:'Bebas Neue'; letter-spacing:0.06em; margin-bottom:1rem;">Leave a Review</h2>
       <div style="display:flex; flex-direction:column; gap:1rem;">
@@ -1345,7 +1281,7 @@ async function loadProductReviews() {
         replyHtml = `
           <div class="review-reply">
             <div class="review-reply-header">
-              <img src="/ursusarmament/images/ursusLogoBlackAndOrange.png" class="review-reply-logo" alt="Ursus Works">
+              <img src="/ursusarmament/images/ursusLogoOrange.png" class="review-reply-logo" alt="Ursus Works">
               <span class="review-reply-name">Ursus Works<sup class="tm">™</sup></span>
             </div>
             <div class="review-reply-text">${esc(r.ursusReply)}</div>
@@ -1416,12 +1352,12 @@ window.submitReview = async function() {
   const img1File     = document.getElementById("rv_img1").files[0];
   const img2File     = document.getElementById("rv_img2").files[0];
 
-  if (!productType)       { msg.style.color = "#c0392b"; msg.textContent = "Please select a product."; return; }
-  if (!feedbackType)      { msg.style.color = "#c0392b"; msg.textContent = "Please select a feedback type."; return; }
-  if (_starRating === 0)  { msg.style.color = "#c0392b"; msg.textContent = "Please select a star rating."; return; }
-  if (!firstName)         { msg.style.color = "#c0392b"; msg.textContent = "Please enter your first name."; return; }
-  if (!state)             { msg.style.color = "#c0392b"; msg.textContent = "Please select your state."; return; }
-  if (!reviewText)        { msg.style.color = "#c0392b"; msg.textContent = "Please write your review."; return; }
+  if (!productType)       { msg.style.color = "var(--warn-text)"; msg.textContent = "Please select a product."; return; }
+  if (!feedbackType)      { msg.style.color = "var(--warn-text)"; msg.textContent = "Please select a feedback type."; return; }
+  if (_starRating === 0)  { msg.style.color = "var(--warn-text)"; msg.textContent = "Please select a star rating."; return; }
+  if (!firstName)         { msg.style.color = "var(--warn-text)"; msg.textContent = "Please enter your first name."; return; }
+  if (!state)             { msg.style.color = "var(--warn-text)"; msg.textContent = "Please select your state."; return; }
+  if (!reviewText)        { msg.style.color = "var(--warn-text)"; msg.textContent = "Please write your review."; return; }
 
   btn.disabled    = true;
   btn.textContent = "Submitting...";
@@ -1450,7 +1386,7 @@ window.submitReview = async function() {
     document.getElementById("reviewThankYou").style.display      = "block";
   } catch (err) {
     console.error("Review submit error:", err);
-    msg.style.color = "#c0392b";
+    msg.style.color = "var(--warn-text)";
     msg.textContent = "Submission failed. Please try again.";
     btn.disabled    = false;
     btn.textContent = "Submit Review";
@@ -1469,41 +1405,5 @@ window.openReviewImage = function(url) {
 };
 </script>
 
-<script>
-/* ── Mobile hamburger menu ── */
-(function () {
-  const burger = document.getElementById('navBurger');
-  const ribbon = document.getElementById('navRibbon');
-  if (!burger || !ribbon) return;
-
-  function setOpen(open) {
-    burger.classList.toggle('open', open);
-    ribbon.classList.toggle('open', open);
-    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-  }
-
-  burger.addEventListener('click', e => {
-    e.stopPropagation();
-    setOpen(!ribbon.classList.contains('open'));
-  });
-
-  ribbon.addEventListener('click', e => {
-    if (e.target.closest('a')) setOpen(false);
-  });
-
-  document.addEventListener('click', e => {
-    if (ribbon.classList.contains('open') && !e.target.closest('nav')) setOpen(false);
-  });
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && ribbon.classList.contains('open')) { setOpen(false); burger.focus(); }
-  });
-
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 760) setOpen(false);
-  });
-})();
-</script>
 </body>
 </html>
