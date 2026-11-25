@@ -12,7 +12,7 @@
     <div class="footer-col">
       <h4>Products</h4>
       <ul>
-        <li><a href="/ursusarmament/products/ROTS">R.O.T.S.</a></li>
+        <li><a href="/ursusarmament/products/URSIX">URSIX</a></li>
         <li><a href="/ursusarmament/products/CALIDUS">CALIDUS</a></li>
         <li><a href="/ursusarmament/products">View All</a></li>
         <li><a href="/ursusarmament/customerreviews">Customer Reviews</a></li>
