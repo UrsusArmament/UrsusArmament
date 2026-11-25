@@ -59,7 +59,7 @@
 
   .section-tag {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.72rem;
+    font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 0.3em;
     text-transform: uppercase;
@@ -83,7 +83,7 @@
 
   .breadcrumb {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.88rem;
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -123,7 +123,7 @@
 
   .cat-btn {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.76rem;
+    font-size: 0.88rem;
     font-weight: 700;
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -162,7 +162,7 @@
 
   .subcat-btn {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.84rem;
     font-weight: 600;
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -192,7 +192,7 @@
 
   .grid-label {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.72rem;
+    font-size: 0.85rem;
     font-weight: 700;
     letter-spacing: 0.25em;
     text-transform: uppercase;
@@ -201,7 +201,7 @@
 
   .grid-count {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.68rem;
+    font-size: 0.82rem;
     font-weight: 600;
     letter-spacing: 0.1em;
     color: var(--accent);
@@ -224,7 +224,7 @@
 
   .flagship-row-label {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.68rem;
+    font-size: 0.82rem;
     font-weight: 700;
     letter-spacing: 0.28em;
     text-transform: uppercase;
@@ -405,7 +405,7 @@
 
   .card-cat {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.62rem;
+    font-size: 0.76rem;
     font-weight: 700;
     letter-spacing: 0.22em;
     text-transform: uppercase;
@@ -423,8 +423,8 @@
   }
 
   .card-desc {
-    font-size: 0.78rem;
-    font-weight: 300;
+    font-size: 0.92rem;
+    font-weight: 500;
     color: var(--muted);
     line-height: 1.5;
     margin-bottom: 0.75rem;
@@ -442,7 +442,7 @@
 
   .card-status {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.65rem;
+    font-size: 0.78rem;
     font-weight: 700;
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -464,7 +464,7 @@
 
   .card-price {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.88rem;
+    font-size: 0.98rem;
     font-weight: 700;
     color: var(--text);
     letter-spacing: 0.05em;
@@ -485,7 +485,7 @@
     top: 0.65rem;
     left: 0.75rem;
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.58rem;
+    font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
@@ -507,7 +507,7 @@
   }
   .grid-divider span {
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.65rem;
+    font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.25em;
     text-transform: uppercase;
@@ -541,7 +541,7 @@
   }
 
   .notify-banner p {
-    font-size: 1rem;
+    font-size: 1.12rem;
     color: var(--on-accent-soft);
     margin-top: 0.4rem;
   }
@@ -571,7 +571,7 @@
     text-align: center;
     color: var(--muted);
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.9rem;
+    font-size: 1rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     border: 1px dashed var(--border);
@@ -601,6 +601,14 @@
   @media (max-width: 480px) {
     .product-grid { grid-template-columns: 1fr; }
     .flagship-card { flex: 0 0 85%; }
+  }
+
+  /* phones: card image stays 1:1, card height follows its content */
+  @media (max-width: 768px) {
+    .flagship-card, .product-card { aspect-ratio: auto; }
+    .card-image { flex: 0 0 auto; width: 100%; aspect-ratio: 1 / 1; min-height: 0; }
+    .card-image img { position: absolute; inset: 0; }
+    .card-body { flex: 1 0 auto; }
   }
 
   /* modal */
