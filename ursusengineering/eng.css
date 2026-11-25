@@ -127,6 +127,7 @@ footer { background: var(--surface); border-top: 1px solid var(--border); paddin
 .footer-brand p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-top: 1rem; }
 .footer-col h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
 .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+.footer-col li { margin-bottom: 0; }
 .footer-col a { font-size: 0.9rem; color: var(--text); text-decoration: none; opacity: 0.75; transition: opacity 0.2s, color 0.2s; }
 .footer-col a:hover { opacity: 1; color: var(--accent); }
 :root[data-theme="light"] .footer-col a { opacity: 1; }
