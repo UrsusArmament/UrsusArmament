@@ -17,7 +17,7 @@
     --border: rgba(255,255,255,0.08);
     --border2: rgba(255,255,255,0.12);
     --text: #e8e4d9;
-    --muted: #8a8678;
+    --muted: var(--muted);
     --accent: #c8922a;
     --accent2: #e8a830;
   }
@@ -51,7 +51,7 @@
   /* NAV */
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(10,10,8,0.92);
+    background: var(--nav-bg);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
@@ -233,6 +233,8 @@
     .nav-logo-img { height: 30px; width: 30px; }
   }
 </style>
+<link rel="stylesheet" href="/ursusarmament/theme.css">
+<script src="/ursusarmament/theme.js"></script>
 </head>
 <body>
 
@@ -264,13 +266,13 @@
       <p class="para-muted">
         Due to the nature of our industry, we are required to comply with U.S. export control regulations, including the International Traffic in Arms Regulations (ITAR) and the Export Administration Regulations (EAR). As a result, we cannot provide access to products or technical information to minors or to non-U.S. persons or entities.
         <br><br>Under 22 CFR § 120.62, a "U.S. person" includes:
-        <ul style="margin: 0; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0; color: #8a8678; line-height: 1.4;">
+        <ul style="margin: 0; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0; color: var(--muted); line-height: 1.4;">
           <li>A U.S. citizen (by birth or naturalization)</li>
           <li>A lawful permanent resident (Green Card holder, as defined by 8 U.S.C. § 1101(a)(20))</li>
           <li>A protected individual, including those granted refugee or asylee status (8 U.S.C. § 1324b(a)(3))</li>
         </ul>
-        <span style="color: #8a8678;">U.S. entities include:</span>
-        <ul style="margin: 0; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0; color: #8a8678; line-height: 1.4;">
+        <span style="color: var(--muted);">U.S. entities include:</span>
+        <ul style="margin: 0; padding-left: 1.5rem; display: flex; flex-direction: column; gap: 0; color: var(--muted); line-height: 1.4;">
           <li>Organizations incorporated or otherwise authorized to do business in the United States</li>
           <li>Federal, state, and local government agencies</li>
         </ul>
@@ -282,8 +284,8 @@
     </div>
 
     <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
-      <a href="https://www.ursusworks.com" style="flex: 1; text-align: center; font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.8rem; text-decoration: none; transition: all 0.2s; background: transparent;" onmouseover="this.style.color='#0a0a08';this.style.backgroundColor='#c8922a'" onmouseout="this.style.color='#c8922a';this.style.backgroundColor='transparent'">Return to Ursus Works<sup class="tm">™</sup></a>
-      <a href="https://www.pmddtc.state.gov/ddtc_public?id=ddtc_public_portal_itar_landing" target="_blank" rel="noopener noreferrer" style="flex: 1; text-align: center; font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.8rem; text-decoration: none; transition: all 0.2s; background: transparent;" onmouseover="this.style.color='#0a0a08';this.style.backgroundColor='#c8922a'" onmouseout="this.style.color='#c8922a';this.style.backgroundColor='transparent'">Learn About ITAR</a>
+      <a href="https://www.ursusworks.com" style="flex: 1; text-align: center; font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.8rem; text-decoration: none; transition: all 0.2s; background: transparent;" onmouseover="this.style.color='var(--black)';this.style.backgroundColor='var(--accent)'" onmouseout="this.style.color='var(--accent)';this.style.backgroundColor='transparent'">Return to Ursus Works<sup class="tm">™</sup></a>
+      <a href="https://www.pmddtc.state.gov/ddtc_public?id=ddtc_public_portal_itar_landing" target="_blank" rel="noopener noreferrer" style="flex: 1; text-align: center; font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.8rem; text-decoration: none; transition: all 0.2s; background: transparent;" onmouseover="this.style.color='var(--black)';this.style.backgroundColor='var(--accent)'" onmouseout="this.style.color='var(--accent)';this.style.backgroundColor='transparent'">Learn About ITAR</a>
     </div>
 
   </div>
