@@ -7,7 +7,7 @@
   <div class="footer-grid">
     <div class="footer-brand">
       <div class="nav-logo">URSUS <span style="color: var(--accent);">ARMAMENT</span><sup class="tm">™</sup></div>
-      <p>Developing next-generation tactical gear for the American people. Manufactured, tested, and deployed with pride in the USA.</p>
+      <p>Developing next-generation tactical gear for the American people. Designed, assembled, and tested with pride in the USA.</p>
     </div>
     <div class="footer-col">
       <h4>Products</h4>
@@ -32,8 +32,14 @@
       <ul>
         <li><a href="/ursusarmament/contact/">Contact</a></li>
         <li><a href="/ursusarmament/warranty/">Warranty</a></li>
-        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>
         <li><a href="/ursusarmament/learnmore/">Learn More</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Government</h4>
+      <ul>
+        <li><a href="/ursusarmament/procurement/">Procurement</a></li>
+        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>
       </ul>
     </div>
   </div>
