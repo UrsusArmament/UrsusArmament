@@ -9,10 +9,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+    --accent2: #e8a830;
+  }
   body {
     margin: 0;
-    background: #0a0a08;
-    color: #e8e4d9;
+    background: var(--black);
+    color: var(--text);
     font-family: 'Barlow', sans-serif;
     min-height: 100vh;
     display: flex;
@@ -30,8 +41,8 @@
 
   .box {
     width: min(420px, 92%);
-    background: linear-gradient(180deg, #1a1a17, #111110);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: linear-gradient(180deg, var(--surface), var(--dark));
+    border: 1px solid var(--border);
     padding: 2.5rem;
     text-align: center;
     box-shadow: 0 20px 60px rgba(0,0,0,0.6);
@@ -40,40 +51,40 @@
   .card {
     flex: 1;
     padding: 1rem;
-    border: 1px solid rgba(255,255,255,0.1);
-    background: #111110;
+    border: 1px solid var(--border2);
+    background: var(--dark);
     cursor: pointer;
     position: relative;
     text-align: left;
   }
 
-  .card.selected { border-color: #c8922a; }
+  .card.selected { border-color: var(--accent); }
 
   .radio {
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    border: 1px solid #8a8678;
+    border: 1px solid var(--muted);
     position: absolute;
     top: 10px;
     right: 10px;
   }
 
   .card.selected .radio {
-    background: #c8922a;
-    border-color: #c8922a;
+    background: var(--accent);
+    border-color: var(--accent);
   }
 
   .title {
     font-size: 0.8rem;
     letter-spacing: 0.1em;
-    color: #c8922a;
+    color: var(--accent);
     margin-bottom: 0.5rem;
   }
 
   .list {
     font-size: 0.75rem;
-    color: #8a8678;
+    color: var(--muted);
     line-height: 1.4;
   }
 
@@ -88,9 +99,9 @@
     width: 100%;
     padding: 0.8rem;
     margin-bottom: 1rem;
-    background: #111110;
-    border: 1px solid rgba(255,255,255,0.1);
-    color: #e8e4d9;
+    background: var(--dark);
+    border: 1px solid var(--border2);
+    color: var(--text);
     box-sizing: border-box;
   }
 
@@ -101,14 +112,14 @@
     gap:0.5rem;
   }
 
-  .msg { margin-top:1rem; color:#8a8678; font-size: 0.85rem; }
+  .msg { margin-top:1rem; color:var(--muted); font-size: 0.85rem; }
 
   #limitedBtn, #fullBtn {
     width: 100%;
     padding: 0.85rem;
-    border: 1px solid #c8922a;
+    border: 1px solid var(--accent);
     background: transparent;
-    color: #c8922a;
+    color: var(--accent);
     font-family: 'Barlow Condensed', sans-serif;
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -118,7 +129,7 @@
   }
 
   #limitedBtn:hover, #fullBtn:hover {
-    background: rgba(200,146,42,0.08);
+    background: rgba(var(--accent-rgb),0.08);
     transform: translateY(-1px);
   }
 
@@ -137,7 +148,7 @@
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: rgba(0,0,0,0.75);
+    background: var(--overlay);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -148,8 +159,8 @@
 
   .modal-box {
     width: min(520px, 92%);
-    background: #111110;
-    border: 1px solid rgba(255,255,255,0.1);
+    background: var(--dark);
+    border: 1px solid var(--border2);
     padding: 2rem;
     text-align: left;
     box-shadow: 0 20px 60px rgba(0,0,0,0.6);
@@ -157,7 +168,7 @@
 
   .modal-text {
     font-family: 'Barlow', sans-serif;
-    color: #e8e4d9;
+    color: var(--text);
     font-size: 0.95rem;
     margin-bottom: 1.5rem;
     line-height: 1.5;
@@ -170,9 +181,9 @@
   }
 
   .modal-actions button {
-    border: 1px solid #c8922a;
+    border: 1px solid var(--accent);
     background: transparent;
-    color: #c8922a;
+    color: var(--accent);
     padding: 0.6rem 1rem;
     cursor: pointer;
     font-family: 'Barlow Condensed';
@@ -183,14 +194,14 @@
   .upload-progress {
     width: 100%;
     height: 3px;
-    background: rgba(255,255,255,0.05);
+    background: rgba(var(--text-rgb),0.08);
     margin-bottom: 0.5rem;
     display: none;
   }
 
   .upload-progress-bar {
     height: 100%;
-    background: #c8922a;
+    background: var(--accent);
     width: 0%;
     transition: width 0.3s ease;
   }
@@ -199,8 +210,8 @@
     display: inline-block;
     width: 12px;
     height: 12px;
-    border: 2px solid rgba(200,146,42,0.3);
-    border-top-color: #c8922a;
+    border: 2px solid rgba(var(--accent-rgb),0.3);
+    border-top-color: var(--accent);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
     margin-right: 6px;
@@ -209,6 +220,8 @@
 
   @keyframes spin { to { transform: rotate(360deg); } }
 </style>
+<link rel="stylesheet" href="/ursusarmament/theme.css">
+<script src="/ursusarmament/theme.js"></script>
 </head>
 
 <body>
@@ -224,11 +237,11 @@
     <input type="text" id="l_name" placeholder="Full Name">
 
     <button id="limitedBtn">Create Limited Account</button>
-    <p style="margin-top: 1rem; font-size: 0.8rem; color: #8a8678; line-height: 1.4;">
+    <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--muted); line-height: 1.4;">
       Limited Access accounts provide a restricted view of our catalog. To unlock full technical specifications, spec sheets, and purchasing for controlled items, a Full Access Account is required. We understand the verification process is an extra step, but this documentation is a federal requirement to ensure our mutual compliance with ITAR and EAR export regulations.
     </p>
-    <p style="margin-top: 1rem; font-size: 0.8rem; color: #c8922a; line-height: 1.4;">
-      If you have any issues or questions related to access accounts, please email us at <a href="mailto:contact@ursusworks.com" style="color: #c8922a;">contact@ursusworks.com</a>
+    <p style="margin-top: 1rem; font-size: 0.8rem; color: var(--accent); line-height: 1.4;">
+      If you have any issues or questions related to access accounts, please email us at <a href="mailto:contact@ursusworks.com" style="color: var(--accent);">contact@ursusworks.com</a>
     </p>
     <div class="msg" id="l_msg"></div>
   </div>
