@@ -30,11 +30,11 @@
   --border2: rgba(0,0,0,0.24);
   --text: #000000;
   --muted: #000000;
-  --accent: #8a5f0f;      /* darkened gold: readable as text on light */
-  --accent2: #a06f12;
+  --accent: #7a520a;      /* darkened gold: readable as text on light */
+  --accent2: #946310;
   --green: #1f7a46;
   --red: #b03226;
-  --accent-rgb: 138,95,15;
+  --accent-rgb: 122,82,10;
   --text-rgb: 0,0,0;
   --nav-bg: rgba(242,242,243,0.92);
   --overlay: rgba(242,242,243,0.92);
@@ -78,3 +78,14 @@ html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after {
 .nav-theme-btn .i-moon { display: none; }
 :root[data-theme="light"] .nav-theme-btn .i-sun  { display: none; }
 :root[data-theme="light"] .nav-theme-btn .i-moon { display: block; }
+
+/* ── Light mode legibility: heavier weights, no faded text ── */
+:root[data-theme="light"] body { font-weight: 500; }
+:root[data-theme="light"] .product-desc,
+:root[data-theme="light"] .serial-desc,
+:root[data-theme="light"] .features-aside p { font-weight: 500; }
+:root[data-theme="light"] .nav-slogan { font-weight: 600; }
+:root[data-theme="light"] .footer-col a,
+:root[data-theme="light"] .footer-legal,
+:root[data-theme="light"] .footer-logo,
+:root[data-theme="light"] .review-product { opacity: 1; }
