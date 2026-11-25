@@ -6,10 +6,21 @@
 <title>Login | Ursus Armament</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --black: #0a0a08;
+    --dark: #111110;
+    --surface: #1a1a17;
+    --border: rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.15);
+    --text: #e8e4d9;
+    --muted: #8a8678;
+    --accent: #c8922a;
+    --accent2: #e8a830;
+  }
   body {
     margin: 0;
-    background: #0a0a08;
-    color: #e8e4d9;
+    background: var(--black);
+    color: var(--text);
     font-family: 'Barlow', sans-serif;
     display: flex;
     justify-content: center;
@@ -19,8 +30,8 @@
   .box {
     width: 360px;
     padding: 2rem;
-    background: #1a1a17;
-    border: 1px solid rgba(255,255,255,0.08);
+    background: var(--surface);
+    border: 1px solid var(--border);
   }
   h1 {
     font-family: 'Bebas Neue', sans-serif;
@@ -31,33 +42,33 @@
     width: 100%;
     padding: 0.8rem;
     margin-bottom: 1rem;
-    background: #111110;
-    border: 1px solid rgba(255,255,255,0.15);
-    color: #e8e4d9;
+    background: var(--dark);
+    border: 1px solid var(--border2);
+    color: var(--text);
     box-sizing: border-box;
   }
   button {
     width: 100%;
     padding: 0.8rem;
-    background: #c8922a;
+    background: var(--accent);
     border: none;
-    color: #0a0a08;
+    color: var(--black);
     font-weight: bold;
     cursor: pointer;
   }
-  button:hover { background: #e8a830; }
+  button:hover { background: var(--accent2); }
   .msg {
     margin-top: 1rem;
     font-size: 0.9rem;
-    color: #8a8678;
+    color: var(--muted);
   }
   .secondary-btn {
     margin-top: 0.75rem;
     width: 100%;
     padding: 0.75rem;
     background: transparent;
-    border: 1px solid rgba(255,255,255,0.15);
-    color: #8a8678;
+    border: 1px solid var(--border2);
+    color: var(--muted);
     font-family: 'Barlow Condensed', sans-serif;
     letter-spacing: 0.15em;
     text-transform: uppercase;
@@ -65,22 +76,24 @@
     transition: all 0.2s ease;
   }
   .secondary-btn:hover {
-    border-color: #c8922a;
-    color: #c8922a;
-    background: rgba(200,146,42,0.08);
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(var(--accent-rgb),0.08);
   }
   .forgot {
     display: block;
     margin-top: 0.75rem;
     font-size: 0.8rem;
-    color: #c8922a;
+    color: var(--accent);
     text-align: center;
     text-decoration: none;
     letter-spacing: 0.05em;
     transition: color 0.2s;
   }
-  .forgot:hover { color: #e8a830; }
+  .forgot:hover { color: var(--accent2); }
 </style>
+<link rel="stylesheet" href="/ursusarmament/theme.css">
+<script src="/ursusarmament/theme.js"></script>
 </head>
 <body>
 <div class="box">
@@ -90,7 +103,7 @@
   <button id="loginBtn">Login</button>
   <button id="signupBtn" class="secondary-btn">Create Account</button>
   <a href="/ursusarmament/resetpassword/" class="forgot">Forgot Password?</a>
-  <hr style="border: none; border-top: 1px solid rgba(255,255,255,0.08); margin: 1.25rem 0;">
+  <hr style="border: none; border-top: 1px solid var(--border); margin: 1.25rem 0;">
 
   <button id="trackToggleBtn" class="secondary-btn">Track My Order</button>
 
@@ -177,7 +190,7 @@ document.getElementById("trackBtn").addEventListener("click", async () => {
     if (data.usps_events && data.usps_events.length > 0) {
       eventsHtml = `<div style="margin-top: 0.75rem; text-align: left;">` +
         data.usps_events.map(e => `
-          <div style="padding: 0.5rem 0; border-top: 1px solid rgba(255,255,255,0.08); font-size: 0.85rem;">
+          <div style="padding: 0.5rem 0; border-top: 1px solid var(--border); font-size: 0.85rem;">
             <strong>${e.date} ${e.time}</strong><br>
             ${e.description}${e.city ? ` — ${e.city}, ${e.state}` : ""}
           </div>
