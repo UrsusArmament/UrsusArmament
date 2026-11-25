@@ -593,6 +593,11 @@
     .notify-banner { flex-direction: column; text-align: center; padding: 3rem 1.5rem; }
   }
 
+  /* header is shorter on phones (burger menu), so sit the sticky category bar right under it */
+  @media (max-width: 760px) {
+    .cat-nav-wrapper { top: 58px; }
+  }
+
   @media (max-width: 480px) {
     .product-grid { grid-template-columns: 1fr; }
     .flagship-card { flex: 0 0 85%; }
