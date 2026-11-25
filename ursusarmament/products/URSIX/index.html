@@ -6,6 +6,7 @@
 <title>URSIX — Ursus Armament™</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/ursusarmament/chrome.css">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -35,112 +36,6 @@
     overflow-x: hidden;
   }
 
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(10,10,8,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-top {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0.6rem 3rem; border-bottom: 1px solid var(--border);
-  }
-  .nav-brand { display: flex; align-items: center; gap: 0.85rem; min-width: 0; }
-  .nav-brand-link { display: block; flex-shrink: 0; line-height: 0; }
-  .nav-brand-text { display: flex; flex-direction: column; gap: 0.05rem; min-width: 0; }
-  .nav-logo-img { height: 46px; width: 46px; object-fit: contain; border-radius: 8px; display: block; }
-  .nav-logo {
-    font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
-    letter-spacing: 0.12em; color: var(--text); text-decoration: none; line-height: 1;
-  }
-  .nav-logo span { color: var(--accent); }
-  .nav-slogan {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem;
-    font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted);
-  }
-  .nav-ribbon {
-    display: flex; align-items: center; justify-content: center;
-    padding: 0 3rem; height: 38px; background: var(--surface);
-  }
-  .nav-ribbon a {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem;
-    font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
-    color: var(--muted); text-decoration: none; padding: 0 1.6rem; height: 100%;
-    display: flex; align-items: center; border-right: 1px solid var(--border);
-    transition: color 0.2s, background 0.2s;
-  }
-  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
-  .nav-ribbon a:hover, .nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
-
-  /* NAV RIGHT: cart icon + auth */
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-  }
-
-  /* CART ICON BUTTON */
-  .nav-cart-btn {
-    position: relative;
-    background: transparent;
-    border: 1px solid var(--border2);
-    color: var(--text);
-    width: 38px;
-    height: 38px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    text-decoration: none;
-    transition: border-color 0.2s, background 0.2s;
-    flex-shrink: 0;
-  }
-  .nav-cart-btn:hover {
-    border-color: var(--accent);
-    background: rgba(200,146,42,0.06);
-  }
-  .nav-cart-btn svg {
-    width: 18px;
-    height: 18px;
-    stroke: var(--text);
-    fill: none;
-    stroke-width: 1.5;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    transition: stroke 0.2s;
-  }
-  .nav-cart-btn:hover svg { stroke: var(--accent); }
-
-  /* Cart count badge */
-  .cart-count {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    background: var(--accent);
-    color: var(--black);
-    font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.6rem;
-    font-weight: 700;
-    min-width: 16px;
-    height: 16px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 3px;
-    line-height: 1;
-    display: none; /* hidden when 0 */
-  }
-  .cart-count.visible { display: flex; }
-
-  .nav-auth { display: flex; align-items: center; }
-  .nav-auth a, .nav-auth button {
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700;
-    letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none;
-    color: var(--accent); background: transparent; border: 1px solid var(--accent);
-    padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s ease;
-  }
-  .nav-auth a:hover, .nav-auth button:hover { background: rgba(200,146,42,0.08); }
 
   .breadcrumb {
     padding: 1rem 3rem; background: var(--dark); border-bottom: 1px solid var(--border);
@@ -234,7 +129,7 @@
   .serial-error {
     padding: 1.5rem 2rem; background: rgba(192,57,43,0.08);
     border: 1px solid rgba(192,57,43,0.3); border-left: 3px solid var(--red);
-    font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; letter-spacing: 0.08em; color: #e87060;
+    font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; letter-spacing: 0.08em; color: var(--red-text);
   }
   .serial-card { background: var(--surface); border: 1px solid var(--border2); border-top: 3px solid var(--accent); }
   .serial-card-header {
@@ -243,8 +138,8 @@
   }
   .serial-card-id { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.06em; color: var(--accent); }
   .serial-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 1rem; }
-  .serial-badge.pass { background: rgba(42,156,92,0.15); color: #4cbc7e; border: 1px solid rgba(42,156,92,0.3); }
-  .serial-badge.fail { background: rgba(192,57,43,0.15); color: #e87060; border: 1px solid rgba(192,57,43,0.3); }
+  .serial-badge.pass { background: rgba(42,156,92,0.15); color: var(--green-text); border: 1px solid rgba(42,156,92,0.3); }
+  .serial-badge.fail { background: rgba(192,57,43,0.15); color: var(--red-text); border: 1px solid rgba(192,57,43,0.3); }
   .serial-card-body { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin: 2px; }
   .serial-field { background: var(--dark); padding: 1.25rem 1.75rem; display: flex; flex-direction: column; gap: 0.3rem; }
   .serial-field-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
@@ -260,7 +155,7 @@
   .feature-item:hover { background: var(--surface2); }
   .feature-item::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
   .feature-item:hover::before { opacity: 1; }
-  .feature-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(200,146,42,0.12); line-height: 1; position: absolute; top: 1rem; right: 1.5rem; }
+  .feature-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(var(--accent-rgb),0.12); line-height: 1; position: absolute; top: 1rem; right: 1.5rem; }
   .feature-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
   .feature-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
   .features-aside { position: sticky; top: 110px; }
@@ -282,7 +177,7 @@
 
   .cta-banner { background: var(--accent); padding: 4rem 3rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
   .cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.06em; color: var(--black); line-height: 1; }
-  .cta-banner p { font-size: 1rem; color: rgba(10,10,8,0.65); margin-top: 0.5rem; }
+  .cta-banner p { font-size: 1rem; color: var(--on-accent-soft); margin-top: 0.5rem; }
   .btn-dark { background: var(--black); color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: none; cursor: pointer; white-space: nowrap; text-decoration: none; display: inline-block; transition: background 0.2s; }
   .btn-dark:hover { background: #1a1a17; }
 
@@ -295,17 +190,6 @@
   .review-cta-btn:hover { background: var(--surface2); border-color: var(--accent); color: var(--accent); transform: translateY(-2px); box-shadow: 0 10px 25px rgba(0,0,0,0.35); }
   .review-cta-btn:active { transform: translateY(0px); box-shadow: 0 5px 12px rgba(0,0,0,0.25); }
 
-  footer { background: var(--dark); border-top: 1px solid var(--border); padding: 4rem 3rem 2rem; }
-  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
-  .footer-brand p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-top: 1rem; }
-  .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
-  .footer-col a { font-size: 0.9rem; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
-  .footer-col a:hover { opacity: 1; color: var(--accent); }
-  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
-  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.12em; color: var(--text); opacity: 0.5; }
-  .footer-logo span { color: var(--accent); opacity: 1; }
-  .footer-legal { font-size: 0.78rem; color: var(--muted); opacity: 0.5; }
 
   /* AVAILABLE UNITS PANEL */
   .units-panel { overflow: hidden; max-height: 0; transition: max-height 0.4s ease, opacity 0.3s ease; opacity: 0; background: var(--black); border-top: 2px solid var(--accent); }
@@ -313,7 +197,7 @@
   .units-panel-inner { padding: 2rem 3rem 3rem; }
   .units-panel-title { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.6rem; }
   .units-panel-title::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
-  .units-no-stock { padding: 1.5rem 2rem; background: rgba(200,146,42,0.06); border: 1px solid rgba(200,146,42,0.25); border-left: 3px solid var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; letter-spacing: 0.06em; color: var(--muted); line-height: 1.7; }
+  .units-no-stock { padding: 1.5rem 2rem; background: rgba(var(--accent-rgb),0.06); border: 1px solid rgba(var(--accent-rgb),0.25); border-left: 3px solid var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; letter-spacing: 0.06em; color: var(--muted); line-height: 1.7; }
   .units-no-stock strong { color: var(--accent); }
   .unit-row { border-bottom: 1px solid var(--border); background: var(--dark); transition: background 0.2s; }
   .unit-row:last-child { border-bottom: none; }
@@ -321,7 +205,7 @@
   .unit-row-main:hover { background: var(--surface); }
   .unit-row-left { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; }
   .unit-row-serial { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; color: var(--accent); width: 100px; flex-shrink: 0; }
-  .unit-row-tier { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.25rem 0.7rem; min-width: 64px; text-align: center; flex-shrink: 0; background: rgba(200,146,42,0.1); border: 1px solid rgba(200,146,42,0.25); color: var(--accent); }
+  .unit-row-tier { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.25rem 0.7rem; min-width: 64px; text-align: center; flex-shrink: 0; background: rgba(var(--accent-rgb),0.1); border: 1px solid rgba(var(--accent-rgb),0.25); color: var(--accent); }
   .unit-row-stats { display: grid; grid-template-columns: 90px 70px 90px 110px 110px; gap: 1.75rem; }
   @media (max-width: 1100px) { .unit-row-stats { display: flex; flex-wrap: wrap; } }
   .unit-row-stat { display: flex; flex-direction: column; gap: 0.1rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.92rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
@@ -363,7 +247,7 @@
   /* FEATURE LOCK OVERLAY */
   .feature-lock-overlay {
     position: absolute; inset: 0;
-    background: rgba(10,10,8,0.88);
+    background: var(--overlay);
     backdrop-filter: blur(8px);
     display: none;
     align-items: center; justify-content: center;
@@ -374,7 +258,7 @@
   .feature-lock-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.15em; color: var(--text); margin-bottom: 0.75rem; }
   .feature-lock-text { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
   .feature-lock-btn { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.6rem 1.5rem; text-decoration: none; transition: background 0.2s; }
-  .feature-lock-btn:hover { background: rgba(200,146,42,0.08); }
+  .feature-lock-btn:hover { background: rgba(var(--accent-rgb),0.08); }
 
   /* NIGHT VISION INFO BUTTON */
   .nv-info-btn {
@@ -385,7 +269,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(200,146,42,0.14);
+    background: rgba(var(--accent-rgb),0.14);
     border: 1px solid var(--accent);
     color: var(--accent2);
     font-family: 'Barlow Condensed', sans-serif;
@@ -425,8 +309,8 @@
     transform: translate(2px, -2px);
   }
   @keyframes nvPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(200,146,42,0.5); transform: scale(1); }
-    50%      { box-shadow: 0 0 0 10px rgba(200,146,42,0); transform: scale(1.045); }
+    0%, 100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb),0.5); transform: scale(1); }
+    50%      { box-shadow: 0 0 0 10px rgba(var(--accent-rgb),0); transform: scale(1.045); }
   }
   @keyframes nvShimmer {
     0%   { transform: translateX(-160%) skewX(-15deg); }
@@ -508,13 +392,13 @@
     margin-bottom: 2.5rem;
   }
   .nv-jump-nav a {
-    color: #5b9bd5;
+    color: var(--link);
     text-decoration: underline;
     font-size: 0.95rem;
     cursor: pointer;
     width: fit-content;
   }
-  .nv-jump-nav a:hover { color: #7fb4e6; }
+  .nv-jump-nav a:hover { color: var(--link-hover); }
 
   .nv-section { margin-bottom: 2.5rem; scroll-margin-top: 1rem; }
   .nv-section h3 {
@@ -548,8 +432,8 @@
   .review-product { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); opacity: 0.8; }
   .review-tags { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.4rem; }
   .badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.15rem 0.6rem; border: 1px solid var(--border2); color: var(--muted); }
-  .badge-purchase { border-color: rgba(200,146,42,0.55); color: var(--accent); background: rgba(200,146,42,0.07); }
-  .badge-field { border-color: rgba(232,228,217,0.3); color: var(--text); background: rgba(232,228,217,0.04); }
+  .badge-purchase { border-color: rgba(var(--accent-rgb),0.55); color: var(--accent); background: rgba(var(--accent-rgb),0.07); }
+  .badge-field { border-color: rgba(var(--text-rgb),0.3); color: var(--text); background: rgba(var(--text-rgb),0.04); }
   .review-date { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
   .review-meta { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-family: 'Barlow Condensed', sans-serif; }
   .review-text { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-top: 0.25rem; }
@@ -594,64 +478,11 @@
     .features-layout { grid-template-columns: 1fr; gap: 2.5rem; }
     .features-aside { position: static; }
     .config-options { grid-template-columns: 1fr; }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
     .cta-banner { flex-direction: column; text-align: center; }
     .breadcrumb, .specs-section, .serial-section, .features-section, .config-section { padding-left: 1.5rem; padding-right: 1.5rem; }
-    .nav-top, .nav-ribbon { padding-left: 1.5rem; padding-right: 1.5rem; }
     .serial-input-row { flex-direction: column; }
     .serial-input { border-right: 1px solid var(--border2); border-bottom: none; }
   }
-.nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
-
-.nav-burger {
-  display: none;
-  position: relative;
-  width: 38px; height: 38px;
-  flex-shrink: 0;
-  background: transparent;
-  border: 1px solid var(--border2);
-  cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
-}
-.nav-burger:hover, .nav-burger:focus-visible { border-color: var(--accent); background: rgba(200,146,42,0.06); outline: none; }
-.nav-burger span {
-  position: absolute; left: 9px; right: 9px; height: 2px;
-  background: var(--text);
-  transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease, background 0.2s;
-}
-.nav-burger span:nth-child(1) { top: 11px; }
-.nav-burger span:nth-child(2) { top: 17px; }
-.nav-burger span:nth-child(3) { top: 23px; }
-.nav-burger:hover span { background: var(--accent); }
-.nav-burger.open span:nth-child(1) { top: 17px; transform: rotate(45deg); }
-.nav-burger.open span:nth-child(2) { opacity: 0; }
-.nav-burger.open span:nth-child(3) { top: 17px; transform: rotate(-45deg); }
-
-@media (max-width: 760px) {
-  .nav-burger { display: block; }
-  .nav-ribbon {
-    display: none;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
-    height: auto;
-    padding: 0;
-    max-height: calc(100vh - 62px);
-    overflow-y: auto;
-  }
-  .nav-ribbon.open { display: flex; }
-  .nav-ribbon a {
-    height: auto;
-    padding: 1rem 1.5rem;
-    font-size: 0.9rem;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-ribbon a:first-child { border-left: none; }
-  .nav-ribbon a:last-child { border-bottom: none; }
-  .nav-ribbon a.active { box-shadow: inset 3px 0 0 var(--accent); }
-}
-
 /* ── Product page: rating summary ── */
 .rating-summary {
   display: flex; align-items: center; gap: 4rem;
@@ -661,7 +492,7 @@
 .rs-left { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; flex-shrink: 0; min-width: 190px; text-align: center; }
 .rs-scope { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
 .rs-avg { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 1; letter-spacing: 0.03em; color: var(--text); }
-.stars-frac { position: relative; display: inline-block; font-size: 1.5rem; letter-spacing: 0.1em; line-height: 1; color: var(--surface2); -webkit-text-stroke: 1px rgba(200,146,42,0.45); }
+.stars-frac { position: relative; display: inline-block; font-size: 1.5rem; letter-spacing: 0.1em; line-height: 1; color: var(--surface2); -webkit-text-stroke: 1px rgba(var(--accent-rgb),0.45); }
 .stars-frac .stars-fill { position: absolute; top: 0; left: 0; overflow: hidden; white-space: nowrap; color: var(--accent); -webkit-text-stroke: 0; }
 .rs-count { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
 .rs-bars { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; max-width: 520px; }
@@ -676,38 +507,10 @@
   .rs-bars { max-width: 100%; }
 }
 
-/* header: Ursus Works - Armament */
-@media (max-width: 760px) {
-  .nav-top { padding: 0.6rem 1rem; }
-  .nav-brand { gap: 0.6rem; }
-  .nav-logo-img { height: 38px; width: 38px; }
-  .nav-brand .nav-logo { font-size: 1.05rem; letter-spacing: 0.08em; white-space: nowrap; }
-  .nav-slogan { font-size: 0.55rem; letter-spacing: 0.14em; white-space: nowrap; }
-  .nav-right { gap: 0.4rem !important; flex-shrink: 0; }
-}
-@media (max-width: 420px) {
-  .nav-top { padding: 0.6rem 0.75rem; }
-  .nav-brand { gap: 0.5rem; }
-  .nav-logo-img { height: 32px; width: 32px; border-radius: 6px; }
-  .nav-brand .nav-logo { font-size: 0.95rem; letter-spacing: 0.04em; }
-  .nav-slogan { display: none; }
-}
-@media (max-width: 350px) {
-  .nav-brand .nav-logo { font-size: 0.7rem; letter-spacing: 0.02em; }
-  .nav-logo-img { height: 28px; width: 28px; }
-  .nav-brand { gap: 0.4rem; }
-}
-/* header: keep login/account button from crowding the brand on phones */
-@media (max-width: 760px) {
-  .nav-auth a, .nav-auth button { max-width: 88px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0.4rem 0.6rem; letter-spacing: 0.1em; }
-}
-@media (max-width: 350px) {
-  .nav-auth a, .nav-auth button { max-width: 62px; padding: 0.4rem 0.45rem; }
-}
 
 
 /* mobile overflow fixes */
-.product-hero > *, .features-layout > *, .footer-grid > * { min-width: 0; }
+.product-hero > *, .features-layout > * { min-width: 0; }
 .feature-title, .feature-desc, .section-title, .spec-value, .spec-name { overflow-wrap: anywhere; }
 @media (max-width: 760px) {
   .config-add-row { flex-direction: column; align-items: stretch; gap: 1.25rem; padding: 1.25rem; }
@@ -720,52 +523,16 @@
   .product-price-row { flex-wrap: wrap; }
   .product-price-label { letter-spacing: 0.12em; }
 }
-  .tm { font-size: 0.5em; vertical-align: super; line-height: 0; letter-spacing: 0; margin-left: 0.1em; font-family: inherit; }
 </style>
+<link rel="stylesheet" href="/ursusarmament/theme.css">
+<script src="/ursusarmament/theme.js"></script>
 </head>
 <body>
 
 <!-- CART TOAST -->
 <div class="cart-toast" id="cartToast"></div>
 
-<nav>
-  <div class="nav-top">
-    <div class="nav-brand">
-      <a href="/ursusarmament/" class="nav-brand-link"><img class="nav-logo-img" src="/ursusarmament/images/ursusLogoOrange.png" alt="Ursus Armament logo"></a>
-      <div class="nav-brand-text">
-        <a href="/ursusarmament/" class="nav-logo">URSUS WORKS<sup class="tm">™</sup> - <span>ARMAMENT</span></a>
-        <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
-      </div>
-    </div>
-
-    <!-- NAV RIGHT: cart icon + auth -->
-    <div class="nav-right">
-
-      <!-- Cart icon button -->
-      <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="9" cy="21" r="1"/>
-          <circle cx="20" cy="21" r="1"/>
-          <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/>
-        </svg>
-        <span class="cart-count" id="cartCount"></span>
-      </a>
-
-      <div class="nav-auth" id="navAuth"><!-- populated by JS --></div>
-      <button type="button" class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="navRibbon">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </div>
-  <div class="nav-ribbon" id="navRibbon">
-    <a href="/ursusarmament/products" class="active" aria-current="page">Products</a>
-    <a href="/ursusarmament/customerreviews">Reviews</a>
-    <a href="/ursusarmament/learnmore/">Learn More</a>
-    <a href="/ursusarmament/aboutus/">About</a>
-    <a href="/ursusarmament/contact/">Contact</a>
-    <a href="/ursusworks/">← Ursus Works<sup class="tm">™</sup></a>
-  </div>
-</nav>
+<script src="/ursusarmament/header.js"></script>
 
 <div class="breadcrumb">
   <a href="/ursusarmament">Home</a><span>›</span>
@@ -781,21 +548,21 @@
       Questions About Night Vision? <span class="nv-info-arrow">&#8599;</span>
     </button>
     <div style="width:100%; flex:1; display:flex; align-items:center; justify-content:center; background:var(--surface); min-height:0; position:relative; overflow:hidden;">
-      <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(200,146,42,0.015) 30px,rgba(200,146,42,0.015) 31px);pointer-events:none;"></div>
-      <div style="position:absolute;font-family:'Bebas Neue',sans-serif;font-size:14rem;letter-spacing:-0.02em;color:rgba(255,255,255,0.025);user-select:none;pointer-events:none;">URSIX</div>
+      <div style="position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent,transparent 30px,rgba(var(--accent-rgb),0.015) 30px,rgba(var(--accent-rgb),0.015) 31px);pointer-events:none;"></div>
+      <div style="position:absolute;font-family:'Bebas Neue',sans-serif;font-size:14rem;letter-spacing:-0.02em;color:var(--ghost);user-select:none;pointer-events:none;">URSIX</div>
       <img id="ursix-main" src="/ursusarmament/images/pvs14dark.png" style="width:100%;height:100%;object-fit:contain;position:relative;z-index:1;"/>
     </div>
     <div style="width:100%;background:var(--dark);border-top:1px solid var(--border);padding:1rem;display:flex;gap:0.75rem;justify-content:center;">
-      <div class="ursix-thumb active" onclick="ursixSwap(this)" data-src="/ursusarmament/images/pvs14dark.png" style="width:80px;height:80px;cursor:pointer;border:2px solid #c8701a;box-sizing:border-box;flex-shrink:0;overflow:hidden;">
+      <div class="ursix-thumb active" onclick="ursixSwap(this)" data-src="/ursusarmament/images/pvs14dark.png" style="width:80px;height:80px;cursor:pointer;border:2px solid var(--accent);box-sizing:border-box;flex-shrink:0;overflow:hidden;">
         <img src="/ursusarmament/images/pvs14dark.png" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;"/>
       </div>
-      <div class="ursix-thumb" onclick="ursixSwap(this)" data-src="/ursusarmament/images/mum14dark.png" style="width:80px;height:80px;cursor:pointer;opacity:0.6;border:1px solid #444;box-sizing:border-box;flex-shrink:0;overflow:hidden;">
+      <div class="ursix-thumb" onclick="ursixSwap(this)" data-src="/ursusarmament/images/mum14dark.png" style="width:80px;height:80px;cursor:pointer;opacity:0.6;border:1px solid var(--border2);box-sizing:border-box;flex-shrink:0;overflow:hidden;">
         <img src="/ursusarmament/images/mum14dark.png" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;"/>
       </div>
-      <div class="ursix-thumb" onclick="ursixSwap(this)" data-src="/ursusarmament/images/whitephos.png" style="width:80px;height:80px;cursor:pointer;opacity:0.6;border:1px solid #444;box-sizing:border-box;flex-shrink:0;overflow:hidden;">
+      <div class="ursix-thumb" onclick="ursixSwap(this)" data-src="/ursusarmament/images/whitephos.png" style="width:80px;height:80px;cursor:pointer;opacity:0.6;border:1px solid var(--border2);box-sizing:border-box;flex-shrink:0;overflow:hidden;">
         <img src="/ursusarmament/images/whitephos.png" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;"/>
       </div>
-      <div class="ursix-thumb" onclick="ursixSwap(this)" data-src="/ursusarmament/images/greenphos.png" style="width:80px;height:80px;cursor:pointer;opacity:0.6;border:1px solid #444;box-sizing:border-box;flex-shrink:0;overflow:hidden;">
+      <div class="ursix-thumb" onclick="ursixSwap(this)" data-src="/ursusarmament/images/greenphos.png" style="width:80px;height:80px;cursor:pointer;opacity:0.6;border:1px solid var(--border2);box-sizing:border-box;flex-shrink:0;overflow:hidden;">
         <img src="/ursusarmament/images/greenphos.png" style="width:100%;height:100%;object-fit:cover;display:block;pointer-events:none;"/>
       </div>
     </div>
@@ -805,7 +572,7 @@
     <div class="product-tag">Night Vision Monocular</div>
     <h1 class="product-name">URSIX</h1>
     <div class="product-subtitle">Gen 2+/3 — NV Platform</div>
-    <p class="product-desc">The URSIX is Ursus Armament<sup class="tm">™</sup>'s night vision monocular, built around hand-selected, individually documented Gen 2+/Gen 3 image intensifier tubes. Each unit is serialized, tested, and recorded as a distinct system rather than a pooled specification. While units are organized into four general performance categories, every device is ultimately sold based on its exact measured performance characteristics, allowing customers to select either a tier or a specific unit. Ruggedized for all-weather operation, compatible with multiple mounting configurations, and backed by a limited 5-year warranty on all units shipped.</p>
+    <p class="product-desc">The URSIX is Ursus Armament<sup class="tm">™</sup>'s night vision monocular, built around hand-selected, individually documented Gen 2+/Gen 3 image intensifier tubes. Each unit is serialized, tested, and recorded as a distinct system rather than a pooled specification. While units are organized into four general performance categories, every device is ultimately sold based on its exact measured performance characteristics, allowing customers to select either a tier or a specific unit. Ruggedized for all-weather operation, compatible with multiple mounting configurations, and backed by a limited 2-year warranty on all units shipped.</p>
     <div class="product-price-row">
       <div class="product-price">$2,350-$4,500</div>
       <div class="product-price-label">Price Range<br>Free Shipping</div>
@@ -815,7 +582,7 @@
       <a href="#specs" class="btn-ghost">Full Specs</a>
     </div>
     <div class="product-trust">
-      <div class="trust-item"><span class="trust-label">Warranty</span><span class="trust-value">Limited 5-year</span></div>
+      <div class="trust-item"><span class="trust-label">Warranty</span><span class="trust-value">Limited 2-year</span></div>
       <div class="trust-item"><span class="trust-label">Ships In</span><span class="trust-value">3–5 Business Days</span></div>
       <div class="trust-item"><span class="trust-label">Made In</span><span class="trust-value">USA</span></div>
     </div>
@@ -832,8 +599,8 @@
     <div class="spec-item"><span class="spec-name">Objective Lens</span><span class="spec-value">25mm f/1.2 or 35mm f/1.0</span></div>
     <div class="spec-item"><span class="spec-name">Magnification</span><span class="spec-value">1x</span></div>
     <div class="spec-item"><span class="spec-name">Field of View</span><span class="spec-value">40° (25mm) / 30° (35mm)</span></div>
-    <div class="spec-item"><span class="spec-name">Resolution</span><span class="spec-value">65–76 lp/mm (tube-dependent)</span></div>
-    <div class="spec-item"><span class="spec-name">Signal-to-Noise Ratio</span><span class="spec-value">20.0–32.0 (tube-dependent)</span></div>
+    <div class="spec-item"><span class="spec-name">Resolution</span><span class="spec-value">65–84 lp/mm (tube-dependent)</span></div>
+    <div class="spec-item"><span class="spec-name">Signal-to-Noise Ratio</span><span class="spec-value">20.0–36.0 (tube-dependent)</span></div>
     <div class="spec-item"><span class="spec-name">IR Illuminator</span><span class="spec-value">850nm / 940nm covert</span></div>
     <div class="spec-item"><span class="spec-name">Battery</span><span class="spec-value">1x CR123A — 20–40 hrs runtime</span></div>
     <div class="spec-item"><span class="spec-name">IP Rating</span><span class="spec-value">IP67</span></div>
@@ -930,7 +697,7 @@
     <div class="config-card selected" onclick="selectConfig(this, 2350, 'BASE')"><div class="config-name">BASE</div><p class="config-desc">25mm f/1.2 objective, 850nm IR, IP67, matte black anodize. FOM 1400+.</p><div class="config-price">~$2,350</div></div>
     <div class="config-card" onclick="selectConfig(this, 2700, 'PLUS')"><div class="config-name">PLUS</div><p class="config-desc">25mm f/1.2 objective, 850nm IR, IP67, matte black anodize. FOM 1600+.</p><div class="config-price">~$2,700</div></div>
     <div class="config-card" onclick="selectConfig(this, 3450, 'PRO')"><div class="config-name">PRO</div><p class="config-desc">25mm f/1.2 objective, 850nm IR, IP67, matte black anodize. FOM 1800+.</p><div class="config-price">~$3,450</div></div>
-    <div class="config-card" onclick="selectConfig(this, 4100, 'ULTRA')"><div class="config-name">ULTRA</div><p class="config-desc">35mm f/1.0 objective, dual 850/940nm IR, IP68, matte black anodize, top-bin tube. FOM 2100+. Zero compromises.</p><div class="config-price">~$4,100</div></div>
+    <div class="config-card" onclick="selectConfig(this, 4100, 'ULTRA')"><div class="config-name">ULTRA</div><p class="config-desc">35mm f/1.0 objective, dual 850/940nm IR, IP68, matte black anodize, top-bin tube. FOM 2000+. Zero compromises.</p><div class="config-price">~$4,100</div></div>
   </div>
   <div class="config-add-row">
     <div class="config-total">
@@ -972,50 +739,12 @@
   </div>
 </section>
 
-<footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="nav-logo">URSUS <span style="color: var(--accent);">ARMAMENT</span><sup class="tm">™</sup></div>
-      <p>Developing next-generation tactical gear for the American people. Manufactured, tested, and deployed with pride in the USA.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Products</h4>
-      <ul>
-        <li><a href="/ursusarmament/products/ROTS">R.O.T.S.</a></li>
-        <li><a href="/ursusarmament/products/CALIDUS">CALIDUS</a></li>
-        <li><a href="/ursusarmament/products">View All</a></li>
-        <li><a href="/ursusarmament/customerreviews">Customer Reviews</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Company</h4>
-      <ul>
-        <li><a href="/ursusarmament/aboutus/">About Us</a></li>
-        <li><a href="/ursusarmament/testingstandards/">Testing Standards</a></li>
-        <li><a href="/ursusarmament/careers/">Careers</a></li>
-        <li><a href="https://www.youtube.com/@UrsusWorks/" target="_blank" rel="noopener noreferrer">YouTube</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Support</h4>
-      <ul>
-        <li><a href="/ursusarmament/contact/">Contact</a></li>
-        <li><a href="/ursusarmament/warranty/">Warranty</a></li>
-        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>
-        <li><a href="/ursusarmament/learnmore/">Learn More</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div class="footer-logo">URSUS <span>ARMAMENT</span><sup class="tm">™</sup></div>
-    <div class="footer-legal">2026 Ursus Armament<sup class="tm">™</sup> LLC. All rights reserved. | <a href="/ursusarmament/aboutus/#privacy-security" style="color:inherit; text-decoration:underline;">Privacy Policy</a> | <a href="/ursusarmament/terms/" style="color:inherit; text-decoration:underline;">Terms</a></div>
-  </div>
-</footer>
+<script src="/ursusarmament/footer.js"></script>
 
 <!-- REVIEW MODAL -->
 <div id="reviewModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:99999; justify-content:center; align-items:center; overflow-y:auto; padding: 2rem 0;">
   <div style="background: var(--dark); padding: 2rem; width: 90%; max-width: 600px; border: 1px solid var(--border); position: relative; margin: auto;">
-    <button onclick="closeReviewModal()" style="position:absolute; top:10px; right:15px; background:none; border:none; color:white; font-size:20px; cursor:pointer;">✕</button>
+    <button onclick="closeReviewModal()" style="position:absolute; top:10px; right:15px; background:none; border:none; color:var(--text); font-size:20px; cursor:pointer;">✕</button>
     <div id="reviewFormContainer">
       <h2 style="font-family:'Bebas Neue'; letter-spacing:0.06em; margin-bottom:1rem;">Leave a Review</h2>
       <div style="display:flex; flex-direction:column; gap:1rem;">
@@ -1547,11 +1276,11 @@ window.selectConfig = function(card, price, tier) {
 window.ursixSwap = function(el) {
   document.querySelectorAll('.ursix-thumb').forEach(function(t) {
     t.classList.remove('active');
-    t.style.border  = '1px solid #444';
+    t.style.border  = '1px solid var(--border2)';
     t.style.opacity = '0.6';
   });
   el.classList.add('active');
-  el.style.border  = '2px solid #c8701a';
+  el.style.border  = '2px solid var(--accent)';
   el.style.opacity = '1';
   document.getElementById('ursix-main').src = el.getAttribute('data-src');
 };
@@ -1738,7 +1467,7 @@ async function loadProductReviews() {
         replyHtml = `
           <div class="review-reply">
             <div class="review-reply-header">
-              <img src="/ursusarmament/images/ursusLogoBlackAndOrange.png" class="review-reply-logo" alt="Ursus Works">
+              <img src="/ursusarmament/images/ursusLogoOrange.png" class="review-reply-logo" alt="Ursus Works">
               <span class="review-reply-name">Ursus Works<sup class="tm">™</sup></span>
             </div>
             <div class="review-reply-text">${esc(r.ursusReply)}</div>
@@ -1862,41 +1591,5 @@ window.openReviewImage = function(url) {
 };
 </script>
 
-<script>
-/* ── Mobile hamburger menu ── */
-(function () {
-  const burger = document.getElementById('navBurger');
-  const ribbon = document.getElementById('navRibbon');
-  if (!burger || !ribbon) return;
-
-  function setOpen(open) {
-    burger.classList.toggle('open', open);
-    ribbon.classList.toggle('open', open);
-    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-  }
-
-  burger.addEventListener('click', e => {
-    e.stopPropagation();
-    setOpen(!ribbon.classList.contains('open'));
-  });
-
-  ribbon.addEventListener('click', e => {
-    if (e.target.closest('a')) setOpen(false);
-  });
-
-  document.addEventListener('click', e => {
-    if (ribbon.classList.contains('open') && !e.target.closest('nav')) setOpen(false);
-  });
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && ribbon.classList.contains('open')) { setOpen(false); burger.focus(); }
-  });
-
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 760) setOpen(false);
-  });
-})();
-</script>
 </body>
 </html>
