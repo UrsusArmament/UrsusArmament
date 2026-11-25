@@ -522,6 +522,14 @@
         </select>
       </div>
       <div class="field">
+        <label>Form Factor</label>
+        <input type="text" id="f_formFactor" list="formFactorList" placeholder="e.g. PVS14">
+        <datalist id="formFactorList">
+          <option value="PVS14">
+          <option value="MUM14">
+        </datalist>
+      </div>
+      <div class="field">
         <label>Battery Life</label>
         <input type="text" id="f_batteryLife" placeholder="e.g. 20-40 hrs (CR123A)">
       </div>
@@ -755,6 +763,7 @@ window.generateSpecSheet = async () => {
       row("Radiant Sensitivity",       d.photocathodeRadiantSensitivity),
       hdr("Hardware & Build"),
       row("Objective Lens",  d.objectiveLens),
+      row("Form Factor",     d.formFactor),
       row("Battery Life",    d.batteryLife),
       row("IP Rating",       d.ipRating),
       row("Finish",          d.finish),
@@ -901,6 +910,7 @@ window.submitUnit = async () => {
     photocathodeSensitivityWithFilter:  document.getElementById("f_pcFilter").value.trim(),
     photocathodeRadiantSensitivity:     document.getElementById("f_pcRad").value.trim(),
     objectiveLens:                      document.getElementById("f_objectiveLens").value,
+    formFactor:                         document.getElementById("f_formFactor").value.trim(),
     batteryLife:                        document.getElementById("f_batteryLife").value.trim(),
     ipRating:                           document.getElementById("f_ipRating").value,
     finish:                             document.getElementById("f_finish").value.trim(),
@@ -934,7 +944,7 @@ function clearForm() {
   const ids = [
     "f_product","f_serial","f_tier","f_bodyStyle","f_price","f_iitManufacturer",
     "f_generation","f_phosphor","f_fom","f_snr","f_resolution","f_luminousGain",
-    "f_pcLum","f_pcFilter","f_pcRad","f_objectiveLens","f_batteryLife","f_ipRating",
+    "f_pcLum","f_pcFilter","f_pcRad","f_objectiveLens","f_formFactor","f_batteryLife","f_ipRating",
     "f_finish","f_proofDate","f_batchId","f_notes"
   ];
   ids.forEach(id => {
