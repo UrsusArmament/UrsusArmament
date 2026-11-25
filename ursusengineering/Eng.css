@@ -1,0 +1,145 @@
+/* ============================================================
+   URSUS ENGINEERING — shared styles (theme + header + footer).
+   Dark is the default; light = :root[data-theme="light"].
+   Theme choice is shared with the Armament site (key: ursus_theme).
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  color-scheme: dark;
+  --bg: #0d1014;
+  --surface: #151a20;
+  --surface2: #1b222a;
+  --ink: #e8ecf0;
+  --ink-soft: #a9b3bd;
+  --text: #e8ecf0;
+  --muted: #a9b3bd;
+  --line: rgba(255,255,255,0.12);
+  --border: rgba(255,255,255,0.12);
+  --border2: rgba(255,255,255,0.22);
+  --accent: #5a9de0;
+  --accent-dark: #5a9de0;
+  --accent-hover: #7db5ee;
+  --accent-rgb: 90,157,224;
+  --on-accent: #06121f;
+  --band-bg: #1b222a;
+  --band-text: #e8ecf0;
+  --band-soft: rgba(232,236,240,0.75);
+  --nav-bg: rgba(13,16,20,0.94);
+  --shadow: 0 6px 24px rgba(0,0,0,0.35);
+  --radius: 14px;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #c9cdd1;
+  --surface: #eceef0;
+  --surface2: #dfe2e5;
+  --ink: #000000;
+  --ink-soft: #000000;
+  --text: #000000;
+  --muted: #000000;
+  --line: rgba(0,0,0,0.16);
+  --border: rgba(0,0,0,0.16);
+  --border2: rgba(0,0,0,0.28);
+  --accent: #1f4e79;
+  --accent-dark: #1f4e79;
+  --accent-hover: #2f6aa3;
+  --accent-rgb: 31,78,121;
+  --on-accent: #ffffff;
+  --band-bg: #1c1e21;
+  --band-text: #ffffff;
+  --band-soft: rgba(255,255,255,0.8);
+  --nav-bg: rgba(236,238,240,0.96);
+  --shadow: 0 6px 24px rgba(0,0,0,0.05);
+}
+
+html.theme-anim *, html.theme-anim *::before, html.theme-anim *::after {
+  transition: background-color .25s ease, color .25s ease, border-color .25s ease !important;
+}
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  line-height: 1.6;
+  padding-top: 105px;
+}
+
+.tm { font-size: 0.55em; vertical-align: super; line-height: 0; letter-spacing: 0; text-transform: none; font-weight: 400; margin-left: 1px; }
+
+/* ── HEADER ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-top { display: flex; align-items: center; justify-content: space-between; padding: 0.6rem 3rem; border-bottom: 1px solid var(--border); }
+.nav-brand { display: flex; align-items: center; gap: 0.85rem; min-width: 0; }
+.nav-brand-link { display: block; flex-shrink: 0; line-height: 0; }
+.nav-logo-img { height: 46px; width: 46px; object-fit: contain; border-radius: 8px; display: block; }
+.nav-logo { font-size: 15px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text); text-decoration: none; line-height: 1.25; }
+.nav-logo span { color: var(--accent); }
+.nav-right { display: flex; align-items: center; gap: 0.75rem; }
+
+.nav-ribbon { display: flex; align-items: center; justify-content: center; padding: 0 3rem; height: 38px; background: var(--surface2); }
+.nav-ribbon a {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--muted); text-decoration: none; padding: 0 1.6rem; height: 100%;
+  display: flex; align-items: center; border-right: 1px solid var(--border);
+  transition: color 0.2s, background 0.2s;
+}
+.nav-ribbon a:first-child { border-left: 1px solid var(--border); }
+.nav-ribbon a:hover, .nav-ribbon a.active { color: var(--accent); background: rgba(var(--accent-rgb),0.09); }
+
+.nav-burger { display: none; position: relative; width: 38px; height: 38px; flex-shrink: 0; background: transparent; border: 1px solid var(--border2); cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+.nav-burger:hover, .nav-burger:focus-visible { border-color: var(--accent); background: rgba(var(--accent-rgb),0.09); outline: none; }
+.nav-burger span { position: absolute; left: 9px; right: 9px; height: 2px; background: var(--text); transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease, background 0.2s; }
+.nav-burger span:nth-child(1) { top: 11px; }
+.nav-burger span:nth-child(2) { top: 17px; }
+.nav-burger span:nth-child(3) { top: 23px; }
+.nav-burger:hover span { background: var(--accent); }
+.nav-burger.open span:nth-child(1) { top: 17px; transform: rotate(45deg); }
+.nav-burger.open span:nth-child(2) { opacity: 0; }
+.nav-burger.open span:nth-child(3) { top: 17px; transform: rotate(-45deg); }
+
+/* ── THEME TOGGLE (injected into .nav-right by theme.js) ── */
+.nav-theme-btn {
+  position: relative; flex-shrink: 0; padding: 0; width: 38px; height: 38px;
+  display: flex; align-items: center; justify-content: center;
+  background: transparent; color: var(--text); border: 1px solid var(--border2);
+  cursor: pointer; transition: border-color .2s, background .2s;
+}
+.nav-theme-btn:hover, .nav-theme-btn:focus-visible { border-color: var(--accent); background: rgba(var(--accent-rgb),0.09); outline: none; }
+.nav-theme-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke .2s; }
+.nav-theme-btn:hover svg, .nav-theme-btn:focus-visible svg { stroke: var(--accent); }
+.nav-theme-btn .i-moon { display: none; }
+:root[data-theme="light"] .nav-theme-btn .i-sun  { display: none; }
+:root[data-theme="light"] .nav-theme-btn .i-moon { display: block; }
+
+/* ── FOOTER ── */
+footer { text-align: center; padding: 1.75rem 1rem; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
+
+@media (max-width: 760px) {
+  body { padding-top: 59px; }
+  .nav-top { padding: 0.6rem 1rem; }
+  .nav-brand { gap: 0.6rem; }
+  .nav-logo-img { height: 38px; width: 38px; }
+  .nav-brand .nav-logo { font-size: 13px; letter-spacing: 0.1em; }
+  .nav-right { gap: 0.4rem; flex-shrink: 0; }
+  .nav-burger { display: block; }
+  .nav-ribbon { display: none; flex-direction: column; align-items: stretch; justify-content: flex-start; height: auto; padding: 0; max-height: calc(100vh - 62px); overflow-y: auto; }
+  .nav-ribbon.open { display: flex; }
+  .nav-ribbon a { height: auto; padding: 1rem 1.5rem; font-size: 13px; border-right: none; border-bottom: 1px solid var(--border); }
+  .nav-ribbon a:first-child { border-left: none; }
+  .nav-ribbon a:last-child { border-bottom: none; }
+  .nav-ribbon a.active { box-shadow: inset 3px 0 0 var(--accent); }
+}
+@media (max-width: 420px) {
+  .nav-top { padding: 0.6rem 0.75rem; }
+  .nav-brand { gap: 0.5rem; }
+  .nav-logo-img { height: 32px; width: 32px; border-radius: 6px; }
+  .nav-brand .nav-logo { font-size: 11px; letter-spacing: 0.06em; line-height: 1.2; }
+}
