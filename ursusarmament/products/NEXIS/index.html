@@ -6,10 +6,11 @@
 <title>NEXIS — Ursus Armament™</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/ursusarmament/chrome.css">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  :root {
+:root {
     --black: #0a0a08;
     --dark: #111110;
     --surface: #1a1a17;
@@ -21,12 +22,12 @@
     --accent: #c8922a;
     --accent2: #e8a830;
     --green: #2a9c5c;
-    --node: rgba(200,146,42,0.9);
+    --node: rgba(var(--accent-rgb),0.9);
   }
 
-  html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; }
 
-  body {
+body {
     background: var(--black);
     color: var(--text);
     font-family: 'Barlow', sans-serif;
@@ -35,142 +36,209 @@
     overflow-x: hidden;
   }
 
-  nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(10,10,8,0.92);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-top {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0.6rem 3rem; border-bottom: 1px solid var(--border);
-  }
-  .nav-brand { display: flex; align-items: center; gap: 0.85rem; min-width: 0; }
-  .nav-brand-link { display: block; flex-shrink: 0; line-height: 0; }
-  .nav-brand-text { display: flex; flex-direction: column; gap: 0.05rem; min-width: 0; }
-  .nav-logo-img { height: 46px; width: 46px; object-fit: contain; border-radius: 8px; display: block; }
-  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.12em; color: var(--text); text-decoration: none; line-height: 1; }
-  .nav-logo span { color: var(--accent); }
-  .nav-slogan { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 400; letter-spacing: 0.22em; text-transform: uppercase; color: var(--muted); }
-  .nav-ribbon { display: flex; align-items: center; justify-content: center; padding: 0 3rem; height: 38px; background: var(--surface); }
-  .nav-ribbon a { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); text-decoration: none; padding: 0 1.6rem; height: 100%; display: flex; align-items: center; border-right: 1px solid var(--border); transition: color 0.2s, background 0.2s; }
-  .nav-ribbon a:first-child { border-left: 1px solid var(--border); }
-  .nav-ribbon a:hover, .nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
-  .nav-auth { display: flex; align-items: center; }
-  .nav-auth a, .nav-auth button { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; text-decoration: none; color: var(--accent); background: transparent; border: 1px solid var(--accent); padding: 0.4rem 1rem; cursor: pointer; transition: all 0.2s ease; }
-  .nav-auth a:hover, .nav-auth button:hover { background: rgba(200,146,42,0.08); }
+.breadcrumb { padding: 1rem 3rem; background: var(--dark); border-bottom: 1px solid var(--border); margin-top: 105px; display: flex; align-items: center; gap: 0.5rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
 
-  .breadcrumb { padding: 1rem 3rem; background: var(--dark); border-bottom: 1px solid var(--border); margin-top: 86px; display: flex; align-items: center; gap: 0.5rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
-  .breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
-  .breadcrumb a:hover { color: var(--accent); }
-  .breadcrumb span { color: var(--accent); }
+.breadcrumb a { color: var(--muted); text-decoration: none; transition: color 0.2s; }
 
-  .unavail-banner { background: rgba(10,10,8,0.97); border-bottom: 1px solid rgba(200,146,42,0.3); padding: 0.75rem 3rem; display: flex; align-items: center; justify-content: center; gap: 1.2rem; }
-  .unavail-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; flex-shrink: 0; }
-  @keyframes pulse { 0%,100%{opacity:0.4;transform:scale(1)} 50%{opacity:1;transform:scale(1.3)} }
-  .unavail-banner p { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
-  .unavail-banner span { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; color: var(--muted); font-weight: 400; text-transform: uppercase; }
+.breadcrumb a:hover { color: var(--accent); }
+
+.breadcrumb span { color: var(--accent); }
+
+.unavail-banner { background: color-mix(in srgb, var(--black) 97%, transparent); border-bottom: 1px solid rgba(var(--accent-rgb),0.3); padding: 0.75rem 3rem; display: flex; align-items: center; justify-content: center; gap: 1.2rem; }
+
+.unavail-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); animation: pulse 2s ease-in-out infinite; flex-shrink: 0; }
+
+@keyframes pulse { 0%,100%{opacity:0.4;transform:scale(1)} 50%{opacity:1;transform:scale(1.3)} }
+
+.unavail-banner p { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); }
+
+.unavail-banner span { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; letter-spacing: 0.12em; color: var(--muted); font-weight: 400; text-transform: uppercase; }
+
 
   /* HERO */
-  .product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; background: var(--dark); }
-  .product-visual { position: relative; background: var(--surface); overflow: hidden; display: flex; flex-direction: column; align-items: stretch; min-height: 500px; }
-  .product-badge { position: absolute; top: 2rem; left: 2rem; background: var(--surface2); color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 0.85rem; z-index: 2; border: 1px solid rgba(200,146,42,0.35); }
-  .visual-main { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; min-height: 90vh; height: 90vh; }
-  .visual-main::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(200,146,42,0.012) 30px, rgba(200,146,42,0.012) 31px); pointer-events: none; }
-  .visual-watermark { position: absolute; font-family: 'Bebas Neue', sans-serif; font-size: 14rem; letter-spacing: 0.06em; color: rgba(255,255,255,0.02); user-select: none; pointer-events: none; white-space: nowrap; }
-  .visual-thumb-bar { width: 100%; background: var(--dark); border-top: 1px solid var(--border); padding: 1rem 2rem; display: flex; align-items: center; }
-  .thumb-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); opacity: 0.5; }
+.product-hero { display: grid; grid-template-columns: 1fr 1fr; min-height: 90vh; background: var(--dark); }
 
-  .product-info { padding: 4rem; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--border); }
-  .product-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
-  .product-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
-  .product-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4.5rem, 8vw, 7rem); line-height: 0.88; letter-spacing: 0.04em; margin-bottom: 0.4rem; color: var(--text); }
-  .product-tagline { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
-  .product-subtitle { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 2rem; }
-  .product-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; max-width: 480px; }
-  .product-price-row { display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
-  .unavail-price-block { display: flex; flex-direction: column; gap: 0.3rem; }
-  .unavail-price-tag { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.08em; color: var(--muted); }
-  .unavail-price-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.6; }
-  .unavail-pill { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(200,146,42,0.08); border: 1px solid rgba(200,146,42,0.25); padding: 0.5rem 1rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
-  .product-actions { display: flex; gap: 1rem; margin-bottom: 2rem; }
-  .btn-notify { background: transparent; color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: 1px solid var(--accent); cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s; flex: 1; text-align: center; }
-  .btn-notify:hover { background: rgba(200,146,42,0.1); }
-  .btn-ghost { background: transparent; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; border: 1px solid var(--border2); cursor: pointer; text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s; }
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-  .product-trust { display: flex; gap: 2rem; }
-  .trust-item { display: flex; flex-direction: column; gap: 0.2rem; }
-  .trust-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
-  .trust-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text); }
-  .trust-value.tbd { color: var(--muted); font-style: italic; }
+.product-visual { position: relative; background: var(--surface); overflow: hidden; display: flex; flex-direction: column; align-items: stretch; min-height: 500px; }
 
-  .section-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
-  .section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
-  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5vw, 4.2rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 3.5rem; }
+.product-badge { position: absolute; top: 2rem; left: 2rem; background: var(--surface2); color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 0.85rem; z-index: 2; border: 1px solid rgba(var(--accent-rgb),0.35); }
+
+.visual-main { flex: 1; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; min-height: 90vh; height: 90vh; }
+
+.visual-main::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 30px, rgba(var(--accent-rgb),0.012) 30px, rgba(var(--accent-rgb),0.012) 31px); pointer-events: none; }
+
+.visual-watermark { position: absolute; font-family: 'Bebas Neue', sans-serif; font-size: 14rem; letter-spacing: 0.06em; color: rgba(var(--text-rgb),0.03); user-select: none; pointer-events: none; white-space: nowrap; }
+
+.visual-thumb-bar { width: 100%; background: var(--dark); border-top: 1px solid var(--border); padding: 1rem 2rem; display: flex; align-items: center; }
+
+.thumb-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); opacity: 0.5; }
+
+.product-info { padding: 4rem; display: flex; flex-direction: column; justify-content: center; border-left: 1px solid var(--border); }
+
+.product-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
+
+.product-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+
+.product-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4.5rem, 8vw, 7rem); line-height: 0.88; letter-spacing: 0.04em; margin-bottom: 0.4rem; color: var(--text); }
+
+.product-tagline { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.4rem; }
+
+.product-subtitle { font-family: 'Barlow Condensed', sans-serif; font-size: 0.8rem; font-weight: 400; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); margin-bottom: 2rem; }
+
+.product-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2rem; max-width: 480px; }
+
+.product-price-row { display: flex; align-items: center; gap: 1.2rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+
+.unavail-price-block { display: flex; flex-direction: column; gap: 0.3rem; }
+
+.unavail-price-tag { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.08em; color: var(--muted); }
+
+.unavail-price-sub { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); opacity: 0.6; }
+
+.unavail-pill { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(var(--accent-rgb),0.08); border: 1px solid rgba(var(--accent-rgb),0.25); padding: 0.5rem 1rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); }
+
+.product-actions { display: flex; gap: 1rem; margin-bottom: 2rem; }
+
+.btn-notify { background: transparent; color: var(--accent); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: 1px solid var(--accent); cursor: pointer; text-decoration: none; display: inline-block; transition: background 0.2s; flex: 1; text-align: center; }
+
+.btn-notify:hover { background: rgba(var(--accent-rgb),0.1); }
+
+.btn-ghost { background: transparent; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2rem; border: 1px solid var(--border2); cursor: pointer; text-decoration: none; display: inline-block; transition: border-color 0.2s, color 0.2s; }
+
+.btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+.product-trust { display: flex; gap: 2rem; }
+
+.trust-item { display: flex; flex-direction: column; gap: 0.2rem; }
+
+.trust-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+
+.trust-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.1em; color: var(--text); }
+
+.trust-value.tbd { color: var(--muted); font-style: italic; }
+
+.section-tag { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.3em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.6rem; }
+
+.section-tag::before { content: ''; display: block; width: 20px; height: 1px; background: var(--accent); }
+
+.section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.4rem, 5vw, 4.2rem); letter-spacing: 0.04em; line-height: 1; color: var(--text); margin-bottom: 3.5rem; }
+
 
   /* NX PRODUCT LINE */
-  .nx-section { background: var(--black); padding: 6rem 3rem; }
-  .nx-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2px; background: var(--border); margin-bottom: 2rem; }
-  .nx-card { background: var(--dark); padding: 2rem; display: flex; flex-direction: column; gap: 0.75rem; position: relative; overflow: hidden; transition: background 0.2s; }
-  .nx-card:hover { background: var(--surface); }
-  .nx-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); opacity: 0.4; transition: opacity 0.2s; }
-  .nx-card:hover::before { opacity: 1; }
-  .nx-model { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.1em; color: var(--accent); line-height: 1; }
-  .nx-code { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem; }
-  .nx-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); }
-  .nx-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
-  .nx-features { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.25rem; }
-  .nx-features li { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted); display: flex; align-items: baseline; gap: 0.5rem; }
-  .nx-features li::before { content: '—'; color: var(--accent); opacity: 0.6; flex-shrink: 0; }
-  .nx-status { margin-top: auto; font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); opacity: 0.65; padding-top: 0.75rem; border-top: 1px solid var(--border); }
+.nx-section { background: var(--black); padding: 6rem 3rem; }
+
+.nx-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 2px; background: var(--border); margin-bottom: 2rem; }
+
+.nx-card { background: var(--dark); padding: 2rem; display: flex; flex-direction: column; gap: 0.75rem; position: relative; overflow: hidden; transition: background 0.2s; }
+
+.nx-card:hover { background: var(--surface); }
+
+.nx-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); opacity: 0.4; transition: opacity 0.2s; }
+
+.nx-card:hover::before { opacity: 1; }
+
+.nx-model { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.1em; color: var(--accent); line-height: 1; }
+
+.nx-code { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.25rem; }
+
+.nx-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--text); }
+
+.nx-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+.nx-features { list-style: none; display: flex; flex-direction: column; gap: 0.3rem; margin-top: 0.25rem; }
+
+.nx-features li { font-family: 'Barlow Condensed', sans-serif; font-size: 0.75rem; letter-spacing: 0.08em; color: var(--muted); display: flex; align-items: baseline; gap: 0.5rem; }
+
+.nx-features li::before { content: '—'; color: var(--accent); opacity: 0.6; flex-shrink: 0; }
+
+.nx-status { margin-top: auto; font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); opacity: 0.65; padding-top: 0.75rem; border-top: 1px solid var(--border); }
+
 
   /* SPECS */
-  .specs-section { background: var(--dark); padding: 6rem 3rem; }
-  .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-bottom: 2px; }
-  .spec-item { background: var(--surface); padding: 1.75rem 2rem; display: flex; justify-content: space-between; align-items: baseline; transition: background 0.2s; }
-  .spec-item:hover { background: var(--surface2); }
-  .spec-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
-  .spec-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); text-align: right; max-width: 55%; }
-  .spec-value.tbd { color: var(--muted); font-style: italic; font-size: 0.88rem; }
-  .spec-note { margin-top: 2rem; padding: 1.25rem 1.75rem; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid rgba(200,146,42,0.4); font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); line-height: 1.6; }
+.specs-section { background: var(--dark); padding: 6rem 3rem; }
+
+.specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin-bottom: 2px; }
+
+.spec-item { background: var(--surface); padding: 1.75rem 2rem; display: flex; justify-content: space-between; align-items: baseline; transition: background 0.2s; }
+
+.spec-item:hover { background: var(--surface2); }
+
+.spec-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+
+.spec-value { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); text-align: right; max-width: 55%; }
+
+.spec-value.tbd { color: var(--muted); font-style: italic; font-size: 0.88rem; }
+
+.spec-note { margin-top: 2rem; padding: 1.25rem 1.75rem; background: var(--surface); border: 1px solid var(--border); border-left: 3px solid rgba(var(--accent-rgb),0.4); font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); line-height: 1.6; }
+
 
   /* SERIAL LOOKUP */
-  .serial-section { background: var(--black); padding: 6rem 3rem; position: relative; }
-  .serial-inner { max-width: 780px; }
-  .serial-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 560px; }
-  .serial-input-row { display: flex; margin-bottom: 2rem; }
-  .serial-input { flex: 1; background: var(--surface); border: 1px solid var(--border2); border-right: none; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.9rem 1.5rem; outline: none; transition: border-color 0.2s; }
-  .serial-input::placeholder { color: var(--muted); font-weight: 400; letter-spacing: 0.08em; text-transform: none; }
-  .serial-input:focus { border-color: var(--accent); }
-  .serial-btn { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.9rem 2rem; border: none; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
-  .serial-btn:hover { background: var(--accent2); }
-  .serial-result { display: none; }
-  .serial-result.visible { display: block; }
-  .serial-error { padding: 1.5rem 2rem; background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.3); border-left: 3px solid #c0392b; font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; letter-spacing: 0.08em; color: #e87060; }
-  .serial-card { background: var(--surface); border: 1px solid var(--border2); border-top: 3px solid var(--accent); }
-  .serial-card-header { padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); background: var(--surface2); }
-  .serial-card-id { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.06em; color: var(--accent); }
-  .serial-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 1rem; }
-  .serial-badge.pass { background: rgba(42,156,92,0.15); color: #4cbc7e; border: 1px solid rgba(42,156,92,0.3); }
-  .serial-badge.fail { background: rgba(192,57,43,0.15); color: #e87060; border: 1px solid rgba(192,57,43,0.3); }
-  .serial-card-body { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin: 2px; }
-  .serial-field { background: var(--dark); padding: 1.25rem 1.75rem; display: flex; flex-direction: column; gap: 0.3rem; }
-  .serial-field-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
-  .serial-field-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
-  .serial-card-notes { padding: 1.25rem 1.75rem; margin: 2px; margin-top: 0; background: var(--dark); border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.3rem; }
-  .serial-card-footer { padding: 1rem 2rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border-top: 1px solid var(--border); }
+.serial-section { background: var(--black); padding: 6rem 3rem; position: relative; }
+
+.serial-inner { max-width: 780px; }
+
+.serial-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 560px; }
+
+.serial-input-row { display: flex; margin-bottom: 2rem; }
+
+.serial-input { flex: 1; background: var(--surface); border: 1px solid var(--border2); border-right: none; color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.9rem 1.5rem; outline: none; transition: border-color 0.2s; }
+
+.serial-input::placeholder { color: var(--muted); font-weight: 400; letter-spacing: 0.08em; text-transform: none; }
+
+.serial-input:focus { border-color: var(--accent); }
+
+.serial-btn { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.9rem 2rem; border: none; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+
+.serial-btn:hover { background: var(--accent2); }
+
+.serial-result { display: none; }
+
+.serial-result.visible { display: block; }
+
+.serial-error { padding: 1.5rem 2rem; background: rgba(192,57,43,0.08); border: 1px solid rgba(192,57,43,0.3); border-left: 3px solid var(--red); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; letter-spacing: 0.08em; color: var(--warn-text); }
+
+.serial-card { background: var(--surface); border: 1px solid var(--border2); border-top: 3px solid var(--accent); }
+
+.serial-card-header { padding: 1.5rem 2rem; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); background: var(--surface2); }
+
+.serial-card-id { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.06em; color: var(--accent); }
+
+.serial-badge { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 0.35rem 1rem; }
+
+.serial-badge.pass { background: rgba(42,156,92,0.15); color: var(--green-text); border: 1px solid rgba(42,156,92,0.3); }
+
+.serial-badge.fail { background: rgba(192,57,43,0.15); color: var(--warn-text); border: 1px solid rgba(192,57,43,0.3); }
+
+.serial-card-body { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: var(--border); margin: 2px; }
+
+.serial-field { background: var(--dark); padding: 1.25rem 1.75rem; display: flex; flex-direction: column; gap: 0.3rem; }
+
+.serial-field-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+
+.serial-field-value { font-family: 'Barlow Condensed', sans-serif; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.06em; color: var(--text); }
+
+.serial-card-notes { padding: 1.25rem 1.75rem; margin: 2px; margin-top: 0; background: var(--dark); border-top: 1px solid var(--border); display: flex; flex-direction: column; gap: 0.3rem; }
+
+.serial-card-footer { padding: 1rem 2rem; font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); border-top: 1px solid var(--border); }
+
 
   /* FEATURE LOCK */
-  .feature-lock-overlay { position: absolute; inset: 0; background: rgba(10,10,8,0.88); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 50; }
-  .feature-lock-overlay.active { display: flex; }
-  .feature-lock-box { text-align: center; padding: 2rem; max-width: 380px; }
-  .feature-lock-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.15em; color: var(--text); margin-bottom: 0.75rem; }
-  .feature-lock-text { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
-  .feature-lock-btn { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.6rem 1.5rem; text-decoration: none; transition: background 0.2s; }
-  .feature-lock-btn:hover { background: rgba(200,146,42,0.08); }
+.feature-lock-overlay { position: absolute; inset: 0; background: var(--overlay); backdrop-filter: blur(8px); display: none; align-items: center; justify-content: center; z-index: 50; }
+
+.feature-lock-overlay.active { display: flex; }
+
+.feature-lock-box { text-align: center; padding: 2rem; max-width: 380px; }
+
+.feature-lock-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: 0.15em; color: var(--text); margin-bottom: 0.75rem; }
+
+.feature-lock-text { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+
+.feature-lock-btn { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 0.6rem 1.5rem; text-decoration: none; transition: background 0.2s; }
+
+.feature-lock-btn:hover { background: rgba(var(--accent-rgb),0.08); }
+
 
   /* NIGHT VISION / THERMAL / MESH INFO BUTTON */
-  .nv-info-btn {
+.nv-info-btn {
     position: absolute;
     top: 2rem;
     right: 2rem;
@@ -178,7 +246,7 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    background: rgba(200,146,42,0.14);
+    background: rgba(var(--accent-rgb),0.14);
     border: 1px solid var(--accent);
     color: var(--accent2);
     font-family: 'Barlow Condensed', sans-serif;
@@ -192,7 +260,8 @@
     animation: nvPulse 2s ease-in-out infinite;
     transition: background 0.2s, color 0.2s;
   }
-  .nv-info-btn::before {
+
+.nv-info-btn::before {
     content: '';
     position: absolute;
     top: 0;
@@ -204,42 +273,50 @@
     animation: nvShimmer 2.6s ease-in-out infinite;
     pointer-events: none;
   }
-  .nv-info-btn:hover {
+
+.nv-info-btn:hover {
     background: var(--accent);
     color: var(--black);
     animation-play-state: paused;
   }
-  .nv-info-arrow {
+
+.nv-info-arrow {
     display: inline-block;
     font-size: 0.95rem;
     transition: transform 0.2s;
   }
-  .nv-info-btn:hover .nv-info-arrow {
+
+.nv-info-btn:hover .nv-info-arrow {
     transform: translate(2px, -2px);
   }
-  @keyframes nvPulse {
-    0%, 100% { box-shadow: 0 0 0 0 rgba(200,146,42,0.5); transform: scale(1); }
-    50%      { box-shadow: 0 0 0 10px rgba(200,146,42,0); transform: scale(1.045); }
+
+@keyframes nvPulse {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb),0.5); transform: scale(1); }
+    50%      { box-shadow: 0 0 0 10px rgba(var(--accent-rgb),0); transform: scale(1.045); }
   }
-  @keyframes nvShimmer {
+
+@keyframes nvShimmer {
     0%   { transform: translateX(-160%) skewX(-15deg); }
     45%  { transform: translateX(260%) skewX(-15deg); }
     100% { transform: translateX(260%) skewX(-15deg); }
   }
 
+
   /* NIGHT VISION / THERMAL / MESH INFO MODAL */
-  .nv-modal-overlay {
+.nv-modal-overlay {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.8);
+    background: var(--overlay);
     z-index: 99999;
     justify-content: center;
     align-items: center;
     padding: 2rem 0;
   }
-  .nv-modal-overlay.open { display: flex; }
-  .nv-modal-box {
+
+.nv-modal-overlay.open { display: flex; }
+
+.nv-modal-box {
     background: var(--dark);
     border: 1px solid var(--border2);
     width: 92%;
@@ -249,7 +326,8 @@
     flex-direction: column;
     position: relative;
   }
-  .nv-modal-close {
+
+.nv-modal-close {
     position: absolute;
     top: 0.75rem;
     right: 1rem;
@@ -260,28 +338,33 @@
     cursor: pointer;
     z-index: 2;
   }
-  .nv-modal-header {
+
+.nv-modal-header {
     padding: 1.75rem 2.25rem 1.25rem;
     border-bottom: 1px solid var(--border);
   }
-  .nv-modal-header h2 {
+
+.nv-modal-header h2 {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 1.9rem;
     letter-spacing: 0.06em;
     color: var(--text);
   }
-  .nv-modal-body {
+
+.nv-modal-body {
     overflow-y: auto;
     padding: 1.75rem 2.25rem 2.5rem;
   }
-  .nv-tldr {
+
+.nv-tldr {
     background: var(--surface);
     border: 1px solid var(--border2);
     border-left: 3px solid var(--accent);
     padding: 1.5rem 1.75rem;
     margin-bottom: 2rem;
   }
-  .nv-tldr-label {
+
+.nv-tldr-label {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 0.7rem;
     font-weight: 700;
@@ -290,27 +373,33 @@
     color: var(--accent);
     margin-bottom: 0.75rem;
   }
-  .nv-tldr ul { padding-left: 1.2rem; }
-  .nv-tldr li { color: var(--muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 0.75rem; }
-  .nv-tldr li strong { color: var(--text); }
 
-  .nv-jump-nav {
+.nv-tldr ul { padding-left: 1.2rem; }
+
+.nv-tldr li { color: var(--muted); font-size: 0.92rem; line-height: 1.7; margin-bottom: 0.75rem; }
+
+.nv-tldr li strong { color: var(--text); }
+
+.nv-jump-nav {
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
     margin-bottom: 2.5rem;
   }
-  .nv-jump-nav a {
-    color: #5b9bd5;
+
+.nv-jump-nav a {
+    color: var(--link);
     text-decoration: underline;
     font-size: 0.95rem;
     cursor: pointer;
     width: fit-content;
   }
-  .nv-jump-nav a:hover { color: #7fb4e6; }
 
-  .nv-section { margin-bottom: 2.5rem; scroll-margin-top: 1rem; }
-  .nv-section h3 {
+.nv-jump-nav a:hover { color: var(--link-hover); }
+
+.nv-section { margin-bottom: 2.5rem; scroll-margin-top: 1rem; }
+
+.nv-section h3 {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 1.25rem;
     font-weight: 700;
@@ -320,145 +409,268 @@
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--border);
   }
-  .nv-section p, .nv-section li { color: var(--muted); font-size: 0.92rem; line-height: 1.75; }
-  .nv-section p { margin-bottom: 1rem; }
-  .nv-section ul, .nv-section ol { padding-left: 1.2rem; margin-top: 0.5rem; }
-  .nv-section li { margin-bottom: 0.9rem; }
-  .nv-section ol li { margin-bottom: 1rem; }
-  .nv-section li strong { color: var(--text); }
-  .nv-section li ul { margin-top: 0.6rem; }
+
+.nv-section p, .nv-section li { color: var(--muted); font-size: 0.92rem; line-height: 1.75; }
+
+.nv-section p { margin-bottom: 1rem; }
+
+.nv-section ul, .nv-section ol { padding-left: 1.2rem; margin-top: 0.5rem; }
+
+.nv-section li { margin-bottom: 0.9rem; }
+
+.nv-section ol li { margin-bottom: 1rem; }
+
+.nv-section li strong { color: var(--text); }
+
+.nv-section li ul { margin-top: 0.6rem; }
+
 
   /* Interactive antenna mount diagram */
-  .antenna-interactive { margin: 1.5rem 0 0.5rem; }
-  .antenna-slider-row { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:0.6rem; flex-wrap:wrap; gap:0.5rem; }
-  .antenna-slider-label { font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); }
-  .antenna-slider-readout { font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; font-weight:600; color:var(--text); }
-  .antenna-slider { -webkit-appearance:none; appearance:none; width:100%; height:4px; background:var(--border2); outline:none; margin-bottom:1.25rem; border-radius:2px; }
-  .antenna-slider::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:18px; height:18px; border-radius:50%; background:var(--accent); cursor:pointer; border:2px solid var(--dark); animation: thumbPulse 2s ease-in-out infinite; }
-  .antenna-slider::-moz-range-thumb { width:18px; height:18px; border-radius:50%; background:var(--accent); cursor:pointer; border:2px solid var(--dark); animation: thumbPulse 2s ease-in-out infinite; }
-  @keyframes thumbPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(200,146,42,0.55), 0 0 0 1px var(--accent); } 50% { box-shadow: 0 0 0 8px rgba(200,146,42,0), 0 0 0 1px var(--accent); } }
-  .antenna-readout-panel { display:flex; flex-direction:column; gap:0.6rem; margin-top:1rem; padding:1rem 1.25rem; background:var(--surface); border:1px solid var(--border2); border-left:3px solid var(--accent); }
-  .antenna-readout-row { display:flex; align-items:center; gap:0.6rem; font-family:'Barlow Condensed',sans-serif; font-size:0.9rem; flex-wrap:wrap; }
-  .antenna-readout-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
-  .antenna-readout-label { color:var(--text); font-weight:600; letter-spacing:0.04em; }
-  .antenna-readout-value { color:var(--muted); margin-left:auto; font-family:monospace; }
-  .antenna-readout-value strong { color:var(--text); }
+.antenna-interactive { margin: 1.5rem 0 0.5rem; }
+
+.antenna-slider-row { display:flex; justify-content:space-between; align-items:baseline; margin-bottom:0.6rem; flex-wrap:wrap; gap:0.5rem; }
+
+.antenna-slider-label { font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.15em; text-transform:uppercase; color:var(--accent); }
+
+.antenna-slider-readout { font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; font-weight:600; color:var(--text); }
+
+.antenna-slider { -webkit-appearance:none; appearance:none; width:100%; height:4px; background:var(--border2); outline:none; margin-bottom:1.25rem; border-radius:2px; }
+
+.antenna-slider::-webkit-slider-thumb { -webkit-appearance:none; appearance:none; width:18px; height:18px; border-radius:50%; background:var(--accent); cursor:pointer; border:2px solid var(--dark); animation: thumbPulse 2s ease-in-out infinite; }
+
+.antenna-slider::-moz-range-thumb { width:18px; height:18px; border-radius:50%; background:var(--accent); cursor:pointer; border:2px solid var(--dark); animation: thumbPulse 2s ease-in-out infinite; }
+
+@keyframes thumbPulse { 0%,100% { box-shadow: 0 0 0 0 rgba(var(--accent-rgb),0.55), 0 0 0 1px var(--accent); } 50% { box-shadow: 0 0 0 8px rgba(var(--accent-rgb),0), 0 0 0 1px var(--accent); } }
+
+.antenna-readout-panel { display:flex; flex-direction:column; gap:0.6rem; margin-top:1rem; padding:1rem 1.25rem; background:var(--surface); border:1px solid var(--border2); border-left:3px solid var(--accent); }
+
+.antenna-readout-row { display:flex; align-items:center; gap:0.6rem; font-family:'Barlow Condensed',sans-serif; font-size:0.9rem; flex-wrap:wrap; }
+
+.antenna-readout-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+
+.antenna-readout-label { color:var(--text); font-weight:600; letter-spacing:0.04em; }
+
+.antenna-readout-value { color:var(--muted); margin-left:auto; font-family:monospace; }
+
+.antenna-readout-value strong { color:var(--text); }
+
 
   /* Loadout calculator */
-  .loadout-form { display:flex; flex-direction:column; gap:1.1rem; margin-bottom:1.5rem; }
-  .loadout-field { display:flex; flex-direction:column; gap:0.4rem; }
-  .loadout-field label { font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); }
-  .loadout-field input[type="number"] { background:var(--surface); border:1px solid var(--border2); color:var(--text); padding:0.65rem 0.9rem; font-family:'Barlow Condensed',sans-serif; font-size:1rem; width:140px; }
-  .loadout-field-checkbox { display:flex; align-items:flex-start; gap:0.6rem; }
-  .loadout-field-checkbox input[type="checkbox"] { margin-top:0.2rem; width:16px; height:16px; accent-color:var(--accent); flex-shrink:0; }
-  .loadout-field-checkbox label { font-size:0.88rem; color:var(--text); line-height:1.5; }
-  .loadout-results { background:var(--surface); border:1px solid var(--border2); border-left:3px solid var(--accent); padding:1.25rem 1.5rem; }
-  .loadout-results-empty { color:var(--muted); font-size:0.9rem; font-style:italic; }
-  .loadout-line { display:flex; align-items:flex-start; padding:0.75rem 0; border-bottom:1px solid var(--border); gap:0.85rem; }
-  .loadout-line:last-child { border-bottom:none; }
-  .loadout-line-checkbox { margin-top:0.3rem; width:16px; height:16px; accent-color:var(--accent); cursor:pointer; flex-shrink:0; }
-  .loadout-line-info { flex:1; min-width:0; }
-  .loadout-line-name { font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:0.05em; color:var(--text); }
-  .loadout-line-desc { font-size:0.78rem; color:var(--muted); display:block; margin-top:0.2rem; }
-  .loadout-line-pricing { display:flex; align-items:baseline; gap:0.5rem; flex-shrink:0; white-space:nowrap; }
-  .loadout-line-price { font-family:'Barlow Condensed',sans-serif; font-size:0.92rem; color:var(--text); font-weight:600; }
-  .loadout-line-qty { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--accent); }
-  .loadout-line-equals { font-family:'Barlow Condensed',sans-serif; font-size:0.95rem; color:var(--text); font-weight:600; }
-  .loadout-line-subtotal { font-family:'Barlow Condensed',sans-serif; font-size:0.92rem; color:var(--text); font-weight:700; }
-  .loadout-line-optional { opacity:0.85; }
-  .loadout-badge-optional { font-size:0.6rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); padding:0.12rem 0.45rem; margin-left:0.5rem; }
-  .loadout-line-unchecked { opacity:0.4; }
-  .loadout-line-unchecked .loadout-line-price, .loadout-line-unchecked .loadout-line-subtotal { text-decoration:line-through; }
-  .loadout-stock-note { color:var(--muted); font-size:0.75rem; }
-  .loadout-stock-low { color:var(--accent2); font-size:0.75rem; font-weight:600; }
-  .loadout-stock-warning { color:#e87060; font-size:0.75rem; font-weight:600; }
-  .loadout-access-note { color:var(--accent); font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-top:0.3rem; }
-  .loadout-line-checkbox:disabled { cursor:not-allowed; }
-  .loadout-total-row { display:flex; justify-content:space-between; align-items:center; padding-top:1rem; margin-top:0.5rem; border-top:2px solid var(--border2); }
-  .loadout-total-label { font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); }
-  .loadout-total-value { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:var(--accent); }
-  .loadout-header-total { display:flex; align-items:baseline; gap:0.5rem; }
-  .loadout-header-total-label { font-family:'Barlow Condensed',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); }
-  .loadout-header-total-value { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--accent); }
-  .loadout-trigger-btn { display:inline-flex; align-items:center; gap:0.5rem; background:rgba(200,146,42,0.08); border:1px solid var(--accent); color:var(--accent); font-family:'Barlow Condensed',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; padding:0.5rem 1rem; cursor:pointer; transition:background 0.2s, color 0.2s; white-space:nowrap; animation: nvPulse 2s ease-in-out infinite; }
-  .loadout-trigger-btn:hover { background:var(--accent); color:var(--black); animation-play-state:paused; }
+.loadout-form { display:flex; flex-direction:column; gap:1.1rem; margin-bottom:1.5rem; }
 
-  @media (max-width: 600px) {
-    .nv-modal-box { width: 96%; max-height: 90vh; }
-    .nv-modal-header, .nv-modal-body { padding-left: 1.25rem; padding-right: 1.25rem; }
-    .nv-info-btn { top: 1rem; right: 1rem; font-size: 0.68rem; padding: 0.45rem 0.85rem; }
-  }
+.loadout-field { display:flex; flex-direction:column; gap:0.4rem; }
+
+.loadout-field label { font-family:'Barlow Condensed',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); }
+
+.loadout-field input[type="number"] { background:var(--surface); border:1px solid var(--border2); color:var(--text); padding:0.65rem 0.9rem; font-family:'Barlow Condensed',sans-serif; font-size:1rem; width:140px; }
+
+.loadout-field-checkbox { display:flex; align-items:flex-start; gap:0.6rem; }
+
+.loadout-field-checkbox input[type="checkbox"] { margin-top:0.2rem; width:16px; height:16px; accent-color:var(--accent); flex-shrink:0; }
+
+.loadout-field-checkbox label { font-size:0.88rem; color:var(--text); line-height:1.5; }
+
+.loadout-results { background:var(--surface); border:1px solid var(--border2); border-left:3px solid var(--accent); padding:1.25rem 1.5rem; }
+
+.loadout-results-empty { color:var(--muted); font-size:0.9rem; font-style:italic; }
+
+.loadout-line { display:flex; align-items:flex-start; padding:0.75rem 0; border-bottom:1px solid var(--border); gap:0.85rem; }
+
+.loadout-line:last-child { border-bottom:none; }
+
+.loadout-line-checkbox { margin-top:0.3rem; width:16px; height:16px; accent-color:var(--accent); cursor:pointer; flex-shrink:0; }
+
+.loadout-line-info { flex:1; min-width:0; }
+
+.loadout-line-name { font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:0.05em; color:var(--text); }
+
+.loadout-line-desc { font-size:0.78rem; color:var(--muted); display:block; margin-top:0.2rem; }
+
+.loadout-line-pricing { display:flex; align-items:baseline; gap:0.5rem; flex-shrink:0; white-space:nowrap; }
+
+.loadout-line-price { font-family:'Barlow Condensed',sans-serif; font-size:0.92rem; color:var(--text); font-weight:600; }
+
+.loadout-line-qty { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--accent); }
+
+.loadout-line-equals { font-family:'Barlow Condensed',sans-serif; font-size:0.95rem; color:var(--text); font-weight:600; }
+
+.loadout-line-subtotal { font-family:'Barlow Condensed',sans-serif; font-size:0.92rem; color:var(--text); font-weight:700; }
+
+.loadout-line-optional { opacity:0.85; }
+
+.loadout-badge-optional { font-size:0.6rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); padding:0.12rem 0.45rem; margin-left:0.5rem; }
+
+.loadout-line-unchecked { opacity:0.4; }
+
+.loadout-line-unchecked .loadout-line-price, .loadout-line-unchecked .loadout-line-subtotal { text-decoration:line-through; }
+
+.loadout-stock-note { color:var(--muted); font-size:0.75rem; }
+
+.loadout-stock-low { color:var(--accent2); font-size:0.75rem; font-weight:600; }
+
+.loadout-stock-warning { color:var(--warn-text); font-size:0.75rem; font-weight:600; }
+
+.loadout-access-note { color:var(--accent); font-size:0.72rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; display:block; margin-top:0.3rem; }
+
+.loadout-line-checkbox:disabled { cursor:not-allowed; }
+
+.loadout-total-row { display:flex; justify-content:space-between; align-items:center; padding-top:1rem; margin-top:0.5rem; border-top:2px solid var(--border2); }
+
+.loadout-total-label { font-family:'Barlow Condensed',sans-serif; font-size:0.85rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); }
+
+.loadout-total-value { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; color:var(--accent); }
+
+.loadout-header-total { display:flex; align-items:baseline; gap:0.5rem; }
+
+.loadout-header-total-label { font-family:'Barlow Condensed',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); }
+
+.loadout-header-total-value { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; color:var(--accent); }
+
+.loadout-trigger-btn { display:inline-flex; align-items:center; gap:0.5rem; background:rgba(var(--accent-rgb),0.08); border:1px solid var(--accent); color:var(--accent); font-family:'Barlow Condensed',sans-serif; font-size:0.72rem; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; padding:0.5rem 1rem; cursor:pointer; transition:background 0.2s, color 0.2s; white-space:nowrap; animation: nvPulse 2s ease-in-out infinite; }
+
+.loadout-trigger-btn:hover { background:var(--accent); color:var(--black); animation-play-state:paused; }
+
+@media (max-width: 600px) {
+.nv-modal-box { width: 96%; max-height: 90vh; }
+
+.nv-modal-header, .nv-modal-body { padding-left: 1.25rem; padding-right: 1.25rem; }
+
+.nv-info-btn { top: 1rem; right: 1rem; font-size: 0.68rem; padding: 0.45rem 0.85rem; }
+}
+
 
   /* ECOSYSTEM */
-  .ecosystem-section { background: var(--dark); padding: 6rem 3rem; }
-  .ecosystem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); margin-bottom: 4rem; }
-  .ecosystem-card { background: var(--surface); padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 0.75rem; position: relative; overflow: hidden; transition: background 0.2s; }
-  .ecosystem-card:hover { background: var(--surface2); }
-  .ecosystem-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); opacity: 0.35; }
-  .eco-icon { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.06em; color: var(--accent); line-height: 1; }
-  .eco-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); }
-  .eco-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
-  .eco-status { margin-top: auto; font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); opacity: 0.7; }
+.ecosystem-section { background: var(--dark); padding: 6rem 3rem; }
+
+.ecosystem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: var(--border); margin-bottom: 4rem; }
+
+.ecosystem-card { background: var(--surface); padding: 2.5rem 2rem; display: flex; flex-direction: column; gap: 0.75rem; position: relative; overflow: hidden; transition: background 0.2s; }
+
+.ecosystem-card:hover { background: var(--surface2); }
+
+.ecosystem-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); opacity: 0.35; }
+
+.eco-icon { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; letter-spacing: 0.06em; color: var(--accent); line-height: 1; }
+
+.eco-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); }
+
+.eco-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; }
+
+.eco-status { margin-top: auto; font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); opacity: 0.7; }
+
 
   /* FEATURES */
-  .features-section { background: var(--black); padding: 6rem 3rem; }
-  .features-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
-  .features-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
-  .feature-item { background: var(--surface); padding: 2rem; position: relative; overflow: hidden; transition: background 0.2s; }
-  .feature-item:hover { background: var(--surface2); }
-  .feature-item::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
-  .feature-item:hover::before { opacity: 1; }
-  .feature-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(200,146,42,0.12); line-height: 1; position: absolute; top: 1rem; right: 1.5rem; }
-  .feature-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
-  .feature-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
-  .features-aside { position: sticky; top: 110px; }
-  .features-aside p { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
-  .cert-row { display: flex; gap: 1.5px; background: var(--border); margin-top: 2rem; }
-  .cert-item { flex: 1; background: var(--surface); padding: 1.25rem; text-align: center; }
-  .cert-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.3rem; }
-  .cert-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; color: var(--accent); }
+.features-section { background: var(--black); padding: 6rem 3rem; }
+
+.features-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+
+.features-list { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+
+.feature-item { background: var(--surface); padding: 2rem; position: relative; overflow: hidden; transition: background 0.2s; }
+
+.feature-item:hover { background: var(--surface2); }
+
+.feature-item::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--accent); opacity: 0; transition: opacity 0.2s; }
+
+.feature-item:hover::before { opacity: 1; }
+
+.feature-num { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; color: rgba(var(--accent-rgb),0.12); line-height: 1; position: absolute; top: 1rem; right: 1.5rem; }
+
+.feature-title { font-family: 'Barlow Condensed', sans-serif; font-size: 1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+
+.feature-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+
+.features-aside { position: sticky; top: 110px; }
+
+.features-aside p { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+
+.cert-row { display: flex; gap: 1.5px; background: var(--border); margin-top: 2rem; }
+
+.cert-item { flex: 1; background: var(--surface); padding: 1.25rem; text-align: center; }
+
+.cert-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); display: block; margin-bottom: 0.3rem; }
+
+.cert-value { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.06em; color: var(--accent); }
+
 
   /* NOTIFY */
-  .notify-section { background: var(--dark); padding: 6rem 3rem; }
-  .notify-inner { max-width: 780px; }
-  .notify-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 560px; }
-  .notify-input-row { display: flex; margin-bottom: 1.5rem; }
-  .notify-input { flex: 1; background: var(--surface); border: 1px solid var(--border2); border-right: none; color: var(--text); font-family: 'Barlow', sans-serif; font-size: 0.95rem; padding: 0.9rem 1.5rem; outline: none; transition: border-color 0.2s; }
-  .notify-input::placeholder { color: var(--muted); }
-  .notify-input:focus { border-color: var(--accent); }
-  .notify-btn { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.9rem 2rem; border: none; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
-  .notify-btn:hover { background: var(--accent2); }
-  .notify-confirm { display: none; padding: 1.5rem 2rem; background: rgba(42,156,92,0.08); border: 1px solid rgba(42,156,92,0.3); border-left: 3px solid var(--green); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; letter-spacing: 0.08em; color: #4cbc7e; }
-  .notify-confirm.visible { display: block; }
-  .notify-caveat { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; color: var(--muted); opacity: 0.6; text-transform: uppercase; margin-top: 0.75rem; }
-  .timeline { margin-top: 3rem; }
-  .timeline-title { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
-  .timeline-steps { display: flex; gap: 2px; background: var(--border); }
-  .timeline-step { flex: 1; background: var(--dark); padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 0.4rem; position: relative; overflow: hidden; }
-  .timeline-step.done { background: var(--surface); }
-  .timeline-step.done::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--green); }
-  .timeline-step.current { background: var(--surface); }
-  .timeline-step.current::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); animation: shimmer 2s ease-in-out infinite; }
-  @keyframes shimmer { 0%,100%{opacity:0.5} 50%{opacity:1} }
-  .step-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
-  .step-label.done { color: var(--green); }
-  .step-label.current { color: var(--accent); }
-  .step-label.pending { color: var(--muted); opacity: 0.5; }
-  .step-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); }
-  .step-name.pending { color: var(--muted); opacity: 0.5; }
+.notify-section { background: var(--dark); padding: 6rem 3rem; }
+
+.notify-inner { max-width: 780px; }
+
+.notify-desc { font-size: 1rem; font-weight: 300; color: var(--muted); line-height: 1.8; margin-bottom: 2.5rem; max-width: 560px; }
+
+.notify-input-row { display: flex; margin-bottom: 1.5rem; }
+
+.notify-input { flex: 1; background: var(--surface); border: 1px solid var(--border2); border-right: none; color: var(--text); font-family: 'Barlow', sans-serif; font-size: 0.95rem; padding: 0.9rem 1.5rem; outline: none; transition: border-color 0.2s; }
+
+.notify-input::placeholder { color: var(--muted); }
+
+.notify-input:focus { border-color: var(--accent); }
+
+.notify-btn { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.9rem 2rem; border: none; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+
+.notify-btn:hover { background: var(--accent2); }
+
+.notify-confirm { display: none; padding: 1.5rem 2rem; background: rgba(42,156,92,0.08); border: 1px solid rgba(42,156,92,0.3); border-left: 3px solid var(--green); font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; letter-spacing: 0.08em; color: var(--green-text); }
+
+.notify-confirm.visible { display: block; }
+
+.notify-caveat { font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; letter-spacing: 0.12em; color: var(--muted); opacity: 0.6; text-transform: uppercase; margin-top: 0.75rem; }
+
+.timeline { margin-top: 3rem; }
+
+.timeline-title { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+
+.timeline-steps { display: flex; gap: 2px; background: var(--border); }
+
+.timeline-step { flex: 1; background: var(--dark); padding: 1.25rem 1.5rem; display: flex; flex-direction: column; gap: 0.4rem; position: relative; overflow: hidden; }
+
+.timeline-step.done { background: var(--surface); }
+
+.timeline-step.done::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--green); }
+
+.timeline-step.current { background: var(--surface); }
+
+.timeline-step.current::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); animation: shimmer 2s ease-in-out infinite; }
+
+@keyframes shimmer { 0%,100%{opacity:0.5} 50%{opacity:1} }
+
+.step-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+
+.step-label.done { color: var(--green); }
+
+.step-label.current { color: var(--accent); }
+
+.step-label.pending { color: var(--muted); opacity: 0.5; }
+
+.step-name { font-family: 'Barlow Condensed', sans-serif; font-size: 0.88rem; font-weight: 600; letter-spacing: 0.08em; color: var(--text); }
+
+.step-name.pending { color: var(--muted); opacity: 0.5; }
+
 
   /* REVIEWS */
-  .reviews-section { background: var(--black); padding: 6rem 3rem; }
-  .reviews-container { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
-  .review-card { background: var(--surface); padding: 2rem 2.5rem; display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; border-left: 3px solid transparent; transition: background 0.2s, border-color 0.2s; width: 100%; }
-  .review-card:hover { background: var(--surface2); border-color: var(--accent); }
-  .review-content { flex: 1; display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
-  .review-header { display: flex; flex-direction: column; gap: 0.3rem; }
-  .review-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); }
-  .review-stars { font-size: 1.2rem; letter-spacing: 0.1em; color: var(--accent); }
-  .review-meta { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-family: 'Barlow Condensed', sans-serif; }
-  .review-text { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-top: 0.25rem; }
-  .review-reply {
+.reviews-section { background: var(--black); padding: 6rem 3rem; }
+
+.reviews-container { display: flex; flex-direction: column; gap: 2px; background: var(--border); }
+
+.review-card { background: var(--surface); padding: 2rem 2.5rem; display: flex; flex-direction: row; gap: 2.5rem; align-items: flex-start; border-left: 3px solid transparent; transition: background 0.2s, border-color 0.2s; width: 100%; }
+
+.review-card:hover { background: var(--surface2); border-color: var(--accent); }
+
+.review-content { flex: 1; display: flex; flex-direction: column; gap: 0.6rem; min-width: 0; }
+
+.review-header { display: flex; flex-direction: column; gap: 0.3rem; }
+
+.review-name { font-family: 'Barlow Condensed', sans-serif; font-size: 1.1rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text); }
+
+.review-stars { font-size: 1.2rem; letter-spacing: 0.1em; color: var(--accent); }
+
+.review-meta { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); font-family: 'Barlow Condensed', sans-serif; }
+
+.review-text { font-size: 1rem; color: var(--muted); line-height: 1.8; margin-top: 0.25rem; }
+
+.review-reply {
     margin-top: 1rem;
     margin-left: 1.5rem;
     padding: 1rem 1.25rem;
@@ -466,14 +678,14 @@
     border-left: 2px solid var(--accent);
   }
 
-  .review-reply-header {
+.review-reply-header {
     display: flex;
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 0.4rem;
   }
 
-  .review-reply-logo {
+.review-reply-logo {
     width: 2rem;
     height: 2rem;
     object-fit: contain;
@@ -481,7 +693,7 @@
     border-radius: 3px;
   }
 
-  .review-reply-name {
+.review-reply-name {
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 1.1rem;
     font-weight: 700;
@@ -490,146 +702,104 @@
     color: var(--accent);
   }
 
-  .review-reply-text {
+.review-reply-text {
     font-size: 0.92rem;
     color: var(--muted);
     line-height: 1.7;
   }
-  .review-images { display: flex; flex-direction: column; gap: 0.5rem; flex-shrink: 0; width: 200px; }
-  .review-img { width: 200px; height: 150px; object-fit: cover; cursor: pointer; border: 1px solid var(--border2); transition: opacity 0.2s, border-color 0.2s; display: block; }
-  .review-img:hover { opacity: 0.85; border-color: var(--accent); }
-  .reviews-empty { padding: 2rem; text-align: center; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.15em; color: var(--muted); background: var(--surface); }
 
-  .review-cta-btn { background: var(--surface); color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 1.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 1.5rem 3.5rem; border: 2px solid var(--border2); border-radius: 6px; cursor: pointer; transition: all 0.2s ease; }
-  .review-cta-btn:hover { background: var(--surface2); border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+.review-images { display: flex; flex-direction: column; gap: 0.5rem; flex-shrink: 0; width: 200px; }
 
-  .cta-banner { background: var(--surface); padding: 4rem 3rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-  .cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.06em; color: var(--text); line-height: 1; }
-  .cta-banner p { font-size: 1rem; color: var(--muted); margin-top: 0.5rem; }
-  .btn-primary { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: none; cursor: pointer; white-space: nowrap; text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.15s; }
-  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+.review-img { width: 200px; height: 150px; object-fit: cover; cursor: pointer; border: 1px solid var(--border2); transition: opacity 0.2s, border-color 0.2s; display: block; }
 
-  footer { background: var(--dark); border-top: 1px solid var(--border); padding: 4rem 3rem 2rem; }
-  .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--border); }
-  .footer-brand p { font-size: 0.88rem; color: var(--muted); line-height: 1.7; margin-top: 1rem; }
-  .footer-col h4 { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.2rem; }
-  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
-  .footer-col a { font-size: 0.9rem; color: var(--text); text-decoration: none; opacity: 0.7; transition: opacity 0.2s, color 0.2s; }
-  .footer-col a:hover { opacity: 1; color: var(--accent); }
-  .footer-bottom { display: flex; justify-content: space-between; align-items: center; }
-  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.12em; color: var(--text); opacity: 0.5; }
-  .footer-logo span { color: var(--accent); opacity: 1; }
-  .footer-legal { font-size: 0.78rem; color: var(--muted); opacity: 0.5; }
+.review-img:hover { opacity: 0.85; border-color: var(--accent); }
+
+.reviews-empty { padding: 2rem; text-align: center; font-family: 'Barlow Condensed', sans-serif; letter-spacing: 0.15em; color: var(--muted); background: var(--surface); }
+
+.review-cta-btn { background: var(--surface); color: var(--text); font-family: 'Barlow Condensed', sans-serif; font-size: 1.6rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; padding: 1.5rem 3.5rem; border: 2px solid var(--border2); border-radius: 6px; cursor: pointer; transition: all 0.2s ease; }
+
+.review-cta-btn:hover { background: var(--surface2); border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+.cta-banner { background: var(--surface); padding: 4rem 3rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+
+.cta-banner h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.06em; color: var(--text); line-height: 1; }
+
+.cta-banner p { font-size: 1rem; color: var(--muted); margin-top: 0.5rem; }
+
+.btn-primary { background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.9rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; padding: 0.9rem 2.5rem; border: none; cursor: pointer; white-space: nowrap; text-decoration: none; display: inline-block; transition: background 0.2s, transform 0.15s; }
+
+.btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+
 
   /* SVG ANIMATIONS */
-  .net-link { stroke-dasharray: 6 4; animation: dash 3s linear infinite; }
-  .net-link-slow { stroke-dasharray: 6 4; animation: dash 5s linear infinite; }
-  .net-link-rev { stroke-dasharray: 6 4; animation: dash-rev 4s linear infinite; }
-  @keyframes dash { to { stroke-dashoffset: -60; } }
-  @keyframes dash-rev { to { stroke-dashoffset: 60; } }
-  .node-pulse { animation: node-glow 2.4s ease-in-out infinite; }
-  .node-pulse-b { animation: node-glow 2.4s ease-in-out infinite; animation-delay: 0.8s; }
-  .node-pulse-c { animation: node-glow 2.4s ease-in-out infinite; animation-delay: 1.6s; }
-  @keyframes node-glow { 0%,100%{opacity:0.5;r:7} 50%{opacity:1;r:9} }
+.net-link { stroke-dasharray: 6 4; animation: dash 3s linear infinite; }
 
-  @media (max-width: 900px) {
-    .product-hero { grid-template-columns: 1fr; }
-    .product-info { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--border); }
-    .specs-grid, .serial-card-body { grid-template-columns: 1fr; }
-    .nx-grid { grid-template-columns: 1fr; }
-    .ecosystem-grid { grid-template-columns: 1fr; }
-    .features-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-    .features-aside { position: static; }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
-    .cta-banner { flex-direction: column; text-align: center; }
-    .breadcrumb, .nx-section, .specs-section, .serial-section, .ecosystem-section, .features-section, .notify-section, .reviews-section { padding-left: 1.5rem; padding-right: 1.5rem; }
-    .nav-top, .nav-ribbon { padding-left: 1.5rem; padding-right: 1.5rem; }
-    .notify-input-row, .serial-input-row { flex-direction: column; }
-    .notify-input, .serial-input { border-right: 1px solid var(--border2); border-bottom: none; }
-    .timeline-steps { flex-direction: column; }
-    .unavail-banner { padding: 0.75rem 1.5rem; }
-    .review-card { flex-direction: column; gap: 1.25rem; padding: 1.5rem; }
-    .review-images { flex-direction: row; width: 100%; }
-    .review-img { width: calc(50% - 0.25rem); height: 120px; }
-    .ecosystem-card svg { display: none; }
-  }
-.nav-cart-btn {
-  position: relative;
-  background: transparent;
-  border: 1px solid var(--border2);
-  color: var(--text);
-  width: 38px;
-  height: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  text-decoration: none;
-  transition: border-color 0.2s, background 0.2s;
-  flex-shrink: 0;
-}
-.nav-cart-btn:hover { border-color: var(--accent); background: rgba(200,146,42,0.06); }
-.nav-cart-btn svg { width: 18px; height: 18px; stroke: var(--text); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.2s; }
-.nav-cart-btn:hover svg { stroke: var(--accent); }
-.cart-count { position: absolute; top: -6px; right: -6px; background: var(--accent); color: var(--black); font-family: 'Barlow Condensed', sans-serif; font-size: 0.6rem; font-weight: 700; min-width: 16px; height: 16px; border-radius: 8px; display: none; align-items: center; justify-content: center; padding: 0 3px; line-height: 1; }
-.cart-count.visible { display: flex; }
-.nav-ribbon a.active { color: var(--accent); background: rgba(200,146,42,0.06); }
+.net-link-slow { stroke-dasharray: 6 4; animation: dash 5s linear infinite; }
 
-.nav-burger {
-  display: none;
-  position: relative;
-  width: 38px; height: 38px;
-  flex-shrink: 0;
-  background: transparent;
-  border: 1px solid var(--border2);
-  cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
-}
-.nav-burger:hover, .nav-burger:focus-visible { border-color: var(--accent); background: rgba(200,146,42,0.06); outline: none; }
-.nav-burger span {
-  position: absolute; left: 9px; right: 9px; height: 2px;
-  background: var(--text);
-  transition: transform 0.25s ease, opacity 0.2s ease, top 0.25s ease, background 0.2s;
-}
-.nav-burger span:nth-child(1) { top: 11px; }
-.nav-burger span:nth-child(2) { top: 17px; }
-.nav-burger span:nth-child(3) { top: 23px; }
-.nav-burger:hover span { background: var(--accent); }
-.nav-burger.open span:nth-child(1) { top: 17px; transform: rotate(45deg); }
-.nav-burger.open span:nth-child(2) { opacity: 0; }
-.nav-burger.open span:nth-child(3) { top: 17px; transform: rotate(-45deg); }
+.net-link-rev { stroke-dasharray: 6 4; animation: dash-rev 4s linear infinite; }
 
-@media (max-width: 760px) {
-  .nav-burger { display: block; }
-  .nav-ribbon {
-    display: none;
-    flex-direction: column;
-    align-items: stretch;
-    justify-content: flex-start;
-    height: auto;
-    padding: 0;
-    max-height: calc(100vh - 62px);
-    overflow-y: auto;
-  }
-  .nav-ribbon.open { display: flex; }
-  .nav-ribbon a {
-    height: auto;
-    padding: 1rem 1.5rem;
-    font-size: 0.9rem;
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-ribbon a:first-child { border-left: none; }
-  .nav-ribbon a:last-child { border-bottom: none; }
-  .nav-ribbon a.active { box-shadow: inset 3px 0 0 var(--accent); }
+@keyframes dash { to { stroke-dashoffset: -60; } }
+
+@keyframes dash-rev { to { stroke-dashoffset: 60; } }
+
+.node-pulse { animation: node-glow 2.4s ease-in-out infinite; }
+
+.node-pulse-b { animation: node-glow 2.4s ease-in-out infinite; animation-delay: 0.8s; }
+
+.node-pulse-c { animation: node-glow 2.4s ease-in-out infinite; animation-delay: 1.6s; }
+
+@keyframes node-glow { 0%,100%{opacity:0.5;r:7} 50%{opacity:1;r:9} }
+
+@media (max-width: 900px) {
+.product-hero { grid-template-columns: 1fr; }
+
+.product-info { padding: 3rem 1.5rem; border-left: none; border-top: 1px solid var(--border); }
+
+.specs-grid, .serial-card-body { grid-template-columns: 1fr; }
+
+.nx-grid { grid-template-columns: 1fr; }
+
+.ecosystem-grid { grid-template-columns: 1fr; }
+
+.features-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+
+.features-aside { position: static; }
+
+.cta-banner { flex-direction: column; text-align: center; }
+
+.breadcrumb, .nx-section, .specs-section, .serial-section, .ecosystem-section, .features-section, .notify-section, .reviews-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+
+.notify-input-row, .serial-input-row { flex-direction: column; }
+
+.notify-input, .serial-input { border-right: 1px solid var(--border2); border-bottom: none; }
+
+.timeline-steps { flex-direction: column; }
+
+.unavail-banner { padding: 0.75rem 1.5rem; }
+
+.review-card { flex-direction: column; gap: 1.25rem; padding: 1.5rem; }
+
+.review-images { flex-direction: row; width: 100%; }
+
+.review-img { width: calc(50% - 0.25rem); height: 120px; }
+
+.ecosystem-card svg { display: none; }
 }
-  .review-stars-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
-  .review-product { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); opacity: 0.8; }
-  .review-tags { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.4rem; }
-  .badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.15rem 0.6rem; border: 1px solid var(--border2); color: var(--muted); }
-  .badge-purchase { border-color: rgba(200,146,42,0.55); color: var(--accent); background: rgba(200,146,42,0.07); }
-  .badge-field { border-color: rgba(232,228,217,0.3); color: var(--text); background: rgba(232,228,217,0.04); }
-  .review-date { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+
+.review-stars-row { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+
+.review-product { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); opacity: 0.8; }
+
+.review-tags { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.4rem; }
+
+.badge { display: inline-block; font-family: 'Barlow Condensed', sans-serif; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; padding: 0.15rem 0.6rem; border: 1px solid var(--border2); color: var(--muted); }
+
+.badge-purchase { border-color: rgba(var(--accent-rgb),0.55); color: var(--accent); background: rgba(var(--accent-rgb),0.07); }
+
+.badge-field { border-color: rgba(var(--text-rgb),0.3); color: var(--text); background: rgba(var(--text-rgb),0.04); }
+
+.review-date { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); }
+
 
 /* ── Product page: rating summary ── */
 .rating-summary {
@@ -637,103 +807,68 @@
   padding: 2.5rem 3rem; margin-bottom: 2px;
   background: var(--surface); border: 1px solid var(--border);
 }
+
 .rs-left { display: flex; flex-direction: column; align-items: center; gap: 0.35rem; flex-shrink: 0; min-width: 190px; text-align: center; }
+
 .rs-scope { font-family: 'Barlow Condensed', sans-serif; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--muted); }
+
 .rs-avg { font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 1; letter-spacing: 0.03em; color: var(--text); }
-.stars-frac { position: relative; display: inline-block; font-size: 1.5rem; letter-spacing: 0.1em; line-height: 1; color: var(--surface2); -webkit-text-stroke: 1px rgba(200,146,42,0.45); }
+
+.stars-frac { position: relative; display: inline-block; font-size: 1.5rem; letter-spacing: 0.1em; line-height: 1; color: var(--surface2); -webkit-text-stroke: 1px rgba(var(--accent-rgb),0.45); }
+
 .stars-frac .stars-fill { position: absolute; top: 0; left: 0; overflow: hidden; white-space: nowrap; color: var(--accent); -webkit-text-stroke: 0; }
+
 .rs-count { font-family: 'Barlow Condensed', sans-serif; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
+
 .rs-bars { flex: 1; display: flex; flex-direction: column; gap: 0.5rem; max-width: 520px; }
+
 .rs-row { display: flex; align-items: center; gap: 0.8rem; }
+
 .rs-row-label { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.1em; color: var(--muted); width: 2.2rem; flex-shrink: 0; text-align: right; }
+
 .rs-track { flex: 1; height: 10px; background: var(--surface2); border: 1px solid var(--border); }
+
 .rs-fill { height: 100%; background: var(--accent); width: 0; transition: width 0.4s ease; }
+
 .rs-row-count { font-family: 'Barlow Condensed', sans-serif; font-size: 0.85rem; font-weight: 600; color: var(--muted); width: 2.2rem; flex-shrink: 0; }
+
 @media (max-width: 760px) {
-  .rating-summary { flex-direction: column; align-items: stretch; gap: 1.75rem; padding: 2rem 1.5rem; }
-  .rs-left { min-width: 0; }
-  .rs-bars { max-width: 100%; }
+.rating-summary { flex-direction: column; align-items: stretch; gap: 1.75rem; padding: 2rem 1.5rem; }
+
+.rs-left { min-width: 0; }
+
+.rs-bars { max-width: 100%; }
 }
 
-/* header: Ursus Works - Armament */
-@media (max-width: 760px) {
-  .nav-top { padding: 0.6rem 1rem; }
-  .nav-brand { gap: 0.6rem; }
-  .nav-logo-img { height: 38px; width: 38px; }
-  .nav-brand .nav-logo { font-size: 1.05rem; letter-spacing: 0.08em; white-space: nowrap; }
-  .nav-slogan { font-size: 0.55rem; letter-spacing: 0.14em; white-space: nowrap; }
-  .nav-right { gap: 0.4rem !important; flex-shrink: 0; }
-}
-@media (max-width: 420px) {
-  .nav-top { padding: 0.6rem 0.75rem; }
-  .nav-brand { gap: 0.5rem; }
-  .nav-logo-img { height: 32px; width: 32px; border-radius: 6px; }
-  .nav-brand .nav-logo { font-size: 0.95rem; letter-spacing: 0.04em; }
-  .nav-slogan { display: none; }
-}
-@media (max-width: 350px) {
-  .nav-brand .nav-logo { font-size: 0.7rem; letter-spacing: 0.02em; }
-  .nav-logo-img { height: 28px; width: 28px; }
-  .nav-brand { gap: 0.4rem; }
-}
-/* header: keep login/account button from crowding the brand on phones */
-@media (max-width: 760px) {
-  .nav-auth a, .nav-auth button { max-width: 88px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding: 0.4rem 0.6rem; letter-spacing: 0.1em; }
-}
-@media (max-width: 350px) {
-  .nav-auth a, .nav-auth button { max-width: 62px; padding: 0.4rem 0.45rem; }
-}
 
 
 /* mobile overflow fix */
 .product-hero > * { min-width: 0; }
 
-.features-layout > *, .footer-grid > * { min-width: 0; }
+.features-layout > * { min-width: 0; }
+
 .feature-title, .feature-desc, .section-title { overflow-wrap: anywhere; }
+
 @media (max-width: 760px) {
-  .product-price-row { flex-wrap: wrap; }
-  .loadout-trigger-btn { white-space: normal; text-align: center; max-width: 100%; }
+.product-price-row { flex-wrap: wrap; }
+
+.loadout-trigger-btn { white-space: normal; text-align: center; max-width: 100%; }
 }
 
-@media (max-width: 420px) { .cert-row { flex-wrap: wrap; } .cert-item { min-width: 0; flex: 1 1 40%; } }
-  .tm { font-size: 0.5em; vertical-align: super; line-height: 0; letter-spacing: 0; margin-left: 0.1em; font-family: inherit; }
+@media (max-width: 420px) {
+.cert-row { flex-wrap: wrap; }
+
+.cert-item { min-width: 0; flex: 1 1 40%; }
+}
+
+
 </style>
+<link rel="stylesheet" href="/ursusarmament/theme.css">
+<script src="/ursusarmament/theme.js"></script>
 </head>
 <body>
 
-<nav>
-  <div class="nav-top">
-  <div class="nav-brand">
-      <a href="/ursusarmament/" class="nav-brand-link"><img class="nav-logo-img" src="/ursusarmament/images/ursusLogoOrange.png" alt="Ursus Armament logo"></a>
-      <div class="nav-brand-text">
-        <a href="/ursusarmament/" class="nav-logo">URSUS WORKS<sup class="tm">™</sup> - <span>ARMAMENT</span></a>
-        <span class="nav-slogan">Right to Bear. &nbsp;Ready to Stand.</span>
-      </div>
-    </div>
-  <div class="nav-right" style="display:flex; align-items:center; gap:0.75rem;">
-    <a href="/ursusarmament/cart" class="nav-cart-btn" id="navCartBtn" title="View Cart">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="9" cy="21" r="1"/>
-        <circle cx="20" cy="21" r="1"/>
-        <path d="M1 1h4l2.68 13.39a2 2 0 001.99 1.61h9.72a2 2 0 001.99-1.61L23 6H6"/>
-      </svg>
-      <span class="cart-count" id="cartCount"></span>
-    </a>
-    <div class="nav-auth" id="navAuth"></div>
-    <button type="button" class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="navRibbon">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</div>
-  <div class="nav-ribbon" id="navRibbon">
-    <a href="/ursusarmament/products" class="active" aria-current="page">Products</a>
-    <a href="/ursusarmament/customerreviews">Reviews</a>
-    <a href="/ursusarmament/learnmore/">Learn More</a>
-    <a href="/ursusarmament/aboutus/">About</a>
-    <a href="/ursusarmament/contact/">Contact</a>
-    <a href="/ursusworks/">← Ursus Works<sup class="tm">™</sup></a>
-  </div>
-</nav>
+<script src="/ursusarmament/header.js"></script>
 
 <div class="breadcrumb">
   <a href="/ursusarmament">Home</a><span>›</span>
@@ -759,114 +894,114 @@
       <svg viewBox="0 0 560 420" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:900px;position:relative;z-index:1;">
 
         <!-- Frame -->
-        <rect x="1" y="1" width="558" height="418" fill="none" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22"/>
-        <polyline points="1,22 1,1 22,1" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
-        <polyline points="538,1 558,1 558,22" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
-        <polyline points="1,396 1,418 22,418" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
-        <polyline points="538,418 558,418 558,396" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
+        <rect x="1" y="1" width="558" height="418" fill="none" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.22"/>
+        <polyline points="1,22 1,1 22,1" fill="none" stroke="var(--accent)" stroke-width="2" stroke-opacity="0.5"/>
+        <polyline points="538,1 558,1 558,22" fill="none" stroke="var(--accent)" stroke-width="2" stroke-opacity="0.5"/>
+        <polyline points="1,396 1,418 22,418" fill="none" stroke="var(--accent)" stroke-width="2" stroke-opacity="0.5"/>
+        <polyline points="538,418 558,418 558,396" fill="none" stroke="var(--accent)" stroke-width="2" stroke-opacity="0.5"/>
 
         <!-- Faint grid -->
-        <line x1="280" y1="0" x2="280" y2="420" stroke="#c8701a" stroke-width="0.4" stroke-opacity="0.06"/>
-        <line x1="0" y1="210" x2="560" y2="210" stroke="#c8701a" stroke-width="0.4" stroke-opacity="0.06"/>
+        <line x1="280" y1="0" x2="280" y2="420" stroke="var(--accent)" stroke-width="0.4" stroke-opacity="0.06"/>
+        <line x1="0" y1="210" x2="560" y2="210" stroke="var(--accent)" stroke-width="0.4" stroke-opacity="0.06"/>
 
         <!-- Network links -->
-        <line x1="280" y1="210" x2="156" y2="118" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35" class="net-link"/>
-        <line x1="280" y1="210" x2="404" y2="118" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35" class="net-link-slow"/>
-        <line x1="280" y1="210" x2="404" y2="302" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35" class="net-link-rev"/>
-        <line x1="280" y1="210" x2="156" y2="302" stroke="#c8701a" stroke-width="1" stroke-opacity="0.35" class="net-link"/>
-        <line x1="280" y1="210" x2="280" y2="72" stroke="#c8701a" stroke-width="1" stroke-opacity="0.28" class="net-link-slow"/>
-        <line x1="280" y1="210" x2="280" y2="348" stroke="#c8701a" stroke-width="1" stroke-opacity="0.28" class="net-link-rev"/>
-        <line x1="280" y1="210" x2="72" y2="210" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22" class="net-link"/>
-        <line x1="280" y1="210" x2="488" y2="210" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22" class="net-link-slow"/>
+        <line x1="280" y1="210" x2="156" y2="118" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.35" class="net-link"/>
+        <line x1="280" y1="210" x2="404" y2="118" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.35" class="net-link-slow"/>
+        <line x1="280" y1="210" x2="404" y2="302" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.35" class="net-link-rev"/>
+        <line x1="280" y1="210" x2="156" y2="302" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.35" class="net-link"/>
+        <line x1="280" y1="210" x2="280" y2="72" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.28" class="net-link-slow"/>
+        <line x1="280" y1="210" x2="280" y2="348" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.28" class="net-link-rev"/>
+        <line x1="280" y1="210" x2="72" y2="210" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.22" class="net-link"/>
+        <line x1="280" y1="210" x2="488" y2="210" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.22" class="net-link-slow"/>
 
         <!-- Cross links -->
-        <line x1="156" y1="118" x2="404" y2="118" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.18" class="net-link-slow" stroke-dasharray="4,6"/>
-        <line x1="156" y1="302" x2="404" y2="302" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.18" class="net-link-rev" stroke-dasharray="4,6"/>
-        <line x1="156" y1="118" x2="156" y2="302" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.15" class="net-link" stroke-dasharray="4,6"/>
-        <line x1="404" y1="118" x2="404" y2="302" stroke="#c8701a" stroke-width="0.6" stroke-opacity="0.15" class="net-link-slow" stroke-dasharray="4,6"/>
+        <line x1="156" y1="118" x2="404" y2="118" stroke="var(--accent)" stroke-width="0.6" stroke-opacity="0.18" class="net-link-slow" stroke-dasharray="4,6"/>
+        <line x1="156" y1="302" x2="404" y2="302" stroke="var(--accent)" stroke-width="0.6" stroke-opacity="0.18" class="net-link-rev" stroke-dasharray="4,6"/>
+        <line x1="156" y1="118" x2="156" y2="302" stroke="var(--accent)" stroke-width="0.6" stroke-opacity="0.15" class="net-link" stroke-dasharray="4,6"/>
+        <line x1="404" y1="118" x2="404" y2="302" stroke="var(--accent)" stroke-width="0.6" stroke-opacity="0.15" class="net-link-slow" stroke-dasharray="4,6"/>
 
         <!-- ASI Module connections to centers of 4 device nodes -->
         <!-- North ASI → NX-100 NOD center -->
-        <line x1="280" y1="76" x2="156" y2="118" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link-slow" stroke-dasharray="4,6"/>
+        <line x1="280" y1="76" x2="156" y2="118" stroke="var(--accent)" stroke-width="0.7" stroke-opacity="0.3" class="net-link-slow" stroke-dasharray="4,6"/>
         <!-- North ASI → NX-200 REL center -->
-        <line x1="280" y1="76" x2="404" y2="118" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link-rev" stroke-dasharray="4,6"/>
+        <line x1="280" y1="76" x2="404" y2="118" stroke="var(--accent)" stroke-width="0.7" stroke-opacity="0.3" class="net-link-rev" stroke-dasharray="4,6"/>
         <!-- South ASI → NX-400 VEC center -->
-        <line x1="280" y1="344" x2="156" y2="302" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link" stroke-dasharray="4,6"/>
+        <line x1="280" y1="344" x2="156" y2="302" stroke="var(--accent)" stroke-width="0.7" stroke-opacity="0.3" class="net-link" stroke-dasharray="4,6"/>
         <!-- South ASI → NX-300 LFT center -->
-        <line x1="280" y1="344" x2="404" y2="302" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link-slow" stroke-dasharray="4,6"/>
+        <line x1="280" y1="344" x2="404" y2="302" stroke="var(--accent)" stroke-width="0.7" stroke-opacity="0.3" class="net-link-slow" stroke-dasharray="4,6"/>
         <!-- West ASI → NX-100 NOD center -->
-        <line x1="76" y1="210" x2="156" y2="118" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link-rev" stroke-dasharray="4,6"/>
+        <line x1="76" y1="210" x2="156" y2="118" stroke="var(--accent)" stroke-width="0.7" stroke-opacity="0.3" class="net-link-rev" stroke-dasharray="4,6"/>
         <!-- West ASI → NX-400 VEC center -->
-        <line x1="76" y1="210" x2="156" y2="302" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link" stroke-dasharray="4,6"/>
+        <line x1="76" y1="210" x2="156" y2="302" stroke="var(--accent)" stroke-width="0.7" stroke-opacity="0.3" class="net-link" stroke-dasharray="4,6"/>
         <!-- East ASI → NX-200 REL center -->
-        <line x1="484" y1="210" x2="404" y2="118" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link-slow" stroke-dasharray="4,6"/>
+        <line x1="484" y1="210" x2="404" y2="118" stroke="var(--accent)" stroke-width="0.7" stroke-opacity="0.3" class="net-link-slow" stroke-dasharray="4,6"/>
         <!-- East ASI → NX-300 LFT center -->
-        <line x1="484" y1="210" x2="404" y2="302" stroke="#c8701a" stroke-width="0.7" stroke-opacity="0.3" class="net-link-rev" stroke-dasharray="4,6"/>
+        <line x1="484" y1="210" x2="404" y2="302" stroke="var(--accent)" stroke-width="0.7" stroke-opacity="0.3" class="net-link-rev" stroke-dasharray="4,6"/>
 
         <!-- Central Hub -->
-        <circle cx="280" cy="210" r="32" fill="#111110" stroke="#c8701a" stroke-width="1.8" stroke-opacity="0.7"/>
-        <circle cx="280" cy="210" r="24" fill="none" stroke="#c8701a" stroke-width="0.75" stroke-opacity="0.3"/>
-        <circle cx="280" cy="210" r="14" fill="none" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.2"/>
-        <circle cx="280" cy="210" r="5" fill="#c8701a" fill-opacity="0.25" class="node-pulse"/>
-        <text x="280" y="252" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.55" text-anchor="middle" letter-spacing="1">NEXIS HUB</text>
-        <text x="280" y="263" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.35" text-anchor="middle" letter-spacing="0.5">NX-600 CMD</text>
+        <circle cx="280" cy="210" r="32" fill="#111110" stroke="var(--accent)" stroke-width="1.8" stroke-opacity="0.7"/>
+        <circle cx="280" cy="210" r="24" fill="none" stroke="var(--accent)" stroke-width="0.75" stroke-opacity="0.3"/>
+        <circle cx="280" cy="210" r="14" fill="none" stroke="var(--accent)" stroke-width="0.5" stroke-opacity="0.2"/>
+        <circle cx="280" cy="210" r="5" fill="var(--accent)" fill-opacity="0.25" class="node-pulse"/>
+        <text x="280" y="252" font-family="monospace" font-size="7" fill="var(--accent)" fill-opacity="0.55" text-anchor="middle" letter-spacing="1">NEXIS HUB</text>
+        <text x="280" y="263" font-family="monospace" font-size="5.5" fill="var(--accent)" fill-opacity="0.35" text-anchor="middle" letter-spacing="0.5">NX-600 CMD</text>
 
         <!-- NX-100 NOD — top left -->
-        <rect x="108" y="88" width="96" height="60" rx="4" fill="#111110" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
-        <circle cx="156" cy="118" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse"/>
-        <text x="156" y="106" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">DISMOUNTED</text>
-        <text x="156" y="117" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">NODE</text>
-        <text x="156" y="128" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">PAX Tracking</text>
-        <text x="156" y="140" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">NX-100 NOD</text>
+        <rect x="108" y="88" width="96" height="60" rx="4" fill="#111110" stroke="var(--accent)" stroke-width="1.3" stroke-opacity="0.6"/>
+        <circle cx="156" cy="118" r="7" fill="var(--accent)" fill-opacity="0.15" class="node-pulse"/>
+        <text x="156" y="106" font-family="monospace" font-size="7" fill="var(--accent)" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">DISMOUNTED</text>
+        <text x="156" y="117" font-family="monospace" font-size="7" fill="var(--accent)" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">NODE</text>
+        <text x="156" y="128" font-family="monospace" font-size="6" fill="var(--accent)" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">PAX Tracking</text>
+        <text x="156" y="140" font-family="monospace" font-size="5.5" fill="var(--accent)" fill-opacity="0.28" text-anchor="middle">NX-100 NOD</text>
 
         <!-- NX-200 REL — top right -->
-        <rect x="356" y="88" width="96" height="60" rx="4" fill="#111110" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
-        <circle cx="404" cy="118" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse-b"/>
-        <text x="404" y="106" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">STATIONARY</text>
-        <text x="404" y="117" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">RELAY NODE</text>
-        <text x="404" y="128" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">Persistent Coverage</text>
-        <text x="404" y="140" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">NX-200 REL</text>
+        <rect x="356" y="88" width="96" height="60" rx="4" fill="#111110" stroke="var(--accent)" stroke-width="1.3" stroke-opacity="0.6"/>
+        <circle cx="404" cy="118" r="7" fill="var(--accent)" fill-opacity="0.15" class="node-pulse-b"/>
+        <text x="404" y="106" font-family="monospace" font-size="7" fill="var(--accent)" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">STATIONARY</text>
+        <text x="404" y="117" font-family="monospace" font-size="7" fill="var(--accent)" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">RELAY NODE</text>
+        <text x="404" y="128" font-family="monospace" font-size="6" fill="var(--accent)" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">Persistent Coverage</text>
+        <text x="404" y="140" font-family="monospace" font-size="5.5" fill="var(--accent)" fill-opacity="0.28" text-anchor="middle">NX-200 REL</text>
 
         <!-- NX-300 LFT — bottom right -->
-        <rect x="356" y="272" width="96" height="60" rx="4" fill="#111110" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
-        <circle cx="404" cy="302" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse-c"/>
-        <text x="404" y="290" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">AERIAL</text>
-        <text x="404" y="301" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">RELAY NODE</text>
-        <text x="404" y="312" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">Rapid Deploy</text>
-        <text x="404" y="324" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">NX-300 LFT</text>
+        <rect x="356" y="272" width="96" height="60" rx="4" fill="#111110" stroke="var(--accent)" stroke-width="1.3" stroke-opacity="0.6"/>
+        <circle cx="404" cy="302" r="7" fill="var(--accent)" fill-opacity="0.15" class="node-pulse-c"/>
+        <text x="404" y="290" font-family="monospace" font-size="7" fill="var(--accent)" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">AERIAL</text>
+        <text x="404" y="301" font-family="monospace" font-size="7" fill="var(--accent)" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">RELAY NODE</text>
+        <text x="404" y="312" font-family="monospace" font-size="6" fill="var(--accent)" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">Rapid Deploy</text>
+        <text x="404" y="324" font-family="monospace" font-size="5.5" fill="var(--accent)" fill-opacity="0.28" text-anchor="middle">NX-300 LFT</text>
 
         <!-- NX-400 VEC — bottom left -->
-        <rect x="108" y="272" width="96" height="60" rx="4" fill="#111110" stroke="#c8701a" stroke-width="1.3" stroke-opacity="0.6"/>
-        <circle cx="156" cy="302" r="7" fill="#c8701a" fill-opacity="0.15" class="node-pulse"/>
-        <text x="156" y="290" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">VEHICLE</text>
-        <text x="156" y="301" font-family="monospace" font-size="7" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">MESH NODE</text>
-        <text x="156" y="312" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">Mobile Coverage</text>
-        <text x="156" y="324" font-family="monospace" font-size="5.5" fill="#c8701a" fill-opacity="0.28" text-anchor="middle">NX-400 VEC</text>
+        <rect x="108" y="272" width="96" height="60" rx="4" fill="#111110" stroke="var(--accent)" stroke-width="1.3" stroke-opacity="0.6"/>
+        <circle cx="156" cy="302" r="7" fill="var(--accent)" fill-opacity="0.15" class="node-pulse"/>
+        <text x="156" y="290" font-family="monospace" font-size="7" fill="var(--accent)" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">VEHICLE</text>
+        <text x="156" y="301" font-family="monospace" font-size="7" fill="var(--accent)" fill-opacity="0.8" text-anchor="middle" letter-spacing="1">MESH NODE</text>
+        <text x="156" y="312" font-family="monospace" font-size="6" fill="var(--accent)" fill-opacity="0.4" text-anchor="middle" letter-spacing="0.5">Mobile Coverage</text>
+        <text x="156" y="324" font-family="monospace" font-size="5.5" fill="var(--accent)" fill-opacity="0.28" text-anchor="middle">NX-400 VEC</text>
 
         <!-- ASI Modules -->
-        <circle cx="280" cy="62" r="14" fill="#0e0e0c" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
-        <text x="280" y="58" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">ASI</text>
-        <text x="280" y="69" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">MODULE</text>
+        <circle cx="280" cy="62" r="14" fill="#0e0e0c" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.45"/>
+        <text x="280" y="58" font-family="monospace" font-size="6.5" fill="var(--accent)" fill-opacity="0.55" text-anchor="middle">ASI</text>
+        <text x="280" y="69" font-family="monospace" font-size="6" fill="var(--accent)" fill-opacity="0.35" text-anchor="middle">MODULE</text>
 
-        <circle cx="280" cy="358" r="14" fill="#0e0e0c" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
-        <text x="280" y="354" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">ASI</text>
-        <text x="280" y="365" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">MODULE</text>
+        <circle cx="280" cy="358" r="14" fill="#0e0e0c" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.45"/>
+        <text x="280" y="354" font-family="monospace" font-size="6.5" fill="var(--accent)" fill-opacity="0.55" text-anchor="middle">ASI</text>
+        <text x="280" y="365" font-family="monospace" font-size="6" fill="var(--accent)" fill-opacity="0.35" text-anchor="middle">MODULE</text>
 
-        <circle cx="62" cy="210" r="14" fill="#0e0e0c" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
-        <text x="62" y="206" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">ASI</text>
-        <text x="62" y="217" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">MODULE</text>
+        <circle cx="62" cy="210" r="14" fill="#0e0e0c" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.45"/>
+        <text x="62" y="206" font-family="monospace" font-size="6.5" fill="var(--accent)" fill-opacity="0.55" text-anchor="middle">ASI</text>
+        <text x="62" y="217" font-family="monospace" font-size="6" fill="var(--accent)" fill-opacity="0.35" text-anchor="middle">MODULE</text>
 
-        <circle cx="498" cy="210" r="14" fill="#0e0e0c" stroke="#c8701a" stroke-width="1" stroke-opacity="0.45"/>
-        <text x="498" y="206" font-family="monospace" font-size="6.5" fill="#c8701a" fill-opacity="0.55" text-anchor="middle">ASI</text>
-        <text x="498" y="217" font-family="monospace" font-size="6" fill="#c8701a" fill-opacity="0.35" text-anchor="middle">MODULE</text>
+        <circle cx="498" cy="210" r="14" fill="#0e0e0c" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.45"/>
+        <text x="498" y="206" font-family="monospace" font-size="6.5" fill="var(--accent)" fill-opacity="0.55" text-anchor="middle">ASI</text>
+        <text x="498" y="217" font-family="monospace" font-size="6" fill="var(--accent)" fill-opacity="0.35" text-anchor="middle">MODULE</text>
 
         <!-- Title -->
-        <text x="280" y="28" font-family="monospace" font-size="18" fill="#c8701a" fill-opacity="0.8" text-anchor="middle" letter-spacing="6">NEXIS</text>
-        <text x="280" y="42" font-family="monospace" font-size="7.5" fill="#c8701a" fill-opacity="0.35" text-anchor="middle" letter-spacing="2">TACTICAL NETWORK TOPOLOGY  ·  PRE-PRODUCTION</text>
+        <text x="280" y="28" font-family="monospace" font-size="18" fill="var(--accent)" fill-opacity="0.8" text-anchor="middle" letter-spacing="6">NEXIS</text>
+        <text x="280" y="42" font-family="monospace" font-size="7.5" fill="var(--accent)" fill-opacity="0.35" text-anchor="middle" letter-spacing="2">TACTICAL NETWORK TOPOLOGY  ·  PRE-PRODUCTION</text>
 
         <!-- Faint diagonals -->
-        <line x1="0" y1="0" x2="560" y2="420" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.03"/>
-        <line x1="560" y1="0" x2="0" y2="420" stroke="#c8701a" stroke-width="0.5" stroke-opacity="0.03"/>
+        <line x1="0" y1="0" x2="560" y2="420" stroke="var(--accent)" stroke-width="0.5" stroke-opacity="0.03"/>
+        <line x1="560" y1="0" x2="0" y2="420" stroke="var(--accent)" stroke-width="0.5" stroke-opacity="0.03"/>
 
       </svg>
     </div>
@@ -898,7 +1033,7 @@
     </div>
     <div class="product-trust">
       <div class="trust-item"><span class="trust-label">Availability</span><span class="trust-value tbd">TBD</span></div>
-      <div class="trust-item"><span class="trust-label">Made In</span><span class="trust-value">USA</span></div>
+      <div class="trust-item"><span class="trust-label">Designed &amp; Assembled</span><span class="trust-value">USA</span></div>
     </div>
   </div>
 </section>
@@ -1062,7 +1197,7 @@
     <div class="spec-item"><span class="spec-name">Power</span><span class="spec-value">DC Battery / Solar-Assist / AC-Grid</span></div>
     <div class="spec-item"><span class="spec-name">Environmental Rating</span><span class="spec-value">IP67 all nodes (target)</span></div>
     <div class="spec-item"><span class="spec-name">Operating Temp</span><span class="spec-value">-40°F to +90°F (target)</span></div>
-    <div class="spec-item"><span class="spec-name">Country of Origin</span><span class="spec-value">United States of America</span></div>
+    <div class="spec-item"><span class="spec-name">Design &amp; Assembly</span><span class="spec-value">United States of America</span></div>
   </div>
   <div class="spec-note">⚠ &nbsp;Specifications are preliminary design targets and subject to revision. Final performance figures will be published at product launch. Export control classification pending — certain configurations may require licensing.</div>
 </section>
@@ -1123,8 +1258,8 @@
     </div>
     <div class="ecosystem-card" style="position:relative;overflow:visible;">
       <svg style="position:absolute;left:-27px;top:50%;transform:translateY(-50%);z-index:10;overflow:visible;" viewBox="0 0 24 40" width="48" height="80">
-        <polygon points="6,17 18,17 18,13 24,20 18,27 18,23 6,23 6,27 0,20 6,13" fill="#c8922a"/>
-        <polygon points="18,17 6,17 6,13 0,20 6,27 6,23 18,23 18,27 24,20 18,13" fill="#c8922a"/>
+        <polygon points="6,17 18,17 18,13 24,20 18,27 18,23 6,23 6,27 0,20 6,13" fill="var(--accent)"/>
+        <polygon points="18,17 6,17 6,13 0,20 6,27 6,23 18,23 18,27 24,20 18,13" fill="var(--accent)"/>
       </svg>
       <div class="eco-icon">STRIX Control Layer</div>
       <div class="eco-name">Software and Network Driven Capability</div>
@@ -1133,8 +1268,8 @@
     </div>
     <div class="ecosystem-card" style="position:relative;overflow:visible;">
       <svg style="position:absolute;left:-27px;top:50%;transform:translateY(-50%);z-index:10;overflow:visible;" viewBox="0 0 24 40" width="48" height="80">
-        <polygon points="6,17 18,17 18,13 24,20 18,27 18,23 6,23 6,27 0,20 6,13" fill="#c8922a"/>
-        <polygon points="18,17 6,17 6,13 0,20 6,27 6,23 18,23 18,27 24,20 18,13" fill="#c8922a"/>
+        <polygon points="6,17 18,17 18,13 24,20 18,27 18,23 6,23 6,27 0,20 6,13" fill="var(--accent)"/>
+        <polygon points="18,17 6,17 6,13 0,20 6,27 6,23 18,23 18,27 24,20 18,13" fill="var(--accent)"/>
       </svg>
       <div class="eco-icon">NEXIS</div>
       <div class="eco-name">Self-Healing Mesh Network</div>
@@ -1218,50 +1353,12 @@
   </div>
 </section>
 
-<footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="nav-logo">URSUS <span style="color: var(--accent);">ARMAMENT</span><sup class="tm">™</sup></div>
-      <p>Developing next-generation tactical gear for the American people. Manufactured, tested, and deployed with pride in the USA.</p>
-    </div>
-    <div class="footer-col">
-      <h4>Products</h4>
-      <ul>
-        <li><a href="/ursusarmament/products/URSIX">URSIX</a></li>
-        <li><a href="/ursusarmament/products/ROTS">R.O.T.S.</a></li>
-        <li><a href="/ursusarmament/products">View All</a></li>
-        <li><a href="/ursusarmament/customerreviews">Customer Reviews</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Company</h4>
-      <ul>
-        <li><a href="/ursusarmament/aboutus/">About Us</a></li>
-        <li><a href="/ursusarmament/testingstandards/">Testing Standards</a></li>
-        <li><a href="/ursusarmament/careers/">Careers</a></li>
-        <li><a href="https://www.youtube.com/@UrsusWorks/" target="_blank" rel="noopener noreferrer">YouTube</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Support</h4>
-      <ul>
-        <li><a href="/ursusarmament/contact/">Contact</a></li>
-        <li><a href="/ursusarmament/warranty/">Warranty</a></li>
-        <li><a href="/ursusarmament/ITAR/">ITAR Compliance</a></li>
-        <li><a href="/ursusarmament/learnmore/">Learn More</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <div class="footer-logo">URSUS <span>ARMAMENT</span><sup class="tm">™</sup></div>
-    <div class="footer-legal">2026 Ursus Armament<sup class="tm">™</sup> LLC. All rights reserved. | <a href="/ursusarmament/aboutus/#privacy-security" style="color:inherit; text-decoration:underline;">Privacy Policy</a> | <a href="/ursusarmament/terms/" style="color:inherit; text-decoration:underline;">Terms</a></div>
-  </div>
-</footer>
+<script src="/ursusarmament/footer.js"></script>
 
 <!-- REVIEW MODAL -->
-<div id="reviewModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:99999; justify-content:center; align-items:center; overflow-y:auto; padding: 2rem 0;">
+<div id="reviewModal" style="display:none; position:fixed; inset:0; background:var(--overlay); z-index:99999; justify-content:center; align-items:center; overflow-y:auto; padding: 2rem 0;">
   <div style="background: var(--dark); padding: 2rem; width: 90%; max-width: 600px; border: 1px solid var(--border); position: relative; margin: auto;">
-    <button onclick="closeReviewModal()" style="position:absolute; top:10px; right:15px; background:none; border:none; color:white; font-size:20px; cursor:pointer;">✕</button>
+    <button onclick="closeReviewModal()" style="position:absolute; top:10px; right:15px; background:none; border:none; color:var(--text); font-size:20px; cursor:pointer;">✕</button>
     <div id="reviewFormContainer">
       <h2 style="font-family:'Bebas Neue'; letter-spacing:0.06em; margin-bottom:1rem;">Leave a Review</h2>
       <div style="display:flex; flex-direction:column; gap:1rem;">
@@ -1419,21 +1516,21 @@
 
           <svg viewBox="0 0 900 460" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:820px;display:block;margin:0 auto;">
 
-            <rect x="1" y="1" width="898" height="458" fill="#111110" stroke="#c8701a" stroke-width="1" stroke-opacity="0.22"/>
-            <polyline points="1,22 1,1 22,1" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
-            <polyline points="878,1 898,1 898,22" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
-            <polyline points="1,438 1,458 22,458" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
-            <polyline points="878,458 898,458 898,438" fill="none" stroke="#c8701a" stroke-width="2" stroke-opacity="0.5"/>
+            <rect x="1" y="1" width="898" height="458" fill="#111110" stroke="var(--accent)" stroke-width="1" stroke-opacity="0.22"/>
+            <polyline points="1,22 1,1 22,1" fill="none" stroke="var(--accent)" stroke-width="2" stroke-opacity="0.5"/>
+            <polyline points="878,1 898,1 898,22" fill="none" stroke="var(--accent)" stroke-width="2" stroke-opacity="0.5"/>
+            <polyline points="1,438 1,458 22,458" fill="none" stroke="var(--accent)" stroke-width="2" stroke-opacity="0.5"/>
+            <polyline points="878,458 898,458 898,438" fill="none" stroke="var(--accent)" stroke-width="2" stroke-opacity="0.5"/>
 
-            <text x="450" y="38" font-family="monospace" font-size="20" fill="#c8701a" fill-opacity="0.85" text-anchor="middle" letter-spacing="2">LIVE POLARIZATION MISMATCH</text>
-            <text x="450" y="58" font-family="monospace" font-size="12" fill="#c8701a" fill-opacity="0.45" text-anchor="middle">Drag the slider &mdash; head and antennas pitch together; watch each mount's link to the stationary node</text>
+            <text x="450" y="38" font-family="monospace" font-size="20" fill="var(--accent)" fill-opacity="0.85" text-anchor="middle" letter-spacing="2">LIVE POLARIZATION MISMATCH</text>
+            <text x="450" y="58" font-family="monospace" font-size="12" fill="var(--accent)" fill-opacity="0.45" text-anchor="middle">Drag the slider &mdash; head and antennas pitch together; watch each mount's link to the stationary node</text>
 
             <circle cx="130" cy="82" r="6" fill="#2a9c5c"/>
             <text x="144" y="87" font-family="monospace" font-size="12" fill="#2a9c5c" text-anchor="start">Stationary Node</text>
             <text x="144" y="99" font-family="monospace" font-size="12" fill="#2a9c5c" text-anchor="start">(NX-200)</text>
-            <circle cx="420" cy="82" r="6" fill="#c8701a"/>
-            <text x="434" y="87" font-family="monospace" font-size="12" fill="#c8701a" text-anchor="start">~15&deg; Target Mount</text>
-            <text x="434" y="99" font-family="monospace" font-size="12" fill="#c8701a" text-anchor="start">(NX-100)</text>
+            <circle cx="420" cy="82" r="6" fill="var(--accent)"/>
+            <text x="434" y="87" font-family="monospace" font-size="12" fill="var(--accent)" text-anchor="start">~15&deg; Target Mount</text>
+            <text x="434" y="99" font-family="monospace" font-size="12" fill="var(--accent)" text-anchor="start">(NX-100)</text>
             <circle cx="720" cy="82" r="6" fill="#5b9bd5"/>
             <text x="734" y="87" font-family="monospace" font-size="12" fill="#5b9bd5" text-anchor="start">Vertical Mount (0&deg;)</text>
 
@@ -1449,21 +1546,21 @@
             <text x="150" y="440" font-family="monospace" font-size="11" fill="#2a9c5c" fill-opacity="0.8" text-anchor="middle" letter-spacing="0.5">NX-200 &middot; STATIONARY REFERENCE</text>
             <text x="150" y="453" font-family="monospace" font-size="9" fill="#2a9c5c" fill-opacity="0.45" text-anchor="middle">elevated mount &middot; fixed vertical (0&deg;)</text>
 
-            <line x1="560" y1="200" x2="560" y2="400" stroke="#c8701a" stroke-width="0.8" stroke-opacity="0.25" stroke-dasharray="4,6"/>
-            <text x="573" y="212" font-family="monospace" font-size="10" fill="#c8701a" fill-opacity="0.4">VERTICAL REF</text>
+            <line x1="560" y1="200" x2="560" y2="400" stroke="var(--accent)" stroke-width="0.8" stroke-opacity="0.25" stroke-dasharray="4,6"/>
+            <text x="573" y="212" font-family="monospace" font-size="10" fill="var(--accent)" fill-opacity="0.4">VERTICAL REF</text>
 
-            <circle cx="560" cy="340" r="6" fill="#c8701a" fill-opacity="0.25"/>
+            <circle cx="560" cy="340" r="6" fill="var(--accent)" fill-opacity="0.25"/>
 
             <path id="antArcA" d="" fill="none" stroke="#5b9bd5" stroke-width="1.4" stroke-opacity="0.5"/>
-            <path id="antArcB" d="" fill="none" stroke="#c8701a" stroke-width="1.4" stroke-opacity="0.5"/>
+            <path id="antArcB" d="" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-opacity="0.5"/>
             <line id="antVecA" x1="560" y1="340" x2="560" y2="210" stroke="#5b9bd5" stroke-width="2.4" stroke-opacity="0.9" stroke-dasharray="6,4"/>
-            <line id="antVecB" x1="560" y1="340" x2="526.4" y2="214.4" stroke="#c8701a" stroke-width="2.4" stroke-opacity="0.9" stroke-dasharray="6,4"/>
+            <line id="antVecB" x1="560" y1="340" x2="526.4" y2="214.4" stroke="var(--accent)" stroke-width="2.4" stroke-opacity="0.9" stroke-dasharray="6,4"/>
             <path id="antPulseA1" d="M 554.0 199.6 A 12 12 0 0 1 566.0 199.6" fill="none" stroke="#5b9bd5" stroke-width="2" class="node-pulse"/>
             <path id="antPulseA2" d="M 549.0 191.0 A 22 22 0 0 1 571.0 191.0" fill="none" stroke="#5b9bd5" stroke-width="2" class="node-pulse-b"/>
             <path id="antPulseA3" d="M 544.0 182.3 A 32 32 0 0 1 576.0 182.3" fill="none" stroke="#5b9bd5" stroke-width="2" class="node-pulse-c"/>
-            <path id="antPulseB1" d="M 517.9 205.9 A 12 12 0 0 1 529.5 202.8" fill="none" stroke="#c8701a" stroke-width="2" class="node-pulse"/>
-            <path id="antPulseB2" d="M 510.8 198.8 A 22 22 0 0 1 532.1 193.2" fill="none" stroke="#c8701a" stroke-width="2" class="node-pulse-b"/>
-            <path id="antPulseB3" d="M 503.8 191.8 A 32 32 0 0 1 534.7 183.5" fill="none" stroke="#c8701a" stroke-width="2" class="node-pulse-c"/>
+            <path id="antPulseB1" d="M 517.9 205.9 A 12 12 0 0 1 529.5 202.8" fill="none" stroke="var(--accent)" stroke-width="2" class="node-pulse"/>
+            <path id="antPulseB2" d="M 510.8 198.8 A 22 22 0 0 1 532.1 193.2" fill="none" stroke="var(--accent)" stroke-width="2" class="node-pulse-b"/>
+            <path id="antPulseB3" d="M 503.8 191.8 A 32 32 0 0 1 534.7 183.5" fill="none" stroke="var(--accent)" stroke-width="2" class="node-pulse-c"/>
 
             <!-- Head/shoulder silhouette traced from reference image (facing right). Body is fixed; head pivots on the neck at (770,340). -->
             <g id="hudBody" transform="translate(770 340)" stroke-linecap="round" stroke-linejoin="round">
@@ -1491,7 +1588,7 @@
               <span class="antenna-readout-value">mismatch <strong id="antMismatchA">0&deg;</strong> &middot; loss <strong id="antLossA">0.0 dB</strong></span>
             </div>
             <div class="antenna-readout-row">
-              <span class="antenna-readout-dot" style="background:#c8701a;"></span>
+              <span class="antenna-readout-dot" style="background:var(--accent);"></span>
               <span class="antenna-readout-label">~15&deg; Target Mount &rarr; NX-200 Link</span>
               <span class="antenna-readout-value">mismatch <strong id="antMismatchB">15&deg;</strong> &middot; loss <strong id="antLossB">-0.3 dB</strong></span>
             </div>
@@ -1615,7 +1712,7 @@ function addLoadoutToCart() {
   });
 
   if (itemsToAdd.length === 0) {
-    if (msgEl) { msgEl.style.color = '#e87060'; msgEl.textContent = 'No items selected \u2014 check at least one recommendation first.'; }
+    if (msgEl) { msgEl.style.color = 'var(--warn-text)'; msgEl.textContent = 'No items selected \u2014 check at least one recommendation first.'; }
     return;
   }
 
@@ -1655,7 +1752,7 @@ function addLoadoutToCart() {
   });
 
   if (addedCount === 0) {
-    if (msgEl) { msgEl.style.color = '#e87060'; msgEl.textContent = 'Nothing could be added \u2014 selected items are unpriced or out of stock.'; }
+    if (msgEl) { msgEl.style.color = 'var(--warn-text)'; msgEl.textContent = 'Nothing could be added \u2014 selected items are unpriced or out of stock.'; }
     return;
   }
 
@@ -1666,7 +1763,7 @@ function addLoadoutToCart() {
   if (skippedUnpriced.length > 0) msg += ' ' + skippedUnpriced.length + ' skipped (pricing not available).';
   if (skippedOutOfStock.length > 0) msg += ' ' + skippedOutOfStock.length + ' skipped (out of stock).';
   if (cappedCount > 0) msg += ' Quantity capped by stock on ' + cappedCount + ' item' + (cappedCount === 1 ? '' : 's') + '.';
-  if (msgEl) { msgEl.style.color = '#4cbc7e'; msgEl.textContent = msg; }
+  if (msgEl) { msgEl.style.color = 'var(--green-text)'; msgEl.textContent = msg; }
 }
 
 let loadoutExcluded = new Set();
@@ -1879,7 +1976,7 @@ function updateAntennaDiagram(postureVal) {
   const dir = posture > 0.5 ? 'DOWN' : (posture < -0.5 ? 'UP' : 'LEVEL');
   setText('hudPitchLabel', 'HEAD PITCH \u00B7 ' + Math.abs(posture).toFixed(0) + '\u00B0 ' + dir);
 
-  const colorFor = (db) => db > -6 ? '#4cbc7e' : (db > -15 ? '#e8a830' : '#e87060');
+  const colorFor = (db) => db > -6 ? 'var(--green-text)' : (db > -15 ? 'var(--accent)' : 'var(--warn-text)');
   const lossAEl = document.getElementById('antLossA');
   const lossBEl = document.getElementById('antLossB');
   if (lossAEl) lossAEl.style.color = colorFor(dbA);
@@ -2212,7 +2309,7 @@ async function loadProductReviews() {
         replyHtml = `
           <div class="review-reply">
             <div class="review-reply-header">
-              <img src="/ursusarmament/images/ursusLogoBlackAndOrange.png" class="review-reply-logo" alt="Ursus Works">
+              <img src="/ursusarmament/images/ursusLogoOrange.png" class="review-reply-logo" alt="Ursus Works">
               <span class="review-reply-name">Ursus Works<sup class="tm">™</sup></span>
             </div>
             <div class="review-reply-text">${esc(r.ursusReply)}</div>
@@ -2296,12 +2393,12 @@ window.submitReview = async function() {
   const img1File     = document.getElementById("rv_img1").files[0];
   const img2File     = document.getElementById("rv_img2").files[0];
 
-  if (!productType)      { msg.style.color="#c0392b"; msg.textContent="Please select a product."; return; }
-  if (!feedbackType)     { msg.style.color="#c0392b"; msg.textContent="Please select a feedback type."; return; }
-  if (_starRating === 0) { msg.style.color="#c0392b"; msg.textContent="Please select a star rating."; return; }
-  if (!firstName)        { msg.style.color="#c0392b"; msg.textContent="Please enter your first name."; return; }
-  if (!state)            { msg.style.color="#c0392b"; msg.textContent="Please select your state."; return; }
-  if (!reviewText)       { msg.style.color="#c0392b"; msg.textContent="Please write your review."; return; }
+  if (!productType)      { msg.style.color="var(--warn-text)"; msg.textContent="Please select a product."; return; }
+  if (!feedbackType)     { msg.style.color="var(--warn-text)"; msg.textContent="Please select a feedback type."; return; }
+  if (_starRating === 0) { msg.style.color="var(--warn-text)"; msg.textContent="Please select a star rating."; return; }
+  if (!firstName)        { msg.style.color="var(--warn-text)"; msg.textContent="Please enter your first name."; return; }
+  if (!state)            { msg.style.color="var(--warn-text)"; msg.textContent="Please select your state."; return; }
+  if (!reviewText)       { msg.style.color="var(--warn-text)"; msg.textContent="Please write your review."; return; }
 
   btn.disabled = true; btn.textContent = "Submitting..."; msg.textContent = "";
 
@@ -2326,7 +2423,7 @@ window.submitReview = async function() {
     document.getElementById("reviewThankYou").style.display      = "block";
   } catch (err) {
     console.error("Review submit error:", err);
-    msg.style.color = "#c0392b";
+    msg.style.color = "var(--warn-text)";
     msg.textContent = "Submission failed. Please try again.";
     btn.disabled = false; btn.textContent = "Submit Review";
   }
@@ -2344,42 +2441,6 @@ function updateCartBadge() {
   } catch {}
 }
 updateCartBadge();
-</script>
-<script>
-/* ── Mobile hamburger menu ── */
-(function () {
-  const burger = document.getElementById('navBurger');
-  const ribbon = document.getElementById('navRibbon');
-  if (!burger || !ribbon) return;
-
-  function setOpen(open) {
-    burger.classList.toggle('open', open);
-    ribbon.classList.toggle('open', open);
-    burger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-  }
-
-  burger.addEventListener('click', e => {
-    e.stopPropagation();
-    setOpen(!ribbon.classList.contains('open'));
-  });
-
-  ribbon.addEventListener('click', e => {
-    if (e.target.closest('a')) setOpen(false);
-  });
-
-  document.addEventListener('click', e => {
-    if (ribbon.classList.contains('open') && !e.target.closest('nav')) setOpen(false);
-  });
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && ribbon.classList.contains('open')) { setOpen(false); burger.focus(); }
-  });
-
-  window.addEventListener('resize', () => {
-    if (window.innerWidth > 760) setOpen(false);
-  });
-})();
 </script>
 </body>
 </html>
