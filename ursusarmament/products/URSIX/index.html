@@ -874,6 +874,7 @@
           <div class="serial-field"><span class="serial-field-label">Figure of Merit (FOM)</span><span class="serial-field-value highlight" id="resultFom">—</span></div>
           <div class="serial-field"><span class="serial-field-label">Signal-to-Noise Ratio</span><span class="serial-field-value highlight" id="resultSnr">—</span></div>
           <div class="serial-field"><span class="serial-field-label">Resolution</span><span class="serial-field-value highlight" id="resultRes">—</span></div>
+          <div class="serial-field"><span class="serial-field-label">Form Factor</span><span class="serial-field-value" id="resultFormFactor">—</span></div>
           <div class="serial-field"><span class="serial-field-label">Photocathode Luminous Sensitivity</span><span class="serial-field-value" id="resultPcLum">—</span></div>
           <div class="serial-field"><span class="serial-field-label">PC Sensitivity (w/ Filter)</span><span class="serial-field-value" id="resultPcFilter">—</span></div>
           <div class="serial-field"><span class="serial-field-label">Photocathode Radiant Sensitivity</span><span class="serial-field-value" id="resultPcRad">—</span></div>
@@ -1371,6 +1372,7 @@ window.lookupSerial = async function() {
     set('resultFom',      unit.fom        ? unit.fom        + ' FOM' : null);
     set('resultSnr',      unit.snr        ? unit.snr        + ' dB'  : null);
     set('resultRes',      unit.resolution);
+    set('resultFormFactor', unit.formFactor);
     set('resultPcLum',    unit.photocathodeLuminousSensitivity   ? unit.photocathodeLuminousSensitivity   + ' µA/lm' : null);
     set('resultPcFilter', unit.photocathodeSensitivityWithFilter ? unit.photocathodeSensitivityWithFilter + ' µA/lm' : null);
     set('resultPcRad',    unit.photocathodeRadiantSensitivity    ? unit.photocathodeRadiantSensitivity    + ' mA/W'  : null);
@@ -1452,6 +1454,7 @@ function renderUnitsPanel(units, tier) {
             <span class="unit-row-stat"><span class="unit-row-stat-label">FOM</span>${u.fom ?? '—'}</span>
             <span class="unit-row-stat"><span class="unit-row-stat-label">SNR</span>${u.snr ? u.snr + ' dB' : '—'}</span>
             <span class="unit-row-stat"><span class="unit-row-stat-label">Resolution</span>${u.resolution ?? '—'}</span>
+            <span class="unit-row-stat"><span class="unit-row-stat-label">Form Factor</span>${u.formFactor ?? '—'}</span>
           </div>
         </div>
         <div class="unit-row-right">
@@ -1471,6 +1474,7 @@ function renderUnitsPanel(units, tier) {
           <div class="unit-expand-field"><span class="unit-expand-label">Figure of Merit</span><span class="unit-expand-value highlight">${u.fom ?? '—'}</span></div>
           <div class="unit-expand-field"><span class="unit-expand-label">Signal-to-Noise Ratio</span><span class="unit-expand-value highlight">${u.snr ? u.snr + ' dB' : '—'}</span></div>
           <div class="unit-expand-field"><span class="unit-expand-label">Resolution</span><span class="unit-expand-value highlight">${u.resolution ?? '—'}</span></div>
+          <div class="unit-expand-field"><span class="unit-expand-label">Form Factor</span><span class="unit-expand-value">${u.formFactor ?? '—'}</span></div>
           <div class="unit-expand-field"><span class="unit-expand-label">PC Luminous Sensitivity</span><span class="unit-expand-value">${u.photocathodeLuminousSensitivity ? u.photocathodeLuminousSensitivity + ' µA/lm' : '—'}</span></div>
           <div class="unit-expand-field"><span class="unit-expand-label">PC Sensitivity w/ Filter</span><span class="unit-expand-value">${u.photocathodeSensitivityWithFilter ? u.photocathodeSensitivityWithFilter + ' µA/lm' : '—'}</span></div>
           <div class="unit-expand-field"><span class="unit-expand-label">PC Radiant Sensitivity</span><span class="unit-expand-value">${u.photocathodeRadiantSensitivity ? u.photocathodeRadiantSensitivity + ' mA/W' : '—'}</span></div>
