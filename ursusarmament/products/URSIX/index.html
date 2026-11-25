@@ -1362,7 +1362,7 @@ function getReviewTimeMs(r) {
 /* ── Reviews: product-scoped list + rating summary ──
    To reuse on another product page, change these two values. */
 const REVIEW_PRODUCT_KEY   = 'ursix';   // matched loosely against each review's productType
-const REVIEW_PRODUCT_LABEL = 'URSIX';
+const REVIEW_PRODUCT_LABEL = 'URSIX NIGHT VISION MONOCULAR';
 
 /* HTML-escape anything user-supplied before it goes into innerHTML */
 function esc(value) {
@@ -1492,7 +1492,7 @@ async function loadProductReviews() {
               ${dateStr ? `<div class="review-date">${esc(dateStr)}</div>` : ''}
             </div>
           </div>
-          ${r.productType ? `<div class="review-product">${esc(r.productType)}</div>` : ''}
+          <div class="review-product">${esc(REVIEW_PRODUCT_LABEL)}</div>
           ${typeHtml ? `<div class="review-tags">${typeHtml}</div>` : ''}
           <div class="review-text">${esc(r.reviewText || '')}</div>
           ${replyHtml}
