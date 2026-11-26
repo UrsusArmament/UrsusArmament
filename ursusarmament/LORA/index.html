@@ -36,6 +36,14 @@ main .price tbody{grid-template-columns:1fr}
 main .price td{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;font-weight:400;white-space:nowrap}
 main .price .total{border-left:3px solid var(--accent)}
 main .price .total th,main .price .total td{color:var(--accent)}
+main .price tr{align-items:center}
+main .price td{display:flex;align-items:center;justify-content:flex-end;gap:1.25rem}
+.stock{display:block;font-size:.8rem;font-weight:600;letter-spacing:.15em;color:var(--muted);margin-top:.25rem}
+.add{min-width:9.5rem;background:transparent;color:var(--accent);border:1px solid var(--accent);padding:.7rem 1.25rem;font:700 .9rem 'Barlow Condensed',sans-serif;letter-spacing:.15em;text-transform:uppercase;cursor:pointer}
+.add:hover:not(:disabled){background:var(--accent);color:var(--black)}
+.add:disabled{opacity:.4;cursor:not-allowed}
+.cart-row{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:1.25rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:.12em;text-transform:uppercase}
+@media(max-width:520px){main .price tr{flex-direction:column;align-items:stretch}main .price td{justify-content:space-between}}
 @media(max-width:900px){.wrap{padding:0 1.5rem}.hero,main section{padding:3rem 0}main tbody{grid-template-columns:1fr}main tr{padding:1.25rem}}
 </style>
 <link rel="stylesheet" href="/ursusarmament/theme.css">
@@ -48,10 +56,11 @@ main .price .total th,main .price .total td{color:var(--accent)}
 <main>
 <section><div class="wrap"><div class="tag">At Cost · Each</div><h2>PRICING</h2>
 <table class="price">
-<tr><th>Board with antenna</th><td>$20</td></tr>
-<tr><th>L76K GNSS (GPS) module</th><td>$8</td></tr>
-<tr class="total"><th>Board with antenna + GPS</th><td>$28</td></tr>
-</table></div></section>
+<tr><th>Board with antenna<span class="stock" id="stock-board">Checking stock</span></th><td>$20 <button type="button" class="add" data-add="board" disabled>Add to Cart</button></td></tr>
+<tr><th>L76K GNSS (GPS) module<span class="stock" id="stock-gnss">Checking stock</span></th><td>$8 <button type="button" class="add" data-add="gnss" disabled>Add to Cart</button></td></tr>
+<tr class="total"><th>Board with antenna + GPS</th><td>$28 <button type="button" class="add" data-add="board gnss" disabled>Add Both</button></td></tr>
+</table>
+<div class="cart-row"><span id="cartMsg" role="status"></span></div></div></section>
 <section><div class="wrap"><div class="tag">Technical Data</div><h2>PROCESSOR AND RADIO</h2>
 <table>
 <tr><th>Processor</th><td>nRF52840</td></tr>
@@ -90,6 +99,7 @@ main .price .total th,main .price .total td{color:var(--accent)}
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const app = initializeApp({
   apiKey:            "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
@@ -108,6 +118,76 @@ onAuthStateChanged(getAuth(app), user => {
   a.textContent = user ? user.email.split("@")[0] : "Login";
   nav.replaceChildren(a);
 });
+
+/* ── Cart: stock comes from ursus-units/t114 ── */
+const ITEMS = {
+  board: { id: 't114-board', field: 't114board',  product: 'T114 V2.0 Board with Antenna', price: 20 },
+  gnss:  { id: 't114-gnss',  field: 'gnssModule', product: 'L76K GNSS (GPS) Module',       price: 8  }
+};
+const stock = { board: 0, gnss: 0 };
+const buttons = document.querySelectorAll('[data-add]');
+const msg = document.getElementById('cartMsg');
+
+function readCart() {
+  try { return JSON.parse(localStorage.getItem('ursus_cart')) || []; }
+  catch { return []; }
+}
+const inCart = key => readCart().find(i => i.id === ITEMS[key].id)?.quantity || 0;
+
+function refresh() {
+  buttons.forEach(btn => {
+    const keys = btn.dataset.add.split(' ');
+    const soldOut = keys.some(k => stock[k] < 1);
+    const maxed = keys.some(k => inCart(k) >= stock[k]);
+    btn.disabled = soldOut || maxed;
+    btn.textContent = soldOut ? 'Sold Out' : maxed ? 'All in Cart' : keys.length > 1 ? 'Add Both' : 'Add to Cart';
+  });
+}
+
+buttons.forEach(btn => btn.addEventListener('click', () => {
+  const keys = btn.dataset.add.split(' ');
+  if (keys.some(k => inCart(k) >= stock[k])) { refresh(); return; }
+  try {
+    const cart = readCart();
+    keys.forEach(k => {
+      const item = ITEMS[k];
+      let line = cart.find(i => i.id === item.id);
+      if (!line) {
+        line = { id: item.id, product: item.product, name: item.product, quantity: 0 };
+        cart.push(line);
+      }
+      line.quantity += 1;
+      line.price = item.price;
+      line.maxQty = stock[k];
+    });
+    localStorage.setItem('ursus_cart', JSON.stringify(cart));
+    msg.textContent = 'Added to cart';
+    if (typeof updateCartBadge === 'function') updateCartBadge();
+    refresh();
+  } catch (err) {
+    console.error('Add to cart error:', err);
+    msg.textContent = 'Could not add to cart';
+  }
+}));
+
+onSnapshot(doc(getFirestore(app), 'ursus-units', 't114'), snap => {
+  const list = Object.values(snap.data()?.['quantity-available'] || {});
+  for (const [key, item] of Object.entries(ITEMS)) {
+    const n = Number(list.find(e => e && item.field in e)?.[item.field]) || 0;
+    stock[key] = Math.max(0, Math.floor(n));
+    document.getElementById('stock-' + key).textContent = stock[key] ? stock[key] + ' available' : 'Sold out';
+  }
+  refresh();
+}, err => {
+  console.error('Stock load error:', err);
+  for (const key in ITEMS) {
+    stock[key] = 0;
+    document.getElementById('stock-' + key).textContent = 'Stock unavailable';
+  }
+  buttons.forEach(b => { b.disabled = true; b.textContent = 'Unavailable'; });
+});
+
+window.addEventListener('pageshow', e => { if (e.persisted) { refresh(); updateCartBadge(); } });
 </script>
 <script>
 function updateCartBadge() {
