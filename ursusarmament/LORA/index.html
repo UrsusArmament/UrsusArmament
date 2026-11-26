@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>T114 V2.0 Specs and Pricing</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/ursusarmament/chrome.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--black:#0a0a08;--dark:#111110;--surface:#1a1a17;--border:rgba(255,255,255,.08);--text:#e8e4d9;--muted:#8a8678;--accent:#c8922a}
+body{background:var(--black);color:var(--text);font:16px/1.6 'Barlow',sans-serif}
+.wrap{max-width:1100px;margin:auto;padding:0 3rem}
+.hero,main section{padding:4rem 0}
+.hero{margin-top:105px;background:var(--dark);border-bottom:1px solid var(--border)}
+main section+section{border-top:1px solid var(--border)}
+main section:nth-of-type(even){background:var(--dark)}
+.tag,main h2+p{font-family:'Barlow Condensed',sans-serif}
+.tag{font-size:.85rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:.75rem;display:flex;align-items:center;gap:.6rem}
+.tag::before{content:'';width:20px;height:1px;background:var(--accent)}
+main h2,.hero h1{font-family:'Bebas Neue',sans-serif;font-weight:400;letter-spacing:.04em}
+.hero h1{font-size:clamp(3.5rem,10vw,6.5rem);line-height:.9;margin-bottom:.6rem}
+main h2{font-size:clamp(2.4rem,5vw,4.2rem);line-height:1;margin-bottom:2.5rem}
+.sub{font-family:'Barlow Condensed',sans-serif;font-size:1.15rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+main table,main tbody{display:block}
+main tbody{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border:2px solid var(--border)}
+main tr{display:flex;justify-content:space-between;align-items:baseline;gap:1.25rem;background:var(--dark);padding:1.75rem 2rem;transition:background .2s}
+main section:nth-of-type(even) tr{background:var(--black)}
+main tr:hover,main section:nth-of-type(even) tr:hover{background:var(--surface)}
+main tr:last-child:nth-child(odd){grid-column:1/-1}
+main th,main td{font-family:'Barlow Condensed',sans-serif;text-align:left;text-transform:uppercase}
+main th{font-size:.9rem;font-weight:700;letter-spacing:.18em;color:var(--muted)}
+main td{font-size:1.1rem;font-weight:600;letter-spacing:.08em;text-align:right;text-transform:none}
+main .price tbody{grid-template-columns:1fr}
+main .price td{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;font-weight:400;white-space:nowrap}
+main .price .total{border-left:3px solid var(--accent)}
+main .price .total th,main .price .total td{color:var(--accent)}
+@media(max-width:900px){.wrap{padding:0 1.5rem}.hero,main section{padding:3rem 0}main tbody{grid-template-columns:1fr}main tr{padding:1.25rem}}
+</style>
+<link rel="stylesheet" href="/ursusarmament/theme.css">
+<script src="/ursusarmament/theme.js"></script>
+</head>
+<body>
+<script src="/ursusarmament/header.js"></script>
+
+<div class="hero"><div class="wrap"><div class="tag">LoRa Board</div><h1>T114 V2.0</h1><p class="sub">Mesh Node T114 · 902–928 MHz ISM Band</p></div></div>
+<main>
+<section><div class="wrap"><div class="tag">At Cost · Each</div><h2>PRICING</h2>
+<table class="price">
+<tr><th>Board with antenna</th><td>$20</td></tr>
+<tr><th>L76K GNSS (GPS) module</th><td>$8</td></tr>
+<tr class="total"><th>Board with antenna + GPS</th><td>$28</td></tr>
+</table></div></section>
+<section><div class="wrap"><div class="tag">Technical Data</div><h2>PROCESSOR AND RADIO</h2>
+<table>
+<tr><th>Processor</th><td>nRF52840</td></tr>
+<tr><th>Memory</th><td>1 MB flash, 256 KB SRAM</td></tr>
+<tr><th>LoRa chip</th><td>SX1262</td></tr>
+<tr><th>Frequency</th><td>902–928 MHz</td></tr>
+<tr><th>Bluetooth</th><td>BT 5.0</td></tr>
+<tr><th>Max TX power</th><td>21 ± 1 dBm</td></tr>
+<tr><th>Max RX sensitivity</th><td>-135 dBm @ SF12, BW 125 kHz</td></tr>
+<tr><th>GPS (add-on)</th><td>L76K GNSS</td></tr>
+</table></div></section>
+<section><div class="wrap"><div class="tag">Technical Data</div><h2>POWER AND INTERFACE</h2>
+<table>
+<tr><th>USB</th><td>Type-C</td></tr>
+<tr><th>Protection</th><td>Voltage regulator, ESD protection, short-circuit protection, RF shielding and other measures</td></tr>
+<tr><th>Battery</th><td>3–4.2 V supply, with charging</td></tr>
+<tr><th>Deep sleep</th><td>11 µA</td></tr>
+</table></div></section>
+<section><div class="wrap"><div class="tag">Technical Data</div><h2>ENVIRONMENT AND SOFTWARE</h2>
+<table>
+<tr><th>Operating temperature</th><td>-20 to 70 °C</td></tr>
+<tr><th>Humidity</th><td>90% RH, non-condensing</td></tr>
+<tr><th>Recommended IDE</th><td>Arduino</td></tr>
+</table></div></section>
+</main>
+
+<script src="/ursusarmament/footer.js"></script>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+const app = initializeApp({
+  apiKey:            "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
+  authDomain:        "ursus-armament.firebaseapp.com",
+  projectId:         "ursus-armament",
+  storageBucket:     "ursus-armament.firebasestorage.app",
+  messagingSenderId: "430731167862",
+  appId:             "1:430731167862:web:a5447de86db180edad3757"
+});
+
+onAuthStateChanged(getAuth(app), user => {
+  const nav = document.getElementById("navAuth");
+  if (!nav) return;
+  const a = document.createElement("a");
+  a.href = user ? "/ursusarmament/settings/" : "/ursusarmament/login/";
+  a.textContent = user ? user.email.split("@")[0] : "Login";
+  nav.replaceChildren(a);
+});
+</script>
+<script>
+function updateCartBadge() {
+  try {
+    const cart  = JSON.parse(localStorage.getItem('ursus_cart')) || [];
+    const count = cart.reduce((sum, i) => sum + (i.quantity || 1), 0);
+    const badge = document.getElementById('cartCount');
+    if (!badge) return;
+    if (count > 0) { badge.textContent = count > 99 ? '99+' : count; badge.classList.add('visible'); }
+    else { badge.classList.remove('visible'); }
+  } catch {}
+}
+updateCartBadge();
+</script>
+</body>
+</html>
