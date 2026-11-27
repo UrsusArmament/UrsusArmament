@@ -451,7 +451,9 @@
             <option value="ROTS">R.O.T.S.</option>
             <option value="CALIDUS">CALIDUS</option>
             <option value="NEXIS">NEXIS</option>
+            <option value="OTHER">Other</option>
           </select>
+          <input id="rv_productOther" type="text" maxlength="80" placeholder="Type the product you bought" aria-label="Product you bought" style="display:none; padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);" />
         </div>
 
         <div style="display:flex; flex-direction:column; gap:0.3rem;">
@@ -523,6 +525,13 @@ window.addEventListener('hashchange', openReviewFromHash);
 
 let _starRating = 0;
 document.addEventListener("DOMContentLoaded", function () {
+  /* Show the text field only when "Other" is selected */
+  const product = document.getElementById("rv_product");
+  const other   = document.getElementById("rv_productOther");
+  const toggleOther = () => { other.style.display = product.value === "OTHER" ? "block" : "none"; };
+  product.addEventListener("change", toggleOther);
+  toggleOther();
+
   const stars = document.querySelectorAll("#starRating span");
   stars.forEach(star => {
     star.addEventListener("click", () => {
@@ -907,7 +916,10 @@ window.submitReview = async function() {
   const msg    = document.getElementById("rv_msg");
   const btn    = document.getElementById("rv_submitBtn");
 
-  const productType  = document.getElementById("rv_product").value;
+  const productChoice = document.getElementById("rv_product").value;
+  const productType   = productChoice === "OTHER"
+    ? document.getElementById("rv_productOther").value.trim()
+    : productChoice;
   const feedbackType = document.getElementById("rv_feedbackType").value;
   const firstName    = document.getElementById("rv_firstName").value.trim();
   const state        = document.getElementById("rv_state").value;
@@ -915,7 +927,8 @@ window.submitReview = async function() {
   const img1File     = document.getElementById("rv_img1").files[0];
   const img2File     = document.getElementById("rv_img2").files[0];
 
-  if (!productType)       { msg.style.color = "var(--warn-text)"; msg.textContent = "Please select a product."; return; }
+  if (!productChoice)     { msg.style.color = "var(--warn-text)"; msg.textContent = "Please select a product."; return; }
+  if (!productType)       { msg.style.color = "var(--warn-text)"; msg.textContent = "Please type the product you bought."; return; }
   if (!feedbackType)      { msg.style.color = "var(--warn-text)"; msg.textContent = "Please select a feedback type."; return; }
   if (_starRating === 0)  { msg.style.color = "var(--warn-text)"; msg.textContent = "Please select a star rating."; return; }
   if (!firstName)         { msg.style.color = "var(--warn-text)"; msg.textContent = "Please enter your first name."; return; }
