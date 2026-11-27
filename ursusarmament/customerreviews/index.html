@@ -514,6 +514,13 @@
 function openReviewModal()  { document.getElementById("reviewModal").style.display = "flex"; }
 function closeReviewModal() { document.getElementById("reviewModal").style.display = "none"; }
 
+/* Deep link: #leave-review opens the review form (used by printed QR codes, so keep the tag unchanged) */
+function openReviewFromHash() {
+  if (location.hash === '#leave-review') openReviewModal();
+}
+document.addEventListener('DOMContentLoaded', openReviewFromHash);
+window.addEventListener('hashchange', openReviewFromHash);
+
 let _starRating = 0;
 document.addEventListener("DOMContentLoaded", function () {
   const stars = document.querySelectorAll("#starRating span");
