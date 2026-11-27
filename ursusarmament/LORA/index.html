@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>T114 V2.0 Specs and Pricing</title>
+<title>T114 V2.0 Instructions and Specs</title>
 <meta name="robots" content="noindex, nofollow">
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600&family=Barlow+Condensed:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/ursusarmament/chrome.css">
@@ -32,19 +32,15 @@ main tr:last-child:nth-child(odd){grid-column:1/-1}
 main th,main td{font-family:'Barlow Condensed',sans-serif;text-align:left;text-transform:uppercase}
 main th{font-size:.9rem;font-weight:700;letter-spacing:.18em;color:var(--muted)}
 main td{font-size:1.1rem;font-weight:600;letter-spacing:.08em;text-align:right;text-transform:none}
-main .price tbody{grid-template-columns:1fr}
-main .price td{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;font-weight:400;white-space:nowrap}
-main .price .total{border-left:3px solid var(--accent)}
-main .price .total th,main .price .total td{color:var(--accent)}
-main .price tr{align-items:center}
-main .price td{display:flex;align-items:center;justify-content:flex-end;gap:1.25rem}
-.stock{display:block;font-size:.8rem;font-weight:600;letter-spacing:.15em;color:var(--muted);margin-top:.25rem}
-.add{min-width:9.5rem;background:transparent;color:var(--accent);border:1px solid var(--accent);padding:.7rem 1.25rem;font:700 .9rem 'Barlow Condensed',sans-serif;letter-spacing:.15em;text-transform:uppercase;cursor:pointer}
-.add:hover:not(:disabled){background:var(--accent);color:var(--black)}
-.add:disabled{opacity:.4;cursor:not-allowed}
-.cart-row{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:1.25rem;font-family:'Barlow Condensed',sans-serif;letter-spacing:.12em;text-transform:uppercase}
-@media(max-width:520px){main .price tr{flex-direction:column;align-items:stretch}main .price td{justify-content:space-between}}
-@media(max-width:900px){.wrap{padding:0 1.5rem}.hero,main section{padding:3rem 0}main tbody{grid-template-columns:1fr}main tr{padding:1.25rem}}
+.guide{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border:2px solid var(--border)}
+.card{background:var(--dark);padding:1.75rem 2rem}
+.card.critical{grid-column:1/-1;border-left:3px solid var(--accent)}
+.card h3{font:700 1.2rem 'Barlow Condensed',sans-serif;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:.9rem}
+.card ul{padding-left:1.2rem}
+.card li{font-size:1.05rem;font-weight:500;line-height:1.7;color:var(--muted);margin-bottom:.7rem}
+.card li:last-child{margin-bottom:0}
+.card li strong{color:var(--text)}
+@media(max-width:900px){.guide{grid-template-columns:1fr}.card{padding:1.25rem}.wrap{padding:0 1.5rem}.hero,main section{padding:3rem 0}main tbody{grid-template-columns:1fr}main tr{padding:1.25rem}}
 </style>
 <link rel="stylesheet" href="/ursusarmament/theme.css">
 <script src="/ursusarmament/theme.js"></script>
@@ -54,13 +50,51 @@ main .price td{display:flex;align-items:center;justify-content:flex-end;gap:1.25
 
 <div class="hero"><div class="wrap"><div class="tag">LoRa Board</div><h1>T114 V2.0</h1><p class="sub">Mesh Node T114 · 902–928 MHz ISM Band</p></div></div>
 <main>
-<section><div class="wrap"><div class="tag">At Cost · Each</div><h2>PRICING</h2>
-<table class="price">
-<tr><th>Board with antenna<span class="stock" id="stock-board">Checking stock</span></th><td>$20 <button type="button" class="add" data-add="board" disabled>Add to Cart</button></td></tr>
-<tr><th>L76K GNSS (GPS) module<span class="stock" id="stock-gnss">Checking stock</span></th><td>$8 <button type="button" class="add" data-add="gnss" disabled>Add to Cart</button></td></tr>
-<tr class="total"><th>Board with antenna + GPS</th><td>$28 <button type="button" class="add" data-add="board gnss" disabled>Add Both</button></td></tr>
-</table>
-<div class="cart-row"><span id="cartMsg" role="status"></span></div></div></section>
+<section><div class="wrap"><div class="tag">Read First</div><h2>IMPORTANT INSTRUCTIONS FOR PREPARING AND USING YOUR T114 BOARDS</h2>
+<div class="guide">
+<div class="card critical"><h3>Before You Apply Power</h3><ul>
+<li><strong>Attach the antenna first.</strong> Firmly secure the LoRa antenna to the board before connecting USB, battery or solar power. Powering or transmitting without it can damage the radio chip.</li>
+<li><strong>Remove all power before changing hardware.</strong> Disconnect USB, battery and solar before attaching or removing the antenna or GNSS module.</li>
+<li><strong>Use the right antenna.</strong> Use an antenna made for the 902&ndash;928 MHz band.</li>
+<li><strong>Keep conductive items away.</strong> Don&rsquo;t power the board while it rests on metal or near loose screws, wire or tools.</li>
+</ul></div>
+<div class="card"><h3>Battery and Solar Power</h3><ul>
+<li><strong>Check polarity every time.</strong> A battery plug that fits may still be wired backward. Match positive and negative to the board markings before connecting.</li>
+<li><strong>Single cell only.</strong> The battery input is for 3&ndash;4.2 V. Never connect cells in series. Use a protected lithium battery.</li>
+<li><strong>Solar input is 5&ndash;6.5 V.</strong> A panel of about 5 V is recommended. Check polarity and don&rsquo;t connect solar to the battery connector.</li>
+<li><strong>Don&rsquo;t charge a frozen battery.</strong> Charge only within the battery maker&rsquo;s temperature limits, typically above 0&nbsp;&deg;C (32&nbsp;&deg;F). The board&rsquo;s operating range doesn&rsquo;t set your battery&rsquo;s limits.</li>
+<li><strong>Stop using damaged batteries.</strong> Don&rsquo;t use a battery that is swollen, punctured, crushed or overheating.</li>
+</ul></div>
+<div class="card"><h3>Handling</h3><ul>
+<li><strong>Connectors are small.</strong> Align them before pressing, don&rsquo;t force them, and pull on the connector body rather than the wires. Take extra care with the antenna connector and lead.</li>
+<li><strong>Protect against static and shorts.</strong> Hold the board by its edges and avoid touching components.</li>
+<li><strong>A bare board is not weatherproof.</strong> Protect it from water, condensation, dirt and impact. Let it dry fully before applying power if condensation forms, such as after coming in from the cold.</li>
+</ul></div>
+<div class="card"><h3>Setup and Flashing</h3><ul>
+<li><strong>Boards may arrive preloaded.</strong> You don&rsquo;t need to flash a board that already has the firmware you want.</li>
+<li><strong>Use a USB data cable.</strong> Charge-only cables won&rsquo;t work. Use Chrome or Edge for web flashing.</li>
+<li><strong>Select the exact board.</strong> Choose the Heltec T114 option and the correct firmware type. Don&rsquo;t unplug the board while it is flashing.</li>
+<li><strong>Back up first.</strong> Erasing or switching firmware can remove settings, keys and messages.</li>
+<li><strong>If the board isn&rsquo;t detected,</strong> try double-pressing the RST button to enter bootloader (DFU) mode.</li>
+</ul></div>
+<div class="card"><h3>Radio Settings</h3><ul>
+<li><strong>Meshtastic:</strong> Set the LoRa region before use. In the United States, select US.</li>
+<li><strong>MeshCore:</strong> In the United States, start with the USA/Canada (Recommended) preset. If your local mesh uses different settings, match them within legal limits.</li>
+<li><strong>The two don&rsquo;t communicate.</strong> Meshtastic and MeshCore boards can&rsquo;t message each other. Boards on the same firmware also need matching radio settings.</li>
+<li><strong>Follow local rules.</strong> Frequency and transmit power limits vary by location.</li>
+</ul></div>
+<div class="card"><h3>GNSS (GPS) Module</h3><ul>
+<li><strong>Connect with power removed.</strong> Use the 8-pin GNSS connector and check its alignment before seating it.</li>
+<li><strong>Give it a view of the sky.</strong> A first position fix can take several minutes and may fail indoors.</li>
+<li><strong>Check the app.</strong> Make sure GPS is turned on after installing or moving the module.</li>
+</ul></div>
+<div class="card"><h3>Privacy and Field Use</h3><ul>
+<li><strong>Public channels aren&rsquo;t private.</strong> Default public channels use publicly known keys. Use a private channel with its own key for your group.</li>
+<li><strong>Check location sharing.</strong> Review position settings before going on air so you don&rsquo;t share your location unintentionally.</li>
+<li><strong>Test before you rely on it.</strong> Range depends on terrain, obstructions, antenna placement and nearby nodes.</li>
+<li><strong>Keep a backup.</strong> Don&rsquo;t depend on these boards as your only means of emergency communication.</li>
+</ul></div>
+</div></div></section>
 <section><div class="wrap"><div class="tag">Technical Data</div><h2>PROCESSOR AND RADIO</h2>
 <table>
 <tr><th>Processor</th><td>nRF52840</td></tr>
@@ -99,7 +133,6 @@ main .price td{display:flex;align-items:center;justify-content:flex-end;gap:1.25
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
 import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
 const app = initializeApp({
   apiKey:            "AIzaSyAAY_4dHMxnUedsOeyA3LTKz5AGC3xCZLA",
@@ -119,77 +152,9 @@ onAuthStateChanged(getAuth(app), user => {
   nav.replaceChildren(a);
 });
 
-/* ── Cart: stock comes from ursus-units/t114 ── */
-const ITEMS = {
-  board: { id: 't114-board', field: 't114Board',  product: 'T114 V2.0 Board with Antenna', price: 20 },
-  gnss:  { id: 't114-gnss',  field: 'gnssModule', product: 'L76K GNSS (GPS) Module',       price: 8  }
-};
-const stock = { board: 0, gnss: 0 };
-const buttons = document.querySelectorAll('[data-add]');
-const msg = document.getElementById('cartMsg');
-
-function readCart() {
-  try { return JSON.parse(localStorage.getItem('ursus_cart')) || []; }
-  catch { return []; }
-}
-const inCart = key => readCart().find(i => i.id === ITEMS[key].id)?.quantity || 0;
-
-function refresh() {
-  buttons.forEach(btn => {
-    const keys = btn.dataset.add.split(' ');
-    const soldOut = keys.some(k => stock[k] < 1);
-    const maxed = keys.some(k => inCart(k) >= stock[k]);
-    btn.disabled = soldOut || maxed;
-    btn.textContent = soldOut ? 'Sold Out' : maxed ? 'All in Cart' : keys.length > 1 ? 'Add Both' : 'Add to Cart';
-  });
-}
-
-buttons.forEach(btn => btn.addEventListener('click', () => {
-  const keys = btn.dataset.add.split(' ');
-  if (keys.some(k => inCart(k) >= stock[k])) { refresh(); return; }
-  try {
-    const cart = readCart();
-    keys.forEach(k => {
-      const item = ITEMS[k];
-      let line = cart.find(i => i.id === item.id);
-      if (!line) {
-        line = { id: item.id, product: item.product, name: item.product, quantity: 0 };
-        cart.push(line);
-      }
-      line.quantity += 1;
-      line.price = item.price;
-      line.maxQty = stock[k];
-    });
-    localStorage.setItem('ursus_cart', JSON.stringify(cart));
-    msg.textContent = 'Added to cart';
-    if (typeof updateCartBadge === 'function') updateCartBadge();
-    refresh();
-  } catch (err) {
-    console.error('Add to cart error:', err);
-    msg.textContent = 'Could not add to cart';
-  }
-}));
-
-onSnapshot(doc(getFirestore(app), 'ursus-units', 't114'), snap => {
-  const list = Object.values(snap.data()?.['quantity-available'] || {});
-  for (const [key, item] of Object.entries(ITEMS)) {
-    const n = Number(list.find(e => e && item.field in e)?.[item.field]) || 0;
-    stock[key] = Math.max(0, Math.floor(n));
-    document.getElementById('stock-' + key).textContent = stock[key] ? stock[key] + ' available' : 'Sold out';
-  }
-  refresh();
-}, err => {
-  console.error('Stock load error:', err);
-  for (const key in ITEMS) {
-    stock[key] = 0;
-    document.getElementById('stock-' + key).textContent = 'Stock unavailable';
-  }
-  buttons.forEach(b => { b.disabled = true; b.textContent = 'Unavailable'; });
-});
-
-window.addEventListener('pageshow', e => { if (e.persisted) { refresh(); updateCartBadge(); } });
 </script>
 <script>
+window.addEventListener('pageshow', e => { if (e.persisted) updateCartBadge(); });
 function updateCartBadge() {
   try {
     const cart  = JSON.parse(localStorage.getItem('ursus_cart')) || [];
