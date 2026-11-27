@@ -1019,6 +1019,15 @@ function openModal(id) {
 function closeModal(id) {
   document.getElementById(id).classList.remove('open');
 }
+/* Deep links: open a modal from the URL tag (used by printed QR codes, so keep the tag unchanged) */
+const MODAL_LINKS = { '#mesh-networks': 'modalMesh' };
+function openModalFromHash() {
+  const id = MODAL_LINKS[location.hash];
+  if (id) openModal(id);
+}
+document.addEventListener('DOMContentLoaded', openModalFromHash);
+window.addEventListener('hashchange', openModalFromHash);
+
 function scrollToSection(id) {
   const el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
