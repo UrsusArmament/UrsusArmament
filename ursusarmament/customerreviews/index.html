@@ -413,12 +413,12 @@
 <div class="filter-bar">
   <span class="filter-label">Filter:</span>
   <button class="filter-btn active" data-product="ALL" data-label="All">All</button>
-  <button class="filter-btn" data-product="URSIX" data-label="URSIX">URSIX</button>
-  <button class="filter-btn" data-product="CALIDUS" data-label="CALIDUS">CALIDUS</button>
-  <button class="filter-btn" data-product="NEXIS" data-label="NEXIS">NEXIS</button>
-  <button class="filter-btn" data-product="APPAREL" data-label="Apparel">Apparel</button>
-  <button class="filter-btn" data-product="ACCESSORIES" data-label="Accessories">Accessories</button>
-  <button class="filter-btn" data-product="NAVIGATION" data-label="Navigation">Navigation</button>
+  <button class="filter-btn" data-group="flagship" data-product="URSIX" data-label="URSIX">URSIX</button>
+  <button class="filter-btn" data-group="flagship" data-product="CALIDUS" data-label="CALIDUS">CALIDUS</button>
+  <button class="filter-btn" data-group="flagship" data-product="NEXIS" data-label="NEXIS">NEXIS</button>
+  <button class="filter-btn" data-group="secondary" data-product="APPAREL" data-label="Apparel">Apparel</button>
+  <button class="filter-btn" data-group="secondary" data-product="ACCESSORIES" data-label="Accessories">Accessories</button>
+  <button class="filter-btn" data-group="secondary" data-product="NAVIGATION" data-label="Navigation">Navigation</button>
   <div class="sort-wrap">
     <label class="filter-label" for="sortSelect" style="margin-right:0;">Sort:</label>
     <select id="sortSelect" class="sort-select">
@@ -733,6 +733,20 @@ function updateFilterCounts() {
     const key = btn.dataset.product;
     const n = _allReviews.filter(r => matchesProduct(r, key)).length;
     btn.textContent = `${btn.dataset.label} (${n})`;
+  });
+  orderFilterButtons();
+}
+
+/* Button order: All, then flagship, then secondary. Within each group, most reviews
+   first (by review count, not rating). Ties keep the order written in the HTML. */
+function orderFilterButtons() {
+  const bar = document.querySelector('.filter-bar');
+  const sortWrap = bar.querySelector('.sort-wrap');
+  const count = btn => _allReviews.filter(r => matchesProduct(r, btn.dataset.product)).length;
+  ['flagship', 'secondary'].forEach(group => {
+    Array.from(bar.querySelectorAll(`.filter-btn[data-group="${group}"]`))
+      .sort((a, b) => count(b) - count(a))
+      .forEach(btn => bar.insertBefore(btn, sortWrap));
   });
 }
 
