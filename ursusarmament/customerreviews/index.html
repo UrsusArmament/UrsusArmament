@@ -600,7 +600,7 @@ function safeUrl(u) {
 
 /* Logged-out reviews go through the Cloudflare Worker, which checks the order number.
    Paste your deployed Worker URL between the quotes. */
-const GUEST_REVIEW_URL = "";
+const GUEST_REVIEW_URL = "https://ursus-guest-reviews.ursus-generalcontracting.workers.dev";
 
 /* ── Nav auth ── */
 onAuthStateChanged(auth, (user) => {
