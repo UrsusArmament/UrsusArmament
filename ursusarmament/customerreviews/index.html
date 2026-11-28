@@ -783,7 +783,10 @@ function renderSummary(filtered) {
   }
 
   const total = rated.length;
-  const avg   = rated.reduce((s, n) => s + n, 0) / total;
+  const sum   = rated.reduce((s, n) => s + n, 0);
+  const avg   = sum / total;
+  /* Shown average: two decimals, always rounded down (multiply first to avoid float error) */
+  const avgText = (Math.floor((sum * 100) / total) / 100).toFixed(2);
   const dist  = [0, 0, 0, 0, 0, 0];
   rated.forEach(n => dist[n]++);
 
@@ -803,8 +806,8 @@ function renderSummary(filtered) {
   el.innerHTML = `
     <div class="rs-left">
       <div class="rs-scope">${esc(scope)}</div>
-      <div class="rs-avg">${avg.toFixed(1)}</div>
-      <div class="stars-frac" aria-label="${avg.toFixed(1)} out of 5 stars">
+      <div class="rs-avg">${avgText}</div>
+      <div class="stars-frac" aria-label="${avgText} out of 5 stars">
         ★★★★★<span class="stars-fill" style="width:${pct.toFixed(1)}%">★★★★★</span>
       </div>
       <div class="rs-count">Based on ${total} review${total === 1 ? '' : 's'}</div>
