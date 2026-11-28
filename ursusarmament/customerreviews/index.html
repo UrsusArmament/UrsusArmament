@@ -446,6 +446,14 @@
       <div style="display:flex; flex-direction:column; gap:1rem;">
 
         <div style="display:flex; flex-direction:column; gap:0.3rem;">
+          <label for="rv_orderNumber" style="font-family:'Barlow Condensed',sans-serif; font-size:0.82rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Order Number <span style="text-transform:none; letter-spacing:0.04em; font-weight:600;">(only required if you are not logged into your account)</span></label>
+          <input id="rv_orderNumber" type="text" value="UA-" inputmode="numeric" maxlength="13" autocomplete="off" spellcheck="false" style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);" />
+        </div>
+
+        <!-- Spam trap: hidden from people, filled in by simple bots -->
+        <input id="rv_website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px; width:1px; height:1px;" />
+
+        <div style="display:flex; flex-direction:column; gap:0.3rem;">
           <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.82rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Product</label>
           <select id="rv_product" required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border);">
             <option value="">Select Product</option>
@@ -492,7 +500,7 @@
           <textarea id="rv_reviewText" rows="5" placeholder="Write your review here..." required style="padding:0.75rem; background:var(--surface); color:var(--text); border:1px solid var(--border); font-family:'Barlow',sans-serif; resize:vertical;"></textarea>
         </div>
 
-        <div style="display:flex; flex-direction:column; gap:0.3rem;">
+        <div id="rv_photos" style="display:none; flex-direction:column; gap:0.3rem;">
           <label style="font-family:'Barlow Condensed',sans-serif; font-size:0.82rem; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; color:var(--muted);">Photos (Optional — Max 2)</label>
           <input id="rv_img1" type="file" accept="image/png,image/jpeg,image/webp" style="padding:0.5rem; background:var(--surface); border:1px solid var(--border); color:var(--muted);">
           <input id="rv_img2" type="file" accept="image/png,image/jpeg,image/webp" style="padding:0.5rem; background:var(--surface); border:1px solid var(--border); color:var(--muted);">
@@ -504,7 +512,7 @@
     </div>
     <div id="reviewThankYou" style="display:none; text-align:center; padding: 2rem 0;">
       <h2 style="font-family:'Bebas Neue'; letter-spacing:0.06em; margin-bottom:0.75rem;">Thank You!</h2>
-      <p style="color:var(--muted);">Your review has been submitted and is pending approval.</p>
+      <p id="rv_thankText" style="color:var(--muted);">Your review has been submitted and is pending approval.</p>
     </div>
   </div>
 </div>
@@ -533,6 +541,12 @@ document.addEventListener("DOMContentLoaded", function () {
   const toggleOther = () => { other.style.display = product.value === "OTHER" ? "block" : "none"; };
   product.addEventListener("change", toggleOther);
   toggleOther();
+
+  /* Order number: "UA-" stays fixed, digits only after the dash (pasting a full number works) */
+  const order = document.getElementById("rv_orderNumber");
+  order.addEventListener("input", () => {
+    order.value = "UA-" + order.value.replace(/\D/g, "").slice(0, 10);
+  });
 
   const stars = document.querySelectorAll("#starRating span");
   stars.forEach(star => {
@@ -584,8 +598,15 @@ function safeUrl(u) {
   } catch { return ''; }
 }
 
+/* Logged-out reviews go through the Cloudflare Worker, which checks the order number.
+   Paste your deployed Worker URL between the quotes. */
+const GUEST_REVIEW_URL = "";
+
 /* ── Nav auth ── */
 onAuthStateChanged(auth, (user) => {
+  /* Photo uploads are for logged-in reviewers only */
+  document.getElementById("rv_photos").style.display = user ? "flex" : "none";
+
   const navAuth = document.getElementById("navAuth");
   if (user) {
     const emailPrefix = esc(user.email.split("@")[0]);
@@ -959,6 +980,12 @@ window.submitReview = async function() {
   const img1File     = document.getElementById("rv_img1").files[0];
   const img2File     = document.getElementById("rv_img2").files[0];
 
+  await auth.authStateReady();
+  const loggedIn = !!auth.currentUser;
+  const orderRaw = document.getElementById("rv_orderNumber").value.trim();
+  const orderNumber = orderRaw === "UA-" ? "" : orderRaw;
+
+  if (!loggedIn && !orderNumber) { msg.style.color = "var(--warn-text)"; msg.textContent = "Please enter your order number, or log into your account."; return; }
   if (!productChoice)     { msg.style.color = "var(--warn-text)"; msg.textContent = "Please select a product."; return; }
   if (!productType)       { msg.style.color = "var(--warn-text)"; msg.textContent = "Please type the product you bought."; return; }
   if (!feedbackType)      { msg.style.color = "var(--warn-text)"; msg.textContent = "Please select a feedback type."; return; }
@@ -972,6 +999,27 @@ window.submitReview = async function() {
   msg.textContent = "";
 
   try {
+    if (!loggedIn) {
+      if (!GUEST_REVIEW_URL) throw new Error("GUEST_REVIEW_URL is not set");
+      const res = await fetch(GUEST_REVIEW_URL, {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          orderNumber, productType, feedbackType, starRating: _starRating,
+          firstName, state, reviewText,
+          website: document.getElementById("rv_website").value
+        })
+      });
+      if (!res.ok) throw new Error("Guest review failed: " + res.status);
+
+      /* Same message whether or not the order matched */
+      document.getElementById("rv_thankText").textContent =
+        "If your order number matches our records and has not already been used for a review, your review will be held for approval. Need help? Email contact@ursusworks.com.";
+      document.getElementById("reviewFormContainer").style.display = "none";
+      document.getElementById("reviewThankYou").style.display      = "block";
+      return;
+    }
+
     // 1. Create Firestore doc
     const reviewRef = await addDoc(collection(db, "ursus-reviews"), {
       productType,
@@ -980,6 +1028,7 @@ window.submitReview = async function() {
       firstName,
       state,
       reviewText,
+      orderNumber,
       reviewApproval: false,
       img1_url:       "",
       img2_url:       "",
