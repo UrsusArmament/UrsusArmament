@@ -417,6 +417,7 @@
   <button class="filter-btn" data-product="ROTS" data-label="R.O.T.S.">R.O.T.S.</button>
   <button class="filter-btn" data-product="CALIDUS" data-label="CALIDUS">CALIDUS</button>
   <button class="filter-btn" data-product="NEXIS" data-label="NEXIS">NEXIS</button>
+  <button class="filter-btn" data-product="APPAREL" data-label="Apparel">Apparel</button>
   <div class="sort-wrap">
     <label class="filter-label" for="sortSelect" style="margin-right:0;">Sort:</label>
     <select id="sortSelect" class="sort-select">
@@ -664,10 +665,19 @@ let _allReviews = [];
 let _activeFilter = 'ALL';
 let _activeSort = 'newest';
 
-const PRODUCT_LABELS = { ALL: 'All Products', URSIX: 'URSIX', ROTS: 'R.O.T.S.', CALIDUS: 'CALIDUS', NEXIS: 'NEXIS' };
+const PRODUCT_LABELS = { ALL: 'All Products', URSIX: 'URSIX', ROTS: 'R.O.T.S.', CALIDUS: 'CALIDUS', NEXIS: 'NEXIS', APPAREL: 'Apparel' };
+
+/* Apparel filter: matched against productType with spaces and punctuation removed */
+const APPAREL_TERMS = ['hoodie', 'combattop', 'apparel'];
 
 function matchesProduct(r, key) {
-  return key === 'ALL' || (r.productType || '').toLowerCase().includes(key.toLowerCase());
+  if (key === 'ALL') return true;
+  const type = String(r.productType || '').toLowerCase();
+  if (key === 'APPAREL') {
+    const compact = type.replace(/[^a-z0-9]/g, '');
+    return APPAREL_TERMS.some(term => compact.includes(term));
+  }
+  return type.includes(key.toLowerCase());
 }
 
 /* Display label for the product tag on each review card */
