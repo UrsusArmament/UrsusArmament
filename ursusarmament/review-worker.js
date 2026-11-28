@@ -1,6 +1,8 @@
 /* Ursus Works: logged-out review submissions.
    Saves a review only if the order number exists in customer-orders.
-   One logged-out review per order number.
+   One logged-out review per order number, enforced by a private record in
+   guest-review-locks (document ID = order number).
+   Review document ID: FirstName-ST-MMDDYY-HHMM (24-hour, Alaska time).
    Required secret: FIREBASE_SERVICE_ACCOUNT (the full service account JSON). */
 
 const ALLOWED_ORIGINS = [
@@ -65,6 +67,18 @@ function validate(body) {
   return review;
 }
 
+// FirstName-ST-MMDDYY-HHMM
+function reviewName(review, date) {
+  const p = Object.fromEntries(new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Anchorage', hourCycle: 'h23',
+    month: '2-digit', day: '2-digit', year: '2-digit',
+    hour: '2-digit', minute: '2-digit'
+  }).formatToParts(date).map(x => [x.type, x.value]));
+  // letters, numbers and hyphens only ("/" is not allowed in a document ID)
+  const first = review.firstName.replace(/[^\p{L}\p{M}\p{N}-]/gu, '') || 'Reviewer';
+  return `${first}-${review.state}-${p.month}${p.day}${p.year}-${p.hour}${p.minute}`;
+}
+
 export default {
   async fetch(request, env) {
     const origin = request.headers.get('Origin') || '';
@@ -117,26 +131,52 @@ export default {
       const found = (await search.json()).some(row => row.document);
       if (!found) return reply(200, true);                // same reply as a match; nothing saved
 
-      // 2. Save it. The fixed document ID blocks a second review for the same order.
+      // 2. Save the review and the order's private record together.
+      //    Both are written or neither is.
       const str = v => ({ stringValue: v });
-      const save = await fetch(base + '/ursus-reviews?documentId=guest-' + review.orderNumber, {
-        method: 'POST', headers: auth,
-        body: JSON.stringify({ fields: {
-          productType:    str(review.productType),
-          feedbackType:   str(review.feedbackType),
-          starRating:     { integerValue: String(review.starRating) },
-          firstName:      str(review.firstName),
-          state:          str(review.state),
-          reviewText:     str(review.reviewText),
-          orderNumber:    str(review.orderNumber),
-          reviewApproval: { booleanValue: false },
-          img1_url:       str(''),
-          img2_url:       str(''),
-          timestamp:      { timestampValue: new Date().toISOString() }
-        } })
+      const now = new Date();
+      const stamp = { timestampValue: now.toISOString() };
+      const root = base.slice(base.indexOf('projects/'));
+      const baseName = reviewName(review, now);
+      const create = (path, fields) => ({
+        update: { name: root + '/' + path, fields },
+        currentDocument: { exists: false }
       });
-      if (!save.ok && save.status !== 409) throw new Error('Save failed: ' + save.status);
-      return reply(200, true);                            // 409 = already reviewed
+
+      for (let n = 1; n <= 10; n++) {
+        const reviewId = n === 1 ? baseName : baseName + '-' + n;
+        const save = await fetch(base + ':commit', {
+          method: 'POST', headers: auth,
+          body: JSON.stringify({ writes: [
+            create('guest-review-locks/' + review.orderNumber, {
+              reviewId: str(reviewId),
+              timestamp: stamp
+            }),
+            create('ursus-reviews/' + reviewId, {
+              productType:    str(review.productType),
+              feedbackType:   str(review.feedbackType),
+              starRating:     { integerValue: String(review.starRating) },
+              firstName:      str(review.firstName),
+              state:          str(review.state),
+              reviewText:     str(review.reviewText),
+              orderNumber:    str(review.orderNumber),
+              reviewApproval: { booleanValue: false },
+              img1_url:       str(''),
+              img2_url:       str(''),
+              timestamp:      stamp
+            })
+          ] })
+        });
+        if (save.ok) return reply(200, true);
+        if (save.status !== 409) throw new Error('Save failed: ' + save.status);
+
+        // Something already exists: this order's record, or a review with this name.
+        const lock = await fetch(base + '/guest-review-locks/' + review.orderNumber,
+          { headers: auth });
+        if (lock.ok) return reply(200, true);              // order already used
+        if (lock.status !== 404) throw new Error('Record check failed: ' + lock.status);
+      }                                                    // name taken: try -2, -3...
+      throw new Error('No free review name');
     } catch (err) {
       console.error(err.message);
       return reply(500, false);
