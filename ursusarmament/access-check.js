@@ -222,34 +222,67 @@ document.body.appendChild(gateEl);
   });
 });
 
-/* ── Region Check ── */
+/* ── Region Check ──
+   Fails open: only a confirmed non-U.S. country code redirects. */
+const LOCATION_URL   = "https://ursus-location.ursus-generalcontracting.workers.dev";
+const LOOKUP_TIMEOUT = 4000; // ms
+/* U.S. states and DC report "US"; territories have their own codes */
+const US_CODES       = ["US", "PR", "GU", "VI", "AS", "MP", "UM"];
+const RESTRICTED_URL = "/ursusarmament/accessrestriction/";
+
+/* Blocked or damaged browser storage must not stop the script */
+function readStored(key) {
+  try { return JSON.parse(localStorage.getItem(key) || "null"); } catch { return null; }
+}
+function writeStored(key, value) {
+  try { localStorage.setItem(key, JSON.stringify(value)); } catch {}
+}
+function clearStored(key) {
+  try { localStorage.removeItem(key); } catch {}
+}
+
 async function checkRegion() {
-  const cached = JSON.parse(localStorage.getItem("ursus_region") || "null");
+  /* never redirect the restriction page to itself */
+  if (location.pathname.startsWith(RESTRICTED_URL.slice(0, -1))) return;
+
+  const cached = readStored("ursus_region");
   if (cached && cached.us === true && (Date.now() - cached.time < TWELVE_HOURS)) {
-    console.log("[Ursus Region] Cache hit — US verified, skipping API call. Expires in", Math.round((TWELVE_HOURS - (Date.now() - cached.time)) / 60000), "minutes.");
+    console.log("[Ursus Region] Cache hit — US verified, skipping lookup. Expires in", Math.round((TWELVE_HOURS - (Date.now() - cached.time)) / 60000), "minutes.");
     return;
   }
-  console.log("[Ursus Region] No valid cache — calling ipapi.co...");
+
+  console.log("[Ursus Region] No valid cache — checking location...");
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), LOOKUP_TIMEOUT);
   try {
-    const res  = await fetch("https://ipapi.co/json/");
-    const data = await res.json();
-    console.log("[Ursus Region] API response — country:", data.country_code, "| city:", data.city, "| region:", data.region);
-    if (data.country_code === "US") {
-      localStorage.setItem("ursus_region", JSON.stringify({ us: true, time: Date.now() }));
+    const res = await fetch(LOCATION_URL, { cache: "no-store", signal: controller.signal });
+    if (!res.ok) throw new Error("HTTP " + res.status);
+    const country = (await res.json()).country;
+
+    /* XX = Cloudflare has no country data. T1 (Tor) fails the letter test. */
+    if (typeof country !== "string" || !/^[A-Z]{2}$/.test(country) || country === "XX") {
+      console.warn("[Ursus Region] Country unknown (" + country + ") — failing open.");
+      return;
+    }
+
+    if (US_CODES.includes(country)) {
+      writeStored("ursus_region", { us: true, time: Date.now() });
       console.log("[Ursus Region] US confirmed — cached for 12 hours.");
     } else {
-      localStorage.removeItem("ursus_region");
-      console.warn("[Ursus Region] Non-US detected (" + data.country_code + ") — redirecting.");
-      window.location.href = "/ursusarmament/accessrestriction/";
+      clearStored("ursus_region");
+      console.warn("[Ursus Region] Non-US detected (" + country + ") — redirecting.");
+      window.location.href = RESTRICTED_URL;
     }
   } catch (e) {
-    console.warn("[Ursus Region] API call failed — failing open:", e);
+    console.warn("[Ursus Region] Lookup failed — failing open:", e);
+  } finally {
+    clearTimeout(timer);
   }
 }
 
 /* ── Gate Check ── */
 function checkGate() {
-  const data  = JSON.parse(localStorage.getItem("ursus_gate") || "null");
+  const data  = readStored("ursus_gate");
   const valid = data && data.allowed === true && (Date.now() - data.time < TWELVE_HOURS);
   if (valid) {
     console.log("[Ursus Gate] Cache hit — gate acknowledged, skipping. Expires in", Math.round((TWELVE_HOURS - (Date.now() - data.time)) / 60000), "minutes.");
@@ -261,7 +294,7 @@ function checkGate() {
 }
 
 function allowAccess() {
-  localStorage.setItem("ursus_gate", JSON.stringify({ allowed: true, time: Date.now() }));
+  writeStored("ursus_gate", { allowed: true, time: Date.now() });
   document.body.classList.remove("gate-active");
   document.getElementById("accessGate").style.display = "none";
 }
@@ -270,8 +303,6 @@ function denyAccess() {
   window.location.href = "/ursusarmament/accessrestriction/";
 }
 
-/* ── Run on every page load ── */
-window.addEventListener("load", async () => {
-  await checkRegion();
-  checkGate();
-});
+/* ── Run on every page, without waiting for images or each other ── */
+checkGate();
+checkRegion();
